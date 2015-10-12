@@ -1,0 +1,3 @@
+Some common headers ported over to LuaJIT FFI
+
+I must give props to https://github.com/malkia/ufo from which some of these may have come, or at least the notion of doing such a thing came from
