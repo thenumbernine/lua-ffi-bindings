@@ -4,9 +4,9 @@ require 'ffi.c.setjmp'
 require 'ffi.c.time'
 local png
 if ffi.os == 'OSX' then
-	png = ffi.load('libpng.dylib')
-else
-	png = ffi.load('libpng.so')
+	png = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/' .. 'bin/OSX/libpng.dylib')
+else               
+	png = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/' .. 'bin/linux/libpng.so')
 end
 ffi.cdef[[
 typedef unsigned int png_uint_32;
