@@ -4,8 +4,9 @@ local ffi = require 'ffi'
 ffi.cdef[[
 
 enum {
-	FILENAME_MAX = 260	//mingw's version
-}
+	//FILENAME_MAX = 260,	//mingw's version
+	FILENAME_MAX = 256,		//darwin
+};
 int _mkdir(const char *);
 ]]
 
@@ -16,7 +17,8 @@ typedef void DIR;
 struct dirent {
 	long d_ino;
 	unsigned short d_reclen;
-	unsigned short d_namlen;
+	unsigned char d_type;	//mingw has namlen as a short here
+	unsigned char d_namlen;
 	char d_name[FILENAME_MAX];
 };
 
