@@ -1,5 +1,5 @@
 local ffi = require 'ffi'
-local imgui = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/OSX/libimgui.dylib')
+local ig = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/OSX/libimgui.dylib')
 -- imgui/imgui.h, forward-declare structs and enums
 ffi.cdef[[
 typedef struct ImDrawChannel ImDrawChannel;
@@ -232,6 +232,69 @@ enum ImGuiSetCond_
 };
 typedef void (*ImDrawCallback)(const ImDrawList* parent_list, const ImDrawCmd* cmd);
 typedef unsigned short ImDrawIdx;
+struct ImGuiIO
+{
+    ImVec2        DisplaySize;
+    float         DeltaTime;
+    float         IniSavingRate;
+    const char*   IniFilename;
+    const char*   LogFilename;
+    float         MouseDoubleClickTime;
+    float         MouseDoubleClickMaxDist;
+    float         MouseDragThreshold;
+    int           KeyMap[ImGuiKey_COUNT];
+    float         KeyRepeatDelay;
+    float         KeyRepeatRate;
+    void*         UserData;
+    ImFontAtlas*  Fonts;
+    float         FontGlobalScale;
+    bool          FontAllowUserScaling;
+    ImVec2        DisplayFramebufferScale;
+    ImVec2        DisplayVisibleMin;
+    ImVec2        DisplayVisibleMax;
+    bool          WordMovementUsesAltKey;
+    bool          ShortcutsUseSuperKey;
+    bool          DoubleClickSelectsWord;
+    bool          MultiSelectUsesSuperKey;
+    void        (*RenderDrawListsFn)(ImDrawData* data);
+    const char* (*GetClipboardTextFn)();
+    void        (*SetClipboardTextFn)(const char* text);
+    void*       (*MemAllocFn)(size_t sz);
+    void        (*MemFreeFn)(void* ptr);
+    void        (*ImeSetInputScreenPosFn)(int x, int y);
+    void*       ImeWindowHandle;
+    ImVec2      MousePos;
+    bool        MouseDown[5];
+    float       MouseWheel;
+    bool        MouseDrawCursor;
+    bool        KeyCtrl;
+    bool        KeyShift;
+    bool        KeyAlt;
+    bool        KeySuper;
+    bool        KeysDown[512];
+    ImWchar     InputCharacters[16+1];
+    bool        WantCaptureMouse;
+    bool        WantCaptureKeyboard;
+    bool        WantTextInput;
+    float       Framerate;
+    int         MetricsAllocs;
+    int         MetricsRenderVertices;
+    int         MetricsRenderIndices;
+    int         MetricsActiveWindows;
+    ImVec2      MousePosPrev;
+    ImVec2      MouseDelta;
+    bool        MouseClicked[5];
+    ImVec2      MouseClickedPos[5];
+    float       MouseClickedTime[5];
+    bool        MouseDoubleClicked[5];
+    bool        MouseReleased[5];
+    bool        MouseDownOwned[5];
+    float       MouseDownDuration[5];
+    float       MouseDownDurationPrev[5];
+    float       MouseDragMaxDistanceSqr[5];
+    float       KeysDownDuration[512];
+    float       KeysDownDurationPrev[512];
+};
 ]]
 -- imgui/examples/sdl_opengl_example/imgui_impl_sdl.h
 ffi.cdef[[
@@ -380,7 +443,8 @@ typedef int ImGuiColorEditMode;
  bool             igInvisibleButton(const char* str_id, const struct ImVec2 size);
  void             igImage(ImTextureID user_texture_id, const struct ImVec2 size, const struct ImVec2 uv0, const struct ImVec2 uv1, const struct ImVec4 tint_col, const struct ImVec4 border_col);
  bool             igImageButton(ImTextureID user_texture_id, const struct ImVec2 size, const struct ImVec2 uv0, const struct ImVec2 uv1, int frame_padding, const struct ImVec4 bg_col, const struct ImVec4 tint_col);
- bool             igCollapsingHeader(const char* label, const char* str_id, bool display_frame, bool default_open);
+ bool             igCollapsingHeader(const char* label, ImGuiTreeNodeFlags flags);
+ bool             igCollapsingHeader2(const char* label, bool* p_open, ImGuiTreeNodeFlags flags);
  bool             igCheckbox(const char* label, bool* v);
  bool             igCheckboxFlags(const char* label, unsigned int* flags, unsigned int flags_value);
  bool             igRadioButtonBool(const char* label, bool active);
@@ -598,4 +662,208 @@ typedef int ImGuiColorEditMode;
  void             ImDrawList_UpdateClipRect(ImDrawList* list);
  void             ImDrawList_UpdateTextureID(ImDrawList* list);
 ]]
-return imgui
+
+local ImVec2 = ffi.metatype('struct ImVec2', {})
+local ImVec4 = ffi.metatype('struct ImVec4', {})
+
+-- [[ implementing function overloading
+local wrapper = setmetatable({
+	ImVec2 = ImVec2,
+	ImVec4 = ImVec4,
+	
+	igBegin = function(...)
+		local n = select('#', ...)
+		local name, p_open, arg3, bg_alpha, flags = ...
+		if n == 1 then
+			return ig.igBegin(name, nil, 0)
+		elseif n == 2 then
+			return ig.igBegin(name, p_open, 0)
+		elseif n == 3 then
+			-- if the 3rd arg is an ImVec2 ...
+			if type(arg3) == 'cdata' and ffi.typeof(arg3) == 'ctype<struct ImVec2>' then
+				return ig.igBegin2(name, p_open, arg3, -1, 0)
+			else
+				return ig.igBegin(name, p_open, arg3)
+			end
+		elseif n == 4 then
+			return ig.igBegin2(name, p_open, arg3, bg_alpha, 0)
+		elseif n == 5 then
+			return ig.igBegin2(name, p_open, arg3, bg_alpha, flags)
+		end
+		error("don't know how to interpret arguments")
+	end,
+	igButton = function(...)
+		local n = select('#', ...)
+		local label, size = ...
+		if n < 2 then size = ImVec2(0,0) end
+		return ig.igButton(label, size)
+	end,
+	igCollapsingHeader = function(...)
+		local n = select('#', ...)
+		local label, arg2, flags = ...
+		if n == 1 then
+			return ig.igCollapsingHeader(label, 0)
+		elseif n == 2 then
+			if type(arg2) == 'cdata' and ffi.typeof(arg2):find'%*' then	-- if the 2nd arg is a pointer
+				return ig.igCollapsingHeader2(label, arg2, 0)
+			else
+				return ig.igCollapsingHeader(label, arg2)
+			end
+		elseif n == 3 then
+			return ig.igCollapsingHeader2(label, arg2, flags)
+		end
+		error("dont' know how to interpret arguments")
+	end,
+	igInputFloat = function(...)
+		local n = select('#', ...)
+		local label, v, step, step_fast, decimal_precision, extra_flags = ...
+		if n < 3 then step = 0 end
+		if n < 4 then step_fast = 0 end
+		if n < 5 then decimal_precision = -1 end
+		if n < 6 then extra_flags = 0 end
+		return ig.igInputFloat(label, v, step, step_fast, decimal_precision, extra_flags)
+	end,
+	igInputFloat2 = function(...)
+		local n = select('#', ...)
+		local label, v, decimal_precision, extra_flags = ...
+		if n < 3 then decimal_precision = -1 end
+		if n < 4 then extra_flags = 0 end
+		return ig.igInputFloat2(label, v, decimal_precision, extra_flags)
+	end,
+	igInputFloat3 = function(...)
+		local n = select('#', ...)
+		local label, v, decimal_precision, extra_flags = ...
+		if n < 3 then decimal_precision = -1 end
+		if n < 4 then extra_flags = 0 end
+		return ig.igInputFloat3(label, v, decimal_precision, extra_flags)
+	end,
+	igInputFloat4 = function(...)
+		local n = select('#', ...)
+		local label, v, decimal_precision, extra_flags = ...
+		if n < 3 then decimal_precision = -1 end
+		if n < 4 then extra_flags = 0 end
+		return ig.igInputFloat4(label, v, decimal_precision, extra_flags)
+	end,
+	igInputInt = function(...)
+		local n = select('#', ...)
+		local label, v, step, step_fast, extra_flags = ...
+		if n < 3 then step = 1 end
+		if n < 4 then step_fast = 100 end
+		if n < 5 then extra_flags = 0 end
+		return ig.igInputInt(label, v, step, step_fast, extra_flags)
+	end,
+	igInputInt2 = function(...)
+		local n = select('#', ...)
+		local label, v, extra_flags = ...
+		if n < 3 then extra_flags = 0 end
+		return ig.igInputInt2(label, v, extra_flags)
+	end,
+	igInputInt3 = function(...)
+		local n = select('#', ...)
+		local label, v, extra_flags = ...
+		if n < 3 then extra_flags = 0 end
+		return ig.igInputInt3(label, v, extra_flags)
+	end,
+	igInputInt4 = function(...)
+		local n = select('#', ...)
+		local label, v, extra_flags = ...
+		if n < 3 then extra_flags = 0 end
+		return ig.igInputInt4(label, v, extra_flags)
+	end,
+	igGetCursorScreenPos = function()
+		local result = ffi.new('struct ImVec2[1]')
+		ig.igGetCursorScreenPos(result)
+		return result[0]
+	end,
+	igGetMousePos = function()
+		local result = ffi.new('struct ImVec2[1]')
+		ig.igGetMousePos(result)
+		return result[0]
+	end,
+	igImage = function(...)
+		local n = select('#', ...)
+		local user_texture_id, size, uv0, uv1, tint_col, border_col = ...
+		if n < 3 then uv0 = ImVec2(0,0) end
+		if n < 4 then uv1 = ImVec2(1,1) end
+		if n < 5 then tint_col = ImVec4(1,1,1,1) end
+		if n < 6 then border_col = ImVec4(0,0,0,0) end
+		return ig.igImage(user_texture_id, size, uv0, uv1, tint_col, border_col)
+	end,
+	igImageButton = function(...)
+		local n = select('#', ...)
+		local user_texture_id, size, uv0, uv1, frame_padding, bg_col, tint_col = ...
+		if n < 3 then uv0 = ImVec2(0,0) end
+		if n < 4 then uv1 = ImVec2(1,1) end
+		if n < 5 then frame_padding = -1 end
+		if n < 6 then bg_col = ImVec4(0,0,0,0) end
+		if n < 7 then tint_col = ImVec4(1,1,1,1) end
+		return ig.igImageButton(user_texture_id, size, uv0, uv1, frame_padding, bg_col, tint_col)
+	end,
+	igSameLine = function(...)
+		local n = select('#', ...)
+		local pos_x, spacing_w = ...
+		if n < 1 then pos_x = 0 end
+		if n < 2 then spacing_w = -1 end
+		return ig.igSameLine(pos_x, spacing_w)
+	end,
+	igSliderFloat = function(...)
+		local n = select('#', ...)
+		local label, v, v_min, v_max, display_format, power = ...
+		if n < 4 then display_format = '%.3f' end
+		if n < 5 then power = 1 end
+		return ig.igSliderFloat(label, v, v_min, v_max, display_format, power)
+	end,
+	igSliderFloat2 = function(...)
+		local n = select('#', ...)
+		local label, v, v_min, v_max, display_format, power = ...
+		if n < 4 then display_format = '%.3f' end
+		if n < 5 then power = 1 end
+		return ig.igSliderFloat2(label, v, v_min, v_max, display_format, power)
+	end,
+	igSliderFloat3 = function(...)
+		local n = select('#', ...)
+		local label, v, v_min, v_max, display_format, power = ...
+		if n < 4 then display_format = '%.3f' end
+		if n < 5 then power = 1 end
+		return ig.igSliderFloat3(label, v, v_min, v_max, display_format, power)
+	end,
+	igSliderFloat4 = function(...)
+		local n = select('#', ...)
+		local label, v, v_min, v_max, display_format, power = ...
+		if n < 4 then display_format = '%.3f' end
+		if n < 5 then power = 1 end
+		return ig.igSliderFloat4(label, v, v_min, v_max, display_format, power)
+	end,
+	igSliderInt = function(...)
+		local n = select('#', ...)
+		local label, v, v_min, v_max, display_format = ...
+		if n < 4 then display_format = '%.0f' end
+		return ig.igSliderInt(label, v, v_min, v_max, display_format)
+	end,
+	igSliderInt2 = function(...)
+		local n = select('#', ...)
+		local label, v, v_min, v_max, display_format = ...
+		if n < 4 then display_format = '%.0f' end
+		return ig.igSliderInt2(label, v, v_min, v_max, display_format)
+	end,
+	igSliderInt3 = function(...)
+		local n = select('#', ...)
+		local label, v, v_min, v_max, display_format = ...
+		if n < 4 then display_format = '%.0f' end
+		return ig.igSliderInt3(label, v, v_min, v_max, display_format)
+	end,
+	igSliderInt4 = function(...)
+		local n = select('#', ...)
+		local label, v, v_min, v_max, display_format = ...
+		if n < 4 then display_format = '%.0f' end
+		return ig.igSliderInt4(label, v, v_min, v_max, display_format)
+	end,
+}, {
+	__index = ig
+})
+
+return wrapper
+--]]
+--[[ no overloading
+return ig
+--]]
