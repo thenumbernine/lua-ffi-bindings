@@ -673,24 +673,19 @@ local wrapper = setmetatable({
 	
 	igBegin = function(...)
 		local n = select('#', ...)
-		local name, p_open, arg3, bg_alpha, flags = ...
-		if n == 1 then
-			return ig.igBegin(name, nil, 0)
-		elseif n == 2 then
-			return ig.igBegin(name, p_open, 0)
-		elseif n == 3 then
-			-- if the 3rd arg is an ImVec2 ...
-			if type(arg3) == 'cdata' and ffi.typeof(arg3) == 'ctype<struct ImVec2>' then
-				return ig.igBegin2(name, p_open, arg3, -1, 0)
-			else
-				return ig.igBegin(name, p_open, arg3)
-			end
-		elseif n == 4 then
-			return ig.igBegin2(name, p_open, arg3, bg_alpha, 0)
-		elseif n == 5 then
-			return ig.igBegin2(name, p_open, arg3, bg_alpha, flags)
+		-- if the 3rd arg is an ImVec2 then use the 2nd prototype
+		local arg3 = select(3, ...)
+		if type(arg3) == 'cdata' and ffi.typeof(arg3) == 'ctype<struct ImVec2>' then
+			local name, p_open, size_on_first_use, bg_alpha, flags = ...
+			if n < 4 then bg_alpha = -1 end
+			if n < 5 then flags = 0 end
+			return ig.igBegin2(name, p_open, size_on_first_use, bg_alpha, flags)
+		else
+			local name, p_open, flags = ...
+			if n < 2 then p_open = nil end
+			if n < 3 then flags = 0 end
+			return ig.igBegin(name, p_open, flags)
 		end
-		error("don't know how to interpret arguments")
 	end,
 	igButton = function(...)
 		local n = select('#', ...)
@@ -700,19 +695,17 @@ local wrapper = setmetatable({
 	end,
 	igCollapsingHeader = function(...)
 		local n = select('#', ...)
-		local label, arg2, flags = ...
-		if n == 1 then
-			return ig.igCollapsingHeader(label, 0)
-		elseif n == 2 then
-			if type(arg2) == 'cdata' and ffi.typeof(arg2):find'%*' then	-- if the 2nd arg is a pointer
-				return ig.igCollapsingHeader2(label, arg2, 0)
-			else
-				return ig.igCollapsingHeader(label, arg2)
-			end
-		elseif n == 3 then
-			return ig.igCollapsingHeader2(label, arg2, flags)
+		-- if the 2nd arg is a pointer then use the 2nd prototype
+		local arg2 = select(2, ...)
+		if type(arg2) == 'cdata' and ffi.typeof(arg2):find'%*' then
+			local label, p_open, flags = ...
+			if n < 3 then flags = 0 end
+			return ig.igCollapsingHeader2(label, p_open, flags)
+		else
+			local label, flags = ...
+			if n < 2 then flags = 0 end
+			return ig.igCollapsingHeader(label, flags)
 		end
-		error("dont' know how to interpret arguments")
 	end,
 	igInputFloat = function(...)
 		local n = select('#', ...)
@@ -805,6 +798,18 @@ local wrapper = setmetatable({
 		if n < 1 then pos_x = 0 end
 		if n < 2 then spacing_w = -1 end
 		return ig.igSameLine(pos_x, spacing_w)
+	end,
+	igSetScrollHere = function(...)
+		local n = select('#', ...)
+		local center_y_ratio = ...
+		if n < 1 then center_y_ratio = .5 end
+		return ig.igSetScrollHere(center_y_ratio)
+	end,
+	igSetScrollFromPosY = function(...)
+		local n = select('#', ...)
+		local pos_y, center_y_ratio = ...
+		if n < 2 then center_y_ratio = .5 end
+		return ig.igSetScrollFromPosY(pos_y, center_y_ratio)
 	end,
 	igSliderFloat = function(...)
 		local n = select('#', ...)
