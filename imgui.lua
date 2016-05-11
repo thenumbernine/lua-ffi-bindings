@@ -792,6 +792,23 @@ local wrapper = setmetatable({
 		if n < 7 then tint_col = ImVec4(1,1,1,1) end
 		return ig.igImageButton(user_texture_id, size, uv0, uv1, frame_padding, bg_col, tint_col)
 	end,
+	igInputText = function(...)
+		local n = select('#', ...)
+		local label, buf, buf_size, flags, callback, user_data = ...
+		if n < 4 then flags = 0 end
+		if n < 5 then callback = nil end
+		if n < 6 then user_data = nil end
+		return ig.igInputText(label, buf, buf_size, flags, callback, user_data)
+	end,
+	igInputTextMultiline = function(...)
+		local n = select('#', ...)
+		local label, buf, buf_size, size, flags, callback, user_data = ...
+		if n < 4 then size = ImVec2(0,0) end
+		if n < 5 then flags = 0 end
+		if n < 6 then callback = nil end
+		if n < 7 then user_data = nil end
+		return ig.igInputTextMultiline(label, buf, buf_size, size, flags, callback, user_data)
+	end,
 	igSameLine = function(...)
 		local n = select('#', ...)
 		local pos_x, spacing_w = ...
