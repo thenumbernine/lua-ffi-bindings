@@ -687,6 +687,13 @@ local wrapper = setmetatable({
 			return ig.igBegin(name, p_open, flags)
 		end
 	end,
+	igBeginPopupModal = function(...)
+		local n = select('#', ...)
+		local name, p_open, extra_flags = ...
+		if n < 2 then p_open = nil end
+		if n < 3 then extra_flags = 0 end
+		return ig.igBeginPopupModal(name, p_open, extra_flags)
+	end,
 	igButton = function(...)
 		local n = select('#', ...)
 		local label, size = ...
@@ -706,6 +713,34 @@ local wrapper = setmetatable({
 			if n < 2 then flags = 0 end
 			return ig.igCollapsingHeader(label, flags)
 		end
+	end,
+	igCombo = function(...)
+		local n = select('#', ...)
+		local arg3 = select(3, ...)
+		local type3 = type(arg3)
+		local ctype3 = type3 == 'cdata' and ffi.typeof(arg3) or nil
+		if ctype3 and (ctype3 == 'ctype<char **>'
+			or ctype3:match'ctype<char %*%[%d+%]>')
+		then
+			local label, current_item, items, item_count, height_in_items = ...
+			if n < 5 then height_in_items = -1 end
+			return ig.igCombo(label, current_item, items, item_count, height_in_items)
+		elseif type3 == 'function' or ctype3 == 'ctype<bool (*)()>'  then	-- why doesn't ffi.typeof(ffi.cast) for callbacks show any arguments?
+			local label, current_item, items_getter, data, items_count, height_in_items = ...
+			if n < 6 then height_in_items = -1 end
+			return ig.igCombo3(label, current_item, items_getter, data, items_count, height_in_items)
+		-- lua compat:
+		elseif type3 == 'table' then
+			local label, current_item, item_table, height_in_items = ...
+			if n < 4 then height_in_items = -1 end
+			local items_separated_by_zeros = table.concat(item_table, '\0')..'\0'
+			return ig.igCombo2(label, current_item, items_separated_by_zeros, height_in_items)
+		else
+			local label, current_item, items_separated_by_zeros, height_in_items = ...
+			if n < 4 then height_in_items = -1 end
+			return ig.igCombo2(label, current_item, items_separated_by_zeros, height_in_items)
+		end
+
 	end,
 	igInputFloat = function(...)
 		local n = select('#', ...)
