@@ -675,7 +675,7 @@ local wrapper = setmetatable({
 		local n = select('#', ...)
 		-- if the 3rd arg is an ImVec2 then use the 2nd prototype
 		local arg3 = select(3, ...)
-		if type(arg3) == 'cdata' and ffi.typeof(arg3) == 'ctype<struct ImVec2>' then
+		if type(arg3) == 'cdata' and tostring(ffi.typeof(arg3)) == 'ctype<struct ImVec2>' then
 			local name, p_open, size_on_first_use, bg_alpha, flags = ...
 			if n < 4 then bg_alpha = -1 end
 			if n < 5 then flags = 0 end
@@ -704,7 +704,12 @@ local wrapper = setmetatable({
 		local n = select('#', ...)
 		-- if the 2nd arg is a pointer then use the 2nd prototype
 		local arg2 = select(2, ...)
-		if type(arg2) == 'cdata' and ffi.typeof(arg2):find'%*' then
+		local type2 = type(arg2)
+		local ctype2 = type2 == 'cdata' and tostring(ffi.typeof(arg2)) or nil
+		if type2 == 'cdata' 
+		and (ctype2 == 'ctype<bool *>'
+			or ctype2:match'^ctype<bool %[.*%]>$')
+		then
 			local label, p_open, flags = ...
 			if n < 3 then flags = 0 end
 			return ig.igCollapsingHeader2(label, p_open, flags)
@@ -718,9 +723,9 @@ local wrapper = setmetatable({
 		local n = select('#', ...)
 		local arg3 = select(3, ...)
 		local type3 = type(arg3)
-		local ctype3 = type3 == 'cdata' and ffi.typeof(arg3) or nil
+		local ctype3 = type3 == 'cdata' and tostring(ffi.typeof(arg3)) or nil
 		if ctype3 and (ctype3 == 'ctype<char **>'
-			or ctype3:match'ctype<char %*%[%d+%]>')
+			or ctype3:match'^ctype<char %*%[.*%]>$')
 		then
 			local label, current_item, items, item_count, height_in_items = ...
 			if n < 5 then height_in_items = -1 end
