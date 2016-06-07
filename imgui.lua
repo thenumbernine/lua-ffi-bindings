@@ -687,6 +687,20 @@ local wrapper = setmetatable({
 			return ig.igBegin(name, p_open, flags)
 		end
 	end,
+	igBeginChild = function(...)
+		local n = select('#', ...)
+		local arg1, size, border, extra_flags = ...
+		if n < 2 then size = ImVec2(0,0) end
+		if n < 3 then border = false end
+		if n < 4 then extra_flags = 0 end
+		if type(arg1) == 'number'
+		or (type(arg1) == 'cdata' and ffi.istype('ImGuiID', arg1))
+		then
+			return ig.igBeginChildEx(arg1, size, border, extra_flags)
+		else	-- string
+			return ig.igBeginChild(arg1, size, border, extra_flags)
+		end
+	end,
 	igBeginPopupModal = function(...)
 		local n = select('#', ...)
 		local name, p_open, extra_flags = ...
@@ -746,6 +760,14 @@ local wrapper = setmetatable({
 			return ig.igCombo2(label, current_item, items_separated_by_zeros, height_in_items)
 		end
 
+	end,
+	igColorButton = function(...)
+		local n = select('#', ...)
+		local col, small_height, outline_border = ...
+		if type(col) == 'table' then col = ImVec4(table.unpack(col,1,4)) end
+		if n < 2 then small_height = false end
+		if n < 3 then outline_border = true end
+		return ig.igColorButton(col, small_height, outline_border)
 	end,
 	igInputFloat = function(...)
 		local n = select('#', ...)
@@ -813,6 +835,11 @@ local wrapper = setmetatable({
 		ig.igGetMousePos(result)
 		return result[0]
 	end,
+	igGetWindowSize = function()
+		local result = ffi.new('struct ImVec2[1]')
+		ig.igGetWindowSize(result)
+		return result[0]
+	end,
 	igImage = function(...)
 		local n = select('#', ...)
 		local user_texture_id, size, uv0, uv1, tint_col, border_col = ...
@@ -855,6 +882,24 @@ local wrapper = setmetatable({
 		if n < 1 then pos_x = 0 end
 		if n < 2 then spacing_w = -1 end
 		return ig.igSameLine(pos_x, spacing_w)
+	end,
+	igSelectable = function(...)
+		local n = select('#', ...)
+		local label, arg2, flags, size = ...
+		if n < 2 then arg2 = false end
+		if n < 3 then flags = 0 end
+		if n < 4 then size = ImVec2(0,0) end
+		local arg2 = select(2, ...)
+		local type2 = type(arg2)
+		local ctype2 = type2 == 'cdata' and tostring(ffi.typeof(arg2)) or nil
+		if type2 == 'cdata' 
+		and (ctype2 == 'ctype<bool *>'
+			or ctype2:match'^ctype<bool %[.*%]>$')
+		then
+ 			return ig.igSelectableEx(label, arg2, flags, size)
+		else
+			return ig.igSelectable(label, arg2, flags, size)
+		end
 	end,
 	igSetScrollHere = function(...)
 		local n = select('#', ...)
