@@ -1,5 +1,8 @@
 local ffi = require 'ffi'
 local ig = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/OSX/libimgui.dylib')
+
+-- for ImGui version 1.49 WIP
+
 -- imgui/imgui.h, forward-declare structs and enums
 ffi.cdef[[
 typedef struct ImDrawChannel ImDrawChannel;
@@ -230,6 +233,32 @@ enum ImGuiSetCond_
     ImGuiSetCond_FirstUseEver  = 1 << 2,
     ImGuiSetCond_Appearing     = 1 << 3
 };
+struct ImGuiStyle
+{
+    float       Alpha;
+    ImVec2      WindowPadding;
+    ImVec2      WindowMinSize;
+    float       WindowRounding;
+    ImGuiAlign  WindowTitleAlign;
+    float       ChildWindowRounding;
+    ImVec2      FramePadding;
+    float       FrameRounding;
+    ImVec2      ItemSpacing;
+    ImVec2      ItemInnerSpacing;
+    ImVec2      TouchExtraPadding;
+    float       IndentSpacing;
+    float       ColumnsMinSpacing;
+    float       ScrollbarSize;
+    float       ScrollbarRounding;
+    float       GrabMinSize;
+    float       GrabRounding;
+    ImVec2      DisplayWindowPadding;
+    ImVec2      DisplaySafeAreaPadding;
+    bool        AntiAliasedLines;
+    bool        AntiAliasedShapes;
+    float       CurveTessellationTol;
+    ImVec4      Colors[ImGuiCol_COUNT];
+};
 typedef void (*ImDrawCallback)(const ImDrawList* parent_list, const ImDrawCmd* cmd);
 typedef unsigned short ImDrawIdx;
 struct ImGuiIO
@@ -295,7 +324,186 @@ struct ImGuiIO
     float       KeysDownDuration[512];
     float       KeysDownDurationPrev[512];
 };
+typedef struct ImVector ImVector;
+struct ImVector
+{
+	int Size;
+	int Capacity;
+	void* Data;
+};
+struct ImDrawList
+{
+    ImVector/*<ImDrawCmd>*/     CmdBuffer;
+    ImVector/*<ImDrawIdx>*/     IdxBuffer;
+    ImVector/*<ImDrawVert>*/    VtxBuffer;
+    const char*             _OwnerName;
+    unsigned int            _VtxCurrentIdx;
+    ImDrawVert*             _VtxWritePtr;
+    ImDrawIdx*              _IdxWritePtr;
+    ImVector/*<ImVec4>*/        _ClipRectStack;
+    ImVector/*<ImTextureID>*/   _TextureIdStack;
+    ImVector/*<ImVec2>*/        _Path;
+    int                     _ChannelsCurrent;
+    int                     _ChannelsCount;
+    ImVector/*<ImDrawChannel>*/ _Channels;
+};
+struct ImDrawData
+{
+    bool            Valid;
+    ImDrawList**    CmdLists;
+    int             CmdListsCount;
+    int             TotalVtxCount;
+    int             TotalIdxCount;
+};
 ]]
+--[=[ getting "size of C type is unknown or too large" from luajit wrt ImGuiStb_STB_TexteditState
+-- ... and I think I've defined all the types ... so that just leaves the option of "too large" ...
+-- all this is needed for ImGuiContext
+-- imgui/stb_textedit.h
+ffi.cdef[[
+enum { ImGuiStb_STB_TEXTEDIT_UNDOSTATECOUNT   = 99 };
+enum { ImGuiStb_STB_TEXTEDIT_UNDOCHARCOUNT   = 999 };
+typedef int ImGuiStb_STB_TEXTEDIT_CHARTYPE;
+typedef int ImGuiStb_STB_TEXTEDIT_POSITIONTYPE;
+typedef struct ImGuiStb_STB_TexteditState ImGuiStb_STB_TexteditState;
+typedef struct ImGuiStb_StbUndoState ImGuiStb_StbUndoState;
+typedef struct ImGuiStb_StbUndoRecord ImGuiStb_StbUndoRecord;
+struct ImGuiStb_StbUndoRecord
+{
+   ImGuiStb_STB_TEXTEDIT_POSITIONTYPE  where;
+   short           insert_length;
+   short           delete_length;
+   short           char_storage;
+};
+struct
+{
+   ImGuiStb_StbUndoRecord          undo_rec [ImGuiStb_STB_TEXTEDIT_UNDOSTATECOUNT];
+   ImGuiStb_STB_TEXTEDIT_CHARTYPE  undo_char[ImGuiStb_STB_TEXTEDIT_UNDOCHARCOUNT];
+   short undo_point, redo_point;
+   short undo_char_point, redo_char_point;
+} ImGuiStb_StbUndoState;
+struct ImGuiStb_STB_TexteditState
+{
+   int cursor;
+   int select_start;
+   int select_end;
+   unsigned char insert_mode;
+   unsigned char cursor_at_end_of_line;
+   unsigned char initialized;
+   unsigned char has_preferred_x;
+   unsigned char single_line;
+   unsigned char padding1, padding2, padding3;
+   float preferred_x;
+   ImGuiStb_StbUndoState undostate;
+};
+]]
+-- imgui/imgui_internal.h
+ffi.cdef[[
+struct ImGuiTextEditState
+{
+    ImGuiID             Id;
+    ImVector/*<ImWchar*/>   Text;
+    ImVector/*<char*/>      InitialText;
+    ImVector/*<char*/>      TempTextBuffer;
+    int                 CurLenA, CurLenW;
+    int                 BufSizeA;
+    float               ScrollX;
+    ImGuiStb_STB_TexteditState   StbState;
+    float               CursorAnim;
+    bool                CursorFollow;
+    bool                SelectedAllMouseLock;
+};
+struct ImGuiMouseCursorData
+{
+    ImGuiMouseCursor    Type;
+    ImVec2              HotOffset;
+    ImVec2              Size;
+    ImVec2              TexUvMin[2];
+    ImVec2              TexUvMax[2];
+};
+struct ImGuiContext
+{
+    bool                    Initialized;
+    ImGuiIO                 IO;
+    ImGuiStyle              Style;
+    ImFont*                 Font;
+    float                   FontSize;
+    float                   FontBaseSize;
+    ImVec2                  FontTexUvWhitePixel;
+    float                   Time;
+    int                     FrameCount;
+    int                     FrameCountEnded;
+    int                     FrameCountRendered;
+    ImVector/*<ImGuiWindow*>*/  Windows;
+    ImVector/*<ImGuiWindow*>*/  WindowsSortBuffer;
+    ImGuiWindow*            CurrentWindow;
+    ImVector/*<ImGuiWindow*>*/  CurrentWindowStack;
+    ImGuiWindow*            FocusedWindow;
+    ImGuiWindow*            HoveredWindow;
+    ImGuiWindow*            HoveredRootWindow;
+    ImGuiID                 HoveredId;
+    bool                    HoveredIdAllowOverlap;
+    ImGuiID                 HoveredIdPreviousFrame;
+    ImGuiID                 ActiveId;
+    ImGuiID                 ActiveIdPreviousFrame;
+    bool                    ActiveIdIsAlive;
+    bool                    ActiveIdIsJustActivated;
+    bool                    ActiveIdAllowOverlap;
+    ImGuiWindow*            ActiveIdWindow;
+    ImGuiWindow*            MovedWindow;
+    ImGuiID                 MovedWindowMoveId;
+    ImVector/*<ImGuiIniData>*/  Settings;
+    float                   SettingsDirtyTimer;
+    ImVector/*<ImGuiColMod>*/   ColorModifiers;
+    ImVector/*<ImGuiStyleMod>*/ StyleModifiers;
+    ImVector/*<ImFont*>*/       FontStack;
+    ImVector/*<ImGuiPopupRef>*/ OpenPopupStack;
+    ImVector/*<ImGuiPopupRef>*/ CurrentPopupStack;
+    ImVec2                  SetNextWindowPosVal;
+    ImVec2                  SetNextWindowSizeVal;
+    ImVec2                  SetNextWindowContentSizeVal;
+    bool                    SetNextWindowCollapsedVal;
+    ImGuiSetCond            SetNextWindowPosCond;
+    ImGuiSetCond            SetNextWindowSizeCond;
+    ImGuiSetCond            SetNextWindowContentSizeCond;
+    ImGuiSetCond            SetNextWindowCollapsedCond;
+    bool                    SetNextWindowFocus;
+    bool                    SetNextTreeNodeOpenVal;
+    ImGuiSetCond            SetNextTreeNodeOpenCond;
+    ImDrawData              RenderDrawData;
+    ImVector/*<ImDrawList*>*/   RenderDrawLists[3];
+    float                   ModalWindowDarkeningRatio;
+    ImDrawList              OverlayDrawList;
+    ImGuiMouseCursor        MouseCursor;
+    ImGuiMouseCursorData    MouseCursorData[ImGuiMouseCursor_Count_];
+    ImGuiTextEditState      InputTextState;
+    ImFont                  InputTextPasswordFont;
+    ImGuiID                 ScalarAsInputTextId;
+    ImGuiStorage            ColorEditModeStorage;
+    ImVec2                  ActiveClickDeltaToCenter;
+    float                   DragCurrentValue;
+    ImVec2                  DragLastMouseDelta;
+    float                   DragSpeedDefaultRatio;
+    float                   DragSpeedScaleSlow;
+    float                   DragSpeedScaleFast;
+    ImVec2                  ScrollbarClickDeltaToGrabCenter;
+    char                    Tooltip[1024];
+    char*                   PrivateClipboard;
+    ImVec2                  OsImePosRequest, OsImePosSet;
+    bool                    LogEnabled;
+    FILE*                   LogFile;
+    ImGuiTextBuffer*        LogClipboard;
+    int                     LogStartDepth;
+    int                     LogAutoExpandMaxDepth;
+    float                   FramerateSecPerFrame[120];
+    int                     FramerateSecPerFrameIdx;
+    float                   FramerateSecPerFrameAccum;
+    int                     CaptureMouseNextFrame;
+    int                     CaptureKeyboardNextFrame;
+    char                    TempBuffer[1024*3+1];
+};
+]]
+--]=]
 -- imgui/examples/sdl_opengl_example/imgui_impl_sdl.h
 ffi.cdef[[
 typedef struct SDL_Window SDL_Window;
@@ -593,9 +801,10 @@ typedef int ImGuiColorEditMode;
  const char*      igGetClipboardText();
  void             igSetClipboardText(const char* text);
  const char*      igGetVersion();
- void*            igGetInternalState();
- size_t           igGetInternalStateSize();
- void             igSetInternalState(void* state, bool construct);
+ ImGuiContext*    igCreateContext(void* (*malloc_fn)(size_t)/* = NULL*/);
+ void             igDestroyContext(ImGuiContext* ctx);
+ ImGuiContext*    igGetCurrentContext();
+ void             igSetCurrentContext(ImGuiContext* ctx);
  void             ImFontAtlas_GetTexDataAsRGBA32(ImFontAtlas* atlas, unsigned char** out_pixels, int* out_width, int* out_height, int* out_bytes_per_pixel);
  void             ImFontAtlas_GetTexDataAsAlpha8(ImFontAtlas* atlas, unsigned char** out_pixels, int* out_width, int* out_height, int* out_bytes_per_pixel);
  void             ImFontAtlas_SetTexID(ImFontAtlas* atlas, void* tex);
