@@ -960,6 +960,7 @@ local wrapper = setmetatable({
 	igCombo = function(...)
 		local n = select('#', ...)
 		local arg3 = select(3, ...)
+		local type3 = type(arg3)
 		if isptr(select(3, ...), 'char%s*%*') then
 			local label, current_item, items, item_count, height_in_items = ...
 			if n < 5 then height_in_items = -1 end
