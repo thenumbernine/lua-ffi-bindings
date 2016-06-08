@@ -875,6 +875,21 @@ typedef int ImGuiColorEditMode;
 local ImVec2 = ffi.metatype('struct ImVec2', {})
 local ImVec4 = ffi.metatype('struct ImVec4', {})
 
+-- I would use the ffi comparison, but it is only checks wrt const-ness
+-- it doesn't equate pointers and arrays
+local function isptr(x, ptrPattern)
+	if type(x) ~= 'cdata' then return false end
+	local ctype = tostring(ffi.typeof(x))
+	-- the original ctype
+	return ctype:match('^ctype<'..ptrPattern..'%s*%*>$')
+	-- maybe const
+		or ctype:match('^ctype<const%s+'..ptrPattern..'%s*%*>$')
+	-- maybe array
+		or ctype:match('^ctype<'..ptrPattern..'%s*%[.*%]>$')
+	-- maybe const array
+		or ctype:match('^ctype<const%s+'..ptrPattern..'%s*%[.*%]>$')
+end
+
 -- [[ implementing function overloading
 local wrapper = setmetatable({
 	ImVec2 = ImVec2,
@@ -910,6 +925,12 @@ local wrapper = setmetatable({
 			return ig.igBeginChild(arg1, size, border, extra_flags)
 		end
 	end,
+	igBeginMenu = function(...)
+		local n = select('#', ...)
+		local label, enabled = ...
+		if n < 2 then enabled = true end
+		return ig.igBeginMenu(label, enabled)
+	end,
 	igBeginPopupModal = function(...)
 		local n = select('#', ...)
 		local name, p_open, extra_flags = ...
@@ -926,13 +947,7 @@ local wrapper = setmetatable({
 	igCollapsingHeader = function(...)
 		local n = select('#', ...)
 		-- if the 2nd arg is a pointer then use the 2nd prototype
-		local arg2 = select(2, ...)
-		local type2 = type(arg2)
-		local ctype2 = type2 == 'cdata' and tostring(ffi.typeof(arg2)) or nil
-		if type2 == 'cdata' 
-		and (ctype2 == 'ctype<bool *>'
-			or ctype2:match'^ctype<bool %[.*%]>$')
-		then
+		if isptr(select(2, ...), 'bool') then
 			local label, p_open, flags = ...
 			if n < 3 then flags = 0 end
 			return ig.igCollapsingHeader2(label, p_open, flags)
@@ -945,11 +960,7 @@ local wrapper = setmetatable({
 	igCombo = function(...)
 		local n = select('#', ...)
 		local arg3 = select(3, ...)
-		local type3 = type(arg3)
-		local ctype3 = type3 == 'cdata' and tostring(ffi.typeof(arg3)) or nil
-		if ctype3 and (ctype3 == 'ctype<char **>'
-			or ctype3:match'^ctype<char %*%[.*%]>$')
-		then
+		if isptr(select(3, ...), 'char%s*%*') then
 			local label, current_item, items, item_count, height_in_items = ...
 			if n < 5 then height_in_items = -1 end
 			return ig.igCombo(label, current_item, items, item_count, height_in_items)
@@ -1085,6 +1096,18 @@ local wrapper = setmetatable({
 		if n < 7 then user_data = nil end
 		return ig.igInputTextMultiline(label, buf, buf_size, size, flags, callback, user_data)
 	end,
+	igMenuItem = function(...)
+		local n = select('#', ...)
+		local label, shortcut, arg2, enabled = ...
+		if n < 2 then shortcut = nil end
+		if n < 3 then arg2 = false end
+		if n < 4 then enabled = true end
+		if isptr(arg2, 'bool') then
+			return ig.igMenuItemPtr(label, shortcut, arg2, enabled)
+		else
+			return ig.igMenuItem(label, shortcut, arg2, enabled)
+		end
+	end,
 	igSameLine = function(...)
 		local n = select('#', ...)
 		local pos_x, spacing_w = ...
@@ -1098,13 +1121,7 @@ local wrapper = setmetatable({
 		if n < 2 then arg2 = false end
 		if n < 3 then flags = 0 end
 		if n < 4 then size = ImVec2(0,0) end
-		local arg2 = select(2, ...)
-		local type2 = type(arg2)
-		local ctype2 = type2 == 'cdata' and tostring(ffi.typeof(arg2)) or nil
-		if type2 == 'cdata' 
-		and (ctype2 == 'ctype<bool *>'
-			or ctype2:match'^ctype<bool %[.*%]>$')
-		then
+		if isptr(arg2, 'bool') then
  			return ig.igSelectableEx(label, arg2, flags, size)
 		else
 			return ig.igSelectable(label, arg2, flags, size)
