@@ -30,6 +30,15 @@ ffi.cdef[[
 		SDL_BUTTON_RIGHT	= 3,
 		SDL_BUTTON_X1		= 6,
 		SDL_BUTTON_X2		= 7,
+		SDL_HAT_CENTERED    = 0x00,
+		SDL_HAT_UP      	= 0x01,
+		SDL_HAT_RIGHT       = 0x02,
+		SDL_HAT_DOWN        = 0x04,
+		SDL_HAT_LEFT        = 0x08,
+		SDL_HAT_RIGHTUP     = 0x03,
+		SDL_HAT_RIGHTDOWN   = 0x06,
+		SDL_HAT_LEFTUP      = 0x09,
+		SDL_HAT_LEFTDOWN    = 0x0c,
    };
    
    
