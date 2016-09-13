@@ -1,20 +1,20 @@
 local ffi  = require( "ffi" )
 
 local libs = ffi_OpenGL_libs or {
-   OSX     = { x86 = "OpenGL.framework/OpenGL",   x64 = "OpenGL.framework/OpenGL" },
--- Windows = { x86 = "OPENGL32.DLL",              x64 = "OPENGL32.DLL" },
-   Windows = { x86 = "bin/Windows/x86/regal.dll", x64 = "bin/Windows/x64/regal.dll" },
-   Linux   = { x86 = "libGL.so",                  x64 = "libGL.so", arm = "libGL.so" },
-   BSD     = { x86 = "libGL.so",                  x64 = "libGL.so" },
-   POSIX   = { x86 = "libGL.so",                  x64 = "libGL.so" },
-   Other   = { x86 = "libGL.so",                  x64 = "libGL.so" },
+	OSX     = { x86 = "OpenGL.framework/OpenGL",   x64 = "OpenGL.framework/OpenGL" },
+	Windows = { x86 = "OPENGL32.DLL",              x64 = "OPENGL32.DLL" },
+--	Windows = { x86 = "bin/Windows/x86/regal.dll", x64 = "bin/Windows/x64/regal.dll" },
+	Linux   = { x86 = "libGL.so",                  x64 = "libGL.so", arm = "libGL.so" },
+	BSD     = { x86 = "libGL.so",                  x64 = "libGL.so" },
+	POSIX   = { x86 = "libGL.so",                  x64 = "libGL.so" },
+	Other   = { x86 = "libGL.so",                  x64 = "libGL.so" },
 }
 
 if ffi.os=="Windows" then
    -- weird workaround for XP
    -- Have to investigate more
    -- It's something due to REGAL, but not sure...
-   ffi.load( "GLU32" )
+	ffi.load( "GLU32" )
 end
 
 local lib  = ffi_OpenGL_lib or libs[ ffi.os ][ ffi.arch ]

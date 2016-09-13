@@ -1,14 +1,18 @@
+-- png 1.6.25 + zlib 1.2.8
+
 local ffi = require 'ffi'
 require 'ffi.c.stdio'
 require 'ffi.c.setjmp'
 require 'ffi.c.time'
 local png
 if ffi.os == 'OSX' then
-	png = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/' .. 'bin/OSX/libpng.dylib')
+	png = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/OSX/libpng.dylib')
 elseif ffi.os == 'Windows' then
 	png = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/Windows/' .. ffi.arch .. '/png.dll')
+elseif ffi.os == 'Linux' then
+	png = ffi.load('png')
 else               
-	png = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/' .. 'bin/linux/libpng.so')
+	png = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/linux/libpng.so')
 end
 ffi.cdef[[
 typedef unsigned int png_uint_32;
@@ -20,6 +24,7 @@ typedef size_t png_size_t;
 typedef png_int_32 png_fixed_point;
 typedef void * png_voidp;
 typedef png_byte * png_bytep;
+typedef const png_byte * png_const_bytep;
 typedef png_uint_32 * png_uint_32p;
 typedef png_int_32 * png_int_32p;
 typedef png_uint_16 * png_uint_16p;
@@ -220,6 +225,29 @@ typedef void ( *png_unknown_chunk_ptr) (png_structp);
 typedef void ( *png_longjmp_ptr) (jmp_buf, int);
 typedef png_voidp (*png_malloc_ptr) (png_structp, png_alloc_size_t);
 typedef void (*png_free_ptr) (png_structp, png_voidp);
+typedef struct png_xy
+{
+   png_fixed_point redx, redy;
+   png_fixed_point greenx, greeny;
+   png_fixed_point bluex, bluey;
+   png_fixed_point whitex, whitey;
+} png_xy;
+typedef struct png_XYZ
+{
+   png_fixed_point red_X, red_Y, red_Z;
+   png_fixed_point green_X, green_Y, green_Z;
+   png_fixed_point blue_X, blue_Y, blue_Z;
+} png_XYZ;
+typedef struct png_colorspace
+{
+   png_fixed_point gamma;        /* File gamma */
+   png_xy      end_points_xy;    /* End points as chromaticities */
+   png_XYZ     end_points_XYZ;   /* End points as CIE XYZ colorant values */
+   png_uint_16 rendering_intent; /* Rendering intent of a profile */
+   /* Flags are always defined to simplify the code. */
+   png_uint_16 flags;            /* As defined below */
+} png_colorspace;
+enum { PNG_FILTER_VALUE_LAST = 5 };
 struct png_struct_def
 {
    jmp_buf jmpbuf __attribute__((__deprecated__));
@@ -359,9 +387,18 @@ struct png_struct_def
   png_uint_32 old_big_row_buf_size __attribute__((__deprecated__));
   png_uint_32 old_prev_row_size __attribute__((__deprecated__));
   png_charp chunkdata __attribute__((__deprecated__));
+   /* 1.4.0 */
    png_uint_32 io_state __attribute__((__deprecated__));
+   /* 1.5.6 */
+   png_bytep big_prev_row;
+	/* 1.5.7 */
+   void (*read_filter[PNG_FILTER_VALUE_LAST-1])(png_row_infop row_info,
+      png_bytep row, png_const_bytep prev_row);
+   png_colorspace   colorspace;
 };
-typedef png_structp version_1_4_9beta01;
+/*
+this is the default UFO version, but Im upgrading to 1.6.25
+typedef png_structp version_1_4_9beta01; */
 typedef png_struct * * png_structpp;
  png_uint_32  png_access_version_number (void);
  void  png_set_sig_bytes (png_structp png_ptr, int num_bytes);

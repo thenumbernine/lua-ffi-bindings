@@ -1,5 +1,12 @@
 local ffi = require 'ffi'
-local ig = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/OSX/libimgui.dylib')
+local ig
+if ffi.os == 'OSX' then
+	ig = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/OSX/libimgui.dylib')
+elseif ffi.os == 'Windows' then
+	ig = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/Windows/' .. ffi.arch .. '/libimgui.dylib')
+elseif ffi.os == 'Linux' then
+	ig = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/Linux/' .. ffi.arch .. '/libimgui.so')
+end
 
 -- for ImGui version 1.49 WIP
 
