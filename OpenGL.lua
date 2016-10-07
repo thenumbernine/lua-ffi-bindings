@@ -22,6 +22,15 @@ local lib  = ffi_OpenGL_lib or libs[ ffi.os ][ ffi.arch ]
 local gl   = ffi.load( lib )
 
 ffi.cdef[[
+
+//Chris' additions.  technically glext.h
+enum {
+	GL_RGBA32F                        = 0x8814,
+	GL_RGB32F                         = 0x8815,
+	GL_RGBA16F                        = 0x881A,
+	GL_RGB16F                         = 0x881B,
+};
+
 enum {
  GL_ACCUM                          = 0x0100,
  GL_LOAD                           = 0x0101,

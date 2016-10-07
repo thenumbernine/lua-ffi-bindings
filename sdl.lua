@@ -1,10 +1,8 @@
 local ffi = require("ffi")
 
 local libs = ffi_luajit_libs or {
-	OSX     = { x86 = "bin/OSX/sdl.dylib", x64 = "bin/OSX/sdl.dylib" },
---	Windows = { x86 = "bin/Windows/x86/sdl.dll", x64 = "bin/Windows/x64/sdl.dll" },
-	Windows = { x86 = "bin/Windows/x86/sdl2.dll", x64 = "bin/Windows/x64/sdl2.dll" },
---	Linux   = { x86 = "SDL", x64 = "bin/Linux/x64/libSDL.so", arm = "bin/Linux/arm/libSDL.so" },
+	OSX     = { x86 = "$LUAJIT_LIBPATH/bin/OSX/sdl.dylib", x64 = "$LUAJIT_LIBPATH/bin/OSX/sdl.dylib" },
+	Windows = { x86 = "$LUAJIT_LIBPATH/bin/Windows/x86/sdl2.dll", x64 = "$LUAJIT_LIBPATH/bin/Windows/x64/sdl2.dll" },
 	Linux   = { },
 	BSD     = { x86 = "bin/luajit32.so",  x64 = "bin/luajit64.so" },
 	POSIX   = { x86 = "bin/luajit32.so",  x64 = "bin/luajit64.so" },
@@ -12,11 +10,9 @@ local libs = ffi_luajit_libs or {
 }
 
 local sdl  = ffi.load(
-	ffi_SDL_lib or
-	ffi_sdl_lib or
-	--os.getenv'LUAJIT_LIBPATH' .. '/' .. 
-	libs[ ffi.os ][ ffi.arch ]  or
-	"SDL2" )
+	(libs[ ffi.os ][ ffi.arch ] or "SDL2")
+	:gsub('%$([_%w]+)', os.getenv)
+)
 
 ffi.cdef[[
 	enum { SDL_INIT_VIDEO = 0x20 };
@@ -92,8 +88,6 @@ ffi.cdef[[
 		SDL_HAT_LEFTUP      = 0x09,
 		SDL_HAT_LEFTDOWN    = 0x0c,
 	};
-	
-	
 	
 	extern  uint8_t              SDL_numjoysticks;
 
