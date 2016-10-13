@@ -618,6 +618,17 @@ cl_event clCreateEventFromGLsyncKHR( cl_context, cl_GLsync, cl_int * );
 ffi.cdef[[
 cl_int clRetainDevice(cl_device_id /* device */);
 cl_int clReleaseDevice(cl_device_id /* device */);
+
+cl_int
+clEnqueueFillBuffer(cl_command_queue   /* command_queue */,
+                    cl_mem             /* buffer */, 
+                    const void *       /* pattern */, 
+                    size_t             /* pattern_size */, 
+                    size_t             /* offset */, 
+                    size_t             /* size */, 
+                    cl_uint            /* num_events_in_wait_list */, 
+                    const cl_event *   /* event_wait_list */, 
+                    cl_event *         /* event */);
 ]]
 
 --CL/cl_gl.h

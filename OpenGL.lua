@@ -2003,4 +2003,11 @@ void glUniformMatrix3x4fv (GLint location, GLsizei count, GLboolean transpose, c
 void glUniformMatrix4x3fv (GLint location, GLsizei count, GLboolean transpose, const GLfloat *value);
 ]]
 
-return gl
+if ffi.os == 'Windows' then
+	-- windows needs functions overloaded from glext/wglGetProc
+	-- but if I assign a meta __index wrapper later, anything that requires 'OpenGL' before that point will have the wrong package.loaded reference
+	-- unless I make the wrapper here
+	return setmetatable({}, {__index=gl})
+else
+	return gl
+end
