@@ -2,7 +2,7 @@ local ffi = require("ffi")
 
 local libs = ffi_luajit_libs or {
 	OSX     = { x86 = "$LUAJIT_LIBPATH/bin/OSX/sdl.dylib", x64 = "$LUAJIT_LIBPATH/bin/OSX/sdl.dylib" },
-	Windows = { x86 = "$LUAJIT_LIBPATH/bin/Windows/x86/sdl2.dll", x64 = "$LUAJIT_LIBPATH/bin/Windows/x64/sdl2.dll" },
+	Windows = { x86 = "$LUAJIT_LIBPATH/bin/Windows/x86/sdl.dll", x64 = "$LUAJIT_LIBPATH/bin/Windows/x64/sdl.dll" },
 	Linux   = { },
 	BSD     = { x86 = "bin/luajit32.so",  x64 = "bin/luajit64.so" },
 	POSIX   = { x86 = "bin/luajit32.so",  x64 = "bin/luajit64.so" },
