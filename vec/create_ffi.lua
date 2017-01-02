@@ -62,6 +62,9 @@ vectorClass = ffi.metatype(']=]..vectorType..[=[', {
 	end,
 	__concat = function(a,b) return tostring(a) .. tostring(b) end,
 	__index = {	-- TODO make __index point to self?
+		sizeof = ffi.sizeof(']=]..vectorType..[=['),	
+		type = ']=]..vectorType..[=[',
+		elemType = ']=]..ctype..[=[',
 		dim = ]=]..dim..[=[,	-- # is for length, dim is for dimension
 		length = function(a) return math.sqrt(a:lenSq()) end,
 		lenSq = function(a) return a:dot(a) end,
