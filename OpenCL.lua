@@ -645,5 +645,4 @@ clCreateFromGLTexture(cl_context      /* context */,
                       cl_int *        /* errcode_ret */);
 ]]
 
-
 return cl
