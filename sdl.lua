@@ -1958,11 +1958,12 @@ typedef union SDL_Event
 
 	int             SDL_NumJoysticks(       );
 	void            SDL_JoystickUpdate(     );
-	int             SDL_JoystickEventState( );
-	const char*     SDL_JoystickName(       int device_index );
+	int             SDL_JoystickEventState( int state );	//Chris: updated from UFO
+	const char*		SDL_JoystickNameForIndex(int device_index );	//Chris: added
 	SDL_Joystick*   SDL_JoystickOpen(       int device_index );
-	int             SDL_JoystickOpened(     int device_index );
+	//int             SDL_JoystickOpened(     int device_index );	//Chris: removed
 	int             SDL_JoystickIndex(      SDL_Joystick* );
+	const char*     SDL_JoystickName(       SDL_Joystick* );	//Chris: updated from UFO
 	int             SDL_JoystickNumAxes(    SDL_Joystick* );
 	int             SDL_JoystickNumBalls(   SDL_Joystick* );
 	int             SDL_JoystickNumHats(    SDL_Joystick* );
