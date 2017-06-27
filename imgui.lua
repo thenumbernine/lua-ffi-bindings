@@ -879,8 +879,15 @@ typedef int ImGuiColorEditMode;
  void             ImDrawList_UpdateTextureID(ImDrawList* list);
 ]]
 
-local ImVec2 = ffi.metatype('struct ImVec2', {})
-local ImVec4 = ffi.metatype('struct ImVec4', {})
+local function defaultConcat(a,b) return tostring(a) .. tostring(b) end
+local ImVec2 = ffi.metatype('struct ImVec2', {
+	__concat = defaultConcat,
+	__tostring = function(v) return v.x..','..v.y end,
+})
+local ImVec4 = ffi.metatype('struct ImVec4', {
+	__concat = defaultConcat,
+	__tostring = function(v) return v.x..','..v.y..','..v.z..','..v.w end,
+})
 
 -- I would use the ffi comparison, but it is only checks wrt const-ness
 -- it doesn't equate pointers and arrays
