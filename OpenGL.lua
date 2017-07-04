@@ -127,6 +127,8 @@ enum {
 	GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE = 0x8D56,
 	GL_MAX_SAMPLES                    = 0x8D57,
 
+	GL_GEOMETRY_SHADER                = 0x8DD9,
+
 };
 
 enum {
