@@ -994,7 +994,6 @@ local wrapper = setmetatable({
 			if n < 4 then height_in_items = -1 end
 			return ig.igCombo2(label, current_item, items_separated_by_zeros, height_in_items)
 		end
-
 	end,
 	igColorButton = function(...)
 		local n = select('#', ...)
