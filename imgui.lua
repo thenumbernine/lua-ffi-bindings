@@ -515,12 +515,12 @@ struct ImGuiContext
 ffi.cdef[[
 typedef struct SDL_Window SDL_Window;
 typedef union SDL_Event SDL_Event;
-int        ImGui_ImplSdl_Init(SDL_Window *window);
+bool		ImGui_ImplSdl_Init(SDL_Window *window);
 void        ImGui_ImplSdl_Shutdown();
 void        ImGui_ImplSdl_NewFrame(SDL_Window *window);
-int        ImGui_ImplSdl_ProcessEvent(SDL_Event* event);
+bool		ImGui_ImplSdl_ProcessEvent(SDL_Event* event);
 void        ImGui_ImplSdl_InvalidateDeviceObjects();
-int        ImGui_ImplSdl_CreateDeviceObjects();
+bool		ImGui_ImplSdl_CreateDeviceObjects();
 ]]
 -- cimgui/cimgui/cimgui.h
 ffi.cdef[[
