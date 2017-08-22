@@ -246,7 +246,7 @@ struct ImGuiStyle
     ImVec2      WindowPadding;
     ImVec2      WindowMinSize;
     float       WindowRounding;
-    ImGuiAlign  WindowTitleAlign;
+    ImVec2		WindowTitleAlign;
     float       ChildWindowRounding;
     ImVec2      FramePadding;
     float       FrameRounding;
@@ -259,7 +259,8 @@ struct ImGuiStyle
     float       ScrollbarRounding;
     float       GrabMinSize;
     float       GrabRounding;
-    ImVec2      DisplayWindowPadding;
+    ImVec2		ButtonTextAlign;
+	ImVec2      DisplayWindowPadding;
     ImVec2      DisplaySafeAreaPadding;
     bool        AntiAliasedLines;
     bool        AntiAliasedShapes;
@@ -285,16 +286,15 @@ struct ImGuiIO
     ImFontAtlas*  Fonts;
     float         FontGlobalScale;
     bool          FontAllowUserScaling;
+    ImFont*       FontDefault;              // = NULL               // Font to use on NewFrame(). Use NULL to uses Fonts->Fonts[0].
     ImVec2        DisplayFramebufferScale;
     ImVec2        DisplayVisibleMin;
     ImVec2        DisplayVisibleMax;
-    bool          WordMovementUsesAltKey;
-    bool          ShortcutsUseSuperKey;
-    bool          DoubleClickSelectsWord;
-    bool          MultiSelectUsesSuperKey;
+    bool          OSXBehaviors;
     void        (*RenderDrawListsFn)(ImDrawData* data);
     const char* (*GetClipboardTextFn)();
     void        (*SetClipboardTextFn)(const char* text);
+    void*       ClipboardUserData;
     void*       (*MemAllocFn)(size_t sz);
     void        (*MemFreeFn)(void* ptr);
     void        (*ImeSetInputScreenPosFn)(int x, int y);
@@ -317,8 +317,8 @@ struct ImGuiIO
     int         MetricsRenderVertices;
     int         MetricsRenderIndices;
     int         MetricsActiveWindows;
-    ImVec2      MousePosPrev;
     ImVec2      MouseDelta;
+    ImVec2      MousePosPrev;
     bool        MouseClicked[5];
     ImVec2      MouseClickedPos[5];
     float       MouseClickedTime[5];
