@@ -3,6 +3,7 @@ local ig
 if ffi.os == 'OSX' then
 	ig = ffi.load(os.getenv'LUAJIT_LIBPATH'..'/bin/OSX/libimgui.dylib')
 elseif ffi.os == 'Windows' then
+	require 'ffi.sdl'	-- SDL needs to be included first
 	ig = ffi.load(os.getenv'LUAJIT_LIBPATH'..'/bin/'..ffi.os..'/'..ffi.arch..'/imgui.dll')
 elseif ffi.os == 'Linux' then
 	ig = ffi.load(os.getenv'LUAJIT_LIBPATH'..'/bin/'..ffi.os..'/'..ffi.arch..'/libimgui.so')
