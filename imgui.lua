@@ -9,7 +9,7 @@ elseif ffi.os == 'Linux' then
 	ig = ffi.load(os.getenv'LUAJIT_LIBPATH'..'/bin/'..ffi.os..'/'..ffi.arch..'/libimgui.so')
 end
 
--- for ImGui version 1.49 WIP
+-- for ImGui version 1.51 WIP
 
 -- imgui/imgui.h, forward-declare structs and enums
 ffi.cdef[[
