@@ -516,12 +516,12 @@ struct ImGuiContext
 ffi.cdef[[
 typedef struct SDL_Window SDL_Window;
 typedef union SDL_Event SDL_Event;
-bool		ImGui_ImplSdl_Init(SDL_Window *window);
-void        ImGui_ImplSdl_Shutdown();
-void        ImGui_ImplSdl_NewFrame(SDL_Window *window);
-bool		ImGui_ImplSdl_ProcessEvent(SDL_Event* event);
-void        ImGui_ImplSdl_InvalidateDeviceObjects();
-bool		ImGui_ImplSdl_CreateDeviceObjects();
+bool		ImGui_ImplSdlGL2_Init(SDL_Window *window);
+void        ImGui_ImplSdlGL2_Shutdown();
+void        ImGui_ImplSdlGL2_NewFrame(SDL_Window *window);
+bool		ImGui_ImplSdlGL2_ProcessEvent(SDL_Event* event);
+void        ImGui_ImplSdlGL2_InvalidateDeviceObjects();
+bool		ImGui_ImplSdlGL2_CreateDeviceObjects();
 ]]
 -- cimgui/cimgui/cimgui.h
 ffi.cdef[[
@@ -632,14 +632,14 @@ typedef int ImGuiColorEditMode;
  void             igSetColumnOffset(int column_index, float offset_x);
  float            igGetColumnWidth(int column_index);
  int              igGetColumnsCount();
- void             igPushIdStr(const char* str_id);
- void             igPushIdStrRange(const char* str_begin, const char* str_end);
- void             igPushIdPtr(const void* ptr_id);
- void             igPushIdInt(int int_id);
- void             igPopId();
- ImGuiID          igGetIdStr(const char* str_id);
- ImGuiID          igGetIdStrRange(const char* str_begin,const char* str_end);
- ImGuiID          igGetIdPtr(const void* ptr_id);
+ void             igPushIDStr(const char* str_id);
+ void             igPushIDStrRange(const char* str_begin, const char* str_end);
+ void             igPushIDPtr(const void* ptr_id);
+ void             igPushIDInt(int int_id);
+ void             igPopID();
+ ImGuiID          igGetIDStr(const char* str_id);
+ ImGuiID          igGetIDStrRange(const char* str_begin,const char* str_end);
+ ImGuiID          igGetIDPtr(const void* ptr_id);
  void             igText(const char* fmt, ...);
  void             igTextV(const char* fmt, va_list args);
  void             igTextColored(const struct ImVec4 col, const char* fmt, ...);

@@ -2,8 +2,13 @@ local ffi  = require( "ffi" )
 
 local libs = ffi_OpenGL_libs or {
 	OSX     = { x86 = "OpenGL.framework/OpenGL",   x64 = "OpenGL.framework/OpenGL" },
+
+	-- not loading UFO's SDL
 	Windows = { x86 = "OPENGL32.DLL",              x64 = "OPENGL32.DLL" },
---	Windows = { x86 = "bin/Windows/x86/regal.dll", x64 = "bin/Windows/x64/regal.dll" },
+	
+	-- not loading UFO's Regal
+	--Windows = { x86 = os.getenv'LUAJIT_LIBPATH'.."\\bin\\Windows\\x86\\regal.dll", x64 = os.getenv'LUAJIT_LIBPATH'.."\\bin\\Windows\\x64\\regal.dll" },
+	
 	Linux   = { x86 = "libGL.so",                  x64 = "libGL.so", arm = "libGL.so" },
 	BSD     = { x86 = "libGL.so",                  x64 = "libGL.so" },
 	POSIX   = { x86 = "libGL.so",                  x64 = "libGL.so" },
