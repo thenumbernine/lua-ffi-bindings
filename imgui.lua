@@ -1060,21 +1060,27 @@ local wrapper = setmetatable({
 		if n < 3 then extra_flags = 0 end
 		return ig.igInputInt4(label, v, extra_flags)
 	end,
-	igGetCursorScreenPos = function()
+	igGetCursorScreenPos = (function()
 		local result = ffi.new('struct ImVec2[1]')
-		ig.igGetCursorScreenPos(result)
-		return result[0]
-	end,
-	igGetMousePos = function()
+		return function()
+			ig.igGetCursorScreenPos(result)
+			return result[0]
+		end
+	end)(),
+	igGetMousePos = (function()
 		local result = ffi.new('struct ImVec2[1]')
-		ig.igGetMousePos(result)
-		return result[0]
-	end,
-	igGetWindowSize = function()
+		return function()
+			ig.igGetMousePos(result)
+			return result[0]
+		end
+	end)(),
+	igGetWindowSize = (function()
 		local result = ffi.new('struct ImVec2[1]')
-		ig.igGetWindowSize(result)
-		return result[0]
-	end,
+		return function()
+			ig.igGetWindowSize(result)
+			return result[0]
+		end
+	end)(),
 	igImage = function(...)
 		local n = select('#', ...)
 		local user_texture_id, size, uv0, uv1, tint_col, border_col = ...
