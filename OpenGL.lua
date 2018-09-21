@@ -134,6 +134,7 @@ enum {
 
 	GL_GEOMETRY_SHADER                = 0x8DD9,
 
+	GL_HALF_FLOAT_ARB                 = 0x140B,
 };
 
 enum {
