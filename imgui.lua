@@ -1,4 +1,8 @@
+-- switching over to the autogen luajit bindings
 local ffi = require 'ffi'
+local ig = require 'imgui.sdl'.lib 
+
+--[==[
 local ig
 if ffi.os == 'OSX' then
 	ig = ffi.load(os.getenv'LUAJIT_LIBPATH'..'/bin/OSX/libimgui.dylib')
@@ -1209,6 +1213,8 @@ local ImVec4 = ffi.metatype('struct ImVec4', {
 	__tostring = function(v) return v.x..','..v.y..','..v.z..','..v.w end,
 })
 
+--]==]
+
 -- I would use the ffi comparison, but it is only checks wrt const-ness
 -- it doesn't equate pointers and arrays
 local function isptr(x, ptrPattern)
@@ -1284,7 +1290,7 @@ local wrapper = setmetatable({
 		if isptr(select(2, ...), 'bool') then
 			local label, p_open, flags = ...
 			if n < 3 then flags = 0 end
-			return ig.igCollapsingHeader2(label, p_open, flags)
+			return ig.igCollapsingHeaderBoolPtr(label, p_open, flags)
 		else
 			local label, flags = ...
 			if n < 2 then flags = 0 end
@@ -1532,7 +1538,7 @@ local wrapper = setmetatable({
 		return ig.igSliderInt4(label, v, v_min, v_max, display_format)
 	end,
 }, {
-	__index = ig
+	__index = ig,
 })
 
 return wrapper
