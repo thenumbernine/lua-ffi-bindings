@@ -115,7 +115,7 @@ local wrapper = setmetatable({
 		local label, v, step, step_fast, decimal_precision, extra_flags = ...
 		if n < 3 then step = 0 end
 		if n < 4 then step_fast = 0 end
-		if n < 5 then decimal_precision = -1 end
+		if n < 5 then decimal_precision = '%3f' end
 		if n < 6 then extra_flags = 0 end
 		return ig.igInputFloat(label, v, step, step_fast, decimal_precision, extra_flags)
 	end,
