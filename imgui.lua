@@ -23,6 +23,7 @@ local ImVec4 = imgui_sdl.ImVec4
 
 -- [[ implementing function overloading
 local wrapper = setmetatable({
+	ImVec2 = ImVec2,
 	ImVec4 = ImVec4,
 	
 	igBegin = function(...)
@@ -112,33 +113,33 @@ local wrapper = setmetatable({
 	end,
 	igInputFloat = function(...)
 		local n = select('#', ...)
-		local label, v, step, step_fast, decimal_precision, extra_flags = ...
+		local label, v, step, step_fast, format, flags = ...
 		if n < 3 then step = 0 end
 		if n < 4 then step_fast = 0 end
-		if n < 5 then decimal_precision = '%3f' end
-		if n < 6 then extra_flags = 0 end
-		return ig.igInputFloat(label, v, step, step_fast, decimal_precision, extra_flags)
+		if n < 5 then format = '%3f' end
+		if n < 6 then flags = 0 end
+		return ig.igInputFloat(label, v, step, step_fast, format, flags)
 	end,
 	igInputFloat2 = function(...)
 		local n = select('#', ...)
-		local label, v, decimal_precision, extra_flags = ...
-		if n < 3 then decimal_precision = -1 end
-		if n < 4 then extra_flags = 0 end
-		return ig.igInputFloat2(label, v, decimal_precision, extra_flags)
+		local label, v, format, flags = ...
+		if n < 3 then format = '%3f' end
+		if n < 4 then flags = 0 end
+		return ig.igInputFloat2(label, v, format, flags)
 	end,
 	igInputFloat3 = function(...)
 		local n = select('#', ...)
-		local label, v, decimal_precision, extra_flags = ...
-		if n < 3 then decimal_precision = -1 end
-		if n < 4 then extra_flags = 0 end
-		return ig.igInputFloat3(label, v, decimal_precision, extra_flags)
+		local label, v, format, flags = ...
+		if n < 3 then format = '%3f' end
+		if n < 4 then flags = 0 end
+		return ig.igInputFloat3(label, v, format, flags)
 	end,
 	igInputFloat4 = function(...)
 		local n = select('#', ...)
-		local label, v, decimal_precision, extra_flags = ...
-		if n < 3 then decimal_precision = -1 end
-		if n < 4 then extra_flags = 0 end
-		return ig.igInputFloat4(label, v, decimal_precision, extra_flags)
+		local label, v, format, flags = ...
+		if n < 3 then format = '%3f' end
+		if n < 4 then flags = 0 end
+		return ig.igInputFloat4(label, v, format, flags)
 	end,
 	igInputInt = function(...)
 		local n = select('#', ...)
@@ -169,21 +170,21 @@ local wrapper = setmetatable({
 	igGetCursorScreenPos = (function()
 		local result = ffi.new('struct ImVec2[1]')
 		return function()
-			ig.igGetCursorScreenPos(result)
+			ig.igGetCursorScreenPos_nonUDT(result)
 			return result[0]
 		end
 	end)(),
 	igGetMousePos = (function()
 		local result = ffi.new('struct ImVec2[1]')
 		return function()
-			ig.igGetMousePos(result)
+			ig.igGetMousePos_nonUDT(result)
 			return result[0]
 		end
 	end)(),
 	igGetWindowSize = (function()
 		local result = ffi.new('struct ImVec2[1]')
 		return function()
-			ig.igGetWindowSize(result)
+			ig.igGetWindowSize_nonUDT(result)
 			return result[0]
 		end
 	end)(),
@@ -230,9 +231,9 @@ local wrapper = setmetatable({
 		if n < 3 then arg2 = false end
 		if n < 4 then enabled = true end
 		if isptr(arg2, 'bool') then
-			return ig.igMenuItemPtr(label, shortcut, arg2, enabled)
+			return ig.igMenuItemBoolPtr(label, shortcut, arg2, enabled)
 		else
-			return ig.igMenuItem(label, shortcut, arg2, enabled)
+			return ig.igMenuItemBool(label, shortcut, arg2, enabled)
 		end
 	end,
 	igSameLine = function(...)
