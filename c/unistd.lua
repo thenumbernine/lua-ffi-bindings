@@ -14,6 +14,8 @@ struct timespec {
     long   tv_nsec;       /* nanoseconds */
 };
 
+typedef int useconds_t;
+
 unsigned int sleep(unsigned int seconds);
 int usleep(useconds_t usec);
 int nanosleep(const struct timespec *req, struct timespec *rem);
