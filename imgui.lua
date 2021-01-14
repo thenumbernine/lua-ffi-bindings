@@ -76,7 +76,7 @@ local wrapper = setmetatable({
 		else
 			local label, flags = ...
 			if n < 2 then flags = 0 end
-			return ig.igCollapsingHeader(label, flags)
+			return ig.igCollapsingHeaderTreeNodeFlags(label, flags)
 		end
 	end,
 	igCombo = function(...)
