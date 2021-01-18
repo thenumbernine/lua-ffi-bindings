@@ -8,7 +8,7 @@ local png
 if ffi.os == 'OSX' then
 	png = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/OSX/libpng.dylib')
 elseif ffi.os == 'Windows' then
-	png = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/Windows/' .. ffi.arch .. '/png.dll')
+	png = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/Windows/' .. ffi.arch .. '/libpng16.dll')
 elseif ffi.os == 'Linux' then
 	png = ffi.load'png'
 else               
