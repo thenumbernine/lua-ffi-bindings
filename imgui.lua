@@ -72,11 +72,11 @@ local wrapper = setmetatable({
 		if isptr(select(2, ...), 'bool') then
 			local label, p_open, flags = ...
 			if n < 3 then flags = 0 end
-			return ig.igCollapsingHeaderBoolPtr(label, p_open, flags)
+			return ig.igCollapsingHeader_BoolPtr(label, p_open, flags)
 		else
 			local label, flags = ...
 			if n < 2 then flags = 0 end
-			return ig.igCollapsingHeaderTreeNodeFlags(label, flags)
+			return ig.igCollapsingHeader_TreeNodeFlags(label, flags)
 		end
 	end,
 	igCombo = function(...)
@@ -86,21 +86,21 @@ local wrapper = setmetatable({
 		if isptr(select(3, ...), 'char%s*%*') then
 			local label, current_item, items, item_count, height_in_items = ...
 			if n < 5 then height_in_items = -1 end
-			return ig.igCombo(label, current_item, items, item_count, height_in_items)
+			return ig.igCombo_Str_arr(label, current_item, items, item_count, height_in_items)
 		elseif type3 == 'function' or ctype3 == 'ctype<bool (*)()>'  then	-- why doesn't ffi.typeof(ffi.cast) for callbacks show any arguments?
 			local label, current_item, items_getter, data, items_count, height_in_items = ...
 			if n < 6 then height_in_items = -1 end
-			return ig.igComboFnPtr(label, current_item, items_getter, data, items_count, height_in_items)
+			return ig.igCombo_FnBoolPtr(label, current_item, items_getter, data, items_count, height_in_items)
 		-- lua compat:
 		elseif type3 == 'table' then
 			local label, current_item, item_table, height_in_items = ...
 			if n < 4 then height_in_items = -1 end
 			local items_separated_by_zeros = table.concat(item_table, '\0')..'\0'
-			return ig.igComboStr(label, current_item, items_separated_by_zeros, height_in_items)
+			return ig.igCombo_Str(label, current_item, items_separated_by_zeros, height_in_items)
 		else
 			local label, current_item, items_separated_by_zeros, height_in_items = ...
 			if n < 4 then height_in_items = -1 end
-			return ig.igComboStr(label, current_item, items_separated_by_zeros, height_in_items)
+			return ig.igCombo_Str(label, current_item, items_separated_by_zeros, height_in_items)
 		end
 	end,
 	igColorButton = function(...)
