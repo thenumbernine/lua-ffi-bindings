@@ -42,9 +42,9 @@ local wrapper = setmetatable({
 		if type(arg1) == 'number'
 		or (type(arg1) == 'cdata' and ffi.istype('ImGuiID', arg1))
 		then
-			return ig.igBeginChildEx(arg1, size, border, extra_flags)
+			return ig.igBeginChildID(arg1, size, border, extra_flags)
 		else	-- string
-			return ig.igBeginChild(arg1, size, border, extra_flags)
+			return ig.igBeginChildStr(arg1, size, border, extra_flags)
 		end
 	end,
 	igBeginMenu = function(...)
@@ -170,21 +170,21 @@ local wrapper = setmetatable({
 	igGetCursorScreenPos = (function()
 		local result = ffi.new('struct ImVec2[1]')
 		return function()
-			ig.igGetCursorScreenPos_nonUDT(result)
+			ig.igGetCursorScreenPos(result)
 			return result[0]
 		end
 	end)(),
 	igGetMousePos = (function()
 		local result = ffi.new('struct ImVec2[1]')
 		return function()
-			ig.igGetMousePos_nonUDT(result)
+			ig.igGetMousePos(result)
 			return result[0]
 		end
 	end)(),
 	igGetWindowSize = (function()
 		local result = ffi.new('struct ImVec2[1]')
 		return function()
-			ig.igGetWindowSize_nonUDT(result)
+			ig.igGetWindowSize(result)
 			return result[0]
 		end
 	end)(),
@@ -297,27 +297,31 @@ local wrapper = setmetatable({
 	end,
 	igSliderInt = function(...)
 		local n = select('#', ...)
-		local label, v, v_min, v_max, display_format = ...
-		if n < 4 then display_format = '%.0f' end
-		return ig.igSliderInt(label, v, v_min, v_max, display_format)
+		local label, v, v_min, v_max, display_format, flags = ...
+		if n < 5 then display_format = '%.0f' end
+		if n < 6 then flags = 0 end
+		return ig.igSliderInt(label, v, v_min, v_max, display_format, flags)
 	end,
 	igSliderInt2 = function(...)
 		local n = select('#', ...)
-		local label, v, v_min, v_max, display_format = ...
-		if n < 4 then display_format = '%.0f' end
-		return ig.igSliderInt2(label, v, v_min, v_max, display_format)
+		local label, v, v_min, v_max, display_format, flags = ...
+		if n < 5 then display_format = '%.0f' end
+		if n < 6 then flags = 0 end
+		return ig.igSliderInt2(label, v, v_min, v_max, display_format, flags)
 	end,
 	igSliderInt3 = function(...)
 		local n = select('#', ...)
-		local label, v, v_min, v_max, display_format = ...
-		if n < 4 then display_format = '%.0f' end
-		return ig.igSliderInt3(label, v, v_min, v_max, display_format)
+		local label, v, v_min, v_max, display_format, flags = ...
+		if n < 5 then display_format = '%.0f' end
+		if n < 6 then flags = 0 end
+		return ig.igSliderInt3(label, v, v_min, v_max, display_format, flags)
 	end,
 	igSliderInt4 = function(...)
 		local n = select('#', ...)
-		local label, v, v_min, v_max, display_format = ...
-		if n < 4 then display_format = '%.0f' end
-		return ig.igSliderInt4(label, v, v_min, v_max, display_format)
+		local label, v, v_min, v_max, display_format, flags = ...
+		if n < 5 then display_format = '%.0f' end
+		if n < 6 then flags = 0 end
+		return ig.igSliderInt4(label, v, v_min, v_max, display_format, flags)
 	end,
 }, {
 	__index = ig,
