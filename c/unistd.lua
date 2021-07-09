@@ -1,5 +1,5 @@
 local ffi = require 'ffi'
-
+require 'ffi.c.sys.time'	-- time_t
 ffi.cdef[[
 
 int chdir(const char* path);
