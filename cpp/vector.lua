@@ -107,10 +107,16 @@ function vector:insert(...)
 	if n == 3 then
 		local where, first, last = ...
 		local offset = where - self.v
-		local n = last - first
-		self:resize(self.size + n)
-		ffi.copy(self.v + offset + n, self.v + offset, ffi.sizeof(self.type) * n)
-		ffi.copy(self.v + offset, first, ffi.sizeof(self.type) * n)
+		assert(offset >= 0 and offset <= self.size)
+		local numToCopy = last - first
+		if numToCopy == 0 then return end
+		assert(numToCopy > 0)
+		local origSize = self.size
+		self:resize(self.size + numToCopy)
+		if offset < origSize then
+			ffi.copy(self.v + offset + numToCopy, self.v + offset, ffi.sizeof(self.type) * (origSize - offset))
+		end
+		ffi.copy(self.v + offset, first, ffi.sizeof(self.type) * numToCopy)
 	elseif n == 2 then
 		local where, value = ...
 		local offset = where - self.v
