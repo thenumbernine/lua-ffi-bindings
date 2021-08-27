@@ -15,6 +15,7 @@ have I made this before?
 --]]
 local vector = class()
 
+-- TODO how about a ctor based on ptr and size?
 function vector:init(ctype, arg)
 	self.type = ctype
 	self.size = 0
@@ -61,16 +62,14 @@ end
 function vector:setcapacity(newcap)
 	if newcap <= self.capacity then return end
 	local newv = ffi.new(self.type..'[?]', newcap)
-	for i=0,self.size-1 do	-- TODO ffi.copy
-		newv[i] = self.v[i]
-	end
+	ffi.copy(newv, self.v, ffi.sizeof(self.type) * self.size)
 	self.v = newv
 	self.capacity = newcap
 end
 
 function vector:resize(newsize)
 	newsize = assert(tonumber(newsize))
-	self:setcapacity( (math.floor(tonumber(newsize) / 32) + 1) * 32 )
+	self:setcapacity( (math.floor(newsize / 32) + 1) * 32 )
 	self.size = newsize
 end
 
