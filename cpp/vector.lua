@@ -105,11 +105,16 @@ function vector:insert(...)
 	local n = select('#', ...)
 	if n == 3 then
 		local where, first, last = ...
-		local offset = where - self.v
-		assert(offset >= 0 and offset <= self.size)
+		first = ffi.cast(self.type..'*', first)
+		last = ffi.cast(self.type..'*', last)
+		
 		local numToCopy = last - first
 		if numToCopy == 0 then return end
 		assert(numToCopy > 0)
+		
+		local offset = where - self.v
+		assert(offset >= 0 and offset <= self.size)
+		
 		local origSize = self.size
 		self:resize(self.size + numToCopy)
 		if offset < origSize then
