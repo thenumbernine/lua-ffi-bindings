@@ -9,4 +9,4 @@ From there sometimes I follow Malkia's structure of `/$ffi.os/$ffi.arch/` to fur
 ### Dependencies
 
 - LuaJIT
-- The Imgui library bindings depends on the auto-generated cimgui library bindings provided at https://github.com/sonoro1234/LuaJIT-ImGui.  You don't need to re-generate the bindings (unless you are regenerating them for a newer version of cimgui).  You only need to make sure that your LUA_PATH is set up so that the LuaJIT-ImGUI/build/imgui folder can be accessed via a "require 'imgui'" call.
+- The Imgui library bindings depends on the auto-generated cimgui library bindings provided at https://github.com/sonoro1234/LuaJIT-ImGui.  You don't need to re-generate the bindings (unless you are regenerating them for a newer version of cimgui).  You only need to make sure that your `LUA_PATH` is set up so that the LuaJIT-ImGUI/build/imgui folder can be accessed via a "require 'imgui'" call.
