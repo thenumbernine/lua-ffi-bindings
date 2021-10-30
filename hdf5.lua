@@ -16,6 +16,27 @@ typedef __off_t off_t;
 typedef long int __ssize_t;
 typedef __ssize_t ssize_t;
 
+/* Chris: for some reason this didn't work in the preproc */
+/* from /usr/include/hdf5/openmpi/H5Fpublic.h */
+enum { H5F_ACC_RDONLY    	= (0x0000u) };
+enum { H5F_ACC_RDWR    		= (0x0001u) };
+enum { H5F_ACC_TRUNC    	= (0x0002u) };
+enum { H5F_ACC_EXCL    		= (0x0004u) };
+enum { H5F_ACC_CREAT    	= (0x0010u) };
+enum { H5F_ACC_SWMR_WRITE  	= (0x0020u) };
+enum { H5F_ACC_SWMR_READ   	= (0x0040u) };
+enum { H5F_ACC_DEFAULT 		= (0xffffu) };
+enum { H5F_OBJ_FILE    		= (0x0001u) };
+enum { H5F_OBJ_DATASET    	= (0x0002u) };
+enum { H5F_OBJ_GROUP    	= (0x0004u) };
+enum { H5F_OBJ_DATATYPE 	= (0x0008u) };
+enum { H5F_OBJ_ATTR    		= (0x0010u) };
+enum { H5F_OBJ_ALL     		= (H5F_OBJ_FILE|H5F_OBJ_DATASET|H5F_OBJ_GROUP|H5F_OBJ_DATATYPE|H5F_OBJ_ATTR) };
+enum { H5F_OBJ_LOCAL   		= (0x0020u) };
+
+/* Chris: same with this */
+enum { H5P_DEFAULT			= 0 };	/* (hid_t)0 */
+
 /* BEGIN /usr/include/hdf5/openmpi/hdf5.h */
 /* BEGIN /usr/include/hdf5/openmpi/H5public.h */
 /* BEGIN /usr/include/hdf5/openmpi/H5pubconf.h */
