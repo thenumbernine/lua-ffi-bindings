@@ -635,4 +635,3 @@ enum { PNG_COLOR_TYPE_RGBA = PNG_COLOR_TYPE_RGB_ALPHA };
 enum { PNG_TRANSFORM_IDENTITY = 0 };
 ]]
 return png
-

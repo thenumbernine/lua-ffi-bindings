@@ -12,6 +12,7 @@ enum { NC_BYTE = 1 };
 enum { NC_CHAR = 2 };
 enum { NC_SHORT = 3 };
 enum { NC_INT = 4 };
+enum { NC_LONG = NC_INT };
 enum { NC_FLOAT = 5 };
 enum { NC_DOUBLE = 6 };
 enum { NC_UBYTE = 7 };
