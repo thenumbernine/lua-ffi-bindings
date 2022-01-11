@@ -1,5 +1,5 @@
 local ffi = require 'ffi'
--- no need for a loaded library if luajit is built with -pthread, right?
+local pthread = ffi.load'pthread'
 ffi.cdef[[
 /* BEGIN /usr/include/pthread.h */
 enum { _PTHREAD_H = 1 };
@@ -430,4 +430,4 @@ extern int pthread_setspecific (pthread_key_t __key, const void *__pointer) __at
 extern int pthread_atfork (void (*__prepare) (void), void (*__parent) (void), void (*__child) (void)) __attribute__ ((__nothrow__ , __leaf__));
 /* END /usr/include/pthread.h */
 ]]
-return ffi.C
+return pthread
