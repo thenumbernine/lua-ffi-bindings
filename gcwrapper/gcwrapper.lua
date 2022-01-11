@@ -11,7 +11,7 @@ local ffi = require 'ffi'
 
 --[[
 args:
-	ctype = what ctype we are holding 
+	ctype = what ctype we are holding
 	gctype = (optional) what name to give the gc ffi ctype.  default is 'autorelease_'..ctype
 	retain = (optional) retain function.  if none is provided then this does nothing.
 	release = release function.
@@ -35,6 +35,9 @@ local function GCWrapper(args)
 
 	local template
 
+	-- luajit ffi, you can't assign integral types to nil
+	-- so far this seems safe alternative to c++ prim ctor's "= {}"
+	local clearValue = ffi.cast(ctype, nil)
 
 	ffi.cdef([[
 struct ]]..gctype..[[ {
@@ -45,12 +48,25 @@ typedef struct ]]..gctype..' '..gctype..[[;
 ]])
 	
 	local function performRelease(gc)
+		if template.debugleaks then
+			print("releasing "..tostring(gc).." from refcount "..gc.refcount.." to "..(gc.refcount-1))
+		end
 		gc.refcount = gc.refcount - 1
-		local result = release(gc.ptr[0])
+	
+		local notcleared = gc.ptr[0] ~= clearValue
+
+		-- alright here I have two choices:
+		-- 1) pass gc.ptr and make all my cl release()'s into wrappers that do this one step of indirection
+		-- 2) pass gc.ptr[0] and make my gl release()'s into wrappers that put the ptr into a single-sized array to pass into the glDelete...
+		local result
+		if notcleared then
+			result = release(gc.ptr[0])
+		end
+		
 		if gc.refcount <= 0 then
-			if gc.ptr[0] ~= nil then
+			if notcleared then
 				-- clear gc.ptr[0] upon final release so future release()'s don't try to free it twice
-				gc.ptr[0] = nil
+				gc.ptr[0] = clearValue
 			else
 				if template.debugleaks then
 					print("tried to free object "..tostring(gc).." with refcount 0, but it had already been freed.  did someone else release() it?")
@@ -63,6 +79,7 @@ typedef struct ]]..gctype..' '..gctype..[[;
 	local gcType = ffi.metatype(gctype, {
 		__gc = function(gc)
 			performRelease(gc)	-- throw away result, __gc doesn't want it
+print('object '..tostring(gc)..' now has refcount '..gc.refcount)
 			if gc.refcount > 0 then
 				-- assume someone else retained it?
 				if template.debugleaks then
@@ -86,7 +103,7 @@ typedef struct ]]..gctype..' '..gctype..[[;
 	-- TODO only use gc.ptr[0] instead of id?
 	function template:init(id)
 		--[[
-		TODO I can't always expect 'id' to be valid, esp for the case of creating 'cl.event' objects that have not yet been initialized, 
+		TODO I can't always expect 'id' to be valid, esp for the case of creating 'cl.event' objects that have not yet been initialized,
 		but will be passed into cl routines for initialization later ...
 		in their case, how does memory management pan out?
 		--]]
@@ -103,9 +120,12 @@ typedef struct ]]..gctype..' '..gctype..[[;
 	-- That means sometimes objects won't have a retain() function ...
 	-- I would call this 'performRetain', but it really only operates here (or maybe once upon init when refcount is set to 1).
 	function template:retain()
-		if self.gc.ptr[0] == nil then
+		if self.gc.ptr[0] == clearValue then
 			-- error or warning?
 			error("tried to retain() an object already freed.")
+		end
+		if template.debugleaks then
+			print("retaining "..tostring(gc).." from refcount "..self.gc.refcount.." to "..(self.gc.refcount+1))
 		end
 		self.gc.refcount = self.gc.refcount + 1
 		if retain then
