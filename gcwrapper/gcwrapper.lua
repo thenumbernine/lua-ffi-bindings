@@ -16,13 +16,12 @@ args:
 	retain = (optional) retain function.  if none is provided then this does nothing.
 	release = release function.
 
-NOTICE that the template init expects a valid, retained, id to be passed as a single argument.
-This means there is no initial retain() called, only a final release() upon destruction.
-Additional retain() or release()'s can be manually called by the API.
 
 fields:
-	id = an instance of 'ctype'
-	gc = an instance of our luajit ffi cdata object whose __gc field calls the release() on our .id
+	init = ctor, expects a valid, retained, id to be passed as a single argument.
+		This means there is no initial retain() called, only a final release() upon destruction.
+		Additional retain() or release()'s can be manually called by the API.
+	gc = an instance of our luajit ffi cdata object whose __gc field calls the release() on our gc.ptr
 		notice that gc.ptr[0] == id must be maintained for the retain() and release() to work
 	retain = calls the retain() function
 	release = calls the release() function
@@ -58,7 +57,7 @@ typedef struct ]]..gctype..' '..gctype..[[;
 		-- 2) pass gc.ptr[0] and make my gl release()'s into wrappers that put the ptr into a single-sized array to pass into the glDelete...
 		local result
 		if notcleared then
-			result = release(gc.ptr[0])
+			result = release(gc.ptr)
 		end
 		
 		if gc.refcount <= 0 then
@@ -101,7 +100,6 @@ typedef struct ]]..gctype..' '..gctype..[[;
 		self.gc = gcType()
 		self.gc.ptr[0] = id
 		self.gc.refcount = 1;
-		self.id = id
 	end
 
 	-- Make release() interoperable with delete() of gl's gc
@@ -115,13 +113,13 @@ typedef struct ]]..gctype..' '..gctype..[[;
 --print("retaining "..tostring(gc).." from refcount "..self.gc.refcount.." to "..(self.gc.refcount+1))
 		self.gc.refcount = self.gc.refcount + 1
 		if retain then
-			return retain(self.id)
+			return retain(self.gc.ptr)
 		end
 	end
 
 	function template:release()
 		--[[ single release() statement matches the cl.hpp code, which itself relied on retain/release calls to refcount
-		return release(self.id)
+		return release(self.gc.ptr)
 		--]]
 		-- [[ but lua does its own refcounting, so retain just needs to be called once upon creation and release once upon delete
 		-- does the decrement and freeing
