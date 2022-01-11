@@ -48,9 +48,7 @@ typedef struct ]]..gctype..' '..gctype..[[;
 ]])
 	
 	local function performRelease(gc)
-		if template.debugleaks then
-			print("releasing "..tostring(gc).." from refcount "..gc.refcount.." to "..(gc.refcount-1))
-		end
+--print("releasing "..tostring(gc).." from refcount "..gc.refcount.." to "..(gc.refcount-1))
 		gc.refcount = gc.refcount - 1
 	
 		local notcleared = gc.ptr[0] ~= clearValue
@@ -68,9 +66,7 @@ typedef struct ]]..gctype..' '..gctype..[[;
 				-- clear gc.ptr[0] upon final release so future release()'s don't try to free it twice
 				gc.ptr[0] = clearValue
 			else
-				if template.debugleaks then
-					print("tried to free object "..tostring(gc).." with refcount 0, but it had already been freed.  did someone else release() it?")
-				end
+				print("tried to free not-cleared object "..tostring(gc).." with id "..tostring(gc.ptr[0]).." with refcount <= 0, but it had already been freed.  did someone else already release() it?")
 			end
 		end
 		return result
@@ -79,26 +75,18 @@ typedef struct ]]..gctype..' '..gctype..[[;
 	local gcType = ffi.metatype(gctype, {
 		__gc = function(gc)
 			performRelease(gc)	-- throw away result, __gc doesn't want it
-print('object '..tostring(gc)..' now has refcount '..gc.refcount)
+--print('object '..tostring(gc)..' now has refcount '..gc.refcount)
 			if gc.refcount > 0 then
 				-- assume someone else retained it?
-				if template.debugleaks then
-					print("leaking object "..tostring(gc).." with refcount "..gc.refcount.." ... did someone else retain() it?")
-				end
+				print("leaking object "..tostring(gc).." with refcount "..gc.refcount.." ... did someone else retain() it?")
 			else
-				if template.debugleaks then
-					print("freeing object "..tostring(gc).." with refcount "..gc.refcount)
-				end
+--print("freeing object "..tostring(gc).." with refcount "..gc.refcount)
 			end
 		end,
 	})
 
 	template = class()
 	template.gctype = gctype
-
-	-- [[ enable this for debugging
-	template.debugleaks = true
-	--]]
 
 	-- TODO only use gc.ptr[0] instead of id?
 	function template:init(id)
@@ -124,9 +112,7 @@ print('object '..tostring(gc)..' now has refcount '..gc.refcount)
 			-- error or warning?
 			error("tried to retain() an object already freed.")
 		end
-		if template.debugleaks then
-			print("retaining "..tostring(gc).." from refcount "..self.gc.refcount.." to "..(self.gc.refcount+1))
-		end
+--print("retaining "..tostring(gc).." from refcount "..self.gc.refcount.." to "..(self.gc.refcount+1))
 		self.gc.refcount = self.gc.refcount + 1
 		if retain then
 			return retain(self.id)
@@ -147,4 +133,3 @@ print('object '..tostring(gc)..' now has refcount '..gc.refcount)
 end
 
 return GCWrapper
-
