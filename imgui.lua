@@ -42,9 +42,9 @@ local wrapper = setmetatable({
 		if type(arg1) == 'number'
 		or (type(arg1) == 'cdata' and ffi.istype('ImGuiID', arg1))
 		then
-			return ig.igBeginChildID(arg1, size, border, extra_flags)
+			return ig.igBeginChild_ID(arg1, size, border, extra_flags)
 		else	-- string
-			return ig.igBeginChildStr(arg1, size, border, extra_flags)
+			return ig.igBeginChild_Str(arg1, size, border, extra_flags)
 		end
 	end,
 	igBeginMenu = function(...)
@@ -72,11 +72,11 @@ local wrapper = setmetatable({
 		if isptr(select(2, ...), 'bool') then
 			local label, p_open, flags = ...
 			if n < 3 then flags = 0 end
-			return ig.igCollapsingHeaderBoolPtr(label, p_open, flags)
+			return ig.igCollapsingHeader_BoolPtr(label, p_open, flags)
 		else
 			local label, flags = ...
 			if n < 2 then flags = 0 end
-			return ig.igCollapsingHeaderTreeNodeFlags(label, flags)
+			return ig.igCollapsingHeader_TreeNodeFlags(label, flags)
 		end
 	end,
 	igCombo = function(...)
@@ -86,21 +86,21 @@ local wrapper = setmetatable({
 		if isptr(select(3, ...), 'char%s*%*') then
 			local label, current_item, items, item_count, height_in_items = ...
 			if n < 5 then height_in_items = -1 end
-			return ig.igComboStr_arr(label, current_item, items, item_count, height_in_items)
+			return ig.igCombo_Str_arr(label, current_item, items, item_count, height_in_items)
 		elseif type3 == 'function' or ctype3 == 'ctype<bool (*)()>'  then	-- why doesn't ffi.typeof(ffi.cast) for callbacks show any arguments?
 			local label, current_item, items_getter, data, items_count, height_in_items = ...
 			if n < 6 then height_in_items = -1 end
-			return ig.igComboFnBoolPtr(label, current_item, items_getter, data, items_count, height_in_items)
+			return ig.igCombo_FnBoolPtr(label, current_item, items_getter, data, items_count, height_in_items)
 		-- lua compat:
 		elseif type3 == 'table' then
 			local label, current_item, item_table, height_in_items = ...
 			if n < 4 then height_in_items = -1 end
 			local items_separated_by_zeros = table.concat(item_table, '\0')..'\0'
-			return ig.igComboStr(label, current_item, items_separated_by_zeros, height_in_items)
+			return ig.igCombo_Str(label, current_item, items_separated_by_zeros, height_in_items)
 		else
 			local label, current_item, items_separated_by_zeros, height_in_items = ...
 			if n < 4 then height_in_items = -1 end
-			return ig.igComboStr(label, current_item, items_separated_by_zeros, height_in_items)
+			return ig.igCombo_Str(label, current_item, items_separated_by_zeros, height_in_items)
 		end
 	end,
 	igColorButton = function(...)
@@ -231,9 +231,9 @@ local wrapper = setmetatable({
 		if n < 3 then arg2 = false end
 		if n < 4 then enabled = true end
 		if isptr(arg2, 'bool') then
-			return ig.igMenuItemBoolPtr(label, shortcut, arg2, enabled)
+			return ig.igMenuItem_BoolPtr(label, shortcut, arg2, enabled)
 		else
-			return ig.igMenuItemBool(label, shortcut, arg2, enabled)
+			return ig.igMenuItem_Bool(label, shortcut, arg2, enabled)
 		end
 	end,
 	igSameLine = function(...)
@@ -250,16 +250,16 @@ local wrapper = setmetatable({
 		if n < 3 then flags = 0 end
 		if n < 4 then size = ImVec2(0,0) end
 		if isptr(arg2, 'bool') then
- 			return ig.igSelectableEx(label, arg2, flags, size)
+ 			return ig.igSelectable_BoolPtr(label, arg2, flags, size)
 		else
-			return ig.igSelectable(label, arg2, flags, size)
+			return ig.igSelectable_Bool(label, arg2, flags, size)
 		end
 	end,
 	igSetScrollHere = function(...)
 		local n = select('#', ...)
 		local center_y_ratio = ...
 		if n < 1 then center_y_ratio = .5 end
-		return ig.igSetScrollHere(center_y_ratio)
+		return ig.igSetScrollHereY(center_y_ratio)
 	end,
 	igSetScrollFromPosY = function(...)
 		local n = select('#', ...)
