@@ -18,6 +18,8 @@ so that luajit code "require 'ffi.c.$header'" was equivalent to C code "#include
 
 Then I made my "preproc-lua" project for generating those bindings / conversion from C headers to luajit ffi binding files.
 
+Then I made my "include-lua" project for automatically including, converting, and caching C headers into luajit ffi cdef files.
+
 Then I started adding my own attempt at STL classes ported to LuaJIT classes in "lua-ffi-bindings/cpp",
 so that luajit code "require 'ffi.cpp.$header'" was equivalent to C++ code "#include <$header>".
 ... so far only "vector" exists but I might grow that soon ...
