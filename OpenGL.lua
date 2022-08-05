@@ -2,9 +2,12 @@
 -- then adjusted to allow metatables on windows for glew-like loading in my glapp project
 -- then sorted out a bit based on glext.h
 
+-- TODO hmm should include return code (like a C preproc cmd would)
+-- or should it return a ffi.load library object (like the old require 'ffi.*' would)
 local include = require 'include'
-include '<GL/gl.h>'
-include '<GL/glext.h>'
+local code = ''
+code = code .. '\n' .. include '<GL/gl.h>'
+code = code .. '\n' .. include '<GL/glext.h>'
 
 local libs = ffi_OpenGL_libs or {
 	OSX = { x86 = 'OpenGL.framework/OpenGL', x64 = 'OpenGL.framework/OpenGL' },
