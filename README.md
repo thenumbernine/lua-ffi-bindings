@@ -6,7 +6,6 @@ For some of these I use a `$LUAJIT_LIBPATH` environment variable to specify the 
 From there sometimes I follow Malkia's structure of `/$ffi.os/$ffi.arch/` to further distinguish .so files.
 
 
-
 Alright my LuaJIT / C helper projects/classes/repos are a bit of a mess.
 
 I was putting my LuaJIT FFI/C bindings (stripped-down C headers) in my "lua-ffi-bindings" repo.
@@ -20,6 +19,8 @@ Then I made my "preproc-lua" project for generating those bindings / conversion 
 
 Then I made my "include-lua" project for automatically including, converting, and caching C headers into luajit ffi cdef files.
 
+This uses my include-lua project for ffi.cdef'ing the generated-and-cached C headers.  It works fine on its own with the previously cached headers.  But if you want to generate new headers you'll have to also add preproc-lua.
+
 Then I started adding my own attempt at STL classes ported to LuaJIT classes in "lua-ffi-bindings/cpp",
 so that luajit code "require 'ffi.cpp.$header'" was equivalent to C++ code "#include <$header>".
 ... so far only "vector" exists but I might grow that soon ...
@@ -30,8 +31,11 @@ and soon to be cpp/thread and cpp/mutex ...
 so I decided to put that behavior in one place, here.
 
 
-
 ### Dependencies
 
 - LuaJIT
 - The Imgui library bindings depends on the auto-generated cimgui library bindings provided at https://github.com/sonoro1234/LuaJIT-ImGui.  You don't need to re-generate the bindings (unless you are regenerating them for a newer version of cimgui).  You only need to make sure that your `LUA_PATH` is set up so that the LuaJIT-ImGUI/build/imgui folder can be accessed via a "require 'imgui'" call.
+- [lua-ext](https://github.com/thenumbernine/lua-ext)
+- [template-lua](https://github.com/thenumbernine/lua-template)
+- [include-lua](https://github.com/thenumbernine/include-lua)
+- [preproc-lua](https://github.com/thenumbernine/preproc-lua) optionally if you want to generate new headers.  This requires C headers to be present, which is no problem on linux, but for Windows you'll have to have MSVC or MinGW or something installed.
