@@ -1,1 +1,4 @@
-return select(2, require 'include' '<sys/ioctl.h>')
+local ffi = require 'ffi'
+ffi.cdef[[
+int ioctl(int fildes, unsigned long request, ...);
+]]
