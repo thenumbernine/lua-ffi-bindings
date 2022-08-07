@@ -5,6 +5,10 @@
 -- TODO hmm should include return code (like a C preproc cmd would)
 -- or should it return a ffi.load library object (like the old require 'ffi.*' would)
 local include = require 'include'
+
+-- TODO local context? so I don't pollute all subsequent #include's?
+include.preproc:setMacros{GL_GLEXT_PROTOTYPES='1'}
+
 local code = ''
 code = code .. '\n' .. include '<GL/gl.h>'
 code = code .. '\n' .. include '<GL/glext.h>'
