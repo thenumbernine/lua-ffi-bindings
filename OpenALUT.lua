@@ -3,15 +3,15 @@ require 'ffi.OpenAL'	-- for the AL* C types
 
 local libs = ffi_OpenALUT_libs or {
 	--OSX = 'OpenAL.framework/OpenALUT',	-- didn't come with ALUT so I used MacPorts ...
-	OSX = os.getenv'LUAJIT_LIBPATH' .. '/bin/OSX/libalut.dylib',
-	Windows = 'openalut32',
-	Linux = 'alut',
-	BSD = 'openal',
-	POSIX = 'openal',
-	Other = 'openal',
+	OSX = function() return os.getenv'LUAJIT_LIBPATH' .. '/bin/OSX/libalut.dylib' end,
+	Windows = function() return 'openalut32' end,
+	Linux = function() return 'alut' end,
+	BSD = function() return 'openal' end,
+	POSIX = function() return 'openal' end,
+	Other = function() return 'openal' end,
 }
 
-local lib = ffi_OpenAL_lib or libs[ffi.os]
+local lib = ffi_OpenAL_lib or libs[ffi.os]()
 
 local alut = ffi.load(lib)
 
