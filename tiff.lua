@@ -1,22 +1,8 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* BEGIN /usr/include/x86_64-linux-gnu/tiffio.h */
-/* BEGIN ./tiff.h */
-
-/* Chris: why isn't this including correctly? mabye because it is included with quotes? */
-/* BEGIN tiffconf.h: */
-/* also, tiff uses #defines instead of typedefs for its types, so my preprocessor is just inlining them all ... */
-typedef signed short TIFF_INT16_T;
-typedef signed int TIFF_INT32_T;
-typedef signed long TIFF_INT64_T;
-typedef signed char TIFF_INT8_T;
-typedef unsigned short TIFF_UINT16_T;
-typedef unsigned int TIFF_UINT32_T;
-typedef unsigned long TIFF_UINT64_T;
-typedef unsigned char TIFF_UINT8_T;
-typedef signed long TIFF_SSIZE_T;
-typedef ptrdiff_t TIFF_PTRDIFF_T;
-typedef signed long TIFF_SSIZE_T;
+/* BEGIN /usr/include/x86_64-linux-gnu/tiff.h */
+/* BEGIN /usr/include/x86_64-linux-gnu/tiffconf.h */
 enum { HAVE_IEEEFP = 1 };
 enum { HOST_BIGENDIAN = 0 };
 enum { CCITT_SUPPORT = 1 };
@@ -34,7 +20,7 @@ enum { SUBIFD_SUPPORT = 1 };
 enum { DEFAULT_EXTRASAMPLE_AS_ALPHA = 1 };
 enum { CHECK_JPEG_YCBCR_SUBSAMPLING = 1 };
 enum { MDI_SUPPORT = 1 };
-/* END tiffconf.h: */
+/* END /usr/include/x86_64-1-gnu/tiffconf.h */
 enum { TIFF_VERSION_CLASSIC = 42 };
 enum { TIFF_VERSION_BIG = 43 };
 enum { TIFF_BIGENDIAN = 0x4d4d };
@@ -493,12 +479,12 @@ enum { EXIFTAG_SHARPNESS = 41994 };
 enum { EXIFTAG_DEVICESETTINGDESCRIPTION = 41995 };
 enum { EXIFTAG_SUBJECTDISTANCERANGE = 41996 };
 enum { EXIFTAG_IMAGEUNIQUEID = 42016 };
-/* END ./tiff.h */
+/* END /usr/include/x86_64-1-gnu/tiff.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/tiffvers.h */
 enum { TIFFLIB_VERSION = 20191103 };
 /* END /usr/include/x86_64-1-gnu/tiffvers.h */
 typedef struct tiff TIFF;
-typedef TIFF_SSIZE_T tmsize_t;
+typedef signed long tmsize_t;
 typedef uint64 toff_t;
 typedef uint32 ttag_t;
 typedef uint16 tdir_t;
