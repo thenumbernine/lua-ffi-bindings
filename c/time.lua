@@ -1,38 +1,57 @@
-require 'ffi.c.sys.time'
 local ffi = require 'ffi'
 ffi.cdef[[
-
-typedef unsigned long clock_t;
-
-struct tm {
-	int tm_sec;			/* seconds after the minute [0-60] */
-	int tm_min;			/* minutes after the hour [0-59] */
-	int tm_hour;		/* hours since midnight [0-23] */
-	int tm_mday;		/* day of the month [1-31] */
-	int tm_mon;			/* months since January [0-11] */
-	int tm_year;		/* years since 1900 */
-	int tm_wday;		/* days since Sunday [0-6] */
-	int tm_yday;		/* days since January 1 [0-365] */
-	int tm_isdst;		/* Daylight Savings Time flag */
-
-/* TODO these are only in some OS's --- which ones? */
-	
-	long	tm_gmtoff;	/* offset from CUT in seconds */
-	char	*tm_zone;	/* timezone abbreviation */
+/* BEGIN /usr/include/time.h */
+enum { _TIME_H = 1 };
+/* BEGIN /usr/include/features.h */
+]] require 'ffi.c.features' ffi.cdef[[
+/* END /usr/include/features.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/9/include/stddef.h */
+]] require 'ffi.c.stddef' ffi.cdef[[
+/* END /usr/lib/gcc/x86_64-1-gnu/9/include/stddef.h */
+/* BEGIN /usr/include/x86_64-linux-gnu/bits/time.h */
+enum { _BITS_TIME_H = 1 };
+/* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
+]] require 'ffi.c.bits.types' ffi.cdef[[
+/* END /usr/include/x86_64-1-gnu/bits/types.h */
+extern long int __sysconf (int);
+/* END /usr/include/x86_64-1-gnu/bits/time.h */
+/* BEGIN /usr/include/x86_64-linux-gnu/bits/types/clock_t.h */
+enum { __clock_t_defined = 1 };
+/* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
+/* END /usr/include/x86_64-1-gnu/bits/types.h */
+typedef __clock_t clock_t;
+/* END /usr/include/x86_64-1-gnu/bits/types/clock_t.h */
+/* BEGIN /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
+]] require 'ffi.c.bits.types.time_t' ffi.cdef[[
+/* END /usr/include/x86_64-1-gnu/bits/types/time_t.h */
+/* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h */
+enum { __struct_tm_defined = 1 };
+/* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
+/* END /usr/include/x86_64-1-gnu/bits/types.h */
+struct tm { int tm_sec;
+int tm_min;
+int tm_hour;
+int tm_mday;
+int tm_mon;
+int tm_year;
+int tm_wday;
+int tm_yday;
+int tm_isdst;
+long int __tm_gmtoff;
+const char *__tm_zone;
 };
-
-struct tm *localtime(const time_t *);
-
-char *asctime(const struct tm *);
-clock_t clock(void);
-char *ctime(const time_t *);
-double difftime(time_t, time_t);
-struct tm *getdate(const char *);
-struct tm *gmtime(const time_t *);
-struct tm *localtime(const time_t *);
-time_t mktime(struct tm *);
-size_t strftime(char * __restrict, size_t, const char * __restrict, const struct tm * __restrict);
-char *strptime(const char * __restrict, const char * __restrict, struct tm * __restrict);
-time_t time(time_t *);
-
+/* END /usr/include/x86_64-1-gnu/bits/types/struct_tm.h */
+extern clock_t clock (void) __attribute__ ((__nothrow__ , __leaf__));
+extern time_t time (time_t *__timer) __attribute__ ((__nothrow__ , __leaf__));
+extern double difftime (time_t __time1, time_t __time0) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+extern time_t mktime (struct tm *__tp) __attribute__ ((__nothrow__ , __leaf__));
+extern size_t strftime (char * __s, size_t __maxsize, const char * __format, const struct tm * __tp) __attribute__ ((__nothrow__ , __leaf__));
+extern struct tm *gmtime (const time_t *__timer) __attribute__ ((__nothrow__ , __leaf__));
+extern struct tm *localtime (const time_t *__timer) __attribute__ ((__nothrow__ , __leaf__));
+extern char *asctime (const struct tm *__tp) __attribute__ ((__nothrow__ , __leaf__));
+extern char *ctime (const time_t *__timer) __attribute__ ((__nothrow__ , __leaf__));
+extern char *__tzname[2];
+extern int __daylight;
+extern long int __timezone;
+/* END /usr/include/time.h */
 ]]

@@ -1,49 +1,243 @@
 local ffi = require 'ffi'
 
 ffi.cdef[[
-
-enum {
-	READONLY = 0,
-
-	TBYTE = 11,
-	TSBYTE = 12,
-	TUSHORT = 20,
-	TSHORT = 21,
-	TUINT = 30,
-	TINT = 31,
-	TULONG = 40,
-	TLONG = 41,
-	TLONGLONG = 81,
-	TFLOAT = 42,
-	TDOUBLE = 82,
-	
-	BYTE_IMG = 8,
-	SBYTE_IMG = 10,
-	SHORT_IMG = 16,
-	USHORT_IMG = 20,
-	LONG_IMG = 32,
-	ULONG_IMG = 40,
-	LONGLONG_IMG = 64,
-	FLOAT_IMG = -32,
-	DOUBLE_IMG  = -64,
-};
-
-typedef void fitsfile;
 typedef long long LONGLONG;
-
+typedef unsigned long long ULONGLONG;
+enum { NIOBUF = 40 };
+enum { IOBUFLEN = 2880 };
+enum { FLEN_FILENAME = 1025 };
+enum { FLEN_KEYWORD = 75 };
+enum { FLEN_CARD = 81 };
+enum { FLEN_VALUE = 71 };
+enum { FLEN_COMMENT = 73 };
+enum { FLEN_ERRMSG = 81 };
+enum { FLEN_STATUS = 31 };
+enum { TBIT = 1 };
+enum { TBYTE = 11 };
+enum { TSBYTE = 12 };
+enum { TLOGICAL = 14 };
+enum { TSTRING = 16 };
+enum { TUSHORT = 20 };
+enum { TSHORT = 21 };
+enum { TUINT = 30 };
+enum { TINT = 31 };
+enum { TULONG = 40 };
+enum { TLONG = 41 };
+enum { TINT32BIT = 41 };
+enum { TFLOAT = 42 };
+enum { TULONGLONG = 80 };
+enum { TLONGLONG = 81 };
+enum { TDOUBLE = 82 };
+enum { TCOMPLEX = 83 };
+enum { TDBLCOMPLEX = 163 };
+enum { TYP_STRUC_KEY = 10 };
+enum { TYP_CMPRS_KEY = 20 };
+enum { TYP_SCAL_KEY = 30 };
+enum { TYP_NULL_KEY = 40 };
+enum { TYP_DIM_KEY = 50 };
+enum { TYP_RANG_KEY = 60 };
+enum { TYP_UNIT_KEY = 70 };
+enum { TYP_DISP_KEY = 80 };
+enum { TYP_HDUID_KEY = 90 };
+enum { TYP_CKSUM_KEY = 100 };
+enum { TYP_WCS_KEY = 110 };
+enum { TYP_REFSYS_KEY = 120 };
+enum { TYP_COMM_KEY = 130 };
+enum { TYP_CONT_KEY = 140 };
+enum { TYP_USER_KEY = 150 };
+enum { BYTE_IMG = 8 };
+enum { SHORT_IMG = 16 };
+enum { LONG_IMG = 32 };
+enum { LONGLONG_IMG = 64 };
+enum { FLOAT_IMG = -32 };
+enum { DOUBLE_IMG = -64 };
+enum { SBYTE_IMG = 10 };
+enum { USHORT_IMG = 20 };
+enum { ULONG_IMG = 40 };
+enum { ULONGLONG_IMG = 80 };
+enum { IMAGE_HDU = 0 };
+enum { ASCII_TBL = 1 };
+enum { BINARY_TBL = 2 };
+enum { ANY_HDU = -1 };
+enum { READONLY = 0 };
+/* #define DOUBLENULLVALUE -9.1191291391491E-36 */
+enum { NO_DITHER = -1 };
+enum { SUBTRACTIVE_DITHER_1 = 1 };
+enum { SUBTRACTIVE_DITHER_2 = 2 };
+enum { MAX_COMPRESS_DIM = 6 };
+enum { RICE_1 = 11 };
+enum { GZIP_1 = 21 };
+enum { GZIP_2 = 22 };
+enum { PLIO_1 = 31 };
+enum { HCOMPRESS_1 = 41 };
+enum { BZIP2_1 = 51 };
+enum { NOCOMPRESS = -1 };
+enum { TRUE = 1 };
+enum { FALSE = 0 };
+enum { CASESEN = 1 };
+enum { CASEINSEN = 0 };
+enum { GT_ID_ALL_URI = 0 };
+enum { GT_ID_REF = 1 };
+enum { GT_ID_POS = 2 };
+enum { GT_ID_ALL = 3 };
+enum { GT_ID_REF_URI = 11 };
+enum { GT_ID_POS_URI = 12 };
+enum { OPT_RM_GPT = 0 };
+enum { OPT_RM_ENTRY = 1 };
+enum { OPT_RM_MBR = 2 };
+enum { OPT_RM_ALL = 3 };
+enum { OPT_GCP_GPT = 0 };
+enum { OPT_GCP_MBR = 1 };
+enum { OPT_GCP_ALL = 2 };
+enum { OPT_MCP_ADD = 0 };
+enum { OPT_MCP_NADD = 1 };
+enum { OPT_MCP_REPL = 2 };
+enum { OPT_MCP_MOV = 3 };
+enum { OPT_MRG_COPY = 0 };
+enum { OPT_MRG_MOV = 1 };
+enum { OPT_CMT_MBR = 1 };
+enum { OPT_CMT_MBR_DEL = 11 };
+typedef void fitsfile;
+enum { CREATE_DISK_FILE = -106 };
+enum { OPEN_DISK_FILE = -105 };
+enum { SKIP_TABLE = -104 };
+enum { SKIP_IMAGE = -103 };
+enum { SKIP_NULL_PRIMARY = -102 };
+enum { USE_MEM_BUFF = -101 };
+enum { OVERFLOW_ERR = -11 };
+enum { PREPEND_PRIMARY = -9 };
+enum { SAME_FILE = 101 };
+enum { TOO_MANY_FILES = 103 };
+enum { FILE_NOT_OPENED = 104 };
+enum { FILE_NOT_CREATED = 105 };
+enum { WRITE_ERROR = 106 };
+enum { END_OF_FILE = 107 };
+enum { READ_ERROR = 108 };
+enum { FILE_NOT_CLOSED = 110 };
+enum { ARRAY_TOO_BIG = 111 };
+enum { READONLY_FILE = 112 };
+enum { MEMORY_ALLOCATION = 113 };
+enum { BAD_FILEPTR = 114 };
+enum { NULL_INPUT_PTR = 115 };
+enum { SEEK_ERROR = 116 };
+enum { BAD_NETTIMEOUT = 117 };
+enum { BAD_URL_PREFIX = 121 };
+enum { TOO_MANY_DRIVERS = 122 };
+enum { DRIVER_INIT_FAILED = 123 };
+enum { NO_MATCHING_DRIVER = 124 };
+enum { URL_PARSE_ERROR = 125 };
+enum { RANGE_PARSE_ERROR = 126 };
+enum { HEADER_NOT_EMPTY = 201 };
+enum { KEY_NO_EXIST = 202 };
+enum { KEY_OUT_BOUNDS = 203 };
+enum { VALUE_UNDEFINED = 204 };
+enum { NO_QUOTE = 205 };
+enum { BAD_INDEX_KEY = 206 };
+enum { BAD_KEYCHAR = 207 };
+enum { BAD_ORDER = 208 };
+enum { NOT_POS_INT = 209 };
+enum { NO_END = 210 };
+enum { BAD_BITPIX = 211 };
+enum { BAD_NAXIS = 212 };
+enum { BAD_NAXES = 213 };
+enum { BAD_PCOUNT = 214 };
+enum { BAD_GCOUNT = 215 };
+enum { BAD_TFIELDS = 216 };
+enum { NEG_WIDTH = 217 };
+enum { NEG_ROWS = 218 };
+enum { COL_NOT_FOUND = 219 };
+enum { BAD_SIMPLE = 220 };
+enum { NO_SIMPLE = 221 };
+enum { NO_BITPIX = 222 };
+enum { NO_NAXIS = 223 };
+enum { NO_NAXES = 224 };
+enum { NO_XTENSION = 225 };
+enum { NOT_ATABLE = 226 };
+enum { NOT_BTABLE = 227 };
+enum { NO_PCOUNT = 228 };
+enum { NO_GCOUNT = 229 };
+enum { NO_TFIELDS = 230 };
+enum { NO_TBCOL = 231 };
+enum { NO_TFORM = 232 };
+enum { NOT_IMAGE = 233 };
+enum { BAD_TBCOL = 234 };
+enum { NOT_TABLE = 235 };
+enum { COL_TOO_WIDE = 236 };
+enum { COL_NOT_UNIQUE = 237 };
+enum { BAD_ROW_WIDTH = 241 };
+enum { UNKNOWN_EXT = 251 };
+enum { UNKNOWN_REC = 252 };
+enum { END_JUNK = 253 };
+enum { BAD_HEADER_FILL = 254 };
+enum { BAD_DATA_FILL = 255 };
+enum { BAD_TFORM = 261 };
+enum { BAD_TFORM_DTYPE = 262 };
+enum { BAD_TDIM = 263 };
+enum { BAD_HEAP_PTR = 264 };
+enum { BAD_HDU_NUM = 301 };
+enum { BAD_COL_NUM = 302 };
+enum { NEG_FILE_POS = 304 };
+enum { NEG_BYTES = 306 };
+enum { BAD_ROW_NUM = 307 };
+enum { BAD_ELEM_NUM = 308 };
+enum { NOT_ASCII_COL = 309 };
+enum { NOT_LOGICAL_COL = 310 };
+enum { BAD_ATABLE_FORMAT = 311 };
+enum { BAD_BTABLE_FORMAT = 312 };
+enum { NO_NULL = 314 };
+enum { NOT_VARI_LEN = 317 };
+enum { BAD_DIMEN = 320 };
+enum { BAD_PIX_NUM = 321 };
+enum { ZERO_SCALE = 322 };
+enum { NEG_AXIS = 323 };
+enum { NOT_GROUP_TABLE = 340 };
+enum { HDU_ALREADY_MEMBER = 341 };
+enum { MEMBER_NOT_FOUND = 342 };
+enum { GROUP_NOT_FOUND = 343 };
+enum { BAD_GROUP_ID = 344 };
+enum { TOO_MANY_HDUS_TRACKED = 345 };
+enum { HDU_ALREADY_TRACKED = 346 };
+enum { BAD_OPTION = 347 };
+enum { IDENTICAL_POINTERS = 348 };
+enum { BAD_GROUP_ATTACH = 349 };
+enum { BAD_GROUP_DETACH = 350 };
+enum { BAD_I2C = 401 };
+enum { BAD_F2C = 402 };
+enum { BAD_INTKEY = 403 };
+enum { BAD_LOGICALKEY = 404 };
+enum { BAD_FLOATKEY = 405 };
+enum { BAD_DOUBLEKEY = 406 };
+enum { BAD_C2I = 407 };
+enum { BAD_C2F = 408 };
+enum { BAD_C2D = 409 };
+enum { BAD_DATATYPE = 410 };
+enum { BAD_DECIM = 411 };
+enum { NUM_OVERFLOW = 412 };
+enum { DATA_COMPRESSION_ERR = 413 };
+enum { DATA_DECOMPRESSION_ERR = 414 };
+enum { NO_COMPRESSED_TILE = 415 };
+enum { BAD_DATE = 420 };
+enum { PARSE_SYNTAX_ERR = 431 };
+enum { PARSE_BAD_TYPE = 432 };
+enum { PARSE_LRG_VECTOR = 433 };
+enum { PARSE_NO_OUTPUT = 434 };
+enum { PARSE_BAD_COL = 435 };
+enum { PARSE_BAD_OUTPUT = 436 };
+enum { ANGLE_TOO_BIG = 501 };
+enum { BAD_WCS_VAL = 502 };
+enum { WCS_ERROR = 503 };
+enum { BAD_WCS_PROJ = 504 };
+enum { NO_WCS_KEY = 505 };
+enum { APPROX_WCS_KEY = 506 };
+enum { NO_CLOSE_ERROR = 999 };
 int ffopen(fitsfile **fptr, const char *filename, int iomode, int *status);
-int ffgidt(fitsfile *fptr, int *imgtype, int *status);
-int ffgidm(fitsfile *fptr, int *naxis,  int *status);
-int ffgisz(fitsfile *fptr, int nlen, long *naxes, int *status);
-int ffgpxv(fitsfile *fptr, int  datatype, long *firstpix, LONGLONG nelem,
-          void *nulval, void *array, int *anynul, int *status);
+int ffinit( fitsfile **fptr, const char *filename, int *status);
 int ffclos(fitsfile *fptr, int *status);
-
-int ffinit(  fitsfile **fptr, const char *filename, int *status);
 int ffphps( fitsfile *fptr, int bitpix, int naxis, long naxes[], int *status);
-int ffppx(fitsfile *fptr, int datatype, long *firstpix, LONGLONG nelem,
-          void *array, int *status);
-
+int ffgidt(fitsfile *fptr, int *imgtype, int *status);
+int ffgidm(fitsfile *fptr, int *naxis, int *status);
+int ffgisz(fitsfile *fptr, int nlen, long *naxes, int *status);
+int ffgpxv(fitsfile *fptr, int datatype, long *firstpix, LONGLONG nelem, void *nulval, void *array, int *anynul, int *status);
+int ffppx(fitsfile *fptr, int datatype, long *firstpix, LONGLONG nelem, void *array, int *status);
 ]]
-
 return ffi.load('cfitsio')

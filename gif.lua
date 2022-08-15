@@ -19,15 +19,12 @@ enum { GIFLIB_MINOR = 1 };
 enum { GIFLIB_RELEASE = 9 };
 enum { GIF_ERROR = 0 };
 enum { GIF_OK = 1 };
-/* BEGIN /usr/lib/gcc/x86_64-1-gnu/9/include/stddef.h */
-typedef long int ptrdiff_t;
-typedef long unsigned int size_t;
-typedef int wchar_t;
-typedef struct { long long __max_align_ll __attribute__((__aligned__(__alignof__(long long))));
-long double __max_align_ld __attribute__((__aligned__(__alignof__(long double))));
-} max_align_t;
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/9/include/stddef.h */
+]] require 'ffi.c.stddef' ffi.cdef[[
 /* END /usr/lib/gcc/x86_64-1-gnu/9/include/stddef.h */
-/* BEGIN /usr/lib/gcc/x86_64-1-gnu/9/include/stdbool.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h */
+enum { true = 1 };
+enum { false = 0 };
 enum { __bool_true_false_are_defined = 1 };
 /* END /usr/lib/gcc/x86_64-1-gnu/9/include/stdbool.h */
 enum { GIF_VERSION_POS = 3 };

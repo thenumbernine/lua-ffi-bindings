@@ -9,10 +9,13 @@ enum { _PTHREAD_H = 1 };
 /* BEGIN /usr/include/sched.h */
 enum { _SCHED_H = 1 };
 /* BEGIN /usr/include/features.h */
+]] require 'ffi.c.features' ffi.cdef[[
 /* END /usr/include/features.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
+]] require 'ffi.c.bits.types' ffi.cdef[[
 /* END /usr/include/x86_64-1-gnu/bits/types.h */
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/10/include/stddef.h */
+]] require 'ffi.c.stddef' ffi.cdef[[
 /* END /usr/lib/gcc/x86_64-1-gnu/10/include/stddef.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
 /* END /usr/include/x86_64-1-gnu/bits/types/time_t.h */
@@ -34,6 +37,7 @@ __syscall_slong_t tv_nsec;
 };
 /* END /usr/include/x86_64-1-gnu/bits/types/struct_timespec.h */
 /* BEGIN /usr/include/time.h */
+]] require 'ffi.c.time' ffi.cdef[[
 /* END /usr/include/time.h */
 typedef __pid_t pid_t;
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/sched.h */
@@ -166,10 +170,7 @@ __extension__ long long int __align;
 } pthread_cond_t;
 /* END /usr/include/x86_64-1-gnu/bits/pthreadtypes.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/setjmp.h */
-enum { _BITS_SETJMP_H = 1 };
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/wordsize.h */
-/* END /usr/include/x86_64-1-gnu/bits/wordsize.h */
-typedef long int __jmp_buf[8];
+]] require 'ffi.c.setjmp' ffi.cdef[[
 /* END /usr/include/x86_64-1-gnu/bits/setjmp.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* END /usr/include/x86_64-1-gnu/bits/wordsize.h */
