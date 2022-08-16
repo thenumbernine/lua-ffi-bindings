@@ -8,7 +8,7 @@ if ffi.os == 'Windows' then
 	return require 'ffi.Windows.OpenGL' 
 	-- TODO I used to have to load GLU32 as well ... but meh?
 elseif ffi.os == 'Linux' then
-	return rqeuire 'ffi.Linux.OpenGL'
+	return require 'ffi.Linux.OpenGL'
 else
 	-- default?
 	return require 'ffi.Linux.OpenGL'
