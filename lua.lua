@@ -13,6 +13,7 @@ else
 end
 ffi.cdef[[
 /* BEGIN /usr/include/lua5.3/lua.h */
+enum { lua_h = 1 };
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/9/include/stdarg.h */
 ]] require 'ffi.c.stdarg' ffi.cdef[[
 /* END /usr/lib/gcc/x86_64-1-gnu/9/include/stdarg.h */
@@ -20,6 +21,7 @@ ffi.cdef[[
 ]] require 'ffi.c.stddef' ffi.cdef[[
 /* END /usr/lib/gcc/x86_64-1-gnu/9/include/stddef.h */
 /* BEGIN /usr/include/lua5.3/luaconf.h */
+enum { luaconf_h = 1 };
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/9/include/limits.h */
 ]] require 'ffi.c.limits' ffi.cdef[[
 /* END /usr/lib/gcc/x86_64-1-gnu/9/include/limits.h */
@@ -34,16 +36,60 @@ enum { LUA_FLOAT_DOUBLE = 2 };
 enum { LUA_FLOAT_LONGDOUBLE = 3 };
 enum { LUA_INT_TYPE = 3 };
 enum { LUA_FLOAT_TYPE = 2 };
+/* #define LUA_VDIR	LUA_VERSION_MAJOR "." LUA_VERSION_MINOR ### string, not number "LUA_VERSION_MAJOR \".\" LUA_VERSION_MINOR" */
 /* BEGIN /usr/include/x86_64-linux-gnu/lua5.3-deb-multiarch.h */
+enum { _LUA_DEB_MULTIARCH_ = 1 };
+/* #define DEB_HOST_MULTIARCH "x86_64-linux-gnu" ### string, not number "\"x86_64-linux-gnu\"" */
 /* END /usr/include/x86_64-1-gnu/lua5.3-deb-multiarch.h */
+/* #define LUA_ROOT	"/usr/local/" ### string, not number "\"/usr/local/\"" */
+/* #define LUA_ROOT2	"/usr/" ### string, not number "\"/usr/\"" */
+/* #define LUA_LDIR	LUA_ROOT "share/lua/" LUA_VDIR "/" ### string, not number "LUA_ROOT \"share/lua/\" LUA_VDIR \"/\"" */
+/* #define LUA_LDIR2	LUA_ROOT2 "share/lua/" LUA_VDIR "/" ### string, not number "LUA_ROOT2 \"share/lua/\" LUA_VDIR \"/\"" */
+/* #define LUA_CDIR	LUA_ROOT "lib/lua/" LUA_VDIR "/" ### string, not number "LUA_ROOT \"lib/lua/\" LUA_VDIR \"/\"" */
+/* #define LUA_CDIR2	LUA_ROOT2 "lib/" DEB_HOST_MULTIARCH "/lua/" LUA_VDIR "/" ### string, not number "LUA_ROOT2 \"lib/\" DEB_HOST_MULTIARCH \"/lua/\" LUA_VDIR \"/\"" */
+/* #define LUA_CDIR3	LUA_ROOT2 "lib/lua/" LUA_VDIR "/" ### string, not number "LUA_ROOT2 \"lib/lua/\" LUA_VDIR \"/\"" */
+/* #define LUA_PATH_DEFAULT   		LUA_LDIR"?.lua;"  LUA_LDIR"?/init.lua;"  		LUA_CDIR"?.lua;"  LUA_CDIR"?/init.lua;"  		LUA_LDIR2"?.lua;"  LUA_LDIR2"?/init.lua;"  		"./?.lua;" "./?/init.lua" ### string, not number "LUA_LDIR\"?.lua;\"  LUA_LDIR\"?/init.lua;\"  \9\9LUA_CDIR\"?.lua;\"  LUA_CDIR\"?/init.lua;\"  \9\9LUA_LDIR2\"?.lua;\"  LUA_LDIR2\"?/init.lua;\"  \9\9\"./?.lua;\" \"./?/init.lua\"" */
+/* #define LUA_CPATH_DEFAULT  		LUA_CDIR"?.so;" LUA_CDIR2"?.so;" LUA_CDIR3"?.so;" LUA_CDIR"loadall.so;" "./?.so" ### string, not number "LUA_CDIR\"?.so;\" LUA_CDIR2\"?.so;\" LUA_CDIR3\"?.so;\" LUA_CDIR\"loadall.so;\" \"./?.so\"" */
+/* #define LUA_DIRSEP	"/" ### string, not number "\"/\"" */
+enum { LUA_API = 0 };
+enum { LUALIB_API = 0 };
+enum { LUAMOD_API = 0 };
+/* #define LUAI_FUNC	__attribute__((visibility("hidden"))) extern ### string, not number "__attribute__((visibility(\"hidden\"))) extern" */
+/* #define LUAI_DDEC	LUAI_FUNC ### string, not number "LUAI_FUNC" */
+enum { LUAI_DDEF = 1 };
+enum { LUA_NUMBER = 0 };
+enum { LUAI_UACNUMBER = 0 };
+/* #define LUA_NUMBER_FRMLEN	"" ### string, not number "\"\"" */
+/* #define LUA_NUMBER_FMT		"%.14g" ### string, not number "\"%.14g\"" */
+/* #define LUA_INTEGER_FMT		"%" LUA_INTEGER_FRMLEN "d" ### string, not number "\"%\" LUA_INTEGER_FRMLEN \"d\"" */
+enum { LUAI_UACINT = 0 };
+/* #define LUA_UNSIGNED		unsigned LUAI_UACINT ### string, not number "unsigned LUAI_UACINT" */
+/* #define LUA_INTEGER		long long ### string, not number "long long" */
+/* #define LUA_INTEGER_FRMLEN	"ll" ### string, not number "\"ll\"" */
+/* #define LUA_MAXINTEGER		LLONG_MAX ### string, not number "LLONG_MAX" */
+/* #define LUA_MININTEGER		LLONG_MIN ### string, not number "LLONG_MIN" */
+enum { LUA_KCONTEXT = 0 };
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h */
 ]] require 'ffi.c.stdint' ffi.cdef[[
 /* END /usr/lib/gcc/x86_64-1-gnu/9/include/stdint.h */
+/* redefining matching value: #define LUA_KCONTEXT	intptr_t */
 enum { LUAI_MAXSTACK = 1000000 };
+/* #define LUA_EXTRASPACE		(sizeof(void *)) ### string, not number "(sizeof(void *))" */
 enum { LUA_IDSIZE = 60 };
 enum { LUAL_BUFFERSIZE = 8192 };
+/* #define LUA_QS		LUA_QL("%s") ### string, not number "LUA_QL(\"%s\")" */
 /* END /usr/include/lua5.3/luaconf.h */
+/* #define LUA_VERSION_MAJOR	"5" ### string, not number "\"5\"" */
+/* #define LUA_VERSION_MINOR	"3" ### string, not number "\"3\"" */
 enum { LUA_VERSION_NUM = 503 };
+/* #define LUA_VERSION_RELEASE	"3" ### string, not number "\"3\"" */
+/* #define LUA_VERSION	"Lua " LUA_VERSION_MAJOR "." LUA_VERSION_MINOR ### string, not number "\"Lua \" LUA_VERSION_MAJOR \".\" LUA_VERSION_MINOR" */
+/* #define LUA_RELEASE	LUA_VERSION "." LUA_VERSION_RELEASE ### string, not number "LUA_VERSION \".\" LUA_VERSION_RELEASE" */
+/* #define LUA_COPYRIGHT	LUA_RELEASE "  Copyright (C) 1994-2016 Lua.org, PUC-Rio" ### string, not number "LUA_RELEASE \"  Copyright (C) 1994-2016 Lua.org, PUC-Rio\"" */
+/* #define LUA_AUTHORS	"R. Ierusalimschy, L. H. de Figueiredo, W. Celes" ### string, not number "\"R. Ierusalimschy, L. H. de Figueiredo, W. Celes\"" */
+/* #define LUA_SIGNATURE	"\x1bLua" ### string, not number "\"\\x1bLua\"" */
+enum { LUA_MULTRET = -1 };
+enum { LUA_REGISTRYINDEX = -1001000 };
 enum { LUA_OK = 0 };
 enum { LUA_YIELD = 1 };
 enum { LUA_ERRRUN = 2 };
@@ -52,6 +98,7 @@ enum { LUA_ERRMEM = 4 };
 enum { LUA_ERRGCMM = 5 };
 enum { LUA_ERRERR = 6 };
 typedef struct lua_State lua_State;
+enum { LUA_TNONE = -1 };
 enum { LUA_TNIL = 0 };
 enum { LUA_TBOOLEAN = 1 };
 enum { LUA_TLIGHTUSERDATA = 2 };
@@ -186,6 +233,10 @@ enum { LUA_HOOKRET = 1 };
 enum { LUA_HOOKLINE = 2 };
 enum { LUA_HOOKCOUNT = 3 };
 enum { LUA_HOOKTAILCALL = 4 };
+enum { LUA_MASKCALL = 1 };
+enum { LUA_MASKRET = 2 };
+enum { LUA_MASKLINE = 4 };
+enum { LUA_MASKCOUNT = 8 };
 typedef struct lua_Debug lua_Debug;
 typedef void (*lua_Hook) (lua_State *L, lua_Debug *ar);
 extern int (lua_getstack) (lua_State *L, int level, lua_Debug *ar);

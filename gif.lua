@@ -23,11 +23,17 @@ enum { GIF_OK = 1 };
 ]] require 'ffi.c.stddef' ffi.cdef[[
 /* END /usr/lib/gcc/x86_64-1-gnu/9/include/stddef.h */
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h */
+enum { _STDBOOL_H = 1 };
+enum { bool = 0 };
 enum { true = 1 };
 enum { false = 0 };
 enum { __bool_true_false_are_defined = 1 };
 /* END /usr/lib/gcc/x86_64-1-gnu/9/include/stdbool.h */
+/* #define GIF_STAMP "GIFVER" ### string, not number "\"GIFVER\"" */
+/* #define GIF_STAMP_LEN sizeof(GIF_STAMP) - 1 ### string, not number "sizeof(GIF_STAMP) - 1" */
 enum { GIF_VERSION_POS = 3 };
+/* #define GIF87_STAMP "GIF87a" ### string, not number "\"GIF87a\"" */
+/* #define GIF89_STAMP "GIF89a" ### string, not number "\"GIF89a\"" */
 typedef unsigned char GifPixelType;
 typedef unsigned char *GifRowType;
 typedef unsigned char GifByteType;
@@ -47,11 +53,11 @@ ColorMapObject *ColorMap;
 typedef struct ExtensionBlock { int ByteCount;
 GifByteType *Bytes;
 int Function;
-enum { CONTINUE_EXT_FUNC_CODE = 0x00 };
-enum { COMMENT_EXT_FUNC_CODE = 0xfe };
-enum { GRAPHICS_EXT_FUNC_CODE = 0xf9 };
-enum { PLAINTEXT_EXT_FUNC_CODE = 0x01 };
-enum { APPLICATION_EXT_FUNC_CODE = 0xff };
+enum { CONTINUE_EXT_FUNC_CODE = 0 };
+enum { COMMENT_EXT_FUNC_CODE = 254 };
+enum { GRAPHICS_EXT_FUNC_CODE = 249 };
+enum { PLAINTEXT_EXT_FUNC_CODE = 1 };
+enum { APPLICATION_EXT_FUNC_CODE = 255 };
 } ExtensionBlock;
 typedef struct SavedImage { GifImageDesc ImageDesc;
 GifByteType *RasterBits;

@@ -1,18 +1,47 @@
 local ffi = require 'ffi'
-
--- sys/_structs.h
-
-require 'ffi.c.sys.time'
 ffi.cdef[[
-typedef	struct fd_set {
-	int32_t	fds_bits[32];	//OS-specific
+/* BEGIN /usr/include/x86_64-linux-gnu/sys/select.h */
+enum { _SYS_SELECT_H = 1 };
+/* BEGIN /usr/include/features.h */
+]] require 'ffi.c.sys.features' ffi.cdef[[
+/* END /usr/include/features.h */
+/* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
+]] require 'ffi.c.bits.types' ffi.cdef[[
+/* END /usr/include/x86_64-1-gnu/bits/types.h */
+/* BEGIN /usr/include/x86_64-linux-gnu/bits/select.h */
+/* BEGIN /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+/* redefining matching value: # define __WORDSIZE	64 */
+/* redefining matching value: # define __WORDSIZE_TIME64_COMPAT32	1 */
+/* redefining matching value: # define __SYSCALL_WORDSIZE		64 */
+/* END /usr/include/x86_64-1-gnu/bits/wordsize.h */
+/* #  define __FD_ZERO_STOS "stosq" ### string, not number "\"stosq\"" */
+/* END /usr/include/x86_64-1-gnu/bits/select.h */
+/* BEGIN /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h */
+enum { __sigset_t_defined = 1 };
+/* BEGIN /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h */
+]] require 'ffi.c.bits.types.__sigset_t' ffi.cdef[[
+/* END /usr/include/x86_64-1-gnu/bits/types/__sigset_t.h */
+typedef __sigset_t sigset_t;
+/* END /usr/include/x86_64-1-gnu/bits/types/sigset_t.h */
+/* BEGIN /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
+]] require 'ffi.c.bits.types.time_t' ffi.cdef[[
+/* END /usr/include/x86_64-1-gnu/bits/types/time_t.h */
+/* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h */
+]] require 'ffi.c.bits.types.struct_timeval' ffi.cdef[[
+/* END /usr/include/x86_64-1-gnu/bits/types/struct_timeval.h */
+/* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
+]] require 'ffi.c.bits.types.struct_timespec' ffi.cdef[[
+/* END /usr/include/x86_64-1-gnu/bits/types/struct_timespec.h */
+typedef __suseconds_t suseconds_t;
+enum { __suseconds_t_defined = 1 };
+typedef long int __fd_mask;
+/* #define __NFDBITS	(8 * (int) sizeof (__fd_mask)) ### string, not number "(8 * (int) sizeof (__fd_mask))" */
+typedef struct { __fd_mask __fds_bits[1024 / (8 * (int) sizeof (__fd_mask))];
 } fd_set;
-]]
-
--- sys/select.h
-ffi.cdef[[
-
-int select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *restrict errorfds, struct timeval *restrict timeout);
-
-
+enum { FD_SETSIZE = 1024 };
+typedef __fd_mask fd_mask;
+/* # define NFDBITS		__NFDBITS ### string, not number "__NFDBITS" */
+extern int select (int __nfds, fd_set * __readfds, fd_set * __writefds, fd_set * __exceptfds, struct timeval * __timeout);
+extern int pselect (int __nfds, fd_set * __readfds, fd_set * __writefds, fd_set * __exceptfds, const struct timespec * __timeout, const __sigset_t * __sigmask);
+/* END /usr/include/x86_64-1-gnu/sys/select.h */
 ]]

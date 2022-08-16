@@ -22,11 +22,6 @@ end
 
 typedef int suseconds_t;
 
-struct timeval {
-	time_t tv_sec;			/* seconds since Jan. 1, 1970 */
-	suseconds_t tv_usec;	/* and microseconds */
-};
-
 struct timezone {
 	int	tz_minuteswest;		/* of Greenwich */
 	int	tz_dsttime;			/* type of dst correction to apply */
@@ -38,3 +33,4 @@ int settimeofday(const struct timeval *tp, const struct timezone *tzp);
 ]], {
 	ffi = ffi,
 }))
+require 'ffi.c.bits.types.struct_timeval'

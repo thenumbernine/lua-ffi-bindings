@@ -20,21 +20,7 @@ enum { _SCHED_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
 /* END /usr/include/x86_64-1-gnu/bits/types/time_t.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
-enum { _STRUCT_TIMESPEC = 1 };
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-/* END /usr/include/x86_64-1-gnu/bits/types.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/endian.h */
-enum { _BITS_ENDIAN_H = 1 };
-enum { __LITTLE_ENDIAN = 1234 };
-enum { __BIG_ENDIAN = 4321 };
-enum { __PDP_ENDIAN = 3412 };
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/endianness.h */
-enum { _BITS_ENDIANNESS_H = 1 };
-/* END /usr/include/x86_64-1-gnu/bits/endianness.h */
-/* END /usr/include/x86_64-1-gnu/bits/endian.h */
-struct timespec { __time_t tv_sec;
-__syscall_slong_t tv_nsec;
-};
+]] require 'ffi.c.bits.types.struct_timespec' ffi.cdef[[
 /* END /usr/include/x86_64-1-gnu/bits/types/struct_timespec.h */
 /* BEGIN /usr/include/time.h */
 ]] require 'ffi.c.time' ffi.cdef[[
@@ -177,8 +163,7 @@ __extension__ long long int __align;
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
 /* END /usr/include/x86_64-1-gnu/bits/types/struct_timespec.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h */
-typedef struct { unsigned long int __val[(1024 / (8 * sizeof (unsigned long int)))];
-} __sigset_t;
+]] require 'ffi.c.bits.types.__sigset_t' ffi.cdef[[
 /* END /usr/include/x86_64-1-gnu/bits/types/__sigset_t.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h */
 enum { __jmp_buf_tag_defined = 1 };

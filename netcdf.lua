@@ -6,20 +6,23 @@ local netcdf = ffi.load(lib)
 
 local code = [[
 /* BEGIN /usr/include/netcdf.h */
+enum { _NETCDF_ = 1 };
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/9/include/stddef.h */
-]] require 'ffi.c.stddef' ffi.cdef[[
+]] require 'ffi.c.stddef' code=code..[[
 /* END /usr/lib/gcc/x86_64-1-gnu/9/include/stddef.h */
 /* BEGIN /usr/include/errno.h */
 enum { _ERRNO_H = 1 };
 /* BEGIN /usr/include/features.h */
-]] require 'ffi.c.features' ffi.cdef[[
+]] require 'ffi.c.features' code=code..[[
 /* END /usr/include/features.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/errno.h */
 enum { _BITS_ERRNO_H = 1 };
 /* BEGIN /usr/include/linux/errno.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/asm/errno.h */
 /* BEGIN /usr/include/asm-generic/errno.h */
+enum { _ASM_GENERIC_ERRNO_H = 1 };
 /* BEGIN /usr/include/asm-generic/errno-base.h */
+enum { _ASM_GENERIC_ERRNO_BASE_H = 1 };
 enum { EPERM = 1 };
 enum { ENOENT = 2 };
 enum { ESRCH = 3 };
@@ -160,6 +163,7 @@ enum { EHWPOISON = 133 };
 enum { ENOTSUP = 95 };
 /* END /usr/include/x86_64-1-gnu/bits/errno.h */
 extern int *__errno_location (void) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+/* # define errno (*__errno_location ()) ### string, not number "(*__errno_location ())" */
 /* END /usr/include/(*__errno_location ()).h */
 typedef int nc_type;
 enum { NC_NAT = 0 };
@@ -182,35 +186,89 @@ enum { NC_OPAQUE = 14 };
 enum { NC_ENUM = 15 };
 enum { NC_COMPOUND = 16 };
 enum { NC_FIRSTUSERTYPEID = 32 };
+/* #define NC_FILL_BYTE    ((signed char)-127) ### string, not number "((signed char)-127)" */
+/* #define NC_FILL_CHAR    ((char)0) ### string, not number "((char)0)" */
+enum { NC_FILL_SHORT = -32767 };
+enum { NC_FILL_INT = -2147483647 };
+/* #define NC_FILL_FLOAT   (9.9692099683868690e+36f) ### string, not number "(9.9692099683868690e+36f)" */
+/* #define NC_FILL_DOUBLE  (9.9692099683868690e+36) ### string, not number "(9.9692099683868690e+36)" */
+enum { NC_FILL_UBYTE = 255 };
+enum { NC_FILL_USHORT = 65535 };
+enum { NC_FILL_UINT = 4294967295 };
+/* #define NC_FILL_INT64   ((long long)-9223372036854775806LL) ### string, not number "((long long)-9223372036854775806LL)" */
+/* #define NC_FILL_UINT64  ((unsigned long long)18446744073709551614ULL) ### string, not number "((unsigned long long)18446744073709551614ULL)" */
+/* #define NC_FILL_STRING  ((char *)"") ### string, not number "((char *)\"\")" */
 enum { NC_MAX_BYTE = 127 };
+enum { NC_MIN_BYTE = -128 };
 enum { NC_MAX_CHAR = 255 };
 enum { NC_MAX_SHORT = 32767 };
+enum { NC_MIN_SHORT = -32768 };
 enum { NC_MAX_INT = 2147483647 };
-/* #define NC_MAX_DOUBLE 1.7976931348623157e+308 */
+enum { NC_MIN_INT = -2147483648 };
+/* #define NC_MAX_FLOAT 3.402823466e+38f ### string, not number "3.402823466e+38f" */
+/* #define NC_MIN_FLOAT (-NC_MAX_FLOAT) ### string, not number "(-NC_MAX_FLOAT)" */
+/* #define NC_MAX_DOUBLE 1.7976931348623157e+308 ### string, number, replaceline "1.7976931348623157e+308" */
+/* #define NC_MIN_DOUBLE (-NC_MAX_DOUBLE) ### string, not number "(-NC_MAX_DOUBLE)" */
 enum { NC_MAX_UBYTE = 255 };
+enum { NC_MAX_USHORT = 65535 };
+enum { NC_MAX_UINT = 4294967295 };
+/* #define NC_MAX_INT64 (9223372036854775807LL) ### string, not number "(9223372036854775807LL)" */
+/* #define NC_MIN_INT64 (-9223372036854775807LL-1) ### string, not number "(-9223372036854775807LL-1)" */
+/* #define NC_MAX_UINT64 (18446744073709551615ULL) ### string, not number "(18446744073709551615ULL)" */
+/* #define _FillValue      "_FillValue" ### string, not number "\"_FillValue\"" */
 enum { NC_FILL = 0 };
-enum { NC_NOFILL = 0x100 };
-enum { NC_NOWRITE = 0x0000 };
-enum { NC_WRITE = 0x0001 };
-enum { NC_CLOBBER = 0x0000 };
-enum { NC_NOCLOBBER = 0x0004 };
-enum { NC_DISKLESS = 0x0008 };
-enum { NC_MMAP = 0x0010 };
-enum { NC_64BIT_DATA = 0x0020 };
-enum { NC_CDF5 = 0x0020 };
-enum { NC_UDF0 = 0x0040 };
-enum { NC_UDF1 = 0x0080 };
-enum { NC_CLASSIC_MODEL = 0x0100 };
-enum { NC_64BIT_OFFSET = 0x0200 };
-enum { NC_LOCK = 0x0400 };
-enum { NC_SHARE = 0x0800 };
-enum { NC_NETCDF4 = 0x1000 };
-enum { NC_MPIIO = 0x2000 };
-enum { NC_MPIPOSIX = 0x2000 };
-enum { NC_PERSIST = 0x4000 };
-enum { NC_INMEMORY = 0x8000 };
+enum { NC_NOFILL = 256 };
+enum { NC_NOWRITE = 0 };
+enum { NC_WRITE = 1 };
+enum { NC_CLOBBER = 0 };
+enum { NC_NOCLOBBER = 4 };
+enum { NC_DISKLESS = 8 };
+enum { NC_MMAP = 16 };
+enum { NC_64BIT_DATA = 32 };
+enum { NC_CDF5 = 32 };
+enum { NC_UDF0 = 64 };
+enum { NC_UDF1 = 128 };
+enum { NC_CLASSIC_MODEL = 256 };
+enum { NC_64BIT_OFFSET = 512 };
+enum { NC_LOCK = 1024 };
+enum { NC_SHARE = 2048 };
+enum { NC_NETCDF4 = 4096 };
+enum { NC_MPIIO = 8192 };
+enum { NC_MPIPOSIX = 8192 };
+enum { NC_PNETCDF = 8192 };
+enum { NC_PERSIST = 16384 };
+enum { NC_INMEMORY = 32768 };
 enum { NC_MAX_MAGIC_NUMBER_LEN = 8 };
+enum { NC_FORMAT_CLASSIC = 1 };
+enum { NC_FORMAT_64BIT_OFFSET = 2 };
+enum { NC_FORMAT_64BIT = 2 };
+enum { NC_FORMAT_NETCDF4 = 3 };
+enum { NC_FORMAT_NETCDF4_CLASSIC = 4 };
+enum { NC_FORMAT_64BIT_DATA = 5 };
+enum { NC_FORMAT_CDF5 = 5 };
+enum { NC_FORMAT_ALL = 5088 };
+enum { NC_FORMATX_NC3 = 1 };
+enum { NC_FORMATX_NC_HDF5 = 2 };
+enum { NC_FORMATX_NC4 = 2 };
+enum { NC_FORMATX_NC_HDF4 = 3 };
+enum { NC_FORMATX_PNETCDF = 4 };
+enum { NC_FORMATX_DAP2 = 5 };
+enum { NC_FORMATX_DAP4 = 6 };
+enum { NC_FORMATX_UDF0 = 8 };
+enum { NC_FORMATX_UDF1 = 9 };
+enum { NC_FORMATX_ZARR = 10 };
+enum { NC_FORMATX_UNDEFINED = 0 };
+enum { NC_FORMAT_NC3 = 1 };
+enum { NC_FORMAT_NC_HDF5 = 2 };
+enum { NC_FORMAT_NC4 = 2 };
+enum { NC_FORMAT_NC_HDF4 = 3 };
+enum { NC_FORMAT_PNETCDF = 4 };
+enum { NC_FORMAT_DAP2 = 5 };
+enum { NC_FORMAT_DAP4 = 6 };
+enum { NC_FORMAT_UNDEFINED = 0 };
 enum { NC_SIZEHINT_DEFAULT = 0 };
+/* #define NC_ALIGN_CHUNK ((size_t)(-1)) ### string, not number "((size_t)(-1))" */
+enum { NC_UNLIMITED = 0 };
 enum { NC_GLOBAL = -1 };
 enum { NC_MAX_DIMS = 1024 };
 enum { NC_MAX_ATTRS = 8192 };
@@ -230,7 +288,102 @@ enum { NC_SHUFFLE = 1 };
 enum { NC_MIN_DEFLATE_LEVEL = 0 };
 enum { NC_MAX_DEFLATE_LEVEL = 9 };
 enum { NC_NOERR = 0 };
+enum { NC2_ERR = -1 };
+enum { NC_EBADID = -33 };
+enum { NC_ENFILE = -34 };
+enum { NC_EEXIST = -35 };
+enum { NC_EINVAL = -36 };
+enum { NC_EPERM = -37 };
+enum { NC_ENOTINDEFINE = -38 };
+enum { NC_EINDEFINE = -39 };
+enum { NC_EINVALCOORDS = -40 };
+enum { NC_EMAXDIMS = -41 };
+enum { NC_ENAMEINUSE = -42 };
+enum { NC_ENOTATT = -43 };
+enum { NC_EMAXATTS = -44 };
+enum { NC_EBADTYPE = -45 };
+enum { NC_EBADDIM = -46 };
+enum { NC_EUNLIMPOS = -47 };
+enum { NC_EMAXVARS = -48 };
+enum { NC_ENOTVAR = -49 };
+enum { NC_EGLOBAL = -50 };
+enum { NC_ENOTNC = -51 };
+enum { NC_ESTS = -52 };
+enum { NC_EMAXNAME = -53 };
+enum { NC_EUNLIMIT = -54 };
+enum { NC_ENORECVARS = -55 };
+enum { NC_ECHAR = -56 };
+enum { NC_EEDGE = -57 };
+enum { NC_ESTRIDE = -58 };
+enum { NC_EBADNAME = -59 };
+enum { NC_ERANGE = -60 };
+enum { NC_ENOMEM = -61 };
+enum { NC_EVARSIZE = -62 };
+enum { NC_EDIMSIZE = -63 };
+enum { NC_ETRUNC = -64 };
+enum { NC_EAXISTYPE = -65 };
+enum { NC_EDAP = -66 };
+enum { NC_ECURL = -67 };
+enum { NC_EIO = -68 };
+enum { NC_ENODATA = -69 };
+enum { NC_EDAPSVC = -70 };
+enum { NC_EDAS = -71 };
+enum { NC_EDDS = -72 };
+enum { NC_EDMR = -72 };
+enum { NC_EDATADDS = -73 };
+enum { NC_EDATADAP = -73 };
+enum { NC_EDAPURL = -74 };
+enum { NC_EDAPCONSTRAINT = -75 };
+enum { NC_ETRANSLATION = -76 };
+enum { NC_EACCESS = -77 };
+enum { NC_EAUTH = -78 };
+enum { NC_ENOTFOUND = -90 };
+enum { NC_ECANTREMOVE = -91 };
+enum { NC_EINTERNAL = -92 };
+enum { NC_EPNETCDF = -93 };
+enum { NC4_FIRST_ERROR = -100 };
+enum { NC_EHDFERR = -101 };
+enum { NC_ECANTREAD = -102 };
+enum { NC_ECANTWRITE = -103 };
+enum { NC_ECANTCREATE = -104 };
+enum { NC_EFILEMETA = -105 };
+enum { NC_EDIMMETA = -106 };
+enum { NC_EATTMETA = -107 };
+enum { NC_EVARMETA = -108 };
+enum { NC_ENOCOMPOUND = -109 };
+enum { NC_EATTEXISTS = -110 };
+enum { NC_ENOTNC4 = -111 };
+enum { NC_ESTRICTNC3 = -112 };
+enum { NC_ENOTNC3 = -113 };
+enum { NC_ENOPAR = -114 };
+enum { NC_EPARINIT = -115 };
+enum { NC_EBADGRPID = -116 };
+enum { NC_EBADTYPID = -117 };
+enum { NC_ETYPDEFINED = -118 };
+enum { NC_EBADFIELD = -119 };
+enum { NC_EBADCLASS = -120 };
+enum { NC_EMAPTYPE = -121 };
+enum { NC_ELATEFILL = -122 };
+enum { NC_ELATEDEF = -123 };
+enum { NC_EDIMSCALE = -124 };
+enum { NC_ENOGRP = -125 };
+enum { NC_ESTORAGE = -126 };
+enum { NC_EBADCHUNK = -127 };
+enum { NC_ENOTBUILT = -128 };
+enum { NC_EDISKLESS = -129 };
+enum { NC_ECANTEXTEND = -130 };
+enum { NC_EMPI = -131 };
+enum { NC_EFILTER = -132 };
+enum { NC_ERCFILE = -133 };
+enum { NC_ENULLPAD = -134 };
+enum { NC_EINMEMORY = -135 };
+enum { NC4_LAST_ERROR = -136 };
+/* #define DIM_WITHOUT_VARIABLE "This is a netCDF dimension but not a netCDF variable." ### string, not number "\"This is a netCDF dimension but not a netCDF variable.\"" */
 enum { NC_HAVE_NEW_CHUNKING_API = 1 };
+enum { NC_EURL = -74 };
+enum { NC_ECONSTRAINT = -75 };
+enum { MSC_EXTRA = 1 };
+enum { EXTERNL = 0 };
 extern const char * nc_inq_libvers(void);
 extern const char * nc_strerror(int ncerr);
 typedef struct NC_Dispatch NC_Dispatch;
@@ -527,6 +680,7 @@ extern int nc_get_varm_ubyte(int ncid, int varid, const size_t *startp, const si
 extern int nc_put_var_ubyte(int ncid, int varid, const unsigned char *op);
 extern int nc_get_var_ubyte(int ncid, int varid, unsigned char *ip);
 extern int nc_set_log_level(int new_level);
+enum { NC_TURN_OFF_LOGGING = -1 };
 extern int nc_show_metadata(int ncid);
 extern int nc_delete(const char *path);
 extern int nc__create_mp(const char *path, int cmode, size_t initialsz, int basepe, size_t *chunksizehintp, int *ncidp);
@@ -535,12 +689,21 @@ extern int nc_delete_mp(const char *path, int basepe);
 extern int nc_set_base_pe(int ncid, int pe);
 extern int nc_inq_base_pe(int ncid, int *pe);
 extern int nctypelen(nc_type datatype);
+/* #define FILL_BYTE       NC_FILL_BYTE ### string, not number "NC_FILL_BYTE" */
+/* #define FILL_CHAR       NC_FILL_CHAR ### string, not number "NC_FILL_CHAR" */
+enum { FILL_SHORT = -32767 };
+enum { FILL_LONG = -2147483647 };
+/* #define FILL_FLOAT      NC_FILL_FLOAT ### string, not number "NC_FILL_FLOAT" */
+/* #define FILL_DOUBLE     NC_FILL_DOUBLE ### string, not number "NC_FILL_DOUBLE" */
 enum { MAX_NC_DIMS = 1024 };
 enum { MAX_NC_ATTRS = 8192 };
 enum { MAX_NC_VARS = 8192 };
 enum { MAX_NC_NAME = 256 };
 enum { MAX_VAR_DIMS = 1024 };
 extern int ncerr;
+enum { NC_ENTOOL = -53 };
+enum { NC_EXDR = -32 };
+enum { NC_SYSERR = -31 };
 enum { NC_FATAL = 1 };
 enum { NC_VERBOSE = 2 };
 extern int ncopts;
@@ -583,6 +746,9 @@ extern int ncrecget(int ncid, long recnum, void **datap);
 extern int ncrecput(int ncid, long recnum, void *const *datap);
 extern int nc_initialize(void);
 extern int nc_finalize(void);
+enum { NC_HAVE_RENAME_GRP = 1 };
+enum { NC_HAVE_INQ_FORMAT_EXTENDED = 1 };
+enum { NC_HAVE_META_H = 1 };
 /* END /usr/include/netcdf.h */
 ]]
 

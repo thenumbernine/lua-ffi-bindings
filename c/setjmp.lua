@@ -8,12 +8,14 @@ enum { _SETJMP_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/setjmp.h */
 enum { _BITS_SETJMP_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+/* redefining matching value: # define __WORDSIZE	64 */
+/* redefining matching value: # define __WORDSIZE_TIME64_COMPAT32	1 */
+/* redefining matching value: # define __SYSCALL_WORDSIZE		64 */
 /* END /usr/include/x86_64-1-gnu/bits/wordsize.h */
 typedef long int __jmp_buf[8];
 /* END /usr/include/x86_64-1-gnu/bits/setjmp.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h */
-typedef struct { unsigned long int __val[(1024 / (8 * sizeof (unsigned long int)))];
-} __sigset_t;
+]] require 'ffi.c.bits.types.__sigset_t' ffi.cdef[[
 /* END /usr/include/x86_64-1-gnu/bits/types/__sigset_t.h */
 struct __jmp_buf_tag { __jmp_buf __jmpbuf;
 int __mask_was_saved;

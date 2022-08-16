@@ -4,8 +4,10 @@ local jpeg = ffi.load(ffi.os=='OSX' and '/opt/local/lib/libjpeg.dylib' or 'libjp
 ffi.cdef[[
 
 /* BEGIN /usr/include/jpeglib.h */
+enum { JPEGLIB_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/jconfig.h */
 enum { JPEG_LIB_VERSION = 80 };
+/* #define LIBJPEG_TURBO_VERSION  2.0.3 ### string, not number "2.0.3" */
 enum { LIBJPEG_TURBO_VERSION_NUMBER = 2000003 };
 enum { C_ARITH_CODING_SUPPORTED = 1 };
 enum { D_ARITH_CODING_SUPPORTED = 1 };
@@ -27,6 +29,8 @@ typedef unsigned short UINT16;
 typedef short INT16;
 typedef long INT32;
 typedef unsigned int JDIMENSION;
+enum { JPEG_MAX_DIMENSION = 65500 };
+enum { FAR = 1 };
 typedef int boolean;
 enum { FALSE = 0 };
 enum { TRUE = 1 };
@@ -94,7 +98,10 @@ enum { JCS_EXTENSIONS = 1 };
 enum { JCS_ALPHA_EXTENSIONS = 1 };
 typedef enum { JCS_UNKNOWN, JCS_GRAYSCALE, JCS_RGB, JCS_YCbCr, JCS_CMYK, JCS_YCCK, JCS_EXT_RGB, JCS_EXT_RGBX, JCS_EXT_BGR, JCS_EXT_BGRX, JCS_EXT_XBGR, JCS_EXT_XRGB, JCS_EXT_RGBA, JCS_EXT_BGRA, JCS_EXT_ABGR, JCS_EXT_ARGB, JCS_RGB565 } J_COLOR_SPACE;
 typedef enum { JDCT_ISLOW, JDCT_IFAST, JDCT_FLOAT } J_DCT_METHOD;
+enum { JDCT_DEFAULT = 0 };
+enum { JDCT_FASTEST = 0 };
 typedef enum { JDITHER_NONE, JDITHER_ORDERED, JDITHER_FS } J_DITHER_MODE;
+/* #define jpeg_common_fields    struct jpeg_error_mgr *err;       struct jpeg_memory_mgr *mem;      struct jpeg_progress_mgr *progress;     void *client_data;                boolean is_decompressor;          int global_state ### string, not number "struct jpeg_error_mgr *err;       struct jpeg_memory_mgr *mem;      struct jpeg_progress_mgr *progress;     void *client_data;                boolean is_decompressor;          int global_state" */
 struct jpeg_common_struct { struct jpeg_error_mgr *err; struct jpeg_memory_mgr *mem; struct jpeg_progress_mgr *progress; void *client_data; boolean is_decompressor; int global_state;
 };
 typedef struct jpeg_common_struct *j_common_ptr;
@@ -376,12 +383,11 @@ extern void jpeg_abort(j_common_ptr cinfo);
 extern void jpeg_destroy(j_common_ptr cinfo);
 extern boolean jpeg_resync_to_restart(j_decompress_ptr cinfo, int desired);
 extern boolean jpeg_read_icc_profile(j_decompress_ptr cinfo, JOCTET **icc_data_ptr, unsigned int *icc_data_len);
-enum { JPEG_RST0 = 0xD0 };
-enum { JPEG_EOI = 0xD9 };
-enum { JPEG_APP0 = 0xE0 };
-enum { JPEG_COM = 0xFE };
+enum { JPEG_RST0 = 208 };
+enum { JPEG_EOI = 217 };
+enum { JPEG_APP0 = 224 };
+enum { JPEG_COM = 254 };
 /* END /usr/include/jpeglib.h */
-
 ]]
 
 -- these are #define's in jpeglib.h
