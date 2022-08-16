@@ -4,6 +4,8 @@
 
 local ffi  = require( "ffi" )
 
+if ffi.os == 'Windows' then return require 'ffi.Windows.OpenGL' end
+
 local libs = ffi_OpenGL_libs or {
 	OSX     = { x86 = "OpenGL.framework/OpenGL",   x64 = "OpenGL.framework/OpenGL" },
 
