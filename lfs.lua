@@ -21,16 +21,22 @@ end
 
 
 if not LFS_MAXPATHLEN then
-	--require 'ffi.c.sys.param'
-	LFS_MAXPATHLEN = ffi.C.MAXPATHLEN
+	pcall(function()
+		require 'ffi.c.sys.param'
+		LFS_MAXPATHLEN = ffi.C.MAXPATHLEN
+	end)
 end
 if not LFS_MAXPATHLEN then
-	require 'ffi.c.limits'
-	LFS_MAXPATHLEN = ffi.C._POSIX_PATH_MAX
+	pcall(function()
+		require 'ffi.c.limits'
+		LFS_MAXPATHLEN = ffi.C._POSIX_PATH_MAX
+	end)
 end
 if not LFS_MAXPATHLEN then
-	-- where do we get it from?
-	LFS_MAXPATHLEN = ffi.C.MAX_PATH
+	pcall(function()
+		-- where do we get it from?
+		LFS_MAXPATHLEN = ffi.C.MAX_PATH
+	end)
 end
 
 

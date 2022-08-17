@@ -3,7 +3,7 @@ ffi.cdef[[
 /* BEGIN /usr/include/x86_64-linux-gnu/sys/select.h */
 enum { _SYS_SELECT_H = 1 };
 /* BEGIN /usr/include/features.h */
-]] require 'ffi.c.sys.features' ffi.cdef[[
+]] require 'ffi.c.features' ffi.cdef[[
 /* END /usr/include/features.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.c.bits.types' ffi.cdef[[
