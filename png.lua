@@ -1,5 +1,4 @@
--- png 1.6.25 + zlib 1.2.8
-
+-- png 1.6.37 + zlib 1.2.8
 local ffi = require 'ffi'
 local png
 if ffi.os == 'OSX' then
