@@ -1,58 +1,38 @@
-local ffi  = require 'ffi'
-
-require 'ffi.c.time'	-- time_t
-require 'ffi.c.stdio'	-- FILE
-
-local lib = 'libhdf5_openmpi'
-
-local hdf5 = ffi.load(lib)
-
+local ffi = require 'ffi'
 -- for gcc / ubuntu looks like off_t is defined in either unistd.h or stdio.h, and either are set via testing/setting __off_t_defined
 -- in other words, the defs in here are getting more and more conditional ...
 -- pretty soon a full set of headers + full preprocessor might be necessary
-local code = [[
-typedef long int __off_t;
-typedef __off_t off_t;
-typedef long int __ssize_t;
-typedef __ssize_t ssize_t;
-
-/* Chris: for some reason this didn't work in the preproc */
-/* from /usr/include/hdf5/openmpi/H5Fpublic.h */
-enum { H5F_ACC_RDONLY    	= (0x0000u) };
-enum { H5F_ACC_RDWR    		= (0x0001u) };
-enum { H5F_ACC_TRUNC    	= (0x0002u) };
-enum { H5F_ACC_EXCL    		= (0x0004u) };
-enum { H5F_ACC_CREAT    	= (0x0010u) };
-enum { H5F_ACC_SWMR_WRITE  	= (0x0020u) };
-enum { H5F_ACC_SWMR_READ   	= (0x0040u) };
-enum { H5F_ACC_DEFAULT 		= (0xffffu) };
-enum { H5F_OBJ_FILE    		= (0x0001u) };
-enum { H5F_OBJ_DATASET    	= (0x0002u) };
-enum { H5F_OBJ_GROUP    	= (0x0004u) };
-enum { H5F_OBJ_DATATYPE 	= (0x0008u) };
-enum { H5F_OBJ_ATTR    		= (0x0010u) };
-enum { H5F_OBJ_ALL     		= (H5F_OBJ_FILE|H5F_OBJ_DATASET|H5F_OBJ_GROUP|H5F_OBJ_DATATYPE|H5F_OBJ_ATTR) };
-enum { H5F_OBJ_LOCAL   		= (0x0020u) };
-
-/* Chris: same with this */
-enum { H5P_DEFAULT			= 0 };	/* (hid_t)0 */
-
-/* BEGIN /usr/include/hdf5/openmpi/hdf5.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5public.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5pubconf.h */
+-- TODO regen this on Windows and compare?
+ffi.cdef[[
+/* BEGIN /usr/include/hdf5/serial/hdf5.h */
+enum { _HDF5_H = 1 };
+/* BEGIN /usr/include/hdf5/serial/H5public.h */
+enum { _H5public_H = 1 };
+/* BEGIN /usr/include/hdf5/serial/H5pubconf.h */
 enum { H5_CXX_HAVE_OFFSETOF = 1 };
+/* #define H5_DEFAULT_PLUGINDIR "/usr/lib/x86_64-linux-gnu/hdf5/serial/plugins" ### string, not number "\"/usr/lib/x86_64-linux-gnu/hdf5/serial/plugins\"" */
 enum { H5_DEV_T_IS_SCALAR = 1 };
+/* #define H5_EXAMPLESDIR "${prefix}/share/hdf5_examples" ### string, not number "\"${prefix}/share/hdf5_examples\"" */
 enum { H5_FORTRAN_C_LONG_DOUBLE_IS_UNIQUE = 1 };
 enum { H5_FORTRAN_HAVE_C_LONG_DOUBLE = 1 };
 enum { H5_FORTRAN_HAVE_C_SIZEOF = 1 };
 enum { H5_FORTRAN_HAVE_SIZEOF = 1 };
 enum { H5_FORTRAN_HAVE_STORAGE_SIZE = 1 };
+/* #define H5_FORTRAN_SIZEOF_LONG_DOUBLE "16" ### string, not number "\"16\"" */
+enum { H5_Fortran_COMPILER_ID = 0 };
+/* #define H5_H5CONFIG_F_IKIND INTEGER, DIMENSION(1:num_ikinds) :: ikind = (/1,2,4,8,16/) ### string, not number "INTEGER, DIMENSION(1:num_ikinds) :: ikind = (/1,2,4,8,16/)" */
+/* #define H5_H5CONFIG_F_NUM_IKIND INTEGER, PARAMETER :: num_ikinds = 5 ### string, not number "INTEGER, PARAMETER :: num_ikinds = 5" */
+/* #define H5_H5CONFIG_F_NUM_RKIND INTEGER, PARAMETER :: num_rkinds = 4 ### string, not number "INTEGER, PARAMETER :: num_rkinds = 4" */
+/* #define H5_H5CONFIG_F_RKIND INTEGER, DIMENSION(1:num_rkinds) :: rkind = (/4,8,10,16/) ### string, not number "INTEGER, DIMENSION(1:num_rkinds) :: rkind = (/4,8,10,16/)" */
+/* #define H5_H5CONFIG_F_RKIND_SIZEOF INTEGER, DIMENSION(1:num_rkinds) :: rkind_sizeof = (/4,8,16,16/) ### string, not number "INTEGER, DIMENSION(1:num_rkinds) :: rkind_sizeof = (/4,8,16,16/)" */
 enum { H5_HAVE_ALARM = 1 };
+enum { H5_HAVE_ARPA_INET_H = 1 };
 enum { H5_HAVE_ASPRINTF = 1 };
 enum { H5_HAVE_ATTRIBUTE = 1 };
 enum { H5_HAVE_C99_DESIGNATED_INITIALIZER = 1 };
 enum { H5_HAVE_C99_FUNC = 1 };
 enum { H5_HAVE_CLOCK_GETTIME = 1 };
+enum { H5_HAVE_CURL_CURL_H = 1 };
 enum { H5_HAVE_DIFFTIME = 1 };
 enum { H5_HAVE_DIRENT_H = 1 };
 enum { H5_HAVE_DLFCN_H = 1 };
@@ -75,8 +55,11 @@ enum { H5_HAVE_GETTIMEOFDAY = 1 };
 enum { H5_HAVE_INLINE = 1 };
 enum { H5_HAVE_INTTYPES_H = 1 };
 enum { H5_HAVE_IOCTL = 1 };
+enum { H5_HAVE_LIBCRYPTO = 1 };
+enum { H5_HAVE_LIBCURL = 1 };
 enum { H5_HAVE_LIBDL = 1 };
 enum { H5_HAVE_LIBM = 1 };
+enum { H5_HAVE_LIBPTHREAD = 1 };
 enum { H5_HAVE_LIBSZ = 1 };
 enum { H5_HAVE_LIBZ = 1 };
 enum { H5_HAVE_LLROUND = 1 };
@@ -85,14 +68,17 @@ enum { H5_HAVE_LONGJMP = 1 };
 enum { H5_HAVE_LROUND = 1 };
 enum { H5_HAVE_LROUNDF = 1 };
 enum { H5_HAVE_LSTAT = 1 };
-enum { H5_HAVE_MEMORY_H = 1 };
-enum { H5_HAVE_MPI_MULTI_LANG_Comm = 1 };
-enum { H5_HAVE_MPI_MULTI_LANG_Info = 1 };
-enum { H5_HAVE_PARALLEL = 1 };
+enum { H5_HAVE_NETDB_H = 1 };
+enum { H5_HAVE_NETINET_IN_H = 1 };
+enum { H5_HAVE_OPENSSL_EVP_H = 1 };
+enum { H5_HAVE_OPENSSL_HMAC_H = 1 };
+enum { H5_HAVE_OPENSSL_SHA_H = 1 };
 enum { H5_HAVE_PREADWRITE = 1 };
+enum { H5_HAVE_PTHREAD_H = 1 };
 enum { H5_HAVE_QUADMATH_H = 1 };
 enum { H5_HAVE_RANDOM = 1 };
 enum { H5_HAVE_RAND_R = 1 };
+enum { H5_HAVE_ROS3_VFD = 1 };
 enum { H5_HAVE_ROUND = 1 };
 enum { H5_HAVE_ROUNDF = 1 };
 enum { H5_HAVE_SETJMP = 1 };
@@ -105,6 +91,7 @@ enum { H5_HAVE_SRANDOM = 1 };
 enum { H5_HAVE_STDBOOL_H = 1 };
 enum { H5_HAVE_STDDEF_H = 1 };
 enum { H5_HAVE_STDINT_H = 1 };
+enum { H5_HAVE_STDIO_H = 1 };
 enum { H5_HAVE_STDLIB_H = 1 };
 enum { H5_HAVE_STRDUP = 1 };
 enum { H5_HAVE_STRINGS_H = 1 };
@@ -122,6 +109,7 @@ enum { H5_HAVE_SYS_TIMEB_H = 1 };
 enum { H5_HAVE_SYS_TIME_H = 1 };
 enum { H5_HAVE_SYS_TYPES_H = 1 };
 enum { H5_HAVE_SZLIB_H = 1 };
+enum { H5_HAVE_THREADSAFE = 1 };
 enum { H5_HAVE_TIMEZONE = 1 };
 enum { H5_HAVE_TIOCGETD = 1 };
 enum { H5_HAVE_TIOCGWINSZ = 1 };
@@ -134,11 +122,21 @@ enum { H5_HAVE_WAITPID = 1 };
 enum { H5_HAVE_ZLIB_H = 1 };
 enum { H5_HAVE___INLINE = 1 };
 enum { H5_HAVE___INLINE__ = 1 };
+enum { H5_IGNORE_DISABLED_FILE_LOCKS = 1 };
 enum { H5_INCLUDE_HL = 1 };
 enum { H5_LDOUBLE_TO_LLONG_ACCURATE = 1 };
 enum { H5_LLONG_TO_LDOUBLE_CORRECT = 1 };
+/* #define H5_LT_OBJDIR ".libs/" ### string, not number "\".libs/\"" */
+/* #define H5_PACKAGE "hdf5" ### string, not number "\"hdf5\"" */
+/* #define H5_PACKAGE_BUGREPORT "help@hdfgroup.org" ### string, not number "\"help@hdfgroup.org\"" */
+/* #define H5_PACKAGE_NAME "HDF5" ### string, not number "\"HDF5\"" */
+/* #define H5_PACKAGE_STRING "HDF5 1.10.7" ### string, not number "\"HDF5 1.10.7\"" */
+/* #define H5_PACKAGE_TARNAME "hdf5" ### string, not number "\"hdf5\"" */
+/* #define H5_PACKAGE_URL "" ### string, not number "\"\"" */
+/* #define H5_PACKAGE_VERSION "1.10.7" ### string, not number "\"1.10.7\"" */
 enum { H5_PAC_C_MAX_REAL_PRECISION = 33 };
 enum { H5_PAC_FC_MAX_REAL_PRECISION = 33 };
+/* #define H5_PRINTF_LL_WIDTH "l" ### string, not number "\"l\"" */
 enum { H5_SIZEOF_BOOL = 1 };
 enum { H5_SIZEOF_CHAR = 1 };
 enum { H5_SIZEOF_DOUBLE = 8 };
@@ -182,12 +180,16 @@ enum { H5_SIZEOF__QUAD = 0 };
 enum { H5_SIZEOF___FLOAT128 = 16 };
 enum { H5_SIZEOF___INT64 = 0 };
 enum { H5_STDC_HEADERS = 1 };
+enum { H5_SYSTEM_SCOPE_THREADS = 1 };
 enum { H5_TIME_WITH_SYS_TIME = 1 };
 enum { H5_USE_18_API_DEFAULT = 1 };
+enum { H5_USE_FILE_LOCKING = 1 };
+/* #define H5_VERSION "1.10.7" ### string, not number "\"1.10.7\"" */
 enum { H5_WANT_DATA_ACCURACY = 1 };
 enum { H5_WANT_DCONV_EXCEPTION = 1 };
-/* END /usr/include/hdf5/openmpi/H5pubconf.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5version.h */
+/* END /usr/include/hdf5/serial/H5pubconf.h */
+/* BEGIN /usr/include/hdf5/serial/H5version.h */
+enum { _H5version_H = 1 };
 enum { H5_USE_18_API = 1 };
 enum { H5Acreate_vers = 2 };
 enum { H5Aiterate_vers = 2 };
@@ -214,1202 +216,315 @@ enum { H5Tget_array_dims_vers = 2 };
 enum { H5Topen_vers = 2 };
 enum { H5E_auto_t_vers = 2 };
 enum { H5Z_class_t_vers = 2 };
-/* END /usr/include/hdf5/openmpi/H5version.h */
-enum { MPICH_SKIP_MPICXX = 1 };
-enum { OMPI_SKIP_MPICXX = 1 };
-/* BEGIN /usr/lib/x86_64-1-gnu/openmpi/include/mpi.h */
-enum { OPAL_BUILD_PLATFORM_COMPILER_FAMILYID = 1 };
-enum { OPAL_BUILD_PLATFORM_COMPILER_VERSION = 721408 };
-enum { OPAL_STDC_HEADERS = 1 };
-enum { OPAL_HAVE_ATTRIBUTE_DEPRECATED = 1 };
-enum { OPAL_HAVE_ATTRIBUTE_DEPRECATED_ARGUMENT = 1 };
-enum { OPAL_HAVE_ATTRIBUTE_ERROR = 1 };
-enum { OPAL_HAVE_SYS_TIME_H = 1 };
-enum { OPAL_HAVE_LONG_LONG = 1 };
-enum { OPAL_MAX_DATAREP_STRING = 128 };
-enum { OPAL_MAX_ERROR_STRING = 256 };
-enum { OPAL_MAX_INFO_KEY = 36 };
-enum { OPAL_MAX_INFO_VAL = 256 };
-enum { OPAL_MAX_OBJECT_NAME = 64 };
-enum { OPAL_MAX_PORT_NAME = 1024 };
-enum { OPAL_MAX_PROCESSOR_NAME = 256 };
-enum { OMPI_HAVE_FORTRAN_LOGICAL1 = 1 };
-enum { OMPI_HAVE_FORTRAN_LOGICAL2 = 1 };
-enum { OMPI_HAVE_FORTRAN_LOGICAL4 = 1 };
-enum { OMPI_HAVE_FORTRAN_LOGICAL8 = 1 };
-enum { OMPI_HAVE_FORTRAN_INTEGER1 = 1 };
-enum { OMPI_HAVE_FORTRAN_INTEGER16 = 0 };
-enum { OMPI_HAVE_FORTRAN_INTEGER2 = 1 };
-enum { OMPI_HAVE_FORTRAN_INTEGER4 = 1 };
-enum { OMPI_HAVE_FORTRAN_INTEGER8 = 1 };
-enum { OMPI_HAVE_FORTRAN_REAL16 = 1 };
-enum { OMPI_HAVE_FORTRAN_REAL2 = 0 };
-enum { OMPI_HAVE_FORTRAN_REAL4 = 1 };
-enum { OMPI_HAVE_FORTRAN_REAL8 = 1 };
-enum { OMPI_ENABLE_MPI1_COMPAT = 0 };
-enum { HAVE_FLOAT__COMPLEX = 1 };
-enum { HAVE_DOUBLE__COMPLEX = 1 };
-enum { HAVE_LONG_DOUBLE__COMPLEX = 1 };
-enum { OMPI_MPI_OFFSET_SIZE = 8 };
-enum { OMPI_BUILD_CXX_BINDINGS = 1 };
-enum { OMPI_WANT_MPI_CXX_SEEK = 1 };
-enum { OMPI_CXX_SUPPORTS_2D_CONST_CAST = 1 };
-enum { OMPI_PARAM_CHECK = 1 };
-enum { OMPI_WANT_MPI_INTERFACE_WARNING = 1 };
-enum { OMPI_HAVE_CXX_EXCEPTION_SUPPORT = 0 };
-enum { OMPI_MAJOR_VERSION = 4 };
-enum { OMPI_MINOR_VERSION = 1 };
-enum { OMPI_RELEASE_VERSION = 0 };
-enum { OPAL_C_HAVE_VISIBILITY = 1 };
-enum { OMPI_BUILDING = 0 };
-enum { OPEN_MPI = 1 };
-enum { MPI_VERSION = 3 };
-enum { MPI_SUBVERSION = 1 };
-/* BEGIN /usr/lib/x86_64-1-gnu/openmpi/include/mpi_portable_platform.h */
-enum { PLATFORM_COMPILER_UNKNOWN = 1 };
-enum { PLATFORM_COMPILER_GNU = 1 };
-enum { PLATFORM_COMPILER_FAMILYID = 1 };
-enum { PLATFORM_COMPILER_GNU_C = 1 };
-/* END /usr/lib/x86_64-1-gnu/openmpi/include/mpi_portable_platform.h */
-enum { OMPI_OMIT_MPI1_COMPAT_DECLS = 1 };
-enum { OMPI_REMOVED_USE_STATIC_ASSERT = 1 };
-typedef ptrdiff_t MPI_Aint;
-typedef long long MPI_Offset;
-typedef long long MPI_Count;
-typedef struct ompi_communicator_t *MPI_Comm;
-typedef struct ompi_datatype_t *MPI_Datatype;
-typedef struct ompi_errhandler_t *MPI_Errhandler;
-typedef struct ompi_file_t *MPI_File;
-typedef struct ompi_group_t *MPI_Group;
-typedef struct ompi_info_t *MPI_Info;
-typedef struct ompi_op_t *MPI_Op;
-typedef struct ompi_request_t *MPI_Request;
-typedef struct ompi_message_t *MPI_Message;
-typedef struct ompi_status_public_t MPI_Status;
-typedef struct ompi_win_t *MPI_Win;
-typedef struct mca_base_var_enum_t *MPI_T_enum;
-typedef struct ompi_mpit_cvar_handle_t *MPI_T_cvar_handle;
-typedef struct mca_base_pvar_handle_t *MPI_T_pvar_handle;
-typedef struct mca_base_pvar_session_t *MPI_T_pvar_session;
-struct ompi_status_public_t { int MPI_SOURCE;
-int MPI_TAG;
-int MPI_ERROR;
-int _cancelled;
-size_t _ucount;
-};
-typedef struct ompi_status_public_t ompi_status_public_t;
-typedef int (MPI_Datarep_extent_function)(MPI_Datatype, MPI_Aint *, void *);
-typedef int (MPI_Datarep_conversion_function)(void *, MPI_Datatype, int, void *, MPI_Offset, void *);
-typedef void (MPI_Comm_errhandler_function)(MPI_Comm *, int *, ...);
-typedef void (ompi_file_errhandler_fn)(MPI_File *, int *, ...);
-typedef void (MPI_Win_errhandler_function)(MPI_Win *, int *, ...);
-typedef void (MPI_User_function)(void *, void *, int *, MPI_Datatype *);
-typedef int (MPI_Comm_copy_attr_function)(MPI_Comm, int, void *, void *, void *, int *);
-typedef int (MPI_Comm_delete_attr_function)(MPI_Comm, int, void *, void *);
-typedef int (MPI_Type_copy_attr_function)(MPI_Datatype, int, void *, void *, void *, int *);
-typedef int (MPI_Type_delete_attr_function)(MPI_Datatype, int, void *, void *);
-typedef int (MPI_Win_copy_attr_function)(MPI_Win, int, void *, void *, void *, int *);
-typedef int (MPI_Win_delete_attr_function)(MPI_Win, int, void *, void *);
-typedef int (MPI_Grequest_query_function)(void *, MPI_Status *);
-typedef int (MPI_Grequest_free_function)(void *);
-typedef int (MPI_Grequest_cancel_function)(void *, int);
-typedef MPI_Comm_errhandler_function MPI_Comm_errhandler_fn __attribute__((__deprecated__("MPI_Comm_errhandler_fn was deprecated in MPI-2.2; use MPI_Comm_errhandler_function instead"))) ;
-typedef ompi_file_errhandler_fn MPI_File_errhandler_fn __attribute__((__deprecated__("MPI_File_errhandler_fn was deprecated in MPI-2.2; use MPI_File_errhandler_function instead"))) ;
-typedef ompi_file_errhandler_fn MPI_File_errhandler_function;
-typedef MPI_Win_errhandler_function MPI_Win_errhandler_fn __attribute__((__deprecated__("MPI_Win_errhandler_fn was deprecated in MPI-2.2; use MPI_Win_errhandler_function instead"))) ;
-enum { MPI_ANY_SOURCE = -1 };
-enum { MPI_PROC_NULL = -2 };
-enum { MPI_ROOT = -4 };
-enum { MPI_ANY_TAG = -1 };
-enum { MPI_MAX_LIBRARY_VERSION_STRING = 256 };
-enum { MPI_UNDEFINED = -32766 };
-enum { MPI_DIST_GRAPH = 3 };
-enum { MPI_CART = 1 };
-enum { MPI_GRAPH = 2 };
-enum { MPI_KEYVAL_INVALID = -1 };
-enum { MPI_BSEND_OVERHEAD = 128 };
-enum { MPI_ORDER_C = 0 };
-enum { MPI_ORDER_FORTRAN = 1 };
-enum { MPI_DISTRIBUTE_BLOCK = 0 };
-enum { MPI_DISTRIBUTE_CYCLIC = 1 };
-enum { MPI_DISTRIBUTE_NONE = 2 };
-enum { MPI_MODE_CREATE = 1 };
-enum { MPI_MODE_RDONLY = 2 };
-enum { MPI_MODE_WRONLY = 4 };
-enum { MPI_MODE_RDWR = 8 };
-enum { MPI_MODE_DELETE_ON_CLOSE = 16 };
-enum { MPI_MODE_UNIQUE_OPEN = 32 };
-enum { MPI_MODE_EXCL = 64 };
-enum { MPI_MODE_APPEND = 128 };
-enum { MPI_MODE_SEQUENTIAL = 256 };
-enum { MPI_DISPLACEMENT_CURRENT = -54278278 };
-enum { MPI_SEEK_SET = 600 };
-enum { MPI_SEEK_CUR = 602 };
-enum { MPI_SEEK_END = 604 };
-enum { MPI_MODE_NOCHECK = 1 };
-enum { MPI_MODE_NOPRECEDE = 2 };
-enum { MPI_MODE_NOPUT = 4 };
-enum { MPI_MODE_NOSTORE = 8 };
-enum { MPI_MODE_NOSUCCEED = 16 };
-enum { MPI_LOCK_EXCLUSIVE = 1 };
-enum { MPI_LOCK_SHARED = 2 };
-enum { MPI_WIN_FLAVOR_CREATE = 1 };
-enum { MPI_WIN_FLAVOR_ALLOCATE = 2 };
-enum { MPI_WIN_FLAVOR_DYNAMIC = 3 };
-enum { MPI_WIN_FLAVOR_SHARED = 4 };
-enum { MPI_WIN_UNIFIED = 0 };
-enum { MPI_WIN_SEPARATE = 1 };
-enum { MPI_TAG_UB, MPI_HOST, MPI_IO, MPI_WTIME_IS_GLOBAL, MPI_APPNUM, MPI_LASTUSEDCODE, MPI_UNIVERSE_SIZE, MPI_WIN_BASE, MPI_WIN_SIZE, MPI_WIN_DISP_UNIT, MPI_WIN_CREATE_FLAVOR, MPI_WIN_MODEL, IMPI_CLIENT_SIZE, IMPI_CLIENT_COLOR, IMPI_HOST_SIZE, IMPI_HOST_COLOR };
-enum { MPI_SUCCESS = 0 };
-enum { MPI_ERR_BUFFER = 1 };
-enum { MPI_ERR_COUNT = 2 };
-enum { MPI_ERR_TYPE = 3 };
-enum { MPI_ERR_TAG = 4 };
-enum { MPI_ERR_COMM = 5 };
-enum { MPI_ERR_RANK = 6 };
-enum { MPI_ERR_REQUEST = 7 };
-enum { MPI_ERR_ROOT = 8 };
-enum { MPI_ERR_GROUP = 9 };
-enum { MPI_ERR_OP = 10 };
-enum { MPI_ERR_TOPOLOGY = 11 };
-enum { MPI_ERR_DIMS = 12 };
-enum { MPI_ERR_ARG = 13 };
-enum { MPI_ERR_UNKNOWN = 14 };
-enum { MPI_ERR_TRUNCATE = 15 };
-enum { MPI_ERR_OTHER = 16 };
-enum { MPI_ERR_INTERN = 17 };
-enum { MPI_ERR_IN_STATUS = 18 };
-enum { MPI_ERR_PENDING = 19 };
-enum { MPI_ERR_ACCESS = 20 };
-enum { MPI_ERR_AMODE = 21 };
-enum { MPI_ERR_ASSERT = 22 };
-enum { MPI_ERR_BAD_FILE = 23 };
-enum { MPI_ERR_BASE = 24 };
-enum { MPI_ERR_CONVERSION = 25 };
-enum { MPI_ERR_DISP = 26 };
-enum { MPI_ERR_DUP_DATAREP = 27 };
-enum { MPI_ERR_FILE_EXISTS = 28 };
-enum { MPI_ERR_FILE_IN_USE = 29 };
-enum { MPI_ERR_FILE = 30 };
-enum { MPI_ERR_INFO_KEY = 31 };
-enum { MPI_ERR_INFO_NOKEY = 32 };
-enum { MPI_ERR_INFO_VALUE = 33 };
-enum { MPI_ERR_INFO = 34 };
-enum { MPI_ERR_IO = 35 };
-enum { MPI_ERR_KEYVAL = 36 };
-enum { MPI_ERR_LOCKTYPE = 37 };
-enum { MPI_ERR_NAME = 38 };
-enum { MPI_ERR_NO_MEM = 39 };
-enum { MPI_ERR_NOT_SAME = 40 };
-enum { MPI_ERR_NO_SPACE = 41 };
-enum { MPI_ERR_NO_SUCH_FILE = 42 };
-enum { MPI_ERR_PORT = 43 };
-enum { MPI_ERR_QUOTA = 44 };
-enum { MPI_ERR_READ_ONLY = 45 };
-enum { MPI_ERR_RMA_CONFLICT = 46 };
-enum { MPI_ERR_RMA_SYNC = 47 };
-enum { MPI_ERR_SERVICE = 48 };
-enum { MPI_ERR_SIZE = 49 };
-enum { MPI_ERR_SPAWN = 50 };
-enum { MPI_ERR_UNSUPPORTED_DATAREP = 51 };
-enum { MPI_ERR_UNSUPPORTED_OPERATION = 52 };
-enum { MPI_ERR_WIN = 53 };
-enum { MPI_T_ERR_MEMORY = 54 };
-enum { MPI_T_ERR_NOT_INITIALIZED = 55 };
-enum { MPI_T_ERR_CANNOT_INIT = 56 };
-enum { MPI_T_ERR_INVALID_INDEX = 57 };
-enum { MPI_T_ERR_INVALID_ITEM = 58 };
-enum { MPI_T_ERR_INVALID_HANDLE = 59 };
-enum { MPI_T_ERR_OUT_OF_HANDLES = 60 };
-enum { MPI_T_ERR_OUT_OF_SESSIONS = 61 };
-enum { MPI_T_ERR_INVALID_SESSION = 62 };
-enum { MPI_T_ERR_CVAR_SET_NOT_NOW = 63 };
-enum { MPI_T_ERR_CVAR_SET_NEVER = 64 };
-enum { MPI_T_ERR_PVAR_NO_STARTSTOP = 65 };
-enum { MPI_T_ERR_PVAR_NO_WRITE = 66 };
-enum { MPI_T_ERR_PVAR_NO_ATOMIC = 67 };
-enum { MPI_ERR_RMA_RANGE = 68 };
-enum { MPI_ERR_RMA_ATTACH = 69 };
-enum { MPI_ERR_RMA_FLAVOR = 70 };
-enum { MPI_ERR_RMA_SHARED = 71 };
-enum { MPI_T_ERR_INVALID = 72 };
-enum { MPI_T_ERR_INVALID_NAME = 73 };
-enum { MPI_ERR_LASTCODE = 92 };
-enum { MPI_IDENT, MPI_CONGRUENT, MPI_SIMILAR, MPI_UNEQUAL };
-enum { MPI_THREAD_SINGLE, MPI_THREAD_FUNNELED, MPI_THREAD_SERIALIZED, MPI_THREAD_MULTIPLE };
-enum { MPI_COMBINER_NAMED, MPI_COMBINER_DUP, MPI_COMBINER_CONTIGUOUS, MPI_COMBINER_VECTOR, OMPI_WAS_MPI_COMBINER_HVECTOR_INTEGER, MPI_COMBINER_HVECTOR, MPI_COMBINER_INDEXED, OMPI_WAS_MPI_COMBINER_HINDEXED_INTEGER, MPI_COMBINER_HINDEXED, MPI_COMBINER_INDEXED_BLOCK, OMPI_WAS_MPI_COMBINER_STRUCT_INTEGER, MPI_COMBINER_STRUCT, MPI_COMBINER_SUBARRAY, MPI_COMBINER_DARRAY, MPI_COMBINER_F90_REAL, MPI_COMBINER_F90_COMPLEX, MPI_COMBINER_F90_INTEGER, MPI_COMBINER_RESIZED, MPI_COMBINER_HINDEXED_BLOCK };
-enum { MPI_COMM_TYPE_SHARED, OMPI_COMM_TYPE_HWTHREAD, OMPI_COMM_TYPE_CORE, OMPI_COMM_TYPE_L1CACHE, OMPI_COMM_TYPE_L2CACHE, OMPI_COMM_TYPE_L3CACHE, OMPI_COMM_TYPE_SOCKET, OMPI_COMM_TYPE_NUMA, OMPI_COMM_TYPE_BOARD, OMPI_COMM_TYPE_HOST, OMPI_COMM_TYPE_CU, OMPI_COMM_TYPE_CLUSTER };
-enum { MPI_T_VERBOSITY_USER_BASIC, MPI_T_VERBOSITY_USER_DETAIL, MPI_T_VERBOSITY_USER_ALL, MPI_T_VERBOSITY_TUNER_BASIC, MPI_T_VERBOSITY_TUNER_DETAIL, MPI_T_VERBOSITY_TUNER_ALL, MPI_T_VERBOSITY_MPIDEV_BASIC, MPI_T_VERBOSITY_MPIDEV_DETAIL, MPI_T_VERBOSITY_MPIDEV_ALL };
-enum { MPI_T_SCOPE_CONSTANT, MPI_T_SCOPE_READONLY, MPI_T_SCOPE_LOCAL, MPI_T_SCOPE_GROUP, MPI_T_SCOPE_GROUP_EQ, MPI_T_SCOPE_ALL, MPI_T_SCOPE_ALL_EQ };
-enum { MPI_T_BIND_NO_OBJECT, MPI_T_BIND_MPI_COMM, MPI_T_BIND_MPI_DATATYPE, MPI_T_BIND_MPI_ERRHANDLER, MPI_T_BIND_MPI_FILE, MPI_T_BIND_MPI_GROUP, MPI_T_BIND_MPI_OP, MPI_T_BIND_MPI_REQUEST, MPI_T_BIND_MPI_WIN, MPI_T_BIND_MPI_MESSAGE, MPI_T_BIND_MPI_INFO };
-enum { MPI_T_PVAR_CLASS_STATE, MPI_T_PVAR_CLASS_LEVEL, MPI_T_PVAR_CLASS_SIZE, MPI_T_PVAR_CLASS_PERCENTAGE, MPI_T_PVAR_CLASS_HIGHWATERMARK, MPI_T_PVAR_CLASS_LOWWATERMARK, MPI_T_PVAR_CLASS_COUNTER, MPI_T_PVAR_CLASS_AGGREGATE, MPI_T_PVAR_CLASS_TIMER, MPI_T_PVAR_CLASS_GENERIC };
-__attribute__((visibility("default"))) int OMPI_C_MPI_TYPE_NULL_DELETE_FN( MPI_Datatype datatype, int type_keyval, void* attribute_val_out, void* extra_state );
-__attribute__((visibility("default"))) int OMPI_C_MPI_TYPE_NULL_COPY_FN( MPI_Datatype datatype, int type_keyval, void* extra_state, void* attribute_val_in, void* attribute_val_out, int* flag );
-__attribute__((visibility("default"))) int OMPI_C_MPI_TYPE_DUP_FN( MPI_Datatype datatype, int type_keyval, void* extra_state, void* attribute_val_in, void* attribute_val_out, int* flag );
-__attribute__((visibility("default"))) int OMPI_C_MPI_COMM_NULL_DELETE_FN( MPI_Comm comm, int comm_keyval, void* attribute_val_out, void* extra_state );
-__attribute__((visibility("default"))) int OMPI_C_MPI_COMM_NULL_COPY_FN( MPI_Comm comm, int comm_keyval, void* extra_state, void* attribute_val_in, void* attribute_val_out, int* flag );
-__attribute__((visibility("default"))) int OMPI_C_MPI_COMM_DUP_FN( MPI_Comm comm, int comm_keyval, void* extra_state, void* attribute_val_in, void* attribute_val_out, int* flag );
-__attribute__((visibility("default"))) int OMPI_C_MPI_WIN_NULL_DELETE_FN( MPI_Win window, int win_keyval, void* attribute_val_out, void* extra_state );
-__attribute__((visibility("default"))) int OMPI_C_MPI_WIN_NULL_COPY_FN( MPI_Win window, int win_keyval, void* extra_state, void* attribute_val_in, void* attribute_val_out, int* flag );
-__attribute__((visibility("default"))) int OMPI_C_MPI_WIN_DUP_FN( MPI_Win window, int win_keyval, void* extra_state, void* attribute_val_in, void* attribute_val_out, int* flag );
-__attribute__((visibility("default"))) extern struct ompi_predefined_communicator_t ompi_mpi_comm_world;
-__attribute__((visibility("default"))) extern struct ompi_predefined_communicator_t ompi_mpi_comm_self;
-__attribute__((visibility("default"))) extern struct ompi_predefined_communicator_t ompi_mpi_comm_null;
-__attribute__((visibility("default"))) extern struct ompi_predefined_group_t ompi_mpi_group_empty;
-__attribute__((visibility("default"))) extern struct ompi_predefined_group_t ompi_mpi_group_null;
-__attribute__((visibility("default"))) extern struct ompi_predefined_request_t ompi_request_null;
-__attribute__((visibility("default"))) extern struct ompi_predefined_message_t ompi_message_null;
-__attribute__((visibility("default"))) extern struct ompi_predefined_message_t ompi_message_no_proc;
-__attribute__((visibility("default"))) extern struct ompi_predefined_op_t ompi_mpi_op_null;
-__attribute__((visibility("default"))) extern struct ompi_predefined_op_t ompi_mpi_op_min;
-__attribute__((visibility("default"))) extern struct ompi_predefined_op_t ompi_mpi_op_max;
-__attribute__((visibility("default"))) extern struct ompi_predefined_op_t ompi_mpi_op_sum;
-__attribute__((visibility("default"))) extern struct ompi_predefined_op_t ompi_mpi_op_prod;
-__attribute__((visibility("default"))) extern struct ompi_predefined_op_t ompi_mpi_op_land;
-__attribute__((visibility("default"))) extern struct ompi_predefined_op_t ompi_mpi_op_band;
-__attribute__((visibility("default"))) extern struct ompi_predefined_op_t ompi_mpi_op_lor;
-__attribute__((visibility("default"))) extern struct ompi_predefined_op_t ompi_mpi_op_bor;
-__attribute__((visibility("default"))) extern struct ompi_predefined_op_t ompi_mpi_op_lxor;
-__attribute__((visibility("default"))) extern struct ompi_predefined_op_t ompi_mpi_op_bxor;
-__attribute__((visibility("default"))) extern struct ompi_predefined_op_t ompi_mpi_op_maxloc;
-__attribute__((visibility("default"))) extern struct ompi_predefined_op_t ompi_mpi_op_minloc;
-__attribute__((visibility("default"))) extern struct ompi_predefined_op_t ompi_mpi_op_replace;
-__attribute__((visibility("default"))) extern struct ompi_predefined_op_t ompi_mpi_op_no_op;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_datatype_null;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_char;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_signed_char;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_unsigned_char;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_byte;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_short;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_unsigned_short;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_int;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_unsigned;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_long;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_unsigned_long;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_long_long_int;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_unsigned_long_long;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_float;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_double;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_long_double;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_wchar;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_packed;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_cxx_bool;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_cxx_cplex;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_cxx_dblcplex;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_cxx_ldblcplex;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_logical;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_character;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_integer;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_real;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_dblprec;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_cplex;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_dblcplex;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_ldblcplex;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_2int;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_2integer;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_2real;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_2dblprec;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_2cplex;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_2dblcplex;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_float_int;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_double_int;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_longdbl_int;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_short_int;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_long_int;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_logical1;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_logical2;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_logical4;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_logical8;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_integer1;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_integer2;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_integer4;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_integer8;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_integer16;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_real2;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_real4;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_real8;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_real16;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_complex8;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_complex16;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_complex32;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_int8_t;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_uint8_t;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_int16_t;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_uint16_t;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_int32_t;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_uint32_t;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_int64_t;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_uint64_t;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_aint;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_offset;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_count;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_c_bool;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_c_float_complex;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_c_double_complex;
-__attribute__((visibility("default"))) extern struct ompi_predefined_datatype_t ompi_mpi_c_long_double_complex;
-__attribute__((visibility("default"))) extern struct ompi_predefined_errhandler_t ompi_mpi_errhandler_null;
-__attribute__((visibility("default"))) extern struct ompi_predefined_errhandler_t ompi_mpi_errors_are_fatal;
-__attribute__((visibility("default"))) extern struct ompi_predefined_errhandler_t ompi_mpi_errors_return;
-__attribute__((visibility("default"))) extern struct ompi_predefined_win_t ompi_mpi_win_null;
-__attribute__((visibility("default"))) extern struct ompi_predefined_file_t ompi_mpi_file_null;
-__attribute__((visibility("default"))) extern struct ompi_predefined_info_t ompi_mpi_info_null;
-__attribute__((visibility("default"))) extern struct ompi_predefined_info_t ompi_mpi_info_env;
-__attribute__((visibility("default"))) extern int *MPI_F_STATUS_IGNORE;
-__attribute__((visibility("default"))) extern int *MPI_F_STATUSES_IGNORE;
-enum { MPI_TYPECLASS_INTEGER = 1 };
-enum { MPI_TYPECLASS_REAL = 2 };
-enum { MPI_TYPECLASS_COMPLEX = 3 };
-__attribute__((visibility("default")))  int MPI_Abort(MPI_Comm comm, int errorcode);
-__attribute__((visibility("default")))  int MPI_Accumulate(const void *origin_addr, int origin_count, MPI_Datatype origin_datatype, int target_rank, MPI_Aint target_disp, int target_count, MPI_Datatype target_datatype, MPI_Op op, MPI_Win win);
-__attribute__((visibility("default")))  int MPI_Add_error_class(int *errorclass);
-__attribute__((visibility("default")))  int MPI_Add_error_code(int errorclass, int *errorcode);
-__attribute__((visibility("default")))  int MPI_Add_error_string(int errorcode, const char *string);
-__attribute__((visibility("default")))  int MPI_Allgather(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Iallgather(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Allgatherv(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, const int recvcounts[], const int displs[], MPI_Datatype recvtype, MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Iallgatherv(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, const int recvcounts[], const int displs[], MPI_Datatype recvtype, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Alloc_mem(MPI_Aint size, MPI_Info info, void *baseptr);
-__attribute__((visibility("default")))  int MPI_Allreduce(const void *sendbuf, void *recvbuf, int count, MPI_Datatype datatype, MPI_Op op, MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Iallreduce(const void *sendbuf, void *recvbuf, int count, MPI_Datatype datatype, MPI_Op op, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Alltoall(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Ialltoall(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Alltoallv(const void *sendbuf, const int sendcounts[], const int sdispls[], MPI_Datatype sendtype, void *recvbuf, const int recvcounts[], const int rdispls[], MPI_Datatype recvtype, MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Ialltoallv(const void *sendbuf, const int sendcounts[], const int sdispls[], MPI_Datatype sendtype, void *recvbuf, const int recvcounts[], const int rdispls[], MPI_Datatype recvtype, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Alltoallw(const void *sendbuf, const int sendcounts[], const int sdispls[], const MPI_Datatype sendtypes[], void *recvbuf, const int recvcounts[], const int rdispls[], const MPI_Datatype recvtypes[], MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Ialltoallw(const void *sendbuf, const int sendcounts[], const int sdispls[], const MPI_Datatype sendtypes[], void *recvbuf, const int recvcounts[], const int rdispls[], const MPI_Datatype recvtypes[], MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Barrier(MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Ibarrier(MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Bcast(void *buffer, int count, MPI_Datatype datatype, int root, MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Bsend(const void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Ibcast(void *buffer, int count, MPI_Datatype datatype, int root, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Bsend_init(const void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Buffer_attach(void *buffer, int size);
-__attribute__((visibility("default")))  int MPI_Buffer_detach(void *buffer, int *size);
-__attribute__((visibility("default")))  int MPI_Cancel(MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Cart_coords(MPI_Comm comm, int rank, int maxdims, int coords[]);
-__attribute__((visibility("default")))  int MPI_Cart_create(MPI_Comm old_comm, int ndims, const int dims[], const int periods[], int reorder, MPI_Comm *comm_cart);
-__attribute__((visibility("default")))  int MPI_Cart_get(MPI_Comm comm, int maxdims, int dims[], int periods[], int coords[]);
-__attribute__((visibility("default")))  int MPI_Cart_map(MPI_Comm comm, int ndims, const int dims[], const int periods[], int *newrank);
-__attribute__((visibility("default")))  int MPI_Cart_rank(MPI_Comm comm, const int coords[], int *rank);
-__attribute__((visibility("default")))  int MPI_Cart_shift(MPI_Comm comm, int direction, int disp, int *rank_source, int *rank_dest);
-__attribute__((visibility("default")))  int MPI_Cart_sub(MPI_Comm comm, const int remain_dims[], MPI_Comm *new_comm);
-__attribute__((visibility("default")))  int MPI_Cartdim_get(MPI_Comm comm, int *ndims);
-__attribute__((visibility("default")))  int MPI_Close_port(const char *port_name);
-__attribute__((visibility("default")))  int MPI_Comm_accept(const char *port_name, MPI_Info info, int root, MPI_Comm comm, MPI_Comm *newcomm);
-__attribute__((visibility("default")))  int MPI_Comm_c2f(MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Comm_call_errhandler(MPI_Comm comm, int errorcode);
-__attribute__((visibility("default")))  int MPI_Comm_compare(MPI_Comm comm1, MPI_Comm comm2, int *result);
-__attribute__((visibility("default")))  int MPI_Comm_connect(const char *port_name, MPI_Info info, int root, MPI_Comm comm, MPI_Comm *newcomm);
-__attribute__((visibility("default")))  int MPI_Comm_create_errhandler(MPI_Comm_errhandler_function *function, MPI_Errhandler *errhandler);
-__attribute__((visibility("default")))  int MPI_Comm_create_keyval(MPI_Comm_copy_attr_function *comm_copy_attr_fn, MPI_Comm_delete_attr_function *comm_delete_attr_fn, int *comm_keyval, void *extra_state);
-__attribute__((visibility("default")))  int MPI_Comm_create_group(MPI_Comm comm, MPI_Group group, int tag, MPI_Comm *newcomm);
-__attribute__((visibility("default")))  int MPI_Comm_create(MPI_Comm comm, MPI_Group group, MPI_Comm *newcomm);
-__attribute__((visibility("default")))  int MPI_Comm_delete_attr(MPI_Comm comm, int comm_keyval);
-__attribute__((visibility("default")))  int MPI_Comm_disconnect(MPI_Comm *comm);
-__attribute__((visibility("default")))  int MPI_Comm_dup(MPI_Comm comm, MPI_Comm *newcomm);
-__attribute__((visibility("default")))  int MPI_Comm_idup(MPI_Comm comm, MPI_Comm *newcomm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Comm_dup_with_info(MPI_Comm comm, MPI_Info info, MPI_Comm *newcomm);
-__attribute__((visibility("default")))  MPI_Comm MPI_Comm_f2c(int comm);
-__attribute__((visibility("default")))  int MPI_Comm_free_keyval(int *comm_keyval);
-__attribute__((visibility("default")))  int MPI_Comm_free(MPI_Comm *comm);
-__attribute__((visibility("default")))  int MPI_Comm_get_attr(MPI_Comm comm, int comm_keyval, void *attribute_val, int *flag);
-__attribute__((visibility("default")))  int MPI_Dist_graph_create(MPI_Comm comm_old, int n, const int nodes[], const int degrees[], const int targets[], const int weights[], MPI_Info info, int reorder, MPI_Comm * newcomm);
-__attribute__((visibility("default")))  int MPI_Dist_graph_create_adjacent(MPI_Comm comm_old, int indegree, const int sources[], const int sourceweights[], int outdegree, const int destinations[], const int destweights[], MPI_Info info, int reorder, MPI_Comm *comm_dist_graph);
-__attribute__((visibility("default"))) int MPI_Dist_graph_neighbors(MPI_Comm comm, int maxindegree, int sources[], int sourceweights[], int maxoutdegree, int destinations[], int destweights[]);
-__attribute__((visibility("default")))  int MPI_Dist_graph_neighbors_count(MPI_Comm comm, int *inneighbors, int *outneighbors, int *weighted);
-__attribute__((visibility("default")))  int MPI_Comm_get_errhandler(MPI_Comm comm, MPI_Errhandler *erhandler);
-__attribute__((visibility("default")))  int MPI_Comm_get_info(MPI_Comm comm, MPI_Info *info_used);
-__attribute__((visibility("default")))  int MPI_Comm_get_name(MPI_Comm comm, char *comm_name, int *resultlen);
-__attribute__((visibility("default")))  int MPI_Comm_get_parent(MPI_Comm *parent);
-__attribute__((visibility("default")))  int MPI_Comm_group(MPI_Comm comm, MPI_Group *group);
-__attribute__((visibility("default")))  int MPI_Comm_join(int fd, MPI_Comm *intercomm);
-__attribute__((visibility("default")))  int MPI_Comm_rank(MPI_Comm comm, int *rank);
-__attribute__((visibility("default")))  int MPI_Comm_remote_group(MPI_Comm comm, MPI_Group *group);
-__attribute__((visibility("default")))  int MPI_Comm_remote_size(MPI_Comm comm, int *size);
-__attribute__((visibility("default")))  int MPI_Comm_set_attr(MPI_Comm comm, int comm_keyval, void *attribute_val);
-__attribute__((visibility("default")))  int MPI_Comm_set_errhandler(MPI_Comm comm, MPI_Errhandler errhandler);
-__attribute__((visibility("default")))  int MPI_Comm_set_info(MPI_Comm comm, MPI_Info info);
-__attribute__((visibility("default")))  int MPI_Comm_set_name(MPI_Comm comm, const char *comm_name);
-__attribute__((visibility("default")))  int MPI_Comm_size(MPI_Comm comm, int *size);
-__attribute__((visibility("default")))  int MPI_Comm_spawn(const char *command, char *argv[], int maxprocs, MPI_Info info, int root, MPI_Comm comm, MPI_Comm *intercomm, int array_of_errcodes[]);
-__attribute__((visibility("default")))  int MPI_Comm_spawn_multiple(int count, char *array_of_commands[], char **array_of_argv[], const int array_of_maxprocs[], const MPI_Info array_of_info[], int root, MPI_Comm comm, MPI_Comm *intercomm, int array_of_errcodes[]);
-__attribute__((visibility("default")))  int MPI_Comm_split(MPI_Comm comm, int color, int key, MPI_Comm *newcomm);
-__attribute__((visibility("default")))  int MPI_Comm_split_type(MPI_Comm comm, int split_type, int key, MPI_Info info, MPI_Comm *newcomm);
-__attribute__((visibility("default")))  int MPI_Comm_test_inter(MPI_Comm comm, int *flag);
-__attribute__((visibility("default")))  int MPI_Compare_and_swap(const void *origin_addr, const void *compare_addr, void *result_addr, MPI_Datatype datatype, int target_rank, MPI_Aint target_disp, MPI_Win win);
-__attribute__((visibility("default")))  int MPI_Dims_create(int nnodes, int ndims, int dims[]);
-__attribute__((visibility("default")))  int MPI_Errhandler_c2f(MPI_Errhandler errhandler);
-__attribute__((visibility("default")))  MPI_Errhandler MPI_Errhandler_f2c(int errhandler);
-__attribute__((visibility("default")))  int MPI_Errhandler_free(MPI_Errhandler *errhandler);
-__attribute__((visibility("default")))  int MPI_Error_class(int errorcode, int *errorclass);
-__attribute__((visibility("default")))  int MPI_Error_string(int errorcode, char *string, int *resultlen);
-__attribute__((visibility("default")))  int MPI_Exscan(const void *sendbuf, void *recvbuf, int count, MPI_Datatype datatype, MPI_Op op, MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Fetch_and_op(const void *origin_addr, void *result_addr, MPI_Datatype datatype, int target_rank, MPI_Aint target_disp, MPI_Op op, MPI_Win win);
-__attribute__((visibility("default")))  int MPI_Iexscan(const void *sendbuf, void *recvbuf, int count, MPI_Datatype datatype, MPI_Op op, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_File_c2f(MPI_File file);
-__attribute__((visibility("default")))  MPI_File MPI_File_f2c(int file);
-__attribute__((visibility("default")))  int MPI_File_call_errhandler(MPI_File fh, int errorcode);
-__attribute__((visibility("default")))  int MPI_File_create_errhandler(MPI_File_errhandler_function *function, MPI_Errhandler *errhandler);
-__attribute__((visibility("default")))  int MPI_File_set_errhandler( MPI_File file, MPI_Errhandler errhandler);
-__attribute__((visibility("default")))  int MPI_File_get_errhandler( MPI_File file, MPI_Errhandler *errhandler);
-__attribute__((visibility("default")))  int MPI_File_open(MPI_Comm comm, const char *filename, int amode, MPI_Info info, MPI_File *fh);
-__attribute__((visibility("default")))  int MPI_File_close(MPI_File *fh);
-__attribute__((visibility("default")))  int MPI_File_delete(const char *filename, MPI_Info info);
-__attribute__((visibility("default")))  int MPI_File_set_size(MPI_File fh, MPI_Offset size);
-__attribute__((visibility("default")))  int MPI_File_preallocate(MPI_File fh, MPI_Offset size);
-__attribute__((visibility("default")))  int MPI_File_get_size(MPI_File fh, MPI_Offset *size);
-__attribute__((visibility("default")))  int MPI_File_get_group(MPI_File fh, MPI_Group *group);
-__attribute__((visibility("default")))  int MPI_File_get_amode(MPI_File fh, int *amode);
-__attribute__((visibility("default")))  int MPI_File_set_info(MPI_File fh, MPI_Info info);
-__attribute__((visibility("default")))  int MPI_File_get_info(MPI_File fh, MPI_Info *info_used);
-__attribute__((visibility("default")))  int MPI_File_set_view(MPI_File fh, MPI_Offset disp, MPI_Datatype etype, MPI_Datatype filetype, const char *datarep, MPI_Info info);
-__attribute__((visibility("default")))  int MPI_File_get_view(MPI_File fh, MPI_Offset *disp, MPI_Datatype *etype, MPI_Datatype *filetype, char *datarep);
-__attribute__((visibility("default")))  int MPI_File_read_at(MPI_File fh, MPI_Offset offset, void *buf, int count, MPI_Datatype datatype, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_File_read_at_all(MPI_File fh, MPI_Offset offset, void *buf, int count, MPI_Datatype datatype, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_File_write_at(MPI_File fh, MPI_Offset offset, const void *buf, int count, MPI_Datatype datatype, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_File_write_at_all(MPI_File fh, MPI_Offset offset, const void *buf, int count, MPI_Datatype datatype, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_File_iread_at(MPI_File fh, MPI_Offset offset, void *buf, int count, MPI_Datatype datatype, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_File_iwrite_at(MPI_File fh, MPI_Offset offset, const void *buf, int count, MPI_Datatype datatype, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_File_iread_at_all(MPI_File fh, MPI_Offset offset, void *buf, int count, MPI_Datatype datatype, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_File_iwrite_at_all(MPI_File fh, MPI_Offset offset, const void *buf, int count, MPI_Datatype datatype, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_File_read(MPI_File fh, void *buf, int count, MPI_Datatype datatype, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_File_read_all(MPI_File fh, void *buf, int count, MPI_Datatype datatype, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_File_write(MPI_File fh, const void *buf, int count, MPI_Datatype datatype, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_File_write_all(MPI_File fh, const void *buf, int count, MPI_Datatype datatype, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_File_iread(MPI_File fh, void *buf, int count, MPI_Datatype datatype, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_File_iwrite(MPI_File fh, const void *buf, int count, MPI_Datatype datatype, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_File_iread_all(MPI_File fh, void *buf, int count, MPI_Datatype datatype, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_File_iwrite_all(MPI_File fh, const void *buf, int count, MPI_Datatype datatype, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_File_seek(MPI_File fh, MPI_Offset offset, int whence);
-__attribute__((visibility("default")))  int MPI_File_get_position(MPI_File fh, MPI_Offset *offset);
-__attribute__((visibility("default")))  int MPI_File_get_byte_offset(MPI_File fh, MPI_Offset offset, MPI_Offset *disp);
-__attribute__((visibility("default")))  int MPI_File_read_shared(MPI_File fh, void *buf, int count, MPI_Datatype datatype, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_File_write_shared(MPI_File fh, const void *buf, int count, MPI_Datatype datatype, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_File_iread_shared(MPI_File fh, void *buf, int count, MPI_Datatype datatype, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_File_iwrite_shared(MPI_File fh, const void *buf, int count, MPI_Datatype datatype, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_File_read_ordered(MPI_File fh, void *buf, int count, MPI_Datatype datatype, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_File_write_ordered(MPI_File fh, const void *buf, int count, MPI_Datatype datatype, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_File_seek_shared(MPI_File fh, MPI_Offset offset, int whence);
-__attribute__((visibility("default")))  int MPI_File_get_position_shared(MPI_File fh, MPI_Offset *offset);
-__attribute__((visibility("default")))  int MPI_File_read_at_all_begin(MPI_File fh, MPI_Offset offset, void *buf, int count, MPI_Datatype datatype);
-__attribute__((visibility("default")))  int MPI_File_read_at_all_end(MPI_File fh, void *buf, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_File_write_at_all_begin(MPI_File fh, MPI_Offset offset, const void *buf, int count, MPI_Datatype datatype);
-__attribute__((visibility("default")))  int MPI_File_write_at_all_end(MPI_File fh, const void *buf, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_File_read_all_begin(MPI_File fh, void *buf, int count, MPI_Datatype datatype);
-__attribute__((visibility("default")))  int MPI_File_read_all_end(MPI_File fh, void *buf, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_File_write_all_begin(MPI_File fh, const void *buf, int count, MPI_Datatype datatype);
-__attribute__((visibility("default")))  int MPI_File_write_all_end(MPI_File fh, const void *buf, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_File_read_ordered_begin(MPI_File fh, void *buf, int count, MPI_Datatype datatype);
-__attribute__((visibility("default")))  int MPI_File_read_ordered_end(MPI_File fh, void *buf, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_File_write_ordered_begin(MPI_File fh, const void *buf, int count, MPI_Datatype datatype);
-__attribute__((visibility("default")))  int MPI_File_write_ordered_end(MPI_File fh, const void *buf, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_File_get_type_extent(MPI_File fh, MPI_Datatype datatype, MPI_Aint *extent);
-__attribute__((visibility("default")))  int MPI_File_set_atomicity(MPI_File fh, int flag);
-__attribute__((visibility("default")))  int MPI_File_get_atomicity(MPI_File fh, int *flag);
-__attribute__((visibility("default")))  int MPI_File_sync(MPI_File fh);
-__attribute__((visibility("default")))  int MPI_Finalize(void);
-__attribute__((visibility("default")))  int MPI_Finalized(int *flag);
-__attribute__((visibility("default")))  int MPI_Free_mem(void *base);
-__attribute__((visibility("default")))  int MPI_Gather(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, int root, MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Igather(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, int root, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Gatherv(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, const int recvcounts[], const int displs[], MPI_Datatype recvtype, int root, MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Igatherv(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, const int recvcounts[], const int displs[], MPI_Datatype recvtype, int root, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Get_address(const void *location, MPI_Aint *address);
-__attribute__((visibility("default")))  int MPI_Get_count(const MPI_Status *status, MPI_Datatype datatype, int *count);
-__attribute__((visibility("default")))  int MPI_Get_elements(const MPI_Status *status, MPI_Datatype datatype, int *count);
-__attribute__((visibility("default")))  int MPI_Get_elements_x(const MPI_Status *status, MPI_Datatype datatype, MPI_Count *count);
-__attribute__((visibility("default")))  int MPI_Get(void *origin_addr, int origin_count, MPI_Datatype origin_datatype, int target_rank, MPI_Aint target_disp, int target_count, MPI_Datatype target_datatype, MPI_Win win);
-__attribute__((visibility("default")))  int MPI_Get_accumulate(const void *origin_addr, int origin_count, MPI_Datatype origin_datatype, void *result_addr, int result_count, MPI_Datatype result_datatype, int target_rank, MPI_Aint target_disp, int target_count, MPI_Datatype target_datatype, MPI_Op op, MPI_Win win);
-__attribute__((visibility("default")))  int MPI_Get_library_version(char *version, int *resultlen);
-__attribute__((visibility("default")))  int MPI_Get_processor_name(char *name, int *resultlen);
-__attribute__((visibility("default")))  int MPI_Get_version(int *version, int *subversion);
-__attribute__((visibility("default")))  int MPI_Graph_create(MPI_Comm comm_old, int nnodes, const int index[], const int edges[], int reorder, MPI_Comm *comm_graph);
-__attribute__((visibility("default")))  int MPI_Graph_get(MPI_Comm comm, int maxindex, int maxedges, int index[], int edges[]);
-__attribute__((visibility("default")))  int MPI_Graph_map(MPI_Comm comm, int nnodes, const int index[], const int edges[], int *newrank);
-__attribute__((visibility("default")))  int MPI_Graph_neighbors_count(MPI_Comm comm, int rank, int *nneighbors);
-__attribute__((visibility("default")))  int MPI_Graph_neighbors(MPI_Comm comm, int rank, int maxneighbors, int neighbors[]);
-__attribute__((visibility("default")))  int MPI_Graphdims_get(MPI_Comm comm, int *nnodes, int *nedges);
-__attribute__((visibility("default")))  int MPI_Grequest_complete(MPI_Request request);
-__attribute__((visibility("default")))  int MPI_Grequest_start(MPI_Grequest_query_function *query_fn, MPI_Grequest_free_function *free_fn, MPI_Grequest_cancel_function *cancel_fn, void *extra_state, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Group_c2f(MPI_Group group);
-__attribute__((visibility("default")))  int MPI_Group_compare(MPI_Group group1, MPI_Group group2, int *result);
-__attribute__((visibility("default")))  int MPI_Group_difference(MPI_Group group1, MPI_Group group2, MPI_Group *newgroup);
-__attribute__((visibility("default")))  int MPI_Group_excl(MPI_Group group, int n, const int ranks[], MPI_Group *newgroup);
-__attribute__((visibility("default")))  MPI_Group MPI_Group_f2c(int group);
-__attribute__((visibility("default")))  int MPI_Group_free(MPI_Group *group);
-__attribute__((visibility("default")))  int MPI_Group_incl(MPI_Group group, int n, const int ranks[], MPI_Group *newgroup);
-__attribute__((visibility("default")))  int MPI_Group_intersection(MPI_Group group1, MPI_Group group2, MPI_Group *newgroup);
-__attribute__((visibility("default")))  int MPI_Group_range_excl(MPI_Group group, int n, int ranges[][3], MPI_Group *newgroup);
-__attribute__((visibility("default")))  int MPI_Group_range_incl(MPI_Group group, int n, int ranges[][3], MPI_Group *newgroup);
-__attribute__((visibility("default")))  int MPI_Group_rank(MPI_Group group, int *rank);
-__attribute__((visibility("default")))  int MPI_Group_size(MPI_Group group, int *size);
-__attribute__((visibility("default")))  int MPI_Group_translate_ranks(MPI_Group group1, int n, const int ranks1[], MPI_Group group2, int ranks2[]);
-__attribute__((visibility("default")))  int MPI_Group_union(MPI_Group group1, MPI_Group group2, MPI_Group *newgroup);
-__attribute__((visibility("default")))  int MPI_Ibsend(const void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Improbe(int source, int tag, MPI_Comm comm, int *flag, MPI_Message *message, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_Imrecv(void *buf, int count, MPI_Datatype type, MPI_Message *message, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Info_c2f(MPI_Info info);
-__attribute__((visibility("default")))  int MPI_Info_create(MPI_Info *info);
-__attribute__((visibility("default")))  int MPI_Info_delete(MPI_Info info, const char *key);
-__attribute__((visibility("default")))  int MPI_Info_dup(MPI_Info info, MPI_Info *newinfo);
-__attribute__((visibility("default")))  MPI_Info MPI_Info_f2c(int info);
-__attribute__((visibility("default")))  int MPI_Info_free(MPI_Info *info);
-__attribute__((visibility("default")))  int MPI_Info_get(MPI_Info info, const char *key, int valuelen, char *value, int *flag);
-__attribute__((visibility("default")))  int MPI_Info_get_nkeys(MPI_Info info, int *nkeys);
-__attribute__((visibility("default")))  int MPI_Info_get_nthkey(MPI_Info info, int n, char *key);
-__attribute__((visibility("default")))  int MPI_Info_get_valuelen(MPI_Info info, const char *key, int *valuelen, int *flag);
-__attribute__((visibility("default")))  int MPI_Info_set(MPI_Info info, const char *key, const char *value);
-__attribute__((visibility("default")))  int MPI_Init(int *argc, char ***argv);
-__attribute__((visibility("default")))  int MPI_Initialized(int *flag);
-__attribute__((visibility("default")))  int MPI_Init_thread(int *argc, char ***argv, int required, int *provided);
-__attribute__((visibility("default")))  int MPI_Intercomm_create(MPI_Comm local_comm, int local_leader, MPI_Comm bridge_comm, int remote_leader, int tag, MPI_Comm *newintercomm);
-__attribute__((visibility("default")))  int MPI_Intercomm_merge(MPI_Comm intercomm, int high, MPI_Comm *newintercomm);
-__attribute__((visibility("default")))  int MPI_Iprobe(int source, int tag, MPI_Comm comm, int *flag, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_Irecv(void *buf, int count, MPI_Datatype datatype, int source, int tag, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Irsend(const void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Isend(const void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Issend(const void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Is_thread_main(int *flag);
-__attribute__((visibility("default")))  int MPI_Lookup_name(const char *service_name, MPI_Info info, char *port_name);
-__attribute__((visibility("default")))  int MPI_Message_c2f(MPI_Message message);
-__attribute__((visibility("default")))  MPI_Message MPI_Message_f2c(int message);
-__attribute__((visibility("default")))  int MPI_Mprobe(int source, int tag, MPI_Comm comm, MPI_Message *message, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_Mrecv(void *buf, int count, MPI_Datatype type, MPI_Message *message, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_Neighbor_allgather(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Ineighbor_allgather(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Neighbor_allgatherv(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, const int recvcounts[], const int displs[], MPI_Datatype recvtype, MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Ineighbor_allgatherv(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, const int recvcounts[], const int displs[], MPI_Datatype recvtype, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Neighbor_alltoall(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Ineighbor_alltoall(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Neighbor_alltoallv(const void *sendbuf, const int sendcounts[], const int sdispls[],  MPI_Datatype sendtype, void *recvbuf, const int recvcounts[], const int rdispls[], MPI_Datatype recvtype, MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Ineighbor_alltoallv(const void *sendbuf, const int sendcounts[], const int sdispls[], MPI_Datatype sendtype, void *recvbuf, const int recvcounts[], const int rdispls[], MPI_Datatype recvtype, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Neighbor_alltoallw(const void *sendbuf, const int sendcounts[], const MPI_Aint sdispls[], const MPI_Datatype sendtypes[], void *recvbuf, const int recvcounts[], const MPI_Aint rdispls[], const MPI_Datatype recvtypes[], MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Ineighbor_alltoallw(const void *sendbuf, const int sendcounts[], const MPI_Aint sdispls[], const MPI_Datatype sendtypes[], void *recvbuf, const int recvcounts[], const MPI_Aint rdispls[], const MPI_Datatype recvtypes[], MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Op_c2f(MPI_Op op);
-__attribute__((visibility("default")))  int MPI_Op_commutative(MPI_Op op, int *commute);
-__attribute__((visibility("default")))  int MPI_Op_create(MPI_User_function *function, int commute, MPI_Op *op);
-__attribute__((visibility("default")))  int MPI_Open_port(MPI_Info info, char *port_name);
-__attribute__((visibility("default")))  MPI_Op MPI_Op_f2c(int op);
-__attribute__((visibility("default")))  int MPI_Op_free(MPI_Op *op);
-__attribute__((visibility("default")))  int MPI_Pack_external(const char datarep[], const void *inbuf, int incount, MPI_Datatype datatype, void *outbuf, MPI_Aint outsize, MPI_Aint *position);
-__attribute__((visibility("default")))  int MPI_Pack_external_size(const char datarep[], int incount, MPI_Datatype datatype, MPI_Aint *size);
-__attribute__((visibility("default")))  int MPI_Pack(const void *inbuf, int incount, MPI_Datatype datatype, void *outbuf, int outsize, int *position, MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Pack_size(int incount, MPI_Datatype datatype, MPI_Comm comm, int *size);
-__attribute__((visibility("default")))  int MPI_Pcontrol(const int level, ...);
-__attribute__((visibility("default")))  int MPI_Probe(int source, int tag, MPI_Comm comm, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_Publish_name(const char *service_name, MPI_Info info, const char *port_name);
-__attribute__((visibility("default")))  int MPI_Put(const void *origin_addr, int origin_count, MPI_Datatype origin_datatype, int target_rank, MPI_Aint target_disp, int target_count, MPI_Datatype target_datatype, MPI_Win win);
-__attribute__((visibility("default")))  int MPI_Query_thread(int *provided);
-__attribute__((visibility("default")))  int MPI_Raccumulate(const void *origin_addr, int origin_count, MPI_Datatype origin_datatype, int target_rank, MPI_Aint target_disp, int target_count, MPI_Datatype target_datatype, MPI_Op op, MPI_Win win, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Recv_init(void *buf, int count, MPI_Datatype datatype, int source, int tag, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Recv(void *buf, int count, MPI_Datatype datatype, int source, int tag, MPI_Comm comm, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_Reduce(const void *sendbuf, void *recvbuf, int count, MPI_Datatype datatype, MPI_Op op, int root, MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Ireduce(const void *sendbuf, void *recvbuf, int count, MPI_Datatype datatype, MPI_Op op, int root, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Reduce_local(const void *inbuf, void *inoutbuf, int count, MPI_Datatype datatype, MPI_Op op);
-__attribute__((visibility("default")))  int MPI_Reduce_scatter(const void *sendbuf, void *recvbuf, const int recvcounts[], MPI_Datatype datatype, MPI_Op op, MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Ireduce_scatter(const void *sendbuf, void *recvbuf, const int recvcounts[], MPI_Datatype datatype, MPI_Op op, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Reduce_scatter_block(const void *sendbuf, void *recvbuf, int recvcount, MPI_Datatype datatype, MPI_Op op, MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Ireduce_scatter_block(const void *sendbuf, void *recvbuf, int recvcount, MPI_Datatype datatype, MPI_Op op, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Register_datarep(const char *datarep, MPI_Datarep_conversion_function *read_conversion_fn, MPI_Datarep_conversion_function *write_conversion_fn, MPI_Datarep_extent_function *dtype_file_extent_fn, void *extra_state);
-__attribute__((visibility("default")))  int MPI_Request_c2f(MPI_Request request);
-__attribute__((visibility("default")))  MPI_Request MPI_Request_f2c(int request);
-__attribute__((visibility("default")))  int MPI_Request_free(MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Request_get_status(MPI_Request request, int *flag, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_Rget(void *origin_addr, int origin_count, MPI_Datatype origin_datatype, int target_rank, MPI_Aint target_disp, int target_count, MPI_Datatype target_datatype, MPI_Win win, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Rget_accumulate(const void *origin_addr, int origin_count, MPI_Datatype origin_datatype, void *result_addr, int result_count, MPI_Datatype result_datatype, int target_rank, MPI_Aint target_disp, int target_count, MPI_Datatype target_datatype, MPI_Op op, MPI_Win win, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Rput(const void *origin_addr, int origin_count, MPI_Datatype origin_datatype, int target_rank, MPI_Aint target_disp, int target_cout, MPI_Datatype target_datatype, MPI_Win win, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Rsend(const void *ibuf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Rsend_init(const void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Scan(const void *sendbuf, void *recvbuf, int count, MPI_Datatype datatype, MPI_Op op, MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Iscan(const void *sendbuf, void *recvbuf, int count, MPI_Datatype datatype, MPI_Op op, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Scatter(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, int root, MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Iscatter(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, int root, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Scatterv(const void *sendbuf, const int sendcounts[], const int displs[], MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, int root, MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Iscatterv(const void *sendbuf, const int sendcounts[], const int displs[], MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, int root, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Send_init(const void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Send(const void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Sendrecv(const void *sendbuf, int sendcount, MPI_Datatype sendtype, int dest, int sendtag, void *recvbuf, int recvcount, MPI_Datatype recvtype, int source, int recvtag, MPI_Comm comm,  MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_Sendrecv_replace(void * buf, int count, MPI_Datatype datatype, int dest, int sendtag, int source, int recvtag, MPI_Comm comm, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_Ssend_init(const void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Ssend(const void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Start(MPI_Request *request);
-__attribute__((visibility("default")))  int MPI_Startall(int count, MPI_Request array_of_requests[]);
-__attribute__((visibility("default")))  int MPI_Status_c2f(const MPI_Status *c_status, int *f_status);
-__attribute__((visibility("default")))  int MPI_Status_f2c(const int *f_status, MPI_Status *c_status);
-__attribute__((visibility("default")))  int MPI_Status_set_cancelled(MPI_Status *status, int flag);
-__attribute__((visibility("default")))  int MPI_Status_set_elements(MPI_Status *status, MPI_Datatype datatype, int count);
-__attribute__((visibility("default")))  int MPI_Status_set_elements_x(MPI_Status *status, MPI_Datatype datatype, MPI_Count count);
-__attribute__((visibility("default")))  int MPI_Testall(int count, MPI_Request array_of_requests[], int *flag, MPI_Status array_of_statuses[]);
-__attribute__((visibility("default")))  int MPI_Testany(int count, MPI_Request array_of_requests[], int *index, int *flag, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_Test(MPI_Request *request, int *flag, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_Test_cancelled(const MPI_Status *status, int *flag);
-__attribute__((visibility("default")))  int MPI_Testsome(int incount, MPI_Request array_of_requests[], int *outcount, int array_of_indices[], MPI_Status array_of_statuses[]);
-__attribute__((visibility("default")))  int MPI_Topo_test(MPI_Comm comm, int *status);
-__attribute__((visibility("default")))  int MPI_Type_c2f(MPI_Datatype datatype);
-__attribute__((visibility("default")))  int MPI_Type_commit(MPI_Datatype *type);
-__attribute__((visibility("default")))  int MPI_Type_contiguous(int count, MPI_Datatype oldtype, MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int MPI_Type_create_darray(int size, int rank, int ndims, const int gsize_array[], const int distrib_array[], const int darg_array[], const int psize_array[], int order, MPI_Datatype oldtype, MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int MPI_Type_create_f90_complex(int p, int r, MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int MPI_Type_create_f90_integer(int r, MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int MPI_Type_create_f90_real(int p, int r, MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int MPI_Type_create_hindexed_block(int count, int blocklength, const MPI_Aint array_of_displacements[], MPI_Datatype oldtype, MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int MPI_Type_create_hindexed(int count, const int array_of_blocklengths[], const MPI_Aint array_of_displacements[], MPI_Datatype oldtype, MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int MPI_Type_create_hvector(int count, int blocklength, MPI_Aint stride, MPI_Datatype oldtype, MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int MPI_Type_create_keyval(MPI_Type_copy_attr_function *type_copy_attr_fn, MPI_Type_delete_attr_function *type_delete_attr_fn, int *type_keyval, void *extra_state);
-__attribute__((visibility("default")))  int MPI_Type_create_indexed_block(int count, int blocklength, const int array_of_displacements[], MPI_Datatype oldtype, MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int MPI_Type_create_struct(int count, const int array_of_block_lengths[], const MPI_Aint array_of_displacements[], const MPI_Datatype array_of_types[], MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int MPI_Type_create_subarray(int ndims, const int size_array[], const int subsize_array[], const int start_array[], int order, MPI_Datatype oldtype, MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int MPI_Type_create_resized(MPI_Datatype oldtype, MPI_Aint lb, MPI_Aint extent, MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int MPI_Type_delete_attr(MPI_Datatype type, int type_keyval);
-__attribute__((visibility("default")))  int MPI_Type_dup(MPI_Datatype type, MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int MPI_Type_free(MPI_Datatype *type);
-__attribute__((visibility("default")))  int MPI_Type_free_keyval(int *type_keyval);
-__attribute__((visibility("default")))  MPI_Datatype MPI_Type_f2c(int datatype);
-__attribute__((visibility("default")))  int MPI_Type_get_attr(MPI_Datatype type, int type_keyval, void *attribute_val, int *flag);
-__attribute__((visibility("default")))  int MPI_Type_get_contents(MPI_Datatype mtype, int max_integers, int max_addresses, int max_datatypes, int array_of_integers[], MPI_Aint array_of_addresses[], MPI_Datatype array_of_datatypes[]);
-__attribute__((visibility("default")))  int MPI_Type_get_envelope(MPI_Datatype type, int *num_integers, int *num_addresses, int *num_datatypes, int *combiner);
-__attribute__((visibility("default")))  int MPI_Type_get_extent(MPI_Datatype type, MPI_Aint *lb, MPI_Aint *extent);
-__attribute__((visibility("default")))  int MPI_Type_get_extent_x(MPI_Datatype type, MPI_Count *lb, MPI_Count *extent);
-__attribute__((visibility("default")))  int MPI_Type_get_name(MPI_Datatype type, char *type_name, int *resultlen);
-__attribute__((visibility("default")))  int MPI_Type_get_true_extent(MPI_Datatype datatype, MPI_Aint *true_lb, MPI_Aint *true_extent);
-__attribute__((visibility("default")))  int MPI_Type_get_true_extent_x(MPI_Datatype datatype, MPI_Count *true_lb, MPI_Count *true_extent);
-__attribute__((visibility("default")))  int MPI_Type_indexed(int count, const int array_of_blocklengths[], const int array_of_displacements[], MPI_Datatype oldtype, MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int MPI_Type_match_size(int typeclass, int size, MPI_Datatype *type);
-__attribute__((visibility("default")))  int MPI_Type_set_attr(MPI_Datatype type, int type_keyval, void *attr_val);
-__attribute__((visibility("default")))  int MPI_Type_set_name(MPI_Datatype type, const char *type_name);
-__attribute__((visibility("default")))  int MPI_Type_size(MPI_Datatype type, int *size);
-__attribute__((visibility("default")))  int MPI_Type_size_x(MPI_Datatype type, MPI_Count *size);
-__attribute__((visibility("default")))  int MPI_Type_vector(int count, int blocklength, int stride, MPI_Datatype oldtype, MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int MPI_Unpack(const void *inbuf, int insize, int *position, void *outbuf, int outcount, MPI_Datatype datatype, MPI_Comm comm);
-__attribute__((visibility("default")))  int MPI_Unpublish_name(const char *service_name, MPI_Info info, const char *port_name);
-__attribute__((visibility("default")))  int MPI_Unpack_external (const char datarep[], const void *inbuf, MPI_Aint insize, MPI_Aint *position, void *outbuf, int outcount, MPI_Datatype datatype);
-__attribute__((visibility("default")))  int MPI_Waitall(int count, MPI_Request array_of_requests[], MPI_Status *array_of_statuses);
-__attribute__((visibility("default")))  int MPI_Waitany(int count, MPI_Request array_of_requests[], int *index, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_Wait(MPI_Request *request, MPI_Status *status);
-__attribute__((visibility("default")))  int MPI_Waitsome(int incount, MPI_Request array_of_requests[], int *outcount, int array_of_indices[], MPI_Status array_of_statuses[]);
-__attribute__((visibility("default")))  int MPI_Win_allocate(MPI_Aint size, int disp_unit, MPI_Info info, MPI_Comm comm, void *baseptr, MPI_Win *win);
-__attribute__((visibility("default")))  int MPI_Win_allocate_shared(MPI_Aint size, int disp_unit, MPI_Info info, MPI_Comm comm, void *baseptr, MPI_Win *win);
-__attribute__((visibility("default")))  int MPI_Win_attach(MPI_Win win, void *base, MPI_Aint size);
-__attribute__((visibility("default")))  int MPI_Win_c2f(MPI_Win win);
-__attribute__((visibility("default")))  int MPI_Win_call_errhandler(MPI_Win win, int errorcode);
-__attribute__((visibility("default")))  int MPI_Win_complete(MPI_Win win);
-__attribute__((visibility("default")))  int MPI_Win_create(void *base, MPI_Aint size, int disp_unit, MPI_Info info, MPI_Comm comm, MPI_Win *win);
-__attribute__((visibility("default")))  int MPI_Win_create_dynamic(MPI_Info info, MPI_Comm comm, MPI_Win *win);
-__attribute__((visibility("default")))  int MPI_Win_create_errhandler(MPI_Win_errhandler_function *function, MPI_Errhandler *errhandler);
-__attribute__((visibility("default")))  int MPI_Win_create_keyval(MPI_Win_copy_attr_function *win_copy_attr_fn, MPI_Win_delete_attr_function *win_delete_attr_fn, int *win_keyval, void *extra_state);
-__attribute__((visibility("default")))  int MPI_Win_delete_attr(MPI_Win win, int win_keyval);
-__attribute__((visibility("default")))  int MPI_Win_detach(MPI_Win win, const void *base);
-__attribute__((visibility("default")))  MPI_Win MPI_Win_f2c(int win);
-__attribute__((visibility("default")))  int MPI_Win_fence(int assert, MPI_Win win);
-__attribute__((visibility("default")))  int MPI_Win_flush(int rank, MPI_Win win);
-__attribute__((visibility("default")))  int MPI_Win_flush_all(MPI_Win win);
-__attribute__((visibility("default")))  int MPI_Win_flush_local(int rank, MPI_Win win);
-__attribute__((visibility("default")))  int MPI_Win_flush_local_all(MPI_Win win);
-__attribute__((visibility("default")))  int MPI_Win_free(MPI_Win *win);
-__attribute__((visibility("default")))  int MPI_Win_free_keyval(int *win_keyval);
-__attribute__((visibility("default")))  int MPI_Win_get_attr(MPI_Win win, int win_keyval, void *attribute_val, int *flag);
-__attribute__((visibility("default")))  int MPI_Win_get_errhandler(MPI_Win win, MPI_Errhandler *errhandler);
-__attribute__((visibility("default")))  int MPI_Win_get_group(MPI_Win win, MPI_Group *group);
-__attribute__((visibility("default")))  int MPI_Win_get_info(MPI_Win win, MPI_Info *info_used);
-__attribute__((visibility("default")))  int MPI_Win_get_name(MPI_Win win, char *win_name, int *resultlen);
-__attribute__((visibility("default")))  int MPI_Win_lock(int lock_type, int rank, int assert, MPI_Win win);
-__attribute__((visibility("default")))  int MPI_Win_lock_all(int assert, MPI_Win win);
-__attribute__((visibility("default")))  int MPI_Win_post(MPI_Group group, int assert, MPI_Win win);
-__attribute__((visibility("default")))  int MPI_Win_set_attr(MPI_Win win, int win_keyval, void *attribute_val);
-__attribute__((visibility("default")))  int MPI_Win_set_errhandler(MPI_Win win, MPI_Errhandler errhandler);
-__attribute__((visibility("default")))  int MPI_Win_set_info(MPI_Win win, MPI_Info info);
-__attribute__((visibility("default")))  int MPI_Win_set_name(MPI_Win win, const char *win_name);
-__attribute__((visibility("default")))  int MPI_Win_shared_query(MPI_Win win, int rank, MPI_Aint *size, int *disp_unit, void *baseptr);
-__attribute__((visibility("default")))  int MPI_Win_start(MPI_Group group, int assert, MPI_Win win);
-__attribute__((visibility("default")))  int MPI_Win_sync(MPI_Win win);
-__attribute__((visibility("default")))  int MPI_Win_test(MPI_Win win, int *flag);
-__attribute__((visibility("default")))  int MPI_Win_unlock(int rank, MPI_Win win);
-__attribute__((visibility("default")))  int MPI_Win_unlock_all(MPI_Win win);
-__attribute__((visibility("default")))  int MPI_Win_wait(MPI_Win win);
-__attribute__((visibility("default")))  double MPI_Wtick(void);
-__attribute__((visibility("default")))  double MPI_Wtime(void);
-__attribute__((visibility("default")))  int PMPI_Abort(MPI_Comm comm, int errorcode);
-__attribute__((visibility("default")))  int PMPI_Accumulate(const void *origin_addr, int origin_count, MPI_Datatype origin_datatype, int target_rank, MPI_Aint target_disp, int target_count, MPI_Datatype target_datatype, MPI_Op op, MPI_Win win);
-__attribute__((visibility("default")))  int PMPI_Add_error_class(int *errorclass);
-__attribute__((visibility("default")))  int PMPI_Add_error_code(int errorclass, int *errorcode);
-__attribute__((visibility("default")))  int PMPI_Add_error_string(int errorcode, const char *string);
-__attribute__((visibility("default")))  int PMPI_Allgather(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Iallgather(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Allgatherv(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, const int recvcounts[], const int displs[], MPI_Datatype recvtype, MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Iallgatherv(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, const int recvcounts[], const int displs[], MPI_Datatype recvtype, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Alloc_mem(MPI_Aint size, MPI_Info info, void *baseptr);
-__attribute__((visibility("default")))  int PMPI_Allreduce(const void *sendbuf, void *recvbuf, int count, MPI_Datatype datatype, MPI_Op op, MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Iallreduce(const void *sendbuf, void *recvbuf, int count, MPI_Datatype datatype, MPI_Op op, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Alltoall(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Ialltoall(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Alltoallv(const void *sendbuf, const int sendcounts[], const int sdispls[], MPI_Datatype sendtype, void *recvbuf, const int recvcounts[], const int rdispls[], MPI_Datatype recvtype, MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Ialltoallv(const void *sendbuf, const int sendcounts[], const int sdispls[], MPI_Datatype sendtype, void *recvbuf, const int recvcounts[], const int rdispls[], MPI_Datatype recvtype, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Alltoallw(const void *sendbuf, const int sendcounts[], const int sdispls[], const MPI_Datatype sendtypes[], void *recvbuf, const int recvcounts[], const int rdispls[], const MPI_Datatype recvtypes[], MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Ialltoallw(const void *sendbuf, const int sendcounts[], const int sdispls[], const MPI_Datatype sendtypes[], void *recvbuf, const int recvcounts[], const int rdispls[], const MPI_Datatype recvtypes[], MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Dist_graph_create(MPI_Comm comm_old, int n, const int nodes[], const int degrees[], const int targets[], const int weights[], MPI_Info info, int reorder, MPI_Comm * newcomm);
-__attribute__((visibility("default")))  int PMPI_Dist_graph_create_adjacent(MPI_Comm comm_old, int indegree, const int sources[], const int sourceweights[], int outdegree, const int destinations[], const int destweights[], MPI_Info info, int reorder, MPI_Comm *comm_dist_graph);
-__attribute__((visibility("default"))) int PMPI_Dist_graph_neighbors(MPI_Comm comm, int maxindegree, int sources[], int sourceweights[], int maxoutdegree, int destinations[], int destweights[]);
-__attribute__((visibility("default")))  int PMPI_Dist_graph_neighbors_count(MPI_Comm comm, int *inneighbors, int *outneighbors, int *weighted);
-__attribute__((visibility("default")))  int PMPI_Barrier(MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Ibarrier(MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Bcast(void *buffer, int count, MPI_Datatype datatype, int root, MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Ibcast(void *buffer, int count, MPI_Datatype datatype, int root, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Bsend(const void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Bsend_init(const void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Buffer_attach(void *buffer, int size);
-__attribute__((visibility("default")))  int PMPI_Buffer_detach(void *buffer, int *size);
-__attribute__((visibility("default")))  int PMPI_Cancel(MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Cart_coords(MPI_Comm comm, int rank, int maxdims, int coords[]);
-__attribute__((visibility("default")))  int PMPI_Cart_create(MPI_Comm old_comm, int ndims, const int dims[], const int periods[], int reorder, MPI_Comm *comm_cart);
-__attribute__((visibility("default")))  int PMPI_Cart_get(MPI_Comm comm, int maxdims, int dims[], int periods[], int coords[]);
-__attribute__((visibility("default")))  int PMPI_Cart_map(MPI_Comm comm, int ndims, const int dims[], const int periods[], int *newrank);
-__attribute__((visibility("default")))  int PMPI_Cart_rank(MPI_Comm comm, const int coords[], int *rank);
-__attribute__((visibility("default")))  int PMPI_Cart_shift(MPI_Comm comm, int direction, int disp, int *rank_source, int *rank_dest);
-__attribute__((visibility("default")))  int PMPI_Cart_sub(MPI_Comm comm, const int remain_dims[], MPI_Comm *new_comm);
-__attribute__((visibility("default")))  int PMPI_Cartdim_get(MPI_Comm comm, int *ndims);
-__attribute__((visibility("default")))  int PMPI_Close_port(const char *port_name);
-__attribute__((visibility("default")))  int PMPI_Comm_accept(const char *port_name, MPI_Info info, int root, MPI_Comm comm, MPI_Comm *newcomm);
-__attribute__((visibility("default")))  int PMPI_Comm_c2f(MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Comm_call_errhandler(MPI_Comm comm, int errorcode);
-__attribute__((visibility("default")))  int PMPI_Comm_compare(MPI_Comm comm1, MPI_Comm comm2, int *result);
-__attribute__((visibility("default")))  int PMPI_Comm_connect(const char *port_name, MPI_Info info, int root, MPI_Comm comm, MPI_Comm *newcomm);
-__attribute__((visibility("default")))  int PMPI_Comm_create_errhandler(MPI_Comm_errhandler_function *function, MPI_Errhandler *errhandler);
-__attribute__((visibility("default")))  int PMPI_Comm_create_keyval(MPI_Comm_copy_attr_function *comm_copy_attr_fn, MPI_Comm_delete_attr_function *comm_delete_attr_fn, int *comm_keyval, void *extra_state);
-__attribute__((visibility("default")))  int PMPI_Comm_create_group(MPI_Comm comm, MPI_Group group, int tag, MPI_Comm *newcomm);
-__attribute__((visibility("default")))  int PMPI_Comm_create(MPI_Comm comm, MPI_Group group, MPI_Comm *newcomm);
-__attribute__((visibility("default")))  int PMPI_Comm_delete_attr(MPI_Comm comm, int comm_keyval);
-__attribute__((visibility("default")))  int PMPI_Comm_disconnect(MPI_Comm *comm);
-__attribute__((visibility("default")))  int PMPI_Comm_dup(MPI_Comm comm, MPI_Comm *newcomm);
-__attribute__((visibility("default")))  int PMPI_Comm_idup(MPI_Comm comm, MPI_Comm *newcomm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Comm_dup_with_info(MPI_Comm comm, MPI_Info info, MPI_Comm *newcomm);
-__attribute__((visibility("default")))  MPI_Comm PMPI_Comm_f2c(int comm);
-__attribute__((visibility("default")))  int PMPI_Comm_free_keyval(int *comm_keyval);
-__attribute__((visibility("default")))  int PMPI_Comm_free(MPI_Comm *comm);
-__attribute__((visibility("default")))  int PMPI_Comm_get_attr(MPI_Comm comm, int comm_keyval, void *attribute_val, int *flag);
-__attribute__((visibility("default")))  int PMPI_Comm_get_errhandler(MPI_Comm comm, MPI_Errhandler *erhandler);
-__attribute__((visibility("default")))  int PMPI_Comm_get_info(MPI_Comm comm, MPI_Info *info_used);
-__attribute__((visibility("default")))  int PMPI_Comm_get_name(MPI_Comm comm, char *comm_name, int *resultlen);
-__attribute__((visibility("default")))  int PMPI_Comm_get_parent(MPI_Comm *parent);
-__attribute__((visibility("default")))  int PMPI_Comm_group(MPI_Comm comm, MPI_Group *group);
-__attribute__((visibility("default")))  int PMPI_Comm_join(int fd, MPI_Comm *intercomm);
-__attribute__((visibility("default")))  int PMPI_Comm_rank(MPI_Comm comm, int *rank);
-__attribute__((visibility("default")))  int PMPI_Comm_remote_group(MPI_Comm comm, MPI_Group *group);
-__attribute__((visibility("default")))  int PMPI_Comm_remote_size(MPI_Comm comm, int *size);
-__attribute__((visibility("default")))  int PMPI_Comm_set_attr(MPI_Comm comm, int comm_keyval, void *attribute_val);
-__attribute__((visibility("default")))  int PMPI_Comm_set_errhandler(MPI_Comm comm, MPI_Errhandler errhandler);
-__attribute__((visibility("default")))  int PMPI_Comm_set_info(MPI_Comm comm, MPI_Info info);
-__attribute__((visibility("default")))  int PMPI_Comm_set_name(MPI_Comm comm, const char *comm_name);
-__attribute__((visibility("default")))  int PMPI_Comm_size(MPI_Comm comm, int *size);
-__attribute__((visibility("default")))  int PMPI_Comm_spawn(const char *command, char *argv[], int maxprocs, MPI_Info info, int root, MPI_Comm comm, MPI_Comm *intercomm, int array_of_errcodes[]);
-__attribute__((visibility("default")))  int PMPI_Comm_spawn_multiple(int count, char *array_of_commands[], char **array_of_argv[], const int array_of_maxprocs[], const MPI_Info array_of_info[], int root, MPI_Comm comm, MPI_Comm *intercomm, int array_of_errcodes[]);
-__attribute__((visibility("default")))  int PMPI_Comm_split(MPI_Comm comm, int color, int key, MPI_Comm *newcomm);
-__attribute__((visibility("default")))  int PMPI_Comm_split_type(MPI_Comm comm, int split_type, int key, MPI_Info info, MPI_Comm *newcomm);
-__attribute__((visibility("default")))  int PMPI_Comm_test_inter(MPI_Comm comm, int *flag);
-__attribute__((visibility("default")))  int PMPI_Compare_and_swap(const void *origin_addr, const void *compare_addr, void *result_addr, MPI_Datatype datatype, int target_rank, MPI_Aint target_disp, MPI_Win win);
-__attribute__((visibility("default")))  int PMPI_Dims_create(int nnodes, int ndims, int dims[]);
-__attribute__((visibility("default")))  int PMPI_Errhandler_c2f(MPI_Errhandler errhandler);
-__attribute__((visibility("default")))  MPI_Errhandler PMPI_Errhandler_f2c(int errhandler);
-__attribute__((visibility("default")))  int PMPI_Errhandler_free(MPI_Errhandler *errhandler);
-__attribute__((visibility("default")))  int PMPI_Error_class(int errorcode, int *errorclass);
-__attribute__((visibility("default")))  int PMPI_Error_string(int errorcode, char *string, int *resultlen);
-__attribute__((visibility("default")))  int PMPI_Exscan(const void *sendbuf, void *recvbuf, int count, MPI_Datatype datatype, MPI_Op op, MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Fetch_and_op(const void *origin_addr, void *result_addr, MPI_Datatype datatype, int target_rank, MPI_Aint target_disp, MPI_Op op, MPI_Win win);
-__attribute__((visibility("default")))  int PMPI_Iexscan(const void *sendbuf, void *recvbuf, int count, MPI_Datatype datatype, MPI_Op op, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_File_c2f(MPI_File file);
-__attribute__((visibility("default")))  MPI_File PMPI_File_f2c(int file);
-__attribute__((visibility("default")))  int PMPI_File_call_errhandler(MPI_File fh, int errorcode);
-__attribute__((visibility("default")))  int PMPI_File_create_errhandler(MPI_File_errhandler_function *function, MPI_Errhandler *errhandler);
-__attribute__((visibility("default")))  int PMPI_File_set_errhandler( MPI_File file, MPI_Errhandler errhandler);
-__attribute__((visibility("default")))  int PMPI_File_get_errhandler( MPI_File file, MPI_Errhandler *errhandler);
-__attribute__((visibility("default")))  int PMPI_File_open(MPI_Comm comm, const char *filename, int amode, MPI_Info info, MPI_File *fh);
-__attribute__((visibility("default")))  int PMPI_File_close(MPI_File *fh);
-__attribute__((visibility("default")))  int PMPI_File_delete(const char *filename, MPI_Info info);
-__attribute__((visibility("default")))  int PMPI_File_set_size(MPI_File fh, MPI_Offset size);
-__attribute__((visibility("default")))  int PMPI_File_preallocate(MPI_File fh, MPI_Offset size);
-__attribute__((visibility("default")))  int PMPI_File_get_size(MPI_File fh, MPI_Offset *size);
-__attribute__((visibility("default")))  int PMPI_File_get_group(MPI_File fh, MPI_Group *group);
-__attribute__((visibility("default")))  int PMPI_File_get_amode(MPI_File fh, int *amode);
-__attribute__((visibility("default")))  int PMPI_File_set_info(MPI_File fh, MPI_Info info);
-__attribute__((visibility("default")))  int PMPI_File_get_info(MPI_File fh, MPI_Info *info_used);
-__attribute__((visibility("default")))  int PMPI_File_set_view(MPI_File fh, MPI_Offset disp, MPI_Datatype etype, MPI_Datatype filetype, const char *datarep, MPI_Info info);
-__attribute__((visibility("default")))  int PMPI_File_get_view(MPI_File fh, MPI_Offset *disp, MPI_Datatype *etype, MPI_Datatype *filetype, char *datarep);
-__attribute__((visibility("default")))  int PMPI_File_read_at(MPI_File fh, MPI_Offset offset, void *buf, int count, MPI_Datatype datatype, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_File_read_at_all(MPI_File fh, MPI_Offset offset, void *buf, int count, MPI_Datatype datatype, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_File_write_at(MPI_File fh, MPI_Offset offset, const void *buf, int count, MPI_Datatype datatype, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_File_write_at_all(MPI_File fh, MPI_Offset offset, const void *buf, int count, MPI_Datatype datatype, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_File_iread_at(MPI_File fh, MPI_Offset offset, void *buf, int count, MPI_Datatype datatype, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_File_iwrite_at(MPI_File fh, MPI_Offset offset, const void *buf, int count, MPI_Datatype datatype, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_File_iread_at_all(MPI_File fh, MPI_Offset offset, void *buf, int count, MPI_Datatype datatype, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_File_iwrite_at_all(MPI_File fh, MPI_Offset offset, const void *buf, int count, MPI_Datatype datatype, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_File_read(MPI_File fh, void *buf, int count, MPI_Datatype datatype, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_File_read_all(MPI_File fh, void *buf, int count, MPI_Datatype datatype, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_File_write(MPI_File fh, const void *buf, int count, MPI_Datatype datatype, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_File_write_all(MPI_File fh, const void *buf, int count, MPI_Datatype datatype, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_File_iread(MPI_File fh, void *buf, int count, MPI_Datatype datatype, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_File_iwrite(MPI_File fh, const void *buf, int count, MPI_Datatype datatype, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_File_iread_all(MPI_File fh, void *buf, int count, MPI_Datatype datatype, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_File_iwrite_all(MPI_File fh, const void *buf, int count, MPI_Datatype datatype, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_File_seek(MPI_File fh, MPI_Offset offset, int whence);
-__attribute__((visibility("default")))  int PMPI_File_get_position(MPI_File fh, MPI_Offset *offset);
-__attribute__((visibility("default")))  int PMPI_File_get_byte_offset(MPI_File fh, MPI_Offset offset, MPI_Offset *disp);
-__attribute__((visibility("default")))  int PMPI_File_read_shared(MPI_File fh, void *buf, int count, MPI_Datatype datatype, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_File_write_shared(MPI_File fh, const void *buf, int count, MPI_Datatype datatype, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_File_iread_shared(MPI_File fh, void *buf, int count, MPI_Datatype datatype, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_File_iwrite_shared(MPI_File fh, const void *buf, int count, MPI_Datatype datatype, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_File_read_ordered(MPI_File fh, void *buf, int count, MPI_Datatype datatype, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_File_write_ordered(MPI_File fh, const void *buf, int count, MPI_Datatype datatype, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_File_seek_shared(MPI_File fh, MPI_Offset offset, int whence);
-__attribute__((visibility("default")))  int PMPI_File_get_position_shared(MPI_File fh, MPI_Offset *offset);
-__attribute__((visibility("default")))  int PMPI_File_read_at_all_begin(MPI_File fh, MPI_Offset offset, void *buf, int count, MPI_Datatype datatype);
-__attribute__((visibility("default")))  int PMPI_File_read_at_all_end(MPI_File fh, void *buf, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_File_write_at_all_begin(MPI_File fh, MPI_Offset offset, const void *buf, int count, MPI_Datatype datatype);
-__attribute__((visibility("default")))  int PMPI_File_write_at_all_end(MPI_File fh, const void *buf, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_File_read_all_begin(MPI_File fh, void *buf, int count, MPI_Datatype datatype);
-__attribute__((visibility("default")))  int PMPI_File_read_all_end(MPI_File fh, void *buf, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_File_write_all_begin(MPI_File fh, const void *buf, int count, MPI_Datatype datatype);
-__attribute__((visibility("default")))  int PMPI_File_write_all_end(MPI_File fh, const void *buf, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_File_read_ordered_begin(MPI_File fh, void *buf, int count, MPI_Datatype datatype);
-__attribute__((visibility("default")))  int PMPI_File_read_ordered_end(MPI_File fh, void *buf, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_File_write_ordered_begin(MPI_File fh, const void *buf, int count, MPI_Datatype datatype);
-__attribute__((visibility("default")))  int PMPI_File_write_ordered_end(MPI_File fh, const void *buf, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_File_get_type_extent(MPI_File fh, MPI_Datatype datatype, MPI_Aint *extent);
-__attribute__((visibility("default")))  int PMPI_File_set_atomicity(MPI_File fh, int flag);
-__attribute__((visibility("default")))  int PMPI_File_get_atomicity(MPI_File fh, int *flag);
-__attribute__((visibility("default")))  int PMPI_File_sync(MPI_File fh);
-__attribute__((visibility("default")))  int PMPI_Finalize(void);
-__attribute__((visibility("default")))  int PMPI_Finalized(int *flag);
-__attribute__((visibility("default")))  int PMPI_Free_mem(void *base);
-__attribute__((visibility("default")))  int PMPI_Gather(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, int root, MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Igather(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, int root, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Gatherv(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, const int recvcounts[], const int displs[], MPI_Datatype recvtype, int root, MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Igatherv(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, const int recvcounts[], const int displs[], MPI_Datatype recvtype, int root, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Get_address(const void *location, MPI_Aint *address);
-__attribute__((visibility("default")))  int PMPI_Get_count(const MPI_Status *status, MPI_Datatype datatype, int *count);
-__attribute__((visibility("default")))  int PMPI_Get_elements(const MPI_Status *status, MPI_Datatype datatype, int *count);
-__attribute__((visibility("default")))  int PMPI_Get_elements_x(const MPI_Status *status, MPI_Datatype datatype, MPI_Count *count);
-__attribute__((visibility("default")))  int PMPI_Get(void *origin_addr, int origin_count, MPI_Datatype origin_datatype, int target_rank, MPI_Aint target_disp, int target_count, MPI_Datatype target_datatype, MPI_Win win);
-__attribute__((visibility("default")))  int PMPI_Get_accumulate(const void *origin_addr, int origin_count, MPI_Datatype origin_datatype, void *result_addr, int result_count, MPI_Datatype result_datatype, int target_rank, MPI_Aint target_disp, int target_count, MPI_Datatype target_datatype, MPI_Op op, MPI_Win win);
-__attribute__((visibility("default")))  int PMPI_Get_library_version(char *version, int *resultlen);
-__attribute__((visibility("default")))  int PMPI_Get_processor_name(char *name, int *resultlen);
-__attribute__((visibility("default")))  int PMPI_Get_version(int *version, int *subversion);
-__attribute__((visibility("default")))  int PMPI_Graph_create(MPI_Comm comm_old, int nnodes, const int index[], const int edges[], int reorder, MPI_Comm *comm_graph);
-__attribute__((visibility("default")))  int PMPI_Graph_get(MPI_Comm comm, int maxindex, int maxedges, int index[], int edges[]);
-__attribute__((visibility("default")))  int PMPI_Graph_map(MPI_Comm comm, int nnodes, const int index[], const int edges[], int *newrank);
-__attribute__((visibility("default")))  int PMPI_Graph_neighbors_count(MPI_Comm comm, int rank, int *nneighbors);
-__attribute__((visibility("default")))  int PMPI_Graph_neighbors(MPI_Comm comm, int rank, int maxneighbors, int neighbors[]);
-__attribute__((visibility("default")))  int PMPI_Graphdims_get(MPI_Comm comm, int *nnodes, int *nedges);
-__attribute__((visibility("default")))  int PMPI_Grequest_complete(MPI_Request request);
-__attribute__((visibility("default")))  int PMPI_Grequest_start(MPI_Grequest_query_function *query_fn, MPI_Grequest_free_function *free_fn, MPI_Grequest_cancel_function *cancel_fn, void *extra_state, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Group_c2f(MPI_Group group);
-__attribute__((visibility("default")))  int PMPI_Group_compare(MPI_Group group1, MPI_Group group2, int *result);
-__attribute__((visibility("default")))  int PMPI_Group_difference(MPI_Group group1, MPI_Group group2, MPI_Group *newgroup);
-__attribute__((visibility("default")))  int PMPI_Group_excl(MPI_Group group, int n, const int ranks[], MPI_Group *newgroup);
-__attribute__((visibility("default")))  MPI_Group PMPI_Group_f2c(int group);
-__attribute__((visibility("default")))  int PMPI_Group_free(MPI_Group *group);
-__attribute__((visibility("default")))  int PMPI_Group_incl(MPI_Group group, int n, const int ranks[], MPI_Group *newgroup);
-__attribute__((visibility("default")))  int PMPI_Group_intersection(MPI_Group group1, MPI_Group group2, MPI_Group *newgroup);
-__attribute__((visibility("default")))  int PMPI_Group_range_excl(MPI_Group group, int n, int ranges[][3], MPI_Group *newgroup);
-__attribute__((visibility("default")))  int PMPI_Group_range_incl(MPI_Group group, int n, int ranges[][3], MPI_Group *newgroup);
-__attribute__((visibility("default")))  int PMPI_Group_rank(MPI_Group group, int *rank);
-__attribute__((visibility("default")))  int PMPI_Group_size(MPI_Group group, int *size);
-__attribute__((visibility("default")))  int PMPI_Group_translate_ranks(MPI_Group group1, int n, const int ranks1[], MPI_Group group2, int ranks2[]);
-__attribute__((visibility("default")))  int PMPI_Group_union(MPI_Group group1, MPI_Group group2, MPI_Group *newgroup);
-__attribute__((visibility("default")))  int PMPI_Ibsend(const void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Improbe(int source, int tag, MPI_Comm comm, int *flag, MPI_Message *message, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_Imrecv(void *buf, int count, MPI_Datatype type, MPI_Message *message, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Info_c2f(MPI_Info info);
-__attribute__((visibility("default")))  int PMPI_Info_create(MPI_Info *info);
-__attribute__((visibility("default")))  int PMPI_Info_delete(MPI_Info info, const char *key);
-__attribute__((visibility("default")))  int PMPI_Info_dup(MPI_Info info, MPI_Info *newinfo);
-__attribute__((visibility("default")))  MPI_Info PMPI_Info_f2c(int info);
-__attribute__((visibility("default")))  int PMPI_Info_free(MPI_Info *info);
-__attribute__((visibility("default")))  int PMPI_Info_get(MPI_Info info, const char *key, int valuelen, char *value, int *flag);
-__attribute__((visibility("default")))  int PMPI_Info_get_nkeys(MPI_Info info, int *nkeys);
-__attribute__((visibility("default")))  int PMPI_Info_get_nthkey(MPI_Info info, int n, char *key);
-__attribute__((visibility("default")))  int PMPI_Info_get_valuelen(MPI_Info info, const char *key, int *valuelen, int *flag);
-__attribute__((visibility("default")))  int PMPI_Info_set(MPI_Info info, const char *key, const char *value);
-__attribute__((visibility("default")))  int PMPI_Init(int *argc, char ***argv);
-__attribute__((visibility("default")))  int PMPI_Initialized(int *flag);
-__attribute__((visibility("default")))  int PMPI_Init_thread(int *argc, char ***argv, int required, int *provided);
-__attribute__((visibility("default")))  int PMPI_Intercomm_create(MPI_Comm local_comm, int local_leader, MPI_Comm bridge_comm, int remote_leader, int tag, MPI_Comm *newintercomm);
-__attribute__((visibility("default")))  int PMPI_Intercomm_merge(MPI_Comm intercomm, int high, MPI_Comm *newintercomm);
-__attribute__((visibility("default")))  int PMPI_Iprobe(int source, int tag, MPI_Comm comm, int *flag, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_Irecv(void *buf, int count, MPI_Datatype datatype, int source, int tag, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Irsend(const void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Isend(const void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Issend(const void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Is_thread_main(int *flag);
-__attribute__((visibility("default")))  int PMPI_Lookup_name(const char *service_name, MPI_Info info, char *port_name);
-__attribute__((visibility("default")))  int PMPI_Message_c2f(MPI_Message message);
-__attribute__((visibility("default")))  MPI_Message PMPI_Message_f2c(int message);
-__attribute__((visibility("default")))  int PMPI_Mprobe(int source, int tag, MPI_Comm comm, MPI_Message *message, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_Mrecv(void *buf, int count, MPI_Datatype type, MPI_Message *message, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_Neighbor_allgather(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Ineighbor_allgather(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Neighbor_allgatherv(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, const int recvcounts[], const int displs[], MPI_Datatype recvtype, MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Ineighbor_allgatherv(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, const int recvcounts[], const int displs[], MPI_Datatype recvtype, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Neighbor_alltoall(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Ineighbor_alltoall(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Neighbor_alltoallv(const void *sendbuf, const int sendcounts[], const int sdispls[],  MPI_Datatype sendtype, void *recvbuf, const int recvcounts[], const int rdispls[], MPI_Datatype recvtype, MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Ineighbor_alltoallv(const void *sendbuf, const int sendcounts[], const int sdispls[], MPI_Datatype sendtype, void *recvbuf, const int recvcounts[], const int rdispls[], MPI_Datatype recvtype, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Neighbor_alltoallw(const void *sendbuf, const int sendcounts[], const MPI_Aint sdispls[], const MPI_Datatype sendtypes[], void *recvbuf, const int recvcounts[], const MPI_Aint rdispls[], const MPI_Datatype recvtypes[], MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Ineighbor_alltoallw(const void *sendbuf, const int sendcounts[], const MPI_Aint sdispls[], const MPI_Datatype sendtypes[], void *recvbuf, const int recvcounts[], const MPI_Aint rdispls[], const MPI_Datatype recvtypes[], MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Op_c2f(MPI_Op op);
-__attribute__((visibility("default")))  int PMPI_Op_commutative(MPI_Op op, int *commute);
-__attribute__((visibility("default")))  int PMPI_Op_create(MPI_User_function *function, int commute, MPI_Op *op);
-__attribute__((visibility("default")))  int PMPI_Open_port(MPI_Info info, char *port_name);
-__attribute__((visibility("default")))  MPI_Op PMPI_Op_f2c(int op);
-__attribute__((visibility("default")))  int PMPI_Op_free(MPI_Op *op);
-__attribute__((visibility("default")))  int PMPI_Pack_external(const char datarep[], const void *inbuf, int incount, MPI_Datatype datatype, void *outbuf, MPI_Aint outsize, MPI_Aint *position);
-__attribute__((visibility("default")))  int PMPI_Pack_external_size(const char datarep[], int incount, MPI_Datatype datatype, MPI_Aint *size);
-__attribute__((visibility("default")))  int PMPI_Pack(const void *inbuf, int incount, MPI_Datatype datatype, void *outbuf, int outsize, int *position, MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Pack_size(int incount, MPI_Datatype datatype, MPI_Comm comm, int *size);
-__attribute__((visibility("default")))  int PMPI_Pcontrol(const int level, ...);
-__attribute__((visibility("default")))  int PMPI_Probe(int source, int tag, MPI_Comm comm, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_Publish_name(const char *service_name, MPI_Info info, const char *port_name);
-__attribute__((visibility("default")))  int PMPI_Put(const void *origin_addr, int origin_count, MPI_Datatype origin_datatype, int target_rank, MPI_Aint target_disp, int target_count, MPI_Datatype target_datatype, MPI_Win win);
-__attribute__((visibility("default")))  int PMPI_Query_thread(int *provided);
-__attribute__((visibility("default")))  int PMPI_Raccumulate(const void *origin_addr, int origin_count, MPI_Datatype origin_datatype, int target_rank, MPI_Aint target_disp, int target_count, MPI_Datatype target_datatype, MPI_Op op, MPI_Win win, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Recv_init(void *buf, int count, MPI_Datatype datatype, int source, int tag, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Recv(void *buf, int count, MPI_Datatype datatype, int source, int tag, MPI_Comm comm, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_Reduce(const void *sendbuf, void *recvbuf, int count, MPI_Datatype datatype, MPI_Op op, int root, MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Ireduce(const void *sendbuf, void *recvbuf, int count, MPI_Datatype datatype, MPI_Op op, int root, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Reduce_local(const void *inbuf, void *inoutbuf, int count, MPI_Datatype datatype, MPI_Op);
-__attribute__((visibility("default")))  int PMPI_Reduce_scatter(const void *sendbuf, void *recvbuf, const int recvcounts[], MPI_Datatype datatype, MPI_Op op, MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Ireduce_scatter(const void *sendbuf, void *recvbuf, const int recvcounts[], MPI_Datatype datatype, MPI_Op op, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Reduce_scatter_block(const void *sendbuf, void *recvbuf, int recvcount, MPI_Datatype datatype, MPI_Op op, MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Ireduce_scatter_block(const void *sendbuf, void *recvbuf, int recvcount, MPI_Datatype datatype, MPI_Op op, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Register_datarep(const char *datarep, MPI_Datarep_conversion_function *read_conversion_fn, MPI_Datarep_conversion_function *write_conversion_fn, MPI_Datarep_extent_function *dtype_file_extent_fn, void *extra_state);
-__attribute__((visibility("default")))  int PMPI_Request_c2f(MPI_Request request);
-__attribute__((visibility("default")))  MPI_Request PMPI_Request_f2c(int request);
-__attribute__((visibility("default")))  int PMPI_Request_free(MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Request_get_status(MPI_Request request, int *flag, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_Rget(void *origin_addr, int origin_count, MPI_Datatype origin_datatype, int target_rank, MPI_Aint target_disp, int target_count, MPI_Datatype target_datatype, MPI_Win win, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Rget_accumulate(const void *origin_addr, int origin_count, MPI_Datatype origin_datatype, void *result_addr, int result_count, MPI_Datatype result_datatype, int target_rank, MPI_Aint target_disp, int target_count, MPI_Datatype target_datatype, MPI_Op op, MPI_Win win, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Rput(const void *origin_addr, int origin_count, MPI_Datatype origin_datatype, int target_rank, MPI_Aint target_disp, int target_cout, MPI_Datatype target_datatype, MPI_Win win, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Rsend(const void *ibuf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Rsend_init(const void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Scan(const void *sendbuf, void *recvbuf, int count, MPI_Datatype datatype, MPI_Op op, MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Iscan(const void *sendbuf, void *recvbuf, int count, MPI_Datatype datatype, MPI_Op op, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Scatter(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, int root, MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Iscatter(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, int root, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Scatterv(const void *sendbuf, const int sendcounts[], const int displs[], MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, int root, MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Iscatterv(const void *sendbuf, const int sendcounts[], const int displs[], MPI_Datatype sendtype, void *recvbuf, int recvcount, MPI_Datatype recvtype, int root, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Send_init(const void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Send(const void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Sendrecv(const void *sendbuf, int sendcount, MPI_Datatype sendtype, int dest, int sendtag, void *recvbuf, int recvcount, MPI_Datatype recvtype, int source, int recvtag, MPI_Comm comm,  MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_Sendrecv_replace(void * buf, int count, MPI_Datatype datatype, int dest, int sendtag, int source, int recvtag, MPI_Comm comm, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_Ssend_init(const void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm, MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Ssend(const void *buf, int count, MPI_Datatype datatype, int dest, int tag, MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Start(MPI_Request *request);
-__attribute__((visibility("default")))  int PMPI_Startall(int count, MPI_Request array_of_requests[]);
-__attribute__((visibility("default")))  int PMPI_Status_c2f(const MPI_Status *c_status, int *f_status);
-__attribute__((visibility("default")))  int PMPI_Status_f2c(const int *f_status, MPI_Status *c_status);
-__attribute__((visibility("default")))  int PMPI_Status_set_cancelled(MPI_Status *status, int flag);
-__attribute__((visibility("default")))  int PMPI_Status_set_elements(MPI_Status *status, MPI_Datatype datatype, int count);
-__attribute__((visibility("default")))  int PMPI_Status_set_elements_x(MPI_Status *status, MPI_Datatype datatype, MPI_Count count);
-__attribute__((visibility("default")))  int PMPI_Testall(int count, MPI_Request array_of_requests[], int *flag, MPI_Status array_of_statuses[]);
-__attribute__((visibility("default")))  int PMPI_Testany(int count, MPI_Request array_of_requests[], int *index, int *flag, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_Test(MPI_Request *request, int *flag, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_Test_cancelled(const MPI_Status *status, int *flag);
-__attribute__((visibility("default")))  int PMPI_Testsome(int incount, MPI_Request array_of_requests[], int *outcount, int array_of_indices[], MPI_Status array_of_statuses[]);
-__attribute__((visibility("default")))  int PMPI_Topo_test(MPI_Comm comm, int *status);
-__attribute__((visibility("default")))  int PMPI_Type_c2f(MPI_Datatype datatype);
-__attribute__((visibility("default")))  int PMPI_Type_commit(MPI_Datatype *type);
-__attribute__((visibility("default")))  int PMPI_Type_contiguous(int count, MPI_Datatype oldtype, MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int PMPI_Type_create_darray(int size, int rank, int ndims, const int gsize_array[], const int distrib_array[], const int darg_array[], const int psize_array[], int order, MPI_Datatype oldtype, MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int PMPI_Type_create_f90_complex(int p, int r, MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int PMPI_Type_create_f90_integer(int r, MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int PMPI_Type_create_f90_real(int p, int r, MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int PMPI_Type_create_hindexed(int count, const int array_of_blocklengths[], const MPI_Aint array_of_displacements[], MPI_Datatype oldtype, MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int PMPI_Type_create_hvector(int count, int blocklength, MPI_Aint stride, MPI_Datatype oldtype, MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int PMPI_Type_create_keyval(MPI_Type_copy_attr_function *type_copy_attr_fn, MPI_Type_delete_attr_function *type_delete_attr_fn, int *type_keyval, void *extra_state);
-__attribute__((visibility("default")))  int PMPI_Type_create_hindexed_block(int count, int blocklength, const MPI_Aint array_of_displacements[], MPI_Datatype oldtype, MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int PMPI_Type_create_indexed_block(int count, int blocklength, const int array_of_displacements[], MPI_Datatype oldtype, MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int PMPI_Type_create_struct(int count, const int array_of_block_lengths[], const MPI_Aint array_of_displacements[], const MPI_Datatype array_of_types[], MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int PMPI_Type_create_subarray(int ndims, const int size_array[], const int subsize_array[], const int start_array[], int order, MPI_Datatype oldtype, MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int PMPI_Type_create_resized(MPI_Datatype oldtype, MPI_Aint lb, MPI_Aint extent, MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int PMPI_Type_delete_attr(MPI_Datatype type, int type_keyval);
-__attribute__((visibility("default")))  int PMPI_Type_dup(MPI_Datatype type, MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int PMPI_Type_free(MPI_Datatype *type);
-__attribute__((visibility("default")))  int PMPI_Type_free_keyval(int *type_keyval);
-__attribute__((visibility("default")))  MPI_Datatype PMPI_Type_f2c(int datatype);
-__attribute__((visibility("default")))  int PMPI_Type_get_attr(MPI_Datatype type, int type_keyval, void *attribute_val, int *flag);
-__attribute__((visibility("default")))  int PMPI_Type_get_contents(MPI_Datatype mtype, int max_integers, int max_addresses, int max_datatypes, int array_of_integers[], MPI_Aint array_of_addresses[], MPI_Datatype array_of_datatypes[]);
-__attribute__((visibility("default")))  int PMPI_Type_get_envelope(MPI_Datatype type, int *num_integers, int *num_addresses, int *num_datatypes, int *combiner);
-__attribute__((visibility("default")))  int PMPI_Type_get_extent(MPI_Datatype type, MPI_Aint *lb, MPI_Aint *extent);
-__attribute__((visibility("default")))  int PMPI_Type_get_extent_x(MPI_Datatype type, MPI_Count *lb, MPI_Count *extent);
-__attribute__((visibility("default")))  int PMPI_Type_get_name(MPI_Datatype type, char *type_name, int *resultlen);
-__attribute__((visibility("default")))  int PMPI_Type_get_true_extent(MPI_Datatype datatype, MPI_Aint *true_lb, MPI_Aint *true_extent);
-__attribute__((visibility("default")))  int PMPI_Type_get_true_extent_x(MPI_Datatype datatype, MPI_Count *true_lb, MPI_Count *true_extent);
-__attribute__((visibility("default")))  int PMPI_Type_indexed(int count, const int array_of_blocklengths[], const int array_of_displacements[], MPI_Datatype oldtype, MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int PMPI_Type_match_size(int typeclass, int size, MPI_Datatype *type);
-__attribute__((visibility("default")))  int PMPI_Type_set_attr(MPI_Datatype type, int type_keyval, void *attr_val);
-__attribute__((visibility("default")))  int PMPI_Type_set_name(MPI_Datatype type, const char *type_name);
-__attribute__((visibility("default")))  int PMPI_Type_size(MPI_Datatype type, int *size);
-__attribute__((visibility("default")))  int PMPI_Type_size_x(MPI_Datatype type, MPI_Count *size);
-__attribute__((visibility("default")))  int PMPI_Type_vector(int count, int blocklength, int stride, MPI_Datatype oldtype, MPI_Datatype *newtype);
-__attribute__((visibility("default")))  int PMPI_Unpack(const void *inbuf, int insize, int *position, void *outbuf, int outcount, MPI_Datatype datatype, MPI_Comm comm);
-__attribute__((visibility("default")))  int PMPI_Unpublish_name(const char *service_name, MPI_Info info, const char *port_name);
-__attribute__((visibility("default")))  int PMPI_Unpack_external (const char datarep[], const void *inbuf, MPI_Aint insize, MPI_Aint *position, void *outbuf, int outcount, MPI_Datatype datatype);
-__attribute__((visibility("default")))  int PMPI_Waitall(int count, MPI_Request array_of_requests[], MPI_Status array_of_statuses[]);
-__attribute__((visibility("default")))  int PMPI_Waitany(int count, MPI_Request array_of_requests[], int *index, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_Wait(MPI_Request *request, MPI_Status *status);
-__attribute__((visibility("default")))  int PMPI_Waitsome(int incount, MPI_Request array_of_requests[], int *outcount, int array_of_indices[], MPI_Status array_of_statuses[]);
-__attribute__((visibility("default")))  int PMPI_Win_allocate(MPI_Aint size, int disp_unit, MPI_Info info, MPI_Comm comm, void *baseptr, MPI_Win *win);
-__attribute__((visibility("default")))  int PMPI_Win_allocate_shared(MPI_Aint size, int disp_unit, MPI_Info info, MPI_Comm comm, void *baseptr, MPI_Win *win);
-__attribute__((visibility("default")))  int PMPI_Win_attach(MPI_Win win, void *base, MPI_Aint size);
-__attribute__((visibility("default")))  int PMPI_Win_c2f(MPI_Win win);
-__attribute__((visibility("default")))  int PMPI_Win_call_errhandler(MPI_Win win, int errorcode);
-__attribute__((visibility("default")))  int PMPI_Win_complete(MPI_Win win);
-__attribute__((visibility("default")))  int PMPI_Win_create(void *base, MPI_Aint size, int disp_unit, MPI_Info info, MPI_Comm comm, MPI_Win *win);
-__attribute__((visibility("default")))  int PMPI_Win_create_dynamic(MPI_Info info, MPI_Comm comm, MPI_Win *win);
-__attribute__((visibility("default")))  int PMPI_Win_create_errhandler(MPI_Win_errhandler_function *function, MPI_Errhandler *errhandler);
-__attribute__((visibility("default")))  int PMPI_Win_create_keyval(MPI_Win_copy_attr_function *win_copy_attr_fn, MPI_Win_delete_attr_function *win_delete_attr_fn, int *win_keyval, void *extra_state);
-__attribute__((visibility("default")))  int PMPI_Win_delete_attr(MPI_Win win, int win_keyval);
-__attribute__((visibility("default")))  int PMPI_Win_detach(MPI_Win win, const void *base);
-__attribute__((visibility("default")))  MPI_Win PMPI_Win_f2c(int win);
-__attribute__((visibility("default")))  int PMPI_Win_fence(int assert, MPI_Win win);
-__attribute__((visibility("default")))  int PMPI_Win_flush(int rank, MPI_Win win);
-__attribute__((visibility("default")))  int PMPI_Win_flush_all(MPI_Win win);
-__attribute__((visibility("default")))  int PMPI_Win_flush_local(int rank, MPI_Win win);
-__attribute__((visibility("default")))  int PMPI_Win_flush_local_all(MPI_Win win);
-__attribute__((visibility("default")))  int PMPI_Win_free(MPI_Win *win);
-__attribute__((visibility("default")))  int PMPI_Win_free_keyval(int *win_keyval);
-__attribute__((visibility("default")))  int PMPI_Win_get_attr(MPI_Win win, int win_keyval, void *attribute_val, int *flag);
-__attribute__((visibility("default")))  int PMPI_Win_get_errhandler(MPI_Win win, MPI_Errhandler *errhandler);
-__attribute__((visibility("default")))  int PMPI_Win_get_group(MPI_Win win, MPI_Group *group);
-__attribute__((visibility("default")))  int PMPI_Win_get_info(MPI_Win win, MPI_Info *info_used);
-__attribute__((visibility("default")))  int PMPI_Win_get_name(MPI_Win win, char *win_name, int *resultlen);
-__attribute__((visibility("default")))  int PMPI_Win_lock(int lock_type, int rank, int assert, MPI_Win win);
-__attribute__((visibility("default")))  int PMPI_Win_lock_all(int assert, MPI_Win win);
-__attribute__((visibility("default")))  int PMPI_Win_post(MPI_Group group, int assert, MPI_Win win);
-__attribute__((visibility("default")))  int PMPI_Win_set_attr(MPI_Win win, int win_keyval, void *attribute_val);
-__attribute__((visibility("default")))  int PMPI_Win_set_errhandler(MPI_Win win, MPI_Errhandler errhandler);
-__attribute__((visibility("default")))  int PMPI_Win_set_info(MPI_Win win, MPI_Info info);
-__attribute__((visibility("default")))  int PMPI_Win_set_name(MPI_Win win, const char *win_name);
-__attribute__((visibility("default")))  int PMPI_Win_shared_query(MPI_Win win, int rank, MPI_Aint *size, int *disp_unit, void *baseptr);
-__attribute__((visibility("default")))  int PMPI_Win_start(MPI_Group group, int assert, MPI_Win win);
-__attribute__((visibility("default")))  int PMPI_Win_sync(MPI_Win win);
-__attribute__((visibility("default")))  int PMPI_Win_test(MPI_Win win, int *flag);
-__attribute__((visibility("default")))  int PMPI_Win_unlock(int rank, MPI_Win win);
-__attribute__((visibility("default")))  int PMPI_Win_unlock_all(MPI_Win win);
-__attribute__((visibility("default")))  int PMPI_Win_wait(MPI_Win win);
-__attribute__((visibility("default")))  double PMPI_Wtick(void);
-__attribute__((visibility("default")))  double PMPI_Wtime(void);
-__attribute__((visibility("default")))  int PMPI_T_init_thread (int required, int *provided);
-__attribute__((visibility("default")))  int PMPI_T_finalize (void);
-__attribute__((visibility("default")))  int PMPI_T_cvar_get_num (int *num_cvar);
-__attribute__((visibility("default")))  int PMPI_T_cvar_get_info (int cvar_index, char *name, int *name_len, int *verbosity, MPI_Datatype *datatype, MPI_T_enum *enumtype, char *desc, int *desc_len, int *bind, int *scope);
-__attribute__((visibility("default")))  int PMPI_T_cvar_get_index (const char *name, int *cvar_index);
-__attribute__((visibility("default")))  int PMPI_T_cvar_handle_alloc (int cvar_index, void *obj_handle, MPI_T_cvar_handle *handle, int *count);
-__attribute__((visibility("default")))  int PMPI_T_cvar_handle_free (MPI_T_cvar_handle *handle);
-__attribute__((visibility("default")))  int PMPI_T_cvar_read (MPI_T_cvar_handle handle, void *buf);
-__attribute__((visibility("default")))  int PMPI_T_cvar_write (MPI_T_cvar_handle handle, const void *buf);
-__attribute__((visibility("default")))  int PMPI_T_category_get_num(int *num_cat);
-__attribute__((visibility("default")))  int PMPI_T_category_get_info(int cat_index, char *name, int *name_len, char *desc, int *desc_len, int *num_cvars, int *num_pvars, int *num_categories);
-__attribute__((visibility("default")))  int PMPI_T_category_get_index (const char *name, int *category_index);
-__attribute__((visibility("default")))  int PMPI_T_category_get_cvars(int cat_index, int len, int indices[]);
-__attribute__((visibility("default")))  int PMPI_T_category_get_pvars(int cat_index, int len, int indices[]);
-__attribute__((visibility("default")))  int PMPI_T_category_get_categories(int cat_index, int len, int indices[]);
-__attribute__((visibility("default")))  int PMPI_T_category_changed(int *stamp);
-__attribute__((visibility("default")))  int PMPI_T_pvar_get_num(int *num_pvar);
-__attribute__((visibility("default")))  int PMPI_T_pvar_get_info(int pvar_index, char *name, int *name_len, int *verbosity, int *var_class, MPI_Datatype *datatype, MPI_T_enum *enumtype, char *desc, int *desc_len, int *bind, int *readonly, int *continuous, int *atomic);
-__attribute__((visibility("default")))  int PMPI_T_pvar_get_index (const char *name, int var_class, int *pvar_index);
-__attribute__((visibility("default")))  int PMPI_T_pvar_session_create(MPI_T_pvar_session *session);
-__attribute__((visibility("default")))  int PMPI_T_pvar_session_free(MPI_T_pvar_session *session);
-__attribute__((visibility("default")))  int PMPI_T_pvar_handle_alloc(MPI_T_pvar_session session, int pvar_index, void *obj_handle, MPI_T_pvar_handle *handle, int *count);
-__attribute__((visibility("default")))  int PMPI_T_pvar_handle_free(MPI_T_pvar_session session, MPI_T_pvar_handle *handle);
-__attribute__((visibility("default")))  int PMPI_T_pvar_start(MPI_T_pvar_session session, MPI_T_pvar_handle handle);
-__attribute__((visibility("default")))  int PMPI_T_pvar_stop(MPI_T_pvar_session session, MPI_T_pvar_handle handle);
-__attribute__((visibility("default")))  int PMPI_T_pvar_read(MPI_T_pvar_session session, MPI_T_pvar_handle handle, void *buf);
-__attribute__((visibility("default")))  int PMPI_T_pvar_write(MPI_T_pvar_session session, MPI_T_pvar_handle handle, const void *buf);
-__attribute__((visibility("default")))  int PMPI_T_pvar_reset(MPI_T_pvar_session session, MPI_T_pvar_handle handle);
-__attribute__((visibility("default")))  int PMPI_T_pvar_readreset(MPI_T_pvar_session session, MPI_T_pvar_handle handle, void *buf);
-__attribute__((visibility("default")))  int PMPI_T_enum_get_info(MPI_T_enum enumtype, int *num, char *name, int *name_len);
-__attribute__((visibility("default")))  int PMPI_T_enum_get_item(MPI_T_enum enumtype, int index, int *value, char *name, int *name_len);
-__attribute__((visibility("default")))  int MPI_T_init_thread (int required, int *provided);
-__attribute__((visibility("default")))  int MPI_T_finalize (void);
-__attribute__((visibility("default")))  int MPI_T_cvar_get_num (int *num_cvar);
-__attribute__((visibility("default")))  int MPI_T_cvar_get_info (int cvar_index, char *name, int *name_len, int *verbosity, MPI_Datatype *datatype, MPI_T_enum *enumtype, char *desc, int *desc_len, int *bind, int *scope);
-__attribute__((visibility("default")))  int MPI_T_cvar_get_index (const char *name, int *cvar_index);
-__attribute__((visibility("default")))  int MPI_T_cvar_handle_alloc (int cvar_index, void *obj_handle, MPI_T_cvar_handle *handle, int *count);
-__attribute__((visibility("default")))  int MPI_T_cvar_handle_free (MPI_T_cvar_handle *handle);
-__attribute__((visibility("default")))  int MPI_T_cvar_read (MPI_T_cvar_handle handle, void *buf);
-__attribute__((visibility("default")))  int MPI_T_cvar_write (MPI_T_cvar_handle handle, const void *buf);
-__attribute__((visibility("default")))  int MPI_T_category_get_num(int *num_cat);
-__attribute__((visibility("default")))  int MPI_T_category_get_info(int cat_index, char *name, int *name_len, char *desc, int *desc_len, int *num_cvars, int *num_pvars, int *num_categories);
-__attribute__((visibility("default")))  int MPI_T_category_get_index (const char *name, int *category_index);
-__attribute__((visibility("default")))  int MPI_T_category_get_cvars(int cat_index, int len, int indices[]);
-__attribute__((visibility("default")))  int MPI_T_category_get_pvars(int cat_index, int len, int indices[]);
-__attribute__((visibility("default")))  int MPI_T_category_get_categories(int cat_index, int len, int indices[]);
-__attribute__((visibility("default")))  int MPI_T_category_changed(int *stamp);
-__attribute__((visibility("default")))  int MPI_T_pvar_get_num(int *num_pvar);
-__attribute__((visibility("default")))  int MPI_T_pvar_get_info(int pvar_index, char *name, int *name_len, int *verbosity, int *var_class, MPI_Datatype *datatype, MPI_T_enum *enumtype, char *desc, int *desc_len, int *bind, int *readonly, int *continuous, int *atomic);
-__attribute__((visibility("default")))  int MPI_T_pvar_get_index (const char *name, int var_class, int *pvar_index);
-__attribute__((visibility("default")))  int MPI_T_pvar_session_create(MPI_T_pvar_session *session);
-__attribute__((visibility("default")))  int MPI_T_pvar_session_free(MPI_T_pvar_session *session);
-__attribute__((visibility("default")))  int MPI_T_pvar_handle_alloc(MPI_T_pvar_session session, int pvar_index, void *obj_handle, MPI_T_pvar_handle *handle, int *count);
-__attribute__((visibility("default")))  int MPI_T_pvar_handle_free(MPI_T_pvar_session session, MPI_T_pvar_handle *handle);
-__attribute__((visibility("default")))  int MPI_T_pvar_start(MPI_T_pvar_session session, MPI_T_pvar_handle handle);
-__attribute__((visibility("default")))  int MPI_T_pvar_stop(MPI_T_pvar_session session, MPI_T_pvar_handle handle);
-__attribute__((visibility("default")))  int MPI_T_pvar_read(MPI_T_pvar_session session, MPI_T_pvar_handle handle, void *buf);
-__attribute__((visibility("default")))  int MPI_T_pvar_write(MPI_T_pvar_session session, MPI_T_pvar_handle handle, const void *buf);
-__attribute__((visibility("default")))  int MPI_T_pvar_reset(MPI_T_pvar_session session, MPI_T_pvar_handle handle);
-__attribute__((visibility("default")))  int MPI_T_pvar_readreset(MPI_T_pvar_session session, MPI_T_pvar_handle handle, void *buf);
-__attribute__((visibility("default")))  int MPI_T_enum_get_info(MPI_T_enum enumtype, int *num, char *name, int *name_len);
-__attribute__((visibility("default")))  int MPI_T_enum_get_item(MPI_T_enum enumtype, int index, int *value, char *name, int *name_len);
-__attribute__((visibility("default")))  int MPI_Attr_delete(MPI_Comm comm, int keyval) __attribute__((__deprecated__("MPI_Attr_delete was deprecated in MPI-2.0; use MPI_Comm_delete_attr instead"))) ;
-__attribute__((visibility("default")))  int PMPI_Attr_delete(MPI_Comm comm, int keyval) __attribute__((__deprecated__("PMPI_Attr_delete was deprecated in MPI-2.0; use PMPI_Comm_delete_attr instead"))) ;
-__attribute__((visibility("default")))  int MPI_Attr_get(MPI_Comm comm, int keyval, void *attribute_val, int *flag) __attribute__((__deprecated__("MPI_Attr_get was deprecated in MPI-2.0; use MPI_Comm_get_attr instead"))) ;
-__attribute__((visibility("default")))  int PMPI_Attr_get(MPI_Comm comm, int keyval, void *attribute_val, int *flag) __attribute__((__deprecated__("PMPI_Attr_get was deprecated in MPI-2.0; use PMPI_Comm_get_attr instead"))) ;
-__attribute__((visibility("default")))  int MPI_Attr_put(MPI_Comm comm, int keyval, void *attribute_val) __attribute__((__deprecated__("MPI_Attr_put was deprecated in MPI-2.0; use MPI_Comm_set_attr instead"))) ;
-__attribute__((visibility("default")))  int PMPI_Attr_put(MPI_Comm comm, int keyval, void *attribute_val) __attribute__((__deprecated__("PMPI_Attr_put was deprecated in MPI-2.0; use PMPI_Comm_set_attr instead"))) ;
-typedef int (MPI_Copy_function)(MPI_Comm, int, void *, void *, void *, int *);
-typedef int (MPI_Delete_function)(MPI_Comm, int, void *, void *);
-__attribute__((visibility("default")))  int MPI_Keyval_create(MPI_Copy_function *copy_fn, MPI_Delete_function *delete_fn, int *keyval, void *extra_state) __attribute__((__deprecated__("MPI_Keyval_create was deprecated in MPI-2.0; use MPI_Comm_create_keyval instead."))) ;
-__attribute__((visibility("default")))  int PMPI_Keyval_create(MPI_Copy_function *copy_fn, MPI_Delete_function *delete_fn, int *keyval, void *extra_state) __attribute__((__deprecated__("PMPI_Keyval_create was deprecated in MPI-2.0; use PMPI_Comm_create_keyval instead."))) ;
-__attribute__((visibility("default")))  int MPI_Keyval_free(int *keyval) __attribute__((__deprecated__("MPI_Keyval_free was deprecated in MPI-2.0; MPI_Comm_free_keyval instead."))) ;
-__attribute__((visibility("default")))  int PMPI_Keyval_free(int *keyval) __attribute__((__deprecated__("PMPI_Keyval_free was deprecated in MPI-2.0; PMPI_Comm_free_keyval instead."))) ;
-__attribute__((visibility("default"))) int OMPI_C_MPI_DUP_FN( MPI_Comm comm, int comm_keyval, void* extra_state, void* attribute_val_in, void* attribute_val_out, int* flag ) __attribute__((__deprecated__("OMPI_C_MPI_DUP_FN was deprecated in MPI-2.0; use OMPI_C_MPI_COMM_DUP_FN instead."))) ;
-__attribute__((visibility("default"))) int OMPI_C_MPI_NULL_COPY_FN( MPI_Comm comm, int comm_keyval, void* extra_state, void* attribute_val_in, void* attribute_val_out, int* flag ) __attribute__((__deprecated__("OMPI_C_MPI_NULL_COPY_FN was deprecated in MPI-2.0; use OMPI_C_MPI_COMM_NULL_COPY_FN instead."))) ;
-__attribute__((visibility("default"))) int OMPI_C_MPI_NULL_DELETE_FN( MPI_Comm comm, int comm_keyval, void* attribute_val_out, void* extra_state ) __attribute__((__deprecated__("OMPI_C_MPI_NULL_DELETE_FN was deprecated in MPI-2.0; use OMPI_C_MPI_COMM_NULL_DELETE_FN instead."))) ;
-/* END /usr/lib/x86_64-1-gnu/openmpi/include/mpi.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5api_adpt.h */
-/* END /usr/include/hdf5/openmpi/H5api_adpt.h */
+enum { H5Acreate = 0 };
+enum { H5Aiterate = 0 };
+enum { H5A_operator_t = 0 };
+enum { H5Dcreate = 0 };
+enum { H5Dopen = 0 };
+enum { H5Eclear = 0 };
+enum { H5Eget_auto = 0 };
+enum { H5Eprint = 0 };
+enum { H5Epush = 0 };
+enum { H5Eset_auto = 0 };
+enum { H5Ewalk = 0 };
+enum { H5E_error_t = 0 };
+enum { H5E_walk_t = 0 };
+enum { H5Fget_info = 0 };
+enum { H5F_info_t = 0 };
+enum { H5Gcreate = 0 };
+enum { H5Gopen = 0 };
+enum { H5Pget_filter = 0 };
+enum { H5Pget_filter_by_id = 0 };
+enum { H5Pinsert = 0 };
+enum { H5Pregister = 0 };
+enum { H5Rdereference = 0 };
+enum { H5Rget_obj_type = 0 };
+enum { H5Tarray_create = 0 };
+enum { H5Tcommit = 0 };
+enum { H5Tget_array_dims = 0 };
+enum { H5Topen = 0 };
+enum { H5E_auto_t = 0 };
+enum { H5Z_class_t = 0 };
+/* END /usr/include/hdf5/serial/H5version.h */
+/* BEGIN /usr/include/features.h */
+]] require 'ffi.c.features' ffi.cdef[[
+/* END /usr/include/features.h */
+/* BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
+]] require 'ffi.c.sys.types' ffi.cdef[[
+/* END /usr/include/x86_64-1-gnu/sys/types.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h */
+]] require 'ffi.c.limits' ffi.cdef[[
+/* END /usr/lib/gcc/x86_64-1-gnu/11/include/limits.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h */
+]] require 'ffi.c.stdarg' ffi.cdef[[
+/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stdarg.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h */
+]] require 'ffi.c.stdint' ffi.cdef[[
+/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stdint.h */
+/* BEGIN /usr/include/inttypes.h */
+enum { _INTTYPES_H = 1 };
+/* BEGIN /usr/include/features.h */
+/* END /usr/include/features.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h */
+/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stdint.h */
+typedef int __gwchar_t;
+enum { ____gwchar_t_defined = 1 };
+/* #  define __PRI64_PREFIX	"l" ### string, not number "\"l\"" */
+/* #  define __PRIPTR_PREFIX	"l" ### string, not number "\"l\"" */
+/* # define PRId8		"d" ### string, not number "\"d\"" */
+/* # define PRId16		"d" ### string, not number "\"d\"" */
+/* # define PRId32		"d" ### string, not number "\"d\"" */
+/* # define PRId64		__PRI64_PREFIX "d" ### string, not number "__PRI64_PREFIX \"d\"" */
+/* # define PRIdLEAST8	"d" ### string, not number "\"d\"" */
+/* # define PRIdLEAST16	"d" ### string, not number "\"d\"" */
+/* # define PRIdLEAST32	"d" ### string, not number "\"d\"" */
+/* # define PRIdLEAST64	__PRI64_PREFIX "d" ### string, not number "__PRI64_PREFIX \"d\"" */
+/* # define PRIdFAST8	"d" ### string, not number "\"d\"" */
+/* # define PRIdFAST16	__PRIPTR_PREFIX "d" ### string, not number "__PRIPTR_PREFIX \"d\"" */
+/* # define PRIdFAST32	__PRIPTR_PREFIX "d" ### string, not number "__PRIPTR_PREFIX \"d\"" */
+/* # define PRIdFAST64	__PRI64_PREFIX "d" ### string, not number "__PRI64_PREFIX \"d\"" */
+/* # define PRIi8		"i" ### string, not number "\"i\"" */
+/* # define PRIi16		"i" ### string, not number "\"i\"" */
+/* # define PRIi32		"i" ### string, not number "\"i\"" */
+/* # define PRIi64		__PRI64_PREFIX "i" ### string, not number "__PRI64_PREFIX \"i\"" */
+/* # define PRIiLEAST8	"i" ### string, not number "\"i\"" */
+/* # define PRIiLEAST16	"i" ### string, not number "\"i\"" */
+/* # define PRIiLEAST32	"i" ### string, not number "\"i\"" */
+/* # define PRIiLEAST64	__PRI64_PREFIX "i" ### string, not number "__PRI64_PREFIX \"i\"" */
+/* # define PRIiFAST8	"i" ### string, not number "\"i\"" */
+/* # define PRIiFAST16	__PRIPTR_PREFIX "i" ### string, not number "__PRIPTR_PREFIX \"i\"" */
+/* # define PRIiFAST32	__PRIPTR_PREFIX "i" ### string, not number "__PRIPTR_PREFIX \"i\"" */
+/* # define PRIiFAST64	__PRI64_PREFIX "i" ### string, not number "__PRI64_PREFIX \"i\"" */
+/* # define PRIo8		"o" ### string, not number "\"o\"" */
+/* # define PRIo16		"o" ### string, not number "\"o\"" */
+/* # define PRIo32		"o" ### string, not number "\"o\"" */
+/* # define PRIo64		__PRI64_PREFIX "o" ### string, not number "__PRI64_PREFIX \"o\"" */
+/* # define PRIoLEAST8	"o" ### string, not number "\"o\"" */
+/* # define PRIoLEAST16	"o" ### string, not number "\"o\"" */
+/* # define PRIoLEAST32	"o" ### string, not number "\"o\"" */
+/* # define PRIoLEAST64	__PRI64_PREFIX "o" ### string, not number "__PRI64_PREFIX \"o\"" */
+/* # define PRIoFAST8	"o" ### string, not number "\"o\"" */
+/* # define PRIoFAST16	__PRIPTR_PREFIX "o" ### string, not number "__PRIPTR_PREFIX \"o\"" */
+/* # define PRIoFAST32	__PRIPTR_PREFIX "o" ### string, not number "__PRIPTR_PREFIX \"o\"" */
+/* # define PRIoFAST64	__PRI64_PREFIX "o" ### string, not number "__PRI64_PREFIX \"o\"" */
+/* # define PRIu8		"u" ### string, not number "\"u\"" */
+/* # define PRIu16		"u" ### string, not number "\"u\"" */
+/* # define PRIu32		"u" ### string, not number "\"u\"" */
+/* # define PRIu64		__PRI64_PREFIX "u" ### string, not number "__PRI64_PREFIX \"u\"" */
+/* # define PRIuLEAST8	"u" ### string, not number "\"u\"" */
+/* # define PRIuLEAST16	"u" ### string, not number "\"u\"" */
+/* # define PRIuLEAST32	"u" ### string, not number "\"u\"" */
+/* # define PRIuLEAST64	__PRI64_PREFIX "u" ### string, not number "__PRI64_PREFIX \"u\"" */
+/* # define PRIuFAST8	"u" ### string, not number "\"u\"" */
+/* # define PRIuFAST16	__PRIPTR_PREFIX "u" ### string, not number "__PRIPTR_PREFIX \"u\"" */
+/* # define PRIuFAST32	__PRIPTR_PREFIX "u" ### string, not number "__PRIPTR_PREFIX \"u\"" */
+/* # define PRIuFAST64	__PRI64_PREFIX "u" ### string, not number "__PRI64_PREFIX \"u\"" */
+/* # define PRIx8		"x" ### string, not number "\"x\"" */
+/* # define PRIx16		"x" ### string, not number "\"x\"" */
+/* # define PRIx32		"x" ### string, not number "\"x\"" */
+/* # define PRIx64		__PRI64_PREFIX "x" ### string, not number "__PRI64_PREFIX \"x\"" */
+/* # define PRIxLEAST8	"x" ### string, not number "\"x\"" */
+/* # define PRIxLEAST16	"x" ### string, not number "\"x\"" */
+/* # define PRIxLEAST32	"x" ### string, not number "\"x\"" */
+/* # define PRIxLEAST64	__PRI64_PREFIX "x" ### string, not number "__PRI64_PREFIX \"x\"" */
+/* # define PRIxFAST8	"x" ### string, not number "\"x\"" */
+/* # define PRIxFAST16	__PRIPTR_PREFIX "x" ### string, not number "__PRIPTR_PREFIX \"x\"" */
+/* # define PRIxFAST32	__PRIPTR_PREFIX "x" ### string, not number "__PRIPTR_PREFIX \"x\"" */
+/* # define PRIxFAST64	__PRI64_PREFIX "x" ### string, not number "__PRI64_PREFIX \"x\"" */
+/* # define PRIX8		"X" ### string, not number "\"X\"" */
+/* # define PRIX16		"X" ### string, not number "\"X\"" */
+/* # define PRIX32		"X" ### string, not number "\"X\"" */
+/* # define PRIX64		__PRI64_PREFIX "X" ### string, not number "__PRI64_PREFIX \"X\"" */
+/* # define PRIXLEAST8	"X" ### string, not number "\"X\"" */
+/* # define PRIXLEAST16	"X" ### string, not number "\"X\"" */
+/* # define PRIXLEAST32	"X" ### string, not number "\"X\"" */
+/* # define PRIXLEAST64	__PRI64_PREFIX "X" ### string, not number "__PRI64_PREFIX \"X\"" */
+/* # define PRIXFAST8	"X" ### string, not number "\"X\"" */
+/* # define PRIXFAST16	__PRIPTR_PREFIX "X" ### string, not number "__PRIPTR_PREFIX \"X\"" */
+/* # define PRIXFAST32	__PRIPTR_PREFIX "X" ### string, not number "__PRIPTR_PREFIX \"X\"" */
+/* # define PRIXFAST64	__PRI64_PREFIX "X" ### string, not number "__PRI64_PREFIX \"X\"" */
+/* # define PRIdMAX	__PRI64_PREFIX "d" ### string, not number "__PRI64_PREFIX \"d\"" */
+/* # define PRIiMAX	__PRI64_PREFIX "i" ### string, not number "__PRI64_PREFIX \"i\"" */
+/* # define PRIoMAX	__PRI64_PREFIX "o" ### string, not number "__PRI64_PREFIX \"o\"" */
+/* # define PRIuMAX	__PRI64_PREFIX "u" ### string, not number "__PRI64_PREFIX \"u\"" */
+/* # define PRIxMAX	__PRI64_PREFIX "x" ### string, not number "__PRI64_PREFIX \"x\"" */
+/* # define PRIXMAX	__PRI64_PREFIX "X" ### string, not number "__PRI64_PREFIX \"X\"" */
+/* # define PRIdPTR	__PRIPTR_PREFIX "d" ### string, not number "__PRIPTR_PREFIX \"d\"" */
+/* # define PRIiPTR	__PRIPTR_PREFIX "i" ### string, not number "__PRIPTR_PREFIX \"i\"" */
+/* # define PRIoPTR	__PRIPTR_PREFIX "o" ### string, not number "__PRIPTR_PREFIX \"o\"" */
+/* # define PRIuPTR	__PRIPTR_PREFIX "u" ### string, not number "__PRIPTR_PREFIX \"u\"" */
+/* # define PRIxPTR	__PRIPTR_PREFIX "x" ### string, not number "__PRIPTR_PREFIX \"x\"" */
+/* # define PRIXPTR	__PRIPTR_PREFIX "X" ### string, not number "__PRIPTR_PREFIX \"X\"" */
+/* # define SCNd8		"hhd" ### string, not number "\"hhd\"" */
+/* # define SCNd16		"hd" ### string, not number "\"hd\"" */
+/* # define SCNd32		"d" ### string, not number "\"d\"" */
+/* # define SCNd64		__PRI64_PREFIX "d" ### string, not number "__PRI64_PREFIX \"d\"" */
+/* # define SCNdLEAST8	"hhd" ### string, not number "\"hhd\"" */
+/* # define SCNdLEAST16	"hd" ### string, not number "\"hd\"" */
+/* # define SCNdLEAST32	"d" ### string, not number "\"d\"" */
+/* # define SCNdLEAST64	__PRI64_PREFIX "d" ### string, not number "__PRI64_PREFIX \"d\"" */
+/* # define SCNdFAST8	"hhd" ### string, not number "\"hhd\"" */
+/* # define SCNdFAST16	__PRIPTR_PREFIX "d" ### string, not number "__PRIPTR_PREFIX \"d\"" */
+/* # define SCNdFAST32	__PRIPTR_PREFIX "d" ### string, not number "__PRIPTR_PREFIX \"d\"" */
+/* # define SCNdFAST64	__PRI64_PREFIX "d" ### string, not number "__PRI64_PREFIX \"d\"" */
+/* # define SCNi8		"hhi" ### string, not number "\"hhi\"" */
+/* # define SCNi16		"hi" ### string, not number "\"hi\"" */
+/* # define SCNi32		"i" ### string, not number "\"i\"" */
+/* # define SCNi64		__PRI64_PREFIX "i" ### string, not number "__PRI64_PREFIX \"i\"" */
+/* # define SCNiLEAST8	"hhi" ### string, not number "\"hhi\"" */
+/* # define SCNiLEAST16	"hi" ### string, not number "\"hi\"" */
+/* # define SCNiLEAST32	"i" ### string, not number "\"i\"" */
+/* # define SCNiLEAST64	__PRI64_PREFIX "i" ### string, not number "__PRI64_PREFIX \"i\"" */
+/* # define SCNiFAST8	"hhi" ### string, not number "\"hhi\"" */
+/* # define SCNiFAST16	__PRIPTR_PREFIX "i" ### string, not number "__PRIPTR_PREFIX \"i\"" */
+/* # define SCNiFAST32	__PRIPTR_PREFIX "i" ### string, not number "__PRIPTR_PREFIX \"i\"" */
+/* # define SCNiFAST64	__PRI64_PREFIX "i" ### string, not number "__PRI64_PREFIX \"i\"" */
+/* # define SCNu8		"hhu" ### string, not number "\"hhu\"" */
+/* # define SCNu16		"hu" ### string, not number "\"hu\"" */
+/* # define SCNu32		"u" ### string, not number "\"u\"" */
+/* # define SCNu64		__PRI64_PREFIX "u" ### string, not number "__PRI64_PREFIX \"u\"" */
+/* # define SCNuLEAST8	"hhu" ### string, not number "\"hhu\"" */
+/* # define SCNuLEAST16	"hu" ### string, not number "\"hu\"" */
+/* # define SCNuLEAST32	"u" ### string, not number "\"u\"" */
+/* # define SCNuLEAST64	__PRI64_PREFIX "u" ### string, not number "__PRI64_PREFIX \"u\"" */
+/* # define SCNuFAST8	"hhu" ### string, not number "\"hhu\"" */
+/* # define SCNuFAST16	__PRIPTR_PREFIX "u" ### string, not number "__PRIPTR_PREFIX \"u\"" */
+/* # define SCNuFAST32	__PRIPTR_PREFIX "u" ### string, not number "__PRIPTR_PREFIX \"u\"" */
+/* # define SCNuFAST64	__PRI64_PREFIX "u" ### string, not number "__PRI64_PREFIX \"u\"" */
+/* # define SCNo8		"hho" ### string, not number "\"hho\"" */
+/* # define SCNo16		"ho" ### string, not number "\"ho\"" */
+/* # define SCNo32		"o" ### string, not number "\"o\"" */
+/* # define SCNo64		__PRI64_PREFIX "o" ### string, not number "__PRI64_PREFIX \"o\"" */
+/* # define SCNoLEAST8	"hho" ### string, not number "\"hho\"" */
+/* # define SCNoLEAST16	"ho" ### string, not number "\"ho\"" */
+/* # define SCNoLEAST32	"o" ### string, not number "\"o\"" */
+/* # define SCNoLEAST64	__PRI64_PREFIX "o" ### string, not number "__PRI64_PREFIX \"o\"" */
+/* # define SCNoFAST8	"hho" ### string, not number "\"hho\"" */
+/* # define SCNoFAST16	__PRIPTR_PREFIX "o" ### string, not number "__PRIPTR_PREFIX \"o\"" */
+/* # define SCNoFAST32	__PRIPTR_PREFIX "o" ### string, not number "__PRIPTR_PREFIX \"o\"" */
+/* # define SCNoFAST64	__PRI64_PREFIX "o" ### string, not number "__PRI64_PREFIX \"o\"" */
+/* # define SCNx8		"hhx" ### string, not number "\"hhx\"" */
+/* # define SCNx16		"hx" ### string, not number "\"hx\"" */
+/* # define SCNx32		"x" ### string, not number "\"x\"" */
+/* # define SCNx64		__PRI64_PREFIX "x" ### string, not number "__PRI64_PREFIX \"x\"" */
+/* # define SCNxLEAST8	"hhx" ### string, not number "\"hhx\"" */
+/* # define SCNxLEAST16	"hx" ### string, not number "\"hx\"" */
+/* # define SCNxLEAST32	"x" ### string, not number "\"x\"" */
+/* # define SCNxLEAST64	__PRI64_PREFIX "x" ### string, not number "__PRI64_PREFIX \"x\"" */
+/* # define SCNxFAST8	"hhx" ### string, not number "\"hhx\"" */
+/* # define SCNxFAST16	__PRIPTR_PREFIX "x" ### string, not number "__PRIPTR_PREFIX \"x\"" */
+/* # define SCNxFAST32	__PRIPTR_PREFIX "x" ### string, not number "__PRIPTR_PREFIX \"x\"" */
+/* # define SCNxFAST64	__PRI64_PREFIX "x" ### string, not number "__PRI64_PREFIX \"x\"" */
+/* # define SCNdMAX	__PRI64_PREFIX "d" ### string, not number "__PRI64_PREFIX \"d\"" */
+/* # define SCNiMAX	__PRI64_PREFIX "i" ### string, not number "__PRI64_PREFIX \"i\"" */
+/* # define SCNoMAX	__PRI64_PREFIX "o" ### string, not number "__PRI64_PREFIX \"o\"" */
+/* # define SCNuMAX	__PRI64_PREFIX "u" ### string, not number "__PRI64_PREFIX \"u\"" */
+/* # define SCNxMAX	__PRI64_PREFIX "x" ### string, not number "__PRI64_PREFIX \"x\"" */
+/* # define SCNdPTR	__PRIPTR_PREFIX "d" ### string, not number "__PRIPTR_PREFIX \"d\"" */
+/* # define SCNiPTR	__PRIPTR_PREFIX "i" ### string, not number "__PRIPTR_PREFIX \"i\"" */
+/* # define SCNoPTR	__PRIPTR_PREFIX "o" ### string, not number "__PRIPTR_PREFIX \"o\"" */
+/* # define SCNuPTR	__PRIPTR_PREFIX "u" ### string, not number "__PRIPTR_PREFIX \"u\"" */
+/* # define SCNxPTR	__PRIPTR_PREFIX "x" ### string, not number "__PRIPTR_PREFIX \"x\"" */
+typedef struct { long int quot;
+long int rem;
+} imaxdiv_t;
+extern intmax_t imaxabs (intmax_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+extern imaxdiv_t imaxdiv (intmax_t __numer, intmax_t __denom) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+extern intmax_t strtoimax (const char * __nptr, char ** __endptr, int __base) __attribute__ ((__nothrow__ , __leaf__));
+extern uintmax_t strtoumax (const char * __nptr, char ** __endptr, int __base) __attribute__ ((__nothrow__ , __leaf__));
+extern intmax_t wcstoimax (const __gwchar_t * __nptr, __gwchar_t ** __endptr, int __base) __attribute__ ((__nothrow__ , __leaf__));
+extern uintmax_t wcstoumax (const __gwchar_t * __nptr, __gwchar_t ** __endptr, int __base) __attribute__ ((__nothrow__ , __leaf__));
+/* END /usr/include/inttypes.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
+]] require 'ffi.c.stddef' ffi.cdef[[
+/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stddef.h */
+/* BEGIN /usr/include/hdf5/serial/H5api_adpt.h */
+enum { H5API_ADPT_H = 1 };
+enum { H5_DLL = 1 };
+enum { H5_DLLVAR = 0 };
+enum { H5TEST_DLL = 1 };
+enum { H5TEST_DLLVAR = 0 };
+enum { H5TOOLS_DLL = 1 };
+enum { H5TOOLS_DLLVAR = 0 };
+enum { H5_DLLCPP = 1 };
+enum { H5_DLLCPPVAR = 0 };
+enum { H5_HLDLL = 1 };
+enum { H5_HLDLLVAR = 0 };
+enum { H5_HLCPPDLL = 1 };
+enum { H5_HLCPPDLLVAR = 0 };
+enum { H5_FCDLL = 1 };
+enum { H5_FCDLLVAR = 0 };
+enum { H5_FCTESTDLL = 1 };
+enum { H5_FCTESTDLLVAR = 0 };
+enum { HDF5_HL_F90CSTUBDLL = 1 };
+enum { HDF5_HL_F90CSTUBDLLVAR = 0 };
+/* END /usr/include/hdf5/serial/H5api_adpt.h */
 enum { H5_VERS_MAJOR = 1 };
 enum { H5_VERS_MINOR = 10 };
-enum { H5_VERS_RELEASE = 6 };
+enum { H5_VERS_RELEASE = 7 };
+/* #define H5_VERS_SUBRELEASE "" ### string, not number "\"\"" */
+/* #define H5_VERS_INFO    "HDF5 library version: 1.10.7" ### string, not number "\"HDF5 library version: 1.10.7\"" */
 typedef int herr_t;
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stdbool.h */
+enum { _STDBOOL_H = 1 };
+/* enum { bool = 0 }; */
+enum { true = 1 };
+enum { false = 0 };
+enum { __bool_true_false_are_defined = 1 };
+/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stdbool.h */
 typedef _Bool hbool_t;
 typedef int htri_t;
-typedef unsigned long long 	hsize_t;
-typedef signed long long	hssize_t;
-typedef unsigned long           haddr_t;
+typedef unsigned long long hsize_t;
+typedef signed long long hssize_t;
+enum { H5_SIZEOF_HSIZE_T = 8 };
+enum { H5_SIZEOF_HSSIZE_T = 8 };
+/* #define HSIZE_UNDEF             ((hsize_t)(hssize_t)(-1)) ### string, not number "((hsize_t)(hssize_t)(-1))" */
+typedef unsigned long haddr_t;
+/* #   define HADDR_UNDEF              ((haddr_t)(long)(-1)) ### string, not number "((haddr_t)(long)(-1))" */
+enum { H5_SIZEOF_HADDR_T = 8 };
+/* #   define H5_PRINTF_HADDR_FMT  "%lu" ### string, not number "\"%lu\"" */
+/* #define HADDR_MAX       (HADDR_UNDEF-1) ### string, not number "(HADDR_UNDEF-1)" */
 typedef enum { H5_ITER_UNKNOWN = -1, H5_ITER_INC, H5_ITER_DEC, H5_ITER_NATIVE, H5_ITER_N } H5_iter_order_t;
+enum { H5_ITER_ERROR = -1 };
+enum { H5_ITER_CONT = 0 };
+enum { H5_ITER_STOP = 1 };
 typedef enum H5_index_t { H5_INDEX_UNKNOWN = -1, H5_INDEX_NAME, H5_INDEX_CRT_ORDER, H5_INDEX_N } H5_index_t;
-typedef struct H5_ih_info_t { hsize_t     index_size;
-hsize_t     heap_size;
+typedef struct H5_ih_info_t { hsize_t index_size;
+hsize_t heap_size;
 } H5_ih_info_t;
+typedef struct H5_alloc_stats_t { unsigned long long total_alloc_bytes;
+size_t curr_alloc_bytes;
+size_t peak_alloc_bytes;
+size_t max_block_size;
+size_t total_alloc_blocks_count;
+size_t curr_alloc_blocks_count;
+size_t peak_alloc_blocks_count;
+} H5_alloc_stats_t;
 herr_t H5open(void);
 herr_t H5close(void);
 herr_t H5dont_atexit(void);
 herr_t H5garbage_collect(void);
 herr_t H5set_free_list_limits (int reg_global_lim, int reg_list_lim, int arr_global_lim, int arr_list_lim, int blk_global_lim, int blk_list_lim);
+herr_t H5get_free_list_sizes(size_t *reg_size, size_t *arr_size, size_t *blk_size, size_t *fac_size);
+herr_t H5get_alloc_stats(H5_alloc_stats_t *stats);
 herr_t H5get_libversion(unsigned *majnum, unsigned *minnum, unsigned *relnum);
 herr_t H5check_version(unsigned majnum, unsigned minnum, unsigned relnum);
 herr_t H5is_library_threadsafe(hbool_t *is_ts);
 herr_t H5free_memory(void *mem);
 void *H5allocate_memory(size_t size, hbool_t clear);
 void *H5resize_memory(void *mem, size_t size);
-/* END /usr/include/hdf5/openmpi/H5public.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Apublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Ipublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5public.h */
-/* END /usr/include/hdf5/openmpi/H5public.h */
-typedef enum H5I_type_t { H5I_UNINIT      = (-2), H5I_BADID       = (-1), H5I_FILE        = 1, H5I_GROUP, H5I_DATATYPE, H5I_DATASPACE, H5I_DATASET, H5I_ATTR, H5I_REFERENCE, H5I_VFL, H5I_GENPROP_CLS, H5I_GENPROP_LST, H5I_ERROR_CLASS, H5I_ERROR_MSG, H5I_ERROR_STACK, H5I_NTYPES } H5I_type_t;
+/* END /usr/include/hdf5/serial/H5public.h */
+/* BEGIN /usr/include/hdf5/serial/H5Apublic.h */
+enum { _H5Apublic_H = 1 };
+/* BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
+enum { _H5Ipublic_H = 1 };
+/* BEGIN /usr/include/hdf5/serial/H5public.h */
+/* END /usr/include/hdf5/serial/H5public.h */
+typedef enum H5I_type_t { H5I_UNINIT = (-2), H5I_BADID = (-1), H5I_FILE = 1, H5I_GROUP, H5I_DATATYPE, H5I_DATASPACE, H5I_DATASET, H5I_ATTR, H5I_REFERENCE, H5I_VFL, H5I_GENPROP_CLS, H5I_GENPROP_LST, H5I_ERROR_CLASS, H5I_ERROR_MSG, H5I_ERROR_STACK, H5I_NTYPES } H5I_type_t;
 typedef int64_t hid_t;
-typedef herr_t (*H5I_free_t)(void*);
+enum { H5_SIZEOF_HID_T = 8 };
+enum { H5I_INVALID_HID = -1 };
+typedef herr_t (*H5I_free_t)(void *);
 typedef int (*H5I_search_func_t)(void *obj, hid_t id, void *key);
 hid_t H5Iregister(H5I_type_t type, const void *object);
 void *H5Iobject_verify(hid_t id, H5I_type_t id_type);
@@ -1430,50 +545,87 @@ void *H5Isearch(H5I_type_t type, H5I_search_func_t func, void *key);
 herr_t H5Inmembers(H5I_type_t type, hsize_t *num_members);
 htri_t H5Itype_exists(H5I_type_t type);
 htri_t H5Iis_valid(hid_t id);
-/* END /usr/include/hdf5/openmpi/H5Ipublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Opublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5public.h */
-/* END /usr/include/hdf5/openmpi/H5public.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Ipublic.h */
-/* END /usr/include/hdf5/openmpi/H5Ipublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Lpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5public.h */
-/* END /usr/include/hdf5/openmpi/H5public.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Ipublic.h */
-/* END /usr/include/hdf5/openmpi/H5Ipublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Tpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5public.h */
-/* END /usr/include/hdf5/openmpi/H5public.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Ipublic.h */
-/* END /usr/include/hdf5/openmpi/H5Ipublic.h */
-typedef enum H5T_class_t { H5T_NO_CLASS         = -1, H5T_INTEGER          = 0, H5T_FLOAT            = 1, H5T_TIME             = 2, H5T_STRING           = 3, H5T_BITFIELD         = 4, H5T_OPAQUE           = 5, H5T_COMPOUND         = 6, H5T_REFERENCE        = 7, H5T_ENUM		 = 8, H5T_VLEN		 = 9, H5T_ARRAY	         = 10, H5T_NCLASSES } H5T_class_t;
-typedef enum H5T_order_t { H5T_ORDER_ERROR      = -1, H5T_ORDER_LE         = 0, H5T_ORDER_BE         = 1, H5T_ORDER_VAX        = 2, H5T_ORDER_MIXED      = 3, H5T_ORDER_NONE       = 4 } H5T_order_t;
-typedef enum H5T_sign_t { H5T_SGN_ERROR        = -1, H5T_SGN_NONE         = 0, H5T_SGN_2            = 1, H5T_NSGN             = 2 } H5T_sign_t;
-typedef enum H5T_norm_t { H5T_NORM_ERROR       = -1, H5T_NORM_IMPLIED     = 0, H5T_NORM_MSBSET      = 1, H5T_NORM_NONE        = 2 } H5T_norm_t;
-typedef enum H5T_cset_t { H5T_CSET_ERROR       = -1, H5T_CSET_ASCII       = 0, H5T_CSET_UTF8        = 1, H5T_CSET_RESERVED_2  = 2, H5T_CSET_RESERVED_3  = 3, H5T_CSET_RESERVED_4  = 4, H5T_CSET_RESERVED_5  = 5, H5T_CSET_RESERVED_6  = 6, H5T_CSET_RESERVED_7  = 7, H5T_CSET_RESERVED_8  = 8, H5T_CSET_RESERVED_9  = 9, H5T_CSET_RESERVED_10 = 10, H5T_CSET_RESERVED_11 = 11, H5T_CSET_RESERVED_12 = 12, H5T_CSET_RESERVED_13 = 13, H5T_CSET_RESERVED_14 = 14, H5T_CSET_RESERVED_15 = 15 } H5T_cset_t;
-typedef enum H5T_str_t { H5T_STR_ERROR        = -1, H5T_STR_NULLTERM     = 0, H5T_STR_NULLPAD      = 1, H5T_STR_SPACEPAD     = 2, H5T_STR_RESERVED_3   = 3, H5T_STR_RESERVED_4   = 4, H5T_STR_RESERVED_5   = 5, H5T_STR_RESERVED_6   = 6, H5T_STR_RESERVED_7   = 7, H5T_STR_RESERVED_8   = 8, H5T_STR_RESERVED_9   = 9, H5T_STR_RESERVED_10  = 10, H5T_STR_RESERVED_11  = 11, H5T_STR_RESERVED_12  = 12, H5T_STR_RESERVED_13  = 13, H5T_STR_RESERVED_14  = 14, H5T_STR_RESERVED_15  = 15 } H5T_str_t;
-typedef enum H5T_pad_t { H5T_PAD_ERROR        = -1, H5T_PAD_ZERO         = 0, H5T_PAD_ONE          = 1, H5T_PAD_BACKGROUND   = 2, H5T_NPAD             = 3 } H5T_pad_t;
-typedef enum H5T_cmd_t { H5T_CONV_INIT	= 0, H5T_CONV_CONV	= 1, H5T_CONV_FREE	= 2 } H5T_cmd_t;
-typedef enum H5T_bkg_t { H5T_BKG_NO		= 0, H5T_BKG_TEMP	= 1, H5T_BKG_YES		= 2 } H5T_bkg_t;
-typedef struct H5T_cdata_t { H5T_cmd_t		command;
-H5T_bkg_t		need_bkg;
-hbool_t		recalc;
-void		*priv;
+/* END /usr/include/hdf5/serial/H5Ipublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5Opublic.h */
+enum { _H5Opublic_H = 1 };
+/* BEGIN /usr/include/hdf5/serial/H5public.h */
+/* END /usr/include/hdf5/serial/H5public.h */
+/* BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
+/* END /usr/include/hdf5/serial/H5Ipublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5Lpublic.h */
+enum { _H5Lpublic_H = 1 };
+/* BEGIN /usr/include/hdf5/serial/H5public.h */
+/* END /usr/include/hdf5/serial/H5public.h */
+/* BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
+/* END /usr/include/hdf5/serial/H5Ipublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5Tpublic.h */
+enum { _H5Tpublic_H = 1 };
+/* BEGIN /usr/include/hdf5/serial/H5public.h */
+/* END /usr/include/hdf5/serial/H5public.h */
+/* BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
+/* END /usr/include/hdf5/serial/H5Ipublic.h */
+typedef enum H5T_class_t { H5T_NO_CLASS = -1, H5T_INTEGER = 0, H5T_FLOAT = 1, H5T_TIME = 2, H5T_STRING = 3, H5T_BITFIELD = 4, H5T_OPAQUE = 5, H5T_COMPOUND = 6, H5T_REFERENCE = 7, H5T_ENUM = 8, H5T_VLEN = 9, H5T_ARRAY = 10, H5T_NCLASSES } H5T_class_t;
+typedef enum H5T_order_t { H5T_ORDER_ERROR = -1, H5T_ORDER_LE = 0, H5T_ORDER_BE = 1, H5T_ORDER_VAX = 2, H5T_ORDER_MIXED = 3, H5T_ORDER_NONE = 4 } H5T_order_t;
+typedef enum H5T_sign_t { H5T_SGN_ERROR = -1, H5T_SGN_NONE = 0, H5T_SGN_2 = 1, H5T_NSGN = 2 } H5T_sign_t;
+typedef enum H5T_norm_t { H5T_NORM_ERROR = -1, H5T_NORM_IMPLIED = 0, H5T_NORM_MSBSET = 1, H5T_NORM_NONE = 2 } H5T_norm_t;
+typedef enum H5T_cset_t { H5T_CSET_ERROR = -1, H5T_CSET_ASCII = 0, H5T_CSET_UTF8 = 1, H5T_CSET_RESERVED_2 = 2, H5T_CSET_RESERVED_3 = 3, H5T_CSET_RESERVED_4 = 4, H5T_CSET_RESERVED_5 = 5, H5T_CSET_RESERVED_6 = 6, H5T_CSET_RESERVED_7 = 7, H5T_CSET_RESERVED_8 = 8, H5T_CSET_RESERVED_9 = 9, H5T_CSET_RESERVED_10 = 10, H5T_CSET_RESERVED_11 = 11, H5T_CSET_RESERVED_12 = 12, H5T_CSET_RESERVED_13 = 13, H5T_CSET_RESERVED_14 = 14, H5T_CSET_RESERVED_15 = 15 } H5T_cset_t;
+enum { H5T_NCSET = 0 };
+typedef enum H5T_str_t { H5T_STR_ERROR = -1, H5T_STR_NULLTERM = 0, H5T_STR_NULLPAD = 1, H5T_STR_SPACEPAD = 2, H5T_STR_RESERVED_3 = 3, H5T_STR_RESERVED_4 = 4, H5T_STR_RESERVED_5 = 5, H5T_STR_RESERVED_6 = 6, H5T_STR_RESERVED_7 = 7, H5T_STR_RESERVED_8 = 8, H5T_STR_RESERVED_9 = 9, H5T_STR_RESERVED_10 = 10, H5T_STR_RESERVED_11 = 11, H5T_STR_RESERVED_12 = 12, H5T_STR_RESERVED_13 = 13, H5T_STR_RESERVED_14 = 14, H5T_STR_RESERVED_15 = 15 } H5T_str_t;
+enum { H5T_NSTR = 0 };
+typedef enum H5T_pad_t { H5T_PAD_ERROR = -1, H5T_PAD_ZERO = 0, H5T_PAD_ONE = 1, H5T_PAD_BACKGROUND = 2, H5T_NPAD = 3 } H5T_pad_t;
+typedef enum H5T_cmd_t { H5T_CONV_INIT = 0, H5T_CONV_CONV = 1, H5T_CONV_FREE = 2 } H5T_cmd_t;
+typedef enum H5T_bkg_t { H5T_BKG_NO = 0, H5T_BKG_TEMP = 1, H5T_BKG_YES = 2 } H5T_bkg_t;
+typedef struct H5T_cdata_t { H5T_cmd_t command;
+H5T_bkg_t need_bkg;
+hbool_t recalc;
+void *priv;
 } H5T_cdata_t;
-typedef enum H5T_pers_t { H5T_PERS_DONTCARE	= -1, H5T_PERS_HARD	= 0, H5T_PERS_SOFT	= 1 } H5T_pers_t;
-typedef enum H5T_direction_t { H5T_DIR_DEFAULT     = 0, H5T_DIR_ASCEND      = 1, H5T_DIR_DESCEND     = 2 } H5T_direction_t;
-typedef enum H5T_conv_except_t { H5T_CONV_EXCEPT_RANGE_HI       = 0, H5T_CONV_EXCEPT_RANGE_LOW      = 1, H5T_CONV_EXCEPT_PRECISION      = 2, H5T_CONV_EXCEPT_TRUNCATE       = 3, H5T_CONV_EXCEPT_PINF           = 4, H5T_CONV_EXCEPT_NINF           = 5, H5T_CONV_EXCEPT_NAN            = 6 } H5T_conv_except_t;
-typedef enum H5T_conv_ret_t { H5T_CONV_ABORT      = -1, H5T_CONV_UNHANDLED  = 0, H5T_CONV_HANDLED    = 1 } H5T_conv_ret_t;
+typedef enum H5T_pers_t { H5T_PERS_DONTCARE = -1, H5T_PERS_HARD = 0, H5T_PERS_SOFT = 1 } H5T_pers_t;
+typedef enum H5T_direction_t { H5T_DIR_DEFAULT = 0, H5T_DIR_ASCEND = 1, H5T_DIR_DESCEND = 2 } H5T_direction_t;
+typedef enum H5T_conv_except_t { H5T_CONV_EXCEPT_RANGE_HI = 0, H5T_CONV_EXCEPT_RANGE_LOW = 1, H5T_CONV_EXCEPT_PRECISION = 2, H5T_CONV_EXCEPT_TRUNCATE = 3, H5T_CONV_EXCEPT_PINF = 4, H5T_CONV_EXCEPT_NINF = 5, H5T_CONV_EXCEPT_NAN = 6 } H5T_conv_except_t;
+typedef enum H5T_conv_ret_t { H5T_CONV_ABORT = -1, H5T_CONV_UNHANDLED = 0, H5T_CONV_HANDLED = 1 } H5T_conv_ret_t;
 typedef struct { size_t len;
 void *p;
 } hvl_t;
+/* #define H5T_VARIABLE    ((size_t)(-1)) ### string, not number "((size_t)(-1))" */
 enum { H5T_OPAQUE_TAG_MAX = 256 };
 typedef herr_t (*H5T_conv_t) (hid_t src_id, hid_t dst_id, H5T_cdata_t *cdata, size_t nelmts, size_t buf_stride, size_t bkg_stride, void *buf, void *bkg, hid_t dset_xfer_plist);
 typedef H5T_conv_ret_t (*H5T_conv_except_func_t)(H5T_conv_except_t except_type, hid_t src_id, hid_t dst_id, void *src_buf, void *dst_buf, void *user_data);
+/* #define H5OPEN          H5open(), ### string, not number "H5open()," */
+/* #define H5T_IEEE_F32BE		(H5OPEN H5T_IEEE_F32BE_g) ### string, not number "(H5OPEN H5T_IEEE_F32BE_g)" */
+/* #define H5T_IEEE_F32LE		(H5OPEN H5T_IEEE_F32LE_g) ### string, not number "(H5OPEN H5T_IEEE_F32LE_g)" */
+/* #define H5T_IEEE_F64BE		(H5OPEN H5T_IEEE_F64BE_g) ### string, not number "(H5OPEN H5T_IEEE_F64BE_g)" */
+/* #define H5T_IEEE_F64LE		(H5OPEN H5T_IEEE_F64LE_g) ### string, not number "(H5OPEN H5T_IEEE_F64LE_g)" */
 extern hid_t H5T_IEEE_F32BE_g;
 extern hid_t H5T_IEEE_F32LE_g;
 extern hid_t H5T_IEEE_F64BE_g;
 extern hid_t H5T_IEEE_F64LE_g;
+/* #define H5T_STD_I8BE		(H5OPEN H5T_STD_I8BE_g) ### string, not number "(H5OPEN H5T_STD_I8BE_g)" */
+/* #define H5T_STD_I8LE		(H5OPEN H5T_STD_I8LE_g) ### string, not number "(H5OPEN H5T_STD_I8LE_g)" */
+/* #define H5T_STD_I16BE		(H5OPEN H5T_STD_I16BE_g) ### string, not number "(H5OPEN H5T_STD_I16BE_g)" */
+/* #define H5T_STD_I16LE		(H5OPEN H5T_STD_I16LE_g) ### string, not number "(H5OPEN H5T_STD_I16LE_g)" */
+/* #define H5T_STD_I32BE		(H5OPEN H5T_STD_I32BE_g) ### string, not number "(H5OPEN H5T_STD_I32BE_g)" */
+/* #define H5T_STD_I32LE		(H5OPEN H5T_STD_I32LE_g) ### string, not number "(H5OPEN H5T_STD_I32LE_g)" */
+/* #define H5T_STD_I64BE		(H5OPEN H5T_STD_I64BE_g) ### string, not number "(H5OPEN H5T_STD_I64BE_g)" */
+/* #define H5T_STD_I64LE		(H5OPEN H5T_STD_I64LE_g) ### string, not number "(H5OPEN H5T_STD_I64LE_g)" */
+/* #define H5T_STD_U8BE		(H5OPEN H5T_STD_U8BE_g) ### string, not number "(H5OPEN H5T_STD_U8BE_g)" */
+/* #define H5T_STD_U8LE		(H5OPEN H5T_STD_U8LE_g) ### string, not number "(H5OPEN H5T_STD_U8LE_g)" */
+/* #define H5T_STD_U16BE		(H5OPEN H5T_STD_U16BE_g) ### string, not number "(H5OPEN H5T_STD_U16BE_g)" */
+/* #define H5T_STD_U16LE		(H5OPEN H5T_STD_U16LE_g) ### string, not number "(H5OPEN H5T_STD_U16LE_g)" */
+/* #define H5T_STD_U32BE		(H5OPEN H5T_STD_U32BE_g) ### string, not number "(H5OPEN H5T_STD_U32BE_g)" */
+/* #define H5T_STD_U32LE		(H5OPEN H5T_STD_U32LE_g) ### string, not number "(H5OPEN H5T_STD_U32LE_g)" */
+/* #define H5T_STD_U64BE		(H5OPEN H5T_STD_U64BE_g) ### string, not number "(H5OPEN H5T_STD_U64BE_g)" */
+/* #define H5T_STD_U64LE		(H5OPEN H5T_STD_U64LE_g) ### string, not number "(H5OPEN H5T_STD_U64LE_g)" */
+/* #define H5T_STD_B8BE		(H5OPEN H5T_STD_B8BE_g) ### string, not number "(H5OPEN H5T_STD_B8BE_g)" */
+/* #define H5T_STD_B8LE		(H5OPEN H5T_STD_B8LE_g) ### string, not number "(H5OPEN H5T_STD_B8LE_g)" */
+/* #define H5T_STD_B16BE		(H5OPEN H5T_STD_B16BE_g) ### string, not number "(H5OPEN H5T_STD_B16BE_g)" */
+/* #define H5T_STD_B16LE		(H5OPEN H5T_STD_B16LE_g) ### string, not number "(H5OPEN H5T_STD_B16LE_g)" */
+/* #define H5T_STD_B32BE		(H5OPEN H5T_STD_B32BE_g) ### string, not number "(H5OPEN H5T_STD_B32BE_g)" */
+/* #define H5T_STD_B32LE		(H5OPEN H5T_STD_B32LE_g) ### string, not number "(H5OPEN H5T_STD_B32LE_g)" */
+/* #define H5T_STD_B64BE		(H5OPEN H5T_STD_B64BE_g) ### string, not number "(H5OPEN H5T_STD_B64BE_g)" */
+/* #define H5T_STD_B64LE		(H5OPEN H5T_STD_B64LE_g) ### string, not number "(H5OPEN H5T_STD_B64LE_g)" */
+/* #define H5T_STD_REF_OBJ	        (H5OPEN H5T_STD_REF_OBJ_g) ### string, not number "(H5OPEN H5T_STD_REF_OBJ_g)" */
+/* #define H5T_STD_REF_DSETREG     (H5OPEN H5T_STD_REF_DSETREG_g) ### string, not number "(H5OPEN H5T_STD_REF_DSETREG_g)" */
 extern hid_t H5T_STD_I8BE_g;
 extern hid_t H5T_STD_I8LE_g;
 extern hid_t H5T_STD_I16BE_g;
@@ -1500,14 +652,88 @@ extern hid_t H5T_STD_B64BE_g;
 extern hid_t H5T_STD_B64LE_g;
 extern hid_t H5T_STD_REF_OBJ_g;
 extern hid_t H5T_STD_REF_DSETREG_g;
+/* #define H5T_UNIX_D32BE		(H5OPEN H5T_UNIX_D32BE_g) ### string, not number "(H5OPEN H5T_UNIX_D32BE_g)" */
+/* #define H5T_UNIX_D32LE		(H5OPEN H5T_UNIX_D32LE_g) ### string, not number "(H5OPEN H5T_UNIX_D32LE_g)" */
+/* #define H5T_UNIX_D64BE		(H5OPEN H5T_UNIX_D64BE_g) ### string, not number "(H5OPEN H5T_UNIX_D64BE_g)" */
+/* #define H5T_UNIX_D64LE		(H5OPEN H5T_UNIX_D64LE_g) ### string, not number "(H5OPEN H5T_UNIX_D64LE_g)" */
 extern hid_t H5T_UNIX_D32BE_g;
 extern hid_t H5T_UNIX_D32LE_g;
 extern hid_t H5T_UNIX_D64BE_g;
 extern hid_t H5T_UNIX_D64LE_g;
+/* #define H5T_C_S1		(H5OPEN H5T_C_S1_g) ### string, not number "(H5OPEN H5T_C_S1_g)" */
 extern hid_t H5T_C_S1_g;
+/* #define H5T_FORTRAN_S1		(H5OPEN H5T_FORTRAN_S1_g) ### string, not number "(H5OPEN H5T_FORTRAN_S1_g)" */
 extern hid_t H5T_FORTRAN_S1_g;
+/* #define H5T_INTEL_I8		H5T_STD_I8LE ### string, not number "H5T_STD_I8LE" */
+/* #define H5T_INTEL_I16		H5T_STD_I16LE ### string, not number "H5T_STD_I16LE" */
+/* #define H5T_INTEL_I32		H5T_STD_I32LE ### string, not number "H5T_STD_I32LE" */
+/* #define H5T_INTEL_I64		H5T_STD_I64LE ### string, not number "H5T_STD_I64LE" */
+/* #define H5T_INTEL_U8		H5T_STD_U8LE ### string, not number "H5T_STD_U8LE" */
+/* #define H5T_INTEL_U16		H5T_STD_U16LE ### string, not number "H5T_STD_U16LE" */
+/* #define H5T_INTEL_U32		H5T_STD_U32LE ### string, not number "H5T_STD_U32LE" */
+/* #define H5T_INTEL_U64		H5T_STD_U64LE ### string, not number "H5T_STD_U64LE" */
+/* #define H5T_INTEL_B8		H5T_STD_B8LE ### string, not number "H5T_STD_B8LE" */
+/* #define H5T_INTEL_B16		H5T_STD_B16LE ### string, not number "H5T_STD_B16LE" */
+/* #define H5T_INTEL_B32		H5T_STD_B32LE ### string, not number "H5T_STD_B32LE" */
+/* #define H5T_INTEL_B64		H5T_STD_B64LE ### string, not number "H5T_STD_B64LE" */
+/* #define H5T_INTEL_F32		H5T_IEEE_F32LE ### string, not number "H5T_IEEE_F32LE" */
+/* #define H5T_INTEL_F64		H5T_IEEE_F64LE ### string, not number "H5T_IEEE_F64LE" */
+/* #define H5T_ALPHA_I8		H5T_STD_I8LE ### string, not number "H5T_STD_I8LE" */
+/* #define H5T_ALPHA_I16		H5T_STD_I16LE ### string, not number "H5T_STD_I16LE" */
+/* #define H5T_ALPHA_I32		H5T_STD_I32LE ### string, not number "H5T_STD_I32LE" */
+/* #define H5T_ALPHA_I64		H5T_STD_I64LE ### string, not number "H5T_STD_I64LE" */
+/* #define H5T_ALPHA_U8		H5T_STD_U8LE ### string, not number "H5T_STD_U8LE" */
+/* #define H5T_ALPHA_U16		H5T_STD_U16LE ### string, not number "H5T_STD_U16LE" */
+/* #define H5T_ALPHA_U32		H5T_STD_U32LE ### string, not number "H5T_STD_U32LE" */
+/* #define H5T_ALPHA_U64		H5T_STD_U64LE ### string, not number "H5T_STD_U64LE" */
+/* #define H5T_ALPHA_B8		H5T_STD_B8LE ### string, not number "H5T_STD_B8LE" */
+/* #define H5T_ALPHA_B16		H5T_STD_B16LE ### string, not number "H5T_STD_B16LE" */
+/* #define H5T_ALPHA_B32		H5T_STD_B32LE ### string, not number "H5T_STD_B32LE" */
+/* #define H5T_ALPHA_B64		H5T_STD_B64LE ### string, not number "H5T_STD_B64LE" */
+/* #define H5T_ALPHA_F32		H5T_IEEE_F32LE ### string, not number "H5T_IEEE_F32LE" */
+/* #define H5T_ALPHA_F64		H5T_IEEE_F64LE ### string, not number "H5T_IEEE_F64LE" */
+/* #define H5T_MIPS_I8		H5T_STD_I8BE ### string, not number "H5T_STD_I8BE" */
+/* #define H5T_MIPS_I16		H5T_STD_I16BE ### string, not number "H5T_STD_I16BE" */
+/* #define H5T_MIPS_I32		H5T_STD_I32BE ### string, not number "H5T_STD_I32BE" */
+/* #define H5T_MIPS_I64		H5T_STD_I64BE ### string, not number "H5T_STD_I64BE" */
+/* #define H5T_MIPS_U8		H5T_STD_U8BE ### string, not number "H5T_STD_U8BE" */
+/* #define H5T_MIPS_U16		H5T_STD_U16BE ### string, not number "H5T_STD_U16BE" */
+/* #define H5T_MIPS_U32		H5T_STD_U32BE ### string, not number "H5T_STD_U32BE" */
+/* #define H5T_MIPS_U64		H5T_STD_U64BE ### string, not number "H5T_STD_U64BE" */
+/* #define H5T_MIPS_B8		H5T_STD_B8BE ### string, not number "H5T_STD_B8BE" */
+/* #define H5T_MIPS_B16		H5T_STD_B16BE ### string, not number "H5T_STD_B16BE" */
+/* #define H5T_MIPS_B32		H5T_STD_B32BE ### string, not number "H5T_STD_B32BE" */
+/* #define H5T_MIPS_B64		H5T_STD_B64BE ### string, not number "H5T_STD_B64BE" */
+/* #define H5T_MIPS_F32		H5T_IEEE_F32BE ### string, not number "H5T_IEEE_F32BE" */
+/* #define H5T_MIPS_F64		H5T_IEEE_F64BE ### string, not number "H5T_IEEE_F64BE" */
+/* #define H5T_VAX_F32		(H5OPEN H5T_VAX_F32_g) ### string, not number "(H5OPEN H5T_VAX_F32_g)" */
+/* #define H5T_VAX_F64		(H5OPEN H5T_VAX_F64_g) ### string, not number "(H5OPEN H5T_VAX_F64_g)" */
 extern hid_t H5T_VAX_F32_g;
 extern hid_t H5T_VAX_F64_g;
+enum { H5T_NATIVE_CHAR = 0 };
+/* #define H5T_NATIVE_SCHAR        (H5OPEN H5T_NATIVE_SCHAR_g) ### string, not number "(H5OPEN H5T_NATIVE_SCHAR_g)" */
+/* #define H5T_NATIVE_UCHAR        (H5OPEN H5T_NATIVE_UCHAR_g) ### string, not number "(H5OPEN H5T_NATIVE_UCHAR_g)" */
+/* #define H5T_NATIVE_SHORT        (H5OPEN H5T_NATIVE_SHORT_g) ### string, not number "(H5OPEN H5T_NATIVE_SHORT_g)" */
+/* #define H5T_NATIVE_USHORT       (H5OPEN H5T_NATIVE_USHORT_g) ### string, not number "(H5OPEN H5T_NATIVE_USHORT_g)" */
+/* #define H5T_NATIVE_INT          (H5OPEN H5T_NATIVE_INT_g) ### string, not number "(H5OPEN H5T_NATIVE_INT_g)" */
+/* #define H5T_NATIVE_UINT         (H5OPEN H5T_NATIVE_UINT_g) ### string, not number "(H5OPEN H5T_NATIVE_UINT_g)" */
+/* #define H5T_NATIVE_LONG         (H5OPEN H5T_NATIVE_LONG_g) ### string, not number "(H5OPEN H5T_NATIVE_LONG_g)" */
+/* #define H5T_NATIVE_ULONG        (H5OPEN H5T_NATIVE_ULONG_g) ### string, not number "(H5OPEN H5T_NATIVE_ULONG_g)" */
+/* #define H5T_NATIVE_LLONG        (H5OPEN H5T_NATIVE_LLONG_g) ### string, not number "(H5OPEN H5T_NATIVE_LLONG_g)" */
+/* #define H5T_NATIVE_ULLONG       (H5OPEN H5T_NATIVE_ULLONG_g) ### string, not number "(H5OPEN H5T_NATIVE_ULLONG_g)" */
+/* #define H5T_NATIVE_FLOAT        (H5OPEN H5T_NATIVE_FLOAT_g) ### string, not number "(H5OPEN H5T_NATIVE_FLOAT_g)" */
+/* #define H5T_NATIVE_DOUBLE       (H5OPEN H5T_NATIVE_DOUBLE_g) ### string, not number "(H5OPEN H5T_NATIVE_DOUBLE_g)" */
+/* #define H5T_NATIVE_LDOUBLE	(H5OPEN H5T_NATIVE_LDOUBLE_g) ### string, not number "(H5OPEN H5T_NATIVE_LDOUBLE_g)" */
+/* #define H5T_NATIVE_B8		(H5OPEN H5T_NATIVE_B8_g) ### string, not number "(H5OPEN H5T_NATIVE_B8_g)" */
+/* #define H5T_NATIVE_B16		(H5OPEN H5T_NATIVE_B16_g) ### string, not number "(H5OPEN H5T_NATIVE_B16_g)" */
+/* #define H5T_NATIVE_B32		(H5OPEN H5T_NATIVE_B32_g) ### string, not number "(H5OPEN H5T_NATIVE_B32_g)" */
+/* #define H5T_NATIVE_B64		(H5OPEN H5T_NATIVE_B64_g) ### string, not number "(H5OPEN H5T_NATIVE_B64_g)" */
+/* #define H5T_NATIVE_OPAQUE       (H5OPEN H5T_NATIVE_OPAQUE_g) ### string, not number "(H5OPEN H5T_NATIVE_OPAQUE_g)" */
+/* #define H5T_NATIVE_HADDR	(H5OPEN H5T_NATIVE_HADDR_g) ### string, not number "(H5OPEN H5T_NATIVE_HADDR_g)" */
+/* #define H5T_NATIVE_HSIZE	(H5OPEN H5T_NATIVE_HSIZE_g) ### string, not number "(H5OPEN H5T_NATIVE_HSIZE_g)" */
+/* #define H5T_NATIVE_HSSIZE	(H5OPEN H5T_NATIVE_HSSIZE_g) ### string, not number "(H5OPEN H5T_NATIVE_HSSIZE_g)" */
+/* #define H5T_NATIVE_HERR		(H5OPEN H5T_NATIVE_HERR_g) ### string, not number "(H5OPEN H5T_NATIVE_HERR_g)" */
+/* #define H5T_NATIVE_HBOOL	(H5OPEN H5T_NATIVE_HBOOL_g) ### string, not number "(H5OPEN H5T_NATIVE_HBOOL_g)" */
 extern hid_t H5T_NATIVE_SCHAR_g;
 extern hid_t H5T_NATIVE_UCHAR_g;
 extern hid_t H5T_NATIVE_SHORT_g;
@@ -1531,24 +757,48 @@ extern hid_t H5T_NATIVE_HSIZE_g;
 extern hid_t H5T_NATIVE_HSSIZE_g;
 extern hid_t H5T_NATIVE_HERR_g;
 extern hid_t H5T_NATIVE_HBOOL_g;
+/* #define H5T_NATIVE_INT8			(H5OPEN H5T_NATIVE_INT8_g) ### string, not number "(H5OPEN H5T_NATIVE_INT8_g)" */
+/* #define H5T_NATIVE_UINT8		(H5OPEN H5T_NATIVE_UINT8_g) ### string, not number "(H5OPEN H5T_NATIVE_UINT8_g)" */
+/* #define H5T_NATIVE_INT_LEAST8		(H5OPEN H5T_NATIVE_INT_LEAST8_g) ### string, not number "(H5OPEN H5T_NATIVE_INT_LEAST8_g)" */
+/* #define H5T_NATIVE_UINT_LEAST8		(H5OPEN H5T_NATIVE_UINT_LEAST8_g) ### string, not number "(H5OPEN H5T_NATIVE_UINT_LEAST8_g)" */
+/* #define H5T_NATIVE_INT_FAST8 		(H5OPEN H5T_NATIVE_INT_FAST8_g) ### string, not number "(H5OPEN H5T_NATIVE_INT_FAST8_g)" */
+/* #define H5T_NATIVE_UINT_FAST8		(H5OPEN H5T_NATIVE_UINT_FAST8_g) ### string, not number "(H5OPEN H5T_NATIVE_UINT_FAST8_g)" */
 extern hid_t H5T_NATIVE_INT8_g;
 extern hid_t H5T_NATIVE_UINT8_g;
 extern hid_t H5T_NATIVE_INT_LEAST8_g;
 extern hid_t H5T_NATIVE_UINT_LEAST8_g;
 extern hid_t H5T_NATIVE_INT_FAST8_g;
 extern hid_t H5T_NATIVE_UINT_FAST8_g;
+/* #define H5T_NATIVE_INT16		(H5OPEN H5T_NATIVE_INT16_g) ### string, not number "(H5OPEN H5T_NATIVE_INT16_g)" */
+/* #define H5T_NATIVE_UINT16		(H5OPEN H5T_NATIVE_UINT16_g) ### string, not number "(H5OPEN H5T_NATIVE_UINT16_g)" */
+/* #define H5T_NATIVE_INT_LEAST16		(H5OPEN H5T_NATIVE_INT_LEAST16_g) ### string, not number "(H5OPEN H5T_NATIVE_INT_LEAST16_g)" */
+/* #define H5T_NATIVE_UINT_LEAST16		(H5OPEN H5T_NATIVE_UINT_LEAST16_g) ### string, not number "(H5OPEN H5T_NATIVE_UINT_LEAST16_g)" */
+/* #define H5T_NATIVE_INT_FAST16		(H5OPEN H5T_NATIVE_INT_FAST16_g) ### string, not number "(H5OPEN H5T_NATIVE_INT_FAST16_g)" */
+/* #define H5T_NATIVE_UINT_FAST16		(H5OPEN H5T_NATIVE_UINT_FAST16_g) ### string, not number "(H5OPEN H5T_NATIVE_UINT_FAST16_g)" */
 extern hid_t H5T_NATIVE_INT16_g;
 extern hid_t H5T_NATIVE_UINT16_g;
 extern hid_t H5T_NATIVE_INT_LEAST16_g;
 extern hid_t H5T_NATIVE_UINT_LEAST16_g;
 extern hid_t H5T_NATIVE_INT_FAST16_g;
 extern hid_t H5T_NATIVE_UINT_FAST16_g;
+/* #define H5T_NATIVE_INT32		(H5OPEN H5T_NATIVE_INT32_g) ### string, not number "(H5OPEN H5T_NATIVE_INT32_g)" */
+/* #define H5T_NATIVE_UINT32		(H5OPEN H5T_NATIVE_UINT32_g) ### string, not number "(H5OPEN H5T_NATIVE_UINT32_g)" */
+/* #define H5T_NATIVE_INT_LEAST32		(H5OPEN H5T_NATIVE_INT_LEAST32_g) ### string, not number "(H5OPEN H5T_NATIVE_INT_LEAST32_g)" */
+/* #define H5T_NATIVE_UINT_LEAST32		(H5OPEN H5T_NATIVE_UINT_LEAST32_g) ### string, not number "(H5OPEN H5T_NATIVE_UINT_LEAST32_g)" */
+/* #define H5T_NATIVE_INT_FAST32		(H5OPEN H5T_NATIVE_INT_FAST32_g) ### string, not number "(H5OPEN H5T_NATIVE_INT_FAST32_g)" */
+/* #define H5T_NATIVE_UINT_FAST32		(H5OPEN H5T_NATIVE_UINT_FAST32_g) ### string, not number "(H5OPEN H5T_NATIVE_UINT_FAST32_g)" */
 extern hid_t H5T_NATIVE_INT32_g;
 extern hid_t H5T_NATIVE_UINT32_g;
 extern hid_t H5T_NATIVE_INT_LEAST32_g;
 extern hid_t H5T_NATIVE_UINT_LEAST32_g;
 extern hid_t H5T_NATIVE_INT_FAST32_g;
 extern hid_t H5T_NATIVE_UINT_FAST32_g;
+/* #define H5T_NATIVE_INT64		(H5OPEN H5T_NATIVE_INT64_g) ### string, not number "(H5OPEN H5T_NATIVE_INT64_g)" */
+/* #define H5T_NATIVE_UINT64		(H5OPEN H5T_NATIVE_UINT64_g) ### string, not number "(H5OPEN H5T_NATIVE_UINT64_g)" */
+/* #define H5T_NATIVE_INT_LEAST64		(H5OPEN H5T_NATIVE_INT_LEAST64_g) ### string, not number "(H5OPEN H5T_NATIVE_INT_LEAST64_g)" */
+/* #define H5T_NATIVE_UINT_LEAST64 	(H5OPEN H5T_NATIVE_UINT_LEAST64_g) ### string, not number "(H5OPEN H5T_NATIVE_UINT_LEAST64_g)" */
+/* #define H5T_NATIVE_INT_FAST64		(H5OPEN H5T_NATIVE_INT_FAST64_g) ### string, not number "(H5OPEN H5T_NATIVE_INT_FAST64_g)" */
+/* #define H5T_NATIVE_UINT_FAST64		(H5OPEN H5T_NATIVE_UINT_FAST64_g) ### string, not number "(H5OPEN H5T_NATIVE_UINT_FAST64_g)" */
 extern hid_t H5T_NATIVE_INT64_g;
 extern hid_t H5T_NATIVE_UINT64_g;
 extern hid_t H5T_NATIVE_INT_LEAST64_g;
@@ -1626,16 +876,20 @@ herr_t H5Tcommit1(hid_t loc_id, const char *name, hid_t type_id);
 hid_t H5Topen1(hid_t loc_id, const char *name);
 hid_t H5Tarray_create1(hid_t base_id, int ndims, const hsize_t dim[], const int perm[]);
 int H5Tget_array_dims1(hid_t type_id, hsize_t dims[], int perm[]);
-/* END /usr/include/hdf5/openmpi/H5Tpublic.h */
+/* END /usr/include/hdf5/serial/H5Tpublic.h */
+/* #define H5L_MAX_LINK_NAME_LEN   ((uint32_t)(-1)) ### string, not number "((uint32_t)(-1))" */
+/* #define H5L_SAME_LOC (hid_t)0 ### string, not number "(hid_t)0" */
 enum { H5L_LINK_CLASS_T_VERS = 1 };
 enum { H5L_LINK_CLASS_T_VERS_0 = 0 };
 typedef enum { H5L_TYPE_ERROR = (-1), H5L_TYPE_HARD = 0, H5L_TYPE_SOFT = 1, H5L_TYPE_EXTERNAL = 64, H5L_TYPE_MAX = 255 } H5L_type_t;
-typedef struct { H5L_type_t          type;
-hbool_t             corder_valid;
-int64_t             corder;
-H5T_cset_t          cset;
-union { haddr_t         address;
-size_t          val_size;
+enum { H5L_TYPE_BUILTIN_MAX = 0 };
+enum { H5L_TYPE_UD_MIN = 0 };
+typedef struct { H5L_type_t type;
+hbool_t corder_valid;
+int64_t corder;
+H5T_cset_t cset;
+union { haddr_t address;
+size_t val_size;
 } u;
 } H5L_info_t;
 typedef herr_t (*H5L_create_func_t)(const char *link_name, hid_t loc_group, const void *lnkdata, size_t lnkdata_size, hid_t lcpl_id);
@@ -1689,15 +943,36 @@ herr_t H5Lunregister(H5L_type_t id);
 htri_t H5Lis_registered(H5L_type_t id);
 herr_t H5Lunpack_elink_val(const void *ext_linkval, size_t link_size, unsigned *flags, const char **filename, const char **obj_path );
 herr_t H5Lcreate_external(const char *file_name, const char *obj_name, hid_t link_loc_id, const char *link_name, hid_t lcpl_id, hid_t lapl_id);
-/* END /usr/include/hdf5/openmpi/H5Lpublic.h */
-enum { H5O_SHMESG_NONE_FLAG = 0x0000 };
-enum { H5O_HDR_CHUNK0_SIZE = 0x03 };
-enum { H5O_HDR_ATTR_CRT_ORDER_TRACKED = 0x04 };
-enum { H5O_HDR_ATTR_CRT_ORDER_INDEXED = 0x08 };
-enum { H5O_HDR_ATTR_STORE_PHASE_CHANGE = 0x10 };
-enum { H5O_HDR_STORE_TIMES = 0x20 };
+/* END /usr/include/hdf5/serial/H5Lpublic.h */
+/* #define H5O_COPY_SHALLOW_HIERARCHY_FLAG (0x0001u) ### string, not number "(0x0001u)" */
+/* #define H5O_COPY_EXPAND_SOFT_LINK_FLAG  (0x0002u) ### string, not number "(0x0002u)" */
+/* #define H5O_COPY_EXPAND_EXT_LINK_FLAG   (0x0004u) ### string, not number "(0x0004u)" */
+/* #define H5O_COPY_EXPAND_REFERENCE_FLAG  (0x0008u) ### string, not number "(0x0008u)" */
+/* #define H5O_COPY_WITHOUT_ATTR_FLAG      (0x0010u) ### string, not number "(0x0010u)" */
+/* #define H5O_COPY_PRESERVE_NULL_FLAG     (0x0020u) ### string, not number "(0x0020u)" */
+/* #define H5O_COPY_MERGE_COMMITTED_DTYPE_FLAG (0x0040u) ### string, not number "(0x0040u)" */
+/* #define H5O_COPY_ALL                    (0x007Fu) ### string, not number "(0x007Fu)" */
+enum { H5O_SHMESG_NONE_FLAG = 0 };
+/* #define H5O_SHMESG_SDSPACE_FLAG ((unsigned)1 << 0x0001) ### string, not number "((unsigned)1 << 0x0001)" */
+/* #define H5O_SHMESG_DTYPE_FLAG   ((unsigned)1 << 0x0003) ### string, not number "((unsigned)1 << 0x0003)" */
+/* #define H5O_SHMESG_FILL_FLAG    ((unsigned)1 << 0x0005) ### string, not number "((unsigned)1 << 0x0005)" */
+/* #define H5O_SHMESG_PLINE_FLAG   ((unsigned)1 << 0x000b) ### string, not number "((unsigned)1 << 0x000b)" */
+/* #define H5O_SHMESG_ATTR_FLAG    ((unsigned)1 << 0x000c) ### string, not number "((unsigned)1 << 0x000c)" */
+/* #define H5O_SHMESG_ALL_FLAG     (H5O_SHMESG_SDSPACE_FLAG | H5O_SHMESG_DTYPE_FLAG | H5O_SHMESG_FILL_FLAG | H5O_SHMESG_PLINE_FLAG | H5O_SHMESG_ATTR_FLAG) ### string, not number "(H5O_SHMESG_SDSPACE_FLAG | H5O_SHMESG_DTYPE_FLAG | H5O_SHMESG_FILL_FLAG | H5O_SHMESG_PLINE_FLAG | H5O_SHMESG_ATTR_FLAG)" */
+enum { H5O_HDR_CHUNK0_SIZE = 3 };
+enum { H5O_HDR_ATTR_CRT_ORDER_TRACKED = 4 };
+enum { H5O_HDR_ATTR_CRT_ORDER_INDEXED = 8 };
+enum { H5O_HDR_ATTR_STORE_PHASE_CHANGE = 16 };
+enum { H5O_HDR_STORE_TIMES = 32 };
+enum { H5O_HDR_ALL_FLAGS = 63 };
 enum { H5O_SHMESG_MAX_NINDEXES = 8 };
 enum { H5O_SHMESG_MAX_LIST_SIZE = 5000 };
+/* #define H5O_INFO_BASIC          0x0001u ### string, not number "0x0001u" */
+/* #define H5O_INFO_TIME           0x0002u ### string, not number "0x0002u" */
+/* #define H5O_INFO_NUM_ATTRS      0x0004u ### string, not number "0x0004u" */
+/* #define H5O_INFO_HDR            0x0008u ### string, not number "0x0008u" */
+/* #define H5O_INFO_META_SIZE      0x0010u ### string, not number "0x0010u" */
+/* #define H5O_INFO_ALL            (H5O_INFO_BASIC | H5O_INFO_TIME | H5O_INFO_NUM_ATTRS | H5O_INFO_HDR | H5O_INFO_META_SIZE) ### string, not number "(H5O_INFO_BASIC | H5O_INFO_TIME | H5O_INFO_NUM_ATTRS | H5O_INFO_HDR | H5O_INFO_META_SIZE)" */
 typedef enum H5O_type_t { H5O_TYPE_UNKNOWN = -1, H5O_TYPE_GROUP, H5O_TYPE_DATASET, H5O_TYPE_NAMED_DATATYPE, H5O_TYPE_NTYPES } H5O_type_t;
 typedef struct H5O_hdr_info_t { unsigned version;
 unsigned nmesgs;
@@ -1712,18 +987,18 @@ struct { uint64_t present;
 uint64_t shared;
 } mesg;
 } H5O_hdr_info_t;
-typedef struct H5O_info_t { unsigned long     fileno;
-haddr_t         addr;
-H5O_type_t         type;
-unsigned         rc;
-time_t        atime;
-time_t        mtime;
-time_t        ctime;
-time_t        btime;
-hsize_t         num_attrs;
-H5O_hdr_info_t      hdr;
-struct { H5_ih_info_t   obj;
-H5_ih_info_t   attr;
+typedef struct H5O_info_t { unsigned long fileno;
+haddr_t addr;
+H5O_type_t type;
+unsigned rc;
+time_t atime;
+time_t mtime;
+time_t ctime;
+time_t btime;
+hsize_t num_attrs;
+H5O_hdr_info_t hdr;
+struct { H5_ih_info_t obj;
+H5_ih_info_t attr;
 } meta_size;
 } H5O_info_t;
 typedef uint32_t H5O_msg_crt_idx_t;
@@ -1768,114 +1043,121 @@ hsize_t free;
 unsigned nmesgs;
 unsigned nchunks;
 } H5O_stat_t;
-/* END /usr/include/hdf5/openmpi/H5Opublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Tpublic.h */
-/* END /usr/include/hdf5/openmpi/H5Tpublic.h */
-typedef struct { hbool_t             corder_valid;
-H5O_msg_crt_idx_t   corder;
-H5T_cset_t          cset;
-hsize_t             data_size;
+/* END /usr/include/hdf5/serial/H5Opublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5Tpublic.h */
+/* END /usr/include/hdf5/serial/H5Tpublic.h */
+typedef struct { hbool_t corder_valid;
+H5O_msg_crt_idx_t corder;
+H5T_cset_t cset;
+hsize_t data_size;
 } H5A_info_t;
 typedef herr_t (*H5A_operator2_t)(hid_t location_id, const char *attr_name, const H5A_info_t *ainfo, void *op_data);
-hid_t   H5Acreate2(hid_t loc_id, const char *attr_name, hid_t type_id, hid_t space_id, hid_t acpl_id, hid_t aapl_id);
-hid_t   H5Acreate_by_name(hid_t loc_id, const char *obj_name, const char *attr_name, hid_t type_id, hid_t space_id, hid_t acpl_id, hid_t aapl_id, hid_t lapl_id);
-hid_t   H5Aopen(hid_t obj_id, const char *attr_name, hid_t aapl_id);
-hid_t   H5Aopen_by_name(hid_t loc_id, const char *obj_name, const char *attr_name, hid_t aapl_id, hid_t lapl_id);
-hid_t   H5Aopen_by_idx(hid_t loc_id, const char *obj_name, H5_index_t idx_type, H5_iter_order_t order, hsize_t n, hid_t aapl_id, hid_t lapl_id);
-herr_t  H5Awrite(hid_t attr_id, hid_t type_id, const void *buf);
-herr_t  H5Aread(hid_t attr_id, hid_t type_id, void *buf);
-herr_t  H5Aclose(hid_t attr_id);
-hid_t   H5Aget_space(hid_t attr_id);
-hid_t   H5Aget_type(hid_t attr_id);
-hid_t   H5Aget_create_plist(hid_t attr_id);
+hid_t H5Acreate2(hid_t loc_id, const char *attr_name, hid_t type_id, hid_t space_id, hid_t acpl_id, hid_t aapl_id);
+hid_t H5Acreate_by_name(hid_t loc_id, const char *obj_name, const char *attr_name, hid_t type_id, hid_t space_id, hid_t acpl_id, hid_t aapl_id, hid_t lapl_id);
+hid_t H5Aopen(hid_t obj_id, const char *attr_name, hid_t aapl_id);
+hid_t H5Aopen_by_name(hid_t loc_id, const char *obj_name, const char *attr_name, hid_t aapl_id, hid_t lapl_id);
+hid_t H5Aopen_by_idx(hid_t loc_id, const char *obj_name, H5_index_t idx_type, H5_iter_order_t order, hsize_t n, hid_t aapl_id, hid_t lapl_id);
+herr_t H5Awrite(hid_t attr_id, hid_t type_id, const void *buf);
+herr_t H5Aread(hid_t attr_id, hid_t type_id, void *buf);
+herr_t H5Aclose(hid_t attr_id);
+hid_t H5Aget_space(hid_t attr_id);
+hid_t H5Aget_type(hid_t attr_id);
+hid_t H5Aget_create_plist(hid_t attr_id);
 ssize_t H5Aget_name(hid_t attr_id, size_t buf_size, char *buf);
 ssize_t H5Aget_name_by_idx(hid_t loc_id, const char *obj_name, H5_index_t idx_type, H5_iter_order_t order, hsize_t n, char *name , size_t size, hid_t lapl_id);
 hsize_t H5Aget_storage_size(hid_t attr_id);
-herr_t  H5Aget_info(hid_t attr_id, H5A_info_t *ainfo );
-herr_t  H5Aget_info_by_name(hid_t loc_id, const char *obj_name, const char *attr_name, H5A_info_t *ainfo , hid_t lapl_id);
-herr_t  H5Aget_info_by_idx(hid_t loc_id, const char *obj_name, H5_index_t idx_type, H5_iter_order_t order, hsize_t n, H5A_info_t *ainfo , hid_t lapl_id);
-herr_t  H5Arename(hid_t loc_id, const char *old_name, const char *new_name);
-herr_t  H5Arename_by_name(hid_t loc_id, const char *obj_name, const char *old_attr_name, const char *new_attr_name, hid_t lapl_id);
-herr_t  H5Aiterate2(hid_t loc_id, H5_index_t idx_type, H5_iter_order_t order, hsize_t *idx, H5A_operator2_t op, void *op_data);
-herr_t  H5Aiterate_by_name(hid_t loc_id, const char *obj_name, H5_index_t idx_type, H5_iter_order_t order, hsize_t *idx, H5A_operator2_t op, void *op_data, hid_t lapd_id);
-herr_t  H5Adelete(hid_t loc_id, const char *name);
-herr_t  H5Adelete_by_name(hid_t loc_id, const char *obj_name, const char *attr_name, hid_t lapl_id);
-herr_t  H5Adelete_by_idx(hid_t loc_id, const char *obj_name, H5_index_t idx_type, H5_iter_order_t order, hsize_t n, hid_t lapl_id);
+herr_t H5Aget_info(hid_t attr_id, H5A_info_t *ainfo );
+herr_t H5Aget_info_by_name(hid_t loc_id, const char *obj_name, const char *attr_name, H5A_info_t *ainfo , hid_t lapl_id);
+herr_t H5Aget_info_by_idx(hid_t loc_id, const char *obj_name, H5_index_t idx_type, H5_iter_order_t order, hsize_t n, H5A_info_t *ainfo , hid_t lapl_id);
+herr_t H5Arename(hid_t loc_id, const char *old_name, const char *new_name);
+herr_t H5Arename_by_name(hid_t loc_id, const char *obj_name, const char *old_attr_name, const char *new_attr_name, hid_t lapl_id);
+herr_t H5Aiterate2(hid_t loc_id, H5_index_t idx_type, H5_iter_order_t order, hsize_t *idx, H5A_operator2_t op, void *op_data);
+herr_t H5Aiterate_by_name(hid_t loc_id, const char *obj_name, H5_index_t idx_type, H5_iter_order_t order, hsize_t *idx, H5A_operator2_t op, void *op_data, hid_t lapd_id);
+herr_t H5Adelete(hid_t loc_id, const char *name);
+herr_t H5Adelete_by_name(hid_t loc_id, const char *obj_name, const char *attr_name, hid_t lapl_id);
+herr_t H5Adelete_by_idx(hid_t loc_id, const char *obj_name, H5_index_t idx_type, H5_iter_order_t order, hsize_t n, hid_t lapl_id);
 htri_t H5Aexists(hid_t obj_id, const char *attr_name);
 htri_t H5Aexists_by_name(hid_t obj_id, const char *obj_name, const char *attr_name, hid_t lapl_id);
 typedef herr_t (*H5A_operator1_t)(hid_t location_id, const char *attr_name, void *operator_data);
-hid_t   H5Acreate1(hid_t loc_id, const char *name, hid_t type_id, hid_t space_id, hid_t acpl_id);
-hid_t   H5Aopen_name(hid_t loc_id, const char *name);
-hid_t   H5Aopen_idx(hid_t loc_id, unsigned idx);
-int     H5Aget_num_attrs(hid_t loc_id);
-herr_t  H5Aiterate1(hid_t loc_id, unsigned *attr_num, H5A_operator1_t op, void *op_data);
-/* END /usr/include/hdf5/openmpi/H5Apublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5ACpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5public.h */
-/* END /usr/include/hdf5/openmpi/H5public.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Cpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5public.h */
-/* END /usr/include/hdf5/openmpi/H5public.h */
+hid_t H5Acreate1(hid_t loc_id, const char *name, hid_t type_id, hid_t space_id, hid_t acpl_id);
+hid_t H5Aopen_name(hid_t loc_id, const char *name);
+hid_t H5Aopen_idx(hid_t loc_id, unsigned idx);
+int H5Aget_num_attrs(hid_t loc_id);
+herr_t H5Aiterate1(hid_t loc_id, unsigned *attr_num, H5A_operator1_t op, void *op_data);
+/* END /usr/include/hdf5/serial/H5Apublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5ACpublic.h */
+enum { _H5ACpublic_H = 1 };
+/* BEGIN /usr/include/hdf5/serial/H5public.h */
+/* END /usr/include/hdf5/serial/H5public.h */
+/* BEGIN /usr/include/hdf5/serial/H5Cpublic.h */
+enum { _H5Cpublic_H = 1 };
+/* BEGIN /usr/include/hdf5/serial/H5public.h */
+/* END /usr/include/hdf5/serial/H5public.h */
 enum H5C_cache_incr_mode { H5C_incr__off, H5C_incr__threshold };
 enum H5C_cache_flash_incr_mode { H5C_flash_incr__off, H5C_flash_incr__add_space };
 enum H5C_cache_decr_mode { H5C_decr__off, H5C_decr__threshold, H5C_decr__age_out, H5C_decr__age_out_with_threshold };
-/* END /usr/include/hdf5/openmpi/H5Cpublic.h */
+/* END /usr/include/hdf5/serial/H5Cpublic.h */
 enum { H5AC__CURR_CACHE_CONFIG_VERSION = 1 };
 enum { H5AC__MAX_TRACE_FILE_NAME_LEN = 1024 };
 enum { H5AC_METADATA_WRITE_STRATEGY__PROCESS_0_ONLY = 0 };
 enum { H5AC_METADATA_WRITE_STRATEGY__DISTRIBUTED = 1 };
-typedef struct H5AC_cache_config_t { int                      version;
-hbool_t             rpt_fcn_enabled;
-hbool_t             open_trace_file;
-hbool_t                  close_trace_file;
-char                     trace_file_name[1024 + 1];
-hbool_t                  evictions_enabled;
-hbool_t                  set_initial_size;
-size_t                   initial_size;
-double                   min_clean_fraction;
-size_t                   max_size;
-size_t                   min_size;
-long int                 epoch_length;
+typedef struct H5AC_cache_config_t { int version;
+hbool_t rpt_fcn_enabled;
+hbool_t open_trace_file;
+hbool_t close_trace_file;
+char trace_file_name[1024 + 1];
+hbool_t evictions_enabled;
+hbool_t set_initial_size;
+size_t initial_size;
+double min_clean_fraction;
+size_t max_size;
+size_t min_size;
+long int epoch_length;
 enum H5C_cache_incr_mode incr_mode;
-double                   lower_hr_threshold;
-double                   increment;
-hbool_t                  apply_max_increment;
-size_t                   max_increment;
-enum H5C_cache_flash_incr_mode      flash_incr_mode;
-double                              flash_multiple;
-double                              flash_threshold;
+double lower_hr_threshold;
+double increment;
+hbool_t apply_max_increment;
+size_t max_increment;
+enum H5C_cache_flash_incr_mode flash_incr_mode;
+double flash_multiple;
+double flash_threshold;
 enum H5C_cache_decr_mode decr_mode;
-double                   upper_hr_threshold;
-double                   decrement;
-hbool_t                  apply_max_decrement;
-size_t                   max_decrement;
-int                      epochs_before_eviction;
-hbool_t                  apply_empty_reserve;
-double                   empty_reserve;
-size_t                   dirty_bytes_threshold;
-int                      metadata_write_strategy;
+double upper_hr_threshold;
+double decrement;
+hbool_t apply_max_decrement;
+size_t max_decrement;
+int epochs_before_eviction;
+hbool_t apply_empty_reserve;
+double empty_reserve;
+size_t dirty_bytes_threshold;
+int metadata_write_strategy;
 } H5AC_cache_config_t;
 enum { H5AC__CURR_CACHE_IMAGE_CONFIG_VERSION = 1 };
 enum { H5AC__CACHE_IMAGE__ENTRY_AGEOUT__NONE = -1 };
 enum { H5AC__CACHE_IMAGE__ENTRY_AGEOUT__MAX = 100 };
-typedef struct H5AC_cache_image_config_t { int                                 version;
-hbool_t                             generate_image;
-hbool_t                             save_resize_status;
-int                                 entry_ageout;
+typedef struct H5AC_cache_image_config_t { int version;
+hbool_t generate_image;
+hbool_t save_resize_status;
+int entry_ageout;
 } H5AC_cache_image_config_t;
-/* END /usr/include/hdf5/openmpi/H5ACpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Dpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5public.h */
-/* END /usr/include/hdf5/openmpi/H5public.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Ipublic.h */
-/* END /usr/include/hdf5/openmpi/H5Ipublic.h */
-typedef enum H5D_layout_t { H5D_LAYOUT_ERROR	= -1, H5D_COMPACT		= 0, H5D_CONTIGUOUS	= 1, H5D_CHUNKED		= 2, H5D_VIRTUAL         = 3, H5D_NLAYOUTS	= 4 } H5D_layout_t;
-typedef enum H5D_chunk_index_t { H5D_CHUNK_IDX_BTREE	= 0, H5D_CHUNK_IDX_SINGLE = 1, H5D_CHUNK_IDX_NONE = 2, H5D_CHUNK_IDX_FARRAY = 3, H5D_CHUNK_IDX_EARRAY = 4, H5D_CHUNK_IDX_BT2 = 5, H5D_CHUNK_IDX_NTYPES } H5D_chunk_index_t;
-typedef enum H5D_alloc_time_t { H5D_ALLOC_TIME_ERROR	= -1, H5D_ALLOC_TIME_DEFAULT  	= 0, H5D_ALLOC_TIME_EARLY	= 1, H5D_ALLOC_TIME_LATE		= 2, H5D_ALLOC_TIME_INCR		= 3 } H5D_alloc_time_t;
-typedef enum H5D_space_status_t { H5D_SPACE_STATUS_ERROR		= -1, H5D_SPACE_STATUS_NOT_ALLOCATED	= 0, H5D_SPACE_STATUS_PART_ALLOCATED	= 1, H5D_SPACE_STATUS_ALLOCATED		= 2 } H5D_space_status_t;
-typedef enum H5D_fill_time_t { H5D_FILL_TIME_ERROR	= -1, H5D_FILL_TIME_ALLOC = 0, H5D_FILL_TIME_NEVER	= 1, H5D_FILL_TIME_IFSET	= 2 } H5D_fill_time_t;
-typedef enum H5D_fill_value_t { H5D_FILL_VALUE_ERROR        =-1, H5D_FILL_VALUE_UNDEFINED    =0, H5D_FILL_VALUE_DEFAULT      =1, H5D_FILL_VALUE_USER_DEFINED =2 } H5D_fill_value_t;
-typedef enum H5D_vds_view_t { H5D_VDS_ERROR               = -1, H5D_VDS_FIRST_MISSING       = 0, H5D_VDS_LAST_AVAILABLE      = 1 } H5D_vds_view_t;
+/* END /usr/include/hdf5/serial/H5ACpublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5Dpublic.h */
+enum { _H5Dpublic_H = 1 };
+/* BEGIN /usr/include/hdf5/serial/H5public.h */
+/* END /usr/include/hdf5/serial/H5public.h */
+/* BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
+/* END /usr/include/hdf5/serial/H5Ipublic.h */
+enum { H5D_CHUNK_CACHE_NSLOTS_DEFAULT = -1 };
+enum { H5D_CHUNK_CACHE_NBYTES_DEFAULT = -1 };
+/* #define H5D_CHUNK_CACHE_W0_DEFAULT          (-1.0f) ### string, not number "(-1.0f)" */
+/* #define H5D_CHUNK_DONT_FILTER_PARTIAL_CHUNKS      (0x0002u) ### string, not number "(0x0002u)" */
+typedef enum H5D_layout_t { H5D_LAYOUT_ERROR = -1, H5D_COMPACT = 0, H5D_CONTIGUOUS = 1, H5D_CHUNKED = 2, H5D_VIRTUAL = 3, H5D_NLAYOUTS = 4 } H5D_layout_t;
+typedef enum H5D_chunk_index_t { H5D_CHUNK_IDX_BTREE = 0, H5D_CHUNK_IDX_SINGLE = 1, H5D_CHUNK_IDX_NONE = 2, H5D_CHUNK_IDX_FARRAY = 3, H5D_CHUNK_IDX_EARRAY = 4, H5D_CHUNK_IDX_BT2 = 5, H5D_CHUNK_IDX_NTYPES } H5D_chunk_index_t;
+typedef enum H5D_alloc_time_t { H5D_ALLOC_TIME_ERROR = -1, H5D_ALLOC_TIME_DEFAULT = 0, H5D_ALLOC_TIME_EARLY = 1, H5D_ALLOC_TIME_LATE = 2, H5D_ALLOC_TIME_INCR = 3 } H5D_alloc_time_t;
+typedef enum H5D_space_status_t { H5D_SPACE_STATUS_ERROR = -1, H5D_SPACE_STATUS_NOT_ALLOCATED = 0, H5D_SPACE_STATUS_PART_ALLOCATED = 1, H5D_SPACE_STATUS_ALLOCATED = 2 } H5D_space_status_t;
+typedef enum H5D_fill_time_t { H5D_FILL_TIME_ERROR = -1, H5D_FILL_TIME_ALLOC = 0, H5D_FILL_TIME_NEVER = 1, H5D_FILL_TIME_IFSET = 2 } H5D_fill_time_t;
+typedef enum H5D_fill_value_t { H5D_FILL_VALUE_ERROR =-1, H5D_FILL_VALUE_UNDEFINED =0, H5D_FILL_VALUE_DEFAULT =1, H5D_FILL_VALUE_USER_DEFINED =2 } H5D_fill_value_t;
+typedef enum H5D_vds_view_t { H5D_VDS_ERROR = -1, H5D_VDS_FIRST_MISSING = 0, H5D_VDS_LAST_AVAILABLE = 1 } H5D_vds_view_t;
 typedef herr_t (*H5D_append_cb_t)(hid_t dataset_id, hsize_t *cur_dims, void *op_data);
 typedef herr_t (*H5D_operator_t)(void *elem, hid_t type_id, unsigned ndim, const hsize_t *point, void *operator_data);
 typedef herr_t (*H5D_scatter_func_t)(const void **src_buf, size_t *src_buf_bytes_used, void *op_data);
@@ -1911,26 +1193,77 @@ herr_t H5Dgather(hid_t src_space_id, const void *src_buf, hid_t type_id, size_t 
 herr_t H5Ddebug(hid_t dset_id);
 herr_t H5Dformat_convert(hid_t dset_id);
 herr_t H5Dget_chunk_index_type(hid_t did, H5D_chunk_index_t *idx_type);
+enum { H5D_CHUNK_BTREE = 0 };
+/* #define H5D_XFER_DIRECT_CHUNK_WRITE_FLAG_NAME       "direct_chunk_flag" ### string, not number "\"direct_chunk_flag\"" */
+/* #define H5D_XFER_DIRECT_CHUNK_WRITE_FILTERS_NAME    "direct_chunk_filters" ### string, not number "\"direct_chunk_filters\"" */
+/* #define H5D_XFER_DIRECT_CHUNK_WRITE_OFFSET_NAME     "direct_chunk_offset" ### string, not number "\"direct_chunk_offset\"" */
+/* #define H5D_XFER_DIRECT_CHUNK_WRITE_DATASIZE_NAME   "direct_chunk_datasize" ### string, not number "\"direct_chunk_datasize\"" */
+/* #define H5D_XFER_DIRECT_CHUNK_READ_FLAG_NAME        "direct_chunk_read_flag" ### string, not number "\"direct_chunk_read_flag\"" */
+/* #define H5D_XFER_DIRECT_CHUNK_READ_OFFSET_NAME      "direct_chunk_read_offset" ### string, not number "\"direct_chunk_read_offset\"" */
+/* #define H5D_XFER_DIRECT_CHUNK_READ_FILTERS_NAME     "direct_chunk_read_filters" ### string, not number "\"direct_chunk_read_filters\"" */
 hid_t H5Dcreate1(hid_t file_id, const char *name, hid_t type_id, hid_t space_id, hid_t dcpl_id);
 hid_t H5Dopen1(hid_t file_id, const char *name);
 herr_t H5Dextend(hid_t dset_id, const hsize_t size[]);
-/* END /usr/include/hdf5/openmpi/H5Dpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Epublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5public.h */
-/* END /usr/include/hdf5/openmpi/H5public.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Ipublic.h */
-/* END /usr/include/hdf5/openmpi/H5Ipublic.h */
+/* END /usr/include/hdf5/serial/H5Dpublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5Epublic.h */
+enum { _H5Epublic_H = 1 };
+/* BEGIN /usr/include/stdio.h */
+]] require 'ffi.c.stdio' ffi.cdef[[
+/* END /usr/include/stdio.h */
+/* BEGIN /usr/include/hdf5/serial/H5public.h */
+/* END /usr/include/hdf5/serial/H5public.h */
+/* BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
+/* END /usr/include/hdf5/serial/H5Ipublic.h */
+/* #define H5E_DEFAULT             (hid_t)0 ### string, not number "(hid_t)0" */
 typedef enum H5E_type_t { H5E_MAJOR, H5E_MINOR } H5E_type_t;
-typedef struct H5E_error2_t { hid_t       cls_id;
-hid_t       maj_num;
-hid_t       min_num;
-unsigned	line;
-const char	*func_name;
-const char	*file_name;
-const char	*desc;
+typedef struct H5E_error2_t { hid_t cls_id;
+hid_t maj_num;
+hid_t min_num;
+unsigned line;
+const char *func_name;
+const char *file_name;
+const char *desc;
 } H5E_error2_t;
+/* #define H5OPEN          H5open(), ### string, not number "H5open()," */
+/* #define H5E_ERR_CLS		(H5OPEN H5E_ERR_CLS_g) ### string, not number "(H5OPEN H5E_ERR_CLS_g)" */
 extern hid_t H5E_ERR_CLS_g;
-/* BEGIN /usr/include/hdf5/openmpi/H5Epubgen.h */
+/* BEGIN /usr/include/hdf5/serial/H5Epubgen.h */
+enum { _H5Epubgen_H = 1 };
+/* #define H5E_FUNC             (H5OPEN H5E_FUNC_g) ### string, not number "(H5OPEN H5E_FUNC_g)" */
+/* #define H5E_FILE             (H5OPEN H5E_FILE_g) ### string, not number "(H5OPEN H5E_FILE_g)" */
+/* #define H5E_SOHM             (H5OPEN H5E_SOHM_g) ### string, not number "(H5OPEN H5E_SOHM_g)" */
+/* #define H5E_SYM              (H5OPEN H5E_SYM_g) ### string, not number "(H5OPEN H5E_SYM_g)" */
+/* #define H5E_PLUGIN           (H5OPEN H5E_PLUGIN_g) ### string, not number "(H5OPEN H5E_PLUGIN_g)" */
+/* #define H5E_VFL              (H5OPEN H5E_VFL_g) ### string, not number "(H5OPEN H5E_VFL_g)" */
+/* #define H5E_INTERNAL         (H5OPEN H5E_INTERNAL_g) ### string, not number "(H5OPEN H5E_INTERNAL_g)" */
+/* #define H5E_BTREE            (H5OPEN H5E_BTREE_g) ### string, not number "(H5OPEN H5E_BTREE_g)" */
+/* #define H5E_REFERENCE        (H5OPEN H5E_REFERENCE_g) ### string, not number "(H5OPEN H5E_REFERENCE_g)" */
+/* #define H5E_DATASPACE        (H5OPEN H5E_DATASPACE_g) ### string, not number "(H5OPEN H5E_DATASPACE_g)" */
+/* #define H5E_RESOURCE         (H5OPEN H5E_RESOURCE_g) ### string, not number "(H5OPEN H5E_RESOURCE_g)" */
+/* #define H5E_RS               (H5OPEN H5E_RS_g) ### string, not number "(H5OPEN H5E_RS_g)" */
+/* #define H5E_FARRAY           (H5OPEN H5E_FARRAY_g) ### string, not number "(H5OPEN H5E_FARRAY_g)" */
+/* #define H5E_HEAP             (H5OPEN H5E_HEAP_g) ### string, not number "(H5OPEN H5E_HEAP_g)" */
+/* #define H5E_ATTR             (H5OPEN H5E_ATTR_g) ### string, not number "(H5OPEN H5E_ATTR_g)" */
+/* #define H5E_IO               (H5OPEN H5E_IO_g) ### string, not number "(H5OPEN H5E_IO_g)" */
+/* #define H5E_EFL              (H5OPEN H5E_EFL_g) ### string, not number "(H5OPEN H5E_EFL_g)" */
+/* #define H5E_TST              (H5OPEN H5E_TST_g) ### string, not number "(H5OPEN H5E_TST_g)" */
+/* #define H5E_PAGEBUF          (H5OPEN H5E_PAGEBUF_g) ### string, not number "(H5OPEN H5E_PAGEBUF_g)" */
+/* #define H5E_FSPACE           (H5OPEN H5E_FSPACE_g) ### string, not number "(H5OPEN H5E_FSPACE_g)" */
+/* #define H5E_DATASET          (H5OPEN H5E_DATASET_g) ### string, not number "(H5OPEN H5E_DATASET_g)" */
+/* #define H5E_STORAGE          (H5OPEN H5E_STORAGE_g) ### string, not number "(H5OPEN H5E_STORAGE_g)" */
+/* #define H5E_LINK             (H5OPEN H5E_LINK_g) ### string, not number "(H5OPEN H5E_LINK_g)" */
+/* #define H5E_PLIST            (H5OPEN H5E_PLIST_g) ### string, not number "(H5OPEN H5E_PLIST_g)" */
+/* #define H5E_DATATYPE         (H5OPEN H5E_DATATYPE_g) ### string, not number "(H5OPEN H5E_DATATYPE_g)" */
+/* #define H5E_OHDR             (H5OPEN H5E_OHDR_g) ### string, not number "(H5OPEN H5E_OHDR_g)" */
+/* #define H5E_ATOM             (H5OPEN H5E_ATOM_g) ### string, not number "(H5OPEN H5E_ATOM_g)" */
+/* #define H5E_NONE_MAJOR       (H5OPEN H5E_NONE_MAJOR_g) ### string, not number "(H5OPEN H5E_NONE_MAJOR_g)" */
+/* #define H5E_SLIST            (H5OPEN H5E_SLIST_g) ### string, not number "(H5OPEN H5E_SLIST_g)" */
+/* #define H5E_ARGS             (H5OPEN H5E_ARGS_g) ### string, not number "(H5OPEN H5E_ARGS_g)" */
+/* #define H5E_CONTEXT          (H5OPEN H5E_CONTEXT_g) ### string, not number "(H5OPEN H5E_CONTEXT_g)" */
+/* #define H5E_EARRAY           (H5OPEN H5E_EARRAY_g) ### string, not number "(H5OPEN H5E_EARRAY_g)" */
+/* #define H5E_PLINE            (H5OPEN H5E_PLINE_g) ### string, not number "(H5OPEN H5E_PLINE_g)" */
+/* #define H5E_ERROR            (H5OPEN H5E_ERROR_g) ### string, not number "(H5OPEN H5E_ERROR_g)" */
+/* #define H5E_CACHE            (H5OPEN H5E_CACHE_g) ### string, not number "(H5OPEN H5E_CACHE_g)" */
 extern hid_t H5E_FUNC_g;
 extern hid_t H5E_FILE_g;
 extern hid_t H5E_SOHM_g;
@@ -1966,12 +1299,28 @@ extern hid_t H5E_EARRAY_g;
 extern hid_t H5E_PLINE_g;
 extern hid_t H5E_ERROR_g;
 extern hid_t H5E_CACHE_g;
+/* #define H5E_SEEKERROR        (H5OPEN H5E_SEEKERROR_g) ### string, not number "(H5OPEN H5E_SEEKERROR_g)" */
+/* #define H5E_READERROR        (H5OPEN H5E_READERROR_g) ### string, not number "(H5OPEN H5E_READERROR_g)" */
+/* #define H5E_WRITEERROR       (H5OPEN H5E_WRITEERROR_g) ### string, not number "(H5OPEN H5E_WRITEERROR_g)" */
+/* #define H5E_CLOSEERROR       (H5OPEN H5E_CLOSEERROR_g) ### string, not number "(H5OPEN H5E_CLOSEERROR_g)" */
+/* #define H5E_OVERFLOW         (H5OPEN H5E_OVERFLOW_g) ### string, not number "(H5OPEN H5E_OVERFLOW_g)" */
+/* #define H5E_FCNTL            (H5OPEN H5E_FCNTL_g) ### string, not number "(H5OPEN H5E_FCNTL_g)" */
 extern hid_t H5E_SEEKERROR_g;
 extern hid_t H5E_READERROR_g;
 extern hid_t H5E_WRITEERROR_g;
 extern hid_t H5E_CLOSEERROR_g;
 extern hid_t H5E_OVERFLOW_g;
 extern hid_t H5E_FCNTL_g;
+/* #define H5E_NOSPACE          (H5OPEN H5E_NOSPACE_g) ### string, not number "(H5OPEN H5E_NOSPACE_g)" */
+/* #define H5E_CANTALLOC        (H5OPEN H5E_CANTALLOC_g) ### string, not number "(H5OPEN H5E_CANTALLOC_g)" */
+/* #define H5E_CANTCOPY         (H5OPEN H5E_CANTCOPY_g) ### string, not number "(H5OPEN H5E_CANTCOPY_g)" */
+/* #define H5E_CANTFREE         (H5OPEN H5E_CANTFREE_g) ### string, not number "(H5OPEN H5E_CANTFREE_g)" */
+/* #define H5E_ALREADYEXISTS    (H5OPEN H5E_ALREADYEXISTS_g) ### string, not number "(H5OPEN H5E_ALREADYEXISTS_g)" */
+/* #define H5E_CANTLOCK         (H5OPEN H5E_CANTLOCK_g) ### string, not number "(H5OPEN H5E_CANTLOCK_g)" */
+/* #define H5E_CANTUNLOCK       (H5OPEN H5E_CANTUNLOCK_g) ### string, not number "(H5OPEN H5E_CANTUNLOCK_g)" */
+/* #define H5E_CANTGC           (H5OPEN H5E_CANTGC_g) ### string, not number "(H5OPEN H5E_CANTGC_g)" */
+/* #define H5E_CANTGETSIZE      (H5OPEN H5E_CANTGETSIZE_g) ### string, not number "(H5OPEN H5E_CANTGETSIZE_g)" */
+/* #define H5E_OBJOPEN          (H5OPEN H5E_OBJOPEN_g) ### string, not number "(H5OPEN H5E_OBJOPEN_g)" */
 extern hid_t H5E_NOSPACE_g;
 extern hid_t H5E_CANTALLOC_g;
 extern hid_t H5E_CANTCOPY_g;
@@ -1982,22 +1331,47 @@ extern hid_t H5E_CANTUNLOCK_g;
 extern hid_t H5E_CANTGC_g;
 extern hid_t H5E_CANTGETSIZE_g;
 extern hid_t H5E_OBJOPEN_g;
+/* #define H5E_CANTRESTORE      (H5OPEN H5E_CANTRESTORE_g) ### string, not number "(H5OPEN H5E_CANTRESTORE_g)" */
+/* #define H5E_CANTCOMPUTE      (H5OPEN H5E_CANTCOMPUTE_g) ### string, not number "(H5OPEN H5E_CANTCOMPUTE_g)" */
+/* #define H5E_CANTEXTEND       (H5OPEN H5E_CANTEXTEND_g) ### string, not number "(H5OPEN H5E_CANTEXTEND_g)" */
+/* #define H5E_CANTATTACH       (H5OPEN H5E_CANTATTACH_g) ### string, not number "(H5OPEN H5E_CANTATTACH_g)" */
+/* #define H5E_CANTUPDATE       (H5OPEN H5E_CANTUPDATE_g) ### string, not number "(H5OPEN H5E_CANTUPDATE_g)" */
+/* #define H5E_CANTOPERATE      (H5OPEN H5E_CANTOPERATE_g) ### string, not number "(H5OPEN H5E_CANTOPERATE_g)" */
 extern hid_t H5E_CANTRESTORE_g;
 extern hid_t H5E_CANTCOMPUTE_g;
 extern hid_t H5E_CANTEXTEND_g;
 extern hid_t H5E_CANTATTACH_g;
 extern hid_t H5E_CANTUPDATE_g;
 extern hid_t H5E_CANTOPERATE_g;
+/* #define H5E_CANTINIT         (H5OPEN H5E_CANTINIT_g) ### string, not number "(H5OPEN H5E_CANTINIT_g)" */
+/* #define H5E_ALREADYINIT      (H5OPEN H5E_ALREADYINIT_g) ### string, not number "(H5OPEN H5E_ALREADYINIT_g)" */
+/* #define H5E_CANTRELEASE      (H5OPEN H5E_CANTRELEASE_g) ### string, not number "(H5OPEN H5E_CANTRELEASE_g)" */
 extern hid_t H5E_CANTINIT_g;
 extern hid_t H5E_ALREADYINIT_g;
 extern hid_t H5E_CANTRELEASE_g;
+/* #define H5E_CANTGET          (H5OPEN H5E_CANTGET_g) ### string, not number "(H5OPEN H5E_CANTGET_g)" */
+/* #define H5E_CANTSET          (H5OPEN H5E_CANTSET_g) ### string, not number "(H5OPEN H5E_CANTSET_g)" */
+/* #define H5E_DUPCLASS         (H5OPEN H5E_DUPCLASS_g) ### string, not number "(H5OPEN H5E_DUPCLASS_g)" */
+/* #define H5E_SETDISALLOWED    (H5OPEN H5E_SETDISALLOWED_g) ### string, not number "(H5OPEN H5E_SETDISALLOWED_g)" */
 extern hid_t H5E_CANTGET_g;
 extern hid_t H5E_CANTSET_g;
 extern hid_t H5E_DUPCLASS_g;
 extern hid_t H5E_SETDISALLOWED_g;
+/* #define H5E_CANTMERGE        (H5OPEN H5E_CANTMERGE_g) ### string, not number "(H5OPEN H5E_CANTMERGE_g)" */
+/* #define H5E_CANTREVIVE       (H5OPEN H5E_CANTREVIVE_g) ### string, not number "(H5OPEN H5E_CANTREVIVE_g)" */
+/* #define H5E_CANTSHRINK       (H5OPEN H5E_CANTSHRINK_g) ### string, not number "(H5OPEN H5E_CANTSHRINK_g)" */
 extern hid_t H5E_CANTMERGE_g;
 extern hid_t H5E_CANTREVIVE_g;
 extern hid_t H5E_CANTSHRINK_g;
+/* #define H5E_LINKCOUNT        (H5OPEN H5E_LINKCOUNT_g) ### string, not number "(H5OPEN H5E_LINKCOUNT_g)" */
+/* #define H5E_VERSION          (H5OPEN H5E_VERSION_g) ### string, not number "(H5OPEN H5E_VERSION_g)" */
+/* #define H5E_ALIGNMENT        (H5OPEN H5E_ALIGNMENT_g) ### string, not number "(H5OPEN H5E_ALIGNMENT_g)" */
+/* #define H5E_BADMESG          (H5OPEN H5E_BADMESG_g) ### string, not number "(H5OPEN H5E_BADMESG_g)" */
+/* #define H5E_CANTDELETE       (H5OPEN H5E_CANTDELETE_g) ### string, not number "(H5OPEN H5E_CANTDELETE_g)" */
+/* #define H5E_BADITER          (H5OPEN H5E_BADITER_g) ### string, not number "(H5OPEN H5E_BADITER_g)" */
+/* #define H5E_CANTPACK         (H5OPEN H5E_CANTPACK_g) ### string, not number "(H5OPEN H5E_CANTPACK_g)" */
+/* #define H5E_CANTRESET        (H5OPEN H5E_CANTRESET_g) ### string, not number "(H5OPEN H5E_CANTRESET_g)" */
+/* #define H5E_CANTRENAME       (H5OPEN H5E_CANTRENAME_g) ### string, not number "(H5OPEN H5E_CANTRENAME_g)" */
 extern hid_t H5E_LINKCOUNT_g;
 extern hid_t H5E_VERSION_g;
 extern hid_t H5E_ALIGNMENT_g;
@@ -2007,19 +1381,43 @@ extern hid_t H5E_BADITER_g;
 extern hid_t H5E_CANTPACK_g;
 extern hid_t H5E_CANTRESET_g;
 extern hid_t H5E_CANTRENAME_g;
+/* #define H5E_SYSERRSTR        (H5OPEN H5E_SYSERRSTR_g) ### string, not number "(H5OPEN H5E_SYSERRSTR_g)" */
 extern hid_t H5E_SYSERRSTR_g;
+/* #define H5E_NOFILTER         (H5OPEN H5E_NOFILTER_g) ### string, not number "(H5OPEN H5E_NOFILTER_g)" */
+/* #define H5E_CALLBACK         (H5OPEN H5E_CALLBACK_g) ### string, not number "(H5OPEN H5E_CALLBACK_g)" */
+/* #define H5E_CANAPPLY         (H5OPEN H5E_CANAPPLY_g) ### string, not number "(H5OPEN H5E_CANAPPLY_g)" */
+/* #define H5E_SETLOCAL         (H5OPEN H5E_SETLOCAL_g) ### string, not number "(H5OPEN H5E_SETLOCAL_g)" */
+/* #define H5E_NOENCODER        (H5OPEN H5E_NOENCODER_g) ### string, not number "(H5OPEN H5E_NOENCODER_g)" */
+/* #define H5E_CANTFILTER       (H5OPEN H5E_CANTFILTER_g) ### string, not number "(H5OPEN H5E_CANTFILTER_g)" */
 extern hid_t H5E_NOFILTER_g;
 extern hid_t H5E_CALLBACK_g;
 extern hid_t H5E_CANAPPLY_g;
 extern hid_t H5E_SETLOCAL_g;
 extern hid_t H5E_NOENCODER_g;
 extern hid_t H5E_CANTFILTER_g;
+/* #define H5E_CANTOPENOBJ      (H5OPEN H5E_CANTOPENOBJ_g) ### string, not number "(H5OPEN H5E_CANTOPENOBJ_g)" */
+/* #define H5E_CANTCLOSEOBJ     (H5OPEN H5E_CANTCLOSEOBJ_g) ### string, not number "(H5OPEN H5E_CANTCLOSEOBJ_g)" */
+/* #define H5E_COMPLEN          (H5OPEN H5E_COMPLEN_g) ### string, not number "(H5OPEN H5E_COMPLEN_g)" */
+/* #define H5E_PATH             (H5OPEN H5E_PATH_g) ### string, not number "(H5OPEN H5E_PATH_g)" */
 extern hid_t H5E_CANTOPENOBJ_g;
 extern hid_t H5E_CANTCLOSEOBJ_g;
 extern hid_t H5E_COMPLEN_g;
 extern hid_t H5E_PATH_g;
+/* #define H5E_NONE_MINOR       (H5OPEN H5E_NONE_MINOR_g) ### string, not number "(H5OPEN H5E_NONE_MINOR_g)" */
 extern hid_t H5E_NONE_MINOR_g;
+/* #define H5E_OPENERROR        (H5OPEN H5E_OPENERROR_g) ### string, not number "(H5OPEN H5E_OPENERROR_g)" */
 extern hid_t H5E_OPENERROR_g;
+/* #define H5E_FILEEXISTS       (H5OPEN H5E_FILEEXISTS_g) ### string, not number "(H5OPEN H5E_FILEEXISTS_g)" */
+/* #define H5E_FILEOPEN         (H5OPEN H5E_FILEOPEN_g) ### string, not number "(H5OPEN H5E_FILEOPEN_g)" */
+/* #define H5E_CANTCREATE       (H5OPEN H5E_CANTCREATE_g) ### string, not number "(H5OPEN H5E_CANTCREATE_g)" */
+/* #define H5E_CANTOPENFILE     (H5OPEN H5E_CANTOPENFILE_g) ### string, not number "(H5OPEN H5E_CANTOPENFILE_g)" */
+/* #define H5E_CANTCLOSEFILE    (H5OPEN H5E_CANTCLOSEFILE_g) ### string, not number "(H5OPEN H5E_CANTCLOSEFILE_g)" */
+/* #define H5E_NOTHDF5          (H5OPEN H5E_NOTHDF5_g) ### string, not number "(H5OPEN H5E_NOTHDF5_g)" */
+/* #define H5E_BADFILE          (H5OPEN H5E_BADFILE_g) ### string, not number "(H5OPEN H5E_BADFILE_g)" */
+/* #define H5E_TRUNCATED        (H5OPEN H5E_TRUNCATED_g) ### string, not number "(H5OPEN H5E_TRUNCATED_g)" */
+/* #define H5E_MOUNT            (H5OPEN H5E_MOUNT_g) ### string, not number "(H5OPEN H5E_MOUNT_g)" */
+/* #define H5E_CANTLOCKFILE     (H5OPEN H5E_CANTLOCKFILE_g) ### string, not number "(H5OPEN H5E_CANTLOCKFILE_g)" */
+/* #define H5E_CANTUNLOCKFILE   (H5OPEN H5E_CANTUNLOCKFILE_g) ### string, not number "(H5OPEN H5E_CANTUNLOCKFILE_g)" */
 extern hid_t H5E_FILEEXISTS_g;
 extern hid_t H5E_FILEOPEN_g;
 extern hid_t H5E_CANTCREATE_g;
@@ -2029,12 +1427,48 @@ extern hid_t H5E_NOTHDF5_g;
 extern hid_t H5E_BADFILE_g;
 extern hid_t H5E_TRUNCATED_g;
 extern hid_t H5E_MOUNT_g;
+extern hid_t H5E_CANTLOCKFILE_g;
+extern hid_t H5E_CANTUNLOCKFILE_g;
+/* #define H5E_BADATOM          (H5OPEN H5E_BADATOM_g) ### string, not number "(H5OPEN H5E_BADATOM_g)" */
+/* #define H5E_BADGROUP         (H5OPEN H5E_BADGROUP_g) ### string, not number "(H5OPEN H5E_BADGROUP_g)" */
+/* #define H5E_CANTREGISTER     (H5OPEN H5E_CANTREGISTER_g) ### string, not number "(H5OPEN H5E_CANTREGISTER_g)" */
+/* #define H5E_CANTINC          (H5OPEN H5E_CANTINC_g) ### string, not number "(H5OPEN H5E_CANTINC_g)" */
+/* #define H5E_CANTDEC          (H5OPEN H5E_CANTDEC_g) ### string, not number "(H5OPEN H5E_CANTDEC_g)" */
+/* #define H5E_NOIDS            (H5OPEN H5E_NOIDS_g) ### string, not number "(H5OPEN H5E_NOIDS_g)" */
 extern hid_t H5E_BADATOM_g;
 extern hid_t H5E_BADGROUP_g;
 extern hid_t H5E_CANTREGISTER_g;
 extern hid_t H5E_CANTINC_g;
 extern hid_t H5E_CANTDEC_g;
 extern hid_t H5E_NOIDS_g;
+/* #define H5E_CANTFLUSH        (H5OPEN H5E_CANTFLUSH_g) ### string, not number "(H5OPEN H5E_CANTFLUSH_g)" */
+/* #define H5E_CANTUNSERIALIZE  (H5OPEN H5E_CANTUNSERIALIZE_g) ### string, not number "(H5OPEN H5E_CANTUNSERIALIZE_g)" */
+/* #define H5E_CANTSERIALIZE    (H5OPEN H5E_CANTSERIALIZE_g) ### string, not number "(H5OPEN H5E_CANTSERIALIZE_g)" */
+/* #define H5E_CANTTAG          (H5OPEN H5E_CANTTAG_g) ### string, not number "(H5OPEN H5E_CANTTAG_g)" */
+/* #define H5E_CANTLOAD         (H5OPEN H5E_CANTLOAD_g) ### string, not number "(H5OPEN H5E_CANTLOAD_g)" */
+/* #define H5E_PROTECT          (H5OPEN H5E_PROTECT_g) ### string, not number "(H5OPEN H5E_PROTECT_g)" */
+/* #define H5E_NOTCACHED        (H5OPEN H5E_NOTCACHED_g) ### string, not number "(H5OPEN H5E_NOTCACHED_g)" */
+/* #define H5E_SYSTEM           (H5OPEN H5E_SYSTEM_g) ### string, not number "(H5OPEN H5E_SYSTEM_g)" */
+/* #define H5E_CANTINS          (H5OPEN H5E_CANTINS_g) ### string, not number "(H5OPEN H5E_CANTINS_g)" */
+/* #define H5E_CANTPROTECT      (H5OPEN H5E_CANTPROTECT_g) ### string, not number "(H5OPEN H5E_CANTPROTECT_g)" */
+/* #define H5E_CANTUNPROTECT    (H5OPEN H5E_CANTUNPROTECT_g) ### string, not number "(H5OPEN H5E_CANTUNPROTECT_g)" */
+/* #define H5E_CANTPIN          (H5OPEN H5E_CANTPIN_g) ### string, not number "(H5OPEN H5E_CANTPIN_g)" */
+/* #define H5E_CANTUNPIN        (H5OPEN H5E_CANTUNPIN_g) ### string, not number "(H5OPEN H5E_CANTUNPIN_g)" */
+/* #define H5E_CANTMARKDIRTY    (H5OPEN H5E_CANTMARKDIRTY_g) ### string, not number "(H5OPEN H5E_CANTMARKDIRTY_g)" */
+/* #define H5E_CANTMARKCLEAN    (H5OPEN H5E_CANTMARKCLEAN_g) ### string, not number "(H5OPEN H5E_CANTMARKCLEAN_g)" */
+/* #define H5E_CANTMARKUNSERIALIZED (H5OPEN H5E_CANTMARKUNSERIALIZED_g) ### string, not number "(H5OPEN H5E_CANTMARKUNSERIALIZED_g)" */
+/* #define H5E_CANTMARKSERIALIZED (H5OPEN H5E_CANTMARKSERIALIZED_g) ### string, not number "(H5OPEN H5E_CANTMARKSERIALIZED_g)" */
+/* #define H5E_CANTDIRTY        (H5OPEN H5E_CANTDIRTY_g) ### string, not number "(H5OPEN H5E_CANTDIRTY_g)" */
+/* #define H5E_CANTCLEAN        (H5OPEN H5E_CANTCLEAN_g) ### string, not number "(H5OPEN H5E_CANTCLEAN_g)" */
+/* #define H5E_CANTEXPUNGE      (H5OPEN H5E_CANTEXPUNGE_g) ### string, not number "(H5OPEN H5E_CANTEXPUNGE_g)" */
+/* #define H5E_CANTRESIZE       (H5OPEN H5E_CANTRESIZE_g) ### string, not number "(H5OPEN H5E_CANTRESIZE_g)" */
+/* #define H5E_CANTDEPEND       (H5OPEN H5E_CANTDEPEND_g) ### string, not number "(H5OPEN H5E_CANTDEPEND_g)" */
+/* #define H5E_CANTUNDEPEND     (H5OPEN H5E_CANTUNDEPEND_g) ### string, not number "(H5OPEN H5E_CANTUNDEPEND_g)" */
+/* #define H5E_CANTNOTIFY       (H5OPEN H5E_CANTNOTIFY_g) ### string, not number "(H5OPEN H5E_CANTNOTIFY_g)" */
+/* #define H5E_LOGGING          (H5OPEN H5E_LOGGING_g) ### string, not number "(H5OPEN H5E_LOGGING_g)" */
+/* #define H5E_LOGFAIL          (H5OPEN H5E_LOGFAIL_g) ### string, not number "(H5OPEN H5E_LOGFAIL_g)" */
+/* #define H5E_CANTCORK         (H5OPEN H5E_CANTCORK_g) ### string, not number "(H5OPEN H5E_CANTCORK_g)" */
+/* #define H5E_CANTUNCORK       (H5OPEN H5E_CANTUNCORK_g) ### string, not number "(H5OPEN H5E_CANTUNCORK_g)" */
 extern hid_t H5E_CANTFLUSH_g;
 extern hid_t H5E_CANTUNSERIALIZE_g;
 extern hid_t H5E_CANTSERIALIZE_g;
@@ -2063,28 +1497,63 @@ extern hid_t H5E_LOGGING_g;
 extern hid_t H5E_LOGFAIL_g;
 extern hid_t H5E_CANTCORK_g;
 extern hid_t H5E_CANTUNCORK_g;
+/* #define H5E_TRAVERSE         (H5OPEN H5E_TRAVERSE_g) ### string, not number "(H5OPEN H5E_TRAVERSE_g)" */
+/* #define H5E_NLINKS           (H5OPEN H5E_NLINKS_g) ### string, not number "(H5OPEN H5E_NLINKS_g)" */
+/* #define H5E_NOTREGISTERED    (H5OPEN H5E_NOTREGISTERED_g) ### string, not number "(H5OPEN H5E_NOTREGISTERED_g)" */
+/* #define H5E_CANTMOVE         (H5OPEN H5E_CANTMOVE_g) ### string, not number "(H5OPEN H5E_CANTMOVE_g)" */
+/* #define H5E_CANTSORT         (H5OPEN H5E_CANTSORT_g) ### string, not number "(H5OPEN H5E_CANTSORT_g)" */
 extern hid_t H5E_TRAVERSE_g;
 extern hid_t H5E_NLINKS_g;
 extern hid_t H5E_NOTREGISTERED_g;
 extern hid_t H5E_CANTMOVE_g;
 extern hid_t H5E_CANTSORT_g;
+/* #define H5E_MPI              (H5OPEN H5E_MPI_g) ### string, not number "(H5OPEN H5E_MPI_g)" */
+/* #define H5E_MPIERRSTR        (H5OPEN H5E_MPIERRSTR_g) ### string, not number "(H5OPEN H5E_MPIERRSTR_g)" */
+/* #define H5E_CANTRECV         (H5OPEN H5E_CANTRECV_g) ### string, not number "(H5OPEN H5E_CANTRECV_g)" */
+/* #define H5E_CANTGATHER       (H5OPEN H5E_CANTGATHER_g) ### string, not number "(H5OPEN H5E_CANTGATHER_g)" */
+/* #define H5E_NO_INDEPENDENT   (H5OPEN H5E_NO_INDEPENDENT_g) ### string, not number "(H5OPEN H5E_NO_INDEPENDENT_g)" */
 extern hid_t H5E_MPI_g;
 extern hid_t H5E_MPIERRSTR_g;
 extern hid_t H5E_CANTRECV_g;
 extern hid_t H5E_CANTGATHER_g;
 extern hid_t H5E_NO_INDEPENDENT_g;
+/* #define H5E_CANTCLIP         (H5OPEN H5E_CANTCLIP_g) ### string, not number "(H5OPEN H5E_CANTCLIP_g)" */
+/* #define H5E_CANTCOUNT        (H5OPEN H5E_CANTCOUNT_g) ### string, not number "(H5OPEN H5E_CANTCOUNT_g)" */
+/* #define H5E_CANTSELECT       (H5OPEN H5E_CANTSELECT_g) ### string, not number "(H5OPEN H5E_CANTSELECT_g)" */
+/* #define H5E_CANTNEXT         (H5OPEN H5E_CANTNEXT_g) ### string, not number "(H5OPEN H5E_CANTNEXT_g)" */
+/* #define H5E_BADSELECT        (H5OPEN H5E_BADSELECT_g) ### string, not number "(H5OPEN H5E_BADSELECT_g)" */
+/* #define H5E_CANTCOMPARE      (H5OPEN H5E_CANTCOMPARE_g) ### string, not number "(H5OPEN H5E_CANTCOMPARE_g)" */
+/* #define H5E_INCONSISTENTSTATE (H5OPEN H5E_INCONSISTENTSTATE_g) ### string, not number "(H5OPEN H5E_INCONSISTENTSTATE_g)" */
+/* #define H5E_CANTAPPEND       (H5OPEN H5E_CANTAPPEND_g) ### string, not number "(H5OPEN H5E_CANTAPPEND_g)" */
 extern hid_t H5E_CANTCLIP_g;
 extern hid_t H5E_CANTCOUNT_g;
 extern hid_t H5E_CANTSELECT_g;
 extern hid_t H5E_CANTNEXT_g;
 extern hid_t H5E_BADSELECT_g;
 extern hid_t H5E_CANTCOMPARE_g;
+extern hid_t H5E_INCONSISTENTSTATE_g;
 extern hid_t H5E_CANTAPPEND_g;
+/* #define H5E_UNINITIALIZED    (H5OPEN H5E_UNINITIALIZED_g) ### string, not number "(H5OPEN H5E_UNINITIALIZED_g)" */
+/* #define H5E_UNSUPPORTED      (H5OPEN H5E_UNSUPPORTED_g) ### string, not number "(H5OPEN H5E_UNSUPPORTED_g)" */
+/* #define H5E_BADTYPE          (H5OPEN H5E_BADTYPE_g) ### string, not number "(H5OPEN H5E_BADTYPE_g)" */
+/* #define H5E_BADRANGE         (H5OPEN H5E_BADRANGE_g) ### string, not number "(H5OPEN H5E_BADRANGE_g)" */
+/* #define H5E_BADVALUE         (H5OPEN H5E_BADVALUE_g) ### string, not number "(H5OPEN H5E_BADVALUE_g)" */
 extern hid_t H5E_UNINITIALIZED_g;
 extern hid_t H5E_UNSUPPORTED_g;
 extern hid_t H5E_BADTYPE_g;
 extern hid_t H5E_BADRANGE_g;
 extern hid_t H5E_BADVALUE_g;
+/* #define H5E_NOTFOUND         (H5OPEN H5E_NOTFOUND_g) ### string, not number "(H5OPEN H5E_NOTFOUND_g)" */
+/* #define H5E_EXISTS           (H5OPEN H5E_EXISTS_g) ### string, not number "(H5OPEN H5E_EXISTS_g)" */
+/* #define H5E_CANTENCODE       (H5OPEN H5E_CANTENCODE_g) ### string, not number "(H5OPEN H5E_CANTENCODE_g)" */
+/* #define H5E_CANTDECODE       (H5OPEN H5E_CANTDECODE_g) ### string, not number "(H5OPEN H5E_CANTDECODE_g)" */
+/* #define H5E_CANTSPLIT        (H5OPEN H5E_CANTSPLIT_g) ### string, not number "(H5OPEN H5E_CANTSPLIT_g)" */
+/* #define H5E_CANTREDISTRIBUTE (H5OPEN H5E_CANTREDISTRIBUTE_g) ### string, not number "(H5OPEN H5E_CANTREDISTRIBUTE_g)" */
+/* #define H5E_CANTSWAP         (H5OPEN H5E_CANTSWAP_g) ### string, not number "(H5OPEN H5E_CANTSWAP_g)" */
+/* #define H5E_CANTINSERT       (H5OPEN H5E_CANTINSERT_g) ### string, not number "(H5OPEN H5E_CANTINSERT_g)" */
+/* #define H5E_CANTLIST         (H5OPEN H5E_CANTLIST_g) ### string, not number "(H5OPEN H5E_CANTLIST_g)" */
+/* #define H5E_CANTMODIFY       (H5OPEN H5E_CANTMODIFY_g) ### string, not number "(H5OPEN H5E_CANTMODIFY_g)" */
+/* #define H5E_CANTREMOVE       (H5OPEN H5E_CANTREMOVE_g) ### string, not number "(H5OPEN H5E_CANTREMOVE_g)" */
 extern hid_t H5E_NOTFOUND_g;
 extern hid_t H5E_EXISTS_g;
 extern hid_t H5E_CANTENCODE_g;
@@ -2096,18 +1565,22 @@ extern hid_t H5E_CANTINSERT_g;
 extern hid_t H5E_CANTLIST_g;
 extern hid_t H5E_CANTMODIFY_g;
 extern hid_t H5E_CANTREMOVE_g;
+/* #define H5E_CANTCONVERT      (H5OPEN H5E_CANTCONVERT_g) ### string, not number "(H5OPEN H5E_CANTCONVERT_g)" */
+/* #define H5E_BADSIZE          (H5OPEN H5E_BADSIZE_g) ### string, not number "(H5OPEN H5E_BADSIZE_g)" */
 extern hid_t H5E_CANTCONVERT_g;
 extern hid_t H5E_BADSIZE_g;
-/* END /usr/include/hdf5/openmpi/H5Epubgen.h */
-typedef enum H5E_direction_t { H5E_WALK_UPWARD	= 0, H5E_WALK_DOWNWARD	= 1 } H5E_direction_t;
+/* END /usr/include/hdf5/serial/H5Epubgen.h */
+/* #define H5E_BEGIN_TRY {							           unsigned H5E_saved_is_v2;					                   union {								               H5E_auto1_t efunc1;						               H5E_auto2_t efunc2;					                   } H5E_saved;							           void *H5E_saved_edata;						       								    	           (void)H5Eauto_is_v2(H5E_DEFAULT, &H5E_saved_is_v2);		                   if(H5E_saved_is_v2) {						               (void)H5Eget_auto2(H5E_DEFAULT, &H5E_saved.efunc2, &H5E_saved_edata);          (void)H5Eset_auto2(H5E_DEFAULT, NULL, NULL);		                   } else {								               (void)H5Eget_auto1(&H5E_saved.efunc1, &H5E_saved_edata);		               (void)H5Eset_auto1(NULL, NULL);					           } ### string, not number "{\9\9\9\9\9\9\9           unsigned H5E_saved_is_v2;\9\9\9\9\9                   union {\9\9\9\9\9\9\9\9               H5E_auto1_t efunc1;\9\9\9\9\9\9               H5E_auto2_t efunc2;\9\9\9\9\9                   } H5E_saved;\9\9\9\9\9\9\9           void *H5E_saved_edata;\9\9\9\9\9\9       \9\9\9\9\9\9\9\9    \9           (void)H5Eauto_is_v2(H5E_DEFAULT, &H5E_saved_is_v2);\9\9                   if(H5E_saved_is_v2) {\9\9\9\9\9\9               (void)H5Eget_auto2(H5E_DEFAULT, &H5E_saved.efunc2, &H5E_saved_edata);          (void)H5Eset_auto2(H5E_DEFAULT, NULL, NULL);\9\9                   } else {\9\9\9\9\9\9\9\9               (void)H5Eget_auto1(&H5E_saved.efunc1, &H5E_saved_edata);\9\9               (void)H5Eset_auto1(NULL, NULL);\9\9\9\9\9           }" */
+/* #define H5E_END_TRY							           if(H5E_saved_is_v2)							               (void)H5Eset_auto2(H5E_DEFAULT, H5E_saved.efunc2, H5E_saved_edata);        else								               (void)H5Eset_auto1(H5E_saved.efunc1, H5E_saved_edata);		       } ### string, not number "if(H5E_saved_is_v2)\9\9\9\9\9\9\9               (void)H5Eset_auto2(H5E_DEFAULT, H5E_saved.efunc2, H5E_saved_edata);        else\9\9\9\9\9\9\9\9               (void)H5Eset_auto1(H5E_saved.efunc1, H5E_saved_edata);\9\9       }" */
+typedef enum H5E_direction_t { H5E_WALK_UPWARD = 0, H5E_WALK_DOWNWARD = 1 } H5E_direction_t;
 typedef herr_t (*H5E_walk2_t)(unsigned n, const H5E_error2_t *err_desc, void *client_data);
 typedef herr_t (*H5E_auto2_t)(hid_t estack, void *client_data);
-hid_t  H5Eregister_class(const char *cls_name, const char *lib_name, const char *version);
+hid_t H5Eregister_class(const char *cls_name, const char *lib_name, const char *version);
 herr_t H5Eunregister_class(hid_t class_id);
 herr_t H5Eclose_msg(hid_t err_id);
-hid_t  H5Ecreate_msg(hid_t cls, H5E_type_t msg_type, const char *msg);
-hid_t  H5Ecreate_stack(void);
-hid_t  H5Eget_current_stack(void);
+hid_t H5Ecreate_msg(hid_t cls, H5E_type_t msg_type, const char *msg);
+hid_t H5Ecreate_stack(void);
+hid_t H5Eget_current_stack(void);
 herr_t H5Eclose_stack(hid_t stack_id);
 ssize_t H5Eget_class_name(hid_t class_id, char *name, size_t size);
 herr_t H5Eset_current_stack(hid_t err_stack_id);
@@ -2121,14 +1594,14 @@ herr_t H5Eclear2(hid_t err_stack);
 herr_t H5Eauto_is_v2(hid_t err_stack, unsigned *is_stack);
 ssize_t H5Eget_msg(hid_t msg_id, H5E_type_t *type, char *msg, size_t size);
 ssize_t H5Eget_num(hid_t error_stack_id);
-typedef hid_t   H5E_major_t;
-typedef hid_t   H5E_minor_t;
+typedef hid_t H5E_major_t;
+typedef hid_t H5E_minor_t;
 typedef struct H5E_error1_t { H5E_major_t maj_num;
 H5E_minor_t min_num;
-const char  *func_name;
-const char  *file_name;
-unsigned    line;
-const char  *desc;
+const char *func_name;
+const char *file_name;
+unsigned line;
+const char *desc;
 } H5E_error1_t;
 typedef herr_t (*H5E_walk1_t)(int n, H5E_error1_t *err_desc, void *client_data);
 typedef herr_t (*H5E_auto1_t)(void *client_data);
@@ -2140,34 +1613,55 @@ herr_t H5Eset_auto1(H5E_auto1_t func, void *client_data);
 herr_t H5Ewalk1(H5E_direction_t direction, H5E_walk1_t func, void *client_data);
 char *H5Eget_major(H5E_major_t maj);
 char *H5Eget_minor(H5E_minor_t min);
-/* END /usr/include/hdf5/openmpi/H5Epublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Fpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5public.h */
-/* END /usr/include/hdf5/openmpi/H5public.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5ACpublic.h */
-/* END /usr/include/hdf5/openmpi/H5ACpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Ipublic.h */
-/* END /usr/include/hdf5/openmpi/H5Ipublic.h */
-typedef enum H5F_scope_t { H5F_SCOPE_LOCAL    = 0, H5F_SCOPE_GLOBAL    = 1 } H5F_scope_t;
-typedef enum H5F_close_degree_t { H5F_CLOSE_DEFAULT   = 0, H5F_CLOSE_WEAK      = 1, H5F_CLOSE_SEMI      = 2, H5F_CLOSE_STRONG    = 3 } H5F_close_degree_t;
-typedef struct H5F_info2_t { struct { unsigned    version;
-hsize_t        super_size;
-hsize_t        super_ext_size;
+/* END /usr/include/hdf5/serial/H5Epublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5Fpublic.h */
+enum { _H5Fpublic_H = 1 };
+/* BEGIN /usr/include/hdf5/serial/H5public.h */
+/* END /usr/include/hdf5/serial/H5public.h */
+/* BEGIN /usr/include/hdf5/serial/H5ACpublic.h */
+/* END /usr/include/hdf5/serial/H5ACpublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
+/* END /usr/include/hdf5/serial/H5Ipublic.h */
+/* #define H5CHECK          H5check(), ### string, not number "H5check()," */
+/* #define H5OPEN        H5open(), ### string, not number "H5open()," */
+enum { H5F_ACC_RDONLY    	= (0x0000u) };
+enum { H5F_ACC_RDWR    		= (0x0001u) };
+enum { H5F_ACC_TRUNC    	= (0x0002u) };
+enum { H5F_ACC_EXCL    		= (0x0004u) };
+enum { H5F_ACC_CREAT    	= (0x0010u) };
+enum { H5F_ACC_SWMR_WRITE  	= (0x0020u) };
+enum { H5F_ACC_SWMR_READ   	= (0x0040u) };
+enum { H5F_ACC_DEFAULT 		= (0xffffu) };
+enum { H5F_OBJ_FILE    		= (0x0001u) };
+enum { H5F_OBJ_DATASET    	= (0x0002u) };
+enum { H5F_OBJ_GROUP    	= (0x0004u) };
+enum { H5F_OBJ_DATATYPE 	= (0x0008u) };
+enum { H5F_OBJ_ATTR    		= (0x0010u) };
+enum { H5F_OBJ_ALL     		= (H5F_OBJ_FILE|H5F_OBJ_DATASET|H5F_OBJ_GROUP|H5F_OBJ_DATATYPE|H5F_OBJ_ATTR) };
+enum { H5F_OBJ_LOCAL   		= (0x0020u) };
+enum { H5F_FAMILY_DEFAULT = 0 };
+typedef enum H5F_scope_t { H5F_SCOPE_LOCAL = 0, H5F_SCOPE_GLOBAL = 1 } H5F_scope_t;
+enum { H5F_UNLIMITED = -1 };
+typedef enum H5F_close_degree_t { H5F_CLOSE_DEFAULT = 0, H5F_CLOSE_WEAK = 1, H5F_CLOSE_SEMI = 2, H5F_CLOSE_STRONG = 3 } H5F_close_degree_t;
+typedef struct H5F_info2_t { struct { unsigned version;
+hsize_t super_size;
+hsize_t super_ext_size;
 } super;
-struct { unsigned    version;
-hsize_t        meta_size;
-hsize_t        tot_space;
+struct { unsigned version;
+hsize_t meta_size;
+hsize_t tot_space;
 } free;
-struct { unsigned    version;
-hsize_t        hdr_size;
-H5_ih_info_t    msgs_info;
+struct { unsigned version;
+hsize_t hdr_size;
+H5_ih_info_t msgs_info;
 } sohm;
 } H5F_info2_t;
-typedef enum H5F_mem_t { H5FD_MEM_NOLIST     = -1, H5FD_MEM_DEFAULT    = 0, H5FD_MEM_SUPER      = 1, H5FD_MEM_BTREE      = 2, H5FD_MEM_DRAW       = 3, H5FD_MEM_GHEAP      = 4, H5FD_MEM_LHEAP      = 5, H5FD_MEM_OHDR       = 6, H5FD_MEM_NTYPES } H5F_mem_t;
-typedef struct H5F_sect_info_t { haddr_t             addr;
-hsize_t             size;
+typedef enum H5F_mem_t { H5FD_MEM_NOLIST = -1, H5FD_MEM_DEFAULT = 0, H5FD_MEM_SUPER = 1, H5FD_MEM_BTREE = 2, H5FD_MEM_DRAW = 3, H5FD_MEM_GHEAP = 4, H5FD_MEM_LHEAP = 5, H5FD_MEM_OHDR = 6, H5FD_MEM_NTYPES } H5F_mem_t;
+typedef struct H5F_sect_info_t { haddr_t addr;
+hsize_t size;
 } H5F_sect_info_t;
 typedef enum H5F_libver_t { H5F_LIBVER_ERROR = -1, H5F_LIBVER_EARLIEST = 0, H5F_LIBVER_V18 = 1, H5F_LIBVER_V110 = 2, H5F_LIBVER_NBOUNDS } H5F_libver_t;
+enum { H5F_LIBVER_LATEST = 0 };
 typedef enum H5F_fspace_strategy_t { H5F_FSPACE_STRATEGY_FSM_AGGR = 0, H5F_FSPACE_STRATEGY_PAGE = 1, H5F_FSPACE_STRATEGY_AGGR = 2, H5F_FSPACE_STRATEGY_NONE = 3, H5F_FSPACE_STRATEGY_NTYPES } H5F_fspace_strategy_t;
 typedef enum H5F_file_space_type_t { H5F_FILE_SPACE_DEFAULT = 0, H5F_FILE_SPACE_ALL_PERSIST = 1, H5F_FILE_SPACE_ALL = 2, H5F_FILE_SPACE_AGGR_VFD = 3, H5F_FILE_SPACE_VFD = 4, H5F_FILE_SPACE_NTYPES } H5F_file_space_type_t;
 enum { H5F_NUM_METADATA_READ_RETRY_TYPES = 21 };
@@ -2176,13 +1670,13 @@ uint32_t *retries[21];
 } H5F_retry_info_t;
 typedef herr_t (*H5F_flush_cb_t)(hid_t object_id, void *udata);
 htri_t H5Fis_hdf5(const char *filename);
-hid_t  H5Fcreate(const char *filename, unsigned flags, hid_t create_plist, hid_t access_plist);
-hid_t  H5Fopen(const char *filename, unsigned flags, hid_t access_plist);
-hid_t  H5Freopen(hid_t file_id);
+hid_t H5Fcreate(const char *filename, unsigned flags, hid_t create_plist, hid_t access_plist);
+hid_t H5Fopen(const char *filename, unsigned flags, hid_t access_plist);
+hid_t H5Freopen(hid_t file_id);
 herr_t H5Fflush(hid_t object_id, H5F_scope_t scope);
 herr_t H5Fclose(hid_t file_id);
-hid_t  H5Fget_create_plist(hid_t file_id);
-hid_t  H5Fget_access_plist(hid_t file_id);
+hid_t H5Fget_create_plist(hid_t file_id);
+hid_t H5Fget_access_plist(hid_t file_id);
 herr_t H5Fget_intent(hid_t file_id, unsigned *intent);
 ssize_t H5Fget_obj_count(hid_t file_id, unsigned types);
 ssize_t H5Fget_obj_ids(hid_t file_id, unsigned types, size_t max_objs, hid_t *obj_id_list);
@@ -2215,96 +1709,116 @@ herr_t H5Fget_page_buffering_stats(hid_t file_id, unsigned accesses[2], unsigned
 herr_t H5Fget_mdc_image_info(hid_t file_id, haddr_t *image_addr, hsize_t *image_size);
 herr_t H5Fget_dset_no_attrs_hint(hid_t file_id, hbool_t *minimize);
 herr_t H5Fset_dset_no_attrs_hint(hid_t file_id, hbool_t minimize);
-herr_t H5Fset_mpi_atomicity(hid_t file_id, hbool_t flag);
-herr_t H5Fget_mpi_atomicity(hid_t file_id, hbool_t *flag);
-typedef struct H5F_info1_t { hsize_t        super_ext_size;
-struct { hsize_t        hdr_size;
-H5_ih_info_t    msgs_info;
+/* #define H5F_ACC_DEBUG    (H5CHECK H5OPEN 0x0000u) ### string, not number "(H5CHECK H5OPEN 0x0000u)" */
+typedef struct H5F_info1_t { hsize_t super_ext_size;
+struct { hsize_t hdr_size;
+H5_ih_info_t msgs_info;
 } sohm;
 } H5F_info1_t;
 herr_t H5Fget_info1(hid_t obj_id, H5F_info1_t *finfo);
 herr_t H5Fset_latest_format(hid_t file_id, hbool_t latest_format);
-/* END /usr/include/hdf5/openmpi/H5Fpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5FDpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5public.h */
-/* END /usr/include/hdf5/openmpi/H5public.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Fpublic.h */
-/* END /usr/include/hdf5/openmpi/H5Fpublic.h */
+/* END /usr/include/hdf5/serial/H5Fpublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5FDpublic.h */
+enum { _H5FDpublic_H = 1 };
+/* BEGIN /usr/include/hdf5/serial/H5public.h */
+/* END /usr/include/hdf5/serial/H5public.h */
+/* BEGIN /usr/include/hdf5/serial/H5Fpublic.h */
+/* END /usr/include/hdf5/serial/H5Fpublic.h */
 enum { H5_HAVE_VFL = 1 };
 enum { H5FD_VFD_DEFAULT = 0 };
-typedef enum H5F_mem_t	H5FD_mem_t;
-enum { H5FD_FEAT_AGGREGATE_METADATA = 0x00000001 };
-enum { H5FD_FEAT_ACCUMULATE_METADATA_WRITE = 0x00000002 };
-enum { H5FD_FEAT_ACCUMULATE_METADATA_READ = 0x00000004 };
-enum { H5FD_FEAT_DATA_SIEVE = 0x00000008 };
-enum { H5FD_FEAT_AGGREGATE_SMALLDATA = 0x00000010 };
-enum { H5FD_FEAT_IGNORE_DRVRINFO = 0x00000020 };
-enum { H5FD_FEAT_DIRTY_DRVRINFO_LOAD = 0x00000040 };
-enum { H5FD_FEAT_POSIX_COMPAT_HANDLE = 0x00000080 };
-enum { H5FD_FEAT_HAS_MPI = 0x00000100 };
-enum { H5FD_FEAT_ALLOCATE_EARLY = 0x00000200 };
-enum { H5FD_FEAT_ALLOW_FILE_IMAGE = 0x00000400 };
-enum { H5FD_FEAT_CAN_USE_FILE_IMAGE_CALLBACKS = 0x00000800 };
-enum { H5FD_FEAT_SUPPORTS_SWMR_IO = 0x00001000 };
-enum { H5FD_FEAT_USE_ALLOC_SIZE = 0x00002000 };
-enum { H5FD_FEAT_PAGED_AGGR = 0x00004000 };
-enum { H5FD_FEAT_DEFAULT_VFD_COMPATIBLE = 0x00008000 };
+typedef enum H5F_mem_t H5FD_mem_t;
+enum { H5FD_MEM_FHEAP_HDR = 0 };
+enum { H5FD_MEM_FHEAP_IBLOCK = 0 };
+enum { H5FD_MEM_FHEAP_DBLOCK = 0 };
+enum { H5FD_MEM_FHEAP_HUGE_OBJ = 0 };
+enum { H5FD_MEM_FSPACE_HDR = 0 };
+enum { H5FD_MEM_FSPACE_SINFO = 0 };
+enum { H5FD_MEM_SOHM_TABLE = 0 };
+enum { H5FD_MEM_SOHM_INDEX = 0 };
+enum { H5FD_MEM_EARRAY_HDR = 0 };
+enum { H5FD_MEM_EARRAY_IBLOCK = 0 };
+enum { H5FD_MEM_EARRAY_SBLOCK = 0 };
+enum { H5FD_MEM_EARRAY_DBLOCK = 0 };
+enum { H5FD_MEM_EARRAY_DBLK_PAGE = 0 };
+enum { H5FD_MEM_FARRAY_HDR = 0 };
+enum { H5FD_MEM_FARRAY_DBLOCK = 0 };
+enum { H5FD_MEM_FARRAY_DBLK_PAGE = 0 };
+/* #define H5FD_FLMAP_SINGLE {						           H5FD_MEM_SUPER,						           H5FD_MEM_SUPER,						           H5FD_MEM_SUPER,						           H5FD_MEM_SUPER,						           H5FD_MEM_SUPER,						           H5FD_MEM_SUPER,						           H5FD_MEM_SUPER						       } ### string, not number "{\9\9\9\9\9\9           H5FD_MEM_SUPER,\9\9\9\9\9\9           H5FD_MEM_SUPER,\9\9\9\9\9\9           H5FD_MEM_SUPER,\9\9\9\9\9\9           H5FD_MEM_SUPER,\9\9\9\9\9\9           H5FD_MEM_SUPER,\9\9\9\9\9\9           H5FD_MEM_SUPER,\9\9\9\9\9\9           H5FD_MEM_SUPER\9\9\9\9\9\9       }" */
+/* #define H5FD_FLMAP_DICHOTOMY {						           H5FD_MEM_SUPER,						           H5FD_MEM_SUPER,						           H5FD_MEM_SUPER,						           H5FD_MEM_DRAW,						           H5FD_MEM_DRAW,						           H5FD_MEM_SUPER,						           H5FD_MEM_SUPER						       } ### string, not number "{\9\9\9\9\9\9           H5FD_MEM_SUPER,\9\9\9\9\9\9           H5FD_MEM_SUPER,\9\9\9\9\9\9           H5FD_MEM_SUPER,\9\9\9\9\9\9           H5FD_MEM_DRAW,\9\9\9\9\9\9           H5FD_MEM_DRAW,\9\9\9\9\9\9           H5FD_MEM_SUPER,\9\9\9\9\9\9           H5FD_MEM_SUPER\9\9\9\9\9\9       }" */
+/* #define H5FD_FLMAP_DEFAULT {						           H5FD_MEM_DEFAULT,						           H5FD_MEM_DEFAULT,						           H5FD_MEM_DEFAULT,						           H5FD_MEM_DEFAULT,						           H5FD_MEM_DEFAULT,						           H5FD_MEM_DEFAULT,						           H5FD_MEM_DEFAULT						       } ### string, not number "{\9\9\9\9\9\9           H5FD_MEM_DEFAULT,\9\9\9\9\9\9           H5FD_MEM_DEFAULT,\9\9\9\9\9\9           H5FD_MEM_DEFAULT,\9\9\9\9\9\9           H5FD_MEM_DEFAULT,\9\9\9\9\9\9           H5FD_MEM_DEFAULT,\9\9\9\9\9\9           H5FD_MEM_DEFAULT,\9\9\9\9\9\9           H5FD_MEM_DEFAULT\9\9\9\9\9\9       }" */
+enum { H5FD_FEAT_AGGREGATE_METADATA = 1 };
+enum { H5FD_FEAT_ACCUMULATE_METADATA_WRITE = 2 };
+enum { H5FD_FEAT_ACCUMULATE_METADATA_READ = 4 };
+enum { H5FD_FEAT_ACCUMULATE_METADATA = 6 };
+enum { H5FD_FEAT_DATA_SIEVE = 8 };
+enum { H5FD_FEAT_AGGREGATE_SMALLDATA = 16 };
+enum { H5FD_FEAT_IGNORE_DRVRINFO = 32 };
+enum { H5FD_FEAT_DIRTY_DRVRINFO_LOAD = 64 };
+enum { H5FD_FEAT_POSIX_COMPAT_HANDLE = 128 };
+enum { H5FD_FEAT_HAS_MPI = 256 };
+enum { H5FD_FEAT_ALLOCATE_EARLY = 512 };
+enum { H5FD_FEAT_ALLOW_FILE_IMAGE = 1024 };
+enum { H5FD_FEAT_CAN_USE_FILE_IMAGE_CALLBACKS = 2048 };
+enum { H5FD_FEAT_SUPPORTS_SWMR_IO = 4096 };
+enum { H5FD_FEAT_USE_ALLOC_SIZE = 8192 };
+enum { H5FD_FEAT_PAGED_AGGR = 16384 };
+enum { H5FD_FEAT_DEFAULT_VFD_COMPATIBLE = 32768 };
 typedef struct H5FD_t H5FD_t;
 typedef struct H5FD_class_t { const char *name;
 haddr_t maxaddr;
 H5F_close_degree_t fc_degree;
-herr_t  (*terminate)(void);
+herr_t (*terminate)(void);
 hsize_t (*sb_size)(H5FD_t *file);
-herr_t  (*sb_encode)(H5FD_t *file, char *name, unsigned char *p);
-herr_t  (*sb_decode)(H5FD_t *f, const char *name, const unsigned char *p);
-size_t  fapl_size;
-void *  (*fapl_get)(H5FD_t *file);
-void *  (*fapl_copy)(const void *fapl);
-herr_t  (*fapl_free)(void *fapl);
-size_t  dxpl_size;
-void *  (*dxpl_copy)(const void *dxpl);
-herr_t  (*dxpl_free)(void *dxpl);
+herr_t (*sb_encode)(H5FD_t *file, char *name, unsigned char *p);
+herr_t (*sb_decode)(H5FD_t *f, const char *name, const unsigned char *p);
+size_t fapl_size;
+void * (*fapl_get)(H5FD_t *file);
+void * (*fapl_copy)(const void *fapl);
+herr_t (*fapl_free)(void *fapl);
+size_t dxpl_size;
+void * (*dxpl_copy)(const void *dxpl);
+herr_t (*dxpl_free)(void *dxpl);
 H5FD_t *(*open)(const char *name, unsigned flags, hid_t fapl, haddr_t maxaddr);
-herr_t  (*close)(H5FD_t *file);
-int     (*cmp)(const H5FD_t *f1, const H5FD_t *f2);
-herr_t  (*query)(const H5FD_t *f1, unsigned long *flags);
-herr_t  (*get_type_map)(const H5FD_t *file, H5FD_mem_t *type_map);
+herr_t (*close)(H5FD_t *file);
+int (*cmp)(const H5FD_t *f1, const H5FD_t *f2);
+herr_t (*query)(const H5FD_t *f1, unsigned long *flags);
+herr_t (*get_type_map)(const H5FD_t *file, H5FD_mem_t *type_map);
 haddr_t (*alloc)(H5FD_t *file, H5FD_mem_t type, hid_t dxpl_id, hsize_t size);
-herr_t  (*free)(H5FD_t *file, H5FD_mem_t type, hid_t dxpl_id, haddr_t addr, hsize_t size);
+herr_t (*free)(H5FD_t *file, H5FD_mem_t type, hid_t dxpl_id, haddr_t addr, hsize_t size);
 haddr_t (*get_eoa)(const H5FD_t *file, H5FD_mem_t type);
-herr_t  (*set_eoa)(H5FD_t *file, H5FD_mem_t type, haddr_t addr);
+herr_t (*set_eoa)(H5FD_t *file, H5FD_mem_t type, haddr_t addr);
 haddr_t (*get_eof)(const H5FD_t *file, H5FD_mem_t type);
-herr_t  (*get_handle)(H5FD_t *file, hid_t fapl, void**file_handle);
-herr_t  (*read)(H5FD_t *file, H5FD_mem_t type, hid_t dxpl, haddr_t addr, size_t size, void *buffer);
-herr_t  (*write)(H5FD_t *file, H5FD_mem_t type, hid_t dxpl, haddr_t addr, size_t size, const void *buffer);
-herr_t  (*flush)(H5FD_t *file, hid_t dxpl_id, hbool_t closing);
-herr_t  (*truncate)(H5FD_t *file, hid_t dxpl_id, hbool_t closing);
-herr_t  (*lock)(H5FD_t *file, hbool_t rw);
-herr_t  (*unlock)(H5FD_t *file);
+herr_t (*get_handle)(H5FD_t *file, hid_t fapl, void**file_handle);
+herr_t (*read)(H5FD_t *file, H5FD_mem_t type, hid_t dxpl, haddr_t addr, size_t size, void *buffer);
+herr_t (*write)(H5FD_t *file, H5FD_mem_t type, hid_t dxpl, haddr_t addr, size_t size, const void *buffer);
+herr_t (*flush)(H5FD_t *file, hid_t dxpl_id, hbool_t closing);
+herr_t (*truncate)(H5FD_t *file, hid_t dxpl_id, hbool_t closing);
+herr_t (*lock)(H5FD_t *file, hbool_t rw);
+herr_t (*unlock)(H5FD_t *file);
 H5FD_mem_t fl_map[H5FD_MEM_NTYPES];
 } H5FD_class_t;
-typedef struct H5FD_free_t { haddr_t		addr;
-hsize_t		size;
-struct H5FD_free_t	*next;
+typedef struct H5FD_free_t { haddr_t addr;
+hsize_t size;
+struct H5FD_free_t *next;
 } H5FD_free_t;
-struct H5FD_t { hid_t               driver_id;
+struct H5FD_t { hid_t driver_id;
 const H5FD_class_t *cls;
-unsigned long       fileno;
-unsigned            access_flags;
-unsigned long       feature_flags;
-haddr_t             maxaddr;
-haddr_t             base_addr;
-hsize_t             threshold;
-hsize_t             alignment;
-hbool_t             paged_aggr;
+unsigned long fileno;
+unsigned access_flags;
+unsigned long feature_flags;
+haddr_t maxaddr;
+haddr_t base_addr;
+hsize_t threshold;
+hsize_t alignment;
+hbool_t paged_aggr;
 };
 typedef enum { H5FD_FILE_IMAGE_OP_NO_OP, H5FD_FILE_IMAGE_OP_PROPERTY_LIST_SET, H5FD_FILE_IMAGE_OP_PROPERTY_LIST_COPY, H5FD_FILE_IMAGE_OP_PROPERTY_LIST_GET, H5FD_FILE_IMAGE_OP_PROPERTY_LIST_CLOSE, H5FD_FILE_IMAGE_OP_FILE_OPEN, H5FD_FILE_IMAGE_OP_FILE_RESIZE, H5FD_FILE_IMAGE_OP_FILE_CLOSE } H5FD_file_image_op_t;
-typedef struct { void   *(*image_malloc)(size_t size, H5FD_file_image_op_t file_image_op, void *udata);
-void   *(*image_memcpy)(void *dest, const void *src, size_t size, H5FD_file_image_op_t file_image_op, void *udata);
-void   *(*image_realloc)(void *ptr, size_t size, H5FD_file_image_op_t file_image_op, void *udata);
-herr_t  (*image_free)(void *ptr, H5FD_file_image_op_t file_image_op, void *udata);
-void   *(*udata_copy)(void *udata);
-herr_t  (*udata_free)(void *udata);
+typedef struct { void *(*image_malloc)(size_t size, H5FD_file_image_op_t file_image_op, void *udata);
+void *(*image_memcpy)(void *dest, const void *src, size_t size, H5FD_file_image_op_t file_image_op, void *udata);
+void *(*image_realloc)(void *ptr, size_t size, H5FD_file_image_op_t file_image_op, void *udata);
+herr_t (*image_free)(void *ptr, H5FD_file_image_op_t file_image_op, void *udata);
+void *(*udata_copy)(void *udata);
+herr_t (*udata_free)(void *udata);
 void *udata;
 } H5FD_file_image_callbacks_t;
 hid_t H5FDregister(const H5FD_class_t *cls);
@@ -2326,21 +1840,24 @@ herr_t H5FDtruncate(H5FD_t *file, hid_t dxpl_id, hbool_t closing);
 herr_t H5FDlock(H5FD_t *file, hbool_t rw);
 herr_t H5FDunlock(H5FD_t *file);
 herr_t H5FDdriver_query(hid_t driver_id, unsigned long *flags);
-/* END /usr/include/hdf5/openmpi/H5FDpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Gpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5public.h */
-/* END /usr/include/hdf5/openmpi/H5public.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Lpublic.h */
-/* END /usr/include/hdf5/openmpi/H5Lpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Opublic.h */
-/* END /usr/include/hdf5/openmpi/H5Opublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Tpublic.h */
-/* END /usr/include/hdf5/openmpi/H5Tpublic.h */
+/* END /usr/include/hdf5/serial/H5FDpublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5Gpublic.h */
+enum { _H5Gpublic_H = 1 };
+/* BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
+/* END /usr/include/x86_64-1-gnu/sys/types.h */
+/* BEGIN /usr/include/hdf5/serial/H5public.h */
+/* END /usr/include/hdf5/serial/H5public.h */
+/* BEGIN /usr/include/hdf5/serial/H5Lpublic.h */
+/* END /usr/include/hdf5/serial/H5Lpublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5Opublic.h */
+/* END /usr/include/hdf5/serial/H5Opublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5Tpublic.h */
+/* END /usr/include/hdf5/serial/H5Tpublic.h */
 typedef enum H5G_storage_type_t { H5G_STORAGE_TYPE_UNKNOWN = -1, H5G_STORAGE_TYPE_SYMBOL_TABLE, H5G_STORAGE_TYPE_COMPACT, H5G_STORAGE_TYPE_DENSE } H5G_storage_type_t;
-typedef struct H5G_info_t { H5G_storage_type_t 	storage_type;
-hsize_t 	nlinks;
-int64_t     max_corder;
-hbool_t     mounted;
+typedef struct H5G_info_t { H5G_storage_type_t storage_type;
+hsize_t nlinks;
+int64_t max_corder;
+hbool_t mounted;
 } H5G_info_t;
 hid_t H5Gcreate2(hid_t loc_id, const char *name, hid_t lcpl_id, hid_t gcpl_id, hid_t gapl_id);
 hid_t H5Gcreate_anon(hid_t loc_id, hid_t gcpl_id, hid_t gapl_id);
@@ -2352,17 +1869,23 @@ herr_t H5Gget_info_by_idx(hid_t loc_id, const char *group_name, H5_index_t idx_t
 herr_t H5Gclose(hid_t group_id);
 herr_t H5Gflush(hid_t group_id);
 herr_t H5Grefresh(hid_t group_id);
+/* #define H5G_SAME_LOC H5L_SAME_LOC ### string, not number "H5L_SAME_LOC" */
+enum { H5G_LINK_ERROR = 0 };
+enum { H5G_LINK_HARD = 0 };
+enum { H5G_LINK_SOFT = 0 };
+enum { H5G_link_t = 0 };
 enum { H5G_NTYPES = 256 };
 enum { H5G_NLIBTYPES = 8 };
+enum { H5G_NUSERTYPES = 248 };
 typedef enum H5G_obj_t { H5G_UNKNOWN = -1, H5G_GROUP, H5G_DATASET, H5G_TYPE, H5G_LINK, H5G_UDLINK, H5G_RESERVED_5, H5G_RESERVED_6, H5G_RESERVED_7 } H5G_obj_t;
 typedef herr_t (*H5G_iterate_t)(hid_t group, const char *name, void *op_data);
-typedef struct H5G_stat_t { unsigned long 	fileno[2];
-unsigned long 	objno[2];
-unsigned 		nlink;
-H5G_obj_t 		type;
-time_t		mtime;
-size_t		linklen;
-H5O_stat_t          ohdr;
+typedef struct H5G_stat_t { unsigned long fileno[2];
+unsigned long objno[2];
+unsigned nlink;
+H5G_obj_t type;
+time_t mtime;
+size_t linklen;
+H5O_stat_t ohdr;
 } H5G_stat_t;
 hid_t H5Gcreate1(hid_t loc_id, const char *name, size_t size_hint);
 hid_t H5Gopen1(hid_t loc_id, const char *name);
@@ -2379,44 +1902,48 @@ herr_t H5Gget_num_objs(hid_t loc_id, hsize_t *num_objs);
 herr_t H5Gget_objinfo(hid_t loc_id, const char *name, hbool_t follow_link, H5G_stat_t *statbuf);
 ssize_t H5Gget_objname_by_idx(hid_t loc_id, hsize_t idx, char* name, size_t size);
 H5G_obj_t H5Gget_objtype_by_idx(hid_t loc_id, hsize_t idx);
-/* END /usr/include/hdf5/openmpi/H5Gpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Ipublic.h */
-/* END /usr/include/hdf5/openmpi/H5Ipublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Lpublic.h */
-/* END /usr/include/hdf5/openmpi/H5Lpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5MMpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5public.h */
-/* END /usr/include/hdf5/openmpi/H5public.h */
+/* END /usr/include/hdf5/serial/H5Gpublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
+/* END /usr/include/hdf5/serial/H5Ipublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5Lpublic.h */
+/* END /usr/include/hdf5/serial/H5Lpublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5MMpublic.h */
+enum { _H5MMpublic_H = 1 };
+/* BEGIN /usr/include/hdf5/serial/H5public.h */
+/* END /usr/include/hdf5/serial/H5public.h */
 typedef void *(*H5MM_allocate_t)(size_t size, void *alloc_info);
 typedef void (*H5MM_free_t)(void *mem, void *free_info);
-/* END /usr/include/hdf5/openmpi/H5MMpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Opublic.h */
-/* END /usr/include/hdf5/openmpi/H5Opublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Ppublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5public.h */
-/* END /usr/include/hdf5/openmpi/H5public.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5ACpublic.h */
-/* END /usr/include/hdf5/openmpi/H5ACpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Dpublic.h */
-/* END /usr/include/hdf5/openmpi/H5Dpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Fpublic.h */
-/* END /usr/include/hdf5/openmpi/H5Fpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5FDpublic.h */
-/* END /usr/include/hdf5/openmpi/H5FDpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Ipublic.h */
-/* END /usr/include/hdf5/openmpi/H5Ipublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Lpublic.h */
-/* END /usr/include/hdf5/openmpi/H5Lpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Opublic.h */
-/* END /usr/include/hdf5/openmpi/H5Opublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5MMpublic.h */
-/* END /usr/include/hdf5/openmpi/H5MMpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Tpublic.h */
-/* END /usr/include/hdf5/openmpi/H5Tpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Zpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5public.h */
-/* END /usr/include/hdf5/openmpi/H5public.h */
+/* END /usr/include/hdf5/serial/H5MMpublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5Opublic.h */
+/* END /usr/include/hdf5/serial/H5Opublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5Ppublic.h */
+enum { _H5Ppublic_H = 1 };
+/* BEGIN /usr/include/hdf5/serial/H5public.h */
+/* END /usr/include/hdf5/serial/H5public.h */
+/* BEGIN /usr/include/hdf5/serial/H5ACpublic.h */
+/* END /usr/include/hdf5/serial/H5ACpublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5Dpublic.h */
+/* END /usr/include/hdf5/serial/H5Dpublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5Fpublic.h */
+/* END /usr/include/hdf5/serial/H5Fpublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5FDpublic.h */
+/* END /usr/include/hdf5/serial/H5FDpublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
+/* END /usr/include/hdf5/serial/H5Ipublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5Lpublic.h */
+/* END /usr/include/hdf5/serial/H5Lpublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5Opublic.h */
+/* END /usr/include/hdf5/serial/H5Opublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5MMpublic.h */
+/* END /usr/include/hdf5/serial/H5MMpublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5Tpublic.h */
+/* END /usr/include/hdf5/serial/H5Tpublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5Zpublic.h */
+enum { _H5Zpublic_H = 1 };
+/* BEGIN /usr/include/hdf5/serial/H5public.h */
+/* END /usr/include/hdf5/serial/H5public.h */
 typedef int H5Z_filter_t;
+enum { H5Z_FILTER_ERROR = -1 };
 enum { H5Z_FILTER_NONE = 0 };
 enum { H5Z_FILTER_DEFLATE = 1 };
 enum { H5Z_FILTER_SHUFFLE = 2 };
@@ -2428,12 +1955,12 @@ enum { H5Z_FILTER_RESERVED = 256 };
 enum { H5Z_FILTER_MAX = 65535 };
 enum { H5Z_FILTER_ALL = 0 };
 enum { H5Z_MAX_NFILTERS = 32 };
-enum { H5Z_FLAG_DEFMASK = 0x00ff };
-enum { H5Z_FLAG_MANDATORY = 0x0000 };
-enum { H5Z_FLAG_OPTIONAL = 0x0001 };
-enum { H5Z_FLAG_INVMASK = 0xff00 };
-enum { H5Z_FLAG_REVERSE = 0x0100 };
-enum { H5Z_FLAG_SKIP_EDC = 0x0200 };
+enum { H5Z_FLAG_DEFMASK = 255 };
+enum { H5Z_FLAG_MANDATORY = 0 };
+enum { H5Z_FLAG_OPTIONAL = 1 };
+enum { H5Z_FLAG_INVMASK = 65280 };
+enum { H5Z_FLAG_REVERSE = 256 };
+enum { H5Z_FLAG_SKIP_EDC = 512 };
 enum { H5_SZIP_ALLOW_K13_OPTION_MASK = 1 };
 enum { H5_SZIP_CHIP_OPTION_MASK = 2 };
 enum { H5_SZIP_EC_OPTION_MASK = 4 };
@@ -2450,12 +1977,15 @@ enum { H5Z_SZIP_PARM_PPS = 3 };
 enum { H5Z_NBIT_USER_NPARMS = 0 };
 enum { H5Z_SCALEOFFSET_USER_NPARMS = 2 };
 enum { H5Z_SO_INT_MINBITS_DEFAULT = 0 };
-typedef enum H5Z_SO_scale_type_t { H5Z_SO_FLOAT_DSCALE = 0, H5Z_SO_FLOAT_ESCALE = 1, H5Z_SO_INT          = 2 } H5Z_SO_scale_type_t;
-typedef enum H5Z_EDC_t { H5Z_ERROR_EDC       = -1, H5Z_DISABLE_EDC     = 0, H5Z_ENABLE_EDC      = 1, H5Z_NO_EDC          = 2 } H5Z_EDC_t;
-typedef enum H5Z_cb_return_t { H5Z_CB_ERROR  = -1, H5Z_CB_FAIL   = 0, H5Z_CB_CONT   = 1, H5Z_CB_NO     = 2 } H5Z_cb_return_t;
+typedef enum H5Z_SO_scale_type_t { H5Z_SO_FLOAT_DSCALE = 0, H5Z_SO_FLOAT_ESCALE = 1, H5Z_SO_INT = 2 } H5Z_SO_scale_type_t;
+enum { H5Z_CLASS_T_VERS = 1 };
+typedef enum H5Z_EDC_t { H5Z_ERROR_EDC = -1, H5Z_DISABLE_EDC = 0, H5Z_ENABLE_EDC = 1, H5Z_NO_EDC = 2 } H5Z_EDC_t;
+enum { H5Z_FILTER_CONFIG_ENCODE_ENABLED = 1 };
+enum { H5Z_FILTER_CONFIG_DECODE_ENABLED = 2 };
+typedef enum H5Z_cb_return_t { H5Z_CB_ERROR = -1, H5Z_CB_FAIL = 0, H5Z_CB_CONT = 1, H5Z_CB_NO = 2 } H5Z_cb_return_t;
 typedef H5Z_cb_return_t (*H5Z_filter_func_t)(H5Z_filter_t filter, void* buf, size_t buf_size, void* op_data);
-typedef struct H5Z_cb_t { H5Z_filter_func_t   func;
-void                *op_data;
+typedef struct H5Z_cb_t { H5Z_filter_func_t func;
+void *op_data;
 } H5Z_cb_t;
 typedef htri_t (*H5Z_can_apply_func_t)(hid_t dcpl_id, hid_t type_id, hid_t space_id);
 typedef herr_t (*H5Z_set_local_func_t)(hid_t dcpl_id, hid_t type_id, hid_t space_id);
@@ -2464,7 +1994,7 @@ typedef struct H5Z_class2_t { int version;
 H5Z_filter_t id;
 unsigned encoder_present;
 unsigned decoder_present;
-const char	*name;
+const char *name;
 H5Z_can_apply_func_t can_apply;
 H5Z_set_local_func_t set_local;
 H5Z_func_t filter;
@@ -2474,14 +2004,49 @@ herr_t H5Zunregister(H5Z_filter_t id);
 htri_t H5Zfilter_avail(H5Z_filter_t id);
 herr_t H5Zget_filter_info(H5Z_filter_t filter, unsigned int *filter_config_flags);
 typedef struct H5Z_class1_t { H5Z_filter_t id;
-const char	*name;
+const char *name;
 H5Z_can_apply_func_t can_apply;
 H5Z_set_local_func_t set_local;
 H5Z_func_t filter;
 } H5Z_class1_t;
-/* END /usr/include/hdf5/openmpi/H5Zpublic.h */
-enum { H5P_CRT_ORDER_TRACKED = 0x0001 };
-enum { H5P_CRT_ORDER_INDEXED = 0x0002 };
+/* END /usr/include/hdf5/serial/H5Zpublic.h */
+/* #define H5OPEN        H5open(), ### string, not number "H5open()," */
+/* #define H5P_ROOT                (H5OPEN H5P_CLS_ROOT_ID_g) ### string, not number "(H5OPEN H5P_CLS_ROOT_ID_g)" */
+/* #define H5P_OBJECT_CREATE       (H5OPEN H5P_CLS_OBJECT_CREATE_ID_g) ### string, not number "(H5OPEN H5P_CLS_OBJECT_CREATE_ID_g)" */
+/* #define H5P_FILE_CREATE         (H5OPEN H5P_CLS_FILE_CREATE_ID_g) ### string, not number "(H5OPEN H5P_CLS_FILE_CREATE_ID_g)" */
+/* #define H5P_FILE_ACCESS         (H5OPEN H5P_CLS_FILE_ACCESS_ID_g) ### string, not number "(H5OPEN H5P_CLS_FILE_ACCESS_ID_g)" */
+/* #define H5P_DATASET_CREATE      (H5OPEN H5P_CLS_DATASET_CREATE_ID_g) ### string, not number "(H5OPEN H5P_CLS_DATASET_CREATE_ID_g)" */
+/* #define H5P_DATASET_ACCESS      (H5OPEN H5P_CLS_DATASET_ACCESS_ID_g) ### string, not number "(H5OPEN H5P_CLS_DATASET_ACCESS_ID_g)" */
+/* #define H5P_DATASET_XFER        (H5OPEN H5P_CLS_DATASET_XFER_ID_g) ### string, not number "(H5OPEN H5P_CLS_DATASET_XFER_ID_g)" */
+/* #define H5P_FILE_MOUNT          (H5OPEN H5P_CLS_FILE_MOUNT_ID_g) ### string, not number "(H5OPEN H5P_CLS_FILE_MOUNT_ID_g)" */
+/* #define H5P_GROUP_CREATE        (H5OPEN H5P_CLS_GROUP_CREATE_ID_g) ### string, not number "(H5OPEN H5P_CLS_GROUP_CREATE_ID_g)" */
+/* #define H5P_GROUP_ACCESS        (H5OPEN H5P_CLS_GROUP_ACCESS_ID_g) ### string, not number "(H5OPEN H5P_CLS_GROUP_ACCESS_ID_g)" */
+/* #define H5P_DATATYPE_CREATE     (H5OPEN H5P_CLS_DATATYPE_CREATE_ID_g) ### string, not number "(H5OPEN H5P_CLS_DATATYPE_CREATE_ID_g)" */
+/* #define H5P_DATATYPE_ACCESS     (H5OPEN H5P_CLS_DATATYPE_ACCESS_ID_g) ### string, not number "(H5OPEN H5P_CLS_DATATYPE_ACCESS_ID_g)" */
+/* #define H5P_STRING_CREATE       (H5OPEN H5P_CLS_STRING_CREATE_ID_g) ### string, not number "(H5OPEN H5P_CLS_STRING_CREATE_ID_g)" */
+/* #define H5P_ATTRIBUTE_CREATE    (H5OPEN H5P_CLS_ATTRIBUTE_CREATE_ID_g) ### string, not number "(H5OPEN H5P_CLS_ATTRIBUTE_CREATE_ID_g)" */
+/* #define H5P_ATTRIBUTE_ACCESS    (H5OPEN H5P_CLS_ATTRIBUTE_ACCESS_ID_g) ### string, not number "(H5OPEN H5P_CLS_ATTRIBUTE_ACCESS_ID_g)" */
+/* #define H5P_OBJECT_COPY         (H5OPEN H5P_CLS_OBJECT_COPY_ID_g) ### string, not number "(H5OPEN H5P_CLS_OBJECT_COPY_ID_g)" */
+/* #define H5P_LINK_CREATE         (H5OPEN H5P_CLS_LINK_CREATE_ID_g) ### string, not number "(H5OPEN H5P_CLS_LINK_CREATE_ID_g)" */
+/* #define H5P_LINK_ACCESS         (H5OPEN H5P_CLS_LINK_ACCESS_ID_g) ### string, not number "(H5OPEN H5P_CLS_LINK_ACCESS_ID_g)" */
+/* #define H5P_FILE_CREATE_DEFAULT        (H5OPEN H5P_LST_FILE_CREATE_ID_g) ### string, not number "(H5OPEN H5P_LST_FILE_CREATE_ID_g)" */
+/* #define H5P_FILE_ACCESS_DEFAULT        (H5OPEN H5P_LST_FILE_ACCESS_ID_g) ### string, not number "(H5OPEN H5P_LST_FILE_ACCESS_ID_g)" */
+/* #define H5P_DATASET_CREATE_DEFAULT     (H5OPEN H5P_LST_DATASET_CREATE_ID_g) ### string, not number "(H5OPEN H5P_LST_DATASET_CREATE_ID_g)" */
+/* #define H5P_DATASET_ACCESS_DEFAULT     (H5OPEN H5P_LST_DATASET_ACCESS_ID_g) ### string, not number "(H5OPEN H5P_LST_DATASET_ACCESS_ID_g)" */
+/* #define H5P_DATASET_XFER_DEFAULT       (H5OPEN H5P_LST_DATASET_XFER_ID_g) ### string, not number "(H5OPEN H5P_LST_DATASET_XFER_ID_g)" */
+/* #define H5P_FILE_MOUNT_DEFAULT         (H5OPEN H5P_LST_FILE_MOUNT_ID_g) ### string, not number "(H5OPEN H5P_LST_FILE_MOUNT_ID_g)" */
+/* #define H5P_GROUP_CREATE_DEFAULT       (H5OPEN H5P_LST_GROUP_CREATE_ID_g) ### string, not number "(H5OPEN H5P_LST_GROUP_CREATE_ID_g)" */
+/* #define H5P_GROUP_ACCESS_DEFAULT       (H5OPEN H5P_LST_GROUP_ACCESS_ID_g) ### string, not number "(H5OPEN H5P_LST_GROUP_ACCESS_ID_g)" */
+/* #define H5P_DATATYPE_CREATE_DEFAULT    (H5OPEN H5P_LST_DATATYPE_CREATE_ID_g) ### string, not number "(H5OPEN H5P_LST_DATATYPE_CREATE_ID_g)" */
+/* #define H5P_DATATYPE_ACCESS_DEFAULT    (H5OPEN H5P_LST_DATATYPE_ACCESS_ID_g) ### string, not number "(H5OPEN H5P_LST_DATATYPE_ACCESS_ID_g)" */
+/* #define H5P_ATTRIBUTE_CREATE_DEFAULT   (H5OPEN H5P_LST_ATTRIBUTE_CREATE_ID_g) ### string, not number "(H5OPEN H5P_LST_ATTRIBUTE_CREATE_ID_g)" */
+/* #define H5P_ATTRIBUTE_ACCESS_DEFAULT   (H5OPEN H5P_LST_ATTRIBUTE_ACCESS_ID_g) ### string, not number "(H5OPEN H5P_LST_ATTRIBUTE_ACCESS_ID_g)" */
+/* #define H5P_OBJECT_COPY_DEFAULT        (H5OPEN H5P_LST_OBJECT_COPY_ID_g) ### string, not number "(H5OPEN H5P_LST_OBJECT_COPY_ID_g)" */
+/* #define H5P_LINK_CREATE_DEFAULT        (H5OPEN H5P_LST_LINK_CREATE_ID_g) ### string, not number "(H5OPEN H5P_LST_LINK_CREATE_ID_g)" */
+/* #define H5P_LINK_ACCESS_DEFAULT        (H5OPEN H5P_LST_LINK_ACCESS_ID_g) ### string, not number "(H5OPEN H5P_LST_LINK_ACCESS_ID_g)" */
+enum { H5P_CRT_ORDER_TRACKED = 1 };
+enum { H5P_CRT_ORDER_INDEXED = 2 };
+enum { H5P_DEFAULT			= 0 };
 typedef herr_t (*H5P_cls_create_func_t)(hid_t prop_id, void *create_data);
 typedef herr_t (*H5P_cls_copy_func_t)(hid_t new_prop_id, hid_t old_prop_id, void *copy_data);
 typedef herr_t (*H5P_cls_close_func_t)(hid_t prop_id, void *close_data);
@@ -2495,7 +2060,7 @@ typedef H5P_prp_cb1_t H5P_prp_copy_func_t;
 typedef int (*H5P_prp_compare_func_t)(const void *value1, const void *value2, size_t size);
 typedef H5P_prp_cb1_t H5P_prp_close_func_t;
 typedef herr_t (*H5P_iterate_t)(hid_t id, const char *name, void *iter_data);
-typedef enum H5D_mpio_actual_chunk_opt_mode_t { H5D_MPIO_NO_CHUNK_OPTIMIZATION = 0, H5D_MPIO_LINK_CHUNK, H5D_MPIO_MULTI_CHUNK }  H5D_mpio_actual_chunk_opt_mode_t;
+typedef enum H5D_mpio_actual_chunk_opt_mode_t { H5D_MPIO_NO_CHUNK_OPTIMIZATION = 0, H5D_MPIO_LINK_CHUNK, H5D_MPIO_MULTI_CHUNK } H5D_mpio_actual_chunk_opt_mode_t;
 typedef enum H5D_mpio_actual_io_mode_t { H5D_MPIO_NO_COLLECTIVE = 0x0, H5D_MPIO_CHUNK_INDEPENDENT = 0x1, H5D_MPIO_CHUNK_COLLECTIVE = 0x2, H5D_MPIO_CHUNK_MIXED = 0x1 | 0x2, H5D_MPIO_CONTIGUOUS_COLLECTIVE = 0x4 } H5D_mpio_actual_io_mode_t;
 typedef enum H5D_mpio_no_collective_cause_t { H5D_MPIO_COLLECTIVE = 0x00, H5D_MPIO_SET_INDEPENDENT = 0x01, H5D_MPIO_DATATYPE_CONVERSION = 0x02, H5D_MPIO_DATA_TRANSFORMS = 0x04, H5D_MPIO_MPI_OPT_TYPES_ENV_VAR_DISABLED = 0x08, H5D_MPIO_NOT_SIMPLE_OR_SCALAR_DATASPACES = 0x10, H5D_MPIO_NOT_CONTIGUOUS_OR_CHUNKED_DATASET = 0x20, H5D_MPIO_PARALLEL_FILTERED_WRITES_DISABLED = 0x40, H5D_MPIO_ERROR_WHILE_CHECKING_COLLECTIVE_POSSIBLE = 0x80, H5D_MPIO_NO_COLLECTIVE_MAX_CAUSE = 0x100 } H5D_mpio_no_collective_cause_t;
 extern hid_t H5P_CLS_ROOT_ID_g;
@@ -2539,7 +2104,7 @@ herr_t H5Pinsert2(hid_t plist_id, const char *name, size_t size, void *value, H5
 herr_t H5Pset(hid_t plist_id, const char *name, const void *value);
 htri_t H5Pexist(hid_t plist_id, const char *name);
 herr_t H5Pencode(hid_t plist_id, void *buf, size_t *nalloc);
-hid_t  H5Pdecode(const void *buf);
+hid_t H5Pdecode(const void *buf);
 herr_t H5Pget_size(hid_t id, const char *name, size_t *size);
 herr_t H5Pget_nprops(hid_t id, size_t *nprops);
 hid_t H5Pget_class(hid_t plist_id);
@@ -2598,8 +2163,8 @@ herr_t H5Pset_multi_type(hid_t fapl_id, H5FD_mem_t type);
 herr_t H5Pget_multi_type(hid_t fapl_id, H5FD_mem_t *type);
 herr_t H5Pset_cache(hid_t plist_id, int mdc_nelmts, size_t rdcc_nslots, size_t rdcc_nbytes, double rdcc_w0);
 herr_t H5Pget_cache(hid_t plist_id, int *mdc_nelmts, size_t *rdcc_nslots, size_t *rdcc_nbytes, double *rdcc_w0);
-herr_t H5Pset_mdc_config(hid_t    plist_id, H5AC_cache_config_t * config_ptr);
-herr_t H5Pget_mdc_config(hid_t     plist_id, H5AC_cache_config_t * config_ptr);
+herr_t H5Pset_mdc_config(hid_t plist_id, H5AC_cache_config_t * config_ptr);
+herr_t H5Pget_mdc_config(hid_t plist_id, H5AC_cache_config_t * config_ptr);
 herr_t H5Pset_gc_references(hid_t fapl_id, unsigned gc_ref);
 herr_t H5Pget_gc_references(hid_t fapl_id, unsigned *gc_ref);
 herr_t H5Pset_fclose_degree(hid_t fapl_id, H5F_close_degree_t degree);
@@ -2628,10 +2193,8 @@ herr_t H5Pset_mdc_log_options(hid_t plist_id, hbool_t is_enabled, const char *lo
 herr_t H5Pget_mdc_log_options(hid_t plist_id, hbool_t *is_enabled, char *location, size_t *location_size, hbool_t *start_on_access);
 herr_t H5Pset_evict_on_close(hid_t fapl_id, hbool_t evict_on_close);
 herr_t H5Pget_evict_on_close(hid_t fapl_id, hbool_t *evict_on_close);
-herr_t H5Pset_all_coll_metadata_ops(hid_t plist_id, hbool_t is_collective);
-herr_t H5Pget_all_coll_metadata_ops(hid_t plist_id, hbool_t *is_collective);
-herr_t H5Pset_coll_metadata_write(hid_t plist_id, hbool_t is_collective);
-herr_t H5Pget_coll_metadata_write(hid_t plist_id, hbool_t *is_collective);
+herr_t H5Pset_file_locking(hid_t fapl_id, hbool_t use_file_locking, hbool_t ignore_when_disabled);
+herr_t H5Pget_file_locking(hid_t fapl_id, hbool_t *use_file_locking, hbool_t *ignore_when_disabled);
 herr_t H5Pset_mdc_image_config(hid_t plist_id, H5AC_cache_image_config_t *config_ptr);
 herr_t H5Pget_mdc_image_config(hid_t plist_id, H5AC_cache_image_config_t *config_ptr );
 herr_t H5Pset_page_buffer_size(hid_t plist_id, size_t buf_size, unsigned min_meta_per, unsigned min_raw_per);
@@ -2693,9 +2256,6 @@ herr_t H5Pset_hyper_vector_size(hid_t fapl_id, size_t size);
 herr_t H5Pget_hyper_vector_size(hid_t fapl_id, size_t *size);
 herr_t H5Pset_type_conv_cb(hid_t dxpl_id, H5T_conv_except_func_t op, void* operate_data);
 herr_t H5Pget_type_conv_cb(hid_t dxpl_id, H5T_conv_except_func_t *op, void** operate_data);
-herr_t H5Pget_mpio_actual_chunk_opt_mode(hid_t plist_id, H5D_mpio_actual_chunk_opt_mode_t *actual_chunk_opt_mode);
-herr_t H5Pget_mpio_actual_io_mode(hid_t plist_id, H5D_mpio_actual_io_mode_t *actual_io_mode);
-herr_t H5Pget_mpio_no_collective_cause(hid_t plist_id, uint32_t *local_no_collective_cause, uint32_t *global_no_collective_cause);
 herr_t H5Pset_create_intermediate_group(hid_t plist_id, unsigned crt_intmd);
 herr_t H5Pget_create_intermediate_group(hid_t plist_id, unsigned *crt_intmd );
 herr_t H5Pset_local_heap_size_hint(hid_t plist_id, size_t size_hint);
@@ -2724,6 +2284,7 @@ herr_t H5Padd_merge_committed_dtype_path(hid_t plist_id, const char *path);
 herr_t H5Pfree_merge_committed_dtype_paths(hid_t plist_id);
 herr_t H5Pset_mcdt_search_cb(hid_t plist_id, H5O_mcdt_search_cb_t func, void *op_data);
 herr_t H5Pget_mcdt_search_cb(hid_t plist_id, H5O_mcdt_search_cb_t *func, void **op_data);
+/* #define H5P_NO_CLASS            H5P_ROOT ### string, not number "H5P_ROOT" */
 herr_t H5Pregister1(hid_t cls_id, const char *name, size_t size, void *def_value, H5P_prp_create_func_t prp_create, H5P_prp_set_func_t prp_set, H5P_prp_get_func_t prp_get, H5P_prp_delete_func_t prp_del, H5P_prp_copy_func_t prp_copy, H5P_prp_close_func_t prp_close);
 herr_t H5Pinsert1(hid_t plist_id, const char *name, size_t size, void *value, H5P_prp_set_func_t prp_set, H5P_prp_get_func_t prp_get, H5P_prp_delete_func_t prp_delete, H5P_prp_copy_func_t prp_copy, H5P_prp_close_func_t prp_close);
 H5Z_filter_t H5Pget_filter1(hid_t plist_id, unsigned filter, unsigned int *flags, size_t *cd_nelmts, unsigned cd_values[], size_t namelen, char name[]);
@@ -2731,13 +2292,15 @@ herr_t H5Pget_filter_by_id1(hid_t plist_id, H5Z_filter_t id, unsigned int *flags
 herr_t H5Pget_version(hid_t plist_id, unsigned *boot, unsigned *freelist, unsigned *stab, unsigned *shhdr);
 herr_t H5Pset_file_space(hid_t plist_id, H5F_file_space_type_t strategy, hsize_t threshold);
 herr_t H5Pget_file_space(hid_t plist_id, H5F_file_space_type_t *strategy, hsize_t *threshold);
-/* END /usr/include/hdf5/openmpi/H5Ppublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5PLpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5public.h */
-/* END /usr/include/hdf5/openmpi/H5public.h */
-typedef enum H5PL_type_t { H5PL_TYPE_ERROR         = -1, H5PL_TYPE_FILTER        =  0, H5PL_TYPE_NONE          =  1 } H5PL_type_t;
-enum { H5PL_FILTER_PLUGIN = 0x0001 };
-enum { H5PL_ALL_PLUGIN = 0xFFFF };
+/* END /usr/include/hdf5/serial/H5Ppublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5PLpublic.h */
+enum { _H5PLpublic_H = 1 };
+/* BEGIN /usr/include/hdf5/serial/H5public.h */
+/* END /usr/include/hdf5/serial/H5public.h */
+/* #define H5PL_NO_PLUGIN          "::" ### string, not number "\"::\"" */
+typedef enum H5PL_type_t { H5PL_TYPE_ERROR = -1, H5PL_TYPE_FILTER = 0, H5PL_TYPE_NONE = 1 } H5PL_type_t;
+enum { H5PL_FILTER_PLUGIN = 1 };
+enum { H5PL_ALL_PLUGIN = 65535 };
 herr_t H5PLset_loading_state(unsigned int plugin_control_mask);
 herr_t H5PLget_loading_state(unsigned int *plugin_control_mask );
 herr_t H5PLappend(const char *search_path);
@@ -2747,15 +2310,18 @@ herr_t H5PLinsert(const char *search_path, unsigned int index);
 herr_t H5PLremove(unsigned int index);
 ssize_t H5PLget(unsigned int index, char *path_buf , size_t buf_size);
 herr_t H5PLsize(unsigned int *num_paths );
-/* END /usr/include/hdf5/openmpi/H5PLpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Rpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5public.h */
-/* END /usr/include/hdf5/openmpi/H5public.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Gpublic.h */
-/* END /usr/include/hdf5/openmpi/H5Gpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Ipublic.h */
-/* END /usr/include/hdf5/openmpi/H5Ipublic.h */
-typedef enum H5R_type_t { H5R_BADTYPE     =   (-1), H5R_OBJECT, H5R_DATASET_REGION, H5R_MAXTYPE } H5R_type_t;
+/* END /usr/include/hdf5/serial/H5PLpublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5Rpublic.h */
+enum { _H5Rpublic_H = 1 };
+/* BEGIN /usr/include/hdf5/serial/H5public.h */
+/* END /usr/include/hdf5/serial/H5public.h */
+/* BEGIN /usr/include/hdf5/serial/H5Gpublic.h */
+/* END /usr/include/hdf5/serial/H5Gpublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
+/* END /usr/include/hdf5/serial/H5Ipublic.h */
+/* #define H5R_OBJ_REF_BUF_SIZE        sizeof(haddr_t) ### string, not number "sizeof(haddr_t)" */
+/* #define H5R_DSET_REG_REF_BUF_SIZE   (sizeof(haddr_t) + 4) ### string, not number "(sizeof(haddr_t) + 4)" */
+typedef enum H5R_type_t { H5R_BADTYPE = (-1), H5R_OBJECT, H5R_DATASET_REGION, H5R_MAXTYPE } H5R_type_t;
 typedef haddr_t hobj_ref_t;
 typedef unsigned char hdset_reg_ref_t[(sizeof(haddr_t) + 4)];
 herr_t H5Rcreate(void *ref, hid_t loc_id, const char *name, H5R_type_t ref_type, hid_t space_id);
@@ -2765,16 +2331,19 @@ herr_t H5Rget_obj_type2(hid_t id, H5R_type_t ref_type, const void *_ref, H5O_typ
 ssize_t H5Rget_name(hid_t loc_id, H5R_type_t ref_type, const void *ref, char *name , size_t size);
 H5G_obj_t H5Rget_obj_type1(hid_t id, H5R_type_t ref_type, const void *_ref);
 hid_t H5Rdereference1(hid_t obj_id, H5R_type_t ref_type, const void *ref);
-/* END /usr/include/hdf5/openmpi/H5Rpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Spublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5public.h */
-/* END /usr/include/hdf5/openmpi/H5public.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Ipublic.h */
-/* END /usr/include/hdf5/openmpi/H5Ipublic.h */
+/* END /usr/include/hdf5/serial/H5Rpublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5Spublic.h */
+enum { _H5Spublic_H = 1 };
+/* BEGIN /usr/include/hdf5/serial/H5public.h */
+/* END /usr/include/hdf5/serial/H5public.h */
+/* BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
+/* END /usr/include/hdf5/serial/H5Ipublic.h */
+/* #define H5S_ALL         (hid_t)0 ### string, not number "(hid_t)0" */
+/* #define H5S_UNLIMITED   HSIZE_UNDEF ### string, not number "HSIZE_UNDEF" */
 enum { H5S_MAX_RANK = 32 };
-typedef enum H5S_class_t { H5S_NO_CLASS         = -1, H5S_SCALAR           = 0, H5S_SIMPLE           = 1, H5S_NULL             = 2 } H5S_class_t;
-typedef enum H5S_seloper_t { H5S_SELECT_NOOP      = -1, H5S_SELECT_SET       = 0, H5S_SELECT_OR, H5S_SELECT_AND, H5S_SELECT_XOR, H5S_SELECT_NOTB, H5S_SELECT_NOTA, H5S_SELECT_APPEND, H5S_SELECT_PREPEND, H5S_SELECT_INVALID } H5S_seloper_t;
-typedef enum { H5S_SEL_ERROR	= -1, H5S_SEL_NONE	= 0, H5S_SEL_POINTS	= 1, H5S_SEL_HYPERSLABS  = 2, H5S_SEL_ALL		= 3, H5S_SEL_N }H5S_sel_type;
+typedef enum H5S_class_t { H5S_NO_CLASS = -1, H5S_SCALAR = 0, H5S_SIMPLE = 1, H5S_NULL = 2 } H5S_class_t;
+typedef enum H5S_seloper_t { H5S_SELECT_NOOP = -1, H5S_SELECT_SET = 0, H5S_SELECT_OR, H5S_SELECT_AND, H5S_SELECT_XOR, H5S_SELECT_NOTB, H5S_SELECT_NOTA, H5S_SELECT_APPEND, H5S_SELECT_PREPEND, H5S_SELECT_INVALID } H5S_seloper_t;
+typedef enum { H5S_SEL_ERROR = -1, H5S_SEL_NONE = 0, H5S_SEL_POINTS = 1, H5S_SEL_HYPERSLABS = 2, H5S_SEL_ALL = 3, H5S_SEL_N } H5S_sel_type;
 hid_t H5Screate(H5S_class_t type);
 hid_t H5Screate_simple(int rank, const hsize_t dims[], const hsize_t maxdims[]);
 herr_t H5Sset_extent_simple(hid_t space_id, int rank, const hsize_t dims[], const hsize_t max[]);
@@ -2786,129 +2355,178 @@ hssize_t H5Sget_simple_extent_npoints(hid_t space_id);
 int H5Sget_simple_extent_ndims(hid_t space_id);
 int H5Sget_simple_extent_dims(hid_t space_id, hsize_t dims[], hsize_t maxdims[]);
 htri_t H5Sis_simple(hid_t space_id);
-hssize_t H5Sget_select_npoints(hid_t spaceid);
-herr_t H5Sselect_hyperslab(hid_t space_id, H5S_seloper_t op, const hsize_t start[], const hsize_t _stride[], const hsize_t count[], const hsize_t _block[]);
-herr_t H5Sselect_elements(hid_t space_id, H5S_seloper_t op, size_t num_elem, const hsize_t *coord);
 H5S_class_t H5Sget_simple_extent_type(hid_t space_id);
 herr_t H5Sset_extent_none(hid_t space_id);
 herr_t H5Sextent_copy(hid_t dst_id,hid_t src_id);
 htri_t H5Sextent_equal(hid_t sid1, hid_t sid2);
+H5S_sel_type H5Sget_select_type(hid_t spaceid);
+hssize_t H5Sget_select_npoints(hid_t spaceid);
+herr_t H5Sselect_copy(hid_t dst_id, hid_t src_id);
+htri_t H5Sselect_valid(hid_t spaceid);
+herr_t H5Sselect_adjust(hid_t spaceid, const hssize_t *offset);
+herr_t H5Sget_select_bounds(hid_t spaceid, hsize_t start[], hsize_t end[]);
+htri_t H5Sselect_shape_same(hid_t space1_id, hid_t space2_id);
+htri_t H5Sselect_intersect_block(hid_t space_id, const hsize_t *start, const hsize_t *end);
+herr_t H5Soffset_simple(hid_t space_id, const hssize_t *offset);
 herr_t H5Sselect_all(hid_t spaceid);
 herr_t H5Sselect_none(hid_t spaceid);
-herr_t H5Soffset_simple(hid_t space_id, const hssize_t *offset);
-htri_t H5Sselect_valid(hid_t spaceid);
+herr_t H5Sselect_elements(hid_t space_id, H5S_seloper_t op, size_t num_elem, const hsize_t *coord);
+hssize_t H5Sget_select_elem_npoints(hid_t spaceid);
+herr_t H5Sget_select_elem_pointlist(hid_t spaceid, hsize_t startpoint, hsize_t numpoints, hsize_t buf[]);
+herr_t H5Sselect_hyperslab(hid_t space_id, H5S_seloper_t op, const hsize_t start[], const hsize_t _stride[], const hsize_t count[], const hsize_t _block[]);
+hid_t H5Scombine_hyperslab(hid_t space_id, H5S_seloper_t op, const hsize_t start[], const hsize_t _stride[], const hsize_t count[], const hsize_t _block[]);
+herr_t H5Smodify_select(hid_t space1_id, H5S_seloper_t op, hid_t space2_id);
+hid_t H5Scombine_select(hid_t space1_id, H5S_seloper_t op, hid_t space2_id);
 htri_t H5Sis_regular_hyperslab(hid_t spaceid);
 htri_t H5Sget_regular_hyperslab(hid_t spaceid, hsize_t start[], hsize_t stride[], hsize_t count[], hsize_t block[]);
 hssize_t H5Sget_select_hyper_nblocks(hid_t spaceid);
-hssize_t H5Sget_select_elem_npoints(hid_t spaceid);
 herr_t H5Sget_select_hyper_blocklist(hid_t spaceid, hsize_t startblock, hsize_t numblocks, hsize_t buf[]);
-herr_t H5Sget_select_elem_pointlist(hid_t spaceid, hsize_t startpoint, hsize_t numpoints, hsize_t buf[]);
-herr_t H5Sget_select_bounds(hid_t spaceid, hsize_t start[], hsize_t end[]);
-H5S_sel_type H5Sget_select_type(hid_t spaceid);
-/* END /usr/include/hdf5/openmpi/H5Spublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Tpublic.h */
-/* END /usr/include/hdf5/openmpi/H5Tpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Zpublic.h */
-/* END /usr/include/hdf5/openmpi/H5Zpublic.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5FDcore.h */
+hid_t H5Sselect_project_intersection(hid_t src_space_id, hid_t dst_space_id, hid_t src_intersect_space_id);
+/* END /usr/include/hdf5/serial/H5Spublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5Tpublic.h */
+/* END /usr/include/hdf5/serial/H5Tpublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5Zpublic.h */
+/* END /usr/include/hdf5/serial/H5Zpublic.h */
+/* BEGIN /usr/include/hdf5/serial/H5FDcore.h */
+enum { H5FDcore_H = 1 };
+/* #define H5FD_CORE	(H5FD_core_init()) ### string, not number "(H5FD_core_init())" */
 hid_t H5FD_core_init(void);
 herr_t H5Pset_fapl_core(hid_t fapl_id, size_t increment, hbool_t backing_store);
 herr_t H5Pget_fapl_core(hid_t fapl_id, size_t *increment, hbool_t *backing_store);
-/* END /usr/include/hdf5/openmpi/H5FDcore.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5FDdirect.h */
-/* END /usr/include/hdf5/openmpi/H5FDdirect.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5FDfamily.h */
+/* END /usr/include/hdf5/serial/H5FDcore.h */
+/* BEGIN /usr/include/hdf5/serial/H5FDdirect.h */
+enum { H5FDdirect_H = 1 };
+enum { H5FD_DIRECT = -1 };
+/* END /usr/include/hdf5/serial/H5FDdirect.h */
+/* BEGIN /usr/include/hdf5/serial/H5FDfamily.h */
+enum { H5FDfamily_H = 1 };
+/* #define H5FD_FAMILY	(H5FD_family_init()) ### string, not number "(H5FD_family_init())" */
 hid_t H5FD_family_init(void);
 herr_t H5Pset_fapl_family(hid_t fapl_id, hsize_t memb_size, hid_t memb_fapl_id);
 herr_t H5Pget_fapl_family(hid_t fapl_id, hsize_t *memb_size, hid_t *memb_fapl_id);
-/* END /usr/include/hdf5/openmpi/H5FDfamily.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5FDhdfs.h */
+/* END /usr/include/hdf5/serial/H5FDfamily.h */
+/* BEGIN /usr/include/hdf5/serial/H5FDhdfs.h */
+enum { H5FDhdfs_H = 1 };
+enum { H5FD_HDFS = -1 };
 enum { H5FD__CURR_HDFS_FAPL_T_VERSION = 1 };
 enum { H5FD__HDFS_NODE_NAME_SPACE = 128 };
 enum { H5FD__HDFS_USER_NAME_SPACE = 128 };
 enum { H5FD__HDFS_KERB_CACHE_PATH_SPACE = 128 };
 typedef struct H5FD_hdfs_fapl_t { int32_t version;
-char    namenode_name[128 + 1];
+char namenode_name[128 + 1];
 int32_t namenode_port;
-char    user_name[128 + 1];
-char    kerberos_ticket_cache[128 + 1];
+char user_name[128 + 1];
+char kerberos_ticket_cache[128 + 1];
 int32_t stream_buffer_size;
 } H5FD_hdfs_fapl_t;
 hid_t H5FD_hdfs_init(void);
 herr_t H5Pget_fapl_hdfs(hid_t fapl_id, H5FD_hdfs_fapl_t *fa_out);
 herr_t H5Pset_fapl_hdfs(hid_t fapl_id, H5FD_hdfs_fapl_t *fa);
-/* END /usr/include/hdf5/openmpi/H5FDhdfs.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5FDlog.h */
-enum { H5FD_LOG_TRUNCATE = 0x00000001 };
-enum { H5FD_LOG_LOC_READ = 0x00000002 };
-enum { H5FD_LOG_LOC_WRITE = 0x00000004 };
-enum { H5FD_LOG_LOC_SEEK = 0x00000008 };
-enum { H5FD_LOG_FILE_READ = 0x00000010 };
-enum { H5FD_LOG_FILE_WRITE = 0x00000020 };
-enum { H5FD_LOG_FLAVOR = 0x00000040 };
-enum { H5FD_LOG_NUM_READ = 0x00000080 };
-enum { H5FD_LOG_NUM_WRITE = 0x00000100 };
-enum { H5FD_LOG_NUM_SEEK = 0x00000200 };
-enum { H5FD_LOG_NUM_TRUNCATE = 0x00000400 };
-enum { H5FD_LOG_TIME_OPEN = 0x00000800 };
-enum { H5FD_LOG_TIME_STAT = 0x00001000 };
-enum { H5FD_LOG_TIME_READ = 0x00002000 };
-enum { H5FD_LOG_TIME_WRITE = 0x00004000 };
-enum { H5FD_LOG_TIME_SEEK = 0x00008000 };
-enum { H5FD_LOG_TIME_TRUNCATE = 0x00010000 };
-enum { H5FD_LOG_TIME_CLOSE = 0x00020000 };
-enum { H5FD_LOG_ALLOC = 0x00040000 };
-enum { H5FD_LOG_FREE = 0x00080000 };
+/* END /usr/include/hdf5/serial/H5FDhdfs.h */
+/* BEGIN /usr/include/hdf5/serial/H5FDlog.h */
+enum { H5FDlog_H = 1 };
+/* #define H5FD_LOG	(H5FD_log_init()) ### string, not number "(H5FD_log_init())" */
+enum { H5FD_LOG_TRUNCATE = 1 };
+enum { H5FD_LOG_META_IO = 1 };
+enum { H5FD_LOG_LOC_READ = 2 };
+enum { H5FD_LOG_LOC_WRITE = 4 };
+enum { H5FD_LOG_LOC_SEEK = 8 };
+enum { H5FD_LOG_LOC_IO = 14 };
+enum { H5FD_LOG_FILE_READ = 16 };
+enum { H5FD_LOG_FILE_WRITE = 32 };
+enum { H5FD_LOG_FILE_IO = 48 };
+enum { H5FD_LOG_FLAVOR = 64 };
+enum { H5FD_LOG_NUM_READ = 128 };
+enum { H5FD_LOG_NUM_WRITE = 256 };
+enum { H5FD_LOG_NUM_SEEK = 512 };
+enum { H5FD_LOG_NUM_TRUNCATE = 1024 };
+enum { H5FD_LOG_NUM_IO = 1920 };
+enum { H5FD_LOG_TIME_OPEN = 2048 };
+enum { H5FD_LOG_TIME_STAT = 4096 };
+enum { H5FD_LOG_TIME_READ = 8192 };
+enum { H5FD_LOG_TIME_WRITE = 16384 };
+enum { H5FD_LOG_TIME_SEEK = 32768 };
+enum { H5FD_LOG_TIME_TRUNCATE = 65536 };
+enum { H5FD_LOG_TIME_CLOSE = 131072 };
+enum { H5FD_LOG_TIME_IO = 260096 };
+enum { H5FD_LOG_ALLOC = 262144 };
+enum { H5FD_LOG_FREE = 524288 };
+enum { H5FD_LOG_ALL = 1048575 };
 hid_t H5FD_log_init(void);
 herr_t H5Pset_fapl_log(hid_t fapl_id, const char *logfile, unsigned long long flags, size_t buf_size);
-/* END /usr/include/hdf5/openmpi/H5FDlog.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5FDmpi.h */
+/* END /usr/include/hdf5/serial/H5FDlog.h */
+/* BEGIN /usr/include/hdf5/serial/H5FDmirror.h */
+enum { H5FDmirror_H = 1 };
+enum { H5FD_MIRROR = 0 };
+/* END /usr/include/hdf5/serial/H5FDmirror.h */
+/* BEGIN /usr/include/hdf5/serial/H5FDmpi.h */
+enum { H5FDmpi_H = 1 };
 enum { H5D_ONE_LINK_CHUNK_IO_THRESHOLD = 0 };
 enum { H5D_MULTI_CHUNK_IO_COL_THRESHOLD = 60 };
 typedef enum H5FD_mpio_xfer_t { H5FD_MPIO_INDEPENDENT = 0, H5FD_MPIO_COLLECTIVE } H5FD_mpio_xfer_t;
 typedef enum H5FD_mpio_chunk_opt_t { H5FD_MPIO_CHUNK_DEFAULT = 0, H5FD_MPIO_CHUNK_ONE_IO, H5FD_MPIO_CHUNK_MULTI_IO } H5FD_mpio_chunk_opt_t;
 typedef enum H5FD_mpio_collective_opt_t { H5FD_MPIO_COLLECTIVE_IO = 0, H5FD_MPIO_INDIVIDUAL_IO } H5FD_mpio_collective_opt_t;
-/* BEGIN /usr/include/hdf5/openmpi/H5FDmpio.h */
-extern hbool_t H5FD_mpi_opt_types_g;
-hid_t H5FD_mpio_init(void);
-herr_t H5Pset_fapl_mpio(hid_t fapl_id, MPI_Comm comm, MPI_Info info);
-herr_t H5Pget_fapl_mpio(hid_t fapl_id, MPI_Comm *comm, MPI_Info *info);
-herr_t H5Pset_dxpl_mpio(hid_t dxpl_id, H5FD_mpio_xfer_t xfer_mode);
-herr_t H5Pget_dxpl_mpio(hid_t dxpl_id, H5FD_mpio_xfer_t *xfer_mode);
-herr_t H5Pset_dxpl_mpio_collective_opt(hid_t dxpl_id, H5FD_mpio_collective_opt_t opt_mode);
-herr_t H5Pset_dxpl_mpio_chunk_opt(hid_t dxpl_id, H5FD_mpio_chunk_opt_t opt_mode);
-herr_t H5Pset_dxpl_mpio_chunk_opt_num(hid_t dxpl_id, unsigned num_chunk_per_proc);
-herr_t H5Pset_dxpl_mpio_chunk_opt_ratio(hid_t dxpl_id, unsigned percent_num_proc_per_chunk);
-/* END /usr/include/hdf5/openmpi/H5FDmpio.h */
-/* END /usr/include/hdf5/openmpi/H5FDmpi.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5FDmulti.h */
+/* BEGIN /usr/include/hdf5/serial/H5FDmpio.h */
+enum { H5FDmpio_H = 1 };
+enum { H5FD_MPIO = -1 };
+/* END /usr/include/hdf5/serial/H5FDmpio.h */
+/* END /usr/include/hdf5/serial/H5FDmpi.h */
+/* BEGIN /usr/include/hdf5/serial/H5FDmulti.h */
+enum { H5FDmulti_H = 1 };
+/* #define H5FD_MULTI	(H5FD_multi_init()) ### string, not number "(H5FD_multi_init())" */
 hid_t H5FD_multi_init(void);
 herr_t H5Pset_fapl_multi(hid_t fapl_id, const H5FD_mem_t *memb_map, const hid_t *memb_fapl, const char * const *memb_name, const haddr_t *memb_addr, hbool_t relax);
 herr_t H5Pget_fapl_multi(hid_t fapl_id, H5FD_mem_t *memb_map, hid_t *memb_fapl, char **memb_name, haddr_t *memb_addr, hbool_t *relax);
 herr_t H5Pset_fapl_split(hid_t fapl, const char *meta_ext, hid_t meta_plist_id, const char *raw_ext, hid_t raw_plist_id);
-/* END /usr/include/hdf5/openmpi/H5FDmulti.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5FDros3.h */
-/* END /usr/include/hdf5/openmpi/H5FDros3.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5FDsec2.h */
+/* END /usr/include/hdf5/serial/H5FDmulti.h */
+/* BEGIN /usr/include/hdf5/serial/H5FDros3.h */
+enum { H5FDros3_H = 1 };
+/* #define H5FD_ROS3               (H5FD_ros3_init()) ### string, not number "(H5FD_ros3_init())" */
+enum { H5FD_CURR_ROS3_FAPL_T_VERSION = 1 };
+enum { H5FD_ROS3_MAX_REGION_LEN = 32 };
+enum { H5FD_ROS3_MAX_SECRET_ID_LEN = 128 };
+enum { H5FD_ROS3_MAX_SECRET_KEY_LEN = 128 };
+typedef struct H5FD_ros3_fapl_t { int32_t version;
+hbool_t authenticate;
+char aws_region[32 + 1];
+char secret_id[128 + 1];
+char secret_key[128 + 1];
+} H5FD_ros3_fapl_t;
+hid_t H5FD_ros3_init(void);
+herr_t H5Pget_fapl_ros3(hid_t fapl_id, H5FD_ros3_fapl_t *fa_out);
+herr_t H5Pset_fapl_ros3(hid_t fapl_id, H5FD_ros3_fapl_t *fa);
+/* END /usr/include/hdf5/serial/H5FDros3.h */
+/* BEGIN /usr/include/hdf5/serial/H5FDsec2.h */
 hid_t H5FD_sec2_init(void);
 herr_t H5Pset_fapl_sec2(hid_t fapl_id);
-/* END /usr/include/hdf5/openmpi/H5FDsec2.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5FDstdio.h */
-/* BEGIN /usr/include/hdf5/openmpi/H5Ipublic.h */
-/* END /usr/include/hdf5/openmpi/H5Ipublic.h */
+/* END /usr/include/hdf5/serial/H5FDsec2.h */
+/* BEGIN /usr/include/hdf5/serial/H5FDsplitter.h */
+enum { H5FDsplitter_H = 1 };
+/* #define H5FD_SPLITTER (H5FD_splitter_init()) ### string, not number "(H5FD_splitter_init())" */
+enum { H5FD_CURR_SPLITTER_VFD_CONFIG_VERSION = 1 };
+enum { H5FD_SPLITTER_PATH_MAX = 4096 };
+enum { H5FD_SPLITTER_MAGIC = 730949760 };
+typedef struct H5FD_splitter_vfd_config_t { int32_t magic;
+unsigned int version;
+hid_t rw_fapl_id;
+hid_t wo_fapl_id;
+char wo_path[4096 + 1];
+char log_file_path[4096 + 1];
+hbool_t ignore_wo_errs;
+} H5FD_splitter_vfd_config_t;
+hid_t H5FD_splitter_init(void);
+herr_t H5Pset_fapl_splitter(hid_t fapl_id, H5FD_splitter_vfd_config_t *config_ptr);
+herr_t H5Pget_fapl_splitter(hid_t fapl_id, H5FD_splitter_vfd_config_t *config_ptr);
+/* END /usr/include/hdf5/serial/H5FDsplitter.h */
+/* BEGIN /usr/include/hdf5/serial/H5FDstdio.h */
+enum { H5FDstdio_H = 1 };
+/* BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
+/* END /usr/include/hdf5/serial/H5Ipublic.h */
+/* #define H5FD_STDIO	(H5FD_stdio_init()) ### string, not number "(H5FD_stdio_init())" */
 hid_t H5FD_stdio_init(void);
 herr_t H5Pset_fapl_stdio(hid_t fapl_id);
-/* END /usr/include/hdf5/openmpi/H5FDstdio.h */
-/* END /usr/include/hdf5/openmpi/hdf5.h */
+/* END /usr/include/hdf5/serial/H5FDstdio.h */
+/* END /usr/include/hdf5/serial/hdf5.h */
 ]]
-
-
-xpcall(function()
-	ffi.cdef(code)	
-end, function(err)
-	print(require 'template.showcode'(code))
-	print(err..debug.traceback())
-	os.exit(1)
-end)
-
-return hdf5
+--return ffi.load 'hdf5'	-- pkg-config --libs hdf5
+return ffi.load('/usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5.so')
