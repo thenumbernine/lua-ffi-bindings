@@ -5,12 +5,12 @@ if ffi.os == 'Windows' then
 	-- windows msvc turbojpeg 2.0.3 cmake wouldn't build, so i used 2.0.4 instead
 	-- I wonder if this is the reason for the few subtle differences
 	-- TODO rebuild linux with 2.0.4 and see if they go away?
-	jpeg = ffi.load'jpeg.dll'
+	jpeg = ffi.load'jpeg8.dll'
 	require 'ffi.Windows.jpeg'
 else
 	-- turbojpeg 2.0.3
 	if ffi.os == 'OSX' then
-		jpeg = = ffi.load'/opt/local/lib/libjpeg.dylib'
+		jpeg = ffi.load'/opt/local/lib/libjpeg.dylib'
 	else
 		jpeg = 'libjpeg.so'
 	end
