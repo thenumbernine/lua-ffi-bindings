@@ -235,12 +235,12 @@ enum { TTYDEF_CFLAG = 0 };
 enum { TTYDEF_SPEED = 0 };
 /* #define	CEOF		CTRL('d') ### string, not number "CTRL('d')" */
 /* # define CEOL		'\0' ### string, not number "'\\0'" */
-enum { CERASE = 177 };
+enum { CERASE = 127 };
 /* #define	CINTR		CTRL('c') ### string, not number "CTRL('c')" */
 /* # define CSTATUS	'\0' ### string, not number "'\\0'" */
 /* #define	CKILL		CTRL('u') ### string, not number "CTRL('u')" */
 enum { CMIN = 1 };
-enum { CQUIT = 34 };
+enum { CQUIT = 28 };
 /* #define	CSUSP		CTRL('z') ### string, not number "CTRL('z')" */
 enum { CTIME = 0 };
 /* #define	CDSUSP		CTRL('y') ### string, not number "CTRL('y')" */
