@@ -15,8 +15,7 @@ enum { _SYS_STAT_H = 1 };
 /* END /usr/include/x86_64-1-gnu/bits/types/time_t.h */
 typedef __dev_t dev_t;
 enum { __dev_t_defined = 1 };
-typedef __gid_t gid_t;
-enum { __gid_t_defined = 1 };
+]] require 'ffi.c.bits.types.gid_t' ffi.cdef[[
 typedef __ino_t ino_t;
 enum { __ino_t_defined = 1 };
 typedef __mode_t mode_t;
@@ -24,8 +23,7 @@ enum { __mode_t_defined = 1 };
 typedef __nlink_t nlink_t;
 enum { __nlink_t_defined = 1 };
 ]] require 'ffi.c.bits.types.off_t' ffi.cdef[[
-typedef __uid_t uid_t;
-enum { __uid_t_defined = 1 };
+]] require 'ffi.c.bits.types.uid_t' ffi.cdef[[
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/stat.h */
 enum { _BITS_STAT_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/struct_stat.h */

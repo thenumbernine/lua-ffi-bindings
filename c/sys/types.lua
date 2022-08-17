@@ -21,14 +21,12 @@ typedef __ino_t ino_t;
 enum { __ino_t_defined = 1 };
 typedef __dev_t dev_t;
 enum { __dev_t_defined = 1 };
-typedef __gid_t gid_t;
-enum { __gid_t_defined = 1 };
+]] require 'ffi.c.bits.types.gid_t' ffi.cdef[[
 typedef __mode_t mode_t;
 enum { __mode_t_defined = 1 };
 typedef __nlink_t nlink_t;
 enum { __nlink_t_defined = 1 };
-typedef __uid_t uid_t;
-enum { __uid_t_defined = 1 };
+]] require 'ffi.c.bits.types.uid_t' ffi.cdef[[
 ]] require 'ffi.c.bits.types.off_t' ffi.cdef[[
 ]] require 'ffi.c.bits.types.pid_t' ffi.cdef[[
 typedef __id_t id_t;
