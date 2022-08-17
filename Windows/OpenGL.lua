@@ -1021,7 +1021,7 @@ enum { __gl_glext_h_ = 1 };
 /* #define APIENTRYP APIENTRY * ### string, not number "APIENTRY *" */
 enum { GLAPI = 0 };
 enum { GL_GLEXT_VERSION = 20210107 };
-/* BEGIN /Users/Chris/include/KHR/khrplatform.h */
+/* BEGIN C:/Users/Chris/include/KHR/khrplatform.h */
 enum { __khrplatform_h_ = 1 };
 /* #   define KHRONOS_APICALL __declspec(dllimport) ### string, not number "__declspec(dllimport)" */
 enum { KHRONOS_APIENTRY = 0 };
@@ -1045,7 +1045,7 @@ typedef khronos_uint64_t khronos_utime_nanoseconds_t;
 typedef khronos_int64_t khronos_stime_nanoseconds_t;
 enum { KHRONOS_MAX_ENUM = 2147483647 };
 typedef enum { KHRONOS_FALSE = 0, KHRONOS_TRUE = 1, KHRONOS_BOOLEAN_ENUM_FORCE_SIZE = 0x7FFFFFFF } khronos_boolean_enum_t;
-/* END /Users/Chris/include/KHR/khrplatform.h */
+/* END C:/Users/Chris/include/KHR/khrplatform.h */
 enum { GL_VERSION_1_2 = 1 };
 enum { GL_UNSIGNED_BYTE_3_3_2 = 32818 };
 enum { GL_UNSIGNED_SHORT_4_4_4_4 = 32819 };
@@ -11358,4 +11358,3 @@ local gl = ffi.load"OpenGL32.dll"
 return setmetatable({
 	code = code,
 }, {__index=gl})
-
