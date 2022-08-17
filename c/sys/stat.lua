@@ -23,8 +23,7 @@ typedef __mode_t mode_t;
 enum { __mode_t_defined = 1 };
 typedef __nlink_t nlink_t;
 enum { __nlink_t_defined = 1 };
-typedef __off_t off_t;
-enum { __off_t_defined = 1 };
+]] require 'ffi.c.bits.types.off_t' ffi.cdef[[
 typedef __uid_t uid_t;
 enum { __uid_t_defined = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/stat.h */

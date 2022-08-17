@@ -1,9 +1,194 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* BEGIN /usr/include/x86_64-linux-gnu/tiffio.h */
+enum { _TIFFIO_ = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/tiff.h */
+enum { _TIFF_ = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/tiffconf.h */
+enum { _TIFFCONF_ = 1 };
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
+]] require 'ffi.c.stddef' ffi.cdef[[
+/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stddef.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h */
+]] require 'ffi.c.stdint' ffi.cdef[[
+/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stdint.h */
+/* BEGIN /usr/include/inttypes.h */
+enum { _INTTYPES_H = 1 };
+/* BEGIN /usr/include/features.h */
+/* END /usr/include/features.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h */
+/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stdint.h */
+typedef int __gwchar_t;
+enum { ____gwchar_t_defined = 1 };
+/* #  define __PRI64_PREFIX	"l" ### string, not number "\"l\"" */
+/* #  define __PRIPTR_PREFIX	"l" ### string, not number "\"l\"" */
+/* # define PRId8		"d" ### string, not number "\"d\"" */
+/* # define PRId16		"d" ### string, not number "\"d\"" */
+/* # define PRId32		"d" ### string, not number "\"d\"" */
+/* # define PRId64		__PRI64_PREFIX "d" ### string, not number "__PRI64_PREFIX \"d\"" */
+/* # define PRIdLEAST8	"d" ### string, not number "\"d\"" */
+/* # define PRIdLEAST16	"d" ### string, not number "\"d\"" */
+/* # define PRIdLEAST32	"d" ### string, not number "\"d\"" */
+/* # define PRIdLEAST64	__PRI64_PREFIX "d" ### string, not number "__PRI64_PREFIX \"d\"" */
+/* # define PRIdFAST8	"d" ### string, not number "\"d\"" */
+/* # define PRIdFAST16	__PRIPTR_PREFIX "d" ### string, not number "__PRIPTR_PREFIX \"d\"" */
+/* # define PRIdFAST32	__PRIPTR_PREFIX "d" ### string, not number "__PRIPTR_PREFIX \"d\"" */
+/* # define PRIdFAST64	__PRI64_PREFIX "d" ### string, not number "__PRI64_PREFIX \"d\"" */
+/* # define PRIi8		"i" ### string, not number "\"i\"" */
+/* # define PRIi16		"i" ### string, not number "\"i\"" */
+/* # define PRIi32		"i" ### string, not number "\"i\"" */
+/* # define PRIi64		__PRI64_PREFIX "i" ### string, not number "__PRI64_PREFIX \"i\"" */
+/* # define PRIiLEAST8	"i" ### string, not number "\"i\"" */
+/* # define PRIiLEAST16	"i" ### string, not number "\"i\"" */
+/* # define PRIiLEAST32	"i" ### string, not number "\"i\"" */
+/* # define PRIiLEAST64	__PRI64_PREFIX "i" ### string, not number "__PRI64_PREFIX \"i\"" */
+/* # define PRIiFAST8	"i" ### string, not number "\"i\"" */
+/* # define PRIiFAST16	__PRIPTR_PREFIX "i" ### string, not number "__PRIPTR_PREFIX \"i\"" */
+/* # define PRIiFAST32	__PRIPTR_PREFIX "i" ### string, not number "__PRIPTR_PREFIX \"i\"" */
+/* # define PRIiFAST64	__PRI64_PREFIX "i" ### string, not number "__PRI64_PREFIX \"i\"" */
+/* # define PRIo8		"o" ### string, not number "\"o\"" */
+/* # define PRIo16		"o" ### string, not number "\"o\"" */
+/* # define PRIo32		"o" ### string, not number "\"o\"" */
+/* # define PRIo64		__PRI64_PREFIX "o" ### string, not number "__PRI64_PREFIX \"o\"" */
+/* # define PRIoLEAST8	"o" ### string, not number "\"o\"" */
+/* # define PRIoLEAST16	"o" ### string, not number "\"o\"" */
+/* # define PRIoLEAST32	"o" ### string, not number "\"o\"" */
+/* # define PRIoLEAST64	__PRI64_PREFIX "o" ### string, not number "__PRI64_PREFIX \"o\"" */
+/* # define PRIoFAST8	"o" ### string, not number "\"o\"" */
+/* # define PRIoFAST16	__PRIPTR_PREFIX "o" ### string, not number "__PRIPTR_PREFIX \"o\"" */
+/* # define PRIoFAST32	__PRIPTR_PREFIX "o" ### string, not number "__PRIPTR_PREFIX \"o\"" */
+/* # define PRIoFAST64	__PRI64_PREFIX "o" ### string, not number "__PRI64_PREFIX \"o\"" */
+/* # define PRIu8		"u" ### string, not number "\"u\"" */
+/* # define PRIu16		"u" ### string, not number "\"u\"" */
+/* # define PRIu32		"u" ### string, not number "\"u\"" */
+/* # define PRIu64		__PRI64_PREFIX "u" ### string, not number "__PRI64_PREFIX \"u\"" */
+/* # define PRIuLEAST8	"u" ### string, not number "\"u\"" */
+/* # define PRIuLEAST16	"u" ### string, not number "\"u\"" */
+/* # define PRIuLEAST32	"u" ### string, not number "\"u\"" */
+/* # define PRIuLEAST64	__PRI64_PREFIX "u" ### string, not number "__PRI64_PREFIX \"u\"" */
+/* # define PRIuFAST8	"u" ### string, not number "\"u\"" */
+/* # define PRIuFAST16	__PRIPTR_PREFIX "u" ### string, not number "__PRIPTR_PREFIX \"u\"" */
+/* # define PRIuFAST32	__PRIPTR_PREFIX "u" ### string, not number "__PRIPTR_PREFIX \"u\"" */
+/* # define PRIuFAST64	__PRI64_PREFIX "u" ### string, not number "__PRI64_PREFIX \"u\"" */
+/* # define PRIx8		"x" ### string, not number "\"x\"" */
+/* # define PRIx16		"x" ### string, not number "\"x\"" */
+/* # define PRIx32		"x" ### string, not number "\"x\"" */
+/* # define PRIx64		__PRI64_PREFIX "x" ### string, not number "__PRI64_PREFIX \"x\"" */
+/* # define PRIxLEAST8	"x" ### string, not number "\"x\"" */
+/* # define PRIxLEAST16	"x" ### string, not number "\"x\"" */
+/* # define PRIxLEAST32	"x" ### string, not number "\"x\"" */
+/* # define PRIxLEAST64	__PRI64_PREFIX "x" ### string, not number "__PRI64_PREFIX \"x\"" */
+/* # define PRIxFAST8	"x" ### string, not number "\"x\"" */
+/* # define PRIxFAST16	__PRIPTR_PREFIX "x" ### string, not number "__PRIPTR_PREFIX \"x\"" */
+/* # define PRIxFAST32	__PRIPTR_PREFIX "x" ### string, not number "__PRIPTR_PREFIX \"x\"" */
+/* # define PRIxFAST64	__PRI64_PREFIX "x" ### string, not number "__PRI64_PREFIX \"x\"" */
+/* # define PRIX8		"X" ### string, not number "\"X\"" */
+/* # define PRIX16		"X" ### string, not number "\"X\"" */
+/* # define PRIX32		"X" ### string, not number "\"X\"" */
+/* # define PRIX64		__PRI64_PREFIX "X" ### string, not number "__PRI64_PREFIX \"X\"" */
+/* # define PRIXLEAST8	"X" ### string, not number "\"X\"" */
+/* # define PRIXLEAST16	"X" ### string, not number "\"X\"" */
+/* # define PRIXLEAST32	"X" ### string, not number "\"X\"" */
+/* # define PRIXLEAST64	__PRI64_PREFIX "X" ### string, not number "__PRI64_PREFIX \"X\"" */
+/* # define PRIXFAST8	"X" ### string, not number "\"X\"" */
+/* # define PRIXFAST16	__PRIPTR_PREFIX "X" ### string, not number "__PRIPTR_PREFIX \"X\"" */
+/* # define PRIXFAST32	__PRIPTR_PREFIX "X" ### string, not number "__PRIPTR_PREFIX \"X\"" */
+/* # define PRIXFAST64	__PRI64_PREFIX "X" ### string, not number "__PRI64_PREFIX \"X\"" */
+/* # define PRIdMAX	__PRI64_PREFIX "d" ### string, not number "__PRI64_PREFIX \"d\"" */
+/* # define PRIiMAX	__PRI64_PREFIX "i" ### string, not number "__PRI64_PREFIX \"i\"" */
+/* # define PRIoMAX	__PRI64_PREFIX "o" ### string, not number "__PRI64_PREFIX \"o\"" */
+/* # define PRIuMAX	__PRI64_PREFIX "u" ### string, not number "__PRI64_PREFIX \"u\"" */
+/* # define PRIxMAX	__PRI64_PREFIX "x" ### string, not number "__PRI64_PREFIX \"x\"" */
+/* # define PRIXMAX	__PRI64_PREFIX "X" ### string, not number "__PRI64_PREFIX \"X\"" */
+/* # define PRIdPTR	__PRIPTR_PREFIX "d" ### string, not number "__PRIPTR_PREFIX \"d\"" */
+/* # define PRIiPTR	__PRIPTR_PREFIX "i" ### string, not number "__PRIPTR_PREFIX \"i\"" */
+/* # define PRIoPTR	__PRIPTR_PREFIX "o" ### string, not number "__PRIPTR_PREFIX \"o\"" */
+/* # define PRIuPTR	__PRIPTR_PREFIX "u" ### string, not number "__PRIPTR_PREFIX \"u\"" */
+/* # define PRIxPTR	__PRIPTR_PREFIX "x" ### string, not number "__PRIPTR_PREFIX \"x\"" */
+/* # define PRIXPTR	__PRIPTR_PREFIX "X" ### string, not number "__PRIPTR_PREFIX \"X\"" */
+/* # define SCNd8		"hhd" ### string, not number "\"hhd\"" */
+/* # define SCNd16		"hd" ### string, not number "\"hd\"" */
+/* # define SCNd32		"d" ### string, not number "\"d\"" */
+/* # define SCNd64		__PRI64_PREFIX "d" ### string, not number "__PRI64_PREFIX \"d\"" */
+/* # define SCNdLEAST8	"hhd" ### string, not number "\"hhd\"" */
+/* # define SCNdLEAST16	"hd" ### string, not number "\"hd\"" */
+/* # define SCNdLEAST32	"d" ### string, not number "\"d\"" */
+/* # define SCNdLEAST64	__PRI64_PREFIX "d" ### string, not number "__PRI64_PREFIX \"d\"" */
+/* # define SCNdFAST8	"hhd" ### string, not number "\"hhd\"" */
+/* # define SCNdFAST16	__PRIPTR_PREFIX "d" ### string, not number "__PRIPTR_PREFIX \"d\"" */
+/* # define SCNdFAST32	__PRIPTR_PREFIX "d" ### string, not number "__PRIPTR_PREFIX \"d\"" */
+/* # define SCNdFAST64	__PRI64_PREFIX "d" ### string, not number "__PRI64_PREFIX \"d\"" */
+/* # define SCNi8		"hhi" ### string, not number "\"hhi\"" */
+/* # define SCNi16		"hi" ### string, not number "\"hi\"" */
+/* # define SCNi32		"i" ### string, not number "\"i\"" */
+/* # define SCNi64		__PRI64_PREFIX "i" ### string, not number "__PRI64_PREFIX \"i\"" */
+/* # define SCNiLEAST8	"hhi" ### string, not number "\"hhi\"" */
+/* # define SCNiLEAST16	"hi" ### string, not number "\"hi\"" */
+/* # define SCNiLEAST32	"i" ### string, not number "\"i\"" */
+/* # define SCNiLEAST64	__PRI64_PREFIX "i" ### string, not number "__PRI64_PREFIX \"i\"" */
+/* # define SCNiFAST8	"hhi" ### string, not number "\"hhi\"" */
+/* # define SCNiFAST16	__PRIPTR_PREFIX "i" ### string, not number "__PRIPTR_PREFIX \"i\"" */
+/* # define SCNiFAST32	__PRIPTR_PREFIX "i" ### string, not number "__PRIPTR_PREFIX \"i\"" */
+/* # define SCNiFAST64	__PRI64_PREFIX "i" ### string, not number "__PRI64_PREFIX \"i\"" */
+/* # define SCNu8		"hhu" ### string, not number "\"hhu\"" */
+/* # define SCNu16		"hu" ### string, not number "\"hu\"" */
+/* # define SCNu32		"u" ### string, not number "\"u\"" */
+/* # define SCNu64		__PRI64_PREFIX "u" ### string, not number "__PRI64_PREFIX \"u\"" */
+/* # define SCNuLEAST8	"hhu" ### string, not number "\"hhu\"" */
+/* # define SCNuLEAST16	"hu" ### string, not number "\"hu\"" */
+/* # define SCNuLEAST32	"u" ### string, not number "\"u\"" */
+/* # define SCNuLEAST64	__PRI64_PREFIX "u" ### string, not number "__PRI64_PREFIX \"u\"" */
+/* # define SCNuFAST8	"hhu" ### string, not number "\"hhu\"" */
+/* # define SCNuFAST16	__PRIPTR_PREFIX "u" ### string, not number "__PRIPTR_PREFIX \"u\"" */
+/* # define SCNuFAST32	__PRIPTR_PREFIX "u" ### string, not number "__PRIPTR_PREFIX \"u\"" */
+/* # define SCNuFAST64	__PRI64_PREFIX "u" ### string, not number "__PRI64_PREFIX \"u\"" */
+/* # define SCNo8		"hho" ### string, not number "\"hho\"" */
+/* # define SCNo16		"ho" ### string, not number "\"ho\"" */
+/* # define SCNo32		"o" ### string, not number "\"o\"" */
+/* # define SCNo64		__PRI64_PREFIX "o" ### string, not number "__PRI64_PREFIX \"o\"" */
+/* # define SCNoLEAST8	"hho" ### string, not number "\"hho\"" */
+/* # define SCNoLEAST16	"ho" ### string, not number "\"ho\"" */
+/* # define SCNoLEAST32	"o" ### string, not number "\"o\"" */
+/* # define SCNoLEAST64	__PRI64_PREFIX "o" ### string, not number "__PRI64_PREFIX \"o\"" */
+/* # define SCNoFAST8	"hho" ### string, not number "\"hho\"" */
+/* # define SCNoFAST16	__PRIPTR_PREFIX "o" ### string, not number "__PRIPTR_PREFIX \"o\"" */
+/* # define SCNoFAST32	__PRIPTR_PREFIX "o" ### string, not number "__PRIPTR_PREFIX \"o\"" */
+/* # define SCNoFAST64	__PRI64_PREFIX "o" ### string, not number "__PRI64_PREFIX \"o\"" */
+/* # define SCNx8		"hhx" ### string, not number "\"hhx\"" */
+/* # define SCNx16		"hx" ### string, not number "\"hx\"" */
+/* # define SCNx32		"x" ### string, not number "\"x\"" */
+/* # define SCNx64		__PRI64_PREFIX "x" ### string, not number "__PRI64_PREFIX \"x\"" */
+/* # define SCNxLEAST8	"hhx" ### string, not number "\"hhx\"" */
+/* # define SCNxLEAST16	"hx" ### string, not number "\"hx\"" */
+/* # define SCNxLEAST32	"x" ### string, not number "\"x\"" */
+/* # define SCNxLEAST64	__PRI64_PREFIX "x" ### string, not number "__PRI64_PREFIX \"x\"" */
+/* # define SCNxFAST8	"hhx" ### string, not number "\"hhx\"" */
+/* # define SCNxFAST16	__PRIPTR_PREFIX "x" ### string, not number "__PRIPTR_PREFIX \"x\"" */
+/* # define SCNxFAST32	__PRIPTR_PREFIX "x" ### string, not number "__PRIPTR_PREFIX \"x\"" */
+/* # define SCNxFAST64	__PRI64_PREFIX "x" ### string, not number "__PRI64_PREFIX \"x\"" */
+/* # define SCNdMAX	__PRI64_PREFIX "d" ### string, not number "__PRI64_PREFIX \"d\"" */
+/* # define SCNiMAX	__PRI64_PREFIX "i" ### string, not number "__PRI64_PREFIX \"i\"" */
+/* # define SCNoMAX	__PRI64_PREFIX "o" ### string, not number "__PRI64_PREFIX \"o\"" */
+/* # define SCNuMAX	__PRI64_PREFIX "u" ### string, not number "__PRI64_PREFIX \"u\"" */
+/* # define SCNxMAX	__PRI64_PREFIX "x" ### string, not number "__PRI64_PREFIX \"x\"" */
+/* # define SCNdPTR	__PRIPTR_PREFIX "d" ### string, not number "__PRIPTR_PREFIX \"d\"" */
+/* # define SCNiPTR	__PRIPTR_PREFIX "i" ### string, not number "__PRIPTR_PREFIX \"i\"" */
+/* # define SCNoPTR	__PRIPTR_PREFIX "o" ### string, not number "__PRIPTR_PREFIX \"o\"" */
+/* # define SCNuPTR	__PRIPTR_PREFIX "u" ### string, not number "__PRIPTR_PREFIX \"u\"" */
+/* # define SCNxPTR	__PRIPTR_PREFIX "x" ### string, not number "__PRIPTR_PREFIX \"x\"" */
+typedef struct { long int quot;
+long int rem;
+} imaxdiv_t;
+extern intmax_t imaxabs (intmax_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+extern imaxdiv_t imaxdiv (intmax_t __numer, intmax_t __denom) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+extern intmax_t strtoimax (const char * __nptr, char ** __endptr, int __base) __attribute__ ((__nothrow__ , __leaf__));
+extern uintmax_t strtoumax (const char * __nptr, char ** __endptr, int __base) __attribute__ ((__nothrow__ , __leaf__));
+extern intmax_t wcstoimax (const __gwchar_t * __nptr, __gwchar_t ** __endptr, int __base) __attribute__ ((__nothrow__ , __leaf__));
+extern uintmax_t wcstoumax (const __gwchar_t * __nptr, __gwchar_t ** __endptr, int __base) __attribute__ ((__nothrow__ , __leaf__));
+/* END /usr/include/inttypes.h */
+enum { TIFF_SSIZE_T = 0 };
 enum { HAVE_IEEEFP = 1 };
+enum { HOST_FILLORDER = 0 };
 enum { HOST_BIGENDIAN = 0 };
 enum { CCITT_SUPPORT = 1 };
 enum { JPEG_SUPPORT = 1 };
@@ -16,44 +201,54 @@ enum { PACKBITS_SUPPORT = 1 };
 enum { PIXARLOG_SUPPORT = 1 };
 enum { THUNDER_SUPPORT = 1 };
 enum { ZIP_SUPPORT = 1 };
+enum { LIBDEFLATE_SUPPORT = 1 };
+enum { STRIPCHOP_DEFAULT = 0 };
 enum { SUBIFD_SUPPORT = 1 };
 enum { DEFAULT_EXTRASAMPLE_AS_ALPHA = 1 };
 enum { CHECK_JPEG_YCBCR_SUBSAMPLING = 1 };
 enum { MDI_SUPPORT = 1 };
+enum { COLORIMETRY_SUPPORT = 1 };
+enum { YCBCR_SUPPORT = 1 };
+enum { CMYK_SUPPORT = 1 };
+enum { ICC_SUPPORT = 1 };
+enum { PHOTOSHOP_SUPPORT = 1 };
+enum { IPTC_SUPPORT = 1 };
 /* END /usr/include/x86_64-1-gnu/tiffconf.h */
 enum { TIFF_VERSION_CLASSIC = 42 };
 enum { TIFF_VERSION_BIG = 43 };
-enum { TIFF_BIGENDIAN = 0x4d4d };
-enum { TIFF_LITTLEENDIAN = 0x4949 };
-enum { MDI_LITTLEENDIAN = 0x5045 };
-enum { MDI_BIGENDIAN = 0x4550 };
-typedef signed char int8;
-typedef unsigned char uint8;
-typedef signed short int16;
-typedef unsigned short uint16;
-typedef signed int int32;
-typedef unsigned int uint32;
-typedef signed long int64;
-typedef unsigned long uint64;
+enum { TIFF_BIGENDIAN = 19789 };
+enum { TIFF_LITTLEENDIAN = 18761 };
+enum { MDI_LITTLEENDIAN = 20549 };
+enum { MDI_BIGENDIAN = 17744 };
+/* #define TIFF_GCC_DEPRECATED __attribute__((deprecated)) ### string, not number "__attribute__((deprecated))" */
+enum { TIFF_MSC_DEPRECATED = 1 };
+typedef int8_t int8 __attribute__((deprecated));
+typedef uint8_t uint8 __attribute__((deprecated));
+typedef int16_t int16 __attribute__((deprecated));
+typedef uint16_t uint16 __attribute__((deprecated));
+typedef int32_t int32 __attribute__((deprecated));
+typedef uint32_t uint32 __attribute__((deprecated));
+typedef int64_t int64 __attribute__((deprecated));
+typedef uint64_t uint64 __attribute__((deprecated));
 typedef int uint16_vap;
-typedef struct { uint16 tiff_magic;
-uint16 tiff_version;
+typedef struct { uint16_t tiff_magic;
+uint16_t tiff_version;
 } TIFFHeaderCommon;
-typedef struct { uint16 tiff_magic;
-uint16 tiff_version;
-uint32 tiff_diroff;
+typedef struct { uint16_t tiff_magic;
+uint16_t tiff_version;
+uint32_t tiff_diroff;
 } TIFFHeaderClassic;
-typedef struct { uint16 tiff_magic;
-uint16 tiff_version;
-uint16 tiff_offsetsize;
-uint16 tiff_unused;
-uint64 tiff_diroff;
+typedef struct { uint16_t tiff_magic;
+uint16_t tiff_version;
+uint16_t tiff_offsetsize;
+uint16_t tiff_unused;
+uint64_t tiff_diroff;
 } TIFFHeaderBig;
 typedef enum { TIFF_NOTYPE = 0, TIFF_BYTE = 1, TIFF_ASCII = 2, TIFF_SHORT = 3, TIFF_LONG = 4, TIFF_RATIONAL = 5, TIFF_SBYTE = 6, TIFF_UNDEFINED = 7, TIFF_SSHORT = 8, TIFF_SLONG = 9, TIFF_SRATIONAL = 10, TIFF_FLOAT = 11, TIFF_DOUBLE = 12, TIFF_IFD = 13, TIFF_LONG8 = 16, TIFF_SLONG8 = 17, TIFF_IFD8 = 18 } TIFFDataType;
 enum { TIFFTAG_SUBFILETYPE = 254 };
-enum { FILETYPE_REDUCEDIMAGE = 0x1 };
-enum { FILETYPE_PAGE = 0x2 };
-enum { FILETYPE_MASK = 0x4 };
+enum { FILETYPE_REDUCEDIMAGE = 1 };
+enum { FILETYPE_PAGE = 2 };
+enum { FILETYPE_MASK = 4 };
 enum { TIFFTAG_OSUBFILETYPE = 255 };
 enum { OFILETYPE_IMAGE = 1 };
 enum { OFILETYPE_REDUCEDIMAGE = 2 };
@@ -94,6 +289,7 @@ enum { COMPRESSION_LERC = 34887 };
 enum { COMPRESSION_LZMA = 34925 };
 enum { COMPRESSION_ZSTD = 50000 };
 enum { COMPRESSION_WEBP = 50001 };
+enum { COMPRESSION_JXL = 50002 };
 enum { TIFFTAG_PHOTOMETRIC = 262 };
 enum { PHOTOMETRIC_MINISWHITE = 0 };
 enum { PHOTOMETRIC_MINISBLACK = 1 };
@@ -155,12 +351,12 @@ enum { GRAYRESPONSEUNIT_100000S = 5 };
 enum { TIFFTAG_GRAYRESPONSECURVE = 291 };
 enum { TIFFTAG_GROUP3OPTIONS = 292 };
 enum { TIFFTAG_T4OPTIONS = 292 };
-enum { GROUP3OPT_2DENCODING = 0x1 };
-enum { GROUP3OPT_UNCOMPRESSED = 0x2 };
-enum { GROUP3OPT_FILLBITS = 0x4 };
+enum { GROUP3OPT_2DENCODING = 1 };
+enum { GROUP3OPT_UNCOMPRESSED = 2 };
+enum { GROUP3OPT_FILLBITS = 4 };
 enum { TIFFTAG_GROUP4OPTIONS = 293 };
 enum { TIFFTAG_T6OPTIONS = 293 };
-enum { GROUP4OPT_UNCOMPRESSED = 0x2 };
+enum { GROUP4OPT_UNCOMPRESSED = 2 };
 enum { TIFFTAG_RESOLUTIONUNIT = 296 };
 enum { RESUNIT_NONE = 1 };
 enum { RESUNIT_INCH = 2 };
@@ -234,6 +430,12 @@ enum { FAXPROFILE_C = 4 };
 enum { FAXPROFILE_L = 5 };
 enum { FAXPROFILE_M = 6 };
 enum { TIFFTAG_CODINGMETHODS = 403 };
+enum { CODINGMETHODS_T4_1D = 2 };
+enum { CODINGMETHODS_T4_2D = 4 };
+enum { CODINGMETHODS_T6 = 8 };
+enum { CODINGMETHODS_T85 = 16 };
+enum { CODINGMETHODS_T42 = 32 };
+enum { CODINGMETHODS_T43 = 64 };
 enum { TIFFTAG_VERSIONYEAR = 404 };
 enum { TIFFTAG_MODENUMBER = 405 };
 enum { TIFFTAG_DECODE = 433 };
@@ -259,6 +461,7 @@ enum { TIFFTAG_REFERENCEBLACKWHITE = 532 };
 enum { TIFFTAG_STRIPROWCOUNTS = 559 };
 enum { TIFFTAG_XMLPACKET = 700 };
 enum { TIFFTAG_OPIIMAGEID = 32781 };
+enum { TIFFTAG_TIFFANNOTATIONDATA = 32932 };
 enum { TIFFTAG_REFPTS = 32953 };
 enum { TIFFTAG_REGIONTACKPOINT = 32954 };
 enum { TIFFTAG_REGIONWARPCORNERS = 32955 };
@@ -278,7 +481,19 @@ enum { TIFFTAG_WRITERSERIALNUMBER = 33405 };
 enum { TIFFTAG_CFAREPEATPATTERNDIM = 33421 };
 enum { TIFFTAG_CFAPATTERN = 33422 };
 enum { TIFFTAG_COPYRIGHT = 33432 };
+enum { TIFFTAG_MD_FILETAG = 33445 };
+enum { TIFFTAG_MD_SCALEPIXEL = 33446 };
+enum { TIFFTAG_MD_COLORTABLE = 33447 };
+enum { TIFFTAG_MD_LABNAME = 33448 };
+enum { TIFFTAG_MD_SAMPLEINFO = 33449 };
+enum { TIFFTAG_MD_PREPDATE = 33450 };
+enum { TIFFTAG_MD_PREPTIME = 33451 };
+enum { TIFFTAG_MD_FILEUNITS = 33452 };
 enum { TIFFTAG_RICHTIFFIPTC = 33723 };
+enum { TIFFTAG_INGR_PACKET_DATA_TAG = 33918 };
+enum { TIFFTAG_INGR_FLAG_REGISTERS = 33919 };
+enum { TIFFTAG_IRASB_TRANSORMATION_MATRIX = 33920 };
+enum { TIFFTAG_MODELTIEPOINTTAG = 33922 };
 enum { TIFFTAG_IT8SITE = 34016 };
 enum { TIFFTAG_IT8COLORSEQUENCE = 34017 };
 enum { TIFFTAG_IT8HEADER = 34018 };
@@ -297,6 +512,7 @@ enum { TIFFTAG_IT8HCUSAGE = 34030 };
 enum { TIFFTAG_IT8TRAPINDICATOR = 34031 };
 enum { TIFFTAG_IT8CMYKEQUIVALENT = 34032 };
 enum { TIFFTAG_FRAMECOUNT = 34232 };
+enum { TIFFTAG_MODELTRANSFORMATIONTAG = 34264 };
 enum { TIFFTAG_PHOTOSHOP = 34377 };
 enum { TIFFTAG_EXIFIFD = 34665 };
 enum { TIFFTAG_ICCPROFILE = 34675 };
@@ -309,7 +525,14 @@ enum { TIFFTAG_FAXRECVTIME = 34910 };
 enum { TIFFTAG_FAXDCS = 34911 };
 enum { TIFFTAG_STONITS = 37439 };
 enum { TIFFTAG_FEDEX_EDR = 34929 };
+enum { TIFFTAG_IMAGESOURCEDATA = 37724 };
 enum { TIFFTAG_INTEROPERABILITYIFD = 40965 };
+enum { TIFFTAG_GDAL_METADATA = 42112 };
+enum { TIFFTAG_GDAL_NODATA = 42113 };
+enum { TIFFTAG_OCE_SCANJOB_DESCRIPTION = 50215 };
+enum { TIFFTAG_OCE_APPLICATION_SELECTOR = 50216 };
+enum { TIFFTAG_OCE_IDENTIFICATION_NUMBER = 50217 };
+enum { TIFFTAG_OCE_IMAGELOGIC_CHARACTERISTICS = 50218 };
 enum { TIFFTAG_LERC_PARAMETERS = 50674 };
 enum { TIFFTAG_DNGVERSION = 50706 };
 enum { TIFFTAG_DNGBACKWARDVERSION = 50707 };
@@ -359,21 +582,26 @@ enum { TIFFTAG_ASSHOTICCPROFILE = 50831 };
 enum { TIFFTAG_ASSHOTPREPROFILEMATRIX = 50832 };
 enum { TIFFTAG_CURRENTICCPROFILE = 50833 };
 enum { TIFFTAG_CURRENTPREPROFILEMATRIX = 50834 };
+enum { TIFFTAG_RPCCOEFFICIENT = 50844 };
+enum { TIFFTAG_ALIAS_LAYER_METADATA = 50784 };
+enum { TIFFTAG_TIFF_RSID = 50908 };
+enum { TIFFTAG_GEO_METADATA = 50909 };
+enum { TIFFTAG_EXTRACAMERAPROFILES = 50933 };
 enum { TIFFTAG_DCSHUESHIFTVALUES = 65535 };
 enum { TIFFTAG_FAXMODE = 65536 };
-enum { FAXMODE_CLASSIC = 0x0000 };
-enum { FAXMODE_NORTC = 0x0001 };
-enum { FAXMODE_NOEOL = 0x0002 };
-enum { FAXMODE_BYTEALIGN = 0x0004 };
-enum { FAXMODE_WORDALIGN = 0x0008 };
-enum { FAXMODE_CLASSF = 0x0001 };
+enum { FAXMODE_CLASSIC = 0 };
+enum { FAXMODE_NORTC = 1 };
+enum { FAXMODE_NOEOL = 2 };
+enum { FAXMODE_BYTEALIGN = 4 };
+enum { FAXMODE_WORDALIGN = 8 };
+enum { FAXMODE_CLASSF = 1 };
 enum { TIFFTAG_JPEGQUALITY = 65537 };
 enum { TIFFTAG_JPEGCOLORMODE = 65538 };
-enum { JPEGCOLORMODE_RAW = 0x0000 };
-enum { JPEGCOLORMODE_RGB = 0x0001 };
+enum { JPEGCOLORMODE_RAW = 0 };
+enum { JPEGCOLORMODE_RGB = 1 };
 enum { TIFFTAG_JPEGTABLESMODE = 65539 };
-enum { JPEGTABLESMODE_QUANT = 0x0001 };
-enum { JPEGTABLESMODE_HUFF = 0x0002 };
+enum { JPEGTABLESMODE_QUANT = 1 };
+enum { JPEGTABLESMODE_HUFF = 2 };
 enum { TIFFTAG_FAXFILLFUNC = 65540 };
 enum { TIFFTAG_PIXARLOGDATAFMT = 65549 };
 enum { PIXARLOGDATAFMT_8BIT = 0 };
@@ -391,8 +619,8 @@ enum { DCSIMAGERFILTER_MONO = 1 };
 enum { DCSIMAGERFILTER_CFA = 2 };
 enum { DCSIMAGERFILTER_OTHER = 3 };
 enum { TIFFTAG_DCSINTERPMODE = 65551 };
-enum { DCSINTERPMODE_NORMAL = 0x0 };
-enum { DCSINTERPMODE_PREVIEW = 0x1 };
+enum { DCSINTERPMODE_NORMAL = 0 };
+enum { DCSINTERPMODE_PREVIEW = 1 };
 enum { TIFFTAG_DCSBALANCEARRAY = 65552 };
 enum { TIFFTAG_DCSCORRECTMATRIX = 65553 };
 enum { TIFFTAG_DCSGAMMA = 65554 };
@@ -423,11 +651,15 @@ enum { LERC_ADD_COMPRESSION_ZSTD = 2 };
 enum { TIFFTAG_LERC_MAXZERROR = 65567 };
 enum { TIFFTAG_WEBP_LEVEL = 65568 };
 enum { TIFFTAG_WEBP_LOSSLESS = 65569 };
+enum { TIFFTAG_DEFLATE_SUBCODEC = 65570 };
+enum { DEFLATE_SUBCODEC_ZLIB = 0 };
+enum { DEFLATE_SUBCODEC_LIBDEFLATE = 1 };
 enum { EXIFTAG_EXPOSURETIME = 33434 };
 enum { EXIFTAG_FNUMBER = 33437 };
 enum { EXIFTAG_EXPOSUREPROGRAM = 34850 };
 enum { EXIFTAG_SPECTRALSENSITIVITY = 34852 };
 enum { EXIFTAG_ISOSPEEDRATINGS = 34855 };
+enum { EXIFTAG_PHOTOGRAPHICSENSITIVITY = 34855 };
 enum { EXIFTAG_OECF = 34856 };
 enum { EXIFTAG_EXIFVERSION = 36864 };
 enum { EXIFTAG_DATETIMEORIGINAL = 36867 };
@@ -479,37 +711,102 @@ enum { EXIFTAG_SHARPNESS = 41994 };
 enum { EXIFTAG_DEVICESETTINGDESCRIPTION = 41995 };
 enum { EXIFTAG_SUBJECTDISTANCERANGE = 41996 };
 enum { EXIFTAG_IMAGEUNIQUEID = 42016 };
+enum { EXIFTAG_SENSITIVITYTYPE = 34864 };
+enum { EXIFTAG_STANDARDOUTPUTSENSITIVITY = 34865 };
+enum { EXIFTAG_RECOMMENDEDEXPOSUREINDEX = 34866 };
+enum { EXIFTAG_ISOSPEED = 34867 };
+enum { EXIFTAG_ISOSPEEDLATITUDEYYY = 34868 };
+enum { EXIFTAG_ISOSPEEDLATITUDEZZZ = 34869 };
+enum { EXIFTAG_OFFSETTIME = 36880 };
+enum { EXIFTAG_OFFSETTIMEORIGINAL = 36881 };
+enum { EXIFTAG_OFFSETTIMEDIGITIZED = 36882 };
+enum { EXIFTAG_TEMPERATURE = 37888 };
+enum { EXIFTAG_HUMIDITY = 37889 };
+enum { EXIFTAG_PRESSURE = 37890 };
+enum { EXIFTAG_WATERDEPTH = 37891 };
+enum { EXIFTAG_ACCELERATION = 37892 };
+enum { EXIFTAG_CAMERAELEVATIONANGLE = 37893 };
+enum { EXIFTAG_CAMERAOWNERNAME = 42032 };
+enum { EXIFTAG_BODYSERIALNUMBER = 42033 };
+enum { EXIFTAG_LENSSPECIFICATION = 42034 };
+enum { EXIFTAG_LENSMAKE = 42035 };
+enum { EXIFTAG_LENSMODEL = 42036 };
+enum { EXIFTAG_LENSSERIALNUMBER = 42037 };
+enum { EXIFTAG_GAMMA = 42240 };
+enum { EXIFTAG_COMPOSITEIMAGE = 42080 };
+enum { EXIFTAG_SOURCEIMAGENUMBEROFCOMPOSITEIMAGE = 42081 };
+enum { EXIFTAG_SOURCEEXPOSURETIMESOFCOMPOSITEIMAGE = 42082 };
+enum { GPSTAG_VERSIONID = 0 };
+enum { GPSTAG_LATITUDEREF = 1 };
+enum { GPSTAG_LATITUDE = 2 };
+enum { GPSTAG_LONGITUDEREF = 3 };
+enum { GPSTAG_LONGITUDE = 4 };
+enum { GPSTAG_ALTITUDEREF = 5 };
+enum { GPSTAG_ALTITUDE = 6 };
+enum { GPSTAG_TIMESTAMP = 7 };
+enum { GPSTAG_SATELLITES = 8 };
+enum { GPSTAG_STATUS = 9 };
+enum { GPSTAG_MEASUREMODE = 10 };
+enum { GPSTAG_DOP = 11 };
+enum { GPSTAG_SPEEDREF = 12 };
+enum { GPSTAG_SPEED = 13 };
+enum { GPSTAG_TRACKREF = 14 };
+enum { GPSTAG_TRACK = 15 };
+enum { GPSTAG_IMGDIRECTIONREF = 16 };
+enum { GPSTAG_IMGDIRECTION = 17 };
+enum { GPSTAG_MAPDATUM = 18 };
+enum { GPSTAG_DESTLATITUDEREF = 19 };
+enum { GPSTAG_DESTLATITUDE = 20 };
+enum { GPSTAG_DESTLONGITUDEREF = 21 };
+enum { GPSTAG_DESTLONGITUDE = 22 };
+enum { GPSTAG_DESTBEARINGREF = 23 };
+enum { GPSTAG_DESTBEARING = 24 };
+enum { GPSTAG_DESTDISTANCEREF = 25 };
+enum { GPSTAG_DESTDISTANCE = 26 };
+enum { GPSTAG_PROCESSINGMETHOD = 27 };
+enum { GPSTAG_AREAINFORMATION = 28 };
+enum { GPSTAG_DATESTAMP = 29 };
+enum { GPSTAG_DIFFERENTIAL = 30 };
+enum { GPSTAG_GPSHPOSITIONINGERROR = 31 };
 /* END /usr/include/x86_64-1-gnu/tiff.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/tiffvers.h */
-enum { TIFFLIB_VERSION = 20191103 };
+/* #define TIFFLIB_VERSION_STR "LIBTIFF, Version 4.3.0\nCopyright (c) 1988-1996 Sam Leffler\nCopyright (c) 1991-1996 Silicon Graphics, Inc." ### string, not number "\"LIBTIFF, Version 4.3.0\\nCopyright (c) 1988-1996 Sam Leffler\\nCopyright (c) 1991-1996 Silicon Graphics, Inc.\"" */
+enum { TIFFLIB_VERSION = 20210416 };
 /* END /usr/include/x86_64-1-gnu/tiffvers.h */
 typedef struct tiff TIFF;
-typedef signed long tmsize_t;
-typedef uint64 toff_t;
-typedef uint32 ttag_t;
-typedef uint16 tdir_t;
-typedef uint16 tsample_t;
-typedef uint32 tstrile_t;
+typedef int64_t tmsize_t;
+/* #define TIFF_TMSIZE_T_MAX (tmsize_t)(SIZE_MAX >> 1) ### string, not number "(tmsize_t)(SIZE_MAX >> 1)" */
+typedef uint64_t toff_t;
+typedef uint32_t ttag_t;
+typedef uint16_t tdir_t;
+typedef uint16_t tsample_t;
+typedef uint32_t tstrile_t;
 typedef tstrile_t tstrip_t;
 typedef tstrile_t ttile_t;
 typedef tmsize_t tsize_t;
 typedef void* tdata_t;
 typedef void* thandle_t;
-enum { TIFFPRINT_NONE = 0x0 };
-enum { TIFFPRINT_STRIPS = 0x1 };
-enum { TIFFPRINT_CURVES = 0x2 };
-enum { TIFFPRINT_COLORMAP = 0x4 };
-enum { TIFFPRINT_JPEGQTABLES = 0x100 };
-enum { TIFFPRINT_JPEGACTABLES = 0x200 };
-enum { TIFFPRINT_JPEGDCTABLES = 0x200 };
+enum { TIFFPRINT_NONE = 0 };
+enum { TIFFPRINT_STRIPS = 1 };
+enum { TIFFPRINT_CURVES = 2 };
+enum { TIFFPRINT_COLORMAP = 4 };
+enum { TIFFPRINT_JPEGQTABLES = 256 };
+enum { TIFFPRINT_JPEGACTABLES = 512 };
+enum { TIFFPRINT_JPEGDCTABLES = 512 };
+/* #define D65_X0 (95.0470F) ### string, not number "(95.0470F)" */
+/* #define D65_Y0 (100.0F) ### string, not number "(100.0F)" */
+/* #define D65_Z0 (108.8827F) ### string, not number "(108.8827F)" */
+/* #define D50_X0 (96.4250F) ### string, not number "(96.4250F)" */
+/* #define D50_Y0 (100.0F) ### string, not number "(100.0F)" */
+/* #define D50_Z0 (82.4680F) ### string, not number "(82.4680F)" */
 typedef unsigned char TIFFRGBValue;
 typedef struct { float d_mat[3][3];
 float d_YCR;
 float d_YCG;
 float d_YCB;
-uint32 d_Vrwr;
-uint32 d_Vrwg;
-uint32 d_Vrwb;
+uint32_t d_Vrwr;
+uint32_t d_Vrwg;
+uint32_t d_Vrwb;
 float d_Y0R;
 float d_Y0G;
 float d_Y0B;
@@ -520,9 +817,9 @@ float d_gammaB;
 typedef struct { TIFFRGBValue* clamptab;
 int* Cr_r_tab;
 int* Cb_b_tab;
-int32* Cr_g_tab;
-int32* Cb_g_tab;
-int32* Y_tab;
+int32_t* Cr_g_tab;
+int32_t* Cb_g_tab;
+int32_t* Y_tab;
 } TIFFYCbCrToRGB;
 typedef struct { int range;
 enum { CIELABTORGB_TABLE_RANGE = 1500 };
@@ -534,40 +831,40 @@ float Yg2g[1500 + 1];
 float Yb2b[1500 + 1];
 } TIFFCIELabToRGB;
 typedef struct _TIFFRGBAImage TIFFRGBAImage;
-typedef void (*tileContigRoutine) (TIFFRGBAImage*, uint32*, uint32, uint32, uint32, uint32, int32, int32, unsigned char*);
-typedef void (*tileSeparateRoutine) (TIFFRGBAImage*, uint32*, uint32, uint32, uint32, uint32, int32, int32, unsigned char*, unsigned char*, unsigned char*, unsigned char*);
+typedef void (*tileContigRoutine) (TIFFRGBAImage*, uint32_t*, uint32_t, uint32_t, uint32_t, uint32_t, int32_t, int32_t, unsigned char*);
+typedef void (*tileSeparateRoutine) (TIFFRGBAImage*, uint32_t*, uint32_t, uint32_t, uint32_t, uint32_t, int32_t, int32_t, unsigned char*, unsigned char*, unsigned char*, unsigned char*);
 struct _TIFFRGBAImage { TIFF* tif;
 int stoponerr;
 int isContig;
 int alpha;
-uint32 width;
-uint32 height;
-uint16 bitspersample;
-uint16 samplesperpixel;
-uint16 orientation;
-uint16 req_orientation;
-uint16 photometric;
-uint16* redcmap;
-uint16* greencmap;
-uint16* bluecmap;
-int (*get)(TIFFRGBAImage*, uint32*, uint32, uint32);
+uint32_t width;
+uint32_t height;
+uint16_t bitspersample;
+uint16_t samplesperpixel;
+uint16_t orientation;
+uint16_t req_orientation;
+uint16_t photometric;
+uint16_t* redcmap;
+uint16_t* greencmap;
+uint16_t* bluecmap;
+int (*get)(TIFFRGBAImage*, uint32_t*, uint32_t, uint32_t);
 union { void (*any)(TIFFRGBAImage*);
 tileContigRoutine contig;
 tileSeparateRoutine separate;
 } put;
 TIFFRGBValue* Map;
-uint32** BWmap;
-uint32** PALmap;
+uint32_t** BWmap;
+uint32_t** PALmap;
 TIFFYCbCrToRGB* ycbcr;
 TIFFCIELabToRGB* cielab;
-uint8* UaToAa;
-uint8* Bitdepth16To8;
+uint8_t* UaToAa;
+uint8_t* Bitdepth16To8;
 int row_offset;
 int col_offset;
 };
 typedef int (*TIFFInitMethod)(TIFF*, int);
 typedef struct { char* name;
-uint16 scheme;
+uint16_t scheme;
 TIFFInitMethod init;
 } TIFFCodec;
 /* BEGIN /usr/include/stdio.h */
@@ -587,10 +884,10 @@ typedef int (*TIFFMapFileProc)(thandle_t, void** base, toff_t* size);
 typedef void (*TIFFUnmapFileProc)(thandle_t, void* base, toff_t size);
 typedef void (*TIFFExtendProc)(TIFF*);
 extern const char* TIFFGetVersion(void);
-extern const TIFFCodec* TIFFFindCODEC(uint16);
-extern TIFFCodec* TIFFRegisterCODEC(uint16, const char*, TIFFInitMethod);
+extern const TIFFCodec* TIFFFindCODEC(uint16_t);
+extern TIFFCodec* TIFFRegisterCODEC(uint16_t, const char*, TIFFInitMethod);
 extern void TIFFUnRegisterCODEC(TIFFCodec*);
-extern int TIFFIsCODECConfigured(uint16);
+extern int TIFFIsCODECConfigured(uint16_t);
 extern TIFFCodec* TIFFGetConfiguredCODECs(void);
 extern void* _TIFFmalloc(tmsize_t s);
 extern void* _TIFFcalloc(tmsize_t nmemb, tmsize_t siz);
@@ -600,24 +897,25 @@ extern void _TIFFmemcpy(void* d, const void* s, tmsize_t c);
 extern int _TIFFmemcmp(const void* p1, const void* p2, tmsize_t c);
 extern void _TIFFfree(void* p);
 extern int TIFFGetTagListCount( TIFF * );
-extern uint32 TIFFGetTagListEntry( TIFF *, int tag_index );
+extern uint32_t TIFFGetTagListEntry(TIFF *, int tag_index );
+enum { TIFF_ANY = 0 };
 enum { TIFF_VARIABLE = -1 };
 enum { TIFF_SPP = -2 };
 enum { TIFF_VARIABLE2 = -3 };
 enum { FIELD_CUSTOM = 65 };
 typedef struct _TIFFField TIFFField;
 typedef struct _TIFFFieldArray TIFFFieldArray;
-extern const TIFFField* TIFFFindField(TIFF *, uint32, TIFFDataType);
-extern const TIFFField* TIFFFieldWithTag(TIFF*, uint32);
+extern const TIFFField* TIFFFindField(TIFF *, uint32_t, TIFFDataType);
+extern const TIFFField* TIFFFieldWithTag(TIFF*, uint32_t);
 extern const TIFFField* TIFFFieldWithName(TIFF*, const char *);
-extern uint32 TIFFFieldTag(const TIFFField*);
+extern uint32_t TIFFFieldTag(const TIFFField*);
 extern const char* TIFFFieldName(const TIFFField*);
 extern TIFFDataType TIFFFieldDataType(const TIFFField*);
 extern int TIFFFieldPassCount(const TIFFField*);
 extern int TIFFFieldReadCount(const TIFFField*);
 extern int TIFFFieldWriteCount(const TIFFField*);
-typedef int (*TIFFVSetMethod)(TIFF*, uint32, va_list);
-typedef int (*TIFFVGetMethod)(TIFF*, uint32, va_list);
+typedef int (*TIFFVSetMethod)(TIFF*, uint32_t, va_list);
+typedef int (*TIFFVGetMethod)(TIFF*, uint32_t, va_list);
 typedef void (*TIFFPrintMethod)(TIFF*, FILE*, long);
 typedef struct { TIFFVSetMethod vsetfield;
 TIFFVGetMethod vgetfield;
@@ -630,31 +928,32 @@ extern void TIFFCleanup(TIFF* tif);
 extern void TIFFClose(TIFF* tif);
 extern int TIFFFlush(TIFF* tif);
 extern int TIFFFlushData(TIFF* tif);
-extern int TIFFGetField(TIFF* tif, uint32 tag, ...);
-extern int TIFFVGetField(TIFF* tif, uint32 tag, va_list ap);
-extern int TIFFGetFieldDefaulted(TIFF* tif, uint32 tag, ...);
-extern int TIFFVGetFieldDefaulted(TIFF* tif, uint32 tag, va_list ap);
+extern int TIFFGetField(TIFF* tif, uint32_t tag, ...);
+extern int TIFFVGetField(TIFF* tif, uint32_t tag, va_list ap);
+extern int TIFFGetFieldDefaulted(TIFF* tif, uint32_t tag, ...);
+extern int TIFFVGetFieldDefaulted(TIFF* tif, uint32_t tag, va_list ap);
 extern int TIFFReadDirectory(TIFF* tif);
 extern int TIFFReadCustomDirectory(TIFF* tif, toff_t diroff, const TIFFFieldArray* infoarray);
 extern int TIFFReadEXIFDirectory(TIFF* tif, toff_t diroff);
-extern uint64 TIFFScanlineSize64(TIFF* tif);
+extern int TIFFReadGPSDirectory(TIFF* tif, toff_t diroff);
+extern uint64_t TIFFScanlineSize64(TIFF* tif);
 extern tmsize_t TIFFScanlineSize(TIFF* tif);
-extern uint64 TIFFRasterScanlineSize64(TIFF* tif);
+extern uint64_t TIFFRasterScanlineSize64(TIFF* tif);
 extern tmsize_t TIFFRasterScanlineSize(TIFF* tif);
-extern uint64 TIFFStripSize64(TIFF* tif);
+extern uint64_t TIFFStripSize64(TIFF* tif);
 extern tmsize_t TIFFStripSize(TIFF* tif);
-extern uint64 TIFFRawStripSize64(TIFF* tif, uint32 strip);
-extern tmsize_t TIFFRawStripSize(TIFF* tif, uint32 strip);
-extern uint64 TIFFVStripSize64(TIFF* tif, uint32 nrows);
-extern tmsize_t TIFFVStripSize(TIFF* tif, uint32 nrows);
-extern uint64 TIFFTileRowSize64(TIFF* tif);
+extern uint64_t TIFFRawStripSize64(TIFF* tif, uint32_t strip);
+extern tmsize_t TIFFRawStripSize(TIFF* tif, uint32_t strip);
+extern uint64_t TIFFVStripSize64(TIFF* tif, uint32_t nrows);
+extern tmsize_t TIFFVStripSize(TIFF* tif, uint32_t nrows);
+extern uint64_t TIFFTileRowSize64(TIFF* tif);
 extern tmsize_t TIFFTileRowSize(TIFF* tif);
-extern uint64 TIFFTileSize64(TIFF* tif);
+extern uint64_t TIFFTileSize64(TIFF* tif);
 extern tmsize_t TIFFTileSize(TIFF* tif);
-extern uint64 TIFFVTileSize64(TIFF* tif, uint32 nrows);
-extern tmsize_t TIFFVTileSize(TIFF* tif, uint32 nrows);
-extern uint32 TIFFDefaultStripSize(TIFF* tif, uint32 request);
-extern void TIFFDefaultTileSize(TIFF*, uint32*, uint32*);
+extern uint64_t TIFFVTileSize64(TIFF* tif, uint32_t nrows);
+extern tmsize_t TIFFVTileSize(TIFF* tif, uint32_t nrows);
+extern uint32_t TIFFDefaultStripSize(TIFF* tif, uint32_t request);
+extern void TIFFDefaultTileSize(TIFF*, uint32_t*, uint32_t*);
 extern int TIFFFileno(TIFF*);
 extern int TIFFSetFileno(TIFF*, int);
 extern thandle_t TIFFClientdata(TIFF*);
@@ -673,12 +972,12 @@ extern TIFFCloseProc TIFFGetCloseProc(TIFF*);
 extern TIFFSizeProc TIFFGetSizeProc(TIFF*);
 extern TIFFMapFileProc TIFFGetMapFileProc(TIFF*);
 extern TIFFUnmapFileProc TIFFGetUnmapFileProc(TIFF*);
-extern uint32 TIFFCurrentRow(TIFF*);
-extern uint16 TIFFCurrentDirectory(TIFF*);
-extern uint16 TIFFNumberOfDirectories(TIFF*);
-extern uint64 TIFFCurrentDirOffset(TIFF*);
-extern uint32 TIFFCurrentStrip(TIFF*);
-extern uint32 TIFFCurrentTile(TIFF* tif);
+extern uint32_t TIFFCurrentRow(TIFF*);
+extern uint16_t TIFFCurrentDirectory(TIFF*);
+extern uint16_t TIFFNumberOfDirectories(TIFF*);
+extern uint64_t TIFFCurrentDirOffset(TIFF*);
+extern uint32_t TIFFCurrentStrip(TIFF*);
+extern uint32_t TIFFCurrentTile(TIFF* tif);
 extern int TIFFReadBufferSetup(TIFF* tif, void* bp, tmsize_t size);
 extern int TIFFWriteBufferSetup(TIFF* tif, void* bp, tmsize_t size);
 extern int TIFFSetupStrips(TIFF *);
@@ -687,31 +986,32 @@ extern void TIFFFreeDirectory(TIFF*);
 extern int TIFFCreateDirectory(TIFF*);
 extern int TIFFCreateCustomDirectory(TIFF*,const TIFFFieldArray*);
 extern int TIFFCreateEXIFDirectory(TIFF*);
+extern int TIFFCreateGPSDirectory(TIFF*);
 extern int TIFFLastDirectory(TIFF*);
-extern int TIFFSetDirectory(TIFF*, uint16);
-extern int TIFFSetSubDirectory(TIFF*, uint64);
-extern int TIFFUnlinkDirectory(TIFF*, uint16);
-extern int TIFFSetField(TIFF*, uint32, ...);
-extern int TIFFVSetField(TIFF*, uint32, va_list);
-extern int TIFFUnsetField(TIFF*, uint32);
+extern int TIFFSetDirectory(TIFF*, uint16_t);
+extern int TIFFSetSubDirectory(TIFF*, uint64_t);
+extern int TIFFUnlinkDirectory(TIFF*, uint16_t);
+extern int TIFFSetField(TIFF*, uint32_t, ...);
+extern int TIFFVSetField(TIFF*, uint32_t, va_list);
+extern int TIFFUnsetField(TIFF*, uint32_t);
 extern int TIFFWriteDirectory(TIFF *);
-extern int TIFFWriteCustomDirectory(TIFF *, uint64 *);
+extern int TIFFWriteCustomDirectory(TIFF *, uint64_t *);
 extern int TIFFCheckpointDirectory(TIFF *);
 extern int TIFFRewriteDirectory(TIFF *);
 extern int TIFFDeferStrileArrayWriting(TIFF *);
 extern int TIFFForceStrileArrayWriting(TIFF* );
 extern void TIFFPrintDirectory(TIFF*, FILE*, long);
-extern int TIFFReadScanline(TIFF* tif, void* buf, uint32 row, uint16 sample);
-extern int TIFFWriteScanline(TIFF* tif, void* buf, uint32 row, uint16 sample);
-extern int TIFFReadRGBAImage(TIFF*, uint32, uint32, uint32*, int);
-extern int TIFFReadRGBAImageOriented(TIFF*, uint32, uint32, uint32*, int, int);
-extern int TIFFReadRGBAStrip(TIFF*, uint32, uint32 * );
-extern int TIFFReadRGBATile(TIFF*, uint32, uint32, uint32 * );
-extern int TIFFReadRGBAStripExt(TIFF*, uint32, uint32 *, int stop_on_error );
-extern int TIFFReadRGBATileExt(TIFF*, uint32, uint32, uint32 *, int stop_on_error );
+extern int TIFFReadScanline(TIFF* tif, void* buf, uint32_t row, uint16_t sample);
+extern int TIFFWriteScanline(TIFF* tif, void* buf, uint32_t row, uint16_t sample);
+extern int TIFFReadRGBAImage(TIFF*, uint32_t, uint32_t, uint32_t*, int);
+extern int TIFFReadRGBAImageOriented(TIFF*, uint32_t, uint32_t, uint32_t*, int, int);
+extern int TIFFReadRGBAStrip(TIFF*, uint32_t, uint32_t * );
+extern int TIFFReadRGBATile(TIFF*, uint32_t, uint32_t, uint32_t * );
+extern int TIFFReadRGBAStripExt(TIFF*, uint32_t, uint32_t *, int stop_on_error );
+extern int TIFFReadRGBATileExt(TIFF*, uint32_t, uint32_t, uint32_t *, int stop_on_error );
 extern int TIFFRGBAImageOK(TIFF*, char [1024]);
 extern int TIFFRGBAImageBegin(TIFFRGBAImage*, TIFF*, int, char [1024]);
-extern int TIFFRGBAImageGet(TIFFRGBAImage*, uint32*, uint32, uint32);
+extern int TIFFRGBAImageGet(TIFFRGBAImage*, uint32_t*, uint32_t, uint32_t);
 extern void TIFFRGBAImageEnd(TIFFRGBAImage*);
 extern TIFF* TIFFOpen(const char*, const char*);
 extern TIFF* TIFFFdOpen(int, const char*, const char*);
@@ -727,60 +1027,60 @@ extern TIFFErrorHandlerExt TIFFSetErrorHandlerExt(TIFFErrorHandlerExt);
 extern TIFFErrorHandler TIFFSetWarningHandler(TIFFErrorHandler);
 extern TIFFErrorHandlerExt TIFFSetWarningHandlerExt(TIFFErrorHandlerExt);
 extern TIFFExtendProc TIFFSetTagExtender(TIFFExtendProc);
-extern uint32 TIFFComputeTile(TIFF* tif, uint32 x, uint32 y, uint32 z, uint16 s);
-extern int TIFFCheckTile(TIFF* tif, uint32 x, uint32 y, uint32 z, uint16 s);
-extern uint32 TIFFNumberOfTiles(TIFF*);
-extern tmsize_t TIFFReadTile(TIFF* tif, void* buf, uint32 x, uint32 y, uint32 z, uint16 s);
-extern tmsize_t TIFFWriteTile(TIFF* tif, void* buf, uint32 x, uint32 y, uint32 z, uint16 s);
-extern uint32 TIFFComputeStrip(TIFF*, uint32, uint16);
-extern uint32 TIFFNumberOfStrips(TIFF*);
-extern tmsize_t TIFFReadEncodedStrip(TIFF* tif, uint32 strip, void* buf, tmsize_t size);
-extern tmsize_t TIFFReadRawStrip(TIFF* tif, uint32 strip, void* buf, tmsize_t size);
-extern tmsize_t TIFFReadEncodedTile(TIFF* tif, uint32 tile, void* buf, tmsize_t size);
-extern tmsize_t TIFFReadRawTile(TIFF* tif, uint32 tile, void* buf, tmsize_t size);
-extern int TIFFReadFromUserBuffer(TIFF* tif, uint32 strile, void* inbuf, tmsize_t insize, void* outbuf, tmsize_t outsize);
-extern tmsize_t TIFFWriteEncodedStrip(TIFF* tif, uint32 strip, void* data, tmsize_t cc);
-extern tmsize_t TIFFWriteRawStrip(TIFF* tif, uint32 strip, void* data, tmsize_t cc);
-extern tmsize_t TIFFWriteEncodedTile(TIFF* tif, uint32 tile, void* data, tmsize_t cc);
-extern tmsize_t TIFFWriteRawTile(TIFF* tif, uint32 tile, void* data, tmsize_t cc);
+extern uint32_t TIFFComputeTile(TIFF* tif, uint32_t x, uint32_t y, uint32_t z, uint16_t s);
+extern int TIFFCheckTile(TIFF* tif, uint32_t x, uint32_t y, uint32_t z, uint16_t s);
+extern uint32_t TIFFNumberOfTiles(TIFF*);
+extern tmsize_t TIFFReadTile(TIFF* tif, void* buf, uint32_t x, uint32_t y, uint32_t z, uint16_t s);
+extern tmsize_t TIFFWriteTile(TIFF* tif, void* buf, uint32_t x, uint32_t y, uint32_t z, uint16_t s);
+extern uint32_t TIFFComputeStrip(TIFF*, uint32_t, uint16_t);
+extern uint32_t TIFFNumberOfStrips(TIFF*);
+extern tmsize_t TIFFReadEncodedStrip(TIFF* tif, uint32_t strip, void* buf, tmsize_t size);
+extern tmsize_t TIFFReadRawStrip(TIFF* tif, uint32_t strip, void* buf, tmsize_t size);
+extern tmsize_t TIFFReadEncodedTile(TIFF* tif, uint32_t tile, void* buf, tmsize_t size);
+extern tmsize_t TIFFReadRawTile(TIFF* tif, uint32_t tile, void* buf, tmsize_t size);
+extern int TIFFReadFromUserBuffer(TIFF* tif, uint32_t strile, void* inbuf, tmsize_t insize, void* outbuf, tmsize_t outsize);
+extern tmsize_t TIFFWriteEncodedStrip(TIFF* tif, uint32_t strip, void* data, tmsize_t cc);
+extern tmsize_t TIFFWriteRawStrip(TIFF* tif, uint32_t strip, void* data, tmsize_t cc);
+extern tmsize_t TIFFWriteEncodedTile(TIFF* tif, uint32_t tile, void* data, tmsize_t cc);
+extern tmsize_t TIFFWriteRawTile(TIFF* tif, uint32_t tile, void* data, tmsize_t cc);
 extern int TIFFDataWidth(TIFFDataType);
 extern void TIFFSetWriteOffset(TIFF* tif, toff_t off);
-extern void TIFFSwabShort(uint16*);
-extern void TIFFSwabLong(uint32*);
-extern void TIFFSwabLong8(uint64*);
+extern void TIFFSwabShort(uint16_t*);
+extern void TIFFSwabLong(uint32_t*);
+extern void TIFFSwabLong8(uint64_t*);
 extern void TIFFSwabFloat(float*);
 extern void TIFFSwabDouble(double*);
-extern void TIFFSwabArrayOfShort(uint16* wp, tmsize_t n);
-extern void TIFFSwabArrayOfTriples(uint8* tp, tmsize_t n);
-extern void TIFFSwabArrayOfLong(uint32* lp, tmsize_t n);
-extern void TIFFSwabArrayOfLong8(uint64* lp, tmsize_t n);
+extern void TIFFSwabArrayOfShort(uint16_t* wp, tmsize_t n);
+extern void TIFFSwabArrayOfTriples(uint8_t* tp, tmsize_t n);
+extern void TIFFSwabArrayOfLong(uint32_t* lp, tmsize_t n);
+extern void TIFFSwabArrayOfLong8(uint64_t* lp, tmsize_t n);
 extern void TIFFSwabArrayOfFloat(float* fp, tmsize_t n);
 extern void TIFFSwabArrayOfDouble(double* dp, tmsize_t n);
-extern void TIFFReverseBits(uint8* cp, tmsize_t n);
+extern void TIFFReverseBits(uint8_t* cp, tmsize_t n);
 extern const unsigned char* TIFFGetBitRevTable(int);
-extern uint64 TIFFGetStrileOffset(TIFF *tif, uint32 strile);
-extern uint64 TIFFGetStrileByteCount(TIFF *tif, uint32 strile);
-extern uint64 TIFFGetStrileOffsetWithErr(TIFF *tif, uint32 strile, int *pbErr);
-extern uint64 TIFFGetStrileByteCountWithErr(TIFF *tif, uint32 strile, int *pbErr);
-/* #define U_NEU		0.210526316 */
-/* #define V_NEU		0.473684211 */
-/* #define UVSCALE		410. */
+extern uint64_t TIFFGetStrileOffset(TIFF *tif, uint32_t strile);
+extern uint64_t TIFFGetStrileByteCount(TIFF *tif, uint32_t strile);
+extern uint64_t TIFFGetStrileOffsetWithErr(TIFF *tif, uint32_t strile, int *pbErr);
+extern uint64_t TIFFGetStrileByteCountWithErr(TIFF *tif, uint32_t strile, int *pbErr);
+/* #define U_NEU		0.210526316 ### string, number, replaceline "0.210526316" */
+/* #define V_NEU		0.473684211 ### string, number, replaceline "0.473684211" */
+/* #define UVSCALE		410. ### string, number, replaceline "410." */
 extern double LogL16toY(int);
 extern double LogL10toY(int);
-extern void XYZtoRGB24(float*, uint8*);
+extern void XYZtoRGB24(float*, uint8_t*);
 extern int uv_decode(double*, double*, int);
-extern void LogLuv24toXYZ(uint32, float*);
-extern void LogLuv32toXYZ(uint32, float*);
+extern void LogLuv24toXYZ(uint32_t, float*);
+extern void LogLuv32toXYZ(uint32_t, float*);
 extern int LogL16fromY(double, int);
 extern int LogL10fromY(double, int);
 extern int uv_encode(double, double, int);
-extern uint32 LogLuv24fromXYZ(float*, int);
-extern uint32 LogLuv32fromXYZ(float*, int);
+extern uint32_t LogLuv24fromXYZ(float*, int);
+extern uint32_t LogLuv32fromXYZ(float*, int);
 extern int TIFFCIELabToRGBInit(TIFFCIELabToRGB*, const TIFFDisplay *, float*);
-extern void TIFFCIELabToXYZ(TIFFCIELabToRGB *, uint32, int32, int32, float *, float *, float *);
-extern void TIFFXYZToRGB(TIFFCIELabToRGB *, float, float, float, uint32 *, uint32 *, uint32 *);
+extern void TIFFCIELabToXYZ(TIFFCIELabToRGB *, uint32_t, int32_t, int32_t, float *, float *, float *);
+extern void TIFFXYZToRGB(TIFFCIELabToRGB *, float, float, float, uint32_t *, uint32_t *, uint32_t *);
 extern int TIFFYCbCrToRGBInit(TIFFYCbCrToRGB*, float*, float*);
-extern void TIFFYCbCrtoRGB(TIFFYCbCrToRGB *, uint32, int32, int32, uint32 *, uint32 *, uint32 *);
+extern void TIFFYCbCrtoRGB(TIFFYCbCrToRGB *, uint32_t, int32_t, int32_t, uint32_t *, uint32_t *, uint32_t *);
 typedef struct { ttag_t field_tag;
 short field_readcount;
 short field_writecount;
@@ -790,6 +1090,6 @@ unsigned char field_oktochange;
 unsigned char field_passcount;
 char *field_name;
 } TIFFFieldInfo;
-extern int TIFFMergeFieldInfo(TIFF*, const TIFFFieldInfo[], uint32);
+extern int TIFFMergeFieldInfo(TIFF*, const TIFFFieldInfo[], uint32_t);
 /* END /usr/include/x86_64-1-gnu/tiffio.h */
 ]]

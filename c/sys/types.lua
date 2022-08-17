@@ -29,13 +29,11 @@ typedef __nlink_t nlink_t;
 enum { __nlink_t_defined = 1 };
 typedef __uid_t uid_t;
 enum { __uid_t_defined = 1 };
-typedef __off_t off_t;
-enum { __off_t_defined = 1 };
+]] require 'ffi.c.bits.types.off_t' ffi.cdef[[
 ]] require 'ffi.c.bits.types.pid_t' ffi.cdef[[
 typedef __id_t id_t;
 enum { __id_t_defined = 1 };
-typedef __ssize_t ssize_t;
-enum { __ssize_t_defined = 1 };
+]] require 'ffi.c.bits.types.ssize_t' ffi.cdef[[
 typedef __daddr_t daddr_t;
 typedef __caddr_t caddr_t;
 enum { __daddr_t_defined = 1 };

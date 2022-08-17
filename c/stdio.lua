@@ -95,11 +95,9 @@ enum { _IO_ERR_SEEN = 32 };
 enum { _IO_USER_LOCK = 32768 };
 /* END /usr/include/x86_64-1-gnu/bits/types/struct_FILE.h */
 typedef __gnuc_va_list va_list;
-enum { _VA_LIST_DEFINED = 1 };
-typedef __off_t off_t;
-enum { __off_t_defined = 1 };
-typedef __ssize_t ssize_t;
-enum { __ssize_t_defined = 1 };
+/* enum { _VA_LIST_DEFINED = 1 }; */
+]] require 'ffi.c.bits.types.off_t' ffi.cdef[[
+]] require 'ffi.c.bits.types.ssize_t' ffi.cdef[[
 typedef __fpos_t fpos_t;
 enum { _IOFBF = 0 };
 enum { _IOLBF = 1 };
@@ -121,9 +119,9 @@ enum { FOPEN_MAX = 16 };
 extern FILE *stdin;
 extern FILE *stdout;
 extern FILE *stderr;
-enum { stdin = 0 };
-enum { stdout = 0 };
-enum { stderr = 0 };
+/* enum { stdin = 0 }; */
+/* enum { stdout = 0 }; */
+/* enum { stderr = 0 }; */
 extern int remove (const char *__filename) __attribute__ ((__nothrow__ , __leaf__));
 extern int rename (const char *__old, const char *__new) __attribute__ ((__nothrow__ , __leaf__));
 extern int renameat (int __oldfd, const char *__old, int __newfd, const char *__new) __attribute__ ((__nothrow__ , __leaf__));
@@ -158,39 +156,7 @@ extern int fscanf (FILE * __stream, const char * __format, ...);
 extern int scanf (const char * __format, ...);
 extern int sscanf (const char * __s, const char * __format, ...) __attribute__ ((__nothrow__ , __leaf__));
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/floatn.h */
-enum { _BITS_FLOATN_H = 1 };
-/* BEGIN /usr/include/features.h */
-/* END /usr/include/features.h */
-enum { __HAVE_FLOAT128 = 1 };
-enum { __HAVE_DISTINCT_FLOAT128 = 1 };
-enum { __HAVE_FLOAT64X = 1 };
-enum { __HAVE_FLOAT64X_LONG_DOUBLE = 1 };
-/* #   define __CFLOAT128 _Complex _Float128 ### string, not number "_Complex _Float128" */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/floatn-common.h */
-enum { _BITS_FLOATN_COMMON_H = 1 };
-/* BEGIN /usr/include/features.h */
-/* END /usr/include/features.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/long-double.h */
-/* redefining matching value: #define __LDOUBLE_REDIRECTS_TO_FLOAT128_ABI 0 */
-/* END /usr/include/x86_64-1-gnu/bits/long-double.h */
-enum { __HAVE_FLOAT16 = 0 };
-enum { __HAVE_FLOAT32 = 1 };
-enum { __HAVE_FLOAT64 = 1 };
-enum { __HAVE_FLOAT32X = 1 };
-enum { __HAVE_FLOAT128X = 0 };
-enum { __HAVE_DISTINCT_FLOAT16 = 0 };
-enum { __HAVE_DISTINCT_FLOAT32 = 0 };
-enum { __HAVE_DISTINCT_FLOAT64 = 0 };
-enum { __HAVE_DISTINCT_FLOAT32X = 0 };
-enum { __HAVE_DISTINCT_FLOAT64X = 0 };
-enum { __HAVE_DISTINCT_FLOAT128X = 0 };
-enum { __HAVE_FLOAT128_UNLIKE_LDBL = 1 };
-enum { __HAVE_FLOATN_NOT_TYPEDEF = 1 };
-/* #   define __CFLOAT32 _Complex _Float32 ### string, not number "_Complex _Float32" */
-/* #   define __CFLOAT64 _Complex _Float64 ### string, not number "_Complex _Float64" */
-/* #   define __CFLOAT32X _Complex _Float32x ### string, not number "_Complex _Float32x" */
-/* #   define __CFLOAT64X _Complex _Float64x ### string, not number "_Complex _Float64x" */
-/* END /usr/include/x86_64-1-gnu/bits/floatn-common.h */
+]] require 'ffi.c.bits.floatn' ffi.cdef[[
 /* END /usr/include/x86_64-1-gnu/bits/floatn.h */
 /* ### INCOMPLETE ARG MACRO ### __REDIRECT ### IN LINE ### extern int __REDIRECT (fscanf, (FILE * __stream, */
 /* ### PREPENDING ### extern int __REDIRECT (fscanf, (FILE * __stream, ### TO ### const char *__restrict __format, ...), */
