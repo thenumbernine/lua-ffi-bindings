@@ -12,6 +12,9 @@ else
 end
 ffi.cdef[[
 /* BEGIN /usr/include/png.h */
+enum { PNG_H = 1 };
+/* #define PNG_LIBPNG_VER_STRING "1.6.37" ### string, not number "\"1.6.37\"" */
+/* #define PNG_HEADER_VERSION_STRING " libpng version 1.6.37 - April 14, 2019\n" ### string, not number "\" libpng version 1.6.37 - April 14, 2019\\n\"" */
 enum { PNG_LIBPNG_VER_SONUM = 16 };
 enum { PNG_LIBPNG_VER_DLLNUM = 16 };
 enum { PNG_LIBPNG_VER_MAJOR = 1 };
@@ -29,33 +32,211 @@ enum { PNG_LIBPNG_BUILD_SPECIAL = 32 };
 enum { PNG_LIBPNG_BUILD_BASE_TYPE = 4 };
 enum { PNG_LIBPNG_VER = 10637 };
 /* BEGIN /usr/include/pnglibconf.h */
+enum { PNGLCONF_H = 1 };
+enum { PNG_16BIT_SUPPORTED = 1 };
+enum { PNG_ALIGNED_MEMORY_SUPPORTED = 1 };
+enum { PNG_BENIGN_ERRORS_SUPPORTED = 1 };
+enum { PNG_BENIGN_READ_ERRORS_SUPPORTED = 1 };
+enum { PNG_BUILD_GRAYSCALE_PALETTE_SUPPORTED = 1 };
+enum { PNG_CHECK_FOR_INVALID_INDEX_SUPPORTED = 1 };
+enum { PNG_COLORSPACE_SUPPORTED = 1 };
+enum { PNG_CONSOLE_IO_SUPPORTED = 1 };
+enum { PNG_CONVERT_tIME_SUPPORTED = 1 };
+enum { PNG_EASY_ACCESS_SUPPORTED = 1 };
+enum { PNG_ERROR_TEXT_SUPPORTED = 1 };
+enum { PNG_FIXED_POINT_SUPPORTED = 1 };
+enum { PNG_FLOATING_ARITHMETIC_SUPPORTED = 1 };
+enum { PNG_FLOATING_POINT_SUPPORTED = 1 };
+enum { PNG_FORMAT_AFIRST_SUPPORTED = 1 };
+enum { PNG_FORMAT_BGR_SUPPORTED = 1 };
+enum { PNG_GAMMA_SUPPORTED = 1 };
+enum { PNG_GET_PALETTE_MAX_SUPPORTED = 1 };
+enum { PNG_HANDLE_AS_UNKNOWN_SUPPORTED = 1 };
+enum { PNG_INCH_CONVERSIONS_SUPPORTED = 1 };
+enum { PNG_INFO_IMAGE_SUPPORTED = 1 };
+enum { PNG_IO_STATE_SUPPORTED = 1 };
+enum { PNG_MNG_FEATURES_SUPPORTED = 1 };
+enum { PNG_POINTER_INDEXING_SUPPORTED = 1 };
+enum { PNG_PROGRESSIVE_READ_SUPPORTED = 1 };
+enum { PNG_READ_16BIT_SUPPORTED = 1 };
+enum { PNG_READ_ALPHA_MODE_SUPPORTED = 1 };
+enum { PNG_READ_ANCILLARY_CHUNKS_SUPPORTED = 1 };
+enum { PNG_READ_BACKGROUND_SUPPORTED = 1 };
+enum { PNG_READ_BGR_SUPPORTED = 1 };
+enum { PNG_READ_CHECK_FOR_INVALID_INDEX_SUPPORTED = 1 };
+enum { PNG_READ_COMPOSITE_NODIV_SUPPORTED = 1 };
+enum { PNG_READ_COMPRESSED_TEXT_SUPPORTED = 1 };
+enum { PNG_READ_EXPAND_16_SUPPORTED = 1 };
+enum { PNG_READ_EXPAND_SUPPORTED = 1 };
+enum { PNG_READ_FILLER_SUPPORTED = 1 };
+enum { PNG_READ_GAMMA_SUPPORTED = 1 };
+enum { PNG_READ_GET_PALETTE_MAX_SUPPORTED = 1 };
+enum { PNG_READ_GRAY_TO_RGB_SUPPORTED = 1 };
+enum { PNG_READ_INTERLACING_SUPPORTED = 1 };
+enum { PNG_READ_INT_FUNCTIONS_SUPPORTED = 1 };
+enum { PNG_READ_INVERT_ALPHA_SUPPORTED = 1 };
+enum { PNG_READ_INVERT_SUPPORTED = 1 };
+enum { PNG_READ_OPT_PLTE_SUPPORTED = 1 };
+enum { PNG_READ_PACKSWAP_SUPPORTED = 1 };
+enum { PNG_READ_PACK_SUPPORTED = 1 };
+enum { PNG_READ_QUANTIZE_SUPPORTED = 1 };
+enum { PNG_READ_RGB_TO_GRAY_SUPPORTED = 1 };
+enum { PNG_READ_SCALE_16_TO_8_SUPPORTED = 1 };
+enum { PNG_READ_SHIFT_SUPPORTED = 1 };
+enum { PNG_READ_STRIP_16_TO_8_SUPPORTED = 1 };
+enum { PNG_READ_STRIP_ALPHA_SUPPORTED = 1 };
+enum { PNG_READ_SUPPORTED = 1 };
+enum { PNG_READ_SWAP_ALPHA_SUPPORTED = 1 };
+enum { PNG_READ_SWAP_SUPPORTED = 1 };
+enum { PNG_READ_TEXT_SUPPORTED = 1 };
+enum { PNG_READ_TRANSFORMS_SUPPORTED = 1 };
+enum { PNG_READ_UNKNOWN_CHUNKS_SUPPORTED = 1 };
+enum { PNG_READ_USER_CHUNKS_SUPPORTED = 1 };
+enum { PNG_READ_USER_TRANSFORM_SUPPORTED = 1 };
+enum { PNG_READ_bKGD_SUPPORTED = 1 };
+enum { PNG_READ_cHRM_SUPPORTED = 1 };
+enum { PNG_READ_eXIf_SUPPORTED = 1 };
+enum { PNG_READ_gAMA_SUPPORTED = 1 };
+enum { PNG_READ_hIST_SUPPORTED = 1 };
+enum { PNG_READ_iCCP_SUPPORTED = 1 };
+enum { PNG_READ_iTXt_SUPPORTED = 1 };
+enum { PNG_READ_oFFs_SUPPORTED = 1 };
+enum { PNG_READ_pCAL_SUPPORTED = 1 };
+enum { PNG_READ_pHYs_SUPPORTED = 1 };
+enum { PNG_READ_sBIT_SUPPORTED = 1 };
+enum { PNG_READ_sCAL_SUPPORTED = 1 };
+enum { PNG_READ_sPLT_SUPPORTED = 1 };
+enum { PNG_READ_sRGB_SUPPORTED = 1 };
+enum { PNG_READ_tEXt_SUPPORTED = 1 };
+enum { PNG_READ_tIME_SUPPORTED = 1 };
+enum { PNG_READ_tRNS_SUPPORTED = 1 };
+enum { PNG_READ_zTXt_SUPPORTED = 1 };
+enum { PNG_SAVE_INT_32_SUPPORTED = 1 };
+enum { PNG_SAVE_UNKNOWN_CHUNKS_SUPPORTED = 1 };
+enum { PNG_SEQUENTIAL_READ_SUPPORTED = 1 };
+enum { PNG_SETJMP_SUPPORTED = 1 };
+enum { PNG_SET_OPTION_SUPPORTED = 1 };
+enum { PNG_SET_UNKNOWN_CHUNKS_SUPPORTED = 1 };
+enum { PNG_SET_USER_LIMITS_SUPPORTED = 1 };
+enum { PNG_SIMPLIFIED_READ_AFIRST_SUPPORTED = 1 };
+enum { PNG_SIMPLIFIED_READ_BGR_SUPPORTED = 1 };
+enum { PNG_SIMPLIFIED_READ_SUPPORTED = 1 };
+enum { PNG_SIMPLIFIED_WRITE_AFIRST_SUPPORTED = 1 };
+enum { PNG_SIMPLIFIED_WRITE_BGR_SUPPORTED = 1 };
+enum { PNG_SIMPLIFIED_WRITE_STDIO_SUPPORTED = 1 };
+enum { PNG_SIMPLIFIED_WRITE_SUPPORTED = 1 };
+enum { PNG_STDIO_SUPPORTED = 1 };
+enum { PNG_STORE_UNKNOWN_CHUNKS_SUPPORTED = 1 };
+enum { PNG_TEXT_SUPPORTED = 1 };
+enum { PNG_TIME_RFC1123_SUPPORTED = 1 };
+enum { PNG_UNKNOWN_CHUNKS_SUPPORTED = 1 };
+enum { PNG_USER_CHUNKS_SUPPORTED = 1 };
+enum { PNG_USER_LIMITS_SUPPORTED = 1 };
+enum { PNG_USER_MEM_SUPPORTED = 1 };
+enum { PNG_USER_TRANSFORM_INFO_SUPPORTED = 1 };
+enum { PNG_USER_TRANSFORM_PTR_SUPPORTED = 1 };
+enum { PNG_WARNINGS_SUPPORTED = 1 };
+enum { PNG_WRITE_16BIT_SUPPORTED = 1 };
+enum { PNG_WRITE_ANCILLARY_CHUNKS_SUPPORTED = 1 };
+enum { PNG_WRITE_BGR_SUPPORTED = 1 };
+enum { PNG_WRITE_CHECK_FOR_INVALID_INDEX_SUPPORTED = 1 };
+enum { PNG_WRITE_COMPRESSED_TEXT_SUPPORTED = 1 };
+enum { PNG_WRITE_CUSTOMIZE_COMPRESSION_SUPPORTED = 1 };
+enum { PNG_WRITE_CUSTOMIZE_ZTXT_COMPRESSION_SUPPORTED = 1 };
+enum { PNG_WRITE_FILLER_SUPPORTED = 1 };
+enum { PNG_WRITE_FILTER_SUPPORTED = 1 };
+enum { PNG_WRITE_FLUSH_SUPPORTED = 1 };
+enum { PNG_WRITE_GET_PALETTE_MAX_SUPPORTED = 1 };
+enum { PNG_WRITE_INTERLACING_SUPPORTED = 1 };
+enum { PNG_WRITE_INT_FUNCTIONS_SUPPORTED = 1 };
+enum { PNG_WRITE_INVERT_ALPHA_SUPPORTED = 1 };
+enum { PNG_WRITE_INVERT_SUPPORTED = 1 };
+enum { PNG_WRITE_OPTIMIZE_CMF_SUPPORTED = 1 };
+enum { PNG_WRITE_PACKSWAP_SUPPORTED = 1 };
+enum { PNG_WRITE_PACK_SUPPORTED = 1 };
+enum { PNG_WRITE_SHIFT_SUPPORTED = 1 };
+enum { PNG_WRITE_SUPPORTED = 1 };
+enum { PNG_WRITE_SWAP_ALPHA_SUPPORTED = 1 };
+enum { PNG_WRITE_SWAP_SUPPORTED = 1 };
+enum { PNG_WRITE_TEXT_SUPPORTED = 1 };
+enum { PNG_WRITE_TRANSFORMS_SUPPORTED = 1 };
+enum { PNG_WRITE_UNKNOWN_CHUNKS_SUPPORTED = 1 };
+enum { PNG_WRITE_USER_TRANSFORM_SUPPORTED = 1 };
+enum { PNG_WRITE_WEIGHTED_FILTER_SUPPORTED = 1 };
+enum { PNG_WRITE_bKGD_SUPPORTED = 1 };
+enum { PNG_WRITE_cHRM_SUPPORTED = 1 };
+enum { PNG_WRITE_eXIf_SUPPORTED = 1 };
+enum { PNG_WRITE_gAMA_SUPPORTED = 1 };
+enum { PNG_WRITE_hIST_SUPPORTED = 1 };
+enum { PNG_WRITE_iCCP_SUPPORTED = 1 };
+enum { PNG_WRITE_iTXt_SUPPORTED = 1 };
+enum { PNG_WRITE_oFFs_SUPPORTED = 1 };
+enum { PNG_WRITE_pCAL_SUPPORTED = 1 };
+enum { PNG_WRITE_pHYs_SUPPORTED = 1 };
+enum { PNG_WRITE_sBIT_SUPPORTED = 1 };
+enum { PNG_WRITE_sCAL_SUPPORTED = 1 };
+enum { PNG_WRITE_sPLT_SUPPORTED = 1 };
+enum { PNG_WRITE_sRGB_SUPPORTED = 1 };
+enum { PNG_WRITE_tEXt_SUPPORTED = 1 };
+enum { PNG_WRITE_tIME_SUPPORTED = 1 };
+enum { PNG_WRITE_tRNS_SUPPORTED = 1 };
+enum { PNG_WRITE_zTXt_SUPPORTED = 1 };
+enum { PNG_bKGD_SUPPORTED = 1 };
+enum { PNG_cHRM_SUPPORTED = 1 };
+enum { PNG_eXIf_SUPPORTED = 1 };
+enum { PNG_gAMA_SUPPORTED = 1 };
+enum { PNG_hIST_SUPPORTED = 1 };
+enum { PNG_iCCP_SUPPORTED = 1 };
+enum { PNG_iTXt_SUPPORTED = 1 };
+enum { PNG_oFFs_SUPPORTED = 1 };
+enum { PNG_pCAL_SUPPORTED = 1 };
+enum { PNG_pHYs_SUPPORTED = 1 };
+enum { PNG_sBIT_SUPPORTED = 1 };
+enum { PNG_sCAL_SUPPORTED = 1 };
+enum { PNG_sPLT_SUPPORTED = 1 };
+enum { PNG_sRGB_SUPPORTED = 1 };
+enum { PNG_tEXt_SUPPORTED = 1 };
+enum { PNG_tIME_SUPPORTED = 1 };
+enum { PNG_tRNS_SUPPORTED = 1 };
+enum { PNG_zTXt_SUPPORTED = 1 };
 enum { PNG_API_RULE = 0 };
 enum { PNG_DEFAULT_READ_MACROS = 1 };
 enum { PNG_GAMMA_THRESHOLD_FIXED = 5000 };
+enum { PNG_IDAT_READ_SIZE = 0 };
 enum { PNG_INFLATE_BUF_SIZE = 1024 };
+enum { PNG_LINKAGE_API = 0 };
+enum { PNG_LINKAGE_CALLBACK = 0 };
+enum { PNG_LINKAGE_DATA = 0 };
+enum { PNG_LINKAGE_FUNCTION = 0 };
 enum { PNG_MAX_GAMMA_8 = 11 };
 enum { PNG_QUANTIZE_BLUE_BITS = 5 };
 enum { PNG_QUANTIZE_GREEN_BITS = 5 };
 enum { PNG_QUANTIZE_RED_BITS = 5 };
+enum { PNG_TEXT_Z_DEFAULT_COMPRESSION = -1 };
 enum { PNG_TEXT_Z_DEFAULT_STRATEGY = 0 };
 enum { PNG_USER_CHUNK_CACHE_MAX = 1000 };
 enum { PNG_USER_CHUNK_MALLOC_MAX = 8000000 };
 enum { PNG_USER_HEIGHT_MAX = 1000000 };
 enum { PNG_USER_WIDTH_MAX = 1000000 };
 enum { PNG_ZBUF_SIZE = 8192 };
-enum { PNG_ZLIB_VERNUM = 0x12b0 };
+enum { PNG_ZLIB_VERNUM = 4784 };
+enum { PNG_Z_DEFAULT_COMPRESSION = -1 };
 enum { PNG_Z_DEFAULT_NOFILTER_STRATEGY = 0 };
 enum { PNG_Z_DEFAULT_STRATEGY = 1 };
 enum { PNG_sCAL_PRECISION = 5 };
 enum { PNG_sRGB_PROFILE_CHECKS = 2 };
 /* END /usr/include/pnglibconf.h */
+enum { PNG_APNG_SUPPORTED = 1 };
+enum { PNG_READ_APNG_SUPPORTED = 1 };
+enum { PNG_WRITE_APNG_SUPPORTED = 1 };
 /* BEGIN /usr/include/pngconf.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/9/include/limits.h */
+enum { PNGCONF_H = 1 };
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h */
 ]] require 'ffi.c.limits' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-1-gnu/9/include/limits.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/9/include/stddef.h */
+/* END /usr/lib/gcc/x86_64-1-gnu/11/include/limits.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-1-gnu/9/include/stddef.h */
+/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stddef.h */
 /* BEGIN /usr/include/stdio.h */
 ]] require 'ffi.c.stdio' ffi.cdef[[
 /* END /usr/include/stdio.h */
@@ -65,7 +246,20 @@ enum { PNG_sRGB_PROFILE_CHECKS = 2 };
 /* BEGIN /usr/include/time.h */
 ]] require 'ffi.c.time' ffi.cdef[[
 /* END /usr/include/time.h */
-
+enum { PNG_CONST = 0 };
+enum { PNG_USE_READ_MACROS = 1 };
+enum { PNGCAPI = 1 };
+/* #  define PNGCBAPI PNGCAPI ### string, not number "PNGCAPI" */
+/* #  define PNGAPI PNGCAPI ### string, not number "PNGCAPI" */
+enum { PNG_IMPEXP = 1 };
+enum { PNG_EMPTY = 1 };
+enum { PNG_PEDANTIC_WARNINGS_SUPPORTED = 1 };
+/* #      define PNG_USE_RESULT __attribute__((__warn_unused_result__)) ### string, not number "__attribute__((__warn_unused_result__))" */
+/* #      define PNG_NORETURN   __attribute__((__noreturn__)) ### string, not number "__attribute__((__noreturn__))" */
+/* #        define PNG_ALLOCATED  __attribute__((__malloc__)) ### string, not number "__attribute__((__malloc__))" */
+/* #        define PNG_DEPRECATED __attribute__((__deprecated__)) ### string, not number "__attribute__((__deprecated__))" */
+/* #          define PNG_PRIVATE              __attribute__((__deprecated__)) ### string, not number "__attribute__((__deprecated__))" */
+/* #          define PNG_RESTRICT __restrict ### string, not number "__restrict" */
 typedef unsigned char png_byte;
 typedef short png_int_16;
 typedef unsigned short png_uint_16;
@@ -107,6 +301,13 @@ typedef png_fixed_point * * png_fixed_point_pp;
 typedef double * * png_doublepp;
 typedef char * * * png_charppp;
 /* END /usr/include/pngconf.h */
+enum { PNG_LIBPNG_BUILD_TYPE = 4 };
+/* #define png_libpng_ver png_get_header_ver(NULL) ### string, not number "png_get_header_ver(NULL)" */
+/* #define PNG_DISPOSE_OP_NONE        0x00U ### string, not number "0x00U" */
+/* #define PNG_DISPOSE_OP_BACKGROUND  0x01U ### string, not number "0x01U" */
+/* #define PNG_DISPOSE_OP_PREVIOUS    0x02U ### string, not number "0x02U" */
+/* #define PNG_BLEND_OP_SOURCE        0x00U ### string, not number "0x00U" */
+/* #define PNG_BLEND_OP_OVER          0x01U ### string, not number "0x01U" */
 typedef char* png_libpng_version_1_6_37;
 typedef struct png_struct_def png_struct;
 typedef const png_struct * png_const_structp;
@@ -198,24 +399,26 @@ png_byte location;
 typedef png_unknown_chunk * png_unknown_chunkp;
 typedef const png_unknown_chunk * png_const_unknown_chunkp;
 typedef png_unknown_chunk * * png_unknown_chunkpp;
-enum { PNG_HAVE_IHDR = 0x01 };
-enum { PNG_HAVE_PLTE = 0x02 };
-enum { PNG_AFTER_IDAT = 0x08 };
+enum { PNG_HAVE_IHDR = 1 };
+enum { PNG_HAVE_PLTE = 2 };
+enum { PNG_AFTER_IDAT = 8 };
+/* #define PNG_UINT_31_MAX ((png_uint_32)0x7fffffffL) ### string, not number "((png_uint_32)0x7fffffffL)" */
+/* #define PNG_UINT_32_MAX ((png_uint_32)(-1)) ### string, not number "((png_uint_32)(-1))" */
+/* #define PNG_SIZE_MAX ((size_t)(-1)) ### string, not number "((size_t)(-1))" */
 enum { PNG_FP_1 = 100000 };
 enum { PNG_FP_HALF = 50000 };
+/* #define PNG_FP_MAX  ((png_fixed_point)0x7fffffffL) ### string, not number "((png_fixed_point)0x7fffffffL)" */
+/* #define PNG_FP_MIN  (-PNG_FP_MAX) ### string, not number "(-PNG_FP_MAX)" */
 enum { PNG_COLOR_MASK_PALETTE = 1 };
 enum { PNG_COLOR_MASK_COLOR = 2 };
 enum { PNG_COLOR_MASK_ALPHA = 4 };
 enum { PNG_COLOR_TYPE_GRAY = 0 };
-
-/* TODO this didn't generate for some reason */
-enum { PNG_COLOR_TYPE_PALETTE = PNG_COLOR_MASK_COLOR | PNG_COLOR_MASK_PALETTE };
-enum { PNG_COLOR_TYPE_RGB = PNG_COLOR_MASK_COLOR };
-enum { PNG_COLOR_TYPE_RGB_ALPHA = PNG_COLOR_MASK_COLOR | PNG_COLOR_MASK_ALPHA };
-enum { PNG_COLOR_TYPE_GRAY_ALPHA = PNG_COLOR_MASK_ALPHA };
-enum { PNG_COLOR_TYPE_RGBA = PNG_COLOR_TYPE_RGB_ALPHA };
-enum { PNG_COLOR_TYPE_GA = PNG_COLOR_TYPE_GRAY_ALPHA };
-
+enum { PNG_COLOR_TYPE_PALETTE = 3 };
+enum { PNG_COLOR_TYPE_RGB = 2 };
+enum { PNG_COLOR_TYPE_RGB_ALPHA = 6 };
+enum { PNG_COLOR_TYPE_GRAY_ALPHA = 4 };
+enum { PNG_COLOR_TYPE_RGBA = 6 };
+enum { PNG_COLOR_TYPE_GA = 4 };
 enum { PNG_COMPRESSION_TYPE_BASE = 0 };
 enum { PNG_COMPRESSION_TYPE_DEFAULT = 0 };
 enum { PNG_FILTER_TYPE_BASE = 0 };
@@ -246,6 +449,25 @@ enum { PNG_sRGB_INTENT_ABSOLUTE = 3 };
 enum { PNG_sRGB_INTENT_LAST = 4 };
 enum { PNG_KEYWORD_MAX_LENGTH = 79 };
 enum { PNG_MAX_PALETTE_LENGTH = 256 };
+/* #define PNG_INFO_gAMA 0x0001U ### string, not number "0x0001U" */
+/* #define PNG_INFO_sBIT 0x0002U ### string, not number "0x0002U" */
+/* #define PNG_INFO_cHRM 0x0004U ### string, not number "0x0004U" */
+/* #define PNG_INFO_PLTE 0x0008U ### string, not number "0x0008U" */
+/* #define PNG_INFO_tRNS 0x0010U ### string, not number "0x0010U" */
+/* #define PNG_INFO_bKGD 0x0020U ### string, not number "0x0020U" */
+/* #define PNG_INFO_hIST 0x0040U ### string, not number "0x0040U" */
+/* #define PNG_INFO_pHYs 0x0080U ### string, not number "0x0080U" */
+/* #define PNG_INFO_oFFs 0x0100U ### string, not number "0x0100U" */
+/* #define PNG_INFO_tIME 0x0200U ### string, not number "0x0200U" */
+/* #define PNG_INFO_pCAL 0x0400U ### string, not number "0x0400U" */
+/* #define PNG_INFO_sRGB 0x0800U ### string, not number "0x0800U" */
+/* #define PNG_INFO_iCCP 0x1000U ### string, not number "0x1000U" */
+/* #define PNG_INFO_sPLT 0x2000U ### string, not number "0x2000U" */
+/* #define PNG_INFO_sCAL 0x4000U ### string, not number "0x4000U" */
+/* #define PNG_INFO_IDAT 0x8000U ### string, not number "0x8000U" */
+/* #define PNG_INFO_eXIf 0x10000U ### string, not number "0x10000U" */
+/* #define PNG_INFO_acTL 0x20000U ### string, not number "0x20000U" */
+/* #define PNG_INFO_fcTL 0x40000U ### string, not number "0x40000U" */
 typedef struct png_row_info_struct { png_uint_32 width;
 size_t rowbytes;
 png_byte color_type;
@@ -279,27 +501,27 @@ typedef void ( *png_user_transform_ptr) (png_structp, png_row_infop, png_bytep);
 /* ### PREPENDING ### typedef PNG_CALLBACK(int, *png_user_chunk_ptr, (png_structp, ### TO ### png_unknown_chunkp)); */
 typedef int ( *png_user_chunk_ptr) (png_structp, png_unknown_chunkp);
 typedef void ( *png_longjmp_ptr) (jmp_buf, int);
-enum { PNG_TRANSFORM_IDENTITY = 0x0000 };
-enum { PNG_TRANSFORM_STRIP_16 = 0x0001 };
-enum { PNG_TRANSFORM_STRIP_ALPHA = 0x0002 };
-enum { PNG_TRANSFORM_PACKING = 0x0004 };
-enum { PNG_TRANSFORM_PACKSWAP = 0x0008 };
-enum { PNG_TRANSFORM_EXPAND = 0x0010 };
-enum { PNG_TRANSFORM_INVERT_MONO = 0x0020 };
-enum { PNG_TRANSFORM_SHIFT = 0x0040 };
-enum { PNG_TRANSFORM_BGR = 0x0080 };
-enum { PNG_TRANSFORM_SWAP_ALPHA = 0x0100 };
-enum { PNG_TRANSFORM_SWAP_ENDIAN = 0x0200 };
-enum { PNG_TRANSFORM_INVERT_ALPHA = 0x0400 };
-enum { PNG_TRANSFORM_STRIP_FILLER = 0x0800 };
-enum { PNG_TRANSFORM_STRIP_FILLER_BEFORE = 0x0800 };
-enum { PNG_TRANSFORM_STRIP_FILLER_AFTER = 0x1000 };
-enum { PNG_TRANSFORM_GRAY_TO_RGB = 0x2000 };
-enum { PNG_TRANSFORM_EXPAND_16 = 0x4000 };
-enum { PNG_TRANSFORM_SCALE_16 = 0x8000 };
-enum { PNG_FLAG_MNG_EMPTY_PLTE = 0x01 };
-enum { PNG_FLAG_MNG_FILTER_64 = 0x04 };
-enum { PNG_ALL_MNG_FEATURES = 0x05 };
+enum { PNG_TRANSFORM_IDENTITY = 0 };
+enum { PNG_TRANSFORM_STRIP_16 = 1 };
+enum { PNG_TRANSFORM_STRIP_ALPHA = 2 };
+enum { PNG_TRANSFORM_PACKING = 4 };
+enum { PNG_TRANSFORM_PACKSWAP = 8 };
+enum { PNG_TRANSFORM_EXPAND = 16 };
+enum { PNG_TRANSFORM_INVERT_MONO = 32 };
+enum { PNG_TRANSFORM_SHIFT = 64 };
+enum { PNG_TRANSFORM_BGR = 128 };
+enum { PNG_TRANSFORM_SWAP_ALPHA = 256 };
+enum { PNG_TRANSFORM_SWAP_ENDIAN = 512 };
+enum { PNG_TRANSFORM_INVERT_ALPHA = 1024 };
+enum { PNG_TRANSFORM_STRIP_FILLER = 2048 };
+enum { PNG_TRANSFORM_STRIP_FILLER_BEFORE = 2048 };
+enum { PNG_TRANSFORM_STRIP_FILLER_AFTER = 4096 };
+enum { PNG_TRANSFORM_GRAY_TO_RGB = 8192 };
+enum { PNG_TRANSFORM_EXPAND_16 = 16384 };
+enum { PNG_TRANSFORM_SCALE_16 = 32768 };
+enum { PNG_FLAG_MNG_EMPTY_PLTE = 1 };
+enum { PNG_FLAG_MNG_FILTER_64 = 4 };
+enum { PNG_ALL_MNG_FEATURES = 5 };
 /* ### INCOMPLETE ARG MACRO ### PNG_CALLBACK ### IN LINE ### typedef PNG_CALLBACK(png_voidp, *png_malloc_ptr, (png_structp, */
 /* ### PREPENDING ### typedef PNG_CALLBACK(png_voidp, *png_malloc_ptr, (png_structp, ### TO ### png_alloc_size_t)); */
 typedef png_voidp ( *png_malloc_ptr) (png_structp, png_alloc_size_t);
@@ -400,6 +622,7 @@ extern void ( png_set_gray_to_rgb) (png_structrp png_ptr);
 enum { PNG_ERROR_ACTION_NONE = 1 };
 enum { PNG_ERROR_ACTION_WARN = 2 };
 enum { PNG_ERROR_ACTION_ERROR = 3 };
+enum { PNG_RGB_TO_GRAY_DEFAULT = -1 };
 /* ### INCOMPLETE ARG MACRO ### PNG_FP_EXPORT ### IN LINE ### PNG_FP_EXPORT(32, void, png_set_rgb_to_gray, (png_structrp png_ptr, */
 /* ### PREPENDING ### PNG_FP_EXPORT(32, void, png_set_rgb_to_gray, (png_structrp png_ptr, ### TO ### int error_action, double red, double green)) */
 extern void ( png_set_rgb_to_gray) (png_structrp png_ptr, int error_action, double red, double green);
@@ -462,12 +685,14 @@ enum { PNG_BACKGROUND_GAMMA_SCREEN = 1 };
 enum { PNG_BACKGROUND_GAMMA_FILE = 2 };
 enum { PNG_BACKGROUND_GAMMA_UNIQUE = 3 };
 extern void ( png_set_scale_16) (png_structrp png_ptr);
+enum { PNG_READ_16_TO_8_SUPPORTED = 1 };
 extern void ( png_set_strip_16) (png_structrp png_ptr);
 /* ### INCOMPLETE ARG MACRO ### PNG_EXPORT ### IN LINE ### PNG_EXPORT(49, void, png_set_quantize, (png_structrp png_ptr, */
 /* ### PREPENDING ### PNG_EXPORT(49, void, png_set_quantize, (png_structrp png_ptr, ### TO ### png_colorp palette, int num_palette, int maximum_colors, */
 /* ### INCOMPLETE ARG MACRO ### PNG_EXPORT ### IN LINE ### PNG_EXPORT(49, void, png_set_quantize, (png_structrp png_ptr, png_colorp palette, int num_palette, int maximum_colors, */
 /* ### PREPENDING ### PNG_EXPORT(49, void, png_set_quantize, (png_structrp png_ptr, png_colorp palette, int num_palette, int maximum_colors, ### TO ### png_const_uint_16p histogram, int full_quantize)); */
 extern void ( png_set_quantize) (png_structrp png_ptr, png_colorp palette, int num_palette, int maximum_colors, png_const_uint_16p histogram, int full_quantize);
+/* #define PNG_GAMMA_THRESHOLD (PNG_GAMMA_THRESHOLD_FIXED*.00001) ### string, not number "(PNG_GAMMA_THRESHOLD_FIXED*.00001)" */
 /* ### INCOMPLETE ARG MACRO ### PNG_FP_EXPORT ### IN LINE ### PNG_FP_EXPORT(50, void, png_set_gamma, (png_structrp png_ptr, */
 /* ### PREPENDING ### PNG_FP_EXPORT(50, void, png_set_gamma, (png_structrp png_ptr, ### TO ### double screen_gamma, double override_file_gamma)) */
 extern void ( png_set_gamma) (png_structrp png_ptr, double screen_gamma, double override_file_gamma);
@@ -519,12 +744,14 @@ enum { PNG_CRC_NO_CHANGE = 5 };
 /* ### INCOMPLETE ARG MACRO ### PNG_EXPORT ### IN LINE ### PNG_EXPORT(67, void, png_set_filter, (png_structrp png_ptr, int method, */
 /* ### PREPENDING ### PNG_EXPORT(67, void, png_set_filter, (png_structrp png_ptr, int method, ### TO ### int filters)); */
 extern void ( png_set_filter) (png_structrp png_ptr, int method, int filters);
-enum { PNG_NO_FILTERS = 0x00 };
-enum { PNG_FILTER_NONE = 0x08 };
-enum { PNG_FILTER_SUB = 0x10 };
-enum { PNG_FILTER_UP = 0x20 };
-enum { PNG_FILTER_AVG = 0x40 };
-enum { PNG_FILTER_PAETH = 0x80 };
+enum { PNG_NO_FILTERS = 0 };
+enum { PNG_FILTER_NONE = 8 };
+enum { PNG_FILTER_SUB = 16 };
+enum { PNG_FILTER_UP = 32 };
+enum { PNG_FILTER_AVG = 64 };
+enum { PNG_FILTER_PAETH = 128 };
+enum { PNG_FAST_FILTERS = 56 };
+enum { PNG_ALL_FILTERS = 248 };
 enum { PNG_FILTER_VALUE_NONE = 0 };
 enum { PNG_FILTER_VALUE_SUB = 1 };
 enum { PNG_FILTER_VALUE_UP = 2 };
@@ -654,6 +881,19 @@ extern void ( png_data_freer) (png_const_structrp png_ptr, png_inforp info_ptr, 
 enum { PNG_DESTROY_WILL_FREE_DATA = 1 };
 enum { PNG_SET_WILL_FREE_DATA = 1 };
 enum { PNG_USER_WILL_FREE_DATA = 2 };
+/* #define PNG_FREE_HIST 0x0008U ### string, not number "0x0008U" */
+/* #define PNG_FREE_ICCP 0x0010U ### string, not number "0x0010U" */
+/* #define PNG_FREE_SPLT 0x0020U ### string, not number "0x0020U" */
+/* #define PNG_FREE_ROWS 0x0040U ### string, not number "0x0040U" */
+/* #define PNG_FREE_PCAL 0x0080U ### string, not number "0x0080U" */
+/* #define PNG_FREE_SCAL 0x0100U ### string, not number "0x0100U" */
+/* #  define PNG_FREE_UNKN 0x0200U ### string, not number "0x0200U" */
+/* #define PNG_FREE_PLTE 0x1000U ### string, not number "0x1000U" */
+/* #define PNG_FREE_TRNS 0x2000U ### string, not number "0x2000U" */
+/* #define PNG_FREE_TEXT 0x4000U ### string, not number "0x4000U" */
+/* #define PNG_FREE_EXIF 0x8000U ### string, not number "0x8000U" */
+/* #define PNG_FREE_ALL  0xffffU ### string, not number "0xffffU" */
+/* #define PNG_FREE_MUL  0x4220U ### string, not number "0x4220U" */
 /* ### INCOMPLETE ARG MACRO ### PNG_EXPORTA ### IN LINE ### PNG_EXPORTA(100, png_voidp, png_malloc_default, (png_const_structrp png_ptr, */
 /* ### PREPENDING ### PNG_EXPORTA(100, png_voidp, png_malloc_default, (png_const_structrp png_ptr, ### TO ### png_alloc_size_t size), PNG_ALLOCATED PNG_DEPRECATED); */
 extern __attribute__((__malloc__)) __attribute__((__deprecated__)) png_voidp ( png_malloc_default) (png_const_structrp png_ptr, png_alloc_size_t size);
@@ -1087,15 +1327,15 @@ extern png_uint_32 ( png_get_io_state) (png_const_structrp png_ptr);
 /* ### INCOMPLETE ARG MACRO ### PNG_EXPORT ### IN LINE ### PNG_EXPORT(216, png_uint_32, png_get_io_chunk_type, */
 /* ### PREPENDING ### PNG_EXPORT(216, png_uint_32, png_get_io_chunk_type, ### TO ### (png_const_structrp png_ptr)); */
 extern png_uint_32 ( png_get_io_chunk_type) (png_const_structrp png_ptr);
-enum { PNG_IO_NONE = 0x0000 };
-enum { PNG_IO_READING = 0x0001 };
-enum { PNG_IO_WRITING = 0x0002 };
-enum { PNG_IO_SIGNATURE = 0x0010 };
-enum { PNG_IO_CHUNK_HDR = 0x0020 };
-enum { PNG_IO_CHUNK_DATA = 0x0040 };
-enum { PNG_IO_CHUNK_CRC = 0x0080 };
-enum { PNG_IO_MASK_OP = 0x000f };
-enum { PNG_IO_MASK_LOC = 0x00f0 };
+enum { PNG_IO_NONE = 0 };
+enum { PNG_IO_READING = 1 };
+enum { PNG_IO_WRITING = 2 };
+enum { PNG_IO_SIGNATURE = 16 };
+enum { PNG_IO_CHUNK_HDR = 32 };
+enum { PNG_IO_CHUNK_DATA = 64 };
+enum { PNG_IO_CHUNK_CRC = 128 };
+enum { PNG_IO_MASK_OP = 15 };
+enum { PNG_IO_MASK_LOC = 240 };
 enum { PNG_INTERLACE_ADAM7_PASSES = 7 };
 extern png_uint_32 ( png_get_uint_32) (png_const_bytep buf);
 extern png_uint_16 ( png_get_uint_16) (png_const_bytep buf);
@@ -1126,10 +1366,35 @@ enum { PNG_IMAGE_ERROR = 2 };
 png_uint_32 warning_or_error;
 char message[64];
 } png_image, *png_imagep;
+/* #define PNG_FORMAT_FLAG_ALPHA    0x01U ### string, not number "0x01U" */
+/* #define PNG_FORMAT_FLAG_COLOR    0x02U ### string, not number "0x02U" */
+/* #define PNG_FORMAT_FLAG_LINEAR   0x04U ### string, not number "0x04U" */
+/* #define PNG_FORMAT_FLAG_COLORMAP 0x08U ### string, not number "0x08U" */
+/* #  define PNG_FORMAT_FLAG_BGR    0x10U ### string, not number "0x10U" */
+/* #  define PNG_FORMAT_FLAG_AFIRST 0x20U ### string, not number "0x20U" */
+/* #define PNG_FORMAT_FLAG_ASSOCIATED_ALPHA 0x40U ### string, not number "0x40U" */
 enum { PNG_FORMAT_GRAY = 0 };
-enum { PNG_IMAGE_FLAG_COLORSPACE_NOT_sRGB = 0x01 };
-enum { PNG_IMAGE_FLAG_FAST = 0x02 };
-enum { PNG_IMAGE_FLAG_16BIT_sRGB = 0x04 };
+/* #define PNG_FORMAT_GA   PNG_FORMAT_FLAG_ALPHA ### string, not number "PNG_FORMAT_FLAG_ALPHA" */
+/* #define PNG_FORMAT_AG   (PNG_FORMAT_GA|PNG_FORMAT_FLAG_AFIRST) ### string, not number "(PNG_FORMAT_GA|PNG_FORMAT_FLAG_AFIRST)" */
+/* #define PNG_FORMAT_RGB  PNG_FORMAT_FLAG_COLOR ### string, not number "PNG_FORMAT_FLAG_COLOR" */
+/* #define PNG_FORMAT_BGR  (PNG_FORMAT_FLAG_COLOR|PNG_FORMAT_FLAG_BGR) ### string, not number "(PNG_FORMAT_FLAG_COLOR|PNG_FORMAT_FLAG_BGR)" */
+/* #define PNG_FORMAT_RGBA (PNG_FORMAT_RGB|PNG_FORMAT_FLAG_ALPHA) ### string, not number "(PNG_FORMAT_RGB|PNG_FORMAT_FLAG_ALPHA)" */
+/* #define PNG_FORMAT_ARGB (PNG_FORMAT_RGBA|PNG_FORMAT_FLAG_AFIRST) ### string, not number "(PNG_FORMAT_RGBA|PNG_FORMAT_FLAG_AFIRST)" */
+/* #define PNG_FORMAT_BGRA (PNG_FORMAT_BGR|PNG_FORMAT_FLAG_ALPHA) ### string, not number "(PNG_FORMAT_BGR|PNG_FORMAT_FLAG_ALPHA)" */
+/* #define PNG_FORMAT_ABGR (PNG_FORMAT_BGRA|PNG_FORMAT_FLAG_AFIRST) ### string, not number "(PNG_FORMAT_BGRA|PNG_FORMAT_FLAG_AFIRST)" */
+/* #define PNG_FORMAT_LINEAR_Y PNG_FORMAT_FLAG_LINEAR ### string, not number "PNG_FORMAT_FLAG_LINEAR" */
+/* #define PNG_FORMAT_LINEAR_Y_ALPHA (PNG_FORMAT_FLAG_LINEAR|PNG_FORMAT_FLAG_ALPHA) ### string, not number "(PNG_FORMAT_FLAG_LINEAR|PNG_FORMAT_FLAG_ALPHA)" */
+/* #define PNG_FORMAT_LINEAR_RGB (PNG_FORMAT_FLAG_LINEAR|PNG_FORMAT_FLAG_COLOR) ### string, not number "(PNG_FORMAT_FLAG_LINEAR|PNG_FORMAT_FLAG_COLOR)" */
+/* #define PNG_FORMAT_LINEAR_RGB_ALPHA     (PNG_FORMAT_FLAG_LINEAR|PNG_FORMAT_FLAG_COLOR|PNG_FORMAT_FLAG_ALPHA) ### string, not number "(PNG_FORMAT_FLAG_LINEAR|PNG_FORMAT_FLAG_COLOR|PNG_FORMAT_FLAG_ALPHA)" */
+/* #define PNG_FORMAT_RGB_COLORMAP  (PNG_FORMAT_RGB|PNG_FORMAT_FLAG_COLORMAP) ### string, not number "(PNG_FORMAT_RGB|PNG_FORMAT_FLAG_COLORMAP)" */
+/* #define PNG_FORMAT_BGR_COLORMAP  (PNG_FORMAT_BGR|PNG_FORMAT_FLAG_COLORMAP) ### string, not number "(PNG_FORMAT_BGR|PNG_FORMAT_FLAG_COLORMAP)" */
+/* #define PNG_FORMAT_RGBA_COLORMAP (PNG_FORMAT_RGBA|PNG_FORMAT_FLAG_COLORMAP) ### string, not number "(PNG_FORMAT_RGBA|PNG_FORMAT_FLAG_COLORMAP)" */
+/* #define PNG_FORMAT_ARGB_COLORMAP (PNG_FORMAT_ARGB|PNG_FORMAT_FLAG_COLORMAP) ### string, not number "(PNG_FORMAT_ARGB|PNG_FORMAT_FLAG_COLORMAP)" */
+/* #define PNG_FORMAT_BGRA_COLORMAP (PNG_FORMAT_BGRA|PNG_FORMAT_FLAG_COLORMAP) ### string, not number "(PNG_FORMAT_BGRA|PNG_FORMAT_FLAG_COLORMAP)" */
+/* #define PNG_FORMAT_ABGR_COLORMAP (PNG_FORMAT_ABGR|PNG_FORMAT_FLAG_COLORMAP) ### string, not number "(PNG_FORMAT_ABGR|PNG_FORMAT_FLAG_COLORMAP)" */
+enum { PNG_IMAGE_FLAG_COLORSPACE_NOT_sRGB = 1 };
+enum { PNG_IMAGE_FLAG_FAST = 2 };
+enum { PNG_IMAGE_FLAG_16BIT_sRGB = 4 };
 /* ### INCOMPLETE ARG MACRO ### PNG_EXPORT ### IN LINE ### PNG_EXPORT(234, int, png_image_begin_read_from_file, (png_imagep image, */
 /* ### PREPENDING ### PNG_EXPORT(234, int, png_image_begin_read_from_file, (png_imagep image, ### TO ### const char *file_name)); */
 extern int ( png_image_begin_read_from_file) (png_imagep image, const char *file_name);
