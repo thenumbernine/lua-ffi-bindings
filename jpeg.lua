@@ -8,7 +8,8 @@ if ffi.os == 'Windows' then
 	jpeg = ffi.load'jpeg8.dll'
 	require 'ffi.Windows.jpeg'
 else
-	-- turbojpeg 2.0.3
+	-- libturbojpeg 2.1.2 (which is not libjpeg-turbo *smh* who named this)
+	-- the header generated matches libturbojpeg 2.0.3 for Ubuntu ... except the version macros
 	if ffi.os == 'OSX' then
 		jpeg = ffi.load'/opt/local/lib/libjpeg.dylib'
 	else

@@ -4,8 +4,8 @@ ffi.cdef[[
 enum { JPEGLIB_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/jconfig.h */
 enum { JPEG_LIB_VERSION = 80 };
-/* #define LIBJPEG_TURBO_VERSION  2.0.3 ### string, not number "2.0.3" */
-enum { LIBJPEG_TURBO_VERSION_NUMBER = 2000003 };
+/* #define LIBJPEG_TURBO_VERSION  2.1.2 ### string, not number "2.1.2" */
+enum { LIBJPEG_TURBO_VERSION_NUMBER = 2001002 };
 enum { C_ARITH_CODING_SUPPORTED = 1 };
 enum { D_ARITH_CODING_SUPPORTED = 1 };
 enum { WITH_SIMD = 1 };
