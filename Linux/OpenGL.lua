@@ -1312,9 +1312,9 @@ enum { __khrplatform_h_ = 1 };
 enum { KHRONOS_APICALL = 1 };
 enum { KHRONOS_APIENTRY = 1 };
 enum { KHRONOS_APIATTRIBUTES = 1 };
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h */
 ]] require 'ffi.c.stdint' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-1-gnu/9/include/stdint.h */
+/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stdint.h */
 typedef int32_t khronos_int32_t;
 typedef uint32_t khronos_uint32_t;
 typedef int64_t khronos_int64_t;

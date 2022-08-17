@@ -1,8 +1,8 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/9/include/limits.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h */
 enum { _GCC_LIMITS_H_ = 1 };
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/9/include/syslimits.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h */
 enum { _GCC_NEXT_LIMITS_H = 1 };
 /* BEGIN /usr/include/limits.h */
 enum { _LIBC_LIMITS_H_ = 1 };
@@ -77,7 +77,11 @@ enum { _POSIX_THREAD_DESTRUCTOR_ITERATIONS = 4 };
 enum { PTHREAD_DESTRUCTOR_ITERATIONS = 4 };
 enum { _POSIX_THREAD_THREADS_MAX = 64 };
 enum { AIO_PRIO_DELTA_MAX = 20 };
+/* BEGIN /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h */
+/* BEGIN /usr/include/x86_64-linux-gnu/bits/pthread_stack_min.h */
 enum { PTHREAD_STACK_MIN = 16384 };
+/* END /usr/include/x86_64-1-gnu/bits/pthread_stack_min.h */
+/* END /usr/include/x86_64-1-gnu/bits/pthread_stack_min-dynamic.h */
 enum { DELAYTIMER_MAX = 2147483647 };
 enum { TTY_NAME_MAX = 32 };
 enum { LOGIN_NAME_MAX = 256 };
@@ -109,7 +113,7 @@ enum { CHARCLASS_NAME_MAX = 2048 };
 enum { RE_DUP_MAX = 32767 };
 /* END /usr/include/x86_64-1-gnu/bits/posix2_lim.h */
 /* END /usr/include/limits.h */
-/* END /usr/lib/gcc/x86_64-1-gnu/9/include/syslimits.h */
+/* END /usr/lib/gcc/x86_64-1-gnu/11/include/syslimits.h */
 enum { _LIMITS_H___ = 1 };
 enum { CHAR_BIT = 8 };
 enum { SCHAR_MIN = -1 };
@@ -129,5 +133,5 @@ enum { LONG_MIN = -1 };
 /* # define LLONG_MIN (-LLONG_MAX - 1LL) ### string, not number "(-LLONG_MAX - 1LL)" */
 /* # define LLONG_MAX __LONG_LONG_MAX__ ### string, not number "__LONG_LONG_MAX__" */
 /* # define ULLONG_MAX (LLONG_MAX * 2ULL + 1ULL) ### string, not number "(LLONG_MAX * 2ULL + 1ULL)" */
-/* END /usr/lib/gcc/x86_64-1-gnu/9/include/limits.h */
+/* END /usr/lib/gcc/x86_64-1-gnu/11/include/limits.h */
 ]]

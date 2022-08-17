@@ -1,13 +1,13 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN /usr/include/c++/9/stdlib.h */
+/* BEGIN /usr/include/c++/11/stdlib.h */
 /* BEGIN /usr/include/stdlib.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 ]] require 'ffi.c.bits.libc-header-start' ffi.cdef[[
 /* END /usr/include/x86_64-1-gnu/bits/libc-header-start.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/9/include/stddef.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-1-gnu/9/include/stddef.h */
+/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stddef.h */
 enum { _STDLIB_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/waitflags.h */
 enum { WNOHANG = 1 };
@@ -19,8 +19,6 @@ enum { WNOWAIT = 16777216 };
 enum { __WNOTHREAD = 536870912 };
 enum { __WALL = 1073741824 };
 enum { __WCLONE = 2147483648 };
-enum { __ENUM_IDTYPE_T = 1 };
-typedef enum { P_ALL, P_PID, P_PGID } idtype_t;
 /* END /usr/include/x86_64-1-gnu/bits/waitflags.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/waitstatus.h */
 enum { __W_CONTINUED = 65535 };
@@ -40,7 +38,7 @@ enum { _BITS_FLOATN_COMMON_H = 1 };
 /* BEGIN /usr/include/features.h */
 /* END /usr/include/features.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/long-double.h */
-/* redefining matching value: #define __LONG_DOUBLE_USES_FLOAT128 0 */
+/* redefining matching value: #define __LDOUBLE_REDIRECTS_TO_FLOAT128_ABI 0 */
 /* END /usr/include/x86_64-1-gnu/bits/long-double.h */
 enum { __HAVE_FLOAT16 = 0 };
 enum { __HAVE_FLOAT32 = 1 };
@@ -144,8 +142,8 @@ enum { __key_t_defined = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/timer_t.h */
 ]] require 'ffi.c.bits.types.timer_t' ffi.cdef[[
 /* END /usr/include/x86_64-1-gnu/bits/types/timer_t.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/9/include/stddef.h */
-/* END /usr/lib/gcc/x86_64-1-gnu/9/include/stddef.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
+/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stddef.h */
 typedef unsigned long int ulong;
 typedef unsigned short int ushort;
 typedef unsigned int uint;
@@ -197,12 +195,6 @@ enum { _SYS_SELECT_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 /* END /usr/include/x86_64-1-gnu/bits/types.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/select.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/wordsize.h */
-/* redefining matching value: # define __WORDSIZE	64 */
-/* redefining matching value: # define __WORDSIZE_TIME64_COMPAT32	1 */
-/* redefining matching value: # define __SYSCALL_WORDSIZE		64 */
-/* END /usr/include/x86_64-1-gnu/bits/wordsize.h */
-/* #  define __FD_ZERO_STOS "stosq" ### string, not number "\"stosq\"" */
 /* END /usr/include/x86_64-1-gnu/bits/select.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h */
 enum { __sigset_t_defined = 1 };
@@ -262,6 +254,14 @@ enum { __SIZEOF_PTHREAD_BARRIERATTR_T = 4 };
 enum { __LOCK_ALIGNMENT = 1 };
 enum { __ONCE_ALIGNMENT = 1 };
 /* END /usr/include/x86_64-1-gnu/bits/pthreadtypes-arch.h */
+/* BEGIN /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h */
+enum { _BITS_ATOMIC_WIDE_COUNTER_H = 1 };
+typedef union { __extension__ unsigned long long int __value64;
+struct { unsigned int __low;
+unsigned int __high;
+} __value32;
+} __atomic_wide_counter;
+/* END /usr/include/x86_64-1-gnu/bits/atomic_wide_counter.h */
 typedef struct __pthread_internal_list { struct __pthread_internal_list *__prev;
 struct __pthread_internal_list *__next;
 } __pthread_list_t;
@@ -297,22 +297,19 @@ unsigned long int __pad2;
 unsigned int __flags;
 };
 /* END /usr/include/x86_64-1-gnu/bits/struct_rwlock.h */
-struct __pthread_cond_s { __extension__ union { __extension__ unsigned long long int __wseq;
-struct { unsigned int __low;
-unsigned int __high;
-} __wseq32;
-};
-__extension__ union { __extension__ unsigned long long int __g1_start;
-struct { unsigned int __low;
-unsigned int __high;
-} __g1_start32;
-};
+struct __pthread_cond_s { __atomic_wide_counter __wseq;
+__atomic_wide_counter __g1_start;
 unsigned int __g_refs[2];
 unsigned int __g_size[2];
 unsigned int __g1_orig_size;
 unsigned int __wrefs;
 unsigned int __g_signals[2];
 };
+typedef unsigned int __tss_t;
+typedef unsigned long int __thrd_t;
+typedef struct { int __data;
+} __once_flag;
+/* #define __ONCE_FLAG_INIT { 0 } ### string, not number "{ 0 }" */
 /* END /usr/include/x86_64-1-gnu/bits/thread-shared-types.h */
 typedef unsigned long int pthread_t;
 typedef union { char __size[4];
@@ -398,19 +395,20 @@ extern int lcong48_r (unsigned short int __param[7], struct drand48_data *__buff
 extern void *malloc (size_t __size) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__alloc_size__ (1)));
 extern void *calloc (size_t __nmemb, size_t __size) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__alloc_size__ (1, 2)));
 extern void *realloc (void *__ptr, size_t __size) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__)) __attribute__ ((__alloc_size__ (2)));
-extern void *reallocarray (void *__ptr, size_t __nmemb, size_t __size) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__)) __attribute__ ((__alloc_size__ (2, 3)));
 extern void free (void *__ptr) __attribute__ ((__nothrow__ , __leaf__));
+extern void *reallocarray (void *__ptr, size_t __nmemb, size_t __size) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__)) __attribute__ ((__alloc_size__ (2, 3))) __attribute__ ((__malloc__ (__builtin_free, 1)));
+extern void *reallocarray (void *__ptr, size_t __nmemb, size_t __size) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__ (reallocarray, 1)));
 /* BEGIN /usr/include/alloca.h */
 enum { _ALLOCA_H = 1 };
 /* BEGIN /usr/include/features.h */
 /* END /usr/include/features.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/9/include/stddef.h */
-/* END /usr/lib/gcc/x86_64-1-gnu/9/include/stddef.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
+/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stddef.h */
 extern void *alloca (size_t __size) __attribute__ ((__nothrow__ , __leaf__));
 /* END /usr/include/alloca.h */
 extern void *valloc (size_t __size) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__alloc_size__ (1)));
 extern int posix_memalign (void **__memptr, size_t __alignment, size_t __size) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
-extern void *aligned_alloc (size_t __alignment, size_t __size) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__alloc_size__ (2)));
+extern void *aligned_alloc (size_t __alignment, size_t __size) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__alloc_align__ (1))) __attribute__ ((__alloc_size__ (2)));
 extern void abort (void) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__noreturn__));
 extern int atexit (void (*__func) (void)) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 extern int at_quick_exit (void (*__func) (void)) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
@@ -452,13 +450,15 @@ extern int qfcvt_r (long double __value, int __ndigit, int * __decpt, int * __si
 extern int mblen (const char *__s, size_t __n) __attribute__ ((__nothrow__ , __leaf__));
 extern int mbtowc (wchar_t * __pwc, const char * __s, size_t __n) __attribute__ ((__nothrow__ , __leaf__));
 extern int wctomb (char *__s, wchar_t __wchar) __attribute__ ((__nothrow__ , __leaf__));
-extern size_t mbstowcs (wchar_t * __pwcs, const char * __s, size_t __n) __attribute__ ((__nothrow__ , __leaf__));
-extern size_t wcstombs (char * __s, const wchar_t * __pwcs, size_t __n) __attribute__ ((__nothrow__ , __leaf__));
+extern size_t mbstowcs (wchar_t * __pwcs, const char * __s, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__access__ (__read_only__, 2)));
+extern size_t wcstombs (char * __s, const wchar_t * __pwcs, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__access__ (a, 1, s))) __attribute__ ((__access__ (__read_only__, 2)));
 extern int rpmatch (const char *__response) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 extern int getsubopt (char ** __optionp, char *const * __tokens, char ** __valuep) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2, 3)));
 extern int getloadavg (double __loadavg[], int __nelem) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/stdlib-float.h */
 /* END /usr/include/x86_64-1-gnu/bits/stdlib-float.h */
+/* BEGIN /usr/include/x86_64-linux-gnu/bits/floatn.h */
+/* END /usr/include/x86_64-1-gnu/bits/floatn.h */
 /* END /usr/include/stdlib.h */
-/* END /usr/include/c++/9/stdlib.h */
+/* END /usr/include/c++/11/stdlib.h */
 ]]

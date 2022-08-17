@@ -9,12 +9,6 @@ enum { _SYS_SELECT_H = 1 };
 ]] require 'ffi.c.bits.types' ffi.cdef[[
 /* END /usr/include/x86_64-1-gnu/bits/types.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/select.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/wordsize.h */
-/* redefining matching value: # define __WORDSIZE	64 */
-/* redefining matching value: # define __WORDSIZE_TIME64_COMPAT32	1 */
-/* redefining matching value: # define __SYSCALL_WORDSIZE		64 */
-/* END /usr/include/x86_64-1-gnu/bits/wordsize.h */
-/* #  define __FD_ZERO_STOS "stosq" ### string, not number "\"stosq\"" */
 /* END /usr/include/x86_64-1-gnu/bits/select.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h */
 enum { __sigset_t_defined = 1 };

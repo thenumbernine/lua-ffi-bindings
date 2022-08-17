@@ -11,7 +11,12 @@ enum { _BITS_TYPES_H = 1 };
 /* redefining matching value: # define __SYSCALL_WORDSIZE		64 */
 /* END /usr/include/x86_64-1-gnu/bits/wordsize.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/timesize.h */
-enum { __TIMESIZE = 64 };
+/* BEGIN /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+/* redefining matching value: # define __WORDSIZE	64 */
+/* redefining matching value: # define __WORDSIZE_TIME64_COMPAT32	1 */
+/* redefining matching value: # define __SYSCALL_WORDSIZE		64 */
+/* END /usr/include/x86_64-1-gnu/bits/wordsize.h */
+/* redefining matching value: # define __TIMESIZE	__WORDSIZE */
 /* END /usr/include/x86_64-1-gnu/bits/timesize.h */
 typedef unsigned char __u_char;
 typedef unsigned short int __u_short;
@@ -80,6 +85,7 @@ enum { __PID_T_TYPE = 0 };
 /* #define __TIME_T_TYPE		__SYSCALL_SLONG_TYPE ### string, not number "__SYSCALL_SLONG_TYPE" */
 /* #define __USECONDS_T_TYPE	__U32_TYPE ### string, not number "__U32_TYPE" */
 /* #define __SUSECONDS_T_TYPE	__SYSCALL_SLONG_TYPE ### string, not number "__SYSCALL_SLONG_TYPE" */
+/* #define __SUSECONDS64_T_TYPE	__SQUAD_TYPE ### string, not number "__SQUAD_TYPE" */
 enum { __DADDR_T_TYPE = 0 };
 enum { __KEY_T_TYPE = 0 };
 enum { __CLOCKID_T_TYPE = 0 };
@@ -92,6 +98,7 @@ enum { __OFF_T_MATCHES_OFF64_T = 1 };
 enum { __INO_T_MATCHES_INO64_T = 1 };
 enum { __RLIM_T_MATCHES_RLIM64_T = 1 };
 enum { __STATFS_MATCHES_STATFS64 = 1 };
+enum { __KERNEL_OLD_TIMEVAL_MATCHES_TIMEVAL64 = 1 };
 enum { __FD_SETSIZE = 1024 };
 /* END /usr/include/x86_64-1-gnu/bits/typesizes.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/time64.h */
@@ -116,6 +123,7 @@ typedef unsigned int __id_t;
 typedef long int __time_t;
 typedef unsigned int __useconds_t;
 typedef long int __suseconds_t;
+typedef long int __suseconds64_t;
 typedef int __daddr_t;
 typedef int __key_t;
 typedef int __clockid_t;

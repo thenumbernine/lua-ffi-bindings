@@ -13,7 +13,7 @@ else
 	if ffi.os == 'OSX' then
 		jpeg = ffi.load'/opt/local/lib/libjpeg.dylib'
 	else
-		jpeg = 'libjpeg.so'
+		jpeg = ffi.load'libjpeg.so'
 	end
 	require 'ffi.Linux.jpeg'
 end

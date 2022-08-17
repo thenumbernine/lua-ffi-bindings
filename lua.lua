@@ -1,4 +1,4 @@
--- lua 5.3
+-- lua 5.4
 local ffi = require 'ffi'
 local lua
 if ffi.os == 'OSX' then
@@ -12,35 +12,42 @@ else
 	lua = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/linux/liblua.so')
 end
 ffi.cdef[[
-/* BEGIN /usr/include/lua5.3/lua.h */
+/* BEGIN /usr/include/lua5.4/lua.h */
 enum { lua_h = 1 };
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/9/include/stdarg.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h */
 ]] require 'ffi.c.stdarg' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-1-gnu/9/include/stdarg.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/9/include/stddef.h */
+/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stdarg.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-1-gnu/9/include/stddef.h */
-/* BEGIN /usr/include/lua5.3/luaconf.h */
+/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stddef.h */
+/* BEGIN /usr/include/lua5.4/luaconf.h */
 enum { luaconf_h = 1 };
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/9/include/limits.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h */
 ]] require 'ffi.c.limits' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-1-gnu/9/include/limits.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/9/include/stddef.h */
-/* END /usr/lib/gcc/x86_64-1-gnu/9/include/stddef.h */
-enum { LUAI_BITSINT = 32 };
+/* END /usr/lib/gcc/x86_64-1-gnu/11/include/limits.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
+/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stddef.h */
+enum { LUAI_IS32INT = 1 };
 enum { LUA_INT_INT = 1 };
 enum { LUA_INT_LONG = 2 };
 enum { LUA_INT_LONGLONG = 3 };
 enum { LUA_FLOAT_FLOAT = 1 };
 enum { LUA_FLOAT_DOUBLE = 2 };
 enum { LUA_FLOAT_LONGDOUBLE = 3 };
+enum { LUA_INT_DEFAULT = 3 };
+enum { LUA_FLOAT_DEFAULT = 2 };
+enum { LUA_32BITS = 0 };
+enum { LUA_C89_NUMBERS = 0 };
 enum { LUA_INT_TYPE = 3 };
 enum { LUA_FLOAT_TYPE = 2 };
+/* #define LUA_PATH_SEP            ";" ### string, not number "\";\"" */
+/* #define LUA_PATH_MARK           "?" ### string, not number "\"?\"" */
+/* #define LUA_EXEC_DIR            "!" ### string, not number "\"!\"" */
 /* #define LUA_VDIR	LUA_VERSION_MAJOR "." LUA_VERSION_MINOR ### string, not number "LUA_VERSION_MAJOR \".\" LUA_VERSION_MINOR" */
-/* BEGIN /usr/include/x86_64-linux-gnu/lua5.3-deb-multiarch.h */
+/* BEGIN /usr/include/x86_64-linux-gnu/lua5.4-deb-multiarch.h */
 enum { _LUA_DEB_MULTIARCH_ = 1 };
 /* #define DEB_HOST_MULTIARCH "x86_64-linux-gnu" ### string, not number "\"x86_64-linux-gnu\"" */
-/* END /usr/include/x86_64-1-gnu/lua5.3-deb-multiarch.h */
+/* END /usr/include/x86_64-1-gnu/lua5.4-deb-multiarch.h */
 /* #define LUA_ROOT	"/usr/local/" ### string, not number "\"/usr/local/\"" */
 /* #define LUA_ROOT2	"/usr/" ### string, not number "\"/usr/\"" */
 /* #define LUA_LDIR	LUA_ROOT "share/lua/" LUA_VDIR "/" ### string, not number "LUA_ROOT \"share/lua/\" LUA_VDIR \"/\"" */
@@ -54,8 +61,7 @@ enum { _LUA_DEB_MULTIARCH_ = 1 };
 enum { LUA_API = 0 };
 enum { LUALIB_API = 0 };
 enum { LUAMOD_API = 0 };
-/* #define LUAI_FUNC	__attribute__((visibility("hidden"))) extern ### string, not number "__attribute__((visibility(\"hidden\"))) extern" */
-/* #define LUAI_DDEC	LUAI_FUNC ### string, not number "LUAI_FUNC" */
+/* #define LUAI_FUNC	__attribute__((visibility("internal"))) extern ### string, not number "__attribute__((visibility(\"internal\"))) extern" */
 enum { LUAI_DDEF = 1 };
 enum { LUA_NUMBER = 0 };
 enum { LUAI_UACNUMBER = 0 };
@@ -68,24 +74,26 @@ enum { LUAI_UACINT = 0 };
 /* #define LUA_INTEGER_FRMLEN	"ll" ### string, not number "\"ll\"" */
 /* #define LUA_MAXINTEGER		LLONG_MAX ### string, not number "LLONG_MAX" */
 /* #define LUA_MININTEGER		LLONG_MIN ### string, not number "LLONG_MIN" */
+/* #define LUA_MAXUNSIGNED		ULLONG_MAX ### string, not number "ULLONG_MAX" */
 enum { LUA_KCONTEXT = 0 };
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h */
 ]] require 'ffi.c.stdint' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-1-gnu/9/include/stdint.h */
+/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stdint.h */
 /* redefining matching value: #define LUA_KCONTEXT	intptr_t */
 enum { LUAI_MAXSTACK = 1000000 };
 /* #define LUA_EXTRASPACE		(sizeof(void *)) ### string, not number "(sizeof(void *))" */
 enum { LUA_IDSIZE = 60 };
-enum { LUAL_BUFFERSIZE = 8192 };
-/* #define LUA_QS		LUA_QL("%s") ### string, not number "LUA_QL(\"%s\")" */
-/* END /usr/include/lua5.3/luaconf.h */
+/* #define LUAL_BUFFERSIZE   ((int)(16 * sizeof(void*) * sizeof(lua_Number))) ### string, not number "((int)(16 * sizeof(void*) * sizeof(lua_Number)))" */
+/* #define LUAI_MAXALIGN  lua_Number n; double u; void *s; lua_Integer i; long l ### string, not number "lua_Number n; double u; void *s; lua_Integer i; long l" */
+/* END /usr/include/lua5.4/luaconf.h */
 /* #define LUA_VERSION_MAJOR	"5" ### string, not number "\"5\"" */
-/* #define LUA_VERSION_MINOR	"3" ### string, not number "\"3\"" */
-enum { LUA_VERSION_NUM = 503 };
-/* #define LUA_VERSION_RELEASE	"3" ### string, not number "\"3\"" */
+/* #define LUA_VERSION_MINOR	"4" ### string, not number "\"4\"" */
+/* #define LUA_VERSION_RELEASE	"4" ### string, not number "\"4\"" */
+enum { LUA_VERSION_NUM = 504 };
+enum { LUA_VERSION_RELEASE_NUM = 50404 };
 /* #define LUA_VERSION	"Lua " LUA_VERSION_MAJOR "." LUA_VERSION_MINOR ### string, not number "\"Lua \" LUA_VERSION_MAJOR \".\" LUA_VERSION_MINOR" */
 /* #define LUA_RELEASE	LUA_VERSION "." LUA_VERSION_RELEASE ### string, not number "LUA_VERSION \".\" LUA_VERSION_RELEASE" */
-/* #define LUA_COPYRIGHT	LUA_RELEASE "  Copyright (C) 1994-2016 Lua.org, PUC-Rio" ### string, not number "LUA_RELEASE \"  Copyright (C) 1994-2016 Lua.org, PUC-Rio\"" */
+/* #define LUA_COPYRIGHT	LUA_RELEASE "  Copyright (C) 1994-2022 Lua.org, PUC-Rio" ### string, not number "LUA_RELEASE \"  Copyright (C) 1994-2022 Lua.org, PUC-Rio\"" */
 /* #define LUA_AUTHORS	"R. Ierusalimschy, L. H. de Figueiredo, W. Celes" ### string, not number "\"R. Ierusalimschy, L. H. de Figueiredo, W. Celes\"" */
 /* #define LUA_SIGNATURE	"\x1bLua" ### string, not number "\"\\x1bLua\"" */
 enum { LUA_MULTRET = -1 };
@@ -95,8 +103,7 @@ enum { LUA_YIELD = 1 };
 enum { LUA_ERRRUN = 2 };
 enum { LUA_ERRSYNTAX = 3 };
 enum { LUA_ERRMEM = 4 };
-enum { LUA_ERRGCMM = 5 };
-enum { LUA_ERRERR = 6 };
+enum { LUA_ERRERR = 5 };
 typedef struct lua_State lua_State;
 enum { LUA_TNONE = -1 };
 enum { LUA_TNIL = 0 };
@@ -108,7 +115,7 @@ enum { LUA_TTABLE = 5 };
 enum { LUA_TFUNCTION = 6 };
 enum { LUA_TUSERDATA = 7 };
 enum { LUA_TTHREAD = 8 };
-enum { LUA_NUMTAGS = 9 };
+enum { LUA_NUMTYPES = 9 };
 enum { LUA_MINSTACK = 20 };
 enum { LUA_RIDX_MAINTHREAD = 1 };
 enum { LUA_RIDX_GLOBALS = 2 };
@@ -122,12 +129,14 @@ typedef int (*lua_KFunction) (lua_State *L, int status, lua_KContext ctx);
 typedef const char * (*lua_Reader) (lua_State *L, void *ud, size_t *sz);
 typedef int (*lua_Writer) (lua_State *L, const void *p, size_t sz, void *ud);
 typedef void * (*lua_Alloc) (void *ud, void *ptr, size_t osize, size_t nsize);
+typedef void (*lua_WarnFunction) (void *ud, const char *msg, int tocont);
 extern const char lua_ident[];
 extern lua_State *(lua_newstate) (lua_Alloc f, void *ud);
 extern void (lua_close) (lua_State *L);
 extern lua_State *(lua_newthread) (lua_State *L);
+extern int (lua_resetthread) (lua_State *L);
 extern lua_CFunction (lua_atpanic) (lua_State *L, lua_CFunction panicf);
-extern const lua_Number *(lua_version) (lua_State *L);
+extern lua_Number (lua_version) (lua_State *L);
 extern int (lua_absindex) (lua_State *L, int idx);
 extern int (lua_gettop) (lua_State *L);
 extern void (lua_settop) (lua_State *L, int idx);
@@ -147,7 +156,7 @@ extern lua_Number (lua_tonumberx) (lua_State *L, int idx, int *isnum);
 extern lua_Integer (lua_tointegerx) (lua_State *L, int idx, int *isnum);
 extern int (lua_toboolean) (lua_State *L, int idx);
 extern const char *(lua_tolstring) (lua_State *L, int idx, size_t *len);
-extern size_t (lua_rawlen) (lua_State *L, int idx);
+extern lua_Unsigned (lua_rawlen) (lua_State *L, int idx);
 extern lua_CFunction (lua_tocfunction) (lua_State *L, int idx);
 extern void *(lua_touserdata) (lua_State *L, int idx);
 extern lua_State *(lua_tothread) (lua_State *L, int idx);
@@ -191,9 +200,9 @@ extern int (lua_rawget) (lua_State *L, int idx);
 extern int (lua_rawgeti) (lua_State *L, int idx, lua_Integer n);
 extern int (lua_rawgetp) (lua_State *L, int idx, const void *p);
 extern void (lua_createtable) (lua_State *L, int narr, int nrec);
-extern void *(lua_newuserdata) (lua_State *L, size_t sz);
+extern void *(lua_newuserdatauv) (lua_State *L, size_t sz, int nuvalue);
 extern int (lua_getmetatable) (lua_State *L, int objindex);
-extern int (lua_getuservalue) (lua_State *L, int idx);
+extern int (lua_getiuservalue) (lua_State *L, int idx, int n);
 extern void (lua_setglobal) (lua_State *L, const char *name);
 extern void (lua_settable) (lua_State *L, int idx);
 extern void (lua_setfield) (lua_State *L, int idx, const char *k);
@@ -202,15 +211,17 @@ extern void (lua_rawset) (lua_State *L, int idx);
 extern void (lua_rawseti) (lua_State *L, int idx, lua_Integer n);
 extern void (lua_rawsetp) (lua_State *L, int idx, const void *p);
 extern int (lua_setmetatable) (lua_State *L, int objindex);
-extern void (lua_setuservalue) (lua_State *L, int idx);
+extern int (lua_setiuservalue) (lua_State *L, int idx, int n);
 extern void (lua_callk) (lua_State *L, int nargs, int nresults, lua_KContext ctx, lua_KFunction k);
 extern int (lua_pcallk) (lua_State *L, int nargs, int nresults, int errfunc, lua_KContext ctx, lua_KFunction k);
 extern int (lua_load) (lua_State *L, lua_Reader reader, void *dt, const char *chunkname, const char *mode);
 extern int (lua_dump) (lua_State *L, lua_Writer writer, void *data, int strip);
 extern int (lua_yieldk) (lua_State *L, int nresults, lua_KContext ctx, lua_KFunction k);
-extern int (lua_resume) (lua_State *L, lua_State *from, int narg);
+extern int (lua_resume) (lua_State *L, lua_State *from, int narg, int *nres);
 extern int (lua_status) (lua_State *L);
 extern int (lua_isyieldable) (lua_State *L);
+extern void (lua_setwarnf) (lua_State *L, lua_WarnFunction f, void *ud);
+extern void (lua_warning) (lua_State *L, const char *msg, int tocont);
 enum { LUA_GCSTOP = 0 };
 enum { LUA_GCRESTART = 1 };
 enum { LUA_GCCOLLECT = 2 };
@@ -220,7 +231,9 @@ enum { LUA_GCSTEP = 5 };
 enum { LUA_GCSETPAUSE = 6 };
 enum { LUA_GCSETSTEPMUL = 7 };
 enum { LUA_GCISRUNNING = 9 };
-extern int (lua_gc) (lua_State *L, int what, int data);
+enum { LUA_GCGEN = 10 };
+enum { LUA_GCINC = 11 };
+extern int (lua_gc) (lua_State *L, int what, ...);
 extern int (lua_error) (lua_State *L);
 extern int (lua_next) (lua_State *L, int idx);
 extern void (lua_concat) (lua_State *L, int n);
@@ -228,6 +241,9 @@ extern void (lua_len) (lua_State *L, int idx);
 extern size_t (lua_stringtonumber) (lua_State *L, const char *s);
 extern lua_Alloc (lua_getallocf) (lua_State *L, void **ud);
 extern void (lua_setallocf) (lua_State *L, lua_Alloc f, void *ud);
+extern void (lua_toclose) (lua_State *L, int idx);
+extern void (lua_closeslot) (lua_State *L, int idx);
+enum { LUA_NUMTAGS = 9 };
 enum { LUA_HOOKCALL = 0 };
 enum { LUA_HOOKRET = 1 };
 enum { LUA_HOOKLINE = 2 };
@@ -251,11 +267,13 @@ extern void (lua_sethook) (lua_State *L, lua_Hook func, int mask, int count);
 extern lua_Hook (lua_gethook) (lua_State *L);
 extern int (lua_gethookmask) (lua_State *L);
 extern int (lua_gethookcount) (lua_State *L);
+extern int (lua_setcstacklimit) (lua_State *L, unsigned int limit);
 struct lua_Debug { int event;
 const char *name;
 const char *namewhat;
 const char *what;
 const char *source;
+size_t srclen;
 int currentline;
 int linedefined;
 int lastlinedefined;
@@ -263,9 +281,11 @@ unsigned char nups;
 unsigned char nparams;
 char isvararg;
 char istailcall;
+unsigned short ftransfer;
+unsigned short ntransfer;
 char short_src[60];
 struct CallInfo *i_ci;
 };
-/* END /usr/include/lua5.3/lua.h */
+/* END /usr/include/lua5.4/lua.h */
 ]]
 return lua

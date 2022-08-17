@@ -1,169 +1,12 @@
 local ffi  = require 'ffi'
-
-local lib = 'libnetcdf'
-
-local netcdf = ffi.load(lib)
-
-local code = [[
+ffi.cdef[[
 /* BEGIN /usr/include/netcdf.h */
 enum { _NETCDF_ = 1 };
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/9/include/stddef.h */
-]] require 'ffi.c.stddef' code=code..[[
-/* END /usr/lib/gcc/x86_64-1-gnu/9/include/stddef.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
+]] require 'ffi.c.stddef' ffi.cdef[[
+/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stddef.h */
 /* BEGIN /usr/include/errno.h */
-enum { _ERRNO_H = 1 };
-/* BEGIN /usr/include/features.h */
-]] require 'ffi.c.features' code=code..[[
-/* END /usr/include/features.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/errno.h */
-enum { _BITS_ERRNO_H = 1 };
-/* BEGIN /usr/include/linux/errno.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/asm/errno.h */
-/* BEGIN /usr/include/asm-generic/errno.h */
-enum { _ASM_GENERIC_ERRNO_H = 1 };
-/* BEGIN /usr/include/asm-generic/errno-base.h */
-enum { _ASM_GENERIC_ERRNO_BASE_H = 1 };
-enum { EPERM = 1 };
-enum { ENOENT = 2 };
-enum { ESRCH = 3 };
-enum { EINTR = 4 };
-enum { EIO = 5 };
-enum { ENXIO = 6 };
-enum { E2BIG = 7 };
-enum { ENOEXEC = 8 };
-enum { EBADF = 9 };
-enum { ECHILD = 10 };
-enum { EAGAIN = 11 };
-enum { ENOMEM = 12 };
-enum { EACCES = 13 };
-enum { EFAULT = 14 };
-enum { ENOTBLK = 15 };
-enum { EBUSY = 16 };
-enum { EEXIST = 17 };
-enum { EXDEV = 18 };
-enum { ENODEV = 19 };
-enum { ENOTDIR = 20 };
-enum { EISDIR = 21 };
-enum { EINVAL = 22 };
-enum { ENFILE = 23 };
-enum { EMFILE = 24 };
-enum { ENOTTY = 25 };
-enum { ETXTBSY = 26 };
-enum { EFBIG = 27 };
-enum { ENOSPC = 28 };
-enum { ESPIPE = 29 };
-enum { EROFS = 30 };
-enum { EMLINK = 31 };
-enum { EPIPE = 32 };
-enum { EDOM = 33 };
-enum { ERANGE = 34 };
-/* END /usr/include/asm-generic/errno-base.h */
-enum { EDEADLK = 35 };
-enum { ENAMETOOLONG = 36 };
-enum { ENOLCK = 37 };
-enum { ENOSYS = 38 };
-enum { ENOTEMPTY = 39 };
-enum { ELOOP = 40 };
-enum { EWOULDBLOCK = 11 };
-enum { ENOMSG = 42 };
-enum { EIDRM = 43 };
-enum { ECHRNG = 44 };
-enum { EL2NSYNC = 45 };
-enum { EL3HLT = 46 };
-enum { EL3RST = 47 };
-enum { ELNRNG = 48 };
-enum { EUNATCH = 49 };
-enum { ENOCSI = 50 };
-enum { EL2HLT = 51 };
-enum { EBADE = 52 };
-enum { EBADR = 53 };
-enum { EXFULL = 54 };
-enum { ENOANO = 55 };
-enum { EBADRQC = 56 };
-enum { EBADSLT = 57 };
-enum { EDEADLOCK = 35 };
-enum { EBFONT = 59 };
-enum { ENOSTR = 60 };
-enum { ENODATA = 61 };
-enum { ETIME = 62 };
-enum { ENOSR = 63 };
-enum { ENONET = 64 };
-enum { ENOPKG = 65 };
-enum { EREMOTE = 66 };
-enum { ENOLINK = 67 };
-enum { EADV = 68 };
-enum { ESRMNT = 69 };
-enum { ECOMM = 70 };
-enum { EPROTO = 71 };
-enum { EMULTIHOP = 72 };
-enum { EDOTDOT = 73 };
-enum { EBADMSG = 74 };
-enum { EOVERFLOW = 75 };
-enum { ENOTUNIQ = 76 };
-enum { EBADFD = 77 };
-enum { EREMCHG = 78 };
-enum { ELIBACC = 79 };
-enum { ELIBBAD = 80 };
-enum { ELIBSCN = 81 };
-enum { ELIBMAX = 82 };
-enum { ELIBEXEC = 83 };
-enum { EILSEQ = 84 };
-enum { ERESTART = 85 };
-enum { ESTRPIPE = 86 };
-enum { EUSERS = 87 };
-enum { ENOTSOCK = 88 };
-enum { EDESTADDRREQ = 89 };
-enum { EMSGSIZE = 90 };
-enum { EPROTOTYPE = 91 };
-enum { ENOPROTOOPT = 92 };
-enum { EPROTONOSUPPORT = 93 };
-enum { ESOCKTNOSUPPORT = 94 };
-enum { EOPNOTSUPP = 95 };
-enum { EPFNOSUPPORT = 96 };
-enum { EAFNOSUPPORT = 97 };
-enum { EADDRINUSE = 98 };
-enum { EADDRNOTAVAIL = 99 };
-enum { ENETDOWN = 100 };
-enum { ENETUNREACH = 101 };
-enum { ENETRESET = 102 };
-enum { ECONNABORTED = 103 };
-enum { ECONNRESET = 104 };
-enum { ENOBUFS = 105 };
-enum { EISCONN = 106 };
-enum { ENOTCONN = 107 };
-enum { ESHUTDOWN = 108 };
-enum { ETOOMANYREFS = 109 };
-enum { ETIMEDOUT = 110 };
-enum { ECONNREFUSED = 111 };
-enum { EHOSTDOWN = 112 };
-enum { EHOSTUNREACH = 113 };
-enum { EALREADY = 114 };
-enum { EINPROGRESS = 115 };
-enum { ESTALE = 116 };
-enum { EUCLEAN = 117 };
-enum { ENOTNAM = 118 };
-enum { ENAVAIL = 119 };
-enum { EISNAM = 120 };
-enum { EREMOTEIO = 121 };
-enum { EDQUOT = 122 };
-enum { ENOMEDIUM = 123 };
-enum { EMEDIUMTYPE = 124 };
-enum { ECANCELED = 125 };
-enum { ENOKEY = 126 };
-enum { EKEYEXPIRED = 127 };
-enum { EKEYREVOKED = 128 };
-enum { EKEYREJECTED = 129 };
-enum { EOWNERDEAD = 130 };
-enum { ENOTRECOVERABLE = 131 };
-enum { ERFKILL = 132 };
-enum { EHWPOISON = 133 };
-/* END /usr/include/asm-generic/errno.h */
-/* END /usr/include/x86_64-1-gnu/asm/errno.h */
-/* END /usr/include/1/errno.h */
-enum { ENOTSUP = 95 };
-/* END /usr/include/x86_64-1-gnu/bits/errno.h */
-extern int *__errno_location (void) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
-/* # define errno (*__errno_location ()) ### string, not number "(*__errno_location ())" */
+]] require 'ffi.c.errno' ffi.cdef[[
 /* END /usr/include/(*__errno_location ()).h */
 typedef int nc_type;
 enum { NC_NAT = 0 };
@@ -256,7 +99,7 @@ enum { NC_FORMATX_DAP2 = 5 };
 enum { NC_FORMATX_DAP4 = 6 };
 enum { NC_FORMATX_UDF0 = 8 };
 enum { NC_FORMATX_UDF1 = 9 };
-enum { NC_FORMATX_ZARR = 10 };
+enum { NC_FORMATX_NCZARR = 10 };
 enum { NC_FORMATX_UNDEFINED = 0 };
 enum { NC_FORMAT_NC3 = 1 };
 enum { NC_FORMAT_NC_HDF5 = 2 };
@@ -275,12 +118,15 @@ enum { NC_MAX_ATTRS = 8192 };
 enum { NC_MAX_VARS = 8192 };
 enum { NC_MAX_NAME = 256 };
 enum { NC_MAX_VAR_DIMS = 1024 };
-enum { NC_MAX_HDF4_NAME = 64 };
+enum { NC_MAX_HDF4_NAME = 256 };
 enum { NC_ENDIAN_NATIVE = 0 };
 enum { NC_ENDIAN_LITTLE = 1 };
 enum { NC_ENDIAN_BIG = 2 };
 enum { NC_CHUNKED = 0 };
 enum { NC_CONTIGUOUS = 1 };
+enum { NC_COMPACT = 2 };
+enum { NC_UNKNOWN_STORAGE = 3 };
+enum { NC_VIRTUAL = 4 };
 enum { NC_NOCHECKSUM = 0 };
 enum { NC_FLETCHER32 = 1 };
 enum { NC_NOSHUFFLE = 0 };
@@ -377,11 +223,18 @@ enum { NC_EFILTER = -132 };
 enum { NC_ERCFILE = -133 };
 enum { NC_ENULLPAD = -134 };
 enum { NC_EINMEMORY = -135 };
-enum { NC4_LAST_ERROR = -136 };
-/* #define DIM_WITHOUT_VARIABLE "This is a netCDF dimension but not a netCDF variable." ### string, not number "\"This is a netCDF dimension but not a netCDF variable.\"" */
-enum { NC_HAVE_NEW_CHUNKING_API = 1 };
+enum { NC_ENOFILTER = -136 };
+enum { NC_ENCZARR = -137 };
+enum { NC_ES3 = -138 };
+enum { NC_EEMPTY = -139 };
+enum { NC_EOBJECT = -140 };
+enum { NC_ENOOBJECT = -141 };
+enum { NC_EPLUGIN = -142 };
+enum { NC4_LAST_ERROR = -142 };
 enum { NC_EURL = -74 };
 enum { NC_ECONSTRAINT = -75 };
+/* #define DIM_WITHOUT_VARIABLE "This is a netCDF dimension but not a netCDF variable." ### string, not number "\"This is a netCDF dimension but not a netCDF variable.\"" */
+enum { NC_HAVE_NEW_CHUNKING_API = 1 };
 enum { MSC_EXTRA = 1 };
 enum { EXTERNL = 0 };
 extern const char * nc_inq_libvers(void);
@@ -456,6 +309,7 @@ extern int nc_put_varm(int ncid, int varid, const size_t *startp, const size_t *
 extern int nc_get_varm(int ncid, int varid, const size_t *startp, const size_t *countp, const ptrdiff_t *stridep, const ptrdiff_t *imapp, void *ip);
 extern int nc_def_var_deflate(int ncid, int varid, int shuffle, int deflate, int deflate_level);
 extern int nc_inq_var_deflate(int ncid, int varid, int *shufflep, int *deflatep, int *deflate_levelp);
+extern int nc_def_var_szip(int ncid, int varid, int options_mask, int pixels_per_block);
 extern int nc_inq_var_szip(int ncid, int varid, int *options_maskp, int *pixels_per_blockp);
 extern int nc_def_var_fletcher32(int ncid, int varid, int fletcher32);
 extern int nc_inq_var_fletcher32(int ncid, int varid, int *fletcher32p);
@@ -751,13 +605,4 @@ enum { NC_HAVE_INQ_FORMAT_EXTENDED = 1 };
 enum { NC_HAVE_META_H = 1 };
 /* END /usr/include/netcdf.h */
 ]]
-
-xpcall(function()
-	ffi.cdef(code)	
-end, function(err)
-	print(require 'template.showcode'(code))
-	print(err..debug.traceback())
-	os.exit(1)
-end)
-
-return netcdf
+return ffi.load'libnetcdf'

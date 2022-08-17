@@ -1,6 +1,6 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h */
 /* BEGIN /usr/include/stdint.h */
 enum { _STDINT_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
@@ -105,5 +105,5 @@ enum { WCHAR_MAX = 2147483647 };
 /* # define WINT_MAX		(4294967295u) ### string, not number "(4294967295u)" */
 /* END /usr/include/stdint.h */
 enum { _GCC_WRAP_STDINT_H = 1 };
-/* END /usr/lib/gcc/x86_64-1-gnu/9/include/stdint.h */
+/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stdint.h */
 ]]

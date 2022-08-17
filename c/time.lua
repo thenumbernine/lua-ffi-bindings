@@ -5,9 +5,9 @@ enum { _TIME_H = 1 };
 /* BEGIN /usr/include/features.h */
 ]] require 'ffi.c.features' ffi.cdef[[
 /* END /usr/include/features.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/9/include/stddef.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-1-gnu/9/include/stddef.h */
+/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stddef.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/time.h */
 enum { _BITS_TIME_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
