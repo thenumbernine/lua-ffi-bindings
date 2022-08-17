@@ -1,36 +1,36 @@
--- sys/time.h
-local template = require 'template'
 local ffi = require 'ffi'
-ffi.cdef(template([[
-<?
-if ffi.os == 'Windows' then
-	if ffi.abi'64bit' then
-?>
-typedef __int64 time_t;
-<?
-	else
-?>
-typedef __int32 time_t;
-<?
-	end
-else
-?>
-typedef size_t time_t;
-<?
-end
-?>
-
-typedef int suseconds_t;
-
-struct timezone {
-	int	tz_minuteswest;		/* of Greenwich */
-	int	tz_dsttime;			/* type of dst correction to apply */
+ffi.cdef[[
+/* BEGIN /usr/include/features.h */
+]] require 'ffi.c.features' ffi.cdef[[
+/* END /usr/include/features.h */
+/* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
+]] require 'ffi.c.bits.types' ffi.cdef[[
+/* END /usr/include/x86_64-1-gnu/bits/types.h */
+/* BEGIN /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
+]] require 'ffi.c.bits.types.time_t' ffi.cdef[[
+/* END /usr/include/x86_64-1-gnu/bits/types/time_t.h */
+/* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h */
+]] require 'ffi.c.bits.types.struct_timeval' ffi.cdef[[
+/* END /usr/include/x86_64-1-gnu/bits/types/struct_timeval.h */
+]] require 'ffi.c.bits.types.suseconds_t' ffi.cdef[[
+/* BEGIN /usr/include/x86_64-linux-gnu/sys/select.h */
+]] require 'ffi.c.sys.select' ffi.cdef[[
+/* END /usr/include/x86_64-1-gnu/sys/select.h */
+struct timezone { int tz_minuteswest;
+int tz_dsttime;
 };
-
-int gettimeofday(struct timeval * tp, void * tzp);
-int settimeofday(const struct timeval *tp, const struct timezone *tzp);
-
-]], {
-	ffi = ffi,
-}))
-require 'ffi.c.bits.types.struct_timeval'
+extern int gettimeofday (struct timeval * __tv, void * __tz) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+extern int settimeofday (const struct timeval *__tv, const struct timezone *__tz) __attribute__ ((__nothrow__ , __leaf__));
+extern int adjtime (const struct timeval *__delta, struct timeval *__olddelta) __attribute__ ((__nothrow__ , __leaf__));
+enum __itimer_which { ITIMER_REAL = 0, ITIMER_VIRTUAL = 1, ITIMER_PROF = 2 };
+struct itimerval { struct timeval it_interval;
+struct timeval it_value;
+};
+typedef int __itimer_which_t;
+extern int getitimer (__itimer_which_t __which, struct itimerval *__value) __attribute__ ((__nothrow__ , __leaf__));
+extern int setitimer (__itimer_which_t __which, const struct itimerval * __new, struct itimerval * __old) __attribute__ ((__nothrow__ , __leaf__));
+extern int utimes (const char *__file, const struct timeval __tvp[2]) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+extern int lutimes (const char *__file, const struct timeval __tvp[2]) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+extern int futimes (int __fd, const struct timeval __tvp[2]) __attribute__ ((__nothrow__ , __leaf__));
+/* END /usr/include/x86_64-1-gnu/sys/time.h */
+]]

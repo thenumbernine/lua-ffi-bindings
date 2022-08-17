@@ -26,8 +26,7 @@ typedef __sigset_t sigset_t;
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
 ]] require 'ffi.c.bits.types.struct_timespec' ffi.cdef[[
 /* END /usr/include/x86_64-1-gnu/bits/types/struct_timespec.h */
-typedef __suseconds_t suseconds_t;
-enum { __suseconds_t_defined = 1 };
+]] require 'ffi.c.bits.types.suseconds_t' ffi.cdef[[
 typedef long int __fd_mask;
 /* #define __NFDBITS	(8 * (int) sizeof (__fd_mask)) ### string, not number "(8 * (int) sizeof (__fd_mask))" */
 typedef struct { __fd_mask __fds_bits[1024 / (8 * (int) sizeof (__fd_mask))];
