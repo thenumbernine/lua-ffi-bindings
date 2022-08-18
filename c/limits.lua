@@ -54,7 +54,7 @@ enum { _POSIX_CLOCKRES_MIN = 20000000 };
 enum { __undef_NR_OPEN = 1 };
 enum { __undef_LINK_MAX = 1 };
 enum { __undef_OPEN_MAX = 1 };
-enum { __undef_ARG_MAX = 1 };
+/* enum { __undef_ARG_MAX = 1 }; */
 /* BEGIN /usr/include/linux/limits.h */
 enum { _LINUX_LIMITS_H = 1 };
 enum { NR_OPEN = 1024 };
