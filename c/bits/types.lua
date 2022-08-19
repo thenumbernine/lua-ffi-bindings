@@ -99,7 +99,7 @@ enum { __INO_T_MATCHES_INO64_T = 1 };
 enum { __RLIM_T_MATCHES_RLIM64_T = 1 };
 enum { __STATFS_MATCHES_STATFS64 = 1 };
 enum { __KERNEL_OLD_TIMEVAL_MATCHES_TIMEVAL64 = 1 };
-enum { __FD_SETSIZE = 1024 };
+]] require 'ffi.c.__FD_SETSIZE' ffi.cdef[[
 /* END /usr/include/x86_64-1-gnu/bits/typesizes.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/time64.h */
 enum { _BITS_TIME64_H = 1 };

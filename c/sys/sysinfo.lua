@@ -38,7 +38,7 @@ __extension__ typedef unsigned long long __u64;
 enum { _LINUX_POSIX_TYPES_H = 1 };
 /* BEGIN /usr/include/linux/stddef.h */
 /* END /usr/include/1/stddef.h */
-enum { __FD_SETSIZE = 1024 };
+]] require 'ffi.c.__FD_SETSIZE' ffi.cdef[[
 typedef struct { unsigned long fds_bits[1024 / (8 * sizeof(long))];
 } __kernel_fd_set;
 typedef void (*__kernel_sighandler_t)(int);
