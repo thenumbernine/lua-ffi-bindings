@@ -3011,9 +3011,7 @@ extern __attribute__((__visibility__("default"))) void ImVector_ImWchar_UnInit(I
 /* NOTICE: I can't include imgui.h since it's a C++ header with classes */
 /* END ../../cpp/ImGuiCommon/include/imgui.h */
 /* NOTICE: I could require 'ffi.sdl' here ... */
-struct SDL_Window;
-struct SDL_Renderer;
-typedef union SDL_Event SDL_Event;
+]] require 'ffi.sdl' ffi.cdef[[
 _Bool ImGui_ImplSDL2_InitForOpenGL(SDL_Window* window, void* sdl_gl_context);
 _Bool ImGui_ImplSDL2_InitForVulkan(SDL_Window* window);
 _Bool ImGui_ImplSDL2_InitForD3D(SDL_Window* window);
