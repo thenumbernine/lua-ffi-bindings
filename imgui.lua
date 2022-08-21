@@ -1,7 +1,6 @@
 -- switching over to the autogen luajit bindings at https://github.com/sonoro1234/LuaJIT-ImGui
 local ffi = require 'ffi'
-local imgui_sdl = require 'imgui.sdl'
-local ig = imgui_sdl.lib 
+local ig = require 'imgui'
 
 -- I would use the ffi comparison, but it is only checks wrt const-ness
 -- it doesn't equate pointers and arrays
@@ -18,8 +17,8 @@ local function isptr(x, ptrPattern)
 		or ctype:match('^ctype<const%s+'..ptrPattern..'%s*%[.*%]>$')
 end
 
-local ImVec2 = imgui_sdl.ImVec2
-local ImVec4 = imgui_sdl.ImVec4
+local ImVec2 = ig.ImVec2
+local ImVec4 = ig.ImVec4
 
 -- [[ implementing function overloading
 local wrapper = setmetatable({
