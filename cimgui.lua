@@ -15,10 +15,10 @@ enum { CIMGUI_INCLUDED = 1 };
 /* END /usr/lib/gcc/x86_64-1-gnu/11/include/stdarg.h */
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stdbool.h */
 enum { _STDBOOL_H = 1 };
-enum { bool = 0 };
-enum { true = 1 };
-enum { false = 0 };
-enum { __bool_true_false_are_defined = 1 };
+/* enum { bool = 0 }; */
+/* enum { true = 1 }; */
+/* enum { false = 0 }; */
+/* enum { __bool_true_false_are_defined = 1 }; */
 /* END /usr/lib/gcc/x86_64-1-gnu/11/include/stdbool.h */
 enum { EXTERN = 0 };
 /* #define CIMGUI_API EXTERN API ### string, not number "EXTERN API" */
@@ -3006,4 +3006,33 @@ extern __attribute__((__visibility__("default"))) void ImVector_ImWchar_destroy(
 extern __attribute__((__visibility__("default"))) void ImVector_ImWchar_Init(ImVector_ImWchar* p);
 extern __attribute__((__visibility__("default"))) void ImVector_ImWchar_UnInit(ImVector_ImWchar* p);
 /* END ../../other/cimgui/cimgui.h */
+/* BEGIN ../../cpp/ImGuiCommon/include/imgui_impl_sdl.h */
+/* BEGIN ../../cpp/ImGuiCommon/include/imgui.h */
+/* NOTICE: I can't include imgui.h since it's a C++ header with classes */
+/* END ../../cpp/ImGuiCommon/include/imgui.h */
+/* NOTICE: I could require 'ffi.sdl' here ... */
+struct SDL_Window;
+struct SDL_Renderer;
+typedef union SDL_Event SDL_Event;
+_Bool ImGui_ImplSDL2_InitForOpenGL(SDL_Window* window, void* sdl_gl_context);
+_Bool ImGui_ImplSDL2_InitForVulkan(SDL_Window* window);
+_Bool ImGui_ImplSDL2_InitForD3D(SDL_Window* window);
+_Bool ImGui_ImplSDL2_InitForMetal(SDL_Window* window);
+_Bool ImGui_ImplSDL2_InitForSDLRenderer(SDL_Window* window, SDL_Renderer* renderer);
+void ImGui_ImplSDL2_Shutdown();
+void ImGui_ImplSDL2_NewFrame();
+_Bool ImGui_ImplSDL2_ProcessEvent(const SDL_Event* event);
+static inline void ImGui_ImplSDL2_NewFrame(SDL_Window*) { ImGui_ImplSDL2_NewFrame(); }
+/* END ../../cpp/ImGuiCommon/include/imgui_impl_sdl.h */
+/* BEGIN ../../cpp/ImGuiCommon/include/imgui_impl_opengl2.h */
+_Bool ImGui_ImplOpenGL2_Init();
+void ImGui_ImplOpenGL2_Shutdown();
+void ImGui_ImplOpenGL2_NewFrame();
+void ImGui_ImplOpenGL2_RenderDrawData(ImDrawData* draw_data);
+_Bool ImGui_ImplOpenGL2_CreateFontsTexture();
+void ImGui_ImplOpenGL2_DestroyFontsTexture();
+_Bool ImGui_ImplOpenGL2_CreateDeviceObjects();
+void ImGui_ImplOpenGL2_DestroyDeviceObjects();
+/* END ../../cpp/ImGuiCommon/include/imgui_impl_opengl2.h */
 ]]
+return lib
