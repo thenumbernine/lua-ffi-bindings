@@ -212,11 +212,189 @@ function lfs.currentdir()
 	end
 end
 
-function lfs.dir() end
+if ffi.os == 'Windows' then
+	ffi.cdef[[
+typedef struct dir_data {
+  int closed;
+  intptr_t hFile;
+  char pattern[MAX_PATH + 1];
+} dir_data;
+]]
+else
+	ffi.cdef[[
+typedef struct dir_data {
+  int closed;
+  DIR *dir;
+} dir_data;
+]]
+end
+local DIR_METATABLE = {
+	__index = {
+		next = dir_iter,
+		close = dir_close,
+	},
+	__gc = dir_close,
+}
+-- wait should this be assigned to DIR_METATABLE or to lfs?
+if LUA_VERSION_NUM >= 504 then
+	DIR_METATABLE.__close = dir_close
+end
+ffi.metatype('dir_data', DIR_METATABLE)
 
-function lfs.link() end
+function lfs.dir(path)
+	assert(type(path) == 'string', "expected string")
+	local d = ffi.new'dir_data[1]'
+	d[0].closed = 0
+	if ffi.os == 'Windows' then
+		d[0].hFile = 0
+		if #path > ffi.C.MAX_PATH - 2 then
+			error("path too long: "..path)
+		else
+			ffi.C.sprintf(d[0].pattern, "%s/*", path)
+		end
+	else
+		d[0].dir = opendir(path)
+		if d[0].dir == nil then
+			error("cannot open %s: %s", path, ffi.C.strerror(errno.errno()))
+		end
+	end
+	return dir_iter, 
 
-function  lfs.lock() end
+	if LUA_VERSION_NUM >= 504 then
+		return dir_iter, d, nil, d
+	else
+		return dir_iter, d
+	end
+end
+
+local function pusherror(info)
+	local errno = errno.errno()
+	if info == nil then
+		return nil, ffi.C.strerror(errno), errno
+	else
+		return nil, ('%s: %s'):format(info, ffi.C.strerrorr(errno)), errno
+	end
+end
+
+local function pushresult(res, info)
+	if res == -1 then
+		return pusherror(info)
+	else
+		return true
+	end
+end
+
+function lfs.link(oldpath, newpath, symbolic)
+	assert(type(oldpath) == 'string', "expected string")
+	assert(type(newpath) == 'string', "expected string")
+	if ffi.os ~= 'Window' then
+		if symbolic then
+			return pushresult(ffi.C.symlink(oldpath, newpath))
+		else
+			return pushresult(ffi.C.link(oldpath, newpath))
+		end
+	else
+		local oldpathinfo = ffi.new(STAT_STRUCT..'[1]')
+		local is_dir = 0
+		if STAT_FUNC(oldpath, oldpathinfo) == 0 then
+			is_dir = S_ISDIR(oldpathinfo[0].st_mode) ~= 0
+		end
+		if not symbolic and is_dir then
+			return nil, "hard links to directories are not supported on Windows"
+		end
+
+		local result
+		if symbolic then
+			result = ffi.C.CreateSymbolicLink(newpath, oldpath, is_dir)
+		else
+			result = ffi.C.CreateHardLink(newpath, oldpath, nil)
+		end
+
+		if result ~= 0 then
+			return pushresult(L, result, nil)
+		else
+			return nil, symbolic 
+				and "make_link CreateSymbolicLink() failed"
+				or "make_link CreateHardLink() failed"
+		end
+	end
+end
+
+local function _file_lock(fh, mode, start, len, funcname)
+	if ffi.os == 'Windows' then
+		local lkmode
+		if mode == 'r' then
+			lkmode = ffi.C.LK_NBLCK
+		elseif mode == 'w' then
+			lkmode = ffi.C.LK_NBLCK
+		elseif mode == 'u' then
+			lkmode = ffi.C.LK_UNLCK
+		else
+			error(("%s: invalid mode"):format(funcname))
+		end
+		if len == 0 then
+			ffi.C.fseek(fh, 0, ffi.C.SEEK_END)
+			len = ffi.C.ftell(fh)
+		end
+		ffi.C.fseek(fh, start, ffi.C.SEEK_SET)
+		--#ifdef __BORLANDC__
+		--	code = locking(fileno(fh), lkmode, len);
+		--#else
+			code = ffi.C._locking(ffi.C.fileno(fh), lkmode, len)
+		--#endif
+	else
+		local f = ffi.new'struct flock[1]'
+		if mode == 'w' then
+			f[0].l_type = ffi.C.F_WRLCK
+		elseif mode == 'r' then
+			f[0].l_type = ffi.C.F_RDLCK
+		elseif mode == 'u' then
+			f[0].l_type = ffi.C.F_UNLCK
+		else
+			error(("%s: invalid mode"):format(funcname))
+		end
+		f[0].l_whence = ffi.C.SEEK_SET
+		f[0].l_start = ffi.cast('off_t', start)
+		f[0].l_len = ffi.cast('off_t', len)
+		local code = ffi.C.fcntl(ffi.C.fileno(fh), ffi.C.F_SETLK, f)
+	end
+	return code ~= -1
+end
+
+-- accepts ... userdata? of io.open?
+-- returns FILE*
+local function check_file(fh, funcname)
+	if type(fh) ~= 'userdata' then error "expected userdata" end	-- luaL_checkudata
+	if _VERSION == "Lua 5.1" then
+		-- TODO how to get C pointer from userdata in luajit?
+		local fp = ffi.cast('FILE*', getuserdatapointer(fh))
+		if fp == nil then
+			error("%s: closed file", funcname)
+		end
+		return fp
+	elseif _VERSION >= "Lua 5.2" and _VERSION <= "Lua 5.4" then
+		local fp = ffi.cast('luaL_Stream*', getuserdatapointer(fh))
+		if fp[0].closef == 0 and fp[0].f == nil then
+			error(("%s: closed file"):format(funcname))
+		else
+			return fp[0].f
+		end
+	else
+		error("unsupported Lua version")
+	end
+end
+
+function lfs.lock(fh, mode, start, len)
+	fh = check_file(fh, "lock")
+	assert(type(mode) == 'string', "expected string")
+	local start = tonumber(start) or 0
+	local len = tonumber(len) or 0
+	if _file_lock(fh, mode, start, len, "lock") then
+		return true
+	else
+		return nil, ffi.C.strerror(errno.errno())
+	end
+end
 
 function lfs.mkdir() end
 
