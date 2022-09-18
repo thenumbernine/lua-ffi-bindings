@@ -179,364 +179,1070 @@ typedef void (*ImGuiSizeCallback)(ImGuiSizeCallbackData* data);
 typedef void* (*ImGuiMemAllocFunc)(size_t sz, void* user_data);
 typedef void (*ImGuiMemFreeFunc)(void* ptr, void* user_data);
 typedef struct ImVec2 ImVec2;
-struct ImVec2 { float x, y;
+struct ImVec2 {
+	float x, y;
 };
 typedef struct ImVec4 ImVec4;
-struct ImVec4 { float x, y, z, w;
+struct ImVec4 {
+	float x, y, z, w;
 };
-typedef enum { ImGuiWindowFlags_None = 0, ImGuiWindowFlags_NoTitleBar = 1 << 0, ImGuiWindowFlags_NoResize = 1 << 1, ImGuiWindowFlags_NoMove = 1 << 2, ImGuiWindowFlags_NoScrollbar = 1 << 3, ImGuiWindowFlags_NoScrollWithMouse = 1 << 4, ImGuiWindowFlags_NoCollapse = 1 << 5, ImGuiWindowFlags_AlwaysAutoResize = 1 << 6, ImGuiWindowFlags_NoBackground = 1 << 7, ImGuiWindowFlags_NoSavedSettings = 1 << 8, ImGuiWindowFlags_NoMouseInputs = 1 << 9, ImGuiWindowFlags_MenuBar = 1 << 10, ImGuiWindowFlags_HorizontalScrollbar = 1 << 11, ImGuiWindowFlags_NoFocusOnAppearing = 1 << 12, ImGuiWindowFlags_NoBringToFrontOnFocus = 1 << 13, ImGuiWindowFlags_AlwaysVerticalScrollbar= 1 << 14, ImGuiWindowFlags_AlwaysHorizontalScrollbar=1<< 15, ImGuiWindowFlags_AlwaysUseWindowPadding = 1 << 16, ImGuiWindowFlags_NoNavInputs = 1 << 18, ImGuiWindowFlags_NoNavFocus = 1 << 19, ImGuiWindowFlags_UnsavedDocument = 1 << 20, ImGuiWindowFlags_NoDocking = 1 << 21, ImGuiWindowFlags_NoNav = ImGuiWindowFlags_NoNavInputs | ImGuiWindowFlags_NoNavFocus, ImGuiWindowFlags_NoDecoration = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoCollapse, ImGuiWindowFlags_NoInputs = ImGuiWindowFlags_NoMouseInputs | ImGuiWindowFlags_NoNavInputs | ImGuiWindowFlags_NoNavFocus, ImGuiWindowFlags_NavFlattened = 1 << 23, ImGuiWindowFlags_ChildWindow = 1 << 24, ImGuiWindowFlags_Tooltip = 1 << 25, ImGuiWindowFlags_Popup = 1 << 26, ImGuiWindowFlags_Modal = 1 << 27, ImGuiWindowFlags_ChildMenu = 1 << 28, ImGuiWindowFlags_DockNodeHost = 1 << 29 }ImGuiWindowFlags_;
-typedef enum { ImGuiInputTextFlags_None = 0, ImGuiInputTextFlags_CharsDecimal = 1 << 0, ImGuiInputTextFlags_CharsHexadecimal = 1 << 1, ImGuiInputTextFlags_CharsUppercase = 1 << 2, ImGuiInputTextFlags_CharsNoBlank = 1 << 3, ImGuiInputTextFlags_AutoSelectAll = 1 << 4, ImGuiInputTextFlags_EnterReturnsTrue = 1 << 5, ImGuiInputTextFlags_CallbackCompletion = 1 << 6, ImGuiInputTextFlags_CallbackHistory = 1 << 7, ImGuiInputTextFlags_CallbackAlways = 1 << 8, ImGuiInputTextFlags_CallbackCharFilter = 1 << 9, ImGuiInputTextFlags_AllowTabInput = 1 << 10, ImGuiInputTextFlags_CtrlEnterForNewLine = 1 << 11, ImGuiInputTextFlags_NoHorizontalScroll = 1 << 12, ImGuiInputTextFlags_AlwaysOverwrite = 1 << 13, ImGuiInputTextFlags_ReadOnly = 1 << 14, ImGuiInputTextFlags_Password = 1 << 15, ImGuiInputTextFlags_NoUndoRedo = 1 << 16, ImGuiInputTextFlags_CharsScientific = 1 << 17, ImGuiInputTextFlags_CallbackResize = 1 << 18, ImGuiInputTextFlags_CallbackEdit = 1 << 19 }ImGuiInputTextFlags_;
-typedef enum { ImGuiTreeNodeFlags_None = 0, ImGuiTreeNodeFlags_Selected = 1 << 0, ImGuiTreeNodeFlags_Framed = 1 << 1, ImGuiTreeNodeFlags_AllowItemOverlap = 1 << 2, ImGuiTreeNodeFlags_NoTreePushOnOpen = 1 << 3, ImGuiTreeNodeFlags_NoAutoOpenOnLog = 1 << 4, ImGuiTreeNodeFlags_DefaultOpen = 1 << 5, ImGuiTreeNodeFlags_OpenOnDoubleClick = 1 << 6, ImGuiTreeNodeFlags_OpenOnArrow = 1 << 7, ImGuiTreeNodeFlags_Leaf = 1 << 8, ImGuiTreeNodeFlags_Bullet = 1 << 9, ImGuiTreeNodeFlags_FramePadding = 1 << 10, ImGuiTreeNodeFlags_SpanAvailWidth = 1 << 11, ImGuiTreeNodeFlags_SpanFullWidth = 1 << 12, ImGuiTreeNodeFlags_NavLeftJumpsBackHere = 1 << 13, ImGuiTreeNodeFlags_CollapsingHeader = ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoTreePushOnOpen | ImGuiTreeNodeFlags_NoAutoOpenOnLog }ImGuiTreeNodeFlags_;
-typedef enum { ImGuiPopupFlags_None = 0, ImGuiPopupFlags_MouseButtonLeft = 0, ImGuiPopupFlags_MouseButtonRight = 1, ImGuiPopupFlags_MouseButtonMiddle = 2, ImGuiPopupFlags_MouseButtonMask_ = 0x1F, ImGuiPopupFlags_MouseButtonDefault_ = 1, ImGuiPopupFlags_NoOpenOverExistingPopup = 1 << 5, ImGuiPopupFlags_NoOpenOverItems = 1 << 6, ImGuiPopupFlags_AnyPopupId = 1 << 7, ImGuiPopupFlags_AnyPopupLevel = 1 << 8, ImGuiPopupFlags_AnyPopup = ImGuiPopupFlags_AnyPopupId | ImGuiPopupFlags_AnyPopupLevel }ImGuiPopupFlags_;
-typedef enum { ImGuiSelectableFlags_None = 0, ImGuiSelectableFlags_DontClosePopups = 1 << 0, ImGuiSelectableFlags_SpanAllColumns = 1 << 1, ImGuiSelectableFlags_AllowDoubleClick = 1 << 2, ImGuiSelectableFlags_Disabled = 1 << 3, ImGuiSelectableFlags_AllowItemOverlap = 1 << 4 }ImGuiSelectableFlags_;
-typedef enum { ImGuiComboFlags_None = 0, ImGuiComboFlags_PopupAlignLeft = 1 << 0, ImGuiComboFlags_HeightSmall = 1 << 1, ImGuiComboFlags_HeightRegular = 1 << 2, ImGuiComboFlags_HeightLarge = 1 << 3, ImGuiComboFlags_HeightLargest = 1 << 4, ImGuiComboFlags_NoArrowButton = 1 << 5, ImGuiComboFlags_NoPreview = 1 << 6, ImGuiComboFlags_HeightMask_ = ImGuiComboFlags_HeightSmall | ImGuiComboFlags_HeightRegular | ImGuiComboFlags_HeightLarge | ImGuiComboFlags_HeightLargest }ImGuiComboFlags_;
-typedef enum { ImGuiTabBarFlags_None = 0, ImGuiTabBarFlags_Reorderable = 1 << 0, ImGuiTabBarFlags_AutoSelectNewTabs = 1 << 1, ImGuiTabBarFlags_TabListPopupButton = 1 << 2, ImGuiTabBarFlags_NoCloseWithMiddleMouseButton = 1 << 3, ImGuiTabBarFlags_NoTabListScrollingButtons = 1 << 4, ImGuiTabBarFlags_NoTooltip = 1 << 5, ImGuiTabBarFlags_FittingPolicyResizeDown = 1 << 6, ImGuiTabBarFlags_FittingPolicyScroll = 1 << 7, ImGuiTabBarFlags_FittingPolicyMask_ = ImGuiTabBarFlags_FittingPolicyResizeDown | ImGuiTabBarFlags_FittingPolicyScroll, ImGuiTabBarFlags_FittingPolicyDefault_ = ImGuiTabBarFlags_FittingPolicyResizeDown }ImGuiTabBarFlags_;
-typedef enum { ImGuiTabItemFlags_None = 0, ImGuiTabItemFlags_UnsavedDocument = 1 << 0, ImGuiTabItemFlags_SetSelected = 1 << 1, ImGuiTabItemFlags_NoCloseWithMiddleMouseButton = 1 << 2, ImGuiTabItemFlags_NoPushId = 1 << 3, ImGuiTabItemFlags_NoTooltip = 1 << 4, ImGuiTabItemFlags_NoReorder = 1 << 5, ImGuiTabItemFlags_Leading = 1 << 6, ImGuiTabItemFlags_Trailing = 1 << 7 }ImGuiTabItemFlags_;
-typedef enum { ImGuiTableFlags_None = 0, ImGuiTableFlags_Resizable = 1 << 0, ImGuiTableFlags_Reorderable = 1 << 1, ImGuiTableFlags_Hideable = 1 << 2, ImGuiTableFlags_Sortable = 1 << 3, ImGuiTableFlags_NoSavedSettings = 1 << 4, ImGuiTableFlags_ContextMenuInBody = 1 << 5, ImGuiTableFlags_RowBg = 1 << 6, ImGuiTableFlags_BordersInnerH = 1 << 7, ImGuiTableFlags_BordersOuterH = 1 << 8, ImGuiTableFlags_BordersInnerV = 1 << 9, ImGuiTableFlags_BordersOuterV = 1 << 10, ImGuiTableFlags_BordersH = ImGuiTableFlags_BordersInnerH | ImGuiTableFlags_BordersOuterH, ImGuiTableFlags_BordersV = ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_BordersOuterV, ImGuiTableFlags_BordersInner = ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_BordersInnerH, ImGuiTableFlags_BordersOuter = ImGuiTableFlags_BordersOuterV | ImGuiTableFlags_BordersOuterH, ImGuiTableFlags_Borders = ImGuiTableFlags_BordersInner | ImGuiTableFlags_BordersOuter, ImGuiTableFlags_NoBordersInBody = 1 << 11, ImGuiTableFlags_NoBordersInBodyUntilResize = 1 << 12, ImGuiTableFlags_SizingFixedFit = 1 << 13, ImGuiTableFlags_SizingFixedSame = 2 << 13, ImGuiTableFlags_SizingStretchProp = 3 << 13, ImGuiTableFlags_SizingStretchSame = 4 << 13, ImGuiTableFlags_NoHostExtendX = 1 << 16, ImGuiTableFlags_NoHostExtendY = 1 << 17, ImGuiTableFlags_NoKeepColumnsVisible = 1 << 18, ImGuiTableFlags_PreciseWidths = 1 << 19, ImGuiTableFlags_NoClip = 1 << 20, ImGuiTableFlags_PadOuterX = 1 << 21, ImGuiTableFlags_NoPadOuterX = 1 << 22, ImGuiTableFlags_NoPadInnerX = 1 << 23, ImGuiTableFlags_ScrollX = 1 << 24, ImGuiTableFlags_ScrollY = 1 << 25, ImGuiTableFlags_SortMulti = 1 << 26, ImGuiTableFlags_SortTristate = 1 << 27, ImGuiTableFlags_SizingMask_ = ImGuiTableFlags_SizingFixedFit | ImGuiTableFlags_SizingFixedSame | ImGuiTableFlags_SizingStretchProp | ImGuiTableFlags_SizingStretchSame }ImGuiTableFlags_;
-typedef enum { ImGuiTableColumnFlags_None = 0, ImGuiTableColumnFlags_Disabled = 1 << 0, ImGuiTableColumnFlags_DefaultHide = 1 << 1, ImGuiTableColumnFlags_DefaultSort = 1 << 2, ImGuiTableColumnFlags_WidthStretch = 1 << 3, ImGuiTableColumnFlags_WidthFixed = 1 << 4, ImGuiTableColumnFlags_NoResize = 1 << 5, ImGuiTableColumnFlags_NoReorder = 1 << 6, ImGuiTableColumnFlags_NoHide = 1 << 7, ImGuiTableColumnFlags_NoClip = 1 << 8, ImGuiTableColumnFlags_NoSort = 1 << 9, ImGuiTableColumnFlags_NoSortAscending = 1 << 10, ImGuiTableColumnFlags_NoSortDescending = 1 << 11, ImGuiTableColumnFlags_NoHeaderLabel = 1 << 12, ImGuiTableColumnFlags_NoHeaderWidth = 1 << 13, ImGuiTableColumnFlags_PreferSortAscending = 1 << 14, ImGuiTableColumnFlags_PreferSortDescending = 1 << 15, ImGuiTableColumnFlags_IndentEnable = 1 << 16, ImGuiTableColumnFlags_IndentDisable = 1 << 17, ImGuiTableColumnFlags_IsEnabled = 1 << 24, ImGuiTableColumnFlags_IsVisible = 1 << 25, ImGuiTableColumnFlags_IsSorted = 1 << 26, ImGuiTableColumnFlags_IsHovered = 1 << 27, ImGuiTableColumnFlags_WidthMask_ = ImGuiTableColumnFlags_WidthStretch | ImGuiTableColumnFlags_WidthFixed, ImGuiTableColumnFlags_IndentMask_ = ImGuiTableColumnFlags_IndentEnable | ImGuiTableColumnFlags_IndentDisable, ImGuiTableColumnFlags_StatusMask_ = ImGuiTableColumnFlags_IsEnabled | ImGuiTableColumnFlags_IsVisible | ImGuiTableColumnFlags_IsSorted | ImGuiTableColumnFlags_IsHovered, ImGuiTableColumnFlags_NoDirectResize_ = 1 << 30 }ImGuiTableColumnFlags_;
-typedef enum { ImGuiTableRowFlags_None = 0, ImGuiTableRowFlags_Headers = 1 << 0 }ImGuiTableRowFlags_;
-typedef enum { ImGuiTableBgTarget_None = 0, ImGuiTableBgTarget_RowBg0 = 1, ImGuiTableBgTarget_RowBg1 = 2, ImGuiTableBgTarget_CellBg = 3 }ImGuiTableBgTarget_;
-typedef enum { ImGuiFocusedFlags_None = 0, ImGuiFocusedFlags_ChildWindows = 1 << 0, ImGuiFocusedFlags_RootWindow = 1 << 1, ImGuiFocusedFlags_AnyWindow = 1 << 2, ImGuiFocusedFlags_NoPopupHierarchy = 1 << 3, ImGuiFocusedFlags_DockHierarchy = 1 << 4, ImGuiFocusedFlags_RootAndChildWindows = ImGuiFocusedFlags_RootWindow | ImGuiFocusedFlags_ChildWindows }ImGuiFocusedFlags_;
-typedef enum { ImGuiHoveredFlags_None = 0, ImGuiHoveredFlags_ChildWindows = 1 << 0, ImGuiHoveredFlags_RootWindow = 1 << 1, ImGuiHoveredFlags_AnyWindow = 1 << 2, ImGuiHoveredFlags_NoPopupHierarchy = 1 << 3, ImGuiHoveredFlags_DockHierarchy = 1 << 4, ImGuiHoveredFlags_AllowWhenBlockedByPopup = 1 << 5, ImGuiHoveredFlags_AllowWhenBlockedByActiveItem = 1 << 7, ImGuiHoveredFlags_AllowWhenOverlapped = 1 << 8, ImGuiHoveredFlags_AllowWhenDisabled = 1 << 9, ImGuiHoveredFlags_RectOnly = ImGuiHoveredFlags_AllowWhenBlockedByPopup | ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenOverlapped, ImGuiHoveredFlags_RootAndChildWindows = ImGuiHoveredFlags_RootWindow | ImGuiHoveredFlags_ChildWindows }ImGuiHoveredFlags_;
-typedef enum { ImGuiDockNodeFlags_None = 0, ImGuiDockNodeFlags_KeepAliveOnly = 1 << 0, ImGuiDockNodeFlags_NoDockingInCentralNode = 1 << 2, ImGuiDockNodeFlags_PassthruCentralNode = 1 << 3, ImGuiDockNodeFlags_NoSplit = 1 << 4, ImGuiDockNodeFlags_NoResize = 1 << 5, ImGuiDockNodeFlags_AutoHideTabBar = 1 << 6 }ImGuiDockNodeFlags_;
-typedef enum { ImGuiDragDropFlags_None = 0, ImGuiDragDropFlags_SourceNoPreviewTooltip = 1 << 0, ImGuiDragDropFlags_SourceNoDisableHover = 1 << 1, ImGuiDragDropFlags_SourceNoHoldToOpenOthers = 1 << 2, ImGuiDragDropFlags_SourceAllowNullID = 1 << 3, ImGuiDragDropFlags_SourceExtern = 1 << 4, ImGuiDragDropFlags_SourceAutoExpirePayload = 1 << 5, ImGuiDragDropFlags_AcceptBeforeDelivery = 1 << 10, ImGuiDragDropFlags_AcceptNoDrawDefaultRect = 1 << 11, ImGuiDragDropFlags_AcceptNoPreviewTooltip = 1 << 12, ImGuiDragDropFlags_AcceptPeekOnly = ImGuiDragDropFlags_AcceptBeforeDelivery | ImGuiDragDropFlags_AcceptNoDrawDefaultRect }ImGuiDragDropFlags_;
-typedef enum { ImGuiDataType_S8, ImGuiDataType_U8, ImGuiDataType_S16, ImGuiDataType_U16, ImGuiDataType_S32, ImGuiDataType_U32, ImGuiDataType_S64, ImGuiDataType_U64, ImGuiDataType_Float, ImGuiDataType_Double, ImGuiDataType_COUNT }ImGuiDataType_;
-typedef enum { ImGuiDir_None = -1, ImGuiDir_Left = 0, ImGuiDir_Right = 1, ImGuiDir_Up = 2, ImGuiDir_Down = 3, ImGuiDir_COUNT }ImGuiDir_;
-typedef enum { ImGuiSortDirection_None = 0, ImGuiSortDirection_Ascending = 1, ImGuiSortDirection_Descending = 2 }ImGuiSortDirection_;
-typedef enum { ImGuiKey_None = 0, ImGuiKey_Tab = 512, ImGuiKey_LeftArrow, ImGuiKey_RightArrow, ImGuiKey_UpArrow, ImGuiKey_DownArrow, ImGuiKey_PageUp, ImGuiKey_PageDown, ImGuiKey_Home, ImGuiKey_End, ImGuiKey_Insert, ImGuiKey_Delete, ImGuiKey_Backspace, ImGuiKey_Space, ImGuiKey_Enter, ImGuiKey_Escape, ImGuiKey_LeftCtrl, ImGuiKey_LeftShift, ImGuiKey_LeftAlt, ImGuiKey_LeftSuper, ImGuiKey_RightCtrl, ImGuiKey_RightShift, ImGuiKey_RightAlt, ImGuiKey_RightSuper, ImGuiKey_Menu, ImGuiKey_0, ImGuiKey_1, ImGuiKey_2, ImGuiKey_3, ImGuiKey_4, ImGuiKey_5, ImGuiKey_6, ImGuiKey_7, ImGuiKey_8, ImGuiKey_9, ImGuiKey_A, ImGuiKey_B, ImGuiKey_C, ImGuiKey_D, ImGuiKey_E, ImGuiKey_F, ImGuiKey_G, ImGuiKey_H, ImGuiKey_I, ImGuiKey_J, ImGuiKey_K, ImGuiKey_L, ImGuiKey_M, ImGuiKey_N, ImGuiKey_O, ImGuiKey_P, ImGuiKey_Q, ImGuiKey_R, ImGuiKey_S, ImGuiKey_T, ImGuiKey_U, ImGuiKey_V, ImGuiKey_W, ImGuiKey_X, ImGuiKey_Y, ImGuiKey_Z, ImGuiKey_F1, ImGuiKey_F2, ImGuiKey_F3, ImGuiKey_F4, ImGuiKey_F5, ImGuiKey_F6, ImGuiKey_F7, ImGuiKey_F8, ImGuiKey_F9, ImGuiKey_F10, ImGuiKey_F11, ImGuiKey_F12, ImGuiKey_Apostrophe, ImGuiKey_Comma, ImGuiKey_Minus, ImGuiKey_Period, ImGuiKey_Slash, ImGuiKey_Semicolon, ImGuiKey_Equal, ImGuiKey_LeftBracket, ImGuiKey_Backslash, ImGuiKey_RightBracket, ImGuiKey_GraveAccent, ImGuiKey_CapsLock, ImGuiKey_ScrollLock, ImGuiKey_NumLock, ImGuiKey_PrintScreen, ImGuiKey_Pause, ImGuiKey_Keypad0, ImGuiKey_Keypad1, ImGuiKey_Keypad2, ImGuiKey_Keypad3, ImGuiKey_Keypad4, ImGuiKey_Keypad5, ImGuiKey_Keypad6, ImGuiKey_Keypad7, ImGuiKey_Keypad8, ImGuiKey_Keypad9, ImGuiKey_KeypadDecimal, ImGuiKey_KeypadDivide, ImGuiKey_KeypadMultiply, ImGuiKey_KeypadSubtract, ImGuiKey_KeypadAdd, ImGuiKey_KeypadEnter, ImGuiKey_KeypadEqual, ImGuiKey_GamepadStart, ImGuiKey_GamepadBack, ImGuiKey_GamepadFaceUp, ImGuiKey_GamepadFaceDown, ImGuiKey_GamepadFaceLeft, ImGuiKey_GamepadFaceRight, ImGuiKey_GamepadDpadUp, ImGuiKey_GamepadDpadDown, ImGuiKey_GamepadDpadLeft, ImGuiKey_GamepadDpadRight, ImGuiKey_GamepadL1, ImGuiKey_GamepadR1, ImGuiKey_GamepadL2, ImGuiKey_GamepadR2, ImGuiKey_GamepadL3, ImGuiKey_GamepadR3, ImGuiKey_GamepadLStickUp, ImGuiKey_GamepadLStickDown, ImGuiKey_GamepadLStickLeft, ImGuiKey_GamepadLStickRight, ImGuiKey_GamepadRStickUp, ImGuiKey_GamepadRStickDown, ImGuiKey_GamepadRStickLeft, ImGuiKey_GamepadRStickRight, ImGuiKey_ModCtrl, ImGuiKey_ModShift, ImGuiKey_ModAlt, ImGuiKey_ModSuper, ImGuiKey_COUNT, ImGuiKey_NamedKey_BEGIN = 512, ImGuiKey_NamedKey_END = ImGuiKey_COUNT, ImGuiKey_NamedKey_COUNT = ImGuiKey_NamedKey_END - ImGuiKey_NamedKey_BEGIN, ImGuiKey_KeysData_SIZE = ImGuiKey_COUNT, ImGuiKey_KeysData_OFFSET = 0 }ImGuiKey_;
-typedef enum { ImGuiKeyModFlags_None = 0, ImGuiKeyModFlags_Ctrl = 1 << 0, ImGuiKeyModFlags_Shift = 1 << 1, ImGuiKeyModFlags_Alt = 1 << 2, ImGuiKeyModFlags_Super = 1 << 3 }ImGuiKeyModFlags_;
-typedef enum { ImGuiNavInput_Activate, ImGuiNavInput_Cancel, ImGuiNavInput_Input, ImGuiNavInput_Menu, ImGuiNavInput_DpadLeft, ImGuiNavInput_DpadRight, ImGuiNavInput_DpadUp, ImGuiNavInput_DpadDown, ImGuiNavInput_LStickLeft, ImGuiNavInput_LStickRight, ImGuiNavInput_LStickUp, ImGuiNavInput_LStickDown, ImGuiNavInput_FocusPrev, ImGuiNavInput_FocusNext, ImGuiNavInput_TweakSlow, ImGuiNavInput_TweakFast, ImGuiNavInput_KeyLeft_, ImGuiNavInput_KeyRight_, ImGuiNavInput_KeyUp_, ImGuiNavInput_KeyDown_, ImGuiNavInput_COUNT }ImGuiNavInput_;
-typedef enum { ImGuiConfigFlags_None = 0, ImGuiConfigFlags_NavEnableKeyboard = 1 << 0, ImGuiConfigFlags_NavEnableGamepad = 1 << 1, ImGuiConfigFlags_NavEnableSetMousePos = 1 << 2, ImGuiConfigFlags_NavNoCaptureKeyboard = 1 << 3, ImGuiConfigFlags_NoMouse = 1 << 4, ImGuiConfigFlags_NoMouseCursorChange = 1 << 5, ImGuiConfigFlags_DockingEnable = 1 << 6, ImGuiConfigFlags_ViewportsEnable = 1 << 10, ImGuiConfigFlags_DpiEnableScaleViewports= 1 << 14, ImGuiConfigFlags_DpiEnableScaleFonts = 1 << 15, ImGuiConfigFlags_IsSRGB = 1 << 20, ImGuiConfigFlags_IsTouchScreen = 1 << 21 }ImGuiConfigFlags_;
-typedef enum { ImGuiBackendFlags_None = 0, ImGuiBackendFlags_HasGamepad = 1 << 0, ImGuiBackendFlags_HasMouseCursors = 1 << 1, ImGuiBackendFlags_HasSetMousePos = 1 << 2, ImGuiBackendFlags_RendererHasVtxOffset = 1 << 3, ImGuiBackendFlags_PlatformHasViewports = 1 << 10, ImGuiBackendFlags_HasMouseHoveredViewport=1 << 11, ImGuiBackendFlags_RendererHasViewports = 1 << 12 }ImGuiBackendFlags_;
-typedef enum { ImGuiCol_Text, ImGuiCol_TextDisabled, ImGuiCol_WindowBg, ImGuiCol_ChildBg, ImGuiCol_PopupBg, ImGuiCol_Border, ImGuiCol_BorderShadow, ImGuiCol_FrameBg, ImGuiCol_FrameBgHovered, ImGuiCol_FrameBgActive, ImGuiCol_TitleBg, ImGuiCol_TitleBgActive, ImGuiCol_TitleBgCollapsed, ImGuiCol_MenuBarBg, ImGuiCol_ScrollbarBg, ImGuiCol_ScrollbarGrab, ImGuiCol_ScrollbarGrabHovered, ImGuiCol_ScrollbarGrabActive, ImGuiCol_CheckMark, ImGuiCol_SliderGrab, ImGuiCol_SliderGrabActive, ImGuiCol_Button, ImGuiCol_ButtonHovered, ImGuiCol_ButtonActive, ImGuiCol_Header, ImGuiCol_HeaderHovered, ImGuiCol_HeaderActive, ImGuiCol_Separator, ImGuiCol_SeparatorHovered, ImGuiCol_SeparatorActive, ImGuiCol_ResizeGrip, ImGuiCol_ResizeGripHovered, ImGuiCol_ResizeGripActive, ImGuiCol_Tab, ImGuiCol_TabHovered, ImGuiCol_TabActive, ImGuiCol_TabUnfocused, ImGuiCol_TabUnfocusedActive, ImGuiCol_DockingPreview, ImGuiCol_DockingEmptyBg, ImGuiCol_PlotLines, ImGuiCol_PlotLinesHovered, ImGuiCol_PlotHistogram, ImGuiCol_PlotHistogramHovered, ImGuiCol_TableHeaderBg, ImGuiCol_TableBorderStrong, ImGuiCol_TableBorderLight, ImGuiCol_TableRowBg, ImGuiCol_TableRowBgAlt, ImGuiCol_TextSelectedBg, ImGuiCol_DragDropTarget, ImGuiCol_NavHighlight, ImGuiCol_NavWindowingHighlight, ImGuiCol_NavWindowingDimBg, ImGuiCol_ModalWindowDimBg, ImGuiCol_COUNT }ImGuiCol_;
-typedef enum { ImGuiStyleVar_Alpha, ImGuiStyleVar_DisabledAlpha, ImGuiStyleVar_WindowPadding, ImGuiStyleVar_WindowRounding, ImGuiStyleVar_WindowBorderSize, ImGuiStyleVar_WindowMinSize, ImGuiStyleVar_WindowTitleAlign, ImGuiStyleVar_ChildRounding, ImGuiStyleVar_ChildBorderSize, ImGuiStyleVar_PopupRounding, ImGuiStyleVar_PopupBorderSize, ImGuiStyleVar_FramePadding, ImGuiStyleVar_FrameRounding, ImGuiStyleVar_FrameBorderSize, ImGuiStyleVar_ItemSpacing, ImGuiStyleVar_ItemInnerSpacing, ImGuiStyleVar_IndentSpacing, ImGuiStyleVar_CellPadding, ImGuiStyleVar_ScrollbarSize, ImGuiStyleVar_ScrollbarRounding, ImGuiStyleVar_GrabMinSize, ImGuiStyleVar_GrabRounding, ImGuiStyleVar_TabRounding, ImGuiStyleVar_ButtonTextAlign, ImGuiStyleVar_SelectableTextAlign, ImGuiStyleVar_COUNT }ImGuiStyleVar_;
-typedef enum { ImGuiButtonFlags_None = 0, ImGuiButtonFlags_MouseButtonLeft = 1 << 0, ImGuiButtonFlags_MouseButtonRight = 1 << 1, ImGuiButtonFlags_MouseButtonMiddle = 1 << 2, ImGuiButtonFlags_MouseButtonMask_ = ImGuiButtonFlags_MouseButtonLeft | ImGuiButtonFlags_MouseButtonRight | ImGuiButtonFlags_MouseButtonMiddle, ImGuiButtonFlags_MouseButtonDefault_ = ImGuiButtonFlags_MouseButtonLeft }ImGuiButtonFlags_;
-typedef enum { ImGuiColorEditFlags_None = 0, ImGuiColorEditFlags_NoAlpha = 1 << 1, ImGuiColorEditFlags_NoPicker = 1 << 2, ImGuiColorEditFlags_NoOptions = 1 << 3, ImGuiColorEditFlags_NoSmallPreview = 1 << 4, ImGuiColorEditFlags_NoInputs = 1 << 5, ImGuiColorEditFlags_NoTooltip = 1 << 6, ImGuiColorEditFlags_NoLabel = 1 << 7, ImGuiColorEditFlags_NoSidePreview = 1 << 8, ImGuiColorEditFlags_NoDragDrop = 1 << 9, ImGuiColorEditFlags_NoBorder = 1 << 10, ImGuiColorEditFlags_AlphaBar = 1 << 16, ImGuiColorEditFlags_AlphaPreview = 1 << 17, ImGuiColorEditFlags_AlphaPreviewHalf= 1 << 18, ImGuiColorEditFlags_HDR = 1 << 19, ImGuiColorEditFlags_DisplayRGB = 1 << 20, ImGuiColorEditFlags_DisplayHSV = 1 << 21, ImGuiColorEditFlags_DisplayHex = 1 << 22, ImGuiColorEditFlags_Uint8 = 1 << 23, ImGuiColorEditFlags_Float = 1 << 24, ImGuiColorEditFlags_PickerHueBar = 1 << 25, ImGuiColorEditFlags_PickerHueWheel = 1 << 26, ImGuiColorEditFlags_InputRGB = 1 << 27, ImGuiColorEditFlags_InputHSV = 1 << 28, ImGuiColorEditFlags_DefaultOptions_ = ImGuiColorEditFlags_Uint8 | ImGuiColorEditFlags_DisplayRGB | ImGuiColorEditFlags_InputRGB | ImGuiColorEditFlags_PickerHueBar, ImGuiColorEditFlags_DisplayMask_ = ImGuiColorEditFlags_DisplayRGB | ImGuiColorEditFlags_DisplayHSV | ImGuiColorEditFlags_DisplayHex, ImGuiColorEditFlags_DataTypeMask_ = ImGuiColorEditFlags_Uint8 | ImGuiColorEditFlags_Float, ImGuiColorEditFlags_PickerMask_ = ImGuiColorEditFlags_PickerHueWheel | ImGuiColorEditFlags_PickerHueBar, ImGuiColorEditFlags_InputMask_ = ImGuiColorEditFlags_InputRGB | ImGuiColorEditFlags_InputHSV }ImGuiColorEditFlags_;
-typedef enum { ImGuiSliderFlags_None = 0, ImGuiSliderFlags_AlwaysClamp = 1 << 4, ImGuiSliderFlags_Logarithmic = 1 << 5, ImGuiSliderFlags_NoRoundToFormat = 1 << 6, ImGuiSliderFlags_NoInput = 1 << 7, ImGuiSliderFlags_InvalidMask_ = 0x7000000F }ImGuiSliderFlags_;
-typedef enum { ImGuiMouseButton_Left = 0, ImGuiMouseButton_Right = 1, ImGuiMouseButton_Middle = 2, ImGuiMouseButton_COUNT = 5 }ImGuiMouseButton_;
-typedef enum { ImGuiMouseCursor_None = -1, ImGuiMouseCursor_Arrow = 0, ImGuiMouseCursor_TextInput, ImGuiMouseCursor_ResizeAll, ImGuiMouseCursor_ResizeNS, ImGuiMouseCursor_ResizeEW, ImGuiMouseCursor_ResizeNESW, ImGuiMouseCursor_ResizeNWSE, ImGuiMouseCursor_Hand, ImGuiMouseCursor_NotAllowed, ImGuiMouseCursor_COUNT }ImGuiMouseCursor_;
-typedef enum { ImGuiCond_None = 0, ImGuiCond_Always = 1 << 0, ImGuiCond_Once = 1 << 1, ImGuiCond_FirstUseEver = 1 << 2, ImGuiCond_Appearing = 1 << 3 }ImGuiCond_;
-struct ImGuiStyle { float Alpha;
-float DisabledAlpha;
-ImVec2 WindowPadding;
-float WindowRounding;
-float WindowBorderSize;
-ImVec2 WindowMinSize;
-ImVec2 WindowTitleAlign;
-ImGuiDir WindowMenuButtonPosition;
-float ChildRounding;
-float ChildBorderSize;
-float PopupRounding;
-float PopupBorderSize;
-ImVec2 FramePadding;
-float FrameRounding;
-float FrameBorderSize;
-ImVec2 ItemSpacing;
-ImVec2 ItemInnerSpacing;
-ImVec2 CellPadding;
-ImVec2 TouchExtraPadding;
-float IndentSpacing;
-float ColumnsMinSpacing;
-float ScrollbarSize;
-float ScrollbarRounding;
-float GrabMinSize;
-float GrabRounding;
-float LogSliderDeadzone;
-float TabRounding;
-float TabBorderSize;
-float TabMinWidthForCloseButton;
-ImGuiDir ColorButtonPosition;
-ImVec2 ButtonTextAlign;
-ImVec2 SelectableTextAlign;
-ImVec2 DisplayWindowPadding;
-ImVec2 DisplaySafeAreaPadding;
-float MouseCursorScale;
-_Bool AntiAliasedLines;
-_Bool AntiAliasedLinesUseTex;
-_Bool AntiAliasedFill;
-float CurveTessellationTol;
-float CircleTessellationMaxError;
-ImVec4 Colors[ImGuiCol_COUNT];
+typedef enum {
+	ImGuiWindowFlags_None = 0,
+	ImGuiWindowFlags_NoTitleBar = 1 << 0,
+	ImGuiWindowFlags_NoResize = 1 << 1,
+	ImGuiWindowFlags_NoMove = 1 << 2,
+	ImGuiWindowFlags_NoScrollbar = 1 << 3,
+	ImGuiWindowFlags_NoScrollWithMouse = 1 << 4,
+	ImGuiWindowFlags_NoCollapse = 1 << 5,
+	ImGuiWindowFlags_AlwaysAutoResize = 1 << 6,
+	ImGuiWindowFlags_NoBackground = 1 << 7,
+	ImGuiWindowFlags_NoSavedSettings = 1 << 8,
+	ImGuiWindowFlags_NoMouseInputs = 1 << 9,
+	ImGuiWindowFlags_MenuBar = 1 << 10,
+	ImGuiWindowFlags_HorizontalScrollbar = 1 << 11,
+	ImGuiWindowFlags_NoFocusOnAppearing = 1 << 12,
+	ImGuiWindowFlags_NoBringToFrontOnFocus = 1 << 13,
+	ImGuiWindowFlags_AlwaysVerticalScrollbar= 1 << 14,
+	ImGuiWindowFlags_AlwaysHorizontalScrollbar=1<< 15,
+	ImGuiWindowFlags_AlwaysUseWindowPadding = 1 << 16,
+	ImGuiWindowFlags_NoNavInputs = 1 << 18,
+	ImGuiWindowFlags_NoNavFocus = 1 << 19,
+	ImGuiWindowFlags_UnsavedDocument = 1 << 20,
+	ImGuiWindowFlags_NoDocking = 1 << 21,
+	ImGuiWindowFlags_NoNav = ImGuiWindowFlags_NoNavInputs | ImGuiWindowFlags_NoNavFocus,
+	ImGuiWindowFlags_NoDecoration = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoCollapse,
+	ImGuiWindowFlags_NoInputs = ImGuiWindowFlags_NoMouseInputs | ImGuiWindowFlags_NoNavInputs | ImGuiWindowFlags_NoNavFocus,
+	ImGuiWindowFlags_NavFlattened = 1 << 23,
+	ImGuiWindowFlags_ChildWindow = 1 << 24,
+	ImGuiWindowFlags_Tooltip = 1 << 25,
+	ImGuiWindowFlags_Popup = 1 << 26,
+	ImGuiWindowFlags_Modal = 1 << 27,
+	ImGuiWindowFlags_ChildMenu = 1 << 28,
+	ImGuiWindowFlags_DockNodeHost = 1 << 29
+} ImGuiWindowFlags_;
+typedef enum {
+	ImGuiInputTextFlags_None = 0,
+	ImGuiInputTextFlags_CharsDecimal = 1 << 0,
+	ImGuiInputTextFlags_CharsHexadecimal = 1 << 1,
+	ImGuiInputTextFlags_CharsUppercase = 1 << 2,
+	ImGuiInputTextFlags_CharsNoBlank = 1 << 3,
+	ImGuiInputTextFlags_AutoSelectAll = 1 << 4,
+	ImGuiInputTextFlags_EnterReturnsTrue = 1 << 5,
+	ImGuiInputTextFlags_CallbackCompletion = 1 << 6,
+	ImGuiInputTextFlags_CallbackHistory = 1 << 7,
+	ImGuiInputTextFlags_CallbackAlways = 1 << 8,
+	ImGuiInputTextFlags_CallbackCharFilter = 1 << 9,
+	ImGuiInputTextFlags_AllowTabInput = 1 << 10,
+	ImGuiInputTextFlags_CtrlEnterForNewLine = 1 << 11,
+	ImGuiInputTextFlags_NoHorizontalScroll = 1 << 12,
+	ImGuiInputTextFlags_AlwaysOverwrite = 1 << 13,
+	ImGuiInputTextFlags_ReadOnly = 1 << 14,
+	ImGuiInputTextFlags_Password = 1 << 15,
+	ImGuiInputTextFlags_NoUndoRedo = 1 << 16,
+	ImGuiInputTextFlags_CharsScientific = 1 << 17,
+	ImGuiInputTextFlags_CallbackResize = 1 << 18,
+	ImGuiInputTextFlags_CallbackEdit = 1 << 19
+} ImGuiInputTextFlags_;
+typedef enum {
+	ImGuiTreeNodeFlags_None = 0,
+	ImGuiTreeNodeFlags_Selected = 1 << 0,
+	ImGuiTreeNodeFlags_Framed = 1 << 1,
+	ImGuiTreeNodeFlags_AllowItemOverlap = 1 << 2,
+	ImGuiTreeNodeFlags_NoTreePushOnOpen = 1 << 3,
+	ImGuiTreeNodeFlags_NoAutoOpenOnLog = 1 << 4,
+	ImGuiTreeNodeFlags_DefaultOpen = 1 << 5,
+	ImGuiTreeNodeFlags_OpenOnDoubleClick = 1 << 6,
+	ImGuiTreeNodeFlags_OpenOnArrow = 1 << 7,
+	ImGuiTreeNodeFlags_Leaf = 1 << 8,
+	ImGuiTreeNodeFlags_Bullet = 1 << 9,
+	ImGuiTreeNodeFlags_FramePadding = 1 << 10,
+	ImGuiTreeNodeFlags_SpanAvailWidth = 1 << 11,
+	ImGuiTreeNodeFlags_SpanFullWidth = 1 << 12,
+	ImGuiTreeNodeFlags_NavLeftJumpsBackHere = 1 << 13,
+	ImGuiTreeNodeFlags_CollapsingHeader = ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoTreePushOnOpen | ImGuiTreeNodeFlags_NoAutoOpenOnLog
+} ImGuiTreeNodeFlags_;
+typedef enum {
+	ImGuiPopupFlags_None = 0,
+	ImGuiPopupFlags_MouseButtonLeft = 0,
+	ImGuiPopupFlags_MouseButtonRight = 1,
+	ImGuiPopupFlags_MouseButtonMiddle = 2,
+	ImGuiPopupFlags_MouseButtonMask_ = 0x1F,
+	ImGuiPopupFlags_MouseButtonDefault_ = 1,
+	ImGuiPopupFlags_NoOpenOverExistingPopup = 1 << 5,
+	ImGuiPopupFlags_NoOpenOverItems = 1 << 6,
+	ImGuiPopupFlags_AnyPopupId = 1 << 7,
+	ImGuiPopupFlags_AnyPopupLevel = 1 << 8,
+	ImGuiPopupFlags_AnyPopup = ImGuiPopupFlags_AnyPopupId | ImGuiPopupFlags_AnyPopupLevel
+} ImGuiPopupFlags_;
+typedef enum {
+	ImGuiSelectableFlags_None = 0,
+	ImGuiSelectableFlags_DontClosePopups = 1 << 0,
+	ImGuiSelectableFlags_SpanAllColumns = 1 << 1,
+	ImGuiSelectableFlags_AllowDoubleClick = 1 << 2,
+	ImGuiSelectableFlags_Disabled = 1 << 3,
+	ImGuiSelectableFlags_AllowItemOverlap = 1 << 4
+} ImGuiSelectableFlags_;
+typedef enum {
+	ImGuiComboFlags_None = 0,
+	ImGuiComboFlags_PopupAlignLeft = 1 << 0,
+	ImGuiComboFlags_HeightSmall = 1 << 1,
+	ImGuiComboFlags_HeightRegular = 1 << 2,
+	ImGuiComboFlags_HeightLarge = 1 << 3,
+	ImGuiComboFlags_HeightLargest = 1 << 4,
+	ImGuiComboFlags_NoArrowButton = 1 << 5,
+	ImGuiComboFlags_NoPreview = 1 << 6,
+	ImGuiComboFlags_HeightMask_ = ImGuiComboFlags_HeightSmall | ImGuiComboFlags_HeightRegular | ImGuiComboFlags_HeightLarge | ImGuiComboFlags_HeightLargest
+} ImGuiComboFlags_;
+typedef enum {
+	ImGuiTabBarFlags_None = 0,
+	ImGuiTabBarFlags_Reorderable = 1 << 0,
+	ImGuiTabBarFlags_AutoSelectNewTabs = 1 << 1,
+	ImGuiTabBarFlags_TabListPopupButton = 1 << 2,
+	ImGuiTabBarFlags_NoCloseWithMiddleMouseButton = 1 << 3,
+	ImGuiTabBarFlags_NoTabListScrollingButtons = 1 << 4,
+	ImGuiTabBarFlags_NoTooltip = 1 << 5,
+	ImGuiTabBarFlags_FittingPolicyResizeDown = 1 << 6,
+	ImGuiTabBarFlags_FittingPolicyScroll = 1 << 7,
+	ImGuiTabBarFlags_FittingPolicyMask_ = ImGuiTabBarFlags_FittingPolicyResizeDown | ImGuiTabBarFlags_FittingPolicyScroll,
+	ImGuiTabBarFlags_FittingPolicyDefault_ = ImGuiTabBarFlags_FittingPolicyResizeDown
+} ImGuiTabBarFlags_;
+typedef enum {
+	ImGuiTabItemFlags_None = 0,
+	ImGuiTabItemFlags_UnsavedDocument = 1 << 0,
+	ImGuiTabItemFlags_SetSelected = 1 << 1,
+	ImGuiTabItemFlags_NoCloseWithMiddleMouseButton = 1 << 2,
+	ImGuiTabItemFlags_NoPushId = 1 << 3,
+	ImGuiTabItemFlags_NoTooltip = 1 << 4,
+	ImGuiTabItemFlags_NoReorder = 1 << 5,
+	ImGuiTabItemFlags_Leading = 1 << 6,
+	ImGuiTabItemFlags_Trailing = 1 << 7
+} ImGuiTabItemFlags_;
+typedef enum {
+	ImGuiTableFlags_None = 0,
+	ImGuiTableFlags_Resizable = 1 << 0,
+	ImGuiTableFlags_Reorderable = 1 << 1,
+	ImGuiTableFlags_Hideable = 1 << 2,
+	ImGuiTableFlags_Sortable = 1 << 3,
+	ImGuiTableFlags_NoSavedSettings = 1 << 4,
+	ImGuiTableFlags_ContextMenuInBody = 1 << 5,
+	ImGuiTableFlags_RowBg = 1 << 6,
+	ImGuiTableFlags_BordersInnerH = 1 << 7,
+	ImGuiTableFlags_BordersOuterH = 1 << 8,
+	ImGuiTableFlags_BordersInnerV = 1 << 9,
+	ImGuiTableFlags_BordersOuterV = 1 << 10,
+	ImGuiTableFlags_BordersH = ImGuiTableFlags_BordersInnerH | ImGuiTableFlags_BordersOuterH,
+	ImGuiTableFlags_BordersV = ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_BordersOuterV,
+	ImGuiTableFlags_BordersInner = ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_BordersInnerH,
+	ImGuiTableFlags_BordersOuter = ImGuiTableFlags_BordersOuterV | ImGuiTableFlags_BordersOuterH,
+	ImGuiTableFlags_Borders = ImGuiTableFlags_BordersInner | ImGuiTableFlags_BordersOuter,
+	ImGuiTableFlags_NoBordersInBody = 1 << 11,
+	ImGuiTableFlags_NoBordersInBodyUntilResize = 1 << 12,
+	ImGuiTableFlags_SizingFixedFit = 1 << 13,
+	ImGuiTableFlags_SizingFixedSame = 2 << 13,
+	ImGuiTableFlags_SizingStretchProp = 3 << 13,
+	ImGuiTableFlags_SizingStretchSame = 4 << 13,
+	ImGuiTableFlags_NoHostExtendX = 1 << 16,
+	ImGuiTableFlags_NoHostExtendY = 1 << 17,
+	ImGuiTableFlags_NoKeepColumnsVisible = 1 << 18,
+	ImGuiTableFlags_PreciseWidths = 1 << 19,
+	ImGuiTableFlags_NoClip = 1 << 20,
+	ImGuiTableFlags_PadOuterX = 1 << 21,
+	ImGuiTableFlags_NoPadOuterX = 1 << 22,
+	ImGuiTableFlags_NoPadInnerX = 1 << 23,
+	ImGuiTableFlags_ScrollX = 1 << 24,
+	ImGuiTableFlags_ScrollY = 1 << 25,
+	ImGuiTableFlags_SortMulti = 1 << 26,
+	ImGuiTableFlags_SortTristate = 1 << 27,
+	ImGuiTableFlags_SizingMask_ = ImGuiTableFlags_SizingFixedFit | ImGuiTableFlags_SizingFixedSame | ImGuiTableFlags_SizingStretchProp | ImGuiTableFlags_SizingStretchSame
+} ImGuiTableFlags_;
+typedef enum {
+	ImGuiTableColumnFlags_None = 0,
+	ImGuiTableColumnFlags_Disabled = 1 << 0,
+	ImGuiTableColumnFlags_DefaultHide = 1 << 1,
+	ImGuiTableColumnFlags_DefaultSort = 1 << 2,
+	ImGuiTableColumnFlags_WidthStretch = 1 << 3,
+	ImGuiTableColumnFlags_WidthFixed = 1 << 4,
+	ImGuiTableColumnFlags_NoResize = 1 << 5,
+	ImGuiTableColumnFlags_NoReorder = 1 << 6,
+	ImGuiTableColumnFlags_NoHide = 1 << 7,
+	ImGuiTableColumnFlags_NoClip = 1 << 8,
+	ImGuiTableColumnFlags_NoSort = 1 << 9,
+	ImGuiTableColumnFlags_NoSortAscending = 1 << 10,
+	ImGuiTableColumnFlags_NoSortDescending = 1 << 11,
+	ImGuiTableColumnFlags_NoHeaderLabel = 1 << 12,
+	ImGuiTableColumnFlags_NoHeaderWidth = 1 << 13,
+	ImGuiTableColumnFlags_PreferSortAscending = 1 << 14,
+	ImGuiTableColumnFlags_PreferSortDescending = 1 << 15,
+	ImGuiTableColumnFlags_IndentEnable = 1 << 16,
+	ImGuiTableColumnFlags_IndentDisable = 1 << 17,
+	ImGuiTableColumnFlags_IsEnabled = 1 << 24,
+	ImGuiTableColumnFlags_IsVisible = 1 << 25,
+	ImGuiTableColumnFlags_IsSorted = 1 << 26,
+	ImGuiTableColumnFlags_IsHovered = 1 << 27,
+	ImGuiTableColumnFlags_WidthMask_ = ImGuiTableColumnFlags_WidthStretch | ImGuiTableColumnFlags_WidthFixed,
+	ImGuiTableColumnFlags_IndentMask_ = ImGuiTableColumnFlags_IndentEnable | ImGuiTableColumnFlags_IndentDisable,
+	ImGuiTableColumnFlags_StatusMask_ = ImGuiTableColumnFlags_IsEnabled | ImGuiTableColumnFlags_IsVisible | ImGuiTableColumnFlags_IsSorted | ImGuiTableColumnFlags_IsHovered,
+	ImGuiTableColumnFlags_NoDirectResize_ = 1 << 30
+} ImGuiTableColumnFlags_;
+typedef enum {
+	ImGuiTableRowFlags_None = 0,
+	ImGuiTableRowFlags_Headers = 1 << 0
+} ImGuiTableRowFlags_;
+typedef enum {
+	ImGuiTableBgTarget_None = 0,
+	ImGuiTableBgTarget_RowBg0 = 1,
+	ImGuiTableBgTarget_RowBg1 = 2,
+	ImGuiTableBgTarget_CellBg = 3
+} ImGuiTableBgTarget_;
+typedef enum {
+	ImGuiFocusedFlags_None = 0,
+	ImGuiFocusedFlags_ChildWindows = 1 << 0,
+	ImGuiFocusedFlags_RootWindow = 1 << 1,
+	ImGuiFocusedFlags_AnyWindow = 1 << 2,
+	ImGuiFocusedFlags_NoPopupHierarchy = 1 << 3,
+	ImGuiFocusedFlags_DockHierarchy = 1 << 4,
+	ImGuiFocusedFlags_RootAndChildWindows = ImGuiFocusedFlags_RootWindow | ImGuiFocusedFlags_ChildWindows
+} ImGuiFocusedFlags_;
+typedef enum {
+	ImGuiHoveredFlags_None = 0,
+	ImGuiHoveredFlags_ChildWindows = 1 << 0,
+	ImGuiHoveredFlags_RootWindow = 1 << 1,
+	ImGuiHoveredFlags_AnyWindow = 1 << 2,
+	ImGuiHoveredFlags_NoPopupHierarchy = 1 << 3,
+	ImGuiHoveredFlags_DockHierarchy = 1 << 4,
+	ImGuiHoveredFlags_AllowWhenBlockedByPopup = 1 << 5,
+	ImGuiHoveredFlags_AllowWhenBlockedByActiveItem = 1 << 7,
+	ImGuiHoveredFlags_AllowWhenOverlapped = 1 << 8,
+	ImGuiHoveredFlags_AllowWhenDisabled = 1 << 9,
+	ImGuiHoveredFlags_RectOnly = ImGuiHoveredFlags_AllowWhenBlockedByPopup | ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenOverlapped,
+	ImGuiHoveredFlags_RootAndChildWindows = ImGuiHoveredFlags_RootWindow | ImGuiHoveredFlags_ChildWindows
+} ImGuiHoveredFlags_;
+typedef enum {
+	ImGuiDockNodeFlags_None = 0,
+	ImGuiDockNodeFlags_KeepAliveOnly = 1 << 0,
+	ImGuiDockNodeFlags_NoDockingInCentralNode = 1 << 2,
+	ImGuiDockNodeFlags_PassthruCentralNode = 1 << 3,
+	ImGuiDockNodeFlags_NoSplit = 1 << 4,
+	ImGuiDockNodeFlags_NoResize = 1 << 5,
+	ImGuiDockNodeFlags_AutoHideTabBar = 1 << 6
+} ImGuiDockNodeFlags_;
+typedef enum {
+	ImGuiDragDropFlags_None = 0,
+	ImGuiDragDropFlags_SourceNoPreviewTooltip = 1 << 0,
+	ImGuiDragDropFlags_SourceNoDisableHover = 1 << 1,
+	ImGuiDragDropFlags_SourceNoHoldToOpenOthers = 1 << 2,
+	ImGuiDragDropFlags_SourceAllowNullID = 1 << 3,
+	ImGuiDragDropFlags_SourceExtern = 1 << 4,
+	ImGuiDragDropFlags_SourceAutoExpirePayload = 1 << 5,
+	ImGuiDragDropFlags_AcceptBeforeDelivery = 1 << 10,
+	ImGuiDragDropFlags_AcceptNoDrawDefaultRect = 1 << 11,
+	ImGuiDragDropFlags_AcceptNoPreviewTooltip = 1 << 12,
+	ImGuiDragDropFlags_AcceptPeekOnly = ImGuiDragDropFlags_AcceptBeforeDelivery | ImGuiDragDropFlags_AcceptNoDrawDefaultRect
+} ImGuiDragDropFlags_;
+typedef enum {
+	ImGuiDataType_S8,
+	ImGuiDataType_U8,
+	ImGuiDataType_S16,
+	ImGuiDataType_U16,
+	ImGuiDataType_S32,
+	ImGuiDataType_U32,
+	ImGuiDataType_S64,
+	ImGuiDataType_U64,
+	ImGuiDataType_Float,
+	ImGuiDataType_Double,
+	ImGuiDataType_COUNT
+} ImGuiDataType_;
+typedef enum {
+	ImGuiDir_None = -1,
+	ImGuiDir_Left = 0,
+	ImGuiDir_Right = 1,
+	ImGuiDir_Up = 2,
+	ImGuiDir_Down = 3,
+	ImGuiDir_COUNT
+} ImGuiDir_;
+typedef enum {
+	ImGuiSortDirection_None = 0,
+	ImGuiSortDirection_Ascending = 1,
+	ImGuiSortDirection_Descending = 2
+} ImGuiSortDirection_;
+typedef enum {
+	ImGuiKey_None = 0,
+	ImGuiKey_Tab = 512,
+	ImGuiKey_LeftArrow,
+	ImGuiKey_RightArrow,
+	ImGuiKey_UpArrow,
+	ImGuiKey_DownArrow,
+	ImGuiKey_PageUp,
+	ImGuiKey_PageDown,
+	ImGuiKey_Home,
+	ImGuiKey_End,
+	ImGuiKey_Insert,
+	ImGuiKey_Delete,
+	ImGuiKey_Backspace,
+	ImGuiKey_Space,
+	ImGuiKey_Enter,
+	ImGuiKey_Escape,
+	ImGuiKey_LeftCtrl,
+	ImGuiKey_LeftShift,
+	ImGuiKey_LeftAlt,
+	ImGuiKey_LeftSuper,
+	ImGuiKey_RightCtrl,
+	ImGuiKey_RightShift,
+	ImGuiKey_RightAlt,
+	ImGuiKey_RightSuper,
+	ImGuiKey_Menu,
+	ImGuiKey_0,
+	ImGuiKey_1,
+	ImGuiKey_2,
+	ImGuiKey_3,
+	ImGuiKey_4,
+	ImGuiKey_5,
+	ImGuiKey_6,
+	ImGuiKey_7,
+	ImGuiKey_8,
+	ImGuiKey_9,
+	ImGuiKey_A,
+	ImGuiKey_B,
+	ImGuiKey_C,
+	ImGuiKey_D,
+	ImGuiKey_E,
+	ImGuiKey_F,
+	ImGuiKey_G,
+	ImGuiKey_H,
+	ImGuiKey_I,
+	ImGuiKey_J,
+	ImGuiKey_K,
+	ImGuiKey_L,
+	ImGuiKey_M,
+	ImGuiKey_N,
+	ImGuiKey_O,
+	ImGuiKey_P,
+	ImGuiKey_Q,
+	ImGuiKey_R,
+	ImGuiKey_S,
+	ImGuiKey_T,
+	ImGuiKey_U,
+	ImGuiKey_V,
+	ImGuiKey_W,
+	ImGuiKey_X,
+	ImGuiKey_Y,
+	ImGuiKey_Z,
+	ImGuiKey_F1,
+	ImGuiKey_F2,
+	ImGuiKey_F3,
+	ImGuiKey_F4,
+	ImGuiKey_F5,
+	ImGuiKey_F6,
+	ImGuiKey_F7,
+	ImGuiKey_F8,
+	ImGuiKey_F9,
+	ImGuiKey_F10,
+	ImGuiKey_F11,
+	ImGuiKey_F12,
+	ImGuiKey_Apostrophe,
+	ImGuiKey_Comma,
+	ImGuiKey_Minus,
+	ImGuiKey_Period,
+	ImGuiKey_Slash,
+	ImGuiKey_Semicolon,
+	ImGuiKey_Equal,
+	ImGuiKey_LeftBracket,
+	ImGuiKey_Backslash,
+	ImGuiKey_RightBracket,
+	ImGuiKey_GraveAccent,
+	ImGuiKey_CapsLock,
+	ImGuiKey_ScrollLock,
+	ImGuiKey_NumLock,
+	ImGuiKey_PrintScreen,
+	ImGuiKey_Pause,
+	ImGuiKey_Keypad0,
+	ImGuiKey_Keypad1,
+	ImGuiKey_Keypad2,
+	ImGuiKey_Keypad3,
+	ImGuiKey_Keypad4,
+	ImGuiKey_Keypad5,
+	ImGuiKey_Keypad6,
+	ImGuiKey_Keypad7,
+	ImGuiKey_Keypad8,
+	ImGuiKey_Keypad9,
+	ImGuiKey_KeypadDecimal,
+	ImGuiKey_KeypadDivide,
+	ImGuiKey_KeypadMultiply,
+	ImGuiKey_KeypadSubtract,
+	ImGuiKey_KeypadAdd,
+	ImGuiKey_KeypadEnter,
+	ImGuiKey_KeypadEqual,
+	ImGuiKey_GamepadStart,
+	ImGuiKey_GamepadBack,
+	ImGuiKey_GamepadFaceUp,
+	ImGuiKey_GamepadFaceDown,
+	ImGuiKey_GamepadFaceLeft,
+	ImGuiKey_GamepadFaceRight,
+	ImGuiKey_GamepadDpadUp,
+	ImGuiKey_GamepadDpadDown,
+	ImGuiKey_GamepadDpadLeft,
+	ImGuiKey_GamepadDpadRight,
+	ImGuiKey_GamepadL1,
+	ImGuiKey_GamepadR1,
+	ImGuiKey_GamepadL2,
+	ImGuiKey_GamepadR2,
+	ImGuiKey_GamepadL3,
+	ImGuiKey_GamepadR3,
+	ImGuiKey_GamepadLStickUp,
+	ImGuiKey_GamepadLStickDown,
+	ImGuiKey_GamepadLStickLeft,
+	ImGuiKey_GamepadLStickRight,
+	ImGuiKey_GamepadRStickUp,
+	ImGuiKey_GamepadRStickDown,
+	ImGuiKey_GamepadRStickLeft,
+	ImGuiKey_GamepadRStickRight,
+	ImGuiKey_ModCtrl,
+	ImGuiKey_ModShift,
+	ImGuiKey_ModAlt,
+	ImGuiKey_ModSuper,
+	ImGuiKey_COUNT,
+	ImGuiKey_NamedKey_BEGIN = 512,
+	ImGuiKey_NamedKey_END = ImGuiKey_COUNT,
+	ImGuiKey_NamedKey_COUNT = ImGuiKey_NamedKey_END - ImGuiKey_NamedKey_BEGIN,
+	ImGuiKey_KeysData_SIZE = ImGuiKey_COUNT,
+	ImGuiKey_KeysData_OFFSET = 0
+} ImGuiKey_;
+typedef enum {
+	ImGuiKeyModFlags_None = 0,
+	ImGuiKeyModFlags_Ctrl = 1 << 0,
+	ImGuiKeyModFlags_Shift = 1 << 1,
+	ImGuiKeyModFlags_Alt = 1 << 2,
+	ImGuiKeyModFlags_Super = 1 << 3
+} ImGuiKeyModFlags_;
+typedef enum {
+	ImGuiNavInput_Activate,
+	ImGuiNavInput_Cancel,
+	ImGuiNavInput_Input,
+	ImGuiNavInput_Menu,
+	ImGuiNavInput_DpadLeft,
+	ImGuiNavInput_DpadRight,
+	ImGuiNavInput_DpadUp,
+	ImGuiNavInput_DpadDown,
+	ImGuiNavInput_LStickLeft,
+	ImGuiNavInput_LStickRight,
+	ImGuiNavInput_LStickUp,
+	ImGuiNavInput_LStickDown,
+	ImGuiNavInput_FocusPrev,
+	ImGuiNavInput_FocusNext,
+	ImGuiNavInput_TweakSlow,
+	ImGuiNavInput_TweakFast,
+	ImGuiNavInput_KeyLeft_,
+	ImGuiNavInput_KeyRight_,
+	ImGuiNavInput_KeyUp_,
+	ImGuiNavInput_KeyDown_,
+	ImGuiNavInput_COUNT
+} ImGuiNavInput_;
+typedef enum {
+	ImGuiConfigFlags_None = 0,
+	ImGuiConfigFlags_NavEnableKeyboard = 1 << 0,
+	ImGuiConfigFlags_NavEnableGamepad = 1 << 1,
+	ImGuiConfigFlags_NavEnableSetMousePos = 1 << 2,
+	ImGuiConfigFlags_NavNoCaptureKeyboard = 1 << 3,
+	ImGuiConfigFlags_NoMouse = 1 << 4,
+	ImGuiConfigFlags_NoMouseCursorChange = 1 << 5,
+	ImGuiConfigFlags_DockingEnable = 1 << 6,
+	ImGuiConfigFlags_ViewportsEnable = 1 << 10,
+	ImGuiConfigFlags_DpiEnableScaleViewports= 1 << 14,
+	ImGuiConfigFlags_DpiEnableScaleFonts = 1 << 15,
+	ImGuiConfigFlags_IsSRGB = 1 << 20,
+	ImGuiConfigFlags_IsTouchScreen = 1 << 21
+} ImGuiConfigFlags_;
+typedef enum {
+	ImGuiBackendFlags_None = 0,
+	ImGuiBackendFlags_HasGamepad = 1 << 0,
+	ImGuiBackendFlags_HasMouseCursors = 1 << 1,
+	ImGuiBackendFlags_HasSetMousePos = 1 << 2,
+	ImGuiBackendFlags_RendererHasVtxOffset = 1 << 3,
+	ImGuiBackendFlags_PlatformHasViewports = 1 << 10,
+	ImGuiBackendFlags_HasMouseHoveredViewport=1 << 11,
+	ImGuiBackendFlags_RendererHasViewports = 1 << 12
+} ImGuiBackendFlags_;
+typedef enum {
+	ImGuiCol_Text,
+	ImGuiCol_TextDisabled,
+	ImGuiCol_WindowBg,
+	ImGuiCol_ChildBg,
+	ImGuiCol_PopupBg,
+	ImGuiCol_Border,
+	ImGuiCol_BorderShadow,
+	ImGuiCol_FrameBg,
+	ImGuiCol_FrameBgHovered,
+	ImGuiCol_FrameBgActive,
+	ImGuiCol_TitleBg,
+	ImGuiCol_TitleBgActive,
+	ImGuiCol_TitleBgCollapsed,
+	ImGuiCol_MenuBarBg,
+	ImGuiCol_ScrollbarBg,
+	ImGuiCol_ScrollbarGrab,
+	ImGuiCol_ScrollbarGrabHovered,
+	ImGuiCol_ScrollbarGrabActive,
+	ImGuiCol_CheckMark,
+	ImGuiCol_SliderGrab,
+	ImGuiCol_SliderGrabActive,
+	ImGuiCol_Button,
+	ImGuiCol_ButtonHovered,
+	ImGuiCol_ButtonActive,
+	ImGuiCol_Header,
+	ImGuiCol_HeaderHovered,
+	ImGuiCol_HeaderActive,
+	ImGuiCol_Separator,
+	ImGuiCol_SeparatorHovered,
+	ImGuiCol_SeparatorActive,
+	ImGuiCol_ResizeGrip,
+	ImGuiCol_ResizeGripHovered,
+	ImGuiCol_ResizeGripActive,
+	ImGuiCol_Tab,
+	ImGuiCol_TabHovered,
+	ImGuiCol_TabActive,
+	ImGuiCol_TabUnfocused,
+	ImGuiCol_TabUnfocusedActive,
+	ImGuiCol_DockingPreview,
+	ImGuiCol_DockingEmptyBg,
+	ImGuiCol_PlotLines,
+	ImGuiCol_PlotLinesHovered,
+	ImGuiCol_PlotHistogram,
+	ImGuiCol_PlotHistogramHovered,
+	ImGuiCol_TableHeaderBg,
+	ImGuiCol_TableBorderStrong,
+	ImGuiCol_TableBorderLight,
+	ImGuiCol_TableRowBg,
+	ImGuiCol_TableRowBgAlt,
+	ImGuiCol_TextSelectedBg,
+	ImGuiCol_DragDropTarget,
+	ImGuiCol_NavHighlight,
+	ImGuiCol_NavWindowingHighlight,
+	ImGuiCol_NavWindowingDimBg,
+	ImGuiCol_ModalWindowDimBg,
+	ImGuiCol_COUNT
+} ImGuiCol_;
+typedef enum {
+	ImGuiStyleVar_Alpha,
+	ImGuiStyleVar_DisabledAlpha,
+	ImGuiStyleVar_WindowPadding,
+	ImGuiStyleVar_WindowRounding,
+	ImGuiStyleVar_WindowBorderSize,
+	ImGuiStyleVar_WindowMinSize,
+	ImGuiStyleVar_WindowTitleAlign,
+	ImGuiStyleVar_ChildRounding,
+	ImGuiStyleVar_ChildBorderSize,
+	ImGuiStyleVar_PopupRounding,
+	ImGuiStyleVar_PopupBorderSize,
+	ImGuiStyleVar_FramePadding,
+	ImGuiStyleVar_FrameRounding,
+	ImGuiStyleVar_FrameBorderSize,
+	ImGuiStyleVar_ItemSpacing,
+	ImGuiStyleVar_ItemInnerSpacing,
+	ImGuiStyleVar_IndentSpacing,
+	ImGuiStyleVar_CellPadding,
+	ImGuiStyleVar_ScrollbarSize,
+	ImGuiStyleVar_ScrollbarRounding,
+	ImGuiStyleVar_GrabMinSize,
+	ImGuiStyleVar_GrabRounding,
+	ImGuiStyleVar_TabRounding,
+	ImGuiStyleVar_ButtonTextAlign,
+	ImGuiStyleVar_SelectableTextAlign,
+	ImGuiStyleVar_COUNT
+} ImGuiStyleVar_;
+typedef enum {
+	ImGuiButtonFlags_None = 0,
+	ImGuiButtonFlags_MouseButtonLeft = 1 << 0,
+	ImGuiButtonFlags_MouseButtonRight = 1 << 1,
+	ImGuiButtonFlags_MouseButtonMiddle = 1 << 2,
+	ImGuiButtonFlags_MouseButtonMask_ = ImGuiButtonFlags_MouseButtonLeft | ImGuiButtonFlags_MouseButtonRight | ImGuiButtonFlags_MouseButtonMiddle,
+	ImGuiButtonFlags_MouseButtonDefault_ = ImGuiButtonFlags_MouseButtonLeft
+} ImGuiButtonFlags_;
+typedef enum {
+	ImGuiColorEditFlags_None = 0,
+	ImGuiColorEditFlags_NoAlpha = 1 << 1,
+	ImGuiColorEditFlags_NoPicker = 1 << 2,
+	ImGuiColorEditFlags_NoOptions = 1 << 3,
+	ImGuiColorEditFlags_NoSmallPreview = 1 << 4,
+	ImGuiColorEditFlags_NoInputs = 1 << 5,
+	ImGuiColorEditFlags_NoTooltip = 1 << 6,
+	ImGuiColorEditFlags_NoLabel = 1 << 7,
+	ImGuiColorEditFlags_NoSidePreview = 1 << 8,
+	ImGuiColorEditFlags_NoDragDrop = 1 << 9,
+	ImGuiColorEditFlags_NoBorder = 1 << 10,
+	ImGuiColorEditFlags_AlphaBar = 1 << 16,
+	ImGuiColorEditFlags_AlphaPreview = 1 << 17,
+	ImGuiColorEditFlags_AlphaPreviewHalf= 1 << 18,
+	ImGuiColorEditFlags_HDR = 1 << 19,
+	ImGuiColorEditFlags_DisplayRGB = 1 << 20,
+	ImGuiColorEditFlags_DisplayHSV = 1 << 21,
+	ImGuiColorEditFlags_DisplayHex = 1 << 22,
+	ImGuiColorEditFlags_Uint8 = 1 << 23,
+	ImGuiColorEditFlags_Float = 1 << 24,
+	ImGuiColorEditFlags_PickerHueBar = 1 << 25,
+	ImGuiColorEditFlags_PickerHueWheel = 1 << 26,
+	ImGuiColorEditFlags_InputRGB = 1 << 27,
+	ImGuiColorEditFlags_InputHSV = 1 << 28,
+	ImGuiColorEditFlags_DefaultOptions_ = ImGuiColorEditFlags_Uint8 | ImGuiColorEditFlags_DisplayRGB | ImGuiColorEditFlags_InputRGB | ImGuiColorEditFlags_PickerHueBar,
+	ImGuiColorEditFlags_DisplayMask_ = ImGuiColorEditFlags_DisplayRGB | ImGuiColorEditFlags_DisplayHSV | ImGuiColorEditFlags_DisplayHex,
+	ImGuiColorEditFlags_DataTypeMask_ = ImGuiColorEditFlags_Uint8 | ImGuiColorEditFlags_Float,
+	ImGuiColorEditFlags_PickerMask_ = ImGuiColorEditFlags_PickerHueWheel | ImGuiColorEditFlags_PickerHueBar,
+	ImGuiColorEditFlags_InputMask_ = ImGuiColorEditFlags_InputRGB | ImGuiColorEditFlags_InputHSV
+} ImGuiColorEditFlags_;
+typedef enum {
+	ImGuiSliderFlags_None = 0,
+	ImGuiSliderFlags_AlwaysClamp = 1 << 4,
+	ImGuiSliderFlags_Logarithmic = 1 << 5,
+	ImGuiSliderFlags_NoRoundToFormat = 1 << 6,
+	ImGuiSliderFlags_NoInput = 1 << 7,
+	ImGuiSliderFlags_InvalidMask_ = 0x7000000F
+} ImGuiSliderFlags_;
+typedef enum {
+	ImGuiMouseButton_Left = 0,
+	ImGuiMouseButton_Right = 1,
+	ImGuiMouseButton_Middle = 2,
+	ImGuiMouseButton_COUNT = 5
+} ImGuiMouseButton_;
+typedef enum {
+	ImGuiMouseCursor_None = -1,
+	ImGuiMouseCursor_Arrow = 0,
+	ImGuiMouseCursor_TextInput,
+	ImGuiMouseCursor_ResizeAll,
+	ImGuiMouseCursor_ResizeNS,
+	ImGuiMouseCursor_ResizeEW,
+	ImGuiMouseCursor_ResizeNESW,
+	ImGuiMouseCursor_ResizeNWSE,
+	ImGuiMouseCursor_Hand,
+	ImGuiMouseCursor_NotAllowed,
+	ImGuiMouseCursor_COUNT
+} ImGuiMouseCursor_;
+typedef enum {
+	ImGuiCond_None = 0,
+	ImGuiCond_Always = 1 << 0,
+	ImGuiCond_Once = 1 << 1,
+	ImGuiCond_FirstUseEver = 1 << 2,
+	ImGuiCond_Appearing = 1 << 3
+} ImGuiCond_;
+struct ImGuiStyle {
+	float Alpha;
+	float DisabledAlpha;
+	ImVec2 WindowPadding;
+	float WindowRounding;
+	float WindowBorderSize;
+	ImVec2 WindowMinSize;
+	ImVec2 WindowTitleAlign;
+	ImGuiDir WindowMenuButtonPosition;
+	float ChildRounding;
+	float ChildBorderSize;
+	float PopupRounding;
+	float PopupBorderSize;
+	ImVec2 FramePadding;
+	float FrameRounding;
+	float FrameBorderSize;
+	ImVec2 ItemSpacing;
+	ImVec2 ItemInnerSpacing;
+	ImVec2 CellPadding;
+	ImVec2 TouchExtraPadding;
+	float IndentSpacing;
+	float ColumnsMinSpacing;
+	float ScrollbarSize;
+	float ScrollbarRounding;
+	float GrabMinSize;
+	float GrabRounding;
+	float LogSliderDeadzone;
+	float TabRounding;
+	float TabBorderSize;
+	float TabMinWidthForCloseButton;
+	ImGuiDir ColorButtonPosition;
+	ImVec2 ButtonTextAlign;
+	ImVec2 SelectableTextAlign;
+	ImVec2 DisplayWindowPadding;
+	ImVec2 DisplaySafeAreaPadding;
+	float MouseCursorScale;
+	_Bool AntiAliasedLines;
+	_Bool AntiAliasedLinesUseTex;
+	_Bool AntiAliasedFill;
+	float CurveTessellationTol;
+	float CircleTessellationMaxError;
+	ImVec4 Colors[ImGuiCol_COUNT];
 };
-struct ImGuiKeyData { _Bool Down;
-float DownDuration;
-float DownDurationPrev;
-float AnalogValue;
+struct ImGuiKeyData {
+	_Bool Down;
+	float DownDuration;
+	float DownDurationPrev;
+	float AnalogValue;
 };
-typedef struct ImVector_ImWchar {int Size;int Capacity;ImWchar* Data;} ImVector_ImWchar;
-struct ImGuiIO { ImGuiConfigFlags ConfigFlags;
-ImGuiBackendFlags BackendFlags;
-ImVec2 DisplaySize;
-float DeltaTime;
-float IniSavingRate;
-const char* IniFilename;
-const char* LogFilename;
-float MouseDoubleClickTime;
-float MouseDoubleClickMaxDist;
-float MouseDragThreshold;
-float KeyRepeatDelay;
-float KeyRepeatRate;
-void* UserData;
-ImFontAtlas*Fonts;
-float FontGlobalScale;
-_Bool FontAllowUserScaling;
-ImFont* FontDefault;
-ImVec2 DisplayFramebufferScale;
-_Bool ConfigDockingNoSplit;
-_Bool ConfigDockingWithShift;
-_Bool ConfigDockingAlwaysTabBar;
-_Bool ConfigDockingTransparentPayload;
-_Bool ConfigViewportsNoAutoMerge;
-_Bool ConfigViewportsNoTaskBarIcon;
-_Bool ConfigViewportsNoDecoration;
-_Bool ConfigViewportsNoDefaultParent;
-_Bool MouseDrawCursor;
-_Bool ConfigMacOSXBehaviors;
-_Bool ConfigInputTrickleEventQueue;
-_Bool ConfigInputTextCursorBlink;
-_Bool ConfigDragClickToInputText;
-_Bool ConfigWindowsResizeFromEdges;
-_Bool ConfigWindowsMoveFromTitleBarOnly;
-float ConfigMemoryCompactTimer;
-const char* BackendPlatformName;
-const char* BackendRendererName;
-void* BackendPlatformUserData;
-void* BackendRendererUserData;
-void* BackendLanguageUserData;
-const char* (*GetClipboardTextFn)(void* user_data);
-void (*SetClipboardTextFn)(void* user_data, const char* text);
-void* ClipboardUserData;
-void (*SetPlatformImeDataFn)(ImGuiViewport* viewport, ImGuiPlatformImeData* data);
-void* _UnusedPadding;
-_Bool WantCaptureMouse;
-_Bool WantCaptureKeyboard;
-_Bool WantTextInput;
-_Bool WantSetMousePos;
-_Bool WantSaveIniSettings;
-_Bool NavActive;
-_Bool NavVisible;
-float Framerate;
-int MetricsRenderVertices;
-int MetricsRenderIndices;
-int MetricsRenderWindows;
-int MetricsActiveWindows;
-int MetricsActiveAllocations;
-ImVec2 MouseDelta;
-int KeyMap[ImGuiKey_COUNT];
-_Bool KeysDown[512];
-ImVec2 MousePos;
-_Bool MouseDown[5];
-float MouseWheel;
-float MouseWheelH;
-ImGuiID MouseHoveredViewport;
-_Bool KeyCtrl;
-_Bool KeyShift;
-_Bool KeyAlt;
-_Bool KeySuper;
-float NavInputs[ImGuiNavInput_COUNT];
-ImGuiKeyModFlags KeyMods;
-ImGuiKeyModFlags KeyModsPrev;
-ImGuiKeyData KeysData[ImGuiKey_KeysData_SIZE];
-_Bool WantCaptureMouseUnlessPopupClose;
-ImVec2 MousePosPrev;
-ImVec2 MouseClickedPos[5];
-double MouseClickedTime[5];
-_Bool MouseClicked[5];
-_Bool MouseDoubleClicked[5];
-ImU16 MouseClickedCount[5];
-ImU16 MouseClickedLastCount[5];
-_Bool MouseReleased[5];
-_Bool MouseDownOwned[5];
-_Bool MouseDownOwnedUnlessPopupClose[5];
-float MouseDownDuration[5];
-float MouseDownDurationPrev[5];
-ImVec2 MouseDragMaxDistanceAbs[5];
-float MouseDragMaxDistanceSqr[5];
-float NavInputsDownDuration[ImGuiNavInput_COUNT];
-float NavInputsDownDurationPrev[ImGuiNavInput_COUNT];
-float PenPressure;
-_Bool AppFocusLost;
-ImS8 BackendUsingLegacyKeyArrays;
-_Bool BackendUsingLegacyNavInputArray;
-ImWchar16 InputQueueSurrogate;
-ImVector_ImWchar InputQueueCharacters;
+typedef struct ImVector_ImWchar {
+	int Size;
+	int Capacity;
+	ImWchar* Data;
+} ImVector_ImWchar;
+struct ImGuiIO {
+	ImGuiConfigFlags ConfigFlags;
+	ImGuiBackendFlags BackendFlags;
+	ImVec2 DisplaySize;
+	float DeltaTime;
+	float IniSavingRate;
+	const char* IniFilename;
+	const char* LogFilename;
+	float MouseDoubleClickTime;
+	float MouseDoubleClickMaxDist;
+	float MouseDragThreshold;
+	float KeyRepeatDelay;
+	float KeyRepeatRate;
+	void* UserData;
+	ImFontAtlas*Fonts;
+	float FontGlobalScale;
+	_Bool FontAllowUserScaling;
+	ImFont* FontDefault;
+	ImVec2 DisplayFramebufferScale;
+	_Bool ConfigDockingNoSplit;
+	_Bool ConfigDockingWithShift;
+	_Bool ConfigDockingAlwaysTabBar;
+	_Bool ConfigDockingTransparentPayload;
+	_Bool ConfigViewportsNoAutoMerge;
+	_Bool ConfigViewportsNoTaskBarIcon;
+	_Bool ConfigViewportsNoDecoration;
+	_Bool ConfigViewportsNoDefaultParent;
+	_Bool MouseDrawCursor;
+	_Bool ConfigMacOSXBehaviors;
+	_Bool ConfigInputTrickleEventQueue;
+	_Bool ConfigInputTextCursorBlink;
+	_Bool ConfigDragClickToInputText;
+	_Bool ConfigWindowsResizeFromEdges;
+	_Bool ConfigWindowsMoveFromTitleBarOnly;
+	float ConfigMemoryCompactTimer;
+	const char* BackendPlatformName;
+	const char* BackendRendererName;
+	void* BackendPlatformUserData;
+	void* BackendRendererUserData;
+	void* BackendLanguageUserData;
+	const char* (*GetClipboardTextFn)(void* user_data);
+	void (*SetClipboardTextFn)(void* user_data, const char* text);
+	void* ClipboardUserData;
+	void (*SetPlatformImeDataFn)(ImGuiViewport* viewport, ImGuiPlatformImeData* data);
+	void* _UnusedPadding;
+	_Bool WantCaptureMouse;
+	_Bool WantCaptureKeyboard;
+	_Bool WantTextInput;
+	_Bool WantSetMousePos;
+	_Bool WantSaveIniSettings;
+	_Bool NavActive;
+	_Bool NavVisible;
+	float Framerate;
+	int MetricsRenderVertices;
+	int MetricsRenderIndices;
+	int MetricsRenderWindows;
+	int MetricsActiveWindows;
+	int MetricsActiveAllocations;
+	ImVec2 MouseDelta;
+	int KeyMap[ImGuiKey_COUNT];
+	_Bool KeysDown[512];
+	ImVec2 MousePos;
+	_Bool MouseDown[5];
+	float MouseWheel;
+	float MouseWheelH;
+	ImGuiID MouseHoveredViewport;
+	_Bool KeyCtrl;
+	_Bool KeyShift;
+	_Bool KeyAlt;
+	_Bool KeySuper;
+	float NavInputs[ImGuiNavInput_COUNT];
+	ImGuiKeyModFlags KeyMods;
+	ImGuiKeyModFlags KeyModsPrev;
+	ImGuiKeyData KeysData[ImGuiKey_KeysData_SIZE];
+	_Bool WantCaptureMouseUnlessPopupClose;
+	ImVec2 MousePosPrev;
+	ImVec2 MouseClickedPos[5];
+	double MouseClickedTime[5];
+	_Bool MouseClicked[5];
+	_Bool MouseDoubleClicked[5];
+	ImU16 MouseClickedCount[5];
+	ImU16 MouseClickedLastCount[5];
+	_Bool MouseReleased[5];
+	_Bool MouseDownOwned[5];
+	_Bool MouseDownOwnedUnlessPopupClose[5];
+	float MouseDownDuration[5];
+	float MouseDownDurationPrev[5];
+	ImVec2 MouseDragMaxDistanceAbs[5];
+	float MouseDragMaxDistanceSqr[5];
+	float NavInputsDownDuration[ImGuiNavInput_COUNT];
+	float NavInputsDownDurationPrev[ImGuiNavInput_COUNT];
+	float PenPressure;
+	_Bool AppFocusLost;
+	ImS8 BackendUsingLegacyKeyArrays;
+	_Bool BackendUsingLegacyNavInputArray;
+	ImWchar16 InputQueueSurrogate;
+	ImVector_ImWchar InputQueueCharacters;
 };
-struct ImGuiInputTextCallbackData { ImGuiInputTextFlags EventFlag;
-ImGuiInputTextFlags Flags;
-void* UserData;
-ImWchar EventChar;
-ImGuiKey EventKey;
-char* Buf;
-int BufTextLen;
-int BufSize;
-_Bool BufDirty;
-int CursorPos;
-int SelectionStart;
-int SelectionEnd;
+struct ImGuiInputTextCallbackData {
+	ImGuiInputTextFlags EventFlag;
+	ImGuiInputTextFlags Flags;
+	void* UserData;
+	ImWchar EventChar;
+	ImGuiKey EventKey;
+	char* Buf;
+	int BufTextLen;
+	int BufSize;
+	_Bool BufDirty;
+	int CursorPos;
+	int SelectionStart;
+	int SelectionEnd;
 };
-struct ImGuiSizeCallbackData { void* UserData;
-ImVec2 Pos;
-ImVec2 CurrentSize;
-ImVec2 DesiredSize;
+struct ImGuiSizeCallbackData {
+	void* UserData;
+	ImVec2 Pos;
+	ImVec2 CurrentSize;
+	ImVec2 DesiredSize;
 };
-struct ImGuiWindowClass { ImGuiID ClassId;
-ImGuiID ParentViewportId;
-ImGuiViewportFlags ViewportFlagsOverrideSet;
-ImGuiViewportFlags ViewportFlagsOverrideClear;
-ImGuiTabItemFlags TabItemFlagsOverrideSet;
-ImGuiDockNodeFlags DockNodeFlagsOverrideSet;
-_Bool DockingAlwaysTabBar;
-_Bool DockingAllowUnclassed;
+struct ImGuiWindowClass {
+	ImGuiID ClassId;
+	ImGuiID ParentViewportId;
+	ImGuiViewportFlags ViewportFlagsOverrideSet;
+	ImGuiViewportFlags ViewportFlagsOverrideClear;
+	ImGuiTabItemFlags TabItemFlagsOverrideSet;
+	ImGuiDockNodeFlags DockNodeFlagsOverrideSet;
+	_Bool DockingAlwaysTabBar;
+	_Bool DockingAllowUnclassed;
 };
-struct ImGuiPayload { void* Data;
-int DataSize;
-ImGuiID SourceId;
-ImGuiID SourceParentId;
-int DataFrameCount;
-char DataType[32 + 1];
-_Bool Preview;
-_Bool Delivery;
+struct ImGuiPayload {
+	void* Data;
+	int DataSize;
+	ImGuiID SourceId;
+	ImGuiID SourceParentId;
+	int DataFrameCount;
+	char DataType[32 + 1];
+	_Bool Preview;
+	_Bool Delivery;
 };
-struct ImGuiTableColumnSortSpecs { ImGuiID ColumnUserID;
-ImS16 ColumnIndex;
-ImS16 SortOrder;
-ImGuiSortDirection SortDirection : 8;
+struct ImGuiTableColumnSortSpecs {
+	ImGuiID ColumnUserID;
+	ImS16 ColumnIndex;
+	ImS16 SortOrder;
+	ImGuiSortDirection SortDirection : 8;
 };
-struct ImGuiTableSortSpecs { const ImGuiTableColumnSortSpecs* Specs;
-int SpecsCount;
-_Bool SpecsDirty;
+struct ImGuiTableSortSpecs {
+	const ImGuiTableColumnSortSpecs* Specs;
+	int SpecsCount;
+	_Bool SpecsDirty;
 };
-struct ImGuiOnceUponAFrame { int RefFrame;
+struct ImGuiOnceUponAFrame {
+	int RefFrame;
 };
-struct ImGuiTextRange { const char* b;
-const char* e;
+struct ImGuiTextRange {
+	const char* b;
+	const char* e;
 };
 typedef struct ImGuiTextRange ImGuiTextRange;
-typedef struct ImVector_ImGuiTextRange {int Size;int Capacity;ImGuiTextRange* Data;} ImVector_ImGuiTextRange;
-struct ImGuiTextFilter { char InputBuf[256];
-ImVector_ImGuiTextRange Filters;
-int CountGrep;
+typedef struct ImVector_ImGuiTextRange {
+	int Size;
+	int Capacity;
+	ImGuiTextRange* Data;
+} ImVector_ImGuiTextRange;
+struct ImGuiTextFilter {
+	char InputBuf[256];
+	ImVector_ImGuiTextRange Filters;
+	int CountGrep;
 };
 typedef struct ImGuiTextRange ImGuiTextRange;
-typedef struct ImVector_char {int Size;int Capacity;char* Data;} ImVector_char;
-struct ImGuiTextBuffer { ImVector_char Buf;
+typedef struct ImVector_char {
+	int Size;int Capacity;
+	char* Data;
+} ImVector_char;
+struct ImGuiTextBuffer {
+	ImVector_char Buf;
 };
-struct ImGuiStoragePair { ImGuiID key;
-union { int val_i; float val_f; void* val_p; };
+struct ImGuiStoragePair {
+	ImGuiID key;
+	union {
+		int val_i;
+		float val_f;
+		void* val_p;
+	};
 };
 typedef struct ImGuiStoragePair ImGuiStoragePair;
 typedef struct ImVector_ImGuiStoragePair {int Size;int Capacity;ImGuiStoragePair* Data;} ImVector_ImGuiStoragePair;
-struct ImGuiStorage { ImVector_ImGuiStoragePair Data;
+struct ImGuiStorage {
+	ImVector_ImGuiStoragePair Data;
 };
 typedef struct ImGuiStoragePair ImGuiStoragePair;
-struct ImGuiListClipper { int DisplayStart;
-int DisplayEnd;
-int ItemsCount;
-float ItemsHeight;
-float StartPosY;
-void* TempData;
+struct ImGuiListClipper {
+	int DisplayStart;
+	int DisplayEnd;
+	int ItemsCount;
+	float ItemsHeight;
+	float StartPosY;
+	void* TempData;
 };
-struct ImColor { ImVec4 Value;
+struct ImColor {
+	ImVec4 Value;
 };
 typedef void (*ImDrawCallback)(const ImDrawList* parent_list, const ImDrawCmd* cmd);
-struct ImDrawCmd { ImVec4 ClipRect;
-ImTextureID TextureId;
-unsigned int VtxOffset;
-unsigned int IdxOffset;
-unsigned int ElemCount;
-ImDrawCallback UserCallback;
-void* UserCallbackData;
+struct ImDrawCmd {
+	ImVec4 ClipRect;
+	ImTextureID TextureId;
+	unsigned int VtxOffset;
+	unsigned int IdxOffset;
+	unsigned int ElemCount;
+	ImDrawCallback UserCallback;
+	void* UserCallbackData;
 };
-struct ImDrawVert { ImVec2 pos;
-ImVec2 uv;
-ImU32 col;
+struct ImDrawVert {
+	ImVec2 pos;
+	ImVec2 uv;
+	ImU32 col;
 };
 typedef struct ImDrawCmdHeader ImDrawCmdHeader;
-struct ImDrawCmdHeader { ImVec4 ClipRect;
-ImTextureID TextureId;
-unsigned int VtxOffset;
+struct ImDrawCmdHeader {
+	ImVec4 ClipRect;
+	ImTextureID TextureId;
+	unsigned int VtxOffset;
 };
-typedef struct ImVector_ImDrawCmd {int Size;int Capacity;ImDrawCmd* Data;} ImVector_ImDrawCmd;
-typedef struct ImVector_ImDrawIdx {int Size;int Capacity;ImDrawIdx* Data;} ImVector_ImDrawIdx;
-struct ImDrawChannel { ImVector_ImDrawCmd _CmdBuffer;
-ImVector_ImDrawIdx _IdxBuffer;
+typedef struct ImVector_ImDrawCmd {
+	int Size;
+	int Capacity;
+	ImDrawCmd* Data;
+} ImVector_ImDrawCmd;
+typedef struct ImVector_ImDrawIdx {
+	int Size;
+	int Capacity;
+	ImDrawIdx* Data;
+} ImVector_ImDrawIdx;
+struct ImDrawChannel {
+	ImVector_ImDrawCmd _CmdBuffer;
+	ImVector_ImDrawIdx _IdxBuffer;
 };
-typedef struct ImVector_ImDrawChannel {int Size;int Capacity;ImDrawChannel* Data;} ImVector_ImDrawChannel;
-struct ImDrawListSplitter { int _Current;
-int _Count;
-ImVector_ImDrawChannel _Channels;
+typedef struct ImVector_ImDrawChannel {
+	int Size;
+	int Capacity;
+	ImDrawChannel* Data;
+} ImVector_ImDrawChannel;
+struct ImDrawListSplitter {
+	int _Current;
+	int _Count;
+	ImVector_ImDrawChannel _Channels;
 };
-typedef enum { ImDrawFlags_None = 0, ImDrawFlags_Closed = 1 << 0, ImDrawFlags_RoundCornersTopLeft = 1 << 4, ImDrawFlags_RoundCornersTopRight = 1 << 5, ImDrawFlags_RoundCornersBottomLeft = 1 << 6, ImDrawFlags_RoundCornersBottomRight = 1 << 7, ImDrawFlags_RoundCornersNone = 1 << 8, ImDrawFlags_RoundCornersTop = ImDrawFlags_RoundCornersTopLeft | ImDrawFlags_RoundCornersTopRight, ImDrawFlags_RoundCornersBottom = ImDrawFlags_RoundCornersBottomLeft | ImDrawFlags_RoundCornersBottomRight, ImDrawFlags_RoundCornersLeft = ImDrawFlags_RoundCornersBottomLeft | ImDrawFlags_RoundCornersTopLeft, ImDrawFlags_RoundCornersRight = ImDrawFlags_RoundCornersBottomRight | ImDrawFlags_RoundCornersTopRight, ImDrawFlags_RoundCornersAll = ImDrawFlags_RoundCornersTopLeft | ImDrawFlags_RoundCornersTopRight | ImDrawFlags_RoundCornersBottomLeft | ImDrawFlags_RoundCornersBottomRight, ImDrawFlags_RoundCornersDefault_ = ImDrawFlags_RoundCornersAll, ImDrawFlags_RoundCornersMask_ = ImDrawFlags_RoundCornersAll | ImDrawFlags_RoundCornersNone }ImDrawFlags_;
-typedef enum { ImDrawListFlags_None = 0, ImDrawListFlags_AntiAliasedLines = 1 << 0, ImDrawListFlags_AntiAliasedLinesUseTex = 1 << 1, ImDrawListFlags_AntiAliasedFill = 1 << 2, ImDrawListFlags_AllowVtxOffset = 1 << 3 }ImDrawListFlags_;
-typedef struct ImVector_ImDrawVert {int Size;int Capacity;ImDrawVert* Data;} ImVector_ImDrawVert;
-typedef struct ImVector_ImVec4 {int Size;int Capacity;ImVec4* Data;} ImVector_ImVec4;
-typedef struct ImVector_ImTextureID {int Size;int Capacity;ImTextureID* Data;} ImVector_ImTextureID;
-typedef struct ImVector_ImVec2 {int Size;int Capacity;ImVec2* Data;} ImVector_ImVec2;
-struct ImDrawList { ImVector_ImDrawCmd CmdBuffer;
-ImVector_ImDrawIdx IdxBuffer;
-ImVector_ImDrawVert VtxBuffer;
-ImDrawListFlags Flags;
-unsigned int _VtxCurrentIdx;
-const ImDrawListSharedData* _Data;
-const char* _OwnerName;
-ImDrawVert* _VtxWritePtr;
-ImDrawIdx* _IdxWritePtr;
-ImVector_ImVec4 _ClipRectStack;
-ImVector_ImTextureID _TextureIdStack;
-ImVector_ImVec2 _Path;
-ImDrawCmdHeader _CmdHeader;
-ImDrawListSplitter _Splitter;
-float _FringeScale;
+typedef enum {
+	ImDrawFlags_None = 0,
+	ImDrawFlags_Closed = 1 << 0,
+	ImDrawFlags_RoundCornersTopLeft = 1 << 4,
+	ImDrawFlags_RoundCornersTopRight = 1 << 5,
+	ImDrawFlags_RoundCornersBottomLeft = 1 << 6,
+	ImDrawFlags_RoundCornersBottomRight = 1 << 7,
+	ImDrawFlags_RoundCornersNone = 1 << 8,
+	ImDrawFlags_RoundCornersTop = ImDrawFlags_RoundCornersTopLeft | ImDrawFlags_RoundCornersTopRight,
+	ImDrawFlags_RoundCornersBottom = ImDrawFlags_RoundCornersBottomLeft | ImDrawFlags_RoundCornersBottomRight,
+	ImDrawFlags_RoundCornersLeft = ImDrawFlags_RoundCornersBottomLeft | ImDrawFlags_RoundCornersTopLeft,
+	ImDrawFlags_RoundCornersRight = ImDrawFlags_RoundCornersBottomRight | ImDrawFlags_RoundCornersTopRight,
+	ImDrawFlags_RoundCornersAll = ImDrawFlags_RoundCornersTopLeft | ImDrawFlags_RoundCornersTopRight | ImDrawFlags_RoundCornersBottomLeft | ImDrawFlags_RoundCornersBottomRight,
+	ImDrawFlags_RoundCornersDefault_ = ImDrawFlags_RoundCornersAll,
+	ImDrawFlags_RoundCornersMask_ = ImDrawFlags_RoundCornersAll | ImDrawFlags_RoundCornersNone
+} ImDrawFlags_;
+typedef enum {
+	ImDrawListFlags_None = 0,
+	ImDrawListFlags_AntiAliasedLines = 1 << 0,
+	ImDrawListFlags_AntiAliasedLinesUseTex = 1 << 1,
+	ImDrawListFlags_AntiAliasedFill = 1 << 2,
+	ImDrawListFlags_AllowVtxOffset = 1 << 3
+} ImDrawListFlags_;
+typedef struct ImVector_ImDrawVert {
+	int Size;
+	int Capacity;
+	ImDrawVert* Data;
+} ImVector_ImDrawVert;
+typedef struct ImVector_ImVec4 {
+	int Size;
+	int Capacity;
+	ImVec4* Data;
+} ImVector_ImVec4;
+typedef struct ImVector_ImTextureID {
+	int Size;
+	int Capacity;
+	ImTextureID* Data;
+} ImVector_ImTextureID;
+typedef struct ImVector_ImVec2 {
+	int Size;
+	int Capacity;
+	ImVec2* Data;
+} ImVector_ImVec2;
+struct ImDrawList {
+	ImVector_ImDrawCmd CmdBuffer;
+	ImVector_ImDrawIdx IdxBuffer;
+	ImVector_ImDrawVert VtxBuffer;
+	ImDrawListFlags Flags;
+	unsigned int _VtxCurrentIdx;
+	const ImDrawListSharedData* _Data;
+	const char* _OwnerName;
+	ImDrawVert* _VtxWritePtr;
+	ImDrawIdx* _IdxWritePtr;
+	ImVector_ImVec4 _ClipRectStack;
+	ImVector_ImTextureID _TextureIdStack;
+	ImVector_ImVec2 _Path;
+	ImDrawCmdHeader _CmdHeader;
+	ImDrawListSplitter _Splitter;
+	float _FringeScale;
 };
-struct ImDrawData { _Bool Valid;
-int CmdListsCount;
-int TotalIdxCount;
-int TotalVtxCount;
-ImDrawList** CmdLists;
-ImVec2 DisplayPos;
-ImVec2 DisplaySize;
-ImVec2 FramebufferScale;
-ImGuiViewport* OwnerViewport;
+struct ImDrawData {
+	_Bool Valid;
+	int CmdListsCount;
+	int TotalIdxCount;
+	int TotalVtxCount;
+	ImDrawList** CmdLists;
+	ImVec2 DisplayPos;
+	ImVec2 DisplaySize;
+	ImVec2 FramebufferScale;
+	ImGuiViewport* OwnerViewport;
 };
-struct ImFontConfig { void* FontData;
-int FontDataSize;
-_Bool FontDataOwnedByAtlas;
-int FontNo;
-float SizePixels;
-int OversampleH;
-int OversampleV;
-_Bool PixelSnapH;
-ImVec2 GlyphExtraSpacing;
-ImVec2 GlyphOffset;
-const ImWchar* GlyphRanges;
-float GlyphMinAdvanceX;
-float GlyphMaxAdvanceX;
-_Bool MergeMode;
-unsigned int FontBuilderFlags;
-float RasterizerMultiply;
-ImWchar EllipsisChar;
-char Name[40];
-ImFont* DstFont;
+struct ImFontConfig {
+	void* FontData;
+	int FontDataSize;
+	_Bool FontDataOwnedByAtlas;
+	int FontNo;
+	float SizePixels;
+	int OversampleH;
+	int OversampleV;
+	_Bool PixelSnapH;
+	ImVec2 GlyphExtraSpacing;
+	ImVec2 GlyphOffset;
+	const ImWchar* GlyphRanges;
+	float GlyphMinAdvanceX;
+	float GlyphMaxAdvanceX;
+	_Bool MergeMode;
+	unsigned int FontBuilderFlags;
+	float RasterizerMultiply;
+	ImWchar EllipsisChar;
+	char Name[40];
+	ImFont* DstFont;
 };
-struct ImFontGlyph { unsigned int Colored : 1;
-unsigned int Visible : 1;
-unsigned int Codepoint : 30;
-float AdvanceX;
-float X0, Y0, X1, Y1;
-float U0, V0, U1, V1;
+struct ImFontGlyph {
+	unsigned int Colored : 1;
+	unsigned int Visible : 1;
+	unsigned int Codepoint : 30;
+	float AdvanceX;
+	float X0, Y0, X1, Y1;
+	float U0, V0, U1, V1;
 };
-typedef struct ImVector_ImU32 {int Size;int Capacity;ImU32* Data;} ImVector_ImU32;
-struct ImFontGlyphRangesBuilder { ImVector_ImU32 UsedChars;
+typedef struct ImVector_ImU32 {
+	int Size;
+	int Capacity;
+	ImU32* Data;
+} ImVector_ImU32;
+struct ImFontGlyphRangesBuilder {
+	ImVector_ImU32 UsedChars;
 };
 typedef struct ImFontAtlasCustomRect ImFontAtlasCustomRect;
-struct ImFontAtlasCustomRect { unsigned short Width, Height;
-unsigned short X, Y;
-unsigned int GlyphID;
-float GlyphAdvanceX;
-ImVec2 GlyphOffset;
-ImFont* Font;
+struct ImFontAtlasCustomRect {
+	unsigned short Width, Height;
+	unsigned short X, Y;
+	unsigned int GlyphID;
+	float GlyphAdvanceX;
+	ImVec2 GlyphOffset;
+	ImFont* Font;
 };
-typedef enum { ImFontAtlasFlags_None = 0, ImFontAtlasFlags_NoPowerOfTwoHeight = 1 << 0, ImFontAtlasFlags_NoMouseCursors = 1 << 1, ImFontAtlasFlags_NoBakedLines = 1 << 2 }ImFontAtlasFlags_;
+typedef enum {
+	ImFontAtlasFlags_None = 0,
+	ImFontAtlasFlags_NoPowerOfTwoHeight = 1 << 0,
+	ImFontAtlasFlags_NoMouseCursors = 1 << 1,
+	ImFontAtlasFlags_NoBakedLines = 1 << 2
+} ImFontAtlasFlags_;
 typedef struct ImVector_ImFontPtr {int Size;int Capacity;ImFont** Data;} ImVector_ImFontPtr;
 typedef struct ImVector_ImFontAtlasCustomRect {int Size;int Capacity;ImFontAtlasCustomRect* Data;} ImVector_ImFontAtlasCustomRect;
 typedef struct ImVector_ImFontConfig {int Size;int Capacity;ImFontConfig* Data;} ImVector_ImFontConfig;
