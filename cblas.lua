@@ -6,7 +6,7 @@ ffi.cdef[[
 enum { CBLAS_H = 1 };
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-1-gnu/12/include/stddef.h */
+/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/openblas_config.h */
 enum { OPENBLAS_CONFIG_H = 1 };
 enum { OPENBLAS_OS_LINUX = 1 };
@@ -38,7 +38,7 @@ typedef long BLASLONG;
 typedef unsigned long BLASULONG;
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
 ]] require 'ffi.c.stdint' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-1-gnu/12/include/stdint.h */
+/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
 typedef uint16_t bfloat16;
 typedef int blasint;
 enum { FLOATRET = 0 };
@@ -48,7 +48,7 @@ enum { FLOATRET = 0 };
 enum { OPENBLAS_COMPLEX_C99 = 1 };
 /* BEGIN /usr/include/complex.h */
 ]] require 'ffi.c.complex' ffi.cdef[[
-/* END   /usr/include/__complex__.h */
+/* END   /usr/include/complex.h */
 typedef float __complex__ openblas_complex_float;
 typedef double __complex__ openblas_complex_double;
 typedef double __complex__ openblas_complex_xdouble;
@@ -58,22 +58,22 @@ enum { _SCHED_H = 1 };
 /* BEGIN /usr/include/features.h */
 /* END   /usr/include/features.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-/* END   /usr/include/x86_64-1-gnu/bits/types.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/types.h */
 enum { __need_size_t = 1 };
 enum { __need_NULL = 1 };
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 /* #define NULL ((void *)0) ### string, not number "((void *)0)" */
-/* END   /usr/lib/gcc/x86_64-1-gnu/12/include/stddef.h */
+/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
 enum { __time_t_defined = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-/* END   /usr/include/x86_64-1-gnu/bits/types.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/types.h */
 typedef __time_t time_t;
-/* END   /usr/include/x86_64-1-gnu/bits/types/time_t.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
 enum { _STRUCT_TIMESPEC = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-/* END   /usr/include/x86_64-1-gnu/bits/types.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/types.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/endian.h */
 enum { _BITS_ENDIAN_H = 1 };
 enum { __LITTLE_ENDIAN = 1234 };
@@ -82,15 +82,15 @@ enum { __PDP_ENDIAN = 3412 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/endianness.h */
 enum { _BITS_ENDIANNESS_H = 1 };
 enum { __BYTE_ORDER = 1234 };
-/* END   /usr/include/x86_64-1-gnu/bits/endianness.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/endianness.h */
 enum { __FLOAT_WORD_ORDER = 1234 };
-/* END   /usr/include/x86_64-1-gnu/bits/endian.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/endian.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
-/* END   /usr/include/x86_64-1-gnu/bits/types/time_t.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
 struct timespec { __time_t tv_sec;
 __syscall_slong_t tv_nsec;
 };
-/* END   /usr/include/x86_64-1-gnu/bits/types/struct_timespec.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
 typedef __pid_t pid_t;
 enum { __pid_t_defined = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/sched.h */
@@ -102,8 +102,8 @@ enum { SCHED_RR = 2 };
 enum { _BITS_TYPES_STRUCT_SCHED_PARAM = 1 };
 struct sched_param { int sched_priority;
 };
-/* END   /usr/include/x86_64-1-gnu/bits/types/struct_sched_param.h */
-/* END   /usr/include/x86_64-1-gnu/bits/sched.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/sched.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/cpu-set.h */
 enum { _BITS_CPU_SET_H = 1 };
 enum { __CPU_SETSIZE = 1024 };
@@ -114,7 +114,7 @@ typedef struct { __cpu_mask __bits[1024 / (8 * sizeof (__cpu_mask))];
 extern int __sched_cpucount (size_t __setsize, const cpu_set_t *__setp) __attribute__ ((__nothrow__ , __leaf__));
 extern cpu_set_t *__sched_cpualloc (size_t __count) __attribute__ ((__nothrow__ , __leaf__));
 extern void __sched_cpufree (cpu_set_t *__set) __attribute__ ((__nothrow__ , __leaf__));
-/* END   /usr/include/x86_64-1-gnu/bits/cpu-set.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/cpu-set.h */
 enum { sched_priority = 0 };
 enum { __sched_priority = 0 };
 extern int sched_setparam (__pid_t __pid, const struct sched_param *__param) __attribute__ ((__nothrow__ , __leaf__));
@@ -126,7 +126,7 @@ extern int sched_get_priority_max (int __algorithm) __attribute__ ((__nothrow__ 
 extern int sched_get_priority_min (int __algorithm) __attribute__ ((__nothrow__ , __leaf__));
 extern int sched_rr_get_interval (__pid_t __pid, struct timespec *__t) __attribute__ ((__nothrow__ , __leaf__));
 /* END   /usr/include/sched.h */
-/* END   /usr/include/x86_64-1-gnu/openblas_config.h */
+/* END   /usr/include/x86_64-linux-gnu/openblas_config.h */
 void openblas_set_num_threads(int num_threads);
 void goto_set_num_threads(int num_threads);
 int openblas_get_num_threads(void);
@@ -138,7 +138,7 @@ int openblas_get_parallel(void);
 enum { OPENBLAS_SEQUENTIAL = 0 };
 enum { OPENBLAS_THREAD = 1 };
 enum { OPENBLAS_OPENMP = 2 };
-/* enum { OPENBLAS_CONST = 0 };  TODO this should be defined to const */
+enum { OPENBLAS_CONST = 0 };
 enum { CBLAS_INDEX = 0 };
 typedef enum CBLAS_ORDER {CblasRowMajor=101, CblasColMajor=102} CBLAS_ORDER;
 typedef enum CBLAS_TRANSPOSE {CblasNoTrans=111, CblasTrans=112, CblasConjTrans=113, CblasConjNoTrans=114} CBLAS_TRANSPOSE;
@@ -338,6 +338,6 @@ void cblas_dbf16tod(const blasint n, const bfloat16 *in, const blasint incin, do
 float cblas_sbdot(const blasint n, const bfloat16 *x, const blasint incx, const bfloat16 *y, const blasint incy);
 void cblas_sbgemv(const enum CBLAS_ORDER order, const enum CBLAS_TRANSPOSE trans, const blasint m, const blasint n, const float alpha, const bfloat16 *a, const blasint lda, const bfloat16 *x, const blasint incx, const float beta, float *y, const blasint incy);
 void cblas_sbgemm(const enum CBLAS_ORDER Order, const enum CBLAS_TRANSPOSE TransA, const enum CBLAS_TRANSPOSE TransB, const blasint M, const blasint N, const blasint K, const float alpha, const bfloat16 *A, const blasint lda, const bfloat16 *B, const blasint ldb, const float beta, float *C, const blasint ldc);
-/* END   /usr/include/x86_64-1-gnu/cblas.h */
+/* END   /usr/include/x86_64-linux-gnu/cblas.h */
 ]]
 return blas
