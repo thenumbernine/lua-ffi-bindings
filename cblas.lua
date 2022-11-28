@@ -54,77 +54,7 @@ typedef double __complex__ openblas_complex_double;
 typedef double __complex__ openblas_complex_xdouble;
 enum { _GNU_SOURCE = 1 };
 /* BEGIN /usr/include/sched.h */
-enum { _SCHED_H = 1 };
-/* BEGIN /usr/include/features.h */
-/* END   /usr/include/features.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-/* END   /usr/include/x86_64-linux-gnu/bits/types.h */
-enum { __need_size_t = 1 };
-enum { __need_NULL = 1 };
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-/* #define NULL ((void *)0) ### string, not number "((void *)0)" */
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
-enum { __time_t_defined = 1 };
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-/* END   /usr/include/x86_64-linux-gnu/bits/types.h */
-typedef __time_t time_t;
-/* END   /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
-enum { _STRUCT_TIMESPEC = 1 };
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-/* END   /usr/include/x86_64-linux-gnu/bits/types.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/endian.h */
-enum { _BITS_ENDIAN_H = 1 };
-enum { __LITTLE_ENDIAN = 1234 };
-enum { __BIG_ENDIAN = 4321 };
-enum { __PDP_ENDIAN = 3412 };
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/endianness.h */
-enum { _BITS_ENDIANNESS_H = 1 };
-enum { __BYTE_ORDER = 1234 };
-/* END   /usr/include/x86_64-linux-gnu/bits/endianness.h */
-enum { __FLOAT_WORD_ORDER = 1234 };
-/* END   /usr/include/x86_64-linux-gnu/bits/endian.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
-/* END   /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
-struct timespec { __time_t tv_sec;
-__syscall_slong_t tv_nsec;
-};
-/* END   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
-typedef __pid_t pid_t;
-enum { __pid_t_defined = 1 };
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/sched.h */
-enum { _BITS_SCHED_H = 1 };
-enum { SCHED_OTHER = 0 };
-enum { SCHED_FIFO = 1 };
-enum { SCHED_RR = 2 };
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h */
-enum { _BITS_TYPES_STRUCT_SCHED_PARAM = 1 };
-struct sched_param { int sched_priority;
-};
-/* END   /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h */
-/* END   /usr/include/x86_64-linux-gnu/bits/sched.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/cpu-set.h */
-enum { _BITS_CPU_SET_H = 1 };
-enum { __CPU_SETSIZE = 1024 };
-/* #define __NCPUBITS	(8 * sizeof (__cpu_mask)) ### string, not number "(8 * sizeof (__cpu_mask))" */
-typedef unsigned long int __cpu_mask;
-typedef struct { __cpu_mask __bits[1024 / (8 * sizeof (__cpu_mask))];
-} cpu_set_t;
-extern int __sched_cpucount (size_t __setsize, const cpu_set_t *__setp) __attribute__ ((__nothrow__ , __leaf__));
-extern cpu_set_t *__sched_cpualloc (size_t __count) __attribute__ ((__nothrow__ , __leaf__));
-extern void __sched_cpufree (cpu_set_t *__set) __attribute__ ((__nothrow__ , __leaf__));
-/* END   /usr/include/x86_64-linux-gnu/bits/cpu-set.h */
-enum { sched_priority = 0 };
-enum { __sched_priority = 0 };
-extern int sched_setparam (__pid_t __pid, const struct sched_param *__param) __attribute__ ((__nothrow__ , __leaf__));
-extern int sched_getparam (__pid_t __pid, struct sched_param *__param) __attribute__ ((__nothrow__ , __leaf__));
-extern int sched_setscheduler (__pid_t __pid, int __policy, const struct sched_param *__param) __attribute__ ((__nothrow__ , __leaf__));
-extern int sched_getscheduler (__pid_t __pid) __attribute__ ((__nothrow__ , __leaf__));
-extern int sched_yield (void) __attribute__ ((__nothrow__ , __leaf__));
-extern int sched_get_priority_max (int __algorithm) __attribute__ ((__nothrow__ , __leaf__));
-extern int sched_get_priority_min (int __algorithm) __attribute__ ((__nothrow__ , __leaf__));
-extern int sched_rr_get_interval (__pid_t __pid, struct timespec *__t) __attribute__ ((__nothrow__ , __leaf__));
+]] require 'ffi.c.sched' ffi.cdef[[
 /* END   /usr/include/sched.h */
 /* END   /usr/include/x86_64-linux-gnu/openblas_config.h */
 void openblas_set_num_threads(int num_threads);
