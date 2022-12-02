@@ -1,5 +1,4 @@
 local ffi = require 'ffi'
-require 'ffi.c.stdio'	-- for FILE, even though jpeglib.h itself never includes <stdio.h> ... hmm ...
 local jpeg
 if ffi.os == 'Windows' then
 	-- windows msvc turbojpeg 2.0.3 cmake wouldn't build, so i used 2.0.4 instead

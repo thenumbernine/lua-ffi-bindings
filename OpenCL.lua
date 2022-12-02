@@ -1,23 +1,6 @@
 local ffi  = require 'ffi'
-
-local libs = ffi_OpenCL_libs or {
-	OSX = {x86 = 'OpenCL.framework/OpenCL', x64 = 'OpenCL.framework/OpenCL'},
-	Windows = {x86 = 'opencl.dll', x64 = 'opencl.dll'},
-	Linux = {
-	x86 = 'libOpenCL.so',
-	x64 = 'libOpenCL.so',
-	arm = 'bin/Linux/arm/libOpenCL.so'},
-	BSD = {x86 = 'libOpenCL.so', x64 = 'libOpenCL.so'},
-	POSIX = {x86 = 'libOpenCL.so', x64 = 'libOpenCL.so'},
-	Other = {x86 = 'libOpenCL.so', x64 = 'libOpenCL.so'},
-}
-
-local lib = ffi_OpenCL_lib or libs[ffi.os][ffi.arch]
-
-local cl = ffi.load(lib)
-
 ffi.cdef[[
-/* warning: Need to implement some method to align data here */
+/* manually commented out: warning: Need to implement some method to align data here */
 /* BEGIN /usr/include/CL/cl.h */
 enum { __OPENCL_CL_H = 1 };
 /* BEGIN /usr/include/CL/cl_version.h */
@@ -1056,5 +1039,16 @@ enum { CL_COMMAND_GL_FENCE_SYNC_OBJECT_KHR = 8205 };
 extern cl_event clCreateEventFromGLsyncKHR(cl_context context, cl_GLsync cl_GLsync, cl_int * errcode_ret);
 /* END /usr/include/CL/cl_gl_ext.h */
 ]]
-
-return cl
+local libs = ffi_OpenCL_libs or {
+	OSX = {x86 = 'OpenCL.framework/OpenCL', x64 = 'OpenCL.framework/OpenCL'},
+	Windows = {x86 = 'opencl.dll', x64 = 'opencl.dll'},
+	Linux = {
+	x86 = 'libOpenCL.so',
+	x64 = 'libOpenCL.so',
+	arm = 'bin/Linux/arm/libOpenCL.so'},
+	BSD = {x86 = 'libOpenCL.so', x64 = 'libOpenCL.so'},
+	POSIX = {x86 = 'libOpenCL.so', x64 = 'libOpenCL.so'},
+	Other = {x86 = 'libOpenCL.so', x64 = 'libOpenCL.so'},
+}
+local lib = ffi_OpenCL_lib or libs[ffi.os][ffi.arch]
+return ffi.load(lib)

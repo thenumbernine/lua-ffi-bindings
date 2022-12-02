@@ -1314,7 +1314,7 @@ enum { KHRONOS_APIENTRY = 1 };
 enum { KHRONOS_APIATTRIBUTES = 1 };
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h */
 ]] require 'ffi.c.stdint' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stdint.h */
+/* END   /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h */
 typedef int32_t khronos_int32_t;
 typedef uint32_t khronos_uint32_t;
 typedef int64_t khronos_int64_t;
@@ -1334,7 +1334,7 @@ typedef khronos_uint64_t khronos_utime_nanoseconds_t;
 typedef khronos_int64_t khronos_stime_nanoseconds_t;
 enum { KHRONOS_MAX_ENUM = 2147483647 };
 typedef enum { KHRONOS_FALSE = 0, KHRONOS_TRUE = 1, KHRONOS_BOOLEAN_ENUM_FORCE_SIZE = 0x7FFFFFFF } khronos_boolean_enum_t;
-/* END /usr/include/KHR/khrplatform.h */
+/* END   /usr/include/KHR/khrplatform.h */
 enum { GL_VERSION_1_4 = 1 };
 enum { GL_BLEND_DST_RGB = 32968 };
 enum { GL_BLEND_SRC_RGB = 32969 };
@@ -11203,7 +11203,7 @@ enum { GL_PHONG_WIN = 33002 };
 enum { GL_PHONG_HINT_WIN = 33003 };
 enum { GL_WIN_specular_fog = 1 };
 enum { GL_FOG_SPECULAR_TEXTURE_WIN = 33004 };
-/* END /usr/include/GL/glext.h */
+/* END   /usr/include/GL/glext.h */
 enum { GL_MESA_packed_depth_stencil = 1 };
 enum { GL_DEPTH_STENCIL_MESA = 34640 };
 enum { GL_UNSIGNED_INT_24_8_MESA = 34641 };
@@ -11219,8 +11219,8 @@ __attribute__((visibility("default"))) void glEGLImageTargetTexture2DOES (GLenum
 __attribute__((visibility("default"))) void glEGLImageTargetRenderbufferStorageOES (GLenum target, GLeglImageOES image);
 typedef void ( * PFNGLEGLIMAGETARGETTEXTURE2DOESPROC) (GLenum target, GLeglImageOES image);
 typedef void ( * PFNGLEGLIMAGETARGETRENDERBUFFERSTORAGEOESPROC) (GLenum target, GLeglImageOES image);
-/* END /usr/include/GL/gl.h */
+/* END   /usr/include/GL/gl.h */
 /* BEGIN /usr/include/GL/glext.h */
-/* END /usr/include/GL/glext.h */
+/* END   /usr/include/GL/glext.h */
 ]]
 return ffi.load'GL'
