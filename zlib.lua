@@ -10,14 +10,13 @@ enum { z_const = 1 };
 /* #  define z_longlong long long ### string, not number "long long" */
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stddef.h */
+/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
 typedef size_t z_size_t;
 enum { MAX_MEM_LEVEL = 9 };
 enum { MAX_WBITS = 15 };
 enum { ZEXTERN = 0 };
 enum { ZEXPORT = 1 };
 enum { ZEXPORTVA = 1 };
-enum { FAR = 1 };
 typedef unsigned char Byte;
 typedef unsigned int uInt;
 typedef unsigned long uLong;
@@ -31,21 +30,20 @@ typedef void *voidpf;
 typedef void *voidp;
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h */
 ]] require 'ffi.c.limits' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-1-gnu/11/include/limits.h */
+/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h */
 enum { Z_U4 = 0 };
 typedef unsigned z_crc_t;
 enum { Z_HAVE_UNISTD_H = 1 };
 enum { Z_HAVE_STDARG_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
 ]] require 'ffi.c.sys.types' ffi.cdef[[
-/* END /usr/include/x86_64-1-gnu/sys/types.h */
+/* END /usr/include/x86_64-linux-gnu/sys/types.h */
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h */
 ]] require 'ffi.c.stdarg' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stdarg.h */
+/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h */
 /* BEGIN /usr/include/unistd.h */
 ]] require 'ffi.c.unistd' ffi.cdef[[
 /* END /usr/include/unistd.h */
-enum { z_off_t = 0 };
 enum { Z_LFS64 = 1 };
 enum { z_off64_t = 0 };
 /* END /usr/include/zconf.h */
@@ -308,8 +306,8 @@ extern int deflateResetKeep (z_streamp);
 /* ### PREPENDING ### extern int             gzvprintf Z_ARG((gzFile file, const char *format, ### TO ### va_list va)); */
 extern int gzvprintf (gzFile file, const char *format, va_list va);
 /* END /usr/include/zlib.h */
-
 ]]
+
 local zlib = ffi.load'z'
 local wrapper
 wrapper = setmetatable({

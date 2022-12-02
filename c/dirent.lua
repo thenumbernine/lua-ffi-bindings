@@ -7,7 +7,7 @@ enum { _DIRENT_H = 1 };
 /* END /usr/include/features.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.c.bits.types' ffi.cdef[[
-/* END /usr/include/x86_64-1-gnu/bits/types.h */
+/* END /usr/include/x86_64-linux-gnu/bits/types.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/dirent.h */
 struct dirent { __ino_t d_ino;
 __off_t d_off;
@@ -20,16 +20,16 @@ enum { _DIRENT_HAVE_D_RECLEN = 1 };
 enum { _DIRENT_HAVE_D_OFF = 1 };
 enum { _DIRENT_HAVE_D_TYPE = 1 };
 enum { _DIRENT_MATCHES_DIRENT64 = 1 };
-/* END /usr/include/x86_64-1-gnu/bits/dirent.h */
-enum { DT_UNKNOWN = 0, enum { DT_UNKNOWN = 0 };
-DT_FIFO = 1, enum { DT_FIFO = 0 };
-DT_CHR = 2, enum { DT_CHR = 0 };
-DT_DIR = 4, enum { DT_DIR = 0 };
-DT_BLK = 6, enum { DT_BLK = 0 };
-DT_REG = 8, enum { DT_REG = 0 };
-DT_LNK = 10, enum { DT_LNK = 0 };
-DT_SOCK = 12, enum { DT_SOCK = 0 };
-DT_WHT = 14 enum { DT_WHT = 0 };
+/* END /usr/include/x86_64-linux-gnu/bits/dirent.h */
+enum { DT_UNKNOWN = 0,
+DT_FIFO = 1,
+DT_CHR = 2,
+DT_DIR = 4,
+DT_BLK = 6,
+DT_REG = 8,
+DT_LNK = 10,
+DT_SOCK = 12,
+DT_WHT = 14
 };
 typedef struct __dirstream DIR;
 extern DIR *opendir (const char *__name) __attribute__ ((__nonnull__ (1)));
@@ -39,7 +39,7 @@ extern struct dirent *readdir (DIR *__dirp) __attribute__ ((__nonnull__ (1)));
 extern int readdir_r (DIR * __dirp, struct dirent * __entry, struct dirent ** __result) __attribute__ ((__nonnull__ (1, 2, 3))) __attribute__ ((__deprecated__));
 extern void rewinddir (DIR *__dirp) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-/* END /usr/include/x86_64-1-gnu/bits/types.h */
+/* END /usr/include/x86_64-linux-gnu/bits/types.h */
 extern void seekdir (DIR *__dirp, long int __pos) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 extern long int telldir (DIR *__dirp) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 extern int dirfd (DIR *__dirp) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
@@ -49,7 +49,7 @@ enum { _BITS_POSIX1_LIM_H = 1 };
 /* redefining matching value: # define __WORDSIZE	64 */
 /* redefining matching value: # define __WORDSIZE_TIME64_COMPAT32	1 */
 /* redefining matching value: # define __SYSCALL_WORDSIZE		64 */
-/* END /usr/include/x86_64-1-gnu/bits/wordsize.h */
+/* END /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 enum { _POSIX_AIO_LISTIO_MAX = 2 };
 enum { _POSIX_AIO_MAX = 1 };
 enum { _POSIX_ARG_MAX = 4096 };
@@ -97,26 +97,26 @@ enum { AIO_PRIO_DELTA_MAX = 20 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/pthread_stack_min.h */
 enum { PTHREAD_STACK_MIN = 16384 };
-/* END /usr/include/x86_64-1-gnu/bits/pthread_stack_min.h */
-/* END /usr/include/x86_64-1-gnu/bits/pthread_stack_min-dynamic.h */
+/* END /usr/include/x86_64-linux-gnu/bits/pthread_stack_min.h */
+/* END /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h */
 enum { DELAYTIMER_MAX = 2147483647 };
 enum { TTY_NAME_MAX = 32 };
 enum { LOGIN_NAME_MAX = 256 };
 enum { HOST_NAME_MAX = 64 };
 enum { MQ_PRIO_MAX = 32768 };
 enum { SEM_VALUE_MAX = 2147483647 };
-/* END /usr/include/x86_64-1-gnu/bits/local_lim.h */
+/* END /usr/include/x86_64-linux-gnu/bits/local_lim.h */
 enum { SSIZE_MAX = 0 };
-/* END /usr/include/x86_64-1-gnu/bits/posix1_lim.h */
+/* END /usr/include/x86_64-linux-gnu/bits/posix1_lim.h */
 enum { MAXNAMLEN = 255 };
 enum { __need_size_t = 1 };
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stddef.h */
+/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
 extern int scandir (const char * __dir, struct dirent *** __namelist, int (*__selector) (const struct dirent *), int (*__cmp) (const struct dirent **, const struct dirent **)) __attribute__ ((__nonnull__ (1, 2)));
 extern int alphasort (const struct dirent **__e1, const struct dirent **__e2) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
 extern __ssize_t getdirentries (int __fd, char * __buf, size_t __nbytes, __off_t * __basep) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2, 4)));
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/dirent_ext.h */
-/* END /usr/include/x86_64-1-gnu/bits/dirent_ext.h */
+/* END /usr/include/x86_64-linux-gnu/bits/dirent_ext.h */
 /* END /usr/include/dirent.h */
 ]]

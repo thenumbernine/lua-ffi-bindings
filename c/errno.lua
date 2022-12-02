@@ -148,13 +148,13 @@ enum { ENOTRECOVERABLE = 131 };
 enum { ERFKILL = 132 };
 enum { EHWPOISON = 133 };
 /* END /usr/include/asm-generic/errno.h */
-/* END /usr/include/x86_64-1-gnu/asm/errno.h */
-/* END /usr/include/1/errno.h */
+/* END /usr/include/x86_64-linux-gnu/asm/errno.h */
+/* END /usr/include/linux/errno.h */
 enum { ENOTSUP = 95 };
-/* END /usr/include/x86_64-1-gnu/bits/errno.h */
+/* END /usr/include/x86_64-linux-gnu/bits/errno.h */
 extern int *__errno_location (void) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
 /* # define errno (*__errno_location ()) ### string, not number "(*__errno_location ())" */
-/* END /usr/include/(*__errno_location ()).h */
+/* END /usr/include/errno.h */
 ]]
 return setmetatable({
 	errno = function()

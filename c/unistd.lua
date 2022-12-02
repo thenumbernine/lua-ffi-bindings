@@ -84,13 +84,13 @@ enum { _POSIX_TRACE_EVENT_FILTER = -1 };
 enum { _POSIX_TRACE_INHERIT = -1 };
 enum { _POSIX_TRACE_LOG = -1 };
 enum { _POSIX_TYPED_MEMORY_OBJECTS = -1 };
-/* END /usr/include/x86_64-1-gnu/bits/posix_opt.h */
+/* END /usr/include/x86_64-linux-gnu/bits/posix_opt.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/environments.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* redefining matching value: # define __WORDSIZE	64 */
 /* redefining matching value: # define __WORDSIZE_TIME64_COMPAT32	1 */
 /* redefining matching value: # define __SYSCALL_WORDSIZE		64 */
-/* END /usr/include/x86_64-1-gnu/bits/wordsize.h */
+/* END /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 enum { _POSIX_V7_LPBIG_OFFBIG = -1 };
 enum { _POSIX_V6_LPBIG_OFFBIG = -1 };
 enum { _XBS5_LPBIG_OFFBIG = -1 };
@@ -103,17 +103,17 @@ enum { _XBS5_LP64_OFF64 = 1 };
 /* # define __ILP32_OFFBIG_LDFLAGS	"-m32" ### string, not number "\"-m32\"" */
 /* #define __LP64_OFF64_CFLAGS	"-m64" ### string, not number "\"-m64\"" */
 /* #define __LP64_OFF64_LDFLAGS	"-m64" ### string, not number "\"-m64\"" */
-/* END /usr/include/x86_64-1-gnu/bits/environments.h */
+/* END /usr/include/x86_64-linux-gnu/bits/environments.h */
 enum { STDIN_FILENO = 0 };
 enum { STDOUT_FILENO = 1 };
 enum { STDERR_FILENO = 2 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.c.bits.types' ffi.cdef[[
-/* END /usr/include/x86_64-1-gnu/bits/types.h */
+/* END /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.c.bits.types.ssize_t' ffi.cdef[[
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stddef.h */
+/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
 ]] require 'ffi.c.bits.types.gid_t' ffi.cdef[[
 ]] require 'ffi.c.bits.types.uid_t' ffi.cdef[[
 ]] require 'ffi.c.bits.types.off_t' ffi.cdef[[
@@ -225,8 +225,8 @@ extern int optind;
 extern int opterr;
 extern int optopt;
 extern int getopt (int ___argc, char *const *___argv, const char *__shortopts) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2, 3)));
-/* END /usr/include/x86_64-1-gnu/bits/getopt_core.h */
-/* END /usr/include/x86_64-1-gnu/bits/getopt_posix.h */
+/* END /usr/include/x86_64-linux-gnu/bits/getopt_core.h */
+/* END /usr/include/x86_64-linux-gnu/bits/getopt_posix.h */
 extern int gethostname (char *__name, size_t __len) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) __attribute__ ((__access__ (a, 1, s)));
 extern int sethostname (const char *__name, size_t __len) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) __attribute__ ((__access__ (__read_only__, 1, 2)));
 extern int sethostid (long int __id) __attribute__ ((__nothrow__ , __leaf__));
@@ -261,7 +261,7 @@ extern int fdatasync (int __fildes);
 extern char *crypt (const char *__key, const char *__salt) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 int getentropy (void *__buffer, size_t __length) __attribute__ ((__access__ (__write_only__, 1, 2)));
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/unistd_ext.h */
-/* END /usr/include/x86_64-1-gnu/bits/unistd_ext.h */
+/* END /usr/include/x86_64-linux-gnu/bits/unistd_ext.h */
 /* END /usr/include/unistd.h */
 ]]
 

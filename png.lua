@@ -1,15 +1,5 @@
 -- png 1.6.37 + zlib 1.2.8
 local ffi = require 'ffi'
-local png
-if ffi.os == 'OSX' then
-	png = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/OSX/libpng.dylib')
-elseif ffi.os == 'Windows' then
-	png = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/Windows/' .. ffi.arch .. '/png.dll')
-elseif ffi.os == 'Linux' then
-	png = ffi.load'png'
-else               
-	png = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/linux/libpng.so')
-end
 ffi.cdef[[
 /* BEGIN /usr/include/png.h */
 enum { PNG_H = 1 };
@@ -1520,4 +1510,14 @@ extern void ( png_write_frame_head) (png_structp png_ptr, png_infop info_ptr, pn
 extern void ( png_write_frame_tail) (png_structp png_ptr, png_infop info_ptr);
 /* END /usr/include/png.h */
 ]]
+local png
+if ffi.os == 'OSX' then
+	png = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/OSX/libpng.dylib')
+elseif ffi.os == 'Windows' then
+	png = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/Windows/' .. ffi.arch .. '/png.dll')
+elseif ffi.os == 'Linux' then
+	png = ffi.load'png'
+else               
+	png = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/linux/libpng.so')
+end
 return png

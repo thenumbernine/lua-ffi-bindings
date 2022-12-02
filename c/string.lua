@@ -4,10 +4,10 @@ ffi.cdef[[
 enum { _STRING_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 ]] require 'ffi.c.bits.libc-header-start' ffi.cdef[[
-/* END /usr/include/x86_64-1-gnu/bits/libc-header-start.h */
+/* END /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stddef.h */
+/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
 extern void *memcpy (void * __dest, const void * __src, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 extern void *memmove (void *__dest, const void *__src, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 extern void *memccpy (void * __dest, const void * __src, int __c, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2))) __attribute__ ((__access__ (__write_only__, 1, 4)));
@@ -25,7 +25,7 @@ extern int strcoll (const char *__s1, const char *__s2) __attribute__ ((__nothro
 extern size_t strxfrm (char * __dest, const char * __src, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2))) __attribute__ ((__access__ (__write_only__, 1, 3)));
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/locale_t.h */
 ]] require 'ffi.c.bits.types.locale_t' ffi.cdef[[
-/* END /usr/include/x86_64-1-gnu/bits/types/locale_t.h */
+/* END /usr/include/x86_64-linux-gnu/bits/types/locale_t.h */
 extern int strcoll_l (const char *__s1, const char *__s2, locale_t __l) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2, 3)));
 extern size_t strxfrm_l (char *__dest, const char *__src, size_t __n, locale_t __l) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2, 4))) __attribute__ ((__access__ (__write_only__, 1, 3)));
 extern char *strdup (const char *__s) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__nonnull__ (1)));
@@ -51,9 +51,11 @@ extern char *strerror_l (int __errnum, locale_t __l) __attribute__ ((__nothrow__
 /* BEGIN /usr/include/strings.h */
 enum { _STRINGS_H = 1 };
 /* BEGIN /usr/include/features.h */
+]] require 'ffi.c.features' ffi.cdef[[
 /* END /usr/include/features.h */
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
-/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stddef.h */
+]] require 'ffi.c.stddef' ffi.cdef[[
+/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
 extern int bcmp (const void *__s1, const void *__s2, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
 extern void bcopy (const void *__src, void *__dest, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 extern void bzero (void *__s, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
@@ -65,7 +67,8 @@ __extension__ extern int ffsll (long long int __ll) __attribute__ ((__nothrow__ 
 extern int strcasecmp (const char *__s1, const char *__s2) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
 extern int strncasecmp (const char *__s1, const char *__s2, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/locale_t.h */
-/* END /usr/include/x86_64-1-gnu/bits/types/locale_t.h */
+]] require 'ffi.c.bits.types.locale_t' ffi.cdef[[
+/* END /usr/include/x86_64-linux-gnu/bits/types/locale_t.h */
 extern int strcasecmp_l (const char *__s1, const char *__s2, locale_t __loc) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2, 3)));
 extern int strncasecmp_l (const char *__s1, const char *__s2, size_t __n, locale_t __loc) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2, 4)));
 /* END /usr/include/strings.h */

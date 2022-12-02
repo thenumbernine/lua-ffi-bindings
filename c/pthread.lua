@@ -12,7 +12,7 @@ enum { _PTHREAD_H = 1 };
 ]] require 'ffi.c.time' ffi.cdef[[
 /* END /usr/include/time.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/endian.h */
-/* END /usr/include/x86_64-1-gnu/bits/endian.h */
+/* END /usr/include/x86_64-linux-gnu/bits/endian.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h */
 enum { _BITS_PTHREADTYPES_COMMON_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h */
@@ -23,7 +23,7 @@ enum { _BITS_PTHREADTYPES_ARCH_H = 1 };
 /* redefining matching value: # define __WORDSIZE	64 */
 /* redefining matching value: # define __WORDSIZE_TIME64_COMPAT32	1 */
 /* redefining matching value: # define __SYSCALL_WORDSIZE		64 */
-/* END /usr/include/x86_64-1-gnu/bits/wordsize.h */
+/* END /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 enum { __SIZEOF_PTHREAD_MUTEX_T = 40 };
 enum { __SIZEOF_PTHREAD_ATTR_T = 56 };
 enum { __SIZEOF_PTHREAD_RWLOCK_T = 56 };
@@ -35,7 +35,7 @@ enum { __SIZEOF_PTHREAD_RWLOCKATTR_T = 8 };
 enum { __SIZEOF_PTHREAD_BARRIERATTR_T = 4 };
 enum { __LOCK_ALIGNMENT = 1 };
 enum { __ONCE_ALIGNMENT = 1 };
-/* END /usr/include/x86_64-1-gnu/bits/pthreadtypes-arch.h */
+/* END /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h */
 enum { _BITS_ATOMIC_WIDE_COUNTER_H = 1 };
 typedef union { __extension__ unsigned long long int __value64;
@@ -43,7 +43,7 @@ struct { unsigned int __low;
 unsigned int __high;
 } __value32;
 } __atomic_wide_counter;
-/* END /usr/include/x86_64-1-gnu/bits/atomic_wide_counter.h */
+/* END /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h */
 typedef struct __pthread_internal_list { struct __pthread_internal_list *__prev;
 struct __pthread_internal_list *__next;
 } __pthread_list_t;
@@ -61,7 +61,7 @@ short __elision;
 __pthread_list_t __list;
 enum { __PTHREAD_MUTEX_HAVE_PREV = 1 };
 };
-/* END /usr/include/x86_64-1-gnu/bits/struct_mutex.h */
+/* END /usr/include/x86_64-linux-gnu/bits/struct_mutex.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h */
 enum { _RWLOCK_INTERNAL_H = 1 };
 struct __pthread_rwlock_arch_t { unsigned int __readers;
@@ -78,7 +78,7 @@ unsigned char __pad1[7];
 unsigned long int __pad2;
 unsigned int __flags;
 };
-/* END /usr/include/x86_64-1-gnu/bits/struct_rwlock.h */
+/* END /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h */
 struct __pthread_cond_s { __atomic_wide_counter __wseq;
 __atomic_wide_counter __g1_start;
 unsigned int __g_refs[2];
@@ -92,7 +92,7 @@ typedef unsigned long int __thrd_t;
 typedef struct { int __data;
 } __once_flag;
 /* #define __ONCE_FLAG_INIT { 0 } ### string, not number "{ 0 }" */
-/* END /usr/include/x86_64-1-gnu/bits/thread-shared-types.h */
+/* END /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h */
 typedef unsigned long int pthread_t;
 typedef union { char __size[4];
 int __align;
@@ -129,36 +129,36 @@ long int __align;
 typedef union { char __size[4];
 int __align;
 } pthread_barrierattr_t;
-/* END /usr/include/x86_64-1-gnu/bits/pthreadtypes.h */
+/* END /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/setjmp.h */
 ]] require 'ffi.c.bits.setjmp' ffi.cdef[[
-/* END /usr/include/x86_64-1-gnu/bits/setjmp.h */
+/* END /usr/include/x86_64-linux-gnu/bits/setjmp.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* redefining matching value: # define __WORDSIZE	64 */
 /* redefining matching value: # define __WORDSIZE_TIME64_COMPAT32	1 */
 /* redefining matching value: # define __SYSCALL_WORDSIZE		64 */
-/* END /usr/include/x86_64-1-gnu/bits/wordsize.h */
+/* END /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
-/* END /usr/include/x86_64-1-gnu/bits/types/struct_timespec.h */
+/* END /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h */
 ]] require 'ffi.c.bits.types.__sigset_t' ffi.cdef[[
-/* END /usr/include/x86_64-1-gnu/bits/types/__sigset_t.h */
+/* END /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h */
 enum { __jmp_buf_tag_defined = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/setjmp.h */
-/* END /usr/include/x86_64-1-gnu/bits/setjmp.h */
+/* END /usr/include/x86_64-linux-gnu/bits/setjmp.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h */
-/* END /usr/include/x86_64-1-gnu/bits/types/__sigset_t.h */
+/* END /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h */
 struct __jmp_buf_tag { __jmp_buf __jmpbuf;
 int __mask_was_saved;
 __sigset_t __saved_mask;
 };
-/* END /usr/include/x86_64-1-gnu/bits/types/struct___jmp_buf_tag.h */
+/* END /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/pthread_stack_min.h */
 enum { PTHREAD_STACK_MIN = 16384 };
-/* END /usr/include/x86_64-1-gnu/bits/pthread_stack_min.h */
-/* END /usr/include/x86_64-1-gnu/bits/pthread_stack_min-dynamic.h */
+/* END /usr/include/x86_64-linux-gnu/bits/pthread_stack_min.h */
+/* END /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h */
 enum { PTHREAD_CREATE_JOINABLE, PTHREAD_CREATE_DETACHED };
 enum { PTHREAD_MUTEX_TIMED_NP, PTHREAD_MUTEX_RECURSIVE_NP, PTHREAD_MUTEX_ERRORCHECK_NP, PTHREAD_MUTEX_ADAPTIVE_NP , PTHREAD_MUTEX_NORMAL = PTHREAD_MUTEX_TIMED_NP, PTHREAD_MUTEX_RECURSIVE = PTHREAD_MUTEX_RECURSIVE_NP, PTHREAD_MUTEX_ERRORCHECK = PTHREAD_MUTEX_ERRORCHECK_NP, PTHREAD_MUTEX_DEFAULT = PTHREAD_MUTEX_NORMAL };
 enum { PTHREAD_MUTEX_STALLED, PTHREAD_MUTEX_STALLED_NP = PTHREAD_MUTEX_STALLED, PTHREAD_MUTEX_ROBUST, PTHREAD_MUTEX_ROBUST_NP = PTHREAD_MUTEX_ROBUST };

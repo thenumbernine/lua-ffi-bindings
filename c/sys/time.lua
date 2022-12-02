@@ -1,21 +1,23 @@
 local ffi = require 'ffi'
 ffi.cdef[[
+/* BEGIN /usr/include/x86_64-linux-gnu/sys/time.h */
+enum { _SYS_TIME_H = 1 };
 /* BEGIN /usr/include/features.h */
 ]] require 'ffi.c.features' ffi.cdef[[
 /* END /usr/include/features.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.c.bits.types' ffi.cdef[[
-/* END /usr/include/x86_64-1-gnu/bits/types.h */
+/* END /usr/include/x86_64-linux-gnu/bits/types.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
 ]] require 'ffi.c.bits.types.time_t' ffi.cdef[[
-/* END /usr/include/x86_64-1-gnu/bits/types/time_t.h */
+/* END /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h */
 ]] require 'ffi.c.bits.types.struct_timeval' ffi.cdef[[
-/* END /usr/include/x86_64-1-gnu/bits/types/struct_timeval.h */
+/* END /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h */
 ]] require 'ffi.c.bits.types.suseconds_t' ffi.cdef[[
 /* BEGIN /usr/include/x86_64-linux-gnu/sys/select.h */
 ]] require 'ffi.c.sys.select' ffi.cdef[[
-/* END /usr/include/x86_64-1-gnu/sys/select.h */
+/* END /usr/include/x86_64-linux-gnu/sys/select.h */
 struct timezone { int tz_minuteswest;
 int tz_dsttime;
 };
@@ -32,5 +34,5 @@ extern int setitimer (__itimer_which_t __which, const struct itimerval * __new, 
 extern int utimes (const char *__file, const struct timeval __tvp[2]) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 extern int lutimes (const char *__file, const struct timeval __tvp[2]) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 extern int futimes (int __fd, const struct timeval __tvp[2]) __attribute__ ((__nothrow__ , __leaf__));
-/* END /usr/include/x86_64-1-gnu/sys/time.h */
+/* END /usr/include/x86_64-linux-gnu/sys/time.h */
 ]]

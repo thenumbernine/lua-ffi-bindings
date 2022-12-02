@@ -7,12 +7,12 @@ enum { _SYS_STAT_H = 1 };
 /* END /usr/include/features.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.c.bits.types' ffi.cdef[[
-/* END /usr/include/x86_64-1-gnu/bits/types.h */
+/* END /usr/include/x86_64-linux-gnu/bits/types.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
 ]] require 'ffi.c.bits.types.struct_timespec' ffi.cdef[[
-/* END /usr/include/x86_64-1-gnu/bits/types/struct_timespec.h */
+/* END /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
-/* END /usr/include/x86_64-1-gnu/bits/types/time_t.h */
+/* END /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
 typedef __dev_t dev_t;
 enum { __dev_t_defined = 1 };
 ]] require 'ffi.c.bits.types.gid_t' ffi.cdef[[
@@ -50,7 +50,7 @@ __syscall_slong_t __glibc_reserved[3];
 enum { _STATBUF_ST_BLKSIZE = 1 };
 enum { _STATBUF_ST_RDEV = 1 };
 enum { _STATBUF_ST_NSEC = 1 };
-/* END /usr/include/x86_64-1-gnu/bits/struct_stat.h */
+/* END /usr/include/x86_64-linux-gnu/bits/struct_stat.h */
 enum { __S_IFMT = 61440 };
 enum { __S_IFDIR = 16384 };
 enum { __S_IFCHR = 8192 };
@@ -67,7 +67,7 @@ enum { __S_IWRITE = 128 };
 enum { __S_IEXEC = 64 };
 enum { UTIME_NOW = 1073741823 };
 enum { UTIME_OMIT = 1073741822 };
-/* END /usr/include/x86_64-1-gnu/bits/stat.h */
+/* END /usr/include/x86_64-linux-gnu/bits/stat.h */
 enum { S_IFMT = 61440 };
 enum { S_IFDIR = 16384 };
 enum { S_IFCHR = 8192 };
@@ -115,5 +115,5 @@ extern int mkfifo (const char *__path, __mode_t __mode) __attribute__ ((__nothro
 extern int mkfifoat (int __fd, const char *__path, __mode_t __mode) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
 extern int utimensat (int __fd, const char *__path, const struct timespec __times[2], int __flags) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
 extern int futimens (int __fd, const struct timespec __times[2]) __attribute__ ((__nothrow__ , __leaf__));
-/* END /usr/include/x86_64-1-gnu/sys/stat.h */
+/* END /usr/include/x86_64-linux-gnu/sys/stat.h */
 ]]

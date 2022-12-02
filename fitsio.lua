@@ -13,13 +13,13 @@ enum { CFITS_API = 1 };
 /* END /usr/include/stdio.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
 ]] require 'ffi.c.sys.types' ffi.cdef[[
-/* END /usr/include/x86_64-1-gnu/sys/types.h */
+/* END /usr/include/x86_64-linux-gnu/sys/types.h */
 /* BEGIN /usr/include/c++/11/stdlib.h */
 ]] require 'ffi.c.stdlib' ffi.cdef[[
 /* END /usr/include/c++/11/stdlib.h */
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h */
 ]] require 'ffi.c.limits' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-1-gnu/11/include/limits.h */
+/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h */
 enum { OFF_T = 0 };
 enum { USE_LL_SUFFIX = 1 };
 typedef long long LONGLONG;

@@ -4,21 +4,21 @@ ffi.cdef[[
 enum { _STDIO_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 ]] require 'ffi.c.bits.libc-header-start' ffi.cdef[[
-/* END /usr/include/x86_64-1-gnu/bits/libc-header-start.h */
+/* END /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stddef.h */
+/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
 enum { __need___va_list = 1 };
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h */
 ]] require 'ffi.c.stdarg' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stdarg.h */
+/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.c.bits.types' ffi.cdef[[
-/* END /usr/include/x86_64-1-gnu/bits/types.h */
+/* END /usr/include/x86_64-linux-gnu/bits/types.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h */
 enum { _____fpos_t_defined = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-/* END /usr/include/x86_64-1-gnu/bits/types.h */
+/* END /usr/include/x86_64-linux-gnu/bits/types.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h */
 enum { ____mbstate_t_defined = 1 };
 typedef struct { int __count;
@@ -26,35 +26,37 @@ union { unsigned int __wch;
 char __wchb[4];
 } __value;
 } __mbstate_t;
-/* END /usr/include/x86_64-1-gnu/bits/types/__mbstate_t.h */
+/* END /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h */
 typedef struct _G_fpos_t { __off_t __pos;
 __mbstate_t __state;
 } __fpos_t;
-/* END /usr/include/x86_64-1-gnu/bits/types/__fpos_t.h */
+/* END /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h */
 enum { _____fpos64_t_defined = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-/* END /usr/include/x86_64-1-gnu/bits/types.h */
+]] require 'ffi.c.bits.types' ffi.cdef[[
+/* END /usr/include/x86_64-linux-gnu/bits/types.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h */
-/* END /usr/include/x86_64-1-gnu/bits/types/__mbstate_t.h */
+/* END /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h */
 typedef struct _G_fpos64_t { __off64_t __pos;
 __mbstate_t __state;
 } __fpos64_t;
-/* END /usr/include/x86_64-1-gnu/bits/types/__fpos64_t.h */
+/* END /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/__FILE.h */
 enum { ____FILE_defined = 1 };
 struct _IO_FILE;
 typedef struct _IO_FILE __FILE;
-/* END /usr/include/x86_64-1-gnu/bits/types/__FILE.h */
+/* END /usr/include/x86_64-linux-gnu/bits/types/__FILE.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/FILE.h */
 enum { __FILE_defined = 1 };
 struct _IO_FILE;
 typedef struct _IO_FILE FILE;
-/* END /usr/include/x86_64-1-gnu/bits/types/FILE.h */
+/* END /usr/include/x86_64-linux-gnu/bits/types/FILE.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h */
 enum { __struct_FILE_defined = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-/* END /usr/include/x86_64-1-gnu/bits/types.h */
+]] require 'ffi.c.bits.types' ffi.cdef[[
+/* END /usr/include/x86_64-linux-gnu/bits/types.h */
 struct _IO_FILE;
 struct _IO_marker;
 struct _IO_codecvt;
@@ -93,9 +95,8 @@ char _unused2[15 * sizeof (int) - 4 * sizeof (void *) - sizeof (size_t)];
 enum { _IO_EOF_SEEN = 16 };
 enum { _IO_ERR_SEEN = 32 };
 enum { _IO_USER_LOCK = 32768 };
-/* END /usr/include/x86_64-1-gnu/bits/types/struct_FILE.h */
-typedef __gnuc_va_list va_list;
-/* enum { _VA_LIST_DEFINED = 1 }; */
+/* END /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h */
+]] require 'ffi.c.va_list' ffi.cdef[[
 ]] require 'ffi.c.bits.types.off_t' ffi.cdef[[
 ]] require 'ffi.c.bits.types.ssize_t' ffi.cdef[[
 typedef __fpos_t fpos_t;
@@ -115,13 +116,13 @@ enum { TMP_MAX = 238328 };
 enum { FILENAME_MAX = 4096 };
 enum { L_ctermid = 9 };
 enum { FOPEN_MAX = 16 };
-/* END /usr/include/x86_64-1-gnu/bits/stdio_lim.h */
+/* END /usr/include/x86_64-linux-gnu/bits/stdio_lim.h */
 extern FILE *stdin;
 extern FILE *stdout;
 extern FILE *stderr;
-/* enum { stdin = 0 }; */
-/* enum { stdout = 0 }; */
-/* enum { stderr = 0 }; */
+/* manually commented out: enum { stdin = 0 }; */
+/* manually commented out: enum { stdout = 0 }; */
+/* manually commented out: enum { stderr = 0 }; */
 extern int remove (const char *__filename) __attribute__ ((__nothrow__ , __leaf__));
 extern int rename (const char *__old, const char *__new) __attribute__ ((__nothrow__ , __leaf__));
 extern int renameat (int __oldfd, const char *__old, int __newfd, const char *__new) __attribute__ ((__nothrow__ , __leaf__));
@@ -157,7 +158,7 @@ extern int scanf (const char * __format, ...);
 extern int sscanf (const char * __s, const char * __format, ...) __attribute__ ((__nothrow__ , __leaf__));
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/floatn.h */
 ]] require 'ffi.c.bits.floatn' ffi.cdef[[
-/* END /usr/include/x86_64-1-gnu/bits/floatn.h */
+/* END /usr/include/x86_64-linux-gnu/bits/floatn.h */
 /* ### INCOMPLETE ARG MACRO ### __REDIRECT ### IN LINE ### extern int __REDIRECT (fscanf, (FILE * __stream, */
 /* ### PREPENDING ### extern int __REDIRECT (fscanf, (FILE * __stream, ### TO ### const char *__restrict __format, ...), */
 /* ### INCOMPLETE ARG MACRO ### __REDIRECT ### IN LINE ### extern int __REDIRECT (fscanf, (FILE * __stream, const char * __format, ...), */
@@ -240,7 +241,5 @@ extern int ftrylockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)
 extern void funlockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
 extern int __uflow (FILE *);
 extern int __overflow (FILE *, int);
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/floatn.h */
-/* END /usr/include/x86_64-1-gnu/bits/floatn.h */
 /* END /usr/include/stdio.h */
 ]]

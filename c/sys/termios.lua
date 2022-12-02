@@ -5,11 +5,11 @@ enum { _SYS_TERMIOS_H = 1 };
 /* BEGIN /usr/include/termios.h */
 enum { _TERMIOS_H = 1 };
 /* BEGIN /usr/include/features.h */
-]] require 'ffi.c.sys.termios' ffi.cdef[[
+]] require 'ffi.c.features' ffi.cdef[[
 /* END /usr/include/features.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.c.bits.types' ffi.cdef[[
-/* END /usr/include/x86_64-1-gnu/bits/types.h */
+/* END /usr/include/x86_64-linux-gnu/bits/types.h */
 typedef __pid_t pid_t;
 enum { __pid_t_defined = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/termios.h */
@@ -29,7 +29,7 @@ speed_t c_ospeed;
 enum { _HAVE_STRUCT_TERMIOS_C_ISPEED = 1 };
 enum { _HAVE_STRUCT_TERMIOS_C_OSPEED = 1 };
 };
-/* END /usr/include/x86_64-1-gnu/bits/termios-struct.h */
+/* END /usr/include/x86_64-linux-gnu/bits/termios-struct.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/termios-c_cc.h */
 enum { VINTR = 0 };
 enum { VQUIT = 1 };
@@ -48,7 +48,7 @@ enum { VDISCARD = 13 };
 enum { VWERASE = 14 };
 enum { VLNEXT = 15 };
 enum { VEOL2 = 16 };
-/* END /usr/include/x86_64-1-gnu/bits/termios-c_cc.h */
+/* END /usr/include/x86_64-linux-gnu/bits/termios-c_cc.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/termios-c_iflag.h */
 enum { IGNBRK = 1 };
 enum { BRKINT = 2 };
@@ -65,7 +65,7 @@ enum { IXANY = 2048 };
 enum { IXOFF = 4096 };
 enum { IMAXBEL = 8192 };
 enum { IUTF8 = 16384 };
-/* END /usr/include/x86_64-1-gnu/bits/termios-c_iflag.h */
+/* END /usr/include/x86_64-linux-gnu/bits/termios-c_iflag.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/termios-c_oflag.h */
 enum { OPOST = 1 };
 enum { OLCUC = 2 };
@@ -98,7 +98,7 @@ enum { VTDLY = 16384 };
 enum { VT0 = 0 };
 enum { VT1 = 16384 };
 enum { XTABS = 6144 };
-/* END /usr/include/x86_64-1-gnu/bits/termios-c_oflag.h */
+/* END /usr/include/x86_64-linux-gnu/bits/termios-c_oflag.h */
 enum { B0 = 0 };
 enum { B50 = 1 };
 enum { B75 = 2 };
@@ -139,7 +139,7 @@ enum { B3000000 = 4109 };
 enum { B3500000 = 4110 };
 enum { B4000000 = 4111 };
 enum { __MAX_BAUD = 4111 };
-/* END /usr/include/x86_64-1-gnu/bits/termios-baud.h */
+/* END /usr/include/x86_64-linux-gnu/bits/termios-baud.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/termios-c_cflag.h */
 enum { CSIZE = 48 };
 enum { CS5 = 0 };
@@ -152,7 +152,7 @@ enum { PARENB = 256 };
 enum { PARODD = 512 };
 enum { HUPCL = 1024 };
 enum { CLOCAL = 2048 };
-/* END /usr/include/x86_64-1-gnu/bits/termios-c_cflag.h */
+/* END /usr/include/x86_64-linux-gnu/bits/termios-c_cflag.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/termios-c_lflag.h */
 enum { ISIG = 1 };
 enum { ICANON = 2 };
@@ -170,7 +170,7 @@ enum { FLUSHO = 4096 };
 enum { PENDIN = 16384 };
 enum { IEXTEN = 32768 };
 enum { EXTPROC = 65536 };
-/* END /usr/include/x86_64-1-gnu/bits/termios-c_lflag.h */
+/* END /usr/include/x86_64-linux-gnu/bits/termios-c_lflag.h */
 enum { TIOCSER_TEMT = 1 };
 enum { TCOOFF = 0 };
 enum { TCOON = 1 };
@@ -183,10 +183,10 @@ enum { TCIOFLUSH = 2 };
 enum { TCSANOW = 0 };
 enum { TCSADRAIN = 1 };
 enum { TCSAFLUSH = 2 };
-/* END /usr/include/x86_64-1-gnu/bits/termios-tcflow.h */
+/* END /usr/include/x86_64-linux-gnu/bits/termios-tcflow.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/termios-misc.h */
-/* END /usr/include/x86_64-1-gnu/bits/termios-misc.h */
-/* END /usr/include/x86_64-1-gnu/bits/termios.h */
+/* END /usr/include/x86_64-linux-gnu/bits/termios-misc.h */
+/* END /usr/include/x86_64-linux-gnu/bits/termios.h */
 extern speed_t cfgetospeed (const struct termios *__termios_p) __attribute__ ((__nothrow__ , __leaf__));
 extern speed_t cfgetispeed (const struct termios *__termios_p) __attribute__ ((__nothrow__ , __leaf__));
 extern int cfsetospeed (struct termios *__termios_p, speed_t __speed) __attribute__ ((__nothrow__ , __leaf__));
@@ -228,7 +228,7 @@ enum { CTIME = 0 };
 /* #define	CBRK		CEOL ### string, not number "CEOL" */
 /* #define CRPRNT		CREPRINT ### string, not number "CREPRINT" */
 /* #define	CFLUSH		CDISCARD ### string, not number "CDISCARD" */
-/* END /usr/include/x86_64-1-gnu/sys/ttydefaults.h */
+/* END /usr/include/x86_64-linux-gnu/sys/ttydefaults.h */
 /* END /usr/include/termios.h */
-/* END /usr/include/x86_64-1-gnu/sys/termios.h */
+/* END /usr/include/x86_64-linux-gnu/sys/termios.h */
 ]]
