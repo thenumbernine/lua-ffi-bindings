@@ -10,9 +10,7 @@ enum { _STDINT_H = 1 };
 ]] require 'ffi.c.bits.types' ffi.cdef[[
 /* END   /usr/include/x86_64-linux-gnu/bits/types.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/wchar.h */
-enum { _BITS_WCHAR_H = 1 };
-enum { __WCHAR_MAX = 2147483647 };
-enum { __WCHAR_MIN = -2147483648 };
+]] require 'ffi.c.bits.wchar' ffi.cdef[[
 /* END   /usr/include/x86_64-linux-gnu/bits/wchar.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* redefining matching value: # define __WORDSIZE	64 */
