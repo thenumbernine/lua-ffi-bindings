@@ -4,7 +4,7 @@ ffi.cdef[[
 enum { _SYS_IOCTL_H = 1 };
 /* BEGIN /usr/include/features.h */
 ]] require 'ffi.c.features' ffi.cdef[[
-/* END /usr/include/features.h */
+/* END   /usr/include/features.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/ioctls.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/asm/ioctls.h */
 /* BEGIN /usr/include/asm-generic/ioctls.h */
@@ -34,9 +34,9 @@ enum { IOC_OUT = -2147483648 };
 enum { IOC_INOUT = -1073741824 };
 enum { IOCSIZE_MASK = 1073676288 };
 enum { IOCSIZE_SHIFT = 16 };
-/* END /usr/include/asm-generic/ioctl.h */
-/* END /usr/include/x86_64-linux-gnu/asm/ioctl.h */
-/* END /usr/include/linux/ioctl.h */
+/* END   /usr/include/asm-generic/ioctl.h */
+/* END   /usr/include/x86_64-linux-gnu/asm/ioctl.h */
+/* END   /usr/include/linux/ioctl.h */
 enum { TCGETS = 21505 };
 enum { TCSETS = 21506 };
 enum { TCSETSW = 21507 };
@@ -123,8 +123,8 @@ enum { TIOCPKT_NOSTOP = 16 };
 enum { TIOCPKT_DOSTOP = 32 };
 enum { TIOCPKT_IOCTL = 64 };
 enum { TIOCSER_TEMT = 1 };
-/* END /usr/include/asm-generic/ioctls.h */
-/* END /usr/include/x86_64-linux-gnu/asm/ioctls.h */
+/* END   /usr/include/asm-generic/ioctls.h */
+/* END   /usr/include/x86_64-linux-gnu/asm/ioctls.h */
 enum { SIOCADDRT = 35083 };
 enum { SIOCDELRT = 35084 };
 enum { SIOCRTMSG = 35085 };
@@ -179,12 +179,12 @@ enum { SIOCADDDLCI = 35200 };
 enum { SIOCDELDLCI = 35201 };
 enum { SIOCDEVPRIVATE = 35312 };
 enum { SIOCPROTOPRIVATE = 35296 };
-/* END /usr/include/x86_64-linux-gnu/bits/ioctls.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/ioctls.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/ioctl-types.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/asm/ioctls.h */
 /* BEGIN /usr/include/asm-generic/ioctls.h */
-/* END /usr/include/asm-generic/ioctls.h */
-/* END /usr/include/x86_64-linux-gnu/asm/ioctls.h */
+/* END   /usr/include/asm-generic/ioctls.h */
+/* END   /usr/include/x86_64-linux-gnu/asm/ioctls.h */
 struct winsize { unsigned short int ws_row;
 unsigned short int ws_col;
 unsigned short int ws_xpixel;
@@ -225,7 +225,7 @@ enum { N_SMSBLOCK = 12 };
 enum { N_HDLC = 13 };
 enum { N_SYNC_PPP = 14 };
 enum { N_HCI = 15 };
-/* END /usr/include/x86_64-linux-gnu/bits/ioctl-types.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/ioctl-types.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/sys/ttydefaults.h */
 enum { _SYS_TTYDEFAULTS_H_ = 1 };
 enum { TTYDEF_IFLAG = 0 };
@@ -254,7 +254,7 @@ enum { CTIME = 0 };
 /* #define	CBRK		CEOL ### string, not number "CEOL" */
 /* #define CRPRNT		CREPRINT ### string, not number "CREPRINT" */
 /* #define	CFLUSH		CDISCARD ### string, not number "CDISCARD" */
-/* END /usr/include/x86_64-linux-gnu/sys/ttydefaults.h */
+/* END   /usr/include/x86_64-linux-gnu/sys/ttydefaults.h */
 extern int ioctl (int __fd, unsigned long int __request, ...) __attribute__ ((__nothrow__ , __leaf__));
-/* END /usr/include/x86_64-linux-gnu/sys/ioctl.h */
+/* END   /usr/include/x86_64-linux-gnu/sys/ioctl.h */
 ]]

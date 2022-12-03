@@ -6,5 +6,5 @@ enum { __clockid_t_defined = 1 };
 ]] require 'ffi.c.bits.types' ffi.cdef[[
 /* END   /usr/include/x86_64-linux-gnu/bits/types.h */
 typedef __clockid_t clockid_t;
-/* END /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h */
 ]]

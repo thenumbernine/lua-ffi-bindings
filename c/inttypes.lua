@@ -4,10 +4,10 @@ ffi.cdef[[
 enum { _INTTYPES_H = 1 };
 /* BEGIN /usr/include/features.h */
 ]] require 'ffi.c.features' ffi.cdef[[
-/* END /usr/include/features.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h */
+/* END   /usr/include/features.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
 ]] require 'ffi.c.stdint' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h */
+/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
 typedef int __gwchar_t;
 enum { ____gwchar_t_defined = 1 };
 /* #  define __PRI64_PREFIX	"l" ### string, not number "\"l\"" */

@@ -1,13 +1,13 @@
-local ffi  = require 'ffi'
+local ffi = require 'ffi'
 ffi.cdef[[
 /* BEGIN /usr/include/netcdf.h */
 enum { _NETCDF_ = 1 };
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
+/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 /* BEGIN /usr/include/errno.h */
 ]] require 'ffi.c.errno' ffi.cdef[[
-/* END /usr/include/errno.h */
+/* END   /usr/include/errno.h */
 typedef int nc_type;
 enum { NC_NAT = 0 };
 enum { NC_BYTE = 1 };
@@ -55,8 +55,8 @@ enum { NC_MIN_INT = -2147483648 };
 enum { NC_MAX_UBYTE = 255 };
 enum { NC_MAX_USHORT = 65535 };
 enum { NC_MAX_UINT = 4294967295 };
-/* #define NC_MAX_INT64 (9223372036854775807LL) ### string, not number "(9223372036854775807LL)" */
-/* #define NC_MIN_INT64 (-9223372036854775807LL-1) ### string, not number "(-9223372036854775807LL-1)" */
+/* #define NC_MAX_INT64 (9223372036854775807LL) ### string, number, replaceline "9.2233720368548e+18" */
+/* #define NC_MIN_INT64 (-9223372036854775807LL-1) ### string, number, replaceline "-9.2233720368548e+18" */
 /* #define NC_MAX_UINT64 (18446744073709551615ULL) ### string, not number "(18446744073709551615ULL)" */
 /* #define _FillValue      "_FillValue" ### string, not number "\"_FillValue\"" */
 enum { NC_FILL = 0 };
@@ -81,6 +81,8 @@ enum { NC_MPIPOSIX = 8192 };
 enum { NC_PNETCDF = 8192 };
 enum { NC_PERSIST = 16384 };
 enum { NC_INMEMORY = 32768 };
+enum { NC_NOATTCREORD = 131072 };
+enum { NC_NODIMSCALE_ATTACH = 262144 };
 enum { NC_MAX_MAGIC_NUMBER_LEN = 8 };
 enum { NC_FORMAT_CLASSIC = 1 };
 enum { NC_FORMAT_64BIT_OFFSET = 2 };
@@ -133,6 +135,19 @@ enum { NC_NOSHUFFLE = 0 };
 enum { NC_SHUFFLE = 1 };
 enum { NC_MIN_DEFLATE_LEVEL = 0 };
 enum { NC_MAX_DEFLATE_LEVEL = 9 };
+enum { NC_SZIP_NN = 32 };
+enum { NC_SZIP_EC = 4 };
+enum { NC_NOQUANTIZE = 0 };
+enum { NC_QUANTIZE_BITGROOM = 1 };
+enum { NC_QUANTIZE_GRANULARBR = 2 };
+enum { NC_QUANTIZE_BITROUND = 3 };
+/* #define NC_QUANTIZE_BITGROOM_ATT_NAME "_QuantizeBitGroomNumberOfSignificantDigits" ### string, not number "\"_QuantizeBitGroomNumberOfSignificantDigits\"" */
+/* #define NC_QUANTIZE_GRANULARBR_ATT_NAME "_QuantizeGranularBitRoundNumberOfSignificantDigits" ### string, not number "\"_QuantizeGranularBitRoundNumberOfSignificantDigits\"" */
+/* #define NC_QUANTIZE_BITROUND_ATT_NAME "_QuantizeBitRoundNumberOfSignificantBits" ### string, not number "\"_QuantizeBitRoundNumberOfSignificantBits\"" */
+enum { NC_QUANTIZE_MAX_FLOAT_NSD = 7 };
+enum { NC_QUANTIZE_MAX_FLOAT_NSB = 23 };
+enum { NC_QUANTIZE_MAX_DOUBLE_NSD = 15 };
+enum { NC_QUANTIZE_MAX_DOUBLE_NSB = 52 };
 enum { NC_NOERR = 0 };
 enum { NC2_ERR = -1 };
 enum { NC_EBADID = -33 };
@@ -242,6 +257,8 @@ extern const char * nc_strerror(int ncerr);
 typedef struct NC_Dispatch NC_Dispatch;
 extern int nc_def_user_format(int mode_flag, NC_Dispatch *dispatch_table, char *magic_number);
 extern int nc_inq_user_format(int mode_flag, NC_Dispatch **dispatch_table, char *magic_number);
+extern int nc_set_alignment(int threshold, int alignment);
+extern int nc_get_alignment(int* thresholdp, int* alignmentp);
 extern int nc__create(const char *path, int cmode, size_t initialsz, size_t *chunksizehintp, int *ncidp);
 extern int nc_create(const char *path, int cmode, int *ncidp);
 extern int nc__open(const char *path, int mode, size_t *chunksizehintp, int *ncidp);
@@ -307,6 +324,8 @@ extern int nc_put_vars(int ncid, int varid, const size_t *startp, const size_t *
 extern int nc_get_vars(int ncid, int varid, const size_t *startp, const size_t *countp, const ptrdiff_t *stridep, void *ip);
 extern int nc_put_varm(int ncid, int varid, const size_t *startp, const size_t *countp, const ptrdiff_t *stridep, const ptrdiff_t *imapp, const void *op);
 extern int nc_get_varm(int ncid, int varid, const size_t *startp, const size_t *countp, const ptrdiff_t *stridep, const ptrdiff_t *imapp, void *ip);
+extern int nc_def_var_quantize(int ncid, int varid, int quantize_mode, int nsd);
+extern int nc_inq_var_quantize(int ncid, int varid, int *quantize_modep, int *nsdp);
 extern int nc_def_var_deflate(int ncid, int varid, int shuffle, int deflate, int deflate_level);
 extern int nc_inq_var_deflate(int ncid, int varid, int *shufflep, int *deflatep, int *deflate_levelp);
 extern int nc_def_var_szip(int ncid, int varid, int options_mask, int pixels_per_block);
@@ -521,6 +540,11 @@ extern int nc_put_var_ulonglong(int ncid, int varid, const unsigned long long *o
 extern int nc_get_var_ulonglong(int ncid, int varid, unsigned long long *ip);
 extern int nc_put_var_string(int ncid, int varid, const char **op);
 extern int nc_get_var_string(int ncid, int varid, char **ip);
+extern int nc_reclaim_data(int ncid, nc_type xtypeid, void* memory, size_t count);
+extern int nc_reclaim_data_all(int ncid, nc_type xtypeid, void* memory, size_t count);
+extern int nc_copy_data(int ncid, nc_type xtypeid, const void* memory, size_t count, void* copy);
+extern int nc_copy_data_all(int ncid, nc_type xtypeid, const void* memory, size_t count, void** copyp);
+extern int nc_dump_data(int ncid, nc_type xtypeid, void* memory, size_t count, char** buf);
 extern int nc_put_att_ubyte(int ncid, int varid, const char *name, nc_type xtype, size_t len, const unsigned char *op);
 extern int nc_get_att_ubyte(int ncid, int varid, const char *name, unsigned char *ip);
 extern int nc_put_var1_ubyte(int ncid, int varid, const size_t *indexp, const unsigned char *op);
@@ -603,6 +627,6 @@ extern int nc_finalize(void);
 enum { NC_HAVE_RENAME_GRP = 1 };
 enum { NC_HAVE_INQ_FORMAT_EXTENDED = 1 };
 enum { NC_HAVE_META_H = 1 };
-/* END /usr/include/netcdf.h */
+/* END   /usr/include/netcdf.h */
 ]]
 return ffi.load'libnetcdf'

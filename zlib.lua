@@ -8,9 +8,9 @@ enum { STDC = 1 };
 enum { STDC99 = 1 };
 enum { z_const = 1 };
 /* #  define z_longlong long long ### string, not number "long long" */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
+/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 typedef size_t z_size_t;
 enum { MAX_MEM_LEVEL = 9 };
 enum { MAX_WBITS = 15 };
@@ -28,25 +28,25 @@ typedef uLong uLongf;
 typedef void const *voidpc;
 typedef void *voidpf;
 typedef void *voidp;
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
 ]] require 'ffi.c.limits' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h */
+/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
 enum { Z_U4 = 0 };
 typedef unsigned z_crc_t;
 enum { Z_HAVE_UNISTD_H = 1 };
 enum { Z_HAVE_STDARG_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
 ]] require 'ffi.c.sys.types' ffi.cdef[[
-/* END /usr/include/x86_64-linux-gnu/sys/types.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h */
+/* END   /usr/include/x86_64-linux-gnu/sys/types.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
 ]] require 'ffi.c.stdarg' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h */
+/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
 /* BEGIN /usr/include/unistd.h */
 ]] require 'ffi.c.unistd' ffi.cdef[[
-/* END /usr/include/unistd.h */
+/* END   /usr/include/unistd.h */
 enum { Z_LFS64 = 1 };
 enum { z_off64_t = 0 };
-/* END /usr/include/zconf.h */
+/* END   /usr/include/zconf.h */
 /* #define ZLIB_VERSION "1.2.11" ### string, not number "\"1.2.11\"" */
 enum { ZLIB_VERNUM = 4784 };
 enum { ZLIB_VER_MAJOR = 1 };
@@ -196,13 +196,13 @@ extern long inflateMark (z_streamp strm);
 /* ### PREPENDING ### extern int  inflateGetHeader OF((z_streamp strm, ### TO ### gz_headerp head)); */
 extern int inflateGetHeader (z_streamp strm, gz_headerp head);
 /* ### INCOMPLETE ARG MACRO ### OF ### IN LINE ### typedef unsigned (*in_func) OF((void  *, */
-/* ### PREPENDING ### typedef unsigned (*in_func) OF((void  *, ### TO ### z_const unsigned char FAR * FAR *)); */
+/* ### PREPENDING ### typedef unsigned (*in_func) OF((void  *, ### TO ### z_const unsigned char * *)); */
 typedef unsigned (*in_func) (void *, unsigned char * *);
 typedef int (*out_func) (void *, unsigned char *, unsigned);
 /* ### INCOMPLETE ARG MACRO ### OF ### IN LINE ### extern int  inflateBack OF((z_streamp strm, */
-/* ### PREPENDING ### extern int  inflateBack OF((z_streamp strm, ### TO ### in_func in, void FAR *in_desc, */
+/* ### PREPENDING ### extern int  inflateBack OF((z_streamp strm, ### TO ### in_func in, void *in_desc, */
 /* ### INCOMPLETE ARG MACRO ### OF ### IN LINE ### extern int  inflateBack OF((z_streamp strm, in_func in, void  *in_desc, */
-/* ### PREPENDING ### extern int  inflateBack OF((z_streamp strm, in_func in, void  *in_desc, ### TO ### out_func out, void FAR *out_desc)); */
+/* ### PREPENDING ### extern int  inflateBack OF((z_streamp strm, in_func in, void  *in_desc, ### TO ### out_func out, void *out_desc)); */
 extern int inflateBack (z_streamp strm, in_func in, void *in_desc, out_func out, void *out_desc);
 extern int inflateBackEnd (z_streamp strm);
 extern uLong zlibCompileFlags (void);
@@ -275,7 +275,7 @@ extern int deflateInit2_ (z_streamp strm, int level, int method, int windowBits,
 /* ### PREPENDING ### extern int  inflateInit2_ OF((z_streamp strm, int  windowBits, ### TO ### const char *version, int stream_size)); */
 extern int inflateInit2_ (z_streamp strm, int windowBits, const char *version, int stream_size);
 /* ### INCOMPLETE ARG MACRO ### OF ### IN LINE ### extern int  inflateBackInit_ OF((z_streamp strm, int windowBits, */
-/* ### PREPENDING ### extern int  inflateBackInit_ OF((z_streamp strm, int windowBits, ### TO ### unsigned char FAR *window, */
+/* ### PREPENDING ### extern int  inflateBackInit_ OF((z_streamp strm, int windowBits, ### TO ### unsigned char *window, */
 /* ### INCOMPLETE ARG MACRO ### OF ### IN LINE ### extern int  inflateBackInit_ OF((z_streamp strm, int windowBits, unsigned char  *window, */
 /* ### PREPENDING ### extern int  inflateBackInit_ OF((z_streamp strm, int windowBits, unsigned char  *window, ### TO ### const char *version, */
 /* ### INCOMPLETE ARG MACRO ### OF ### IN LINE ### extern int  inflateBackInit_ OF((z_streamp strm, int windowBits, unsigned char  *window, const char *version, */
@@ -305,7 +305,7 @@ extern int deflateResetKeep (z_streamp);
 /* ### INCOMPLETE ARG MACRO ### Z_ARG ### IN LINE ### extern int             gzvprintf Z_ARG((gzFile file, const char *format, */
 /* ### PREPENDING ### extern int             gzvprintf Z_ARG((gzFile file, const char *format, ### TO ### va_list va)); */
 extern int gzvprintf (gzFile file, const char *format, va_list va);
-/* END /usr/include/zlib.h */
+/* END   /usr/include/zlib.h */
 ]]
 
 local zlib = ffi.load'z'

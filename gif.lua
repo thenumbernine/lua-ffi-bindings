@@ -4,16 +4,16 @@ ffi.cdef[[
 /* BEGIN /usr/include/gif_lib.h */
 enum { _GIF_LIB_H_ = 1 };
 enum { GIFLIB_MAJOR = 5 };
-enum { GIFLIB_MINOR = 1 };
-enum { GIFLIB_RELEASE = 9 };
+enum { GIFLIB_MINOR = 2 };
+enum { GIFLIB_RELEASE = 1 };
 enum { GIF_ERROR = 0 };
 enum { GIF_OK = 1 };
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stdbool.h */
+/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h */
 ]] require 'ffi.c.stdbool' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stdbool.h */
+/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h */
 /* #define GIF_STAMP "GIFVER" ### string, not number "\"GIFVER\"" */
 /* #define GIF_STAMP_LEN sizeof(GIF_STAMP) - 1 ### string, not number "sizeof(GIF_STAMP) - 1" */
 enum { GIF_VERSION_POS = 3 };
@@ -158,7 +158,7 @@ extern void GifDrawText8x8(SavedImage *Image, const int x, const int y, const ch
 extern void GifDrawBox(SavedImage *Image, const int x, const int y, const int w, const int d, const int color);
 extern void GifDrawRectangle(SavedImage *Image, const int x, const int y, const int w, const int d, const int color);
 extern void GifDrawBoxedText8x8(SavedImage *Image, const int x, const int y, const char *legend, const int border, const int bg, const int fg);
-/* END /usr/include/gif_lib.h */
+/* END   /usr/include/gif_lib.h */
 ]]
 local gif
 if ffi.os == 'OSX' then

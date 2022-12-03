@@ -4,20 +4,20 @@ ffi.cdef[[
 enum { _BITS_TYPES_H = 1 };
 /* BEGIN /usr/include/features.h */
 ]] require 'ffi.c.features' ffi.cdef[[
-/* END /usr/include/features.h */
+/* END   /usr/include/features.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* redefining matching value: # define __WORDSIZE	64 */
 /* redefining matching value: # define __WORDSIZE_TIME64_COMPAT32	1 */
 /* redefining matching value: # define __SYSCALL_WORDSIZE		64 */
-/* END /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/timesize.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* redefining matching value: # define __WORDSIZE	64 */
 /* redefining matching value: # define __WORDSIZE_TIME64_COMPAT32	1 */
 /* redefining matching value: # define __SYSCALL_WORDSIZE		64 */
-/* END /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* redefining matching value: # define __TIMESIZE	__WORDSIZE */
-/* END /usr/include/x86_64-linux-gnu/bits/timesize.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/timesize.h */
 typedef unsigned char __u_char;
 typedef unsigned short int __u_short;
 typedef unsigned int __u_int;
@@ -100,11 +100,11 @@ enum { __RLIM_T_MATCHES_RLIM64_T = 1 };
 enum { __STATFS_MATCHES_STATFS64 = 1 };
 enum { __KERNEL_OLD_TIMEVAL_MATCHES_TIMEVAL64 = 1 };
 ]] require 'ffi.c.__FD_SETSIZE' ffi.cdef[[
-/* END /usr/include/x86_64-linux-gnu/bits/typesizes.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/typesizes.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/time64.h */
 enum { _BITS_TIME64_H = 1 };
 /* # define __TIME64_T_TYPE		__TIME_T_TYPE ### string, not number "__TIME_T_TYPE" */
-/* END /usr/include/x86_64-linux-gnu/bits/time64.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/time64.h */
 typedef unsigned long int __dev_t;
 typedef unsigned int __uid_t;
 typedef unsigned int __gid_t;
@@ -144,5 +144,5 @@ typedef char *__caddr_t;
 typedef long int __intptr_t;
 typedef unsigned int __socklen_t;
 typedef int __sig_atomic_t;
-/* END /usr/include/x86_64-linux-gnu/bits/types.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/types.h */
 ]]

@@ -4,7 +4,7 @@ ffi.cdef[[
 enum { _ERRNO_H = 1 };
 /* BEGIN /usr/include/features.h */
 ]] require 'ffi.c.features' ffi.cdef[[
-/* END /usr/include/features.h */
+/* END   /usr/include/features.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/errno.h */
 enum { _BITS_ERRNO_H = 1 };
 /* BEGIN /usr/include/linux/errno.h */
@@ -47,7 +47,7 @@ enum { EMLINK = 31 };
 enum { EPIPE = 32 };
 enum { EDOM = 33 };
 enum { ERANGE = 34 };
-/* END /usr/include/asm-generic/errno-base.h */
+/* END   /usr/include/asm-generic/errno-base.h */
 enum { EDEADLK = 35 };
 enum { ENAMETOOLONG = 36 };
 enum { ENOLCK = 37 };
@@ -147,14 +147,14 @@ enum { EOWNERDEAD = 130 };
 enum { ENOTRECOVERABLE = 131 };
 enum { ERFKILL = 132 };
 enum { EHWPOISON = 133 };
-/* END /usr/include/asm-generic/errno.h */
-/* END /usr/include/x86_64-linux-gnu/asm/errno.h */
-/* END /usr/include/linux/errno.h */
+/* END   /usr/include/asm-generic/errno.h */
+/* END   /usr/include/x86_64-linux-gnu/asm/errno.h */
+/* END   /usr/include/linux/errno.h */
 enum { ENOTSUP = 95 };
-/* END /usr/include/x86_64-linux-gnu/bits/errno.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/errno.h */
 extern int *__errno_location (void) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
 /* # define errno (*__errno_location ()) ### string, not number "(*__errno_location ())" */
-/* END /usr/include/errno.h */
+/* END   /usr/include/errno.h */
 ]]
 return setmetatable({
 	errno = function()

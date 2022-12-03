@@ -25,26 +25,26 @@ enum { _ATFILE_SOURCE = 1 };
 enum { __WORDSIZE = 64 };
 enum { __WORDSIZE_TIME64_COMPAT32 = 1 };
 enum { __SYSCALL_WORDSIZE = 64 };
-/* END /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/timesize.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* redefining matching value: # define __WORDSIZE	64 */
 /* redefining matching value: # define __WORDSIZE_TIME64_COMPAT32	1 */
 /* redefining matching value: # define __SYSCALL_WORDSIZE		64 */
-/* END /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 enum { __TIMESIZE = 64 };
-/* END /usr/include/x86_64-linux-gnu/bits/timesize.h */
-/* END /usr/include/features-time64.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/timesize.h */
+/* END   /usr/include/features-time64.h */
 enum { __USE_MISC = 1 };
 enum { __USE_ATFILE = 1 };
 enum { __USE_FORTIFY_LEVEL = 0 };
 enum { __GLIBC_USE_DEPRECATED_GETS = 0 };
 enum { __GLIBC_USE_DEPRECATED_SCANF = 0 };
 /* BEGIN /usr/include/stdc-predef.h */
-/* END /usr/include/stdc-predef.h */
+/* END   /usr/include/stdc-predef.h */
 enum { __GNU_LIBRARY__ = 6 };
 enum { __GLIBC__ = 2 };
-enum { __GLIBC_MINOR__ = 35 };
+enum { __GLIBC_MINOR__ = 36 };
 /* BEGIN /usr/include/x86_64-linux-gnu/sys/cdefs.h */
 enum { _SYS_CDEFS_H = 1 };
 /* #  define __LEAF , __leaf__ ### string, not number ", __leaf__" */
@@ -77,14 +77,14 @@ enum { __wur = 1 };
 /* redefining matching value: # define __WORDSIZE	64 */
 /* redefining matching value: # define __WORDSIZE_TIME64_COMPAT32	1 */
 /* redefining matching value: # define __SYSCALL_WORDSIZE		64 */
-/* END /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/long-double.h */
 enum { __LDOUBLE_REDIRECTS_TO_FLOAT128_ABI = 0 };
-/* END /usr/include/x86_64-linux-gnu/bits/long-double.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/long-double.h */
 enum { __HAVE_GENERIC_SELECTION = 1 };
 /* # define __attr_dealloc_free __attr_dealloc (__builtin_free, 1) ### string, not number "__attr_dealloc (__builtin_free, 1)" */
 /* # define __attribute_returns_twice__ __attribute__ ((__returns_twice__)) ### string, not number "__attribute__ ((__returns_twice__))" */
-/* END /usr/include/x86_64-linux-gnu/sys/cdefs.h */
+/* END   /usr/include/x86_64-linux-gnu/sys/cdefs.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/gnu/stubs.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/gnu/stubs-64.h */
 enum { __stub___compat_bdflush = 1 };
@@ -95,7 +95,7 @@ enum { __stub_revoke = 1 };
 enum { __stub_setlogin = 1 };
 enum { __stub_sigreturn = 1 };
 enum { __stub_stty = 1 };
-/* END /usr/include/x86_64-linux-gnu/gnu/stubs-64.h */
-/* END /usr/include/x86_64-linux-gnu/gnu/stubs.h */
-/* END /usr/include/features.h */
+/* END   /usr/include/x86_64-linux-gnu/gnu/stubs-64.h */
+/* END   /usr/include/x86_64-linux-gnu/gnu/stubs.h */
+/* END   /usr/include/features.h */
 ]]

@@ -1,37 +1,37 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
 /* BEGIN /usr/include/stdint.h */
 enum { _STDINT_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 ]] require 'ffi.c.bits.libc-header-start' ffi.cdef[[
-/* END /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.c.bits.types' ffi.cdef[[
-/* END /usr/include/x86_64-linux-gnu/bits/types.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/types.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/wchar.h */
 enum { _BITS_WCHAR_H = 1 };
 enum { __WCHAR_MAX = 2147483647 };
 enum { __WCHAR_MIN = -2147483648 };
-/* END /usr/include/x86_64-linux-gnu/bits/wchar.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/wchar.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* redefining matching value: # define __WORDSIZE	64 */
 /* redefining matching value: # define __WORDSIZE_TIME64_COMPAT32	1 */
 /* redefining matching value: # define __SYSCALL_WORDSIZE		64 */
-/* END /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/stdint-intn.h */
 ]] require 'ffi.c.bits.stdint-intn' ffi.cdef[[
-/* END /usr/include/x86_64-linux-gnu/bits/stdint-intn.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/stdint-intn.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h */
 enum { _BITS_STDINT_UINTN_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.c.bits.types' ffi.cdef[[
-/* END /usr/include/x86_64-linux-gnu/bits/types.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/types.h */
 typedef __uint8_t uint8_t;
 typedef __uint16_t uint16_t;
 typedef __uint32_t uint32_t;
 typedef __uint64_t uint64_t;
-/* END /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h */
 typedef __int_least8_t int_least8_t;
 typedef __int_least16_t int_least16_t;
 typedef __int_least32_t int_least32_t;
@@ -104,7 +104,7 @@ enum { WCHAR_MIN = -2147483648 };
 enum { WCHAR_MAX = 2147483647 };
 /* # define WINT_MIN		(0u) ### string, not number "(0u)" */
 /* # define WINT_MAX		(4294967295u) ### string, not number "(4294967295u)" */
-/* END /usr/include/stdint.h */
+/* END   /usr/include/stdint.h */
 enum { _GCC_WRAP_STDINT_H = 1 };
-/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h */
+/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
 ]]

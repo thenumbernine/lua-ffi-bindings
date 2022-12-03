@@ -6,15 +6,15 @@ enum { _TIFFIO_ = 1 };
 enum { _TIFF_ = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/tiffconf.h */
 enum { _TIFFCONF_ = 1 };
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h */
+/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
 ]] require 'ffi.c.stdint' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h */
+/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
 /* BEGIN /usr/include/inttypes.h */
 ]] require 'ffi.c.inttypes' ffi.cdef[[
-/* END /usr/include/inttypes.h */
+/* END   /usr/include/inttypes.h */
 enum { TIFF_SSIZE_T = 0 };
 enum { HAVE_IEEEFP = 1 };
 enum { HOST_FILLORDER = 0 };
@@ -22,6 +22,7 @@ enum { HOST_BIGENDIAN = 0 };
 enum { CCITT_SUPPORT = 1 };
 enum { JPEG_SUPPORT = 1 };
 enum { JBIG_SUPPORT = 1 };
+enum { LERC_SUPPORT = 1 };
 enum { LOGLUV_SUPPORT = 1 };
 enum { LZW_SUPPORT = 1 };
 enum { NEXT_SUPPORT = 1 };
@@ -42,7 +43,7 @@ enum { CMYK_SUPPORT = 1 };
 enum { ICC_SUPPORT = 1 };
 enum { PHOTOSHOP_SUPPORT = 1 };
 enum { IPTC_SUPPORT = 1 };
-/* END /usr/include/x86_64-linux-gnu/tiffconf.h */
+/* END   /usr/include/x86_64-linux-gnu/tiffconf.h */
 enum { TIFF_VERSION_CLASSIC = 42 };
 enum { TIFF_VERSION_BIG = 43 };
 enum { TIFF_BIGENDIAN = 19789 };
@@ -597,11 +598,11 @@ enum { GPSTAG_AREAINFORMATION = 28 };
 enum { GPSTAG_DATESTAMP = 29 };
 enum { GPSTAG_DIFFERENTIAL = 30 };
 enum { GPSTAG_GPSHPOSITIONINGERROR = 31 };
-/* END /usr/include/x86_64-linux-gnu/tiff.h */
+/* END   /usr/include/x86_64-linux-gnu/tiff.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/tiffvers.h */
-/* #define TIFFLIB_VERSION_STR "LIBTIFF, Version 4.3.0\nCopyright (c) 1988-1996 Sam Leffler\nCopyright (c) 1991-1996 Silicon Graphics, Inc." ### string, not number "\"LIBTIFF, Version 4.3.0\\nCopyright (c) 1988-1996 Sam Leffler\\nCopyright (c) 1991-1996 Silicon Graphics, Inc.\"" */
-enum { TIFFLIB_VERSION = 20210416 };
-/* END /usr/include/x86_64-linux-gnu/tiffvers.h */
+/* #define TIFFLIB_VERSION_STR "LIBTIFF, Version 4.4.0\nCopyright (c) 1988-1996 Sam Leffler\nCopyright (c) 1991-1996 Silicon Graphics, Inc." ### string, not number "\"LIBTIFF, Version 4.4.0\\nCopyright (c) 1988-1996 Sam Leffler\\nCopyright (c) 1991-1996 Silicon Graphics, Inc.\"" */
+enum { TIFFLIB_VERSION = 20220520 };
+/* END   /usr/include/x86_64-linux-gnu/tiffvers.h */
 typedef struct tiff TIFF;
 typedef int64_t tmsize_t;
 /* #define TIFF_TMSIZE_T_MAX (tmsize_t)(SIZE_MAX >> 1) ### string, not number "(tmsize_t)(SIZE_MAX >> 1)" */
@@ -698,10 +699,10 @@ TIFFInitMethod init;
 } TIFFCodec;
 /* BEGIN /usr/include/stdio.h */
 ]] require 'ffi.c.stdio' ffi.cdef[[
-/* END /usr/include/stdio.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/9/include/stdarg.h */
+/* END   /usr/include/stdio.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
 ]] require 'ffi.c.stdarg' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-linux-gnu/9/include/stdarg.h */
+/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
 enum { LOGLUV_PUBLIC = 1 };
 typedef void (*TIFFErrorHandler)(const char*, const char*, va_list);
 typedef void (*TIFFErrorHandlerExt)(thandle_t, const char*, const char*, va_list);
@@ -743,6 +744,9 @@ extern TIFFDataType TIFFFieldDataType(const TIFFField*);
 extern int TIFFFieldPassCount(const TIFFField*);
 extern int TIFFFieldReadCount(const TIFFField*);
 extern int TIFFFieldWriteCount(const TIFFField*);
+extern int TIFFFieldSetGetSize(const TIFFField*);
+extern int TIFFFieldSetGetCountSize(const TIFFField*);
+extern int TIFFFieldIsAnonymous(const TIFFField *);
 typedef int (*TIFFVSetMethod)(TIFF*, uint32_t, va_list);
 typedef int (*TIFFVGetMethod)(TIFF*, uint32_t, va_list);
 typedef void (*TIFFPrintMethod)(TIFF*, FILE*, long);
@@ -794,6 +798,7 @@ extern int TIFFIsByteSwapped(TIFF*);
 extern int TIFFIsUpSampled(TIFF*);
 extern int TIFFIsMSB2LSB(TIFF*);
 extern int TIFFIsBigEndian(TIFF*);
+extern int TIFFIsBigTIFF(TIFF*);
 extern TIFFReadWriteProc TIFFGetReadProc(TIFF*);
 extern TIFFReadWriteProc TIFFGetWriteProc(TIFF*);
 extern TIFFSeekProc TIFFGetSeekProc(TIFF*);
@@ -920,5 +925,5 @@ unsigned char field_passcount;
 char *field_name;
 } TIFFFieldInfo;
 extern int TIFFMergeFieldInfo(TIFF*, const TIFFFieldInfo[], uint32_t);
-/* END /usr/include/x86_64-linux-gnu/tiffio.h */
+/* END   /usr/include/x86_64-linux-gnu/tiffio.h */
 ]]

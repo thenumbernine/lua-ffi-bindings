@@ -3,20 +3,20 @@ local ffi = require 'ffi'
 ffi.cdef[[
 /* BEGIN /usr/include/lua5.4/lua.h */
 enum { lua_h = 1 };
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
 ]] require 'ffi.c.stdarg' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
+/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
+/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 /* BEGIN /usr/include/lua5.4/luaconf.h */
 enum { luaconf_h = 1 };
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
 ]] require 'ffi.c.limits' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
+/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
+/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 enum { LUAI_IS32INT = 1 };
 enum { LUA_INT_INT = 1 };
 enum { LUA_INT_LONG = 2 };
@@ -37,7 +37,7 @@ enum { LUA_FLOAT_TYPE = 2 };
 /* BEGIN /usr/include/x86_64-linux-gnu/lua5.4-deb-multiarch.h */
 enum { _LUA_DEB_MULTIARCH_ = 1 };
 /* #define DEB_HOST_MULTIARCH "x86_64-linux-gnu" ### string, not number "\"x86_64-linux-gnu\"" */
-/* END /usr/include/x86_64-linux-gnu/lua5.4-deb-multiarch.h */
+/* END   /usr/include/x86_64-linux-gnu/lua5.4-deb-multiarch.h */
 /* #define LUA_ROOT	"/usr/local/" ### string, not number "\"/usr/local/\"" */
 /* #define LUA_ROOT2	"/usr/" ### string, not number "\"/usr/\"" */
 /* #define LUA_LDIR	LUA_ROOT "share/lua/" LUA_VDIR "/" ### string, not number "LUA_ROOT \"share/lua/\" LUA_VDIR \"/\"" */
@@ -62,20 +62,20 @@ enum { LUAI_UACINT = 0 };
 /* #define LUA_UNSIGNED		unsigned LUAI_UACINT ### string, not number "unsigned LUAI_UACINT" */
 /* #define LUA_INTEGER		long long ### string, not number "long long" */
 /* #define LUA_INTEGER_FRMLEN	"ll" ### string, not number "\"ll\"" */
-/* #define LUA_MAXINTEGER		LLONG_MAX ### string, not number "LLONG_MAX" */
-/* #define LUA_MININTEGER		LLONG_MIN ### string, not number "LLONG_MIN" */
+/* #define LUA_MAXINTEGER		LLONG_MAX ### string, number, replaceline "9.2233720368548e+18" */
+/* #define LUA_MININTEGER		LLONG_MIN ### string, number, replaceline "-9.2233720368548e+18" */
 /* #define LUA_MAXUNSIGNED		ULLONG_MAX ### string, not number "ULLONG_MAX" */
 enum { LUA_KCONTEXT = 0 };
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
 ]] require 'ffi.c.stdint' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h */
+/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
 /* redefining matching value: #define LUA_KCONTEXT	intptr_t */
 enum { LUAI_MAXSTACK = 1000000 };
 /* #define LUA_EXTRASPACE		(sizeof(void *)) ### string, not number "(sizeof(void *))" */
 enum { LUA_IDSIZE = 60 };
 /* #define LUAL_BUFFERSIZE   ((int)(16 * sizeof(void*) * sizeof(lua_Number))) ### string, not number "((int)(16 * sizeof(void*) * sizeof(lua_Number)))" */
 /* #define LUAI_MAXALIGN  lua_Number n; double u; void *s; lua_Integer i; long l ### string, not number "lua_Number n; double u; void *s; lua_Integer i; long l" */
-/* END /usr/include/lua5.4/luaconf.h */
+/* END   /usr/include/lua5.4/luaconf.h */
 /* #define LUA_VERSION_MAJOR	"5" ### string, not number "\"5\"" */
 /* #define LUA_VERSION_MINOR	"4" ### string, not number "\"4\"" */
 /* #define LUA_VERSION_RELEASE	"4" ### string, not number "\"4\"" */
@@ -276,7 +276,114 @@ unsigned short ntransfer;
 char short_src[60];
 struct CallInfo *i_ci;
 };
-/* END /usr/include/lua5.4/lua.h */
+/* END   /usr/include/lua5.4/lua.h */
+/* BEGIN /usr/include/lua5.4/lualib.h */
+enum { lualib_h = 1 };
+/* BEGIN /usr/include/lua5.4/lua.h */
+/* END   /usr/include/lua5.4/lua.h */
+/* #define LUA_VERSUFFIX          "_" LUA_VERSION_MAJOR "_" LUA_VERSION_MINOR ### string, not number "\"_\" LUA_VERSION_MAJOR \"_\" LUA_VERSION_MINOR" */
+extern int (luaopen_base) (lua_State *L);
+/* #define LUA_COLIBNAME	"coroutine" ### string, not number "\"coroutine\"" */
+extern int (luaopen_coroutine) (lua_State *L);
+/* #define LUA_TABLIBNAME	"table" ### string, not number "\"table\"" */
+extern int (luaopen_table) (lua_State *L);
+/* #define LUA_IOLIBNAME	"io" ### string, not number "\"io\"" */
+extern int (luaopen_io) (lua_State *L);
+/* #define LUA_OSLIBNAME	"os" ### string, not number "\"os\"" */
+extern int (luaopen_os) (lua_State *L);
+/* #define LUA_STRLIBNAME	"string" ### string, not number "\"string\"" */
+extern int (luaopen_string) (lua_State *L);
+/* #define LUA_UTF8LIBNAME	"utf8" ### string, not number "\"utf8\"" */
+extern int (luaopen_utf8) (lua_State *L);
+/* #define LUA_MATHLIBNAME	"math" ### string, not number "\"math\"" */
+extern int (luaopen_math) (lua_State *L);
+/* #define LUA_DBLIBNAME	"debug" ### string, not number "\"debug\"" */
+extern int (luaopen_debug) (lua_State *L);
+/* #define LUA_LOADLIBNAME	"package" ### string, not number "\"package\"" */
+extern int (luaopen_package) (lua_State *L);
+extern void (luaL_openlibs) (lua_State *L);
+/* END   /usr/include/lua5.4/lualib.h */
+/* BEGIN /usr/include/lua5.4/lauxlib.h */
+enum { lauxlib_h = 1 };
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+]] require 'ffi.c.stddef' ffi.cdef[[
+/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* BEGIN /usr/include/stdio.h */
+]] require 'ffi.c.stdio' ffi.cdef[[
+/* END   /usr/include/stdio.h */
+/* BEGIN /usr/include/lua5.4/luaconf.h */
+/* END   /usr/include/lua5.4/luaconf.h */
+/* BEGIN /usr/include/lua5.4/lua.h */
+/* END   /usr/include/lua5.4/lua.h */
+/* #define LUA_GNAME	"_G" ### string, not number "\"_G\"" */
+typedef struct luaL_Buffer luaL_Buffer;
+enum { LUA_ERRFILE = 6 };
+/* #define LUA_LOADED_TABLE	"_LOADED" ### string, not number "\"_LOADED\"" */
+/* #define LUA_PRELOAD_TABLE	"_PRELOAD" ### string, not number "\"_PRELOAD\"" */
+typedef struct luaL_Reg { const char *name;
+lua_CFunction func;
+} luaL_Reg;
+/* #define LUAL_NUMSIZES	(sizeof(lua_Integer)*16 + sizeof(lua_Number)) ### string, not number "(sizeof(lua_Integer)*16 + sizeof(lua_Number))" */
+extern void (luaL_checkversion_) (lua_State *L, lua_Number ver, size_t sz);
+extern int (luaL_getmetafield) (lua_State *L, int obj, const char *e);
+extern int (luaL_callmeta) (lua_State *L, int obj, const char *e);
+extern const char *(luaL_tolstring) (lua_State *L, int idx, size_t *len);
+extern int (luaL_argerror) (lua_State *L, int arg, const char *extramsg);
+extern int (luaL_typeerror) (lua_State *L, int arg, const char *tname);
+extern const char *(luaL_checklstring) (lua_State *L, int arg, size_t *l);
+extern const char *(luaL_optlstring) (lua_State *L, int arg, const char *def, size_t *l);
+extern lua_Number (luaL_checknumber) (lua_State *L, int arg);
+extern lua_Number (luaL_optnumber) (lua_State *L, int arg, lua_Number def);
+extern lua_Integer (luaL_checkinteger) (lua_State *L, int arg);
+extern lua_Integer (luaL_optinteger) (lua_State *L, int arg, lua_Integer def);
+extern void (luaL_checkstack) (lua_State *L, int sz, const char *msg);
+extern void (luaL_checktype) (lua_State *L, int arg, int t);
+extern void (luaL_checkany) (lua_State *L, int arg);
+extern int (luaL_newmetatable) (lua_State *L, const char *tname);
+extern void (luaL_setmetatable) (lua_State *L, const char *tname);
+extern void *(luaL_testudata) (lua_State *L, int ud, const char *tname);
+extern void *(luaL_checkudata) (lua_State *L, int ud, const char *tname);
+extern void (luaL_where) (lua_State *L, int lvl);
+extern int (luaL_error) (lua_State *L, const char *fmt, ...);
+extern int (luaL_checkoption) (lua_State *L, int arg, const char *def, const char *const lst[]);
+extern int (luaL_fileresult) (lua_State *L, int stat, const char *fname);
+extern int (luaL_execresult) (lua_State *L, int stat);
+enum { LUA_NOREF = -2 };
+enum { LUA_REFNIL = -1 };
+extern int (luaL_ref) (lua_State *L, int t);
+extern void (luaL_unref) (lua_State *L, int t, int ref);
+extern int (luaL_loadfilex) (lua_State *L, const char *filename, const char *mode);
+extern int (luaL_loadbufferx) (lua_State *L, const char *buff, size_t sz, const char *name, const char *mode);
+extern int (luaL_loadstring) (lua_State *L, const char *s);
+extern lua_State *(luaL_newstate) (void);
+extern lua_Integer (luaL_len) (lua_State *L, int idx);
+extern void (luaL_addgsub) (luaL_Buffer *b, const char *s, const char *p, const char *r);
+extern const char *(luaL_gsub) (lua_State *L, const char *s, const char *p, const char *r);
+extern void (luaL_setfuncs) (lua_State *L, const luaL_Reg *l, int nup);
+extern int (luaL_getsubtable) (lua_State *L, int idx, const char *fname);
+extern void (luaL_traceback) (lua_State *L, lua_State *L1, const char *msg, int level);
+extern void (luaL_requiref) (lua_State *L, const char *modname, lua_CFunction openf, int glb);
+struct luaL_Buffer { char *b;
+size_t size;
+size_t n;
+lua_State *L;
+union { lua_Number n; double u; void *s; lua_Integer i; long l;
+char b[((int)(16 * sizeof(void*) * sizeof(lua_Number)))];
+} init;
+};
+extern void (luaL_buffinit) (lua_State *L, luaL_Buffer *B);
+extern char *(luaL_prepbuffsize) (luaL_Buffer *B, size_t sz);
+extern void (luaL_addlstring) (luaL_Buffer *B, const char *s, size_t l);
+extern void (luaL_addstring) (luaL_Buffer *B, const char *s);
+extern void (luaL_addvalue) (luaL_Buffer *B);
+extern void (luaL_pushresult) (luaL_Buffer *B);
+extern void (luaL_pushresultsize) (luaL_Buffer *B, size_t sz);
+extern char *(luaL_buffinitsize) (lua_State *L, luaL_Buffer *B, size_t sz);
+/* #define LUA_FILEHANDLE          "FILE*" ### string, not number "\"FILE*\"" */
+typedef struct luaL_Stream { FILE *f;
+lua_CFunction closef;
+} luaL_Stream;
+/* END   /usr/include/lua5.4/lauxlib.h */
 ]]
 local lua
 if ffi.os == 'OSX' then

@@ -8,7 +8,7 @@ enum { __PDP_ENDIAN = 3412 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/endianness.h */
 enum { _BITS_ENDIANNESS_H = 1 };
 enum { __BYTE_ORDER = 1234 };
-/* END /usr/include/x86_64-linux-gnu/bits/endianness.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/endianness.h */
 enum { __FLOAT_WORD_ORDER = 1234 };
-/* END /usr/include/x86_64-linux-gnu/bits/endian.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/endian.h */
 ]]

@@ -1,54 +1,78 @@
-local ffi  = require 'ffi'
+local ffi = require 'ffi'
 ffi.cdef[[
 /* manually commented out: warning: Need to implement some method to align data here */
 /* BEGIN /usr/include/CL/cl.h */
 enum { __OPENCL_CL_H = 1 };
 /* BEGIN /usr/include/CL/cl_version.h */
 enum { __CL_VERSION_H = 1 };
-/* #pragma message("cl_version.h: CL_TARGET_OPENCL_VERSION is not defined. Defaulting to 220 (OpenCL 2.2)") */
-enum { CL_TARGET_OPENCL_VERSION = 220 };
+/* #pragma message("cl_version.h: CL_TARGET_OPENCL_VERSION is not defined. Defaulting to 300 (OpenCL 3.0)") */
+enum { CL_TARGET_OPENCL_VERSION = 300 };
+enum { CL_VERSION_3_0 = 1 };
 enum { CL_VERSION_2_2 = 1 };
 enum { CL_VERSION_2_1 = 1 };
 enum { CL_VERSION_2_0 = 1 };
 enum { CL_VERSION_1_2 = 1 };
 enum { CL_VERSION_1_1 = 1 };
 enum { CL_VERSION_1_0 = 1 };
-/* END /usr/include/CL/cl_version.h */
+/* END   /usr/include/CL/cl_version.h */
 /* BEGIN /usr/include/CL/cl_platform.h */
 enum { __CL_PLATFORM_H = 1 };
 /* BEGIN /usr/include/CL/cl_version.h */
-/* END /usr/include/CL/cl_version.h */
+/* END   /usr/include/CL/cl_version.h */
 enum { CL_API_ENTRY = 1 };
 enum { CL_API_CALL = 1 };
 enum { CL_CALLBACK = 1 };
-enum { CL_EXTENSION_WEAK_LINK = 1 };
-enum { CL_API_SUFFIX__VERSION_1_0 = 1 };
-enum { CL_EXT_SUFFIX__VERSION_1_0 = 1 };
-enum { CL_API_SUFFIX__VERSION_1_1 = 1 };
-enum { CL_EXT_SUFFIX__VERSION_1_1 = 1 };
-enum { CL_API_SUFFIX__VERSION_1_2 = 1 };
-enum { CL_EXT_SUFFIX__VERSION_1_2 = 1 };
-enum { CL_API_SUFFIX__VERSION_2_0 = 1 };
-enum { CL_EXT_SUFFIX__VERSION_2_0 = 1 };
-enum { CL_API_SUFFIX__VERSION_2_1 = 1 };
-enum { CL_EXT_SUFFIX__VERSION_2_1 = 1 };
-enum { CL_API_SUFFIX__VERSION_2_2 = 1 };
-enum { CL_EXT_SUFFIX__VERSION_2_2 = 1 };
-/* #define CL_EXT_SUFFIX_DEPRECATED __attribute__((deprecated)) ### string, not number "__attribute__((deprecated))" */
-enum { CL_EXT_PREFIX_DEPRECATED = 1 };
-/* #define CL_EXT_SUFFIX__VERSION_1_0_DEPRECATED CL_EXT_SUFFIX_DEPRECATED ### string, not number "CL_EXT_SUFFIX_DEPRECATED" */
-/* #define CL_EXT_PREFIX__VERSION_1_0_DEPRECATED CL_EXT_PREFIX_DEPRECATED ### string, not number "CL_EXT_PREFIX_DEPRECATED" */
-/* #define CL_EXT_SUFFIX__VERSION_1_1_DEPRECATED CL_EXT_SUFFIX_DEPRECATED ### string, not number "CL_EXT_SUFFIX_DEPRECATED" */
-/* #define CL_EXT_PREFIX__VERSION_1_1_DEPRECATED CL_EXT_PREFIX_DEPRECATED ### string, not number "CL_EXT_PREFIX_DEPRECATED" */
-/* #define CL_EXT_SUFFIX__VERSION_1_2_DEPRECATED CL_EXT_SUFFIX_DEPRECATED ### string, not number "CL_EXT_SUFFIX_DEPRECATED" */
-/* #define CL_EXT_PREFIX__VERSION_1_2_DEPRECATED CL_EXT_PREFIX_DEPRECATED ### string, not number "CL_EXT_PREFIX_DEPRECATED" */
-/* #define CL_EXT_SUFFIX__VERSION_2_0_DEPRECATED CL_EXT_SUFFIX_DEPRECATED ### string, not number "CL_EXT_SUFFIX_DEPRECATED" */
-/* #define CL_EXT_PREFIX__VERSION_2_0_DEPRECATED CL_EXT_PREFIX_DEPRECATED ### string, not number "CL_EXT_PREFIX_DEPRECATED" */
-/* #define CL_EXT_SUFFIX__VERSION_2_1_DEPRECATED CL_EXT_SUFFIX_DEPRECATED ### string, not number "CL_EXT_SUFFIX_DEPRECATED" */
-/* #define CL_EXT_PREFIX__VERSION_2_1_DEPRECATED CL_EXT_PREFIX_DEPRECATED ### string, not number "CL_EXT_PREFIX_DEPRECATED" */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h */
+enum { CL_API_SUFFIX_USER = 1 };
+enum { CL_API_PREFIX_USER = 1 };
+/* #define CL_API_SUFFIX_COMMON CL_API_SUFFIX_USER ### string, not number "CL_API_SUFFIX_USER" */
+/* #define CL_API_PREFIX_COMMON CL_API_PREFIX_USER ### string, not number "CL_API_PREFIX_USER" */
+/* #define CL_API_SUFFIX__VERSION_1_0 CL_API_SUFFIX_COMMON ### string, not number "CL_API_SUFFIX_COMMON" */
+/* #define CL_API_SUFFIX__VERSION_1_1 CL_API_SUFFIX_COMMON ### string, not number "CL_API_SUFFIX_COMMON" */
+/* #define CL_API_SUFFIX__VERSION_1_2 CL_API_SUFFIX_COMMON ### string, not number "CL_API_SUFFIX_COMMON" */
+/* #define CL_API_SUFFIX__VERSION_2_0 CL_API_SUFFIX_COMMON ### string, not number "CL_API_SUFFIX_COMMON" */
+/* #define CL_API_SUFFIX__VERSION_2_1 CL_API_SUFFIX_COMMON ### string, not number "CL_API_SUFFIX_COMMON" */
+/* #define CL_API_SUFFIX__VERSION_2_2 CL_API_SUFFIX_COMMON ### string, not number "CL_API_SUFFIX_COMMON" */
+/* #define CL_API_SUFFIX__VERSION_3_0 CL_API_SUFFIX_COMMON ### string, not number "CL_API_SUFFIX_COMMON" */
+/* #define CL_API_SUFFIX__EXPERIMENTAL CL_API_SUFFIX_COMMON ### string, not number "CL_API_SUFFIX_COMMON" */
+/* #define CL_API_SUFFIX_DEPRECATED __attribute__((deprecated)) ### string, not number "__attribute__((deprecated))" */
+enum { CL_API_PREFIX_DEPRECATED = 1 };
+/* #define CL_API_SUFFIX__VERSION_1_0_DEPRECATED CL_API_SUFFIX_COMMON CL_API_SUFFIX_DEPRECATED ### string, not number "CL_API_SUFFIX_COMMON CL_API_SUFFIX_DEPRECATED" */
+/* #define CL_API_PREFIX__VERSION_1_0_DEPRECATED CL_API_PREFIX_COMMON CL_API_PREFIX_DEPRECATED ### string, not number "CL_API_PREFIX_COMMON CL_API_PREFIX_DEPRECATED" */
+/* #define CL_API_SUFFIX__VERSION_1_1_DEPRECATED CL_API_SUFFIX_COMMON CL_API_SUFFIX_DEPRECATED ### string, not number "CL_API_SUFFIX_COMMON CL_API_SUFFIX_DEPRECATED" */
+/* #define CL_API_PREFIX__VERSION_1_1_DEPRECATED CL_API_PREFIX_COMMON CL_API_PREFIX_DEPRECATED ### string, not number "CL_API_PREFIX_COMMON CL_API_PREFIX_DEPRECATED" */
+/* #define CL_API_SUFFIX__VERSION_1_2_DEPRECATED CL_API_SUFFIX_COMMON CL_API_SUFFIX_DEPRECATED ### string, not number "CL_API_SUFFIX_COMMON CL_API_SUFFIX_DEPRECATED" */
+/* #define CL_API_PREFIX__VERSION_1_2_DEPRECATED CL_API_PREFIX_COMMON CL_API_PREFIX_DEPRECATED ### string, not number "CL_API_PREFIX_COMMON CL_API_PREFIX_DEPRECATED" */
+/* #define CL_API_SUFFIX__VERSION_2_0_DEPRECATED CL_API_SUFFIX_COMMON CL_API_SUFFIX_DEPRECATED ### string, not number "CL_API_SUFFIX_COMMON CL_API_SUFFIX_DEPRECATED" */
+/* #define CL_API_PREFIX__VERSION_2_0_DEPRECATED CL_API_PREFIX_COMMON CL_API_PREFIX_DEPRECATED ### string, not number "CL_API_PREFIX_COMMON CL_API_PREFIX_DEPRECATED" */
+/* #define CL_API_SUFFIX__VERSION_2_1_DEPRECATED CL_API_SUFFIX_COMMON CL_API_SUFFIX_DEPRECATED ### string, not number "CL_API_SUFFIX_COMMON CL_API_SUFFIX_DEPRECATED" */
+/* #define CL_API_PREFIX__VERSION_2_1_DEPRECATED CL_API_PREFIX_COMMON CL_API_PREFIX_DEPRECATED ### string, not number "CL_API_PREFIX_COMMON CL_API_PREFIX_DEPRECATED" */
+/* #define CL_API_SUFFIX__VERSION_2_2_DEPRECATED CL_API_SUFFIX_COMMON CL_API_SUFFIX_DEPRECATED ### string, not number "CL_API_SUFFIX_COMMON CL_API_SUFFIX_DEPRECATED" */
+/* #define CL_API_PREFIX__VERSION_2_2_DEPRECATED CL_API_PREFIX_COMMON CL_API_PREFIX_DEPRECATED ### string, not number "CL_API_PREFIX_COMMON CL_API_PREFIX_DEPRECATED" */
+/* #define CL_EXT_PREFIX_DEPRECATED CL_API_PREFIX_DEPRECATED ### string, not number "CL_API_PREFIX_DEPRECATED" */
+/* #define CL_EXT_PREFIX__VERSION_1_0_DEPRECATED CL_API_PREFIX__VERSION_1_0_DEPRECATED ### string, not number "CL_API_PREFIX__VERSION_1_0_DEPRECATED" */
+/* #define CL_EXT_PREFIX__VERSION_1_1_DEPRECATED CL_API_PREFIX__VERSION_1_1_DEPRECATED ### string, not number "CL_API_PREFIX__VERSION_1_1_DEPRECATED" */
+/* #define CL_EXT_PREFIX__VERSION_1_2_DEPRECATED CL_API_PREFIX__VERSION_1_2_DEPRECATED ### string, not number "CL_API_PREFIX__VERSION_1_2_DEPRECATED" */
+/* #define CL_EXT_PREFIX__VERSION_2_0_DEPRECATED CL_API_PREFIX__VERSION_2_0_DEPRECATED ### string, not number "CL_API_PREFIX__VERSION_2_0_DEPRECATED" */
+/* #define CL_EXT_PREFIX__VERSION_2_1_DEPRECATED CL_API_PREFIX__VERSION_2_1_DEPRECATED ### string, not number "CL_API_PREFIX__VERSION_2_1_DEPRECATED" */
+/* #define CL_EXT_PREFIX__VERSION_2_2_DEPRECATED CL_API_PREFIX__VERSION_2_2_DEPRECATED ### string, not number "CL_API_PREFIX__VERSION_2_2_DEPRECATED" */
+/* #define CL_EXT_SUFFIX_DEPRECATED CL_API_SUFFIX_DEPRECATED ### string, not number "CL_API_SUFFIX_DEPRECATED" */
+/* #define CL_EXT_SUFFIX__EXPERIMENTAL CL_API_SUFFIX__EXPERIMENTAL ### string, not number "CL_API_SUFFIX__EXPERIMENTAL" */
+/* #define CL_EXT_SUFFIX__VERSION_1_0 CL_API_SUFFIX__VERSION_1_0 ### string, not number "CL_API_SUFFIX__VERSION_1_0" */
+/* #define CL_EXT_SUFFIX__VERSION_1_0_DEPRECATED CL_API_SUFFIX__VERSION_1_0_DEPRECATED ### string, not number "CL_API_SUFFIX__VERSION_1_0_DEPRECATED" */
+/* #define CL_EXT_SUFFIX__VERSION_1_1 CL_API_SUFFIX__VERSION_1_1 ### string, not number "CL_API_SUFFIX__VERSION_1_1" */
+/* #define CL_EXT_SUFFIX__VERSION_1_1_DEPRECATED CL_API_SUFFIX__VERSION_1_1_DEPRECATED ### string, not number "CL_API_SUFFIX__VERSION_1_1_DEPRECATED" */
+/* #define CL_EXT_SUFFIX__VERSION_1_2 CL_API_SUFFIX__VERSION_1_2 ### string, not number "CL_API_SUFFIX__VERSION_1_2" */
+/* #define CL_EXT_SUFFIX__VERSION_1_2_DEPRECATED CL_API_SUFFIX__VERSION_1_2_DEPRECATED ### string, not number "CL_API_SUFFIX__VERSION_1_2_DEPRECATED" */
+/* #define CL_EXT_SUFFIX__VERSION_2_0 CL_API_SUFFIX__VERSION_2_0 ### string, not number "CL_API_SUFFIX__VERSION_2_0" */
+/* #define CL_EXT_SUFFIX__VERSION_2_0_DEPRECATED CL_API_SUFFIX__VERSION_2_0_DEPRECATED ### string, not number "CL_API_SUFFIX__VERSION_2_0_DEPRECATED" */
+/* #define CL_EXT_SUFFIX__VERSION_2_1 CL_API_SUFFIX__VERSION_2_1 ### string, not number "CL_API_SUFFIX__VERSION_2_1" */
+/* #define CL_EXT_SUFFIX__VERSION_2_1_DEPRECATED CL_API_SUFFIX__VERSION_2_1_DEPRECATED ### string, not number "CL_API_SUFFIX__VERSION_2_1_DEPRECATED" */
+/* #define CL_EXT_SUFFIX__VERSION_2_2 CL_API_SUFFIX__VERSION_2_2 ### string, not number "CL_API_SUFFIX__VERSION_2_2" */
+/* #define CL_EXT_SUFFIX__VERSION_2_2_DEPRECATED CL_API_SUFFIX__VERSION_2_2_DEPRECATED ### string, not number "CL_API_SUFFIX__VERSION_2_2_DEPRECATED" */
+/* #define CL_EXT_SUFFIX__VERSION_3_0 CL_API_SUFFIX__VERSION_3_0 ### string, not number "CL_API_SUFFIX__VERSION_3_0" */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
 ]] require 'ffi.c.stdint' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-1-gnu/9/include/stdint.h */
+/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
 typedef int8_t cl_char;
 typedef uint8_t cl_uchar;
 typedef int16_t cl_short;
@@ -71,9 +95,9 @@ enum { CL_SHRT_MIN = -32768 };
 enum { CL_USHRT_MAX = 65535 };
 enum { CL_INT_MAX = 2147483647 };
 enum { CL_INT_MIN = -2147483648 };
-/* #define CL_UINT_MAX         0xffffffffU ### string, not number "0xffffffffU" */
+enum { CL_UINT_MAX = 4294967295 };
 /* #define CL_LONG_MAX         ((cl_long) 0x7FFFFFFFFFFFFFFFLL) ### string, not number "((cl_long) 0x7FFFFFFFFFFFFFFFLL)" */
-/* #define CL_LONG_MIN         ((cl_long) -0x7FFFFFFFFFFFFFFFLL - 1LL) ### string, not number "((cl_long) -0x7FFFFFFFFFFFFFFFLL - 1LL)" */
+/* #define CL_LONG_MIN         ((cl_long) -0x7FFFFFFFFFFFFFFFLL - 1LL) ### string, number, replaceline "-9.2233720368548e+18" */
 /* #define CL_ULONG_MAX        ((cl_ulong) 0xFFFFFFFFFFFFFFFFULL) ### string, not number "((cl_ulong) 0xFFFFFFFFFFFFFFFFULL)" */
 enum { CL_FLT_DIG = 6 };
 enum { CL_FLT_MANT_DIG = 24 };
@@ -137,9 +161,9 @@ float nanf( const char * );
 /* #define CL_NAN           nanf( "" ) ### string, not number "nanf( \"\" )" */
 /* #define CL_MAXFLOAT         CL_FLT_MAX ### string, not number "CL_FLT_MAX" */
 /* #define CL_INFINITY         CL_HUGE_VALF ### string, not number "CL_HUGE_VALF" */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/9/include/stddef.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-1-gnu/9/include/stddef.h */
+/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 typedef unsigned int cl_GLuint;
 typedef int cl_GLint;
 typedef unsigned int cl_GLenum;
@@ -379,7 +403,7 @@ struct{ cl_double s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, sA, sB, sC, sD, sE, sF
 struct{ cl_double8 lo, hi; };
 }cl_double16;
 /* #define  CL_PROGRAM_STRING_DEBUG_INFO       "#line "  _CL_STRINGIFY(__LINE__) " \"" __FILE__ "\" \n\n" ### string, not number "\"#line \"  _CL_STRINGIFY(__LINE__) \" \\\"\" __FILE__ \"\\\" \\n\\n\"" */
-/* END /usr/include/CL/cl_platform.h */
+/* END   /usr/include/CL/cl_platform.h */
 typedef struct _cl_platform_id * cl_platform_id;
 typedef struct _cl_device_id * cl_device_id;
 typedef struct _cl_context * cl_context;
@@ -391,6 +415,7 @@ typedef struct _cl_event * cl_event;
 typedef struct _cl_sampler * cl_sampler;
 typedef cl_uint cl_bool;
 typedef cl_ulong cl_bitfield;
+typedef cl_ulong cl_properties;
 typedef cl_bitfield cl_device_type;
 typedef cl_uint cl_platform_info;
 typedef cl_uint cl_device_info;
@@ -404,7 +429,7 @@ typedef intptr_t cl_device_partition_property;
 typedef cl_bitfield cl_device_affinity_domain;
 typedef intptr_t cl_context_properties;
 typedef cl_uint cl_context_info;
-typedef cl_bitfield cl_queue_properties;
+typedef cl_properties cl_queue_properties;
 typedef cl_uint cl_command_queue_info;
 typedef cl_uint cl_channel_order;
 typedef cl_uint cl_channel_type;
@@ -435,8 +460,13 @@ typedef cl_uint cl_kernel_sub_group_info;
 typedef cl_uint cl_event_info;
 typedef cl_uint cl_command_type;
 typedef cl_uint cl_profiling_info;
-typedef cl_bitfield cl_sampler_properties;
+typedef cl_properties cl_sampler_properties;
 typedef cl_uint cl_kernel_exec_info;
+typedef cl_bitfield cl_device_atomic_capabilities;
+typedef cl_bitfield cl_device_device_enqueue_capabilities;
+typedef cl_uint cl_khronos_vendor_id;
+typedef cl_properties cl_mem_properties;
+typedef cl_uint cl_version;
 typedef struct _cl_image_format { cl_channel_order image_channel_order;
 cl_channel_type image_channel_data_type;
 } cl_image_format;
@@ -456,6 +486,10 @@ cl_mem mem_object;
 typedef struct _cl_buffer_region { size_t origin;
 size_t size;
 } cl_buffer_region;
+enum { CL_NAME_VERSION_MAX_NAME_SIZE = 64 };
+typedef struct _cl_name_version { cl_version version;
+char name[64];
+} cl_name_version;
 enum { CL_SUCCESS = 0 };
 enum { CL_DEVICE_NOT_FOUND = -1 };
 enum { CL_DEVICE_NOT_AVAILABLE = -2 };
@@ -529,6 +563,8 @@ enum { CL_PLATFORM_NAME = 2306 };
 enum { CL_PLATFORM_VENDOR = 2307 };
 enum { CL_PLATFORM_EXTENSIONS = 2308 };
 enum { CL_PLATFORM_HOST_TIMER_RESOLUTION = 2309 };
+enum { CL_PLATFORM_NUMERIC_VERSION = 2310 };
+enum { CL_PLATFORM_EXTENSIONS_WITH_VERSION = 2311 };
 enum { CL_DEVICE_TYPE_DEFAULT = 1 };
 enum { CL_DEVICE_TYPE_CPU = 2 };
 enum { CL_DEVICE_TYPE_GPU = 4 };
@@ -629,6 +665,21 @@ enum { CL_DEVICE_PREFERRED_LOCAL_ATOMIC_ALIGNMENT = 4186 };
 enum { CL_DEVICE_IL_VERSION = 4187 };
 enum { CL_DEVICE_MAX_NUM_SUB_GROUPS = 4188 };
 enum { CL_DEVICE_SUB_GROUP_INDEPENDENT_FORWARD_PROGRESS = 4189 };
+enum { CL_DEVICE_NUMERIC_VERSION = 4190 };
+enum { CL_DEVICE_EXTENSIONS_WITH_VERSION = 4192 };
+enum { CL_DEVICE_ILS_WITH_VERSION = 4193 };
+enum { CL_DEVICE_BUILT_IN_KERNELS_WITH_VERSION = 4194 };
+enum { CL_DEVICE_ATOMIC_MEMORY_CAPABILITIES = 4195 };
+enum { CL_DEVICE_ATOMIC_FENCE_CAPABILITIES = 4196 };
+enum { CL_DEVICE_NON_UNIFORM_WORK_GROUP_SUPPORT = 4197 };
+enum { CL_DEVICE_OPENCL_C_ALL_VERSIONS = 4198 };
+enum { CL_DEVICE_PREFERRED_WORK_GROUP_SIZE_MULTIPLE = 4199 };
+enum { CL_DEVICE_WORK_GROUP_COLLECTIVE_FUNCTIONS_SUPPORT = 4200 };
+enum { CL_DEVICE_GENERIC_ADDRESS_SPACE_SUPPORT = 4201 };
+enum { CL_DEVICE_OPENCL_C_FEATURES = 4207 };
+enum { CL_DEVICE_DEVICE_ENQUEUE_CAPABILITIES = 4208 };
+enum { CL_DEVICE_PIPE_SUPPORT = 4209 };
+enum { CL_DEVICE_LATEST_CONFORMANCE_VERSION_PASSED = 4210 };
 enum { CL_FP_DENORM = 1 };
 enum { CL_FP_INF_NAN = 2 };
 enum { CL_FP_ROUND_TO_NEAREST = 4 };
@@ -674,6 +725,7 @@ enum { CL_QUEUE_REFERENCE_COUNT = 4242 };
 enum { CL_QUEUE_PROPERTIES = 4243 };
 enum { CL_QUEUE_SIZE = 4244 };
 enum { CL_QUEUE_DEVICE_DEFAULT = 4245 };
+enum { CL_QUEUE_PROPERTIES_ARRAY = 4248 };
 enum { CL_MEM_READ_WRITE = 1 };
 enum { CL_MEM_WRITE_ONLY = 2 };
 enum { CL_MEM_READ_ONLY = 4 };
@@ -743,6 +795,7 @@ enum { CL_MEM_CONTEXT = 4358 };
 enum { CL_MEM_ASSOCIATED_MEMOBJECT = 4359 };
 enum { CL_MEM_OFFSET = 4360 };
 enum { CL_MEM_USES_SVM_POINTER = 4361 };
+enum { CL_MEM_PROPERTIES = 4362 };
 enum { CL_IMAGE_FORMAT = 4368 };
 enum { CL_IMAGE_ELEMENT_SIZE = 4369 };
 enum { CL_IMAGE_ROW_PITCH = 4370 };
@@ -756,6 +809,7 @@ enum { CL_IMAGE_NUM_MIP_LEVELS = 4377 };
 enum { CL_IMAGE_NUM_SAMPLES = 4378 };
 enum { CL_PIPE_PACKET_SIZE = 4384 };
 enum { CL_PIPE_MAX_PACKETS = 4385 };
+enum { CL_PIPE_PROPERTIES = 4386 };
 enum { CL_ADDRESS_NONE = 4400 };
 enum { CL_ADDRESS_CLAMP_TO_EDGE = 4401 };
 enum { CL_ADDRESS_CLAMP = 4402 };
@@ -771,6 +825,7 @@ enum { CL_SAMPLER_FILTER_MODE = 4436 };
 enum { CL_SAMPLER_MIP_FILTER_MODE = 4437 };
 enum { CL_SAMPLER_LOD_MIN = 4438 };
 enum { CL_SAMPLER_LOD_MAX = 4439 };
+enum { CL_SAMPLER_PROPERTIES = 4440 };
 enum { CL_MAP_READ = 1 };
 enum { CL_MAP_WRITE = 2 };
 enum { CL_MAP_WRITE_INVALIDATE_REGION = 4 };
@@ -805,8 +860,6 @@ enum { CL_KERNEL_REFERENCE_COUNT = 4498 };
 enum { CL_KERNEL_CONTEXT = 4499 };
 enum { CL_KERNEL_PROGRAM = 4500 };
 enum { CL_KERNEL_ATTRIBUTES = 4501 };
-enum { CL_KERNEL_MAX_NUM_SUB_GROUPS = 4537 };
-enum { CL_KERNEL_COMPILE_NUM_SUB_GROUPS = 4538 };
 enum { CL_KERNEL_ARG_ADDRESS_QUALIFIER = 4502 };
 enum { CL_KERNEL_ARG_ACCESS_QUALIFIER = 4503 };
 enum { CL_KERNEL_ARG_TYPE_NAME = 4504 };
@@ -834,6 +887,8 @@ enum { CL_KERNEL_GLOBAL_WORK_SIZE = 4533 };
 enum { CL_KERNEL_MAX_SUB_GROUP_SIZE_FOR_NDRANGE = 8243 };
 enum { CL_KERNEL_SUB_GROUP_COUNT_FOR_NDRANGE = 8244 };
 enum { CL_KERNEL_LOCAL_SIZE_FOR_SUB_GROUP_COUNT = 4536 };
+enum { CL_KERNEL_MAX_NUM_SUB_GROUPS = 4537 };
+enum { CL_KERNEL_COMPILE_NUM_SUB_GROUPS = 4538 };
 enum { CL_KERNEL_EXEC_INFO_SVM_PTRS = 4534 };
 enum { CL_KERNEL_EXEC_INFO_SVM_FINE_GRAIN_SYSTEM = 4535 };
 enum { CL_EVENT_COMMAND_QUEUE = 4560 };
@@ -871,6 +926,7 @@ enum { CL_COMMAND_SVM_MEMCPY = 4618 };
 enum { CL_COMMAND_SVM_MEMFILL = 4619 };
 enum { CL_COMMAND_SVM_MAP = 4620 };
 enum { CL_COMMAND_SVM_UNMAP = 4621 };
+enum { CL_COMMAND_SVM_MIGRATE_MEM = 4622 };
 enum { CL_COMPLETE = 0 };
 enum { CL_RUNNING = 1 };
 enum { CL_SUBMITTED = 2 };
@@ -881,6 +937,22 @@ enum { CL_PROFILING_COMMAND_SUBMIT = 4737 };
 enum { CL_PROFILING_COMMAND_START = 4738 };
 enum { CL_PROFILING_COMMAND_END = 4739 };
 enum { CL_PROFILING_COMMAND_COMPLETE = 4740 };
+enum { CL_DEVICE_ATOMIC_ORDER_RELAXED = 1 };
+enum { CL_DEVICE_ATOMIC_ORDER_ACQ_REL = 2 };
+enum { CL_DEVICE_ATOMIC_ORDER_SEQ_CST = 4 };
+enum { CL_DEVICE_ATOMIC_SCOPE_WORK_ITEM = 8 };
+enum { CL_DEVICE_ATOMIC_SCOPE_WORK_GROUP = 16 };
+enum { CL_DEVICE_ATOMIC_SCOPE_DEVICE = 32 };
+enum { CL_DEVICE_ATOMIC_SCOPE_ALL_DEVICES = 64 };
+enum { CL_DEVICE_QUEUE_SUPPORTED = 1 };
+enum { CL_DEVICE_QUEUE_REPLACEABLE_DEFAULT = 2 };
+enum { CL_KHRONOS_VENDOR_ID_CODEPLAY = 65540 };
+enum { CL_VERSION_MAJOR_BITS = 10 };
+enum { CL_VERSION_MINOR_BITS = 10 };
+enum { CL_VERSION_PATCH_BITS = 12 };
+enum { CL_VERSION_MAJOR_MASK = 1023 };
+enum { CL_VERSION_MINOR_MASK = 1023 };
+enum { CL_VERSION_PATCH_MASK = 4095 };
 extern cl_int clGetPlatformIDs(cl_uint num_entries, cl_platform_id * platforms, cl_uint * num_platforms);
 extern cl_int clGetPlatformInfo(cl_platform_id platform, cl_platform_info param_name, size_t param_value_size, void * param_value, size_t * param_value_size_ret);
 extern cl_int clGetDeviceIDs(cl_platform_id platform, cl_device_type device_type, cl_uint num_entries, cl_device_id * devices, cl_uint * num_devices);
@@ -896,6 +968,7 @@ extern cl_context clCreateContextFromType(const cl_context_properties * properti
 extern cl_int clRetainContext(cl_context context);
 extern cl_int clReleaseContext(cl_context context);
 extern cl_int clGetContextInfo(cl_context context, cl_context_info param_name, size_t param_value_size, void * param_value, size_t * param_value_size_ret);
+extern cl_int clSetContextDestructorCallback(cl_context context, void (* pfn_notify)(cl_context context, void* user_data), void* user_data);
 extern cl_command_queue clCreateCommandQueueWithProperties(cl_context context, cl_device_id device, const cl_queue_properties * properties, cl_int * errcode_ret);
 extern cl_int clRetainCommandQueue(cl_command_queue command_queue);
 extern cl_int clReleaseCommandQueue(cl_command_queue command_queue);
@@ -904,6 +977,8 @@ extern cl_mem clCreateBuffer(cl_context context, cl_mem_flags flags, size_t size
 extern cl_mem clCreateSubBuffer(cl_mem buffer, cl_mem_flags flags, cl_buffer_create_type buffer_create_type, const void * buffer_create_info, cl_int * errcode_ret);
 extern cl_mem clCreateImage(cl_context context, cl_mem_flags flags, const cl_image_format * image_format, const cl_image_desc * image_desc, void * host_ptr, cl_int * errcode_ret);
 extern cl_mem clCreatePipe(cl_context context, cl_mem_flags flags, cl_uint pipe_packet_size, cl_uint pipe_max_packets, const cl_pipe_properties * properties, cl_int * errcode_ret);
+extern cl_mem clCreateBufferWithProperties(cl_context context, const cl_mem_properties * properties, cl_mem_flags flags, size_t size, void * host_ptr, cl_int * errcode_ret);
+extern cl_mem clCreateImageWithProperties(cl_context context, const cl_mem_properties * properties, cl_mem_flags flags, const cl_image_format * image_format, const cl_image_desc * image_desc, void * host_ptr, cl_int * errcode_ret);
 extern cl_int clRetainMemObject(cl_mem memobj);
 extern cl_int clReleaseMemObject(cl_mem memobj);
 extern cl_int clGetSupportedImageFormats(cl_context context, cl_mem_flags flags, cl_mem_object_type image_type, cl_uint num_entries, cl_image_format * image_formats, cl_uint * num_image_formats);
@@ -926,7 +1001,7 @@ extern cl_int clReleaseProgram(cl_program program);
 extern cl_int clBuildProgram(cl_program program, cl_uint num_devices, const cl_device_id * device_list, const char * options, void ( * pfn_notify)(cl_program program, void * user_data), void * user_data);
 extern cl_int clCompileProgram(cl_program program, cl_uint num_devices, const cl_device_id * device_list, const char * options, cl_uint num_input_headers, const cl_program * input_headers, const char ** header_include_names, void ( * pfn_notify)(cl_program program, void * user_data), void * user_data);
 extern cl_program clLinkProgram(cl_context context, cl_uint num_devices, const cl_device_id * device_list, const char * options, cl_uint num_input_programs, const cl_program * input_programs, void ( * pfn_notify)(cl_program program, void * user_data), void * user_data, cl_int * errcode_ret);
-extern cl_int clSetProgramReleaseCallback(cl_program program, void ( * pfn_notify)(cl_program program, void * user_data), void * user_data);
+extern cl_int clSetProgramReleaseCallback(cl_program program, void ( * pfn_notify)(cl_program program, void * user_data), void * user_data) __attribute__((deprecated));
 extern cl_int clSetProgramSpecializationConstant(cl_program program, cl_uint spec_id, size_t spec_size, const void* spec_value);
 extern cl_int clUnloadPlatformCompiler(cl_platform_id platform);
 extern cl_int clGetProgramInfo(cl_program program, cl_program_info param_name, size_t param_value_size, void * param_value, size_t * param_value_size_ret);
@@ -954,9 +1029,9 @@ extern cl_int clGetEventProfilingInfo(cl_event event, cl_profiling_info param_na
 extern cl_int clFlush(cl_command_queue command_queue);
 extern cl_int clFinish(cl_command_queue command_queue);
 extern cl_int clEnqueueReadBuffer(cl_command_queue command_queue, cl_mem buffer, cl_bool blocking_read, size_t offset, size_t size, void * ptr, cl_uint num_events_in_wait_list, const cl_event * event_wait_list, cl_event * event);
-extern cl_int clEnqueueReadBufferRect(cl_command_queue command_queue, cl_mem buffer, cl_bool blocking_read, const size_t * buffer_offset, const size_t * host_offset, const size_t * region, size_t buffer_row_pitch, size_t buffer_slice_pitch, size_t host_row_pitch, size_t host_slice_pitch, void * ptr, cl_uint num_events_in_wait_list, const cl_event * event_wait_list, cl_event * event);
+extern cl_int clEnqueueReadBufferRect(cl_command_queue command_queue, cl_mem buffer, cl_bool blocking_read, const size_t * buffer_origin, const size_t * host_origin, const size_t * region, size_t buffer_row_pitch, size_t buffer_slice_pitch, size_t host_row_pitch, size_t host_slice_pitch, void * ptr, cl_uint num_events_in_wait_list, const cl_event * event_wait_list, cl_event * event);
 extern cl_int clEnqueueWriteBuffer(cl_command_queue command_queue, cl_mem buffer, cl_bool blocking_write, size_t offset, size_t size, const void * ptr, cl_uint num_events_in_wait_list, const cl_event * event_wait_list, cl_event * event);
-extern cl_int clEnqueueWriteBufferRect(cl_command_queue command_queue, cl_mem buffer, cl_bool blocking_write, const size_t * buffer_offset, const size_t * host_offset, const size_t * region, size_t buffer_row_pitch, size_t buffer_slice_pitch, size_t host_row_pitch, size_t host_slice_pitch, const void * ptr, cl_uint num_events_in_wait_list, const cl_event * event_wait_list, cl_event * event);
+extern cl_int clEnqueueWriteBufferRect(cl_command_queue command_queue, cl_mem buffer, cl_bool blocking_write, const size_t * buffer_origin, const size_t * host_origin, const size_t * region, size_t buffer_row_pitch, size_t buffer_slice_pitch, size_t host_row_pitch, size_t host_slice_pitch, const void * ptr, cl_uint num_events_in_wait_list, const cl_event * event_wait_list, cl_event * event);
 extern cl_int clEnqueueFillBuffer(cl_command_queue command_queue, cl_mem buffer, const void * pattern, size_t pattern_size, size_t offset, size_t size, cl_uint num_events_in_wait_list, const cl_event * event_wait_list, cl_event * event);
 extern cl_int clEnqueueCopyBuffer(cl_command_queue command_queue, cl_mem src_buffer, cl_mem dst_buffer, size_t src_offset, size_t dst_offset, size_t size, cl_uint num_events_in_wait_list, const cl_event * event_wait_list, cl_event * event);
 extern cl_int clEnqueueCopyBufferRect(cl_command_queue command_queue, cl_mem src_buffer, cl_mem dst_buffer, const size_t * src_origin, const size_t * dst_origin, const size_t * region, size_t src_row_pitch, size_t src_slice_pitch, size_t dst_row_pitch, size_t dst_slice_pitch, cl_uint num_events_in_wait_list, const cl_event * event_wait_list, cl_event * event);
@@ -991,13 +1066,11 @@ extern void * clGetExtensionFunctionAddress(const char * func_name) __attribute_
 extern cl_command_queue clCreateCommandQueue(cl_context context, cl_device_id device, cl_command_queue_properties properties, cl_int * errcode_ret) __attribute__((deprecated));
 extern cl_sampler clCreateSampler(cl_context context, cl_bool normalized_coords, cl_addressing_mode addressing_mode, cl_filter_mode filter_mode, cl_int * errcode_ret) __attribute__((deprecated));
 extern cl_int clEnqueueTask(cl_command_queue command_queue, cl_kernel kernel, cl_uint num_events_in_wait_list, const cl_event * event_wait_list, cl_event * event) __attribute__((deprecated));
-/* END /usr/include/CL/cl.h */
-/* BEGIN /usr/include/CL/cl_gl_ext.h */
-enum { __OPENCL_CL_GL_EXT_H = 1 };
+/* END   /usr/include/CL/cl.h */
 /* BEGIN /usr/include/CL/cl_gl.h */
 enum { __OPENCL_CL_GL_H = 1 };
 /* BEGIN /usr/include/CL/cl.h */
-/* END /usr/include/CL/cl.h */
+/* END   /usr/include/CL/cl.h */
 typedef cl_uint cl_gl_object_type;
 typedef cl_uint cl_gl_texture_info;
 typedef cl_uint cl_gl_platform_info;
@@ -1034,10 +1107,12 @@ enum { CL_WGL_HDC_KHR = 8203 };
 enum { CL_CGL_SHAREGROUP_KHR = 8204 };
 extern cl_int clGetGLContextInfoKHR(const cl_context_properties * properties, cl_gl_context_info param_name, size_t param_value_size, void * param_value, size_t * param_value_size_ret);
 typedef cl_int ( *clGetGLContextInfoKHR_fn)( const cl_context_properties * properties, cl_gl_context_info param_name, size_t param_value_size, void * param_value, size_t * param_value_size_ret);
-/* END /usr/include/CL/cl_gl.h */
 enum { CL_COMMAND_GL_FENCE_SYNC_OBJECT_KHR = 8205 };
-extern cl_event clCreateEventFromGLsyncKHR(cl_context context, cl_GLsync cl_GLsync, cl_int * errcode_ret);
-/* END /usr/include/CL/cl_gl_ext.h */
+extern cl_event clCreateEventFromGLsyncKHR(cl_context context, cl_GLsync sync, cl_int * errcode_ret);
+enum { cl_intel_sharing_format_query_gl = 1 };
+extern cl_int clGetSupportedGLTextureFormatsINTEL( cl_context context, cl_mem_flags flags, cl_mem_object_type image_type, cl_uint num_entries, cl_GLenum* gl_formats, cl_uint* num_texture_formats);
+typedef cl_int ( * clGetSupportedGLTextureFormatsINTEL_fn)( cl_context context, cl_mem_flags flags, cl_mem_object_type image_type, cl_uint num_entries, cl_GLenum* gl_formats, cl_uint* num_texture_formats);
+/* END   /usr/include/CL/cl_gl.h */
 ]]
 local libs = ffi_OpenCL_libs or {
 	OSX = {x86 = 'OpenCL.framework/OpenCL', x64 = 'OpenCL.framework/OpenCL'},

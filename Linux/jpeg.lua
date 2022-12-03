@@ -14,7 +14,7 @@ enum { BITS_IN_JSAMPLE = 8 };
 enum { NEED_SYS_TYPES_H = 1 };
 enum { HAVE_UNSIGNED_CHAR = 1 };
 enum { HAVE_UNSIGNED_SHORT = 1 };
-/* END /usr/include/x86_64-linux-gnu/jconfig.h */
+/* END   /usr/include/x86_64-linux-gnu/jconfig.h */
 /* BEGIN /usr/include/jmorecfg.h */
 enum { MAX_COMPONENTS = 10 };
 typedef unsigned char JSAMPLE;
@@ -32,7 +32,7 @@ enum { FAR = 1 };
 typedef int boolean;
 enum { FALSE = 0 };
 enum { TRUE = 1 };
-/* END /usr/include/jmorecfg.h */
+/* END   /usr/include/jmorecfg.h */
 enum { DCTSIZE = 8 };
 enum { DCTSIZE2 = 64 };
 enum { NUM_QUANT_TBLS = 4 };
@@ -385,5 +385,5 @@ enum { JPEG_RST0 = 208 };
 enum { JPEG_EOI = 217 };
 enum { JPEG_APP0 = 224 };
 enum { JPEG_COM = 254 };
-/* END /usr/include/jpeglib.h */
+/* END   /usr/include/jpeglib.h */
 ]]
