@@ -36,6 +36,7 @@ enum { TIMER_ABSTIME = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h */
 enum { __struct_tm_defined = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
+]] require 'ffi.c.bits.types' ffi.cdef[[
 /* END /usr/include/x86_64-linux-gnu/bits/types.h */
 struct tm { int tm_sec;
 int tm_min;
@@ -62,8 +63,10 @@ const char *tm_zone;
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h */
 enum { __itimerspec_defined = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
+]] require 'ffi.c.bits.types' ffi.cdef[[
 /* END /usr/include/x86_64-linux-gnu/bits/types.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
+]] require 'ffi.c.bits.types.struct_timespec' ffi.cdef[[
 /* END /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
 struct itimerspec { struct timespec it_interval;
 struct timespec it_value;

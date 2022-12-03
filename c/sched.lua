@@ -8,8 +8,6 @@ enum { _SCHED_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.c.bits.types' ffi.cdef[[
 /* END   /usr/include/x86_64-linux-gnu/bits/types.h */
-enum { __need_size_t = 1 };
-enum { __need_NULL = 1 };
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
 /* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */

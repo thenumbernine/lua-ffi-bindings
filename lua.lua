@@ -1,32 +1,22 @@
 -- lua 5.4
 local ffi = require 'ffi'
-local lua
-if ffi.os == 'OSX' then
-	lua = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/OSX/liblua.dylib')
-elseif ffi.os == 'Windows' then
-	lua = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/Windows/' .. ffi.arch .. '/liblua1.dll')
-elseif ffi.os == 'Linux' then
-	-- TODO pkg-config --libs lua ?
-	lua = ffi.load'lua'
-else
-	lua = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/linux/liblua.so')
-end
 ffi.cdef[[
 /* BEGIN /usr/include/lua5.4/lua.h */
 enum { lua_h = 1 };
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h */
 ]] require 'ffi.c.stdarg' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stdarg.h */
+/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h */
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stddef.h */
+/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
 /* BEGIN /usr/include/lua5.4/luaconf.h */
 enum { luaconf_h = 1 };
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h */
 ]] require 'ffi.c.limits' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-1-gnu/11/include/limits.h */
+/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h */
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
-/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stddef.h */
+]] require 'ffi.c.stddef' ffi.cdef[[
+/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
 enum { LUAI_IS32INT = 1 };
 enum { LUA_INT_INT = 1 };
 enum { LUA_INT_LONG = 2 };
@@ -47,7 +37,7 @@ enum { LUA_FLOAT_TYPE = 2 };
 /* BEGIN /usr/include/x86_64-linux-gnu/lua5.4-deb-multiarch.h */
 enum { _LUA_DEB_MULTIARCH_ = 1 };
 /* #define DEB_HOST_MULTIARCH "x86_64-linux-gnu" ### string, not number "\"x86_64-linux-gnu\"" */
-/* END /usr/include/x86_64-1-gnu/lua5.4-deb-multiarch.h */
+/* END /usr/include/x86_64-linux-gnu/lua5.4-deb-multiarch.h */
 /* #define LUA_ROOT	"/usr/local/" ### string, not number "\"/usr/local/\"" */
 /* #define LUA_ROOT2	"/usr/" ### string, not number "\"/usr/\"" */
 /* #define LUA_LDIR	LUA_ROOT "share/lua/" LUA_VDIR "/" ### string, not number "LUA_ROOT \"share/lua/\" LUA_VDIR \"/\"" */
@@ -78,7 +68,7 @@ enum { LUAI_UACINT = 0 };
 enum { LUA_KCONTEXT = 0 };
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h */
 ]] require 'ffi.c.stdint' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-1-gnu/11/include/stdint.h */
+/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h */
 /* redefining matching value: #define LUA_KCONTEXT	intptr_t */
 enum { LUAI_MAXSTACK = 1000000 };
 /* #define LUA_EXTRASPACE		(sizeof(void *)) ### string, not number "(sizeof(void *))" */
@@ -288,4 +278,15 @@ struct CallInfo *i_ci;
 };
 /* END /usr/include/lua5.4/lua.h */
 ]]
+local lua
+if ffi.os == 'OSX' then
+	lua = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/OSX/liblua.dylib')
+elseif ffi.os == 'Windows' then
+	lua = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/Windows/' .. ffi.arch .. '/liblua1.dll')
+elseif ffi.os == 'Linux' then
+	-- TODO pkg-config --libs lua ?
+	lua = ffi.load'lua'
+else
+	lua = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/linux/liblua.so')
+end
 return lua

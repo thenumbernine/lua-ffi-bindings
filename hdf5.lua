@@ -291,11 +291,7 @@ enum { H5_VERS_RELEASE = 7 };
 /* #define H5_VERS_INFO    "HDF5 library version: 1.10.7" ### string, not number "\"HDF5 library version: 1.10.7\"" */
 typedef int herr_t;
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stdbool.h */
-enum { _STDBOOL_H = 1 };
-/* enum { bool = 0 }; */
-enum { true = 1 };
-enum { false = 0 };
-enum { __bool_true_false_are_defined = 1 };
+]] require 'ffi.c.stdbool' ffi.cdef[[
 /* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stdbool.h */
 typedef _Bool hbool_t;
 typedef int htri_t;
@@ -1669,6 +1665,7 @@ herr_t H5FDdriver_query(hid_t driver_id, unsigned long *flags);
 /* BEGIN /usr/include/hdf5/serial/H5Gpublic.h */
 enum { _H5Gpublic_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
+]] require 'ffi.c.sys.types' ffi.cdef[[
 /* END /usr/include/x86_64-linux-gnu/sys/types.h */
 /* BEGIN /usr/include/hdf5/serial/H5public.h */
 /* END /usr/include/hdf5/serial/H5public.h */

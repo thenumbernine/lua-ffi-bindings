@@ -12,6 +12,7 @@ enum { _SYS_STAT_H = 1 };
 ]] require 'ffi.c.bits.types.struct_timespec' ffi.cdef[[
 /* END /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
+]] require 'ffi.c.bits.types.time_t' ffi.cdef[[
 /* END /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
 typedef __dev_t dev_t;
 enum { __dev_t_defined = 1 };

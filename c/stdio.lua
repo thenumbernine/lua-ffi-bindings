@@ -8,7 +8,6 @@ enum { _STDIO_H = 1 };
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
 /* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
-enum { __need___va_list = 1 };
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h */
 ]] require 'ffi.c.stdarg' ffi.cdef[[
 /* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h */
@@ -18,6 +17,7 @@ enum { __need___va_list = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h */
 enum { _____fpos_t_defined = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
+]] require 'ffi.c.bits.types' ffi.cdef[[
 /* END /usr/include/x86_64-linux-gnu/bits/types.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h */
 enum { ____mbstate_t_defined = 1 };
