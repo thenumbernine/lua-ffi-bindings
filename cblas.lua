@@ -1,6 +1,5 @@
 -- OpenBLAS 0.3.20
 local ffi = require 'ffi'
-local blas = ffi.load'openblas'
 ffi.cdef[[
 /* BEGIN /usr/include/x86_64-linux-gnu/cblas.h */
 enum { CBLAS_H = 1 };
@@ -49,9 +48,9 @@ enum { OPENBLAS_COMPLEX_C99 = 1 };
 /* BEGIN /usr/include/complex.h */
 ]] require 'ffi.c.complex' ffi.cdef[[
 /* END   /usr/include/complex.h */
-typedef float __complex__ openblas_complex_float;
-typedef double __complex__ openblas_complex_double;
-typedef double __complex__ openblas_complex_xdouble;
+typedef float _Complex openblas_complex_float;
+typedef double _Complex openblas_complex_double;
+typedef double _Complex openblas_complex_xdouble;
 enum { _GNU_SOURCE = 1 };
 /* BEGIN /usr/include/sched.h */
 ]] require 'ffi.c.sched' ffi.cdef[[
@@ -270,4 +269,5 @@ void cblas_sbgemv(const enum CBLAS_ORDER order, const enum CBLAS_TRANSPOSE trans
 void cblas_sbgemm(const enum CBLAS_ORDER Order, const enum CBLAS_TRANSPOSE TransA, const enum CBLAS_TRANSPOSE TransB, const blasint M, const blasint N, const blasint K, const float alpha, const bfloat16 *A, const blasint lda, const bfloat16 *B, const blasint ldb, const float beta, float *C, const blasint ldc);
 /* END   /usr/include/x86_64-linux-gnu/cblas.h */
 ]]
+local blas = ffi.load'openblas'
 return blas

@@ -56,20 +56,7 @@ enum { __undef_LINK_MAX = 1 };
 enum { __undef_OPEN_MAX = 1 };
 enum { __undef_ARG_MAX = 1 };
 /* BEGIN /usr/include/linux/limits.h */
-enum { _LINUX_LIMITS_H = 1 };
-enum { NR_OPEN = 1024 };
-enum { NGROUPS_MAX = 65536 };
-enum { ARG_MAX = 131072 };
-enum { LINK_MAX = 127 };
-enum { MAX_CANON = 255 };
-enum { MAX_INPUT = 255 };
-enum { NAME_MAX = 255 };
-enum { PATH_MAX = 4096 };
-enum { PIPE_BUF = 4096 };
-enum { XATTR_NAME_MAX = 255 };
-enum { XATTR_SIZE_MAX = 65536 };
-enum { XATTR_LIST_MAX = 65536 };
-enum { RTSIG_MAX = 32 };
+]] require 'ffi.c.linux.limits' ffi.cdef[[
 /* END   /usr/include/linux/limits.h */
 enum { _POSIX_THREAD_KEYS_MAX = 128 };
 enum { PTHREAD_KEYS_MAX = 1024 };

@@ -503,7 +503,8 @@ extern int __libc_current_sigrtmax (void) __attribute__ ((__nothrow__ , __leaf__
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/param.h */
 /* enum { __undef_ARG_MAX = 1 }; */
 /* BEGIN /usr/include/linux/limits.h */
-/* END /usr/include/1/limits.h */
+]] require 'ffi.c.linux.limits' ffi.cdef[[
+/* END /usr/include/linux/limits.h */
 /* BEGIN /usr/include/linux/param.h */
 enum { _LINUX_PARAM_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/asm/param.h */
@@ -515,7 +516,7 @@ enum { NOGROUP = -1 };
 enum { MAXHOSTNAMELEN = 64 };
 /* END /usr/include/asm-generic/param.h */
 /* END /usr/include/x86_64-linux-gnu/asm/param.h */
-/* END /usr/include/1/param.h */
+/* END /usr/include/linux/param.h */
 enum { MAXSYMLINKS = 20 };
 enum { NOFILE = 256 };
 enum { NCARGS = 131072 };

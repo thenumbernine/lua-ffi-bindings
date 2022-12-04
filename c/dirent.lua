@@ -9,36 +9,28 @@ enum { _DIRENT_H = 1 };
 ]] require 'ffi.c.bits.types' ffi.cdef[[
 /* END /usr/include/x86_64-linux-gnu/bits/types.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/dirent.h */
-struct dirent { __ino_t d_ino;
-__off_t d_off;
-unsigned short int d_reclen;
-unsigned char d_type;
-char d_name[256];
-};
-enum { d_fileno = 0 };
-enum { _DIRENT_HAVE_D_RECLEN = 1 };
-enum { _DIRENT_HAVE_D_OFF = 1 };
-enum { _DIRENT_HAVE_D_TYPE = 1 };
-enum { _DIRENT_MATCHES_DIRENT64 = 1 };
+]] require 'ffi.c.bits.dirent' ffi.cdef[[
 /* END /usr/include/x86_64-linux-gnu/bits/dirent.h */
-enum { DT_UNKNOWN = 0,
-DT_FIFO = 1,
-DT_CHR = 2,
-DT_DIR = 4,
-DT_BLK = 6,
-DT_REG = 8,
-DT_LNK = 10,
-DT_SOCK = 12,
-DT_WHT = 14
+enum {
+	DT_UNKNOWN = 0,
+	DT_FIFO = 1,
+	DT_CHR = 2,
+	DT_DIR = 4,
+	DT_BLK = 6,
+	DT_REG = 8,
+	DT_LNK = 10,
+	DT_SOCK = 12,
+	DT_WHT = 14
 };
 typedef struct __dirstream DIR;
+extern int closedir (DIR *__dirp) __attribute__ ((__nonnull__ (1)));
 extern DIR *opendir (const char *__name) __attribute__ ((__nonnull__ (1)));
 extern DIR *fdopendir (int __fd);
-extern int closedir (DIR *__dirp) __attribute__ ((__nonnull__ (1)));
 extern struct dirent *readdir (DIR *__dirp) __attribute__ ((__nonnull__ (1)));
 extern int readdir_r (DIR * __dirp, struct dirent * __entry, struct dirent ** __result) __attribute__ ((__nonnull__ (1, 2, 3))) __attribute__ ((__deprecated__));
 extern void rewinddir (DIR *__dirp) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
+]] require 'ffi.c.bits.types' ffi.cdef[[
 /* END /usr/include/x86_64-linux-gnu/bits/types.h */
 extern void seekdir (DIR *__dirp, long int __pos) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 extern long int telldir (DIR *__dirp) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
@@ -86,8 +78,8 @@ enum { __undef_LINK_MAX = 1 };
 enum { __undef_OPEN_MAX = 1 };
 /* enum { __undef_ARG_MAX = 1 }; */
 /* BEGIN /usr/include/linux/limits.h */
-]] require 'ffi.c.limits' ffi.cdef[[
-/* END /usr/include/1/limits.h */
+]] require 'ffi.c.linux.limits' ffi.cdef[[
+/* END /usr/include/linux/limits.h */
 enum { _POSIX_THREAD_KEYS_MAX = 128 };
 enum { PTHREAD_KEYS_MAX = 1024 };
 enum { _POSIX_THREAD_DESTRUCTOR_ITERATIONS = 4 };
@@ -117,6 +109,7 @@ extern int scandir (const char * __dir, struct dirent *** __namelist, int (*__se
 extern int alphasort (const struct dirent **__e1, const struct dirent **__e2) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
 extern __ssize_t getdirentries (int __fd, char * __buf, size_t __nbytes, __off_t * __basep) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2, 4)));
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/dirent_ext.h */
+]] require 'ffi.c.bits.dirent' ffi.cdef[[
 /* END /usr/include/x86_64-linux-gnu/bits/dirent_ext.h */
 /* END /usr/include/dirent.h */
 ]]
