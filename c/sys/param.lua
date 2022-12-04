@@ -2,23 +2,25 @@ local ffi = require 'ffi'
 ffi.cdef[[
 /* BEGIN /usr/include/x86_64-linux-gnu/sys/param.h */
 enum { _SYS_PARAM_H = 1 };
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
+/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
 ]] require 'ffi.c.sys.types' ffi.cdef[[
-/* END /usr/include/x86_64-linux-gnu/sys/types.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h */
+/* END   /usr/include/x86_64-linux-gnu/sys/types.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
 ]] require 'ffi.c.limits' ffi.cdef[[
-/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h */
+/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
 /* BEGIN /usr/include/endian.h */
-/* END /usr/include/endian.h */
+/* END   /usr/include/endian.h */
 /* BEGIN /usr/include/signal.h */
 enum { _SIGNAL_H = 1 };
 /* BEGIN /usr/include/features.h */
-/* END /usr/include/features.h */
+]] require 'ffi.c.features' ffi.cdef[[
+/* END   /usr/include/features.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-/* END /usr/include/x86_64-linux-gnu/bits/types.h */
+]] require 'ffi.c.bits.types' ffi.cdef[[
+/* END   /usr/include/x86_64-linux-gnu/bits/types.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/signum-generic.h */
 enum { _BITS_SIGNUM_GENERIC_H = 1 };
 enum { SIG_ERR = -1 };
@@ -65,82 +67,96 @@ enum { SIGIO = 29 };
 enum { SIGCLD = 17 };
 enum { __SIGRTMIN = 32 };
 enum { __SIGRTMAX = 64 };
-/* END /usr/include/x86_64-linux-gnu/bits/signum-arch.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/signum-arch.h */
 enum { _NSIG = 65 };
-/* END /usr/include/x86_64-linux-gnu/bits/signum-generic.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/signum-generic.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/sig_atomic_t.h */
 enum { __sig_atomic_t_defined = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-/* END /usr/include/x86_64-linux-gnu/bits/types.h */
+]] require 'ffi.c.bits.types' ffi.cdef[[
+/* END   /usr/include/x86_64-linux-gnu/bits/types.h */
 typedef __sig_atomic_t sig_atomic_t;
-/* END /usr/include/x86_64-linux-gnu/bits/types/sig_atomic_t.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/types/sig_atomic_t.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h */
-/* END /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
-/* END /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
+]] require 'ffi.c.bits.types.struct_timespec' ffi.cdef[[
+/* END   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/siginfo_t.h */
 enum { __siginfo_t_defined = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* redefining matching value: # define __WORDSIZE	64 */
 /* redefining matching value: # define __WORDSIZE_TIME64_COMPAT32	1 */
 /* redefining matching value: # define __SYSCALL_WORDSIZE		64 */
-/* END /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-/* END /usr/include/x86_64-linux-gnu/bits/types.h */
+]] require 'ffi.c.bits.types' ffi.cdef[[
+/* END   /usr/include/x86_64-linux-gnu/bits/types.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h */
 enum { ____sigval_t_defined = 1 };
-union sigval { int sival_int;
-void *sival_ptr;
+union sigval {
+	int sival_int;
+	void *sival_ptr;
 };
 typedef union sigval __sigval_t;
-/* END /usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h */
 enum { __SI_MAX_SIZE = 128 };
 /* # define __SI_PAD_SIZE	((__SI_MAX_SIZE / sizeof (int)) - 4) ### string, not number "((__SI_MAX_SIZE / sizeof (int)) - 4)" */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/siginfo-arch.h */
 enum { _BITS_SIGINFO_ARCH_H = 1 };
-/* END /usr/include/x86_64-linux-gnu/bits/siginfo-arch.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/siginfo-arch.h */
 enum { __SI_ALIGNMENT = 1 };
 /* # define __SI_BAND_TYPE		long int ### string, not number "long int" */
 enum { __SI_CLOCK_T = 0 };
 enum { __SI_ERRNO_THEN_CODE = 1 };
 enum { __SI_HAVE_SIGSYS = 1 };
 enum { __SI_SIGFAULT_ADDL = 1 };
-typedef struct { int si_signo;
-int si_errno;
-int si_code;
-int __pad0;
-union { int _pad[((128 / sizeof (int)) - 4)];
-struct { __pid_t si_pid;
-__uid_t si_uid;
+typedef struct {
+	int si_signo;
+	int si_errno;
+	int si_code;
+	int __pad0;
+	union {
+	int _pad[((128 / sizeof (int)) - 4)];
+	struct {
+	__pid_t si_pid;
+	__uid_t si_uid;
 } _kill;
-struct { int si_tid;
-int si_overrun;
-__sigval_t si_sigval;
+struct {
+	int si_tid;
+	int si_overrun;
+	__sigval_t si_sigval;
 } _timer;
-struct { __pid_t si_pid;
-__uid_t si_uid;
-__sigval_t si_sigval;
+struct {
+	__pid_t si_pid;
+	__uid_t si_uid;
+	__sigval_t si_sigval;
 } _rt;
-struct { __pid_t si_pid;
-__uid_t si_uid;
-int si_status;
-__clock_t si_utime;
-__clock_t si_stime;
+struct {
+	__pid_t si_pid;
+	__uid_t si_uid;
+	int si_status;
+	__clock_t si_utime;
+	__clock_t si_stime;
 } _sigchld;
-struct { void *si_addr;
-short int si_addr_lsb;
-union { struct { void *_lower;
-void *_upper;
+struct {
+	void *si_addr;
+	short int si_addr_lsb;
+	union {
+	struct { void *_lower;
+	void *_upper;
 } _addr_bnd;
 __uint32_t _pkey;
 } _bounds;
 } _sigfault;
-struct { long int si_band;
-int si_fd;
+struct {
+	long int si_band;
+	int si_fd;
 } _sigpoll;
-struct { void *_call_addr;
-int _syscall;
-unsigned int _arch;
+struct {
+	void *_call_addr;
+	int _syscall;
+	unsigned int _arch;
 } _sigsys;
 } _sifields;
 } siginfo_t;
@@ -164,14 +180,13 @@ unsigned int _arch;
 /* # define si_call_addr	_sifields._sigsys._call_addr ### string, not number "_sifields._sigsys._call_addr" */
 /* # define si_syscall	_sifields._sigsys._syscall ### string, not number "_sifields._sigsys._syscall" */
 /* # define si_arch	_sifields._sigsys._arch ### string, not number "_sifields._sigsys._arch" */
-/* END /usr/include/x86_64-linux-gnu/bits/types/siginfo_t.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/types/siginfo_t.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/siginfo-consts.h */
 enum { _BITS_SIGINFO_CONSTS_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/siginfo-arch.h */
-/* END /usr/include/x86_64-linux-gnu/bits/siginfo-arch.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/siginfo-arch.h */
 enum { __SI_ASYNCIO_AFTER_SIGIO = 1 };
-enum { SI_ASYNCNL = -60, SI_DETHREAD = -7, SI_TKILL, SI_SIGIO, SI_ASYNCIO, SI_MESGQ, SI_TIMER, SI_QUEUE, SI_USER, SI_KERNEL = 0x80 };
-/* manually commented out: enum { SI_ASYNCNL = 0 }; */
+enum { SI_ASYNCNL = -60, SI_DETHREAD = -7, SI_TKILL, SI_SIGIO, SI_ASYNCIO, SI_MESGQ, SI_TIMER, SI_QUEUE, SI_USER, SI_KERNEL = 0x80/* enum { SI_ASYNCNL = 0 }; */
 /* manually commented out: enum { SI_DETHREAD = 0 }; */
 /* manually commented out: enum { SI_TKILL = 0 }; */
 /* manually commented out: enum { SI_SIGIO = 0 }; */
@@ -182,6 +197,7 @@ enum { SI_ASYNCNL = -60, SI_DETHREAD = -7, SI_TKILL, SI_SIGIO, SI_ASYNCIO, SI_ME
 /* manually commented out: enum { SI_QUEUE = 0 }; */
 /* manually commented out: enum { SI_USER = 0 }; */
 /* manually commented out: enum { SI_KERNEL = 0 }; */
+};
 enum { ILL_ILLOPC = 1,/* enum { ILL_ILLOPC = 0 }; */
 ILL_ILLOPN,/* enum { ILL_ILLOPN = 0 }; */
 ILL_ILLADR,/* enum { ILL_ILLADR = 0 }; */
@@ -233,39 +249,43 @@ POLL_ERR,/* enum { POLL_ERR = 0 }; */
 POLL_PRI,/* enum { POLL_PRI = 0 }; */
 POLL_HUP/* enum { POLL_HUP = 0 }; */
 };
-/* END /usr/include/x86_64-linux-gnu/bits/siginfo-consts.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/siginfo-consts.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/sigval_t.h */
 enum { __sigval_t_defined = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h */
-/* END /usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h */
 typedef __sigval_t sigval_t;
-/* END /usr/include/x86_64-linux-gnu/bits/types/sigval_t.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/types/sigval_t.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/sigevent_t.h */
 enum { __sigevent_t_defined = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* redefining matching value: # define __WORDSIZE	64 */
 /* redefining matching value: # define __WORDSIZE_TIME64_COMPAT32	1 */
 /* redefining matching value: # define __SYSCALL_WORDSIZE		64 */
-/* END /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-/* END /usr/include/x86_64-linux-gnu/bits/types.h */
+]] require 'ffi.c.bits.types' ffi.cdef[[
+/* END   /usr/include/x86_64-linux-gnu/bits/types.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h */
-/* END /usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h */
 enum { __SIGEV_MAX_SIZE = 64 };
 /* # define __SIGEV_PAD_SIZE	((__SIGEV_MAX_SIZE / sizeof (int)) - 4) ### string, not number "((__SIGEV_MAX_SIZE / sizeof (int)) - 4)" */
-typedef struct sigevent { __sigval_t sigev_value;
-int sigev_signo;
-int sigev_notify;
-union { int _pad[((64 / sizeof (int)) - 4)];
-__pid_t _tid;
-struct { void (*_function) (__sigval_t);
-pthread_attr_t *_attribute;
+typedef struct sigevent {
+	__sigval_t sigev_value;
+	int sigev_signo;
+	int sigev_notify;
+	union {
+	int _pad[((64 / sizeof (int)) - 4)];
+	__pid_t _tid;
+	struct {
+	void (*_function) (__sigval_t);
+	pthread_attr_t *_attribute;
 } _sigev_thread;
 } _sigev_un;
 } sigevent_t;
 /* #define sigev_notify_function   _sigev_un._sigev_thread._function ### string, not number "_sigev_un._sigev_thread._function" */
 /* #define sigev_notify_attributes _sigev_un._sigev_thread._attribute ### string, not number "_sigev_un._sigev_thread._attribute" */
-/* END /usr/include/x86_64-linux-gnu/bits/types/sigevent_t.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/types/sigevent_t.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/sigevent-consts.h */
 enum { _BITS_SIGEVENT_CONSTS_H = 1 };
 enum { SIGEV_SIGNAL = 0,/* enum { SIGEV_SIGNAL = 0 }; */
@@ -273,7 +293,7 @@ SIGEV_NONE,/* enum { SIGEV_NONE = 0 }; */
 SIGEV_THREAD,/* enum { SIGEV_THREAD = 0 }; */
 SIGEV_THREAD_ID = 4/* enum { SIGEV_THREAD_ID = 0 }; */
 };
-/* END /usr/include/x86_64-linux-gnu/bits/sigevent-consts.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/sigevent-consts.h */
 typedef void (*__sighandler_t) (int);
 extern __sighandler_t __sysv_signal (int __sig, __sighandler_t __handler) __attribute__ ((__nothrow__ , __leaf__));
 extern __sighandler_t signal (int __sig, __sighandler_t __handler) __attribute__ ((__nothrow__ , __leaf__));
@@ -296,8 +316,9 @@ extern int sigdelset (sigset_t *__set, int __signo) __attribute__ ((__nothrow__ 
 extern int sigismember (const sigset_t *__set, int __signo) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/sigaction.h */
 enum { _BITS_SIGACTION_H = 1 };
-struct sigaction { union { __sighandler_t sa_handler;
-void (*sa_sigaction) (int, siginfo_t *, void *);
+struct sigaction {
+	union { __sighandler_t sa_handler;
+	void (*sa_sigaction) (int, siginfo_t *, void *);
 } __sigaction_handler;
 /* # define sa_handler	__sigaction_handler.sa_handler ### string, not number "__sigaction_handler.sa_handler" */
 /* # define sa_sigaction	__sigaction_handler.sa_sigaction ### string, not number "__sigaction_handler.sa_sigaction" */
@@ -319,192 +340,215 @@ enum { SA_STACK = 134217728 };
 enum { SIG_BLOCK = 0 };
 enum { SIG_UNBLOCK = 1 };
 enum { SIG_SETMASK = 2 };
-/* END /usr/include/x86_64-linux-gnu/bits/sigaction.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/sigaction.h */
 extern int sigprocmask (int __how, const sigset_t * __set, sigset_t * __oset) __attribute__ ((__nothrow__ , __leaf__));
 extern int sigsuspend (const sigset_t *__set) __attribute__ ((__nonnull__ (1)));
 extern int sigaction (int __sig, const struct sigaction * __act, struct sigaction * __oact) __attribute__ ((__nothrow__ , __leaf__));
 extern int sigpending (sigset_t *__set) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
-extern int sigwait (const sigset_t * __set, int *__restrict __sig) __attribute__ ((__nonnull__ (1, 2)));
+extern int sigwait (const sigset_t * __set, int * __sig) __attribute__ ((__nonnull__ (1, 2)));
 extern int sigwaitinfo (const sigset_t * __set, siginfo_t * __info) __attribute__ ((__nonnull__ (1)));
 extern int sigtimedwait (const sigset_t * __set, siginfo_t * __info, const struct timespec * __timeout) __attribute__ ((__nonnull__ (1)));
 extern int sigqueue (__pid_t __pid, int __sig, const union sigval __val) __attribute__ ((__nothrow__ , __leaf__));
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/sigcontext.h */
 enum { _BITS_SIGCONTEXT_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-/* END /usr/include/x86_64-linux-gnu/bits/types.h */
-/* #define FP_XSTATE_MAGIC1	0x46505853U ### string, not number "0x46505853U" */
-/* #define FP_XSTATE_MAGIC2	0x46505845U ### string, not number "0x46505845U" */
+]] require 'ffi.c.bits.types' ffi.cdef[[
+/* END   /usr/include/x86_64-linux-gnu/bits/types.h */
+enum { FP_XSTATE_MAGIC1 = 1179670611 };
+enum { FP_XSTATE_MAGIC2 = 1179670597 };
 /* #define FP_XSTATE_MAGIC2_SIZE	sizeof (FP_XSTATE_MAGIC2) ### string, not number "sizeof (FP_XSTATE_MAGIC2)" */
-struct _fpx_sw_bytes { __uint32_t magic1;
-__uint32_t extended_size;
-__uint64_t xstate_bv;
-__uint32_t xstate_size;
-__uint32_t __glibc_reserved1[7];
+struct _fpx_sw_bytes {
+	__uint32_t magic1;
+	__uint32_t extended_size;
+	__uint64_t xstate_bv;
+	__uint32_t xstate_size;
+	__uint32_t __glibc_reserved1[7];
 };
-struct _fpreg { unsigned short significand[4];
-unsigned short exponent;
+struct _fpreg {
+	unsigned short significand[4];
+	unsigned short exponent;
 };
-struct _fpxreg { unsigned short significand[4];
-unsigned short exponent;
-unsigned short __glibc_reserved1[3];
+struct _fpxreg {
+	unsigned short significand[4];
+	unsigned short exponent;
+	unsigned short __glibc_reserved1[3];
 };
-struct _xmmreg { __uint32_t element[4];
+struct _xmmreg {
+	__uint32_t element[4];
 };
-struct _fpstate { __uint16_t cwd;
-__uint16_t swd;
-__uint16_t ftw;
-__uint16_t fop;
-__uint64_t rip;
-__uint64_t rdp;
-__uint32_t mxcsr;
-__uint32_t mxcr_mask;
-struct _fpxreg _st[8];
-struct _xmmreg _xmm[16];
-__uint32_t __glibc_reserved1[24];
+struct _fpstate {
+	__uint16_t cwd;
+	__uint16_t swd;
+	__uint16_t ftw;
+	__uint16_t fop;
+	__uint64_t rip;
+	__uint64_t rdp;
+	__uint32_t mxcsr;
+	__uint32_t mxcr_mask;
+	struct _fpxreg _st[8];
+	struct _xmmreg _xmm[16];
+	__uint32_t __glibc_reserved1[24];
 };
-struct sigcontext { __uint64_t r8;
-__uint64_t r9;
-__uint64_t r10;
-__uint64_t r11;
-__uint64_t r12;
-__uint64_t r13;
-__uint64_t r14;
-__uint64_t r15;
-__uint64_t rdi;
-__uint64_t rsi;
-__uint64_t rbp;
-__uint64_t rbx;
-__uint64_t rdx;
-__uint64_t rax;
-__uint64_t rcx;
-__uint64_t rsp;
-__uint64_t rip;
-__uint64_t eflags;
-unsigned short cs;
-unsigned short gs;
-unsigned short fs;
-unsigned short __pad0;
-__uint64_t err;
-__uint64_t trapno;
-__uint64_t oldmask;
-__uint64_t cr2;
-__extension__ union { struct _fpstate * fpstate;
-__uint64_t __fpstate_word;
+struct sigcontext {
+	__uint64_t r8;
+	__uint64_t r9;
+	__uint64_t r10;
+	__uint64_t r11;
+	__uint64_t r12;
+	__uint64_t r13;
+	__uint64_t r14;
+	__uint64_t r15;
+	__uint64_t rdi;
+	__uint64_t rsi;
+	__uint64_t rbp;
+	__uint64_t rbx;
+	__uint64_t rdx;
+	__uint64_t rax;
+	__uint64_t rcx;
+	__uint64_t rsp;
+	__uint64_t rip;
+	__uint64_t eflags;
+	unsigned short cs;
+	unsigned short gs;
+	unsigned short fs;
+	unsigned short __pad0;
+	__uint64_t err;
+	__uint64_t trapno;
+	__uint64_t oldmask;
+	__uint64_t cr2;
+	__extension__ union {
+	struct _fpstate * fpstate;
+	__uint64_t __fpstate_word;
 };
 __uint64_t __reserved1 [8];
 };
-struct _xsave_hdr { __uint64_t xstate_bv;
-__uint64_t __glibc_reserved1[2];
-__uint64_t __glibc_reserved2[5];
+struct _xsave_hdr {
+	__uint64_t xstate_bv;
+	__uint64_t __glibc_reserved1[2];
+	__uint64_t __glibc_reserved2[5];
 };
-struct _ymmh_state { __uint32_t ymmh_space[64];
+struct _ymmh_state {
+	__uint32_t ymmh_space[64];
 };
-struct _xstate { struct _fpstate fpstate;
-struct _xsave_hdr xstate_hdr;
-struct _ymmh_state ymmh;
+struct _xstate {
+	struct _fpstate fpstate;
+	struct _xsave_hdr xstate_hdr;
+	struct _ymmh_state ymmh;
 };
-/* END /usr/include/x86_64-linux-gnu/bits/sigcontext.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/sigcontext.h */
 extern int sigreturn (struct sigcontext *__scp) __attribute__ ((__nothrow__ , __leaf__));
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
-/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+]] require 'ffi.c.stddef' ffi.cdef[[
+/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/stack_t.h */
 enum { __stack_t_defined = 1 };
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
-/* END /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h */
-typedef struct { void *ss_sp;
-int ss_flags;
-size_t ss_size;
+/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+]] require 'ffi.c.stddef' ffi.cdef[[
+/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+typedef struct {
+	void *ss_sp;
+	int ss_flags;
+	size_t ss_size;
 } stack_t;
-/* END /usr/include/x86_64-linux-gnu/bits/types/stack_t.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/types/stack_t.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/sys/ucontext.h */
 enum { _SYS_UCONTEXT_H = 1 };
 /* BEGIN /usr/include/features.h */
-/* END /usr/include/features.h */
+]] require 'ffi.c.features' ffi.cdef[[
+/* END   /usr/include/features.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-/* END /usr/include/x86_64-linux-gnu/bits/types.h */
+]] require 'ffi.c.bits.types' ffi.cdef[[
+/* END   /usr/include/x86_64-linux-gnu/bits/types.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h */
-/* END /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/stack_t.h */
-/* END /usr/include/x86_64-linux-gnu/bits/types/stack_t.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/types/stack_t.h */
 __extension__ typedef long long int greg_t;
 enum { __NGREG = 23 };
 enum { NGREG = 23 };
 typedef greg_t gregset_t[23];
-struct _libc_fpxreg { unsigned short int significand [4];
-unsigned short int exponent;
-unsigned short int __glibc_reserved1[3];
+struct _libc_fpxreg {
+	unsigned short int significand [4];
+	unsigned short int exponent;
+	unsigned short int __glibc_reserved1[3];
 };
-struct _libc_xmmreg { __uint32_t element [4];
+struct _libc_xmmreg {
+	__uint32_t element [4];
 };
-struct _libc_fpstate { __uint16_t cwd;
-__uint16_t swd;
-__uint16_t ftw;
-__uint16_t fop;
-__uint64_t rip;
-__uint64_t rdp;
-__uint32_t mxcsr;
-__uint32_t mxcr_mask;
-struct _libc_fpxreg _st[8];
-struct _libc_xmmreg _xmm[16];
-__uint32_t __glibc_reserved1[24];
+struct _libc_fpstate {
+	__uint16_t cwd;
+	__uint16_t swd;
+	__uint16_t ftw;
+	__uint16_t fop;
+	__uint64_t rip;
+	__uint64_t rdp;
+	__uint32_t mxcsr;
+	__uint32_t mxcr_mask;
+	struct _libc_fpxreg _st[8];
+	struct _libc_xmmreg _xmm[16];
+	__uint32_t __glibc_reserved1[24];
 };
 typedef struct _libc_fpstate *fpregset_t;
-typedef struct { gregset_t gregs;
-fpregset_t fpregs;
-__extension__ unsigned long long __reserved1 [8];
+typedef struct {
+	gregset_t gregs;
+	fpregset_t fpregs;
+	__extension__ unsigned long long __reserved1 [8];
 } mcontext_t;
-typedef struct ucontext_t { unsigned long int uc_flags;
-struct ucontext_t *uc_link;
-stack_t uc_stack;
-mcontext_t uc_mcontext;
-sigset_t uc_sigmask;
-struct _libc_fpstate __fpregs_mem;
-__extension__ unsigned long long int __ssp[4];
+typedef struct ucontext_t {
+	unsigned long int uc_flags;
+	struct ucontext_t *uc_link;
+	stack_t uc_stack;
+	mcontext_t uc_mcontext;
+	sigset_t uc_sigmask;
+	struct _libc_fpstate __fpregs_mem;
+	__extension__ unsigned long long int __ssp[4];
 } ucontext_t;
-/* END /usr/include/x86_64-linux-gnu/sys/ucontext.h */
+/* END   /usr/include/x86_64-linux-gnu/sys/ucontext.h */
 extern int siginterrupt (int __sig, int __interrupt) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__deprecated__ ("Use sigaction with SA_RESTART instead")));
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/sigstack.h */
 enum { _BITS_SIGSTACK_H = 1 };
 enum { MINSIGSTKSZ = 2048 };
 enum { SIGSTKSZ = 8192 };
-/* END /usr/include/x86_64-linux-gnu/bits/sigstack.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/sigstack.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/sigstksz.h */
-/* END /usr/include/x86_64-linux-gnu/bits/sigstksz.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/sigstksz.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/ss_flags.h */
 enum { _BITS_SS_FLAGS_H = 1 };
 enum { SS_ONSTACK = 1,/* enum { SS_ONSTACK = 0 }; */
 SS_DISABLE/* enum { SS_DISABLE = 0 }; */
 };
-/* END /usr/include/x86_64-linux-gnu/bits/ss_flags.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/ss_flags.h */
 extern int sigaltstack (const stack_t * __ss, stack_t * __oss) __attribute__ ((__nothrow__ , __leaf__));
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_sigstack.h */
 enum { __sigstack_defined = 1 };
-struct sigstack { void *ss_sp;
-int ss_onstack;
+struct sigstack {
+	void *ss_sp;
+	int ss_onstack;
 };
-/* END /usr/include/x86_64-linux-gnu/bits/types/struct_sigstack.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/types/struct_sigstack.h */
 extern int sigstack (struct sigstack *__ss, struct sigstack *__oss) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__deprecated__));
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h */
-/* END /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/sigthread.h */
 enum { _BITS_SIGTHREAD_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h */
-/* END /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h */
+]] require 'ffi.c.bits.types.__sigset_t' ffi.cdef[[
+/* END   /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h */
 extern int pthread_sigmask (int __how, const __sigset_t * __newmask, __sigset_t * __oldmask)__attribute__ ((__nothrow__ , __leaf__));
 extern int pthread_kill (pthread_t __threadid, int __signo) __attribute__ ((__nothrow__ , __leaf__));
-/* END /usr/include/x86_64-linux-gnu/bits/sigthread.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/sigthread.h */
 extern int __libc_current_sigrtmin (void) __attribute__ ((__nothrow__ , __leaf__));
 extern int __libc_current_sigrtmax (void) __attribute__ ((__nothrow__ , __leaf__));
 /* #define SIGRTMIN        (__libc_current_sigrtmin ()) ### string, not number "(__libc_current_sigrtmin ())" */
 /* #define SIGRTMAX        (__libc_current_sigrtmax ()) ### string, not number "(__libc_current_sigrtmax ())" */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/signal_ext.h */
-/* END /usr/include/x86_64-linux-gnu/bits/signal_ext.h */
-/* END /usr/include/signal.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/signal_ext.h */
+/* END   /usr/include/signal.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/param.h */
-/* enum { __undef_ARG_MAX = 1 }; */
+/* manually commented out: enum { __undef_ARG_MAX = 1 }; */
 /* BEGIN /usr/include/linux/limits.h */
 ]] require 'ffi.c.linux.limits' ffi.cdef[[
-/* END /usr/include/linux/limits.h */
+/* END   /usr/include/linux/limits.h */
 /* BEGIN /usr/include/linux/param.h */
 enum { _LINUX_PARAM_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/asm/param.h */
@@ -514,18 +558,18 @@ enum { HZ = 100 };
 enum { EXEC_PAGESIZE = 4096 };
 enum { NOGROUP = -1 };
 enum { MAXHOSTNAMELEN = 64 };
-/* END /usr/include/asm-generic/param.h */
-/* END /usr/include/x86_64-linux-gnu/asm/param.h */
-/* END /usr/include/linux/param.h */
+/* END   /usr/include/asm-generic/param.h */
+/* END   /usr/include/x86_64-linux-gnu/asm/param.h */
+/* END   /usr/include/linux/param.h */
 enum { MAXSYMLINKS = 20 };
 enum { NOFILE = 256 };
 enum { NCARGS = 131072 };
-/* END /usr/include/x86_64-linux-gnu/bits/param.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/param.h */
 enum { NBBY = 8 };
 enum { NGROUPS = 65536 };
 enum { CANBSIZ = 255 };
 enum { MAXPATHLEN = 4096 };
 enum { NODEV = -1 };
 enum { DEV_BSIZE = 512 };
-/* END /usr/include/x86_64-linux-gnu/sys/param.h */
+/* END   /usr/include/x86_64-linux-gnu/sys/param.h */
 ]]

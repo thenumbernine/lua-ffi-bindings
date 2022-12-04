@@ -4,15 +4,16 @@ ffi.cdef[[
 enum { _PTHREAD_H = 1 };
 /* BEGIN /usr/include/features.h */
 ]] require 'ffi.c.features' ffi.cdef[[
-/* END /usr/include/features.h */
+/* END   /usr/include/features.h */
 /* BEGIN /usr/include/sched.h */
 ]] require 'ffi.c.sched' ffi.cdef[[
-/* END /usr/include/sched.h */
+/* END   /usr/include/sched.h */
 /* BEGIN /usr/include/time.h */
 ]] require 'ffi.c.time' ffi.cdef[[
-/* END /usr/include/time.h */
+/* END   /usr/include/time.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/endian.h */
-/* END /usr/include/x86_64-linux-gnu/bits/endian.h */
+]] require 'ffi.c.bits.endian' ffi.cdef[[
+/* END   /usr/include/x86_64-linux-gnu/bits/endian.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h */
 enum { _BITS_PTHREADTYPES_COMMON_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h */
@@ -23,7 +24,7 @@ enum { _BITS_PTHREADTYPES_ARCH_H = 1 };
 /* redefining matching value: # define __WORDSIZE	64 */
 /* redefining matching value: # define __WORDSIZE_TIME64_COMPAT32	1 */
 /* redefining matching value: # define __SYSCALL_WORDSIZE		64 */
-/* END /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 enum { __SIZEOF_PTHREAD_MUTEX_T = 40 };
 enum { __SIZEOF_PTHREAD_ATTR_T = 56 };
 enum { __SIZEOF_PTHREAD_RWLOCK_T = 56 };
@@ -35,148 +36,182 @@ enum { __SIZEOF_PTHREAD_RWLOCKATTR_T = 8 };
 enum { __SIZEOF_PTHREAD_BARRIERATTR_T = 4 };
 enum { __LOCK_ALIGNMENT = 1 };
 enum { __ONCE_ALIGNMENT = 1 };
-/* END /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h */
 enum { _BITS_ATOMIC_WIDE_COUNTER_H = 1 };
-typedef union { __extension__ unsigned long long int __value64;
-struct { unsigned int __low;
-unsigned int __high;
+typedef union {
+	__extension__ unsigned long long int __value64;
+	struct {
+	unsigned int __low;
+	unsigned int __high;
 } __value32;
 } __atomic_wide_counter;
-/* END /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h */
-typedef struct __pthread_internal_list { struct __pthread_internal_list *__prev;
-struct __pthread_internal_list *__next;
+/* END   /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h */
+typedef struct __pthread_internal_list {
+	struct __pthread_internal_list *__prev;
+	struct __pthread_internal_list *__next;
 } __pthread_list_t;
-typedef struct __pthread_internal_slist { struct __pthread_internal_slist *__next;
+typedef struct __pthread_internal_slist {
+	struct __pthread_internal_slist *__next;
 } __pthread_slist_t;
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/struct_mutex.h */
 enum { _THREAD_MUTEX_INTERNAL_H = 1 };
-struct __pthread_mutex_s { int __lock;
-unsigned int __count;
-int __owner;
-unsigned int __nusers;
-int __kind;
-short __spins;
-short __elision;
-__pthread_list_t __list;
-enum { __PTHREAD_MUTEX_HAVE_PREV = 1 };
+struct __pthread_mutex_s {
+	int __lock;
+	unsigned int __count;
+	int __owner;
+	unsigned int __nusers;
+	int __kind;
+	short __spins;
+	short __elision;
+	__pthread_list_t __list;
+	enum { __PTHREAD_MUTEX_HAVE_PREV = 1 };
 };
-/* END /usr/include/x86_64-linux-gnu/bits/struct_mutex.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h */
 enum { _RWLOCK_INTERNAL_H = 1 };
-struct __pthread_rwlock_arch_t { unsigned int __readers;
-unsigned int __writers;
-unsigned int __wrphase_futex;
-unsigned int __writers_futex;
-unsigned int __pad3;
-unsigned int __pad4;
-int __cur_writer;
-int __shared;
-signed char __rwelision;
-unsigned char __pad1[7];
+struct __pthread_rwlock_arch_t {
+	unsigned int __readers;
+	unsigned int __writers;
+	unsigned int __wrphase_futex;
+	unsigned int __writers_futex;
+	unsigned int __pad3;
+	unsigned int __pad4;
+	int __cur_writer;
+	int __shared;
+	signed char __rwelision;
+	unsigned char __pad1[7];
 /* #  define __PTHREAD_RWLOCK_ELISION_EXTRA 0, { 0, 0, 0, 0, 0, 0, 0 } ### string, not number "0, { 0, 0, 0, 0, 0, 0, 0 }" */
-unsigned long int __pad2;
-unsigned int __flags;
+	unsigned long int __pad2;
+	unsigned int __flags;
 };
-/* END /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h */
-struct __pthread_cond_s { __atomic_wide_counter __wseq;
-__atomic_wide_counter __g1_start;
-unsigned int __g_refs[2];
-unsigned int __g_size[2];
-unsigned int __g1_orig_size;
-unsigned int __wrefs;
-unsigned int __g_signals[2];
+/* END   /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h */
+struct __pthread_cond_s {
+	__atomic_wide_counter __wseq;
+	__atomic_wide_counter __g1_start;
+	unsigned int __g_refs[2];
+	unsigned int __g_size[2];
+	unsigned int __g1_orig_size;
+	unsigned int __wrefs;
+	unsigned int __g_signals[2];
 };
 typedef unsigned int __tss_t;
 typedef unsigned long int __thrd_t;
-typedef struct { int __data;
+typedef struct {
+	int __data;
 } __once_flag;
 /* #define __ONCE_FLAG_INIT { 0 } ### string, not number "{ 0 }" */
-/* END /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h */
 typedef unsigned long int pthread_t;
-typedef union { char __size[4];
-int __align;
+typedef union {
+	char __size[4];
+	int __align;
 } pthread_mutexattr_t;
-typedef union { char __size[4];
-int __align;
+typedef union {
+	char __size[4];
+	int __align;
 } pthread_condattr_t;
 typedef unsigned int pthread_key_t;
 typedef int pthread_once_t;
-union pthread_attr_t { char __size[56];
-long int __align;
+union pthread_attr_t {
+	char __size[56];
+	long int __align;
 };
 typedef union pthread_attr_t pthread_attr_t;
 enum { __have_pthread_attr_t = 1 };
-typedef union { struct __pthread_mutex_s __data;
-char __size[40];
-long int __align;
+typedef union {
+	struct __pthread_mutex_s __data;
+	char __size[40];
+	long int __align;
 } pthread_mutex_t;
-typedef union { struct __pthread_cond_s __data;
-char __size[48];
-__extension__ long long int __align;
+typedef union {
+	struct __pthread_cond_s __data;
+	char __size[48];
+	__extension__ long long int __align;
 } pthread_cond_t;
-typedef union { struct __pthread_rwlock_arch_t __data;
-char __size[56];
-long int __align;
+typedef union {
+	struct __pthread_rwlock_arch_t __data;
+	char __size[56];
+	long int __align;
 } pthread_rwlock_t;
-typedef union { char __size[8];
-long int __align;
+typedef union {
+	char __size[8];
+	long int __align;
 } pthread_rwlockattr_t;
 typedef volatile int pthread_spinlock_t;
-typedef union { char __size[32];
-long int __align;
+typedef union {
+	char __size[32];
+	long int __align;
 } pthread_barrier_t;
-typedef union { char __size[4];
-int __align;
+typedef union {
+	char __size[4];
+	int __align;
 } pthread_barrierattr_t;
-/* END /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/setjmp.h */
 ]] require 'ffi.c.bits.setjmp' ffi.cdef[[
-/* END /usr/include/x86_64-linux-gnu/bits/setjmp.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/setjmp.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* redefining matching value: # define __WORDSIZE	64 */
 /* redefining matching value: # define __WORDSIZE_TIME64_COMPAT32	1 */
 /* redefining matching value: # define __SYSCALL_WORDSIZE		64 */
-/* END /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
-/* END /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
+]] require 'ffi.c.bits.types.struct_timespec' ffi.cdef[[
+/* END   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h */
 ]] require 'ffi.c.bits.types.__sigset_t' ffi.cdef[[
-/* END /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h */
 enum { __jmp_buf_tag_defined = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/setjmp.h */
-/* END /usr/include/x86_64-linux-gnu/bits/setjmp.h */
+]] require 'ffi.c.bits.setjmp' ffi.cdef[[
+/* END   /usr/include/x86_64-linux-gnu/bits/setjmp.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h */
-/* END /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h */
-struct __jmp_buf_tag { __jmp_buf __jmpbuf;
-int __mask_was_saved;
-__sigset_t __saved_mask;
+]] require 'ffi.c.bits.types.__sigset_t' ffi.cdef[[
+/* END   /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h */
+struct __jmp_buf_tag {
+	__jmp_buf __jmpbuf;
+	int __mask_was_saved;
+	__sigset_t __saved_mask;
 };
-/* END /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/pthread_stack_min.h */
 enum { PTHREAD_STACK_MIN = 16384 };
-/* END /usr/include/x86_64-linux-gnu/bits/pthread_stack_min.h */
-/* END /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h */
-enum { PTHREAD_CREATE_JOINABLE, PTHREAD_CREATE_DETACHED };
+/* END   /usr/include/x86_64-linux-gnu/bits/pthread_stack_min.h */
+/* END   /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h */
+enum { PTHREAD_CREATE_JOINABLE,/* enum { PTHREAD_CREATE_JOINABLE = 0 }; */
+PTHREAD_CREATE_DETACHED/* enum { PTHREAD_CREATE_DETACHED = 0 }; */
+};
 enum { PTHREAD_MUTEX_TIMED_NP, PTHREAD_MUTEX_RECURSIVE_NP, PTHREAD_MUTEX_ERRORCHECK_NP, PTHREAD_MUTEX_ADAPTIVE_NP , PTHREAD_MUTEX_NORMAL = PTHREAD_MUTEX_TIMED_NP, PTHREAD_MUTEX_RECURSIVE = PTHREAD_MUTEX_RECURSIVE_NP, PTHREAD_MUTEX_ERRORCHECK = PTHREAD_MUTEX_ERRORCHECK_NP, PTHREAD_MUTEX_DEFAULT = PTHREAD_MUTEX_NORMAL };
 enum { PTHREAD_MUTEX_STALLED, PTHREAD_MUTEX_STALLED_NP = PTHREAD_MUTEX_STALLED, PTHREAD_MUTEX_ROBUST, PTHREAD_MUTEX_ROBUST_NP = PTHREAD_MUTEX_ROBUST };
 enum { PTHREAD_PRIO_NONE, PTHREAD_PRIO_INHERIT, PTHREAD_PRIO_PROTECT };
 /* #define PTHREAD_MUTEX_INITIALIZER   { {  __PTHREAD_MUTEX_INITIALIZER (PTHREAD_MUTEX_TIMED_NP) } } ### string, not number "{ {  __PTHREAD_MUTEX_INITIALIZER (PTHREAD_MUTEX_TIMED_NP) } }" */
 enum { PTHREAD_RWLOCK_PREFER_READER_NP, PTHREAD_RWLOCK_PREFER_WRITER_NP, PTHREAD_RWLOCK_PREFER_WRITER_NONRECURSIVE_NP, PTHREAD_RWLOCK_DEFAULT_NP = PTHREAD_RWLOCK_PREFER_READER_NP };
 /* # define PTHREAD_RWLOCK_INITIALIZER    { { __PTHREAD_RWLOCK_INITIALIZER (PTHREAD_RWLOCK_DEFAULT_NP) } } ### string, not number "{ { __PTHREAD_RWLOCK_INITIALIZER (PTHREAD_RWLOCK_DEFAULT_NP) } }" */
-enum { PTHREAD_INHERIT_SCHED, PTHREAD_EXPLICIT_SCHED };
-enum { PTHREAD_SCOPE_SYSTEM, PTHREAD_SCOPE_PROCESS };
-enum { PTHREAD_PROCESS_PRIVATE, PTHREAD_PROCESS_SHARED };
-/* #define PTHREAD_COND_INITIALIZER { { {0}, {0}, {0, 0}, {0, 0}, 0, 0, {0, 0} } } ### string, not number "{ { {0}, {0}, {0, 0}, {0, 0}, 0, 0, {0, 0} } }" */
-struct _pthread_cleanup_buffer { void (*__routine) (void *);
-void *__arg;
-int __canceltype;
-struct _pthread_cleanup_buffer *__prev;
+enum { PTHREAD_INHERIT_SCHED,/* enum { PTHREAD_INHERIT_SCHED = 0 }; */
+PTHREAD_EXPLICIT_SCHED/* enum { PTHREAD_EXPLICIT_SCHED = 0 }; */
 };
-enum { PTHREAD_CANCEL_ENABLE, PTHREAD_CANCEL_DISABLE };
-enum { PTHREAD_CANCEL_DEFERRED, PTHREAD_CANCEL_ASYNCHRONOUS };
+enum { PTHREAD_SCOPE_SYSTEM,/* enum { PTHREAD_SCOPE_SYSTEM = 0 }; */
+PTHREAD_SCOPE_PROCESS/* enum { PTHREAD_SCOPE_PROCESS = 0 }; */
+};
+enum { PTHREAD_PROCESS_PRIVATE,/* enum { PTHREAD_PROCESS_PRIVATE = 0 }; */
+PTHREAD_PROCESS_SHARED/* enum { PTHREAD_PROCESS_SHARED = 0 }; */
+};
+/* #define PTHREAD_COND_INITIALIZER { { {0}, {0}, {0, 0}, {0, 0}, 0, 0, {0, 0} } } ### string, not number "{ { {0}, {0}, {0, 0}, {0, 0}, 0, 0, {0, 0} } }" */
+struct _pthread_cleanup_buffer {
+	void (*__routine) (void *);
+	void *__arg;
+	int __canceltype;
+	struct _pthread_cleanup_buffer *__prev;
+};
+enum { PTHREAD_CANCEL_ENABLE,/* enum { PTHREAD_CANCEL_ENABLE = 0 }; */
+PTHREAD_CANCEL_DISABLE/* enum { PTHREAD_CANCEL_DISABLE = 0 }; */
+};
+enum { PTHREAD_CANCEL_DEFERRED,/* enum { PTHREAD_CANCEL_DEFERRED = 0 }; */
+PTHREAD_CANCEL_ASYNCHRONOUS/* enum { PTHREAD_CANCEL_ASYNCHRONOUS = 0 }; */
+};
 /* #define PTHREAD_CANCELED ((void *) -1) ### string, not number "((void *) -1)" */
 enum { PTHREAD_ONCE_INIT = 0 };
 enum { PTHREAD_BARRIER_SERIAL_THREAD = -1 };
@@ -214,17 +249,20 @@ extern int pthread_setcancelstate (int __state, int *__oldstate);
 extern int pthread_setcanceltype (int __type, int *__oldtype);
 extern int pthread_cancel (pthread_t __th);
 extern void pthread_testcancel (void);
-struct __cancel_jmp_buf_tag { __jmp_buf __cancel_jmp_buf;
-int __mask_was_saved;
+struct __cancel_jmp_buf_tag {
+	__jmp_buf __cancel_jmp_buf;
+	int __mask_was_saved;
 };
-typedef struct { struct __cancel_jmp_buf_tag __cancel_jmp_buf[1];
-void *__pad[4];
+typedef struct {
+	struct __cancel_jmp_buf_tag __cancel_jmp_buf[1];
+	void *__pad[4];
 } __pthread_unwind_buf_t __attribute__ ((__aligned__));
 enum { __cleanup_fct_attribute = 1 };
-struct __pthread_cleanup_frame { void (*__cancel_routine) (void *);
-void *__cancel_arg;
-int __do_it;
-int __cancel_type;
+struct __pthread_cleanup_frame {
+	void (*__cancel_routine) (void *);
+	void *__cancel_arg;
+	int __do_it;
+	int __cancel_type;
 };
 extern void __pthread_register_cancel (__pthread_unwind_buf_t *__buf);
 extern void __pthread_unregister_cancel (__pthread_unwind_buf_t *__buf);
@@ -302,6 +340,5 @@ extern void *pthread_getspecific (pthread_key_t __key) __attribute__ ((__nothrow
 extern int pthread_setspecific (pthread_key_t __key, const void *__pointer) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__access__ (__none__, 2)));
 extern int pthread_getcpuclockid (pthread_t __thread_id, __clockid_t *__clock_id) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
 extern int pthread_atfork (void (*__prepare) (void), void (*__parent) (void), void (*__child) (void)) __attribute__ ((__nothrow__ , __leaf__));
-/* END /usr/include/pthread.h */
+/* END   /usr/include/pthread.h */
 ]]
---return ffi.load'pthread'	-- -pthread
