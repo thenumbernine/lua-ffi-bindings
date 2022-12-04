@@ -72,7 +72,7 @@ extern int strncasecmp (const char *__s1, const char *__s2, size_t __n) __attrib
 extern int strcasecmp_l (const char *__s1, const char *__s2, locale_t __loc) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2, 3)));
 extern int strncasecmp_l (const char *__s1, const char *__s2, size_t __n, locale_t __loc) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2, 4)));
 /* END   /usr/include/strings.h */
-extern void explicit_bzero (void *__s, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) __attribute__ ((__access__ (a, 1, s)));
+extern void explicit_bzero (void *__s, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) __attribute__ ((__access__ (__write_only__, 1, 2)));
 extern char *strsep (char ** __stringp, const char * __delim) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 extern char *strsignal (int __sig) __attribute__ ((__nothrow__ , __leaf__));
 extern char *__stpcpy (char * __dest, const char * __src) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));

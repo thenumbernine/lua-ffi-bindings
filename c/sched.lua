@@ -25,7 +25,8 @@ enum { SCHED_FIFO = 1 };
 enum { SCHED_RR = 2 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h */
 enum { _BITS_TYPES_STRUCT_SCHED_PARAM = 1 };
-struct sched_param { int sched_priority;
+struct sched_param {
+	int sched_priority;
 };
 /* END   /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h */
 /* END   /usr/include/x86_64-linux-gnu/bits/sched.h */
@@ -34,7 +35,8 @@ enum { _BITS_CPU_SET_H = 1 };
 enum { __CPU_SETSIZE = 1024 };
 /* #define __NCPUBITS	(8 * sizeof (__cpu_mask)) ### string, not number "(8 * sizeof (__cpu_mask))" */
 typedef unsigned long int __cpu_mask;
-typedef struct { __cpu_mask __bits[1024 / (8 * sizeof (__cpu_mask))];
+typedef struct {
+	__cpu_mask __bits[1024 / (8 * sizeof (__cpu_mask))];
 } cpu_set_t;
 extern int __sched_cpucount (size_t __setsize, const cpu_set_t *__setp) __attribute__ ((__nothrow__ , __leaf__));
 extern cpu_set_t *__sched_cpualloc (size_t __count) __attribute__ ((__nothrow__ , __leaf__));

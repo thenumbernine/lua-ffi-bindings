@@ -185,18 +185,20 @@ enum { SIOCPROTOPRIVATE = 35296 };
 /* BEGIN /usr/include/asm-generic/ioctls.h */
 /* END   /usr/include/asm-generic/ioctls.h */
 /* END   /usr/include/x86_64-linux-gnu/asm/ioctls.h */
-struct winsize { unsigned short int ws_row;
-unsigned short int ws_col;
-unsigned short int ws_xpixel;
-unsigned short int ws_ypixel;
+struct winsize {
+	unsigned short int ws_row;
+	unsigned short int ws_col;
+	unsigned short int ws_xpixel;
+	unsigned short int ws_ypixel;
 };
 enum { NCC = 8 };
-struct termio { unsigned short int c_iflag;
-unsigned short int c_oflag;
-unsigned short int c_cflag;
-unsigned short int c_lflag;
-unsigned char c_line;
-unsigned char c_cc[8];
+struct termio {
+	unsigned short int c_iflag;
+	unsigned short int c_oflag;
+	unsigned short int c_cflag;
+	unsigned short int c_lflag;
+	unsigned char c_line;
+	unsigned char c_cc[8];
 };
 enum { TIOCM_LE = 1 };
 enum { TIOCM_DTR = 2 };

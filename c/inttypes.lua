@@ -166,8 +166,9 @@ enum { ____gwchar_t_defined = 1 };
 /* # define SCNoPTR	__PRIPTR_PREFIX "o" ### string, not number "__PRIPTR_PREFIX \"o\"" */
 /* # define SCNuPTR	__PRIPTR_PREFIX "u" ### string, not number "__PRIPTR_PREFIX \"u\"" */
 /* # define SCNxPTR	__PRIPTR_PREFIX "x" ### string, not number "__PRIPTR_PREFIX \"x\"" */
-typedef struct { long int quot;
-long int rem;
+typedef struct {
+	long int quot;
+	long int rem;
 } imaxdiv_t;
 extern intmax_t imaxabs (intmax_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
 extern imaxdiv_t imaxdiv (intmax_t __numer, intmax_t __denom) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));

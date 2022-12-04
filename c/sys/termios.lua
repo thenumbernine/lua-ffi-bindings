@@ -18,16 +18,17 @@ typedef unsigned int speed_t;
 typedef unsigned int tcflag_t;
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/termios-struct.h */
 enum { NCCS = 32 };
-struct termios { tcflag_t c_iflag;
-tcflag_t c_oflag;
-tcflag_t c_cflag;
-tcflag_t c_lflag;
-cc_t c_line;
-cc_t c_cc[32];
-speed_t c_ispeed;
-speed_t c_ospeed;
-enum { _HAVE_STRUCT_TERMIOS_C_ISPEED = 1 };
-enum { _HAVE_STRUCT_TERMIOS_C_OSPEED = 1 };
+struct termios {
+	tcflag_t c_iflag;
+	tcflag_t c_oflag;
+	tcflag_t c_cflag;
+	tcflag_t c_lflag;
+	cc_t c_line;
+	cc_t c_cc[32];
+	speed_t c_ispeed;
+	speed_t c_ospeed;
+	enum { _HAVE_STRUCT_TERMIOS_C_ISPEED = 1 };
+	enum { _HAVE_STRUCT_TERMIOS_C_OSPEED = 1 };
 };
 /* END   /usr/include/x86_64-linux-gnu/bits/termios-struct.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/termios-c_cc.h */

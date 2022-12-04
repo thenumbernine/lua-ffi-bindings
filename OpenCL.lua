@@ -171,236 +171,280 @@ enum { __CL_HAS_ANON_STRUCT__ = 1 };
 enum { __CL_ANON_STRUCT__ = 1 };
 enum { CL_HAS_NAMED_VECTOR_FIELDS = 1 };
 enum { CL_HAS_HI_LO_VECTOR_FIELDS = 1 };
-typedef union { cl_char s[2];
-struct{ cl_char x, y; };
-struct{ cl_char s0, s1; };
-struct{ cl_char lo, hi; };
+typedef union {
+	cl_char s[2];
+	struct{ cl_char x, y; };
+	struct{ cl_char s0, s1; };
+	struct{ cl_char lo, hi; };
 }cl_char2;
-typedef union { cl_char s[4];
-struct{ cl_char x, y, z, w; };
-struct{ cl_char s0, s1, s2, s3; };
-struct{ cl_char2 lo, hi; };
+typedef union {
+	cl_char s[4];
+	struct{ cl_char x, y, z, w; };
+	struct{ cl_char s0, s1, s2, s3; };
+	struct{ cl_char2 lo, hi; };
 }cl_char4;
 typedef cl_char4 cl_char3;
-typedef union { cl_char s[8];
-struct{ cl_char x, y, z, w; };
-struct{ cl_char s0, s1, s2, s3, s4, s5, s6, s7; };
-struct{ cl_char4 lo, hi; };
+typedef union {
+	cl_char s[8];
+	struct{ cl_char x, y, z, w; };
+	struct{ cl_char s0, s1, s2, s3, s4, s5, s6, s7; };
+	struct{ cl_char4 lo, hi; };
 }cl_char8;
-typedef union { cl_char s[16];
-struct{ cl_char x, y, z, w, __spacer4, __spacer5, __spacer6, __spacer7, __spacer8, __spacer9, sa, sb, sc, sd, se, sf; };
-struct{ cl_char s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, sA, sB, sC, sD, sE, sF; };
-struct{ cl_char8 lo, hi; };
+typedef union {
+	cl_char s[16];
+	struct{ cl_char x, y, z, w, __spacer4, __spacer5, __spacer6, __spacer7, __spacer8, __spacer9, sa, sb, sc, sd, se, sf; };
+	struct{ cl_char s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, sA, sB, sC, sD, sE, sF; };
+	struct{ cl_char8 lo, hi; };
 }cl_char16;
-typedef union { cl_uchar s[2];
-struct{ cl_uchar x, y; };
-struct{ cl_uchar s0, s1; };
-struct{ cl_uchar lo, hi; };
+typedef union {
+	cl_uchar s[2];
+	struct{ cl_uchar x, y; };
+	struct{ cl_uchar s0, s1; };
+	struct{ cl_uchar lo, hi; };
 }cl_uchar2;
-typedef union { cl_uchar s[4];
-struct{ cl_uchar x, y, z, w; };
-struct{ cl_uchar s0, s1, s2, s3; };
-struct{ cl_uchar2 lo, hi; };
+typedef union {
+	cl_uchar s[4];
+	struct{ cl_uchar x, y, z, w; };
+	struct{ cl_uchar s0, s1, s2, s3; };
+	struct{ cl_uchar2 lo, hi; };
 }cl_uchar4;
 typedef cl_uchar4 cl_uchar3;
-typedef union { cl_uchar s[8];
-struct{ cl_uchar x, y, z, w; };
-struct{ cl_uchar s0, s1, s2, s3, s4, s5, s6, s7; };
-struct{ cl_uchar4 lo, hi; };
+typedef union {
+	cl_uchar s[8];
+	struct{ cl_uchar x, y, z, w; };
+	struct{ cl_uchar s0, s1, s2, s3, s4, s5, s6, s7; };
+	struct{ cl_uchar4 lo, hi; };
 }cl_uchar8;
-typedef union { cl_uchar s[16];
-struct{ cl_uchar x, y, z, w, __spacer4, __spacer5, __spacer6, __spacer7, __spacer8, __spacer9, sa, sb, sc, sd, se, sf; };
-struct{ cl_uchar s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, sA, sB, sC, sD, sE, sF; };
-struct{ cl_uchar8 lo, hi; };
+typedef union {
+	cl_uchar s[16];
+	struct{ cl_uchar x, y, z, w, __spacer4, __spacer5, __spacer6, __spacer7, __spacer8, __spacer9, sa, sb, sc, sd, se, sf; };
+	struct{ cl_uchar s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, sA, sB, sC, sD, sE, sF; };
+	struct{ cl_uchar8 lo, hi; };
 }cl_uchar16;
-typedef union { cl_short s[2];
-struct{ cl_short x, y; };
-struct{ cl_short s0, s1; };
-struct{ cl_short lo, hi; };
+typedef union {
+	cl_short s[2];
+	struct{ cl_short x, y; };
+	struct{ cl_short s0, s1; };
+	struct{ cl_short lo, hi; };
 }cl_short2;
-typedef union { cl_short s[4];
-struct{ cl_short x, y, z, w; };
-struct{ cl_short s0, s1, s2, s3; };
-struct{ cl_short2 lo, hi; };
+typedef union {
+	cl_short s[4];
+	struct{ cl_short x, y, z, w; };
+	struct{ cl_short s0, s1, s2, s3; };
+	struct{ cl_short2 lo, hi; };
 }cl_short4;
 typedef cl_short4 cl_short3;
-typedef union { cl_short s[8];
-struct{ cl_short x, y, z, w; };
-struct{ cl_short s0, s1, s2, s3, s4, s5, s6, s7; };
-struct{ cl_short4 lo, hi; };
+typedef union {
+	cl_short s[8];
+	struct{ cl_short x, y, z, w; };
+	struct{ cl_short s0, s1, s2, s3, s4, s5, s6, s7; };
+	struct{ cl_short4 lo, hi; };
 }cl_short8;
-typedef union { cl_short s[16];
-struct{ cl_short x, y, z, w, __spacer4, __spacer5, __spacer6, __spacer7, __spacer8, __spacer9, sa, sb, sc, sd, se, sf; };
-struct{ cl_short s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, sA, sB, sC, sD, sE, sF; };
-struct{ cl_short8 lo, hi; };
+typedef union {
+	cl_short s[16];
+	struct{ cl_short x, y, z, w, __spacer4, __spacer5, __spacer6, __spacer7, __spacer8, __spacer9, sa, sb, sc, sd, se, sf; };
+	struct{ cl_short s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, sA, sB, sC, sD, sE, sF; };
+	struct{ cl_short8 lo, hi; };
 }cl_short16;
-typedef union { cl_ushort s[2];
-struct{ cl_ushort x, y; };
-struct{ cl_ushort s0, s1; };
-struct{ cl_ushort lo, hi; };
+typedef union {
+	cl_ushort s[2];
+	struct{ cl_ushort x, y; };
+	struct{ cl_ushort s0, s1; };
+	struct{ cl_ushort lo, hi; };
 }cl_ushort2;
-typedef union { cl_ushort s[4];
-struct{ cl_ushort x, y, z, w; };
-struct{ cl_ushort s0, s1, s2, s3; };
-struct{ cl_ushort2 lo, hi; };
+typedef union {
+	cl_ushort s[4];
+	struct{ cl_ushort x, y, z, w; };
+	struct{ cl_ushort s0, s1, s2, s3; };
+	struct{ cl_ushort2 lo, hi; };
 }cl_ushort4;
 typedef cl_ushort4 cl_ushort3;
-typedef union { cl_ushort s[8];
-struct{ cl_ushort x, y, z, w; };
-struct{ cl_ushort s0, s1, s2, s3, s4, s5, s6, s7; };
-struct{ cl_ushort4 lo, hi; };
+typedef union {
+	cl_ushort s[8];
+	struct{ cl_ushort x, y, z, w; };
+	struct{ cl_ushort s0, s1, s2, s3, s4, s5, s6, s7; };
+	struct{ cl_ushort4 lo, hi; };
 }cl_ushort8;
-typedef union { cl_ushort s[16];
-struct{ cl_ushort x, y, z, w, __spacer4, __spacer5, __spacer6, __spacer7, __spacer8, __spacer9, sa, sb, sc, sd, se, sf; };
-struct{ cl_ushort s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, sA, sB, sC, sD, sE, sF; };
-struct{ cl_ushort8 lo, hi; };
+typedef union {
+	cl_ushort s[16];
+	struct{ cl_ushort x, y, z, w, __spacer4, __spacer5, __spacer6, __spacer7, __spacer8, __spacer9, sa, sb, sc, sd, se, sf; };
+	struct{ cl_ushort s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, sA, sB, sC, sD, sE, sF; };
+	struct{ cl_ushort8 lo, hi; };
 }cl_ushort16;
-typedef union { cl_half s[2];
-struct{ cl_half x, y; };
-struct{ cl_half s0, s1; };
-struct{ cl_half lo, hi; };
+typedef union {
+	cl_half s[2];
+	struct{ cl_half x, y; };
+	struct{ cl_half s0, s1; };
+	struct{ cl_half lo, hi; };
 }cl_half2;
-typedef union { cl_half s[4];
-struct{ cl_half x, y, z, w; };
-struct{ cl_half s0, s1, s2, s3; };
-struct{ cl_half2 lo, hi; };
+typedef union {
+	cl_half s[4];
+	struct{ cl_half x, y, z, w; };
+	struct{ cl_half s0, s1, s2, s3; };
+	struct{ cl_half2 lo, hi; };
 }cl_half4;
 typedef cl_half4 cl_half3;
-typedef union { cl_half s[8];
-struct{ cl_half x, y, z, w; };
-struct{ cl_half s0, s1, s2, s3, s4, s5, s6, s7; };
-struct{ cl_half4 lo, hi; };
+typedef union {
+	cl_half s[8];
+	struct{ cl_half x, y, z, w; };
+	struct{ cl_half s0, s1, s2, s3, s4, s5, s6, s7; };
+	struct{ cl_half4 lo, hi; };
 }cl_half8;
-typedef union { cl_half s[16];
-struct{ cl_half x, y, z, w, __spacer4, __spacer5, __spacer6, __spacer7, __spacer8, __spacer9, sa, sb, sc, sd, se, sf; };
-struct{ cl_half s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, sA, sB, sC, sD, sE, sF; };
-struct{ cl_half8 lo, hi; };
+typedef union {
+	cl_half s[16];
+	struct{ cl_half x, y, z, w, __spacer4, __spacer5, __spacer6, __spacer7, __spacer8, __spacer9, sa, sb, sc, sd, se, sf; };
+	struct{ cl_half s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, sA, sB, sC, sD, sE, sF; };
+	struct{ cl_half8 lo, hi; };
 }cl_half16;
-typedef union { cl_int s[2];
-struct{ cl_int x, y; };
-struct{ cl_int s0, s1; };
-struct{ cl_int lo, hi; };
+typedef union {
+	cl_int s[2];
+	struct{ cl_int x, y; };
+	struct{ cl_int s0, s1; };
+	struct{ cl_int lo, hi; };
 }cl_int2;
-typedef union { cl_int s[4];
-struct{ cl_int x, y, z, w; };
-struct{ cl_int s0, s1, s2, s3; };
-struct{ cl_int2 lo, hi; };
+typedef union {
+	cl_int s[4];
+	struct{ cl_int x, y, z, w; };
+	struct{ cl_int s0, s1, s2, s3; };
+	struct{ cl_int2 lo, hi; };
 }cl_int4;
 typedef cl_int4 cl_int3;
-typedef union { cl_int s[8];
-struct{ cl_int x, y, z, w; };
-struct{ cl_int s0, s1, s2, s3, s4, s5, s6, s7; };
-struct{ cl_int4 lo, hi; };
+typedef union {
+	cl_int s[8];
+	struct{ cl_int x, y, z, w; };
+	struct{ cl_int s0, s1, s2, s3, s4, s5, s6, s7; };
+	struct{ cl_int4 lo, hi; };
 }cl_int8;
-typedef union { cl_int s[16];
-struct{ cl_int x, y, z, w, __spacer4, __spacer5, __spacer6, __spacer7, __spacer8, __spacer9, sa, sb, sc, sd, se, sf; };
-struct{ cl_int s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, sA, sB, sC, sD, sE, sF; };
-struct{ cl_int8 lo, hi; };
+typedef union {
+	cl_int s[16];
+	struct{ cl_int x, y, z, w, __spacer4, __spacer5, __spacer6, __spacer7, __spacer8, __spacer9, sa, sb, sc, sd, se, sf; };
+	struct{ cl_int s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, sA, sB, sC, sD, sE, sF; };
+	struct{ cl_int8 lo, hi; };
 }cl_int16;
-typedef union { cl_uint s[2];
-struct{ cl_uint x, y; };
-struct{ cl_uint s0, s1; };
-struct{ cl_uint lo, hi; };
+typedef union {
+	cl_uint s[2];
+	struct{ cl_uint x, y; };
+	struct{ cl_uint s0, s1; };
+	struct{ cl_uint lo, hi; };
 }cl_uint2;
-typedef union { cl_uint s[4];
-struct{ cl_uint x, y, z, w; };
-struct{ cl_uint s0, s1, s2, s3; };
-struct{ cl_uint2 lo, hi; };
+typedef union {
+	cl_uint s[4];
+	struct{ cl_uint x, y, z, w; };
+	struct{ cl_uint s0, s1, s2, s3; };
+	struct{ cl_uint2 lo, hi; };
 }cl_uint4;
 typedef cl_uint4 cl_uint3;
-typedef union { cl_uint s[8];
-struct{ cl_uint x, y, z, w; };
-struct{ cl_uint s0, s1, s2, s3, s4, s5, s6, s7; };
-struct{ cl_uint4 lo, hi; };
+typedef union {
+	cl_uint s[8];
+	struct{ cl_uint x, y, z, w; };
+	struct{ cl_uint s0, s1, s2, s3, s4, s5, s6, s7; };
+	struct{ cl_uint4 lo, hi; };
 }cl_uint8;
-typedef union { cl_uint s[16];
-struct{ cl_uint x, y, z, w, __spacer4, __spacer5, __spacer6, __spacer7, __spacer8, __spacer9, sa, sb, sc, sd, se, sf; };
-struct{ cl_uint s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, sA, sB, sC, sD, sE, sF; };
-struct{ cl_uint8 lo, hi; };
+typedef union {
+	cl_uint s[16];
+	struct{ cl_uint x, y, z, w, __spacer4, __spacer5, __spacer6, __spacer7, __spacer8, __spacer9, sa, sb, sc, sd, se, sf; };
+	struct{ cl_uint s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, sA, sB, sC, sD, sE, sF; };
+	struct{ cl_uint8 lo, hi; };
 }cl_uint16;
-typedef union { cl_long s[2];
-struct{ cl_long x, y; };
-struct{ cl_long s0, s1; };
-struct{ cl_long lo, hi; };
+typedef union {
+	cl_long s[2];
+	struct{ cl_long x, y; };
+	struct{ cl_long s0, s1; };
+	struct{ cl_long lo, hi; };
 }cl_long2;
-typedef union { cl_long s[4];
-struct{ cl_long x, y, z, w; };
-struct{ cl_long s0, s1, s2, s3; };
-struct{ cl_long2 lo, hi; };
+typedef union {
+	cl_long s[4];
+	struct{ cl_long x, y, z, w; };
+	struct{ cl_long s0, s1, s2, s3; };
+	struct{ cl_long2 lo, hi; };
 }cl_long4;
 typedef cl_long4 cl_long3;
-typedef union { cl_long s[8];
-struct{ cl_long x, y, z, w; };
-struct{ cl_long s0, s1, s2, s3, s4, s5, s6, s7; };
-struct{ cl_long4 lo, hi; };
+typedef union {
+	cl_long s[8];
+	struct{ cl_long x, y, z, w; };
+	struct{ cl_long s0, s1, s2, s3, s4, s5, s6, s7; };
+	struct{ cl_long4 lo, hi; };
 }cl_long8;
-typedef union { cl_long s[16];
-struct{ cl_long x, y, z, w, __spacer4, __spacer5, __spacer6, __spacer7, __spacer8, __spacer9, sa, sb, sc, sd, se, sf; };
-struct{ cl_long s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, sA, sB, sC, sD, sE, sF; };
-struct{ cl_long8 lo, hi; };
+typedef union {
+	cl_long s[16];
+	struct{ cl_long x, y, z, w, __spacer4, __spacer5, __spacer6, __spacer7, __spacer8, __spacer9, sa, sb, sc, sd, se, sf; };
+	struct{ cl_long s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, sA, sB, sC, sD, sE, sF; };
+	struct{ cl_long8 lo, hi; };
 }cl_long16;
-typedef union { cl_ulong s[2];
-struct{ cl_ulong x, y; };
-struct{ cl_ulong s0, s1; };
-struct{ cl_ulong lo, hi; };
+typedef union {
+	cl_ulong s[2];
+	struct{ cl_ulong x, y; };
+	struct{ cl_ulong s0, s1; };
+	struct{ cl_ulong lo, hi; };
 }cl_ulong2;
-typedef union { cl_ulong s[4];
-struct{ cl_ulong x, y, z, w; };
-struct{ cl_ulong s0, s1, s2, s3; };
-struct{ cl_ulong2 lo, hi; };
+typedef union {
+	cl_ulong s[4];
+	struct{ cl_ulong x, y, z, w; };
+	struct{ cl_ulong s0, s1, s2, s3; };
+	struct{ cl_ulong2 lo, hi; };
 }cl_ulong4;
 typedef cl_ulong4 cl_ulong3;
-typedef union { cl_ulong s[8];
-struct{ cl_ulong x, y, z, w; };
-struct{ cl_ulong s0, s1, s2, s3, s4, s5, s6, s7; };
-struct{ cl_ulong4 lo, hi; };
+typedef union {
+	cl_ulong s[8];
+	struct{ cl_ulong x, y, z, w; };
+	struct{ cl_ulong s0, s1, s2, s3, s4, s5, s6, s7; };
+	struct{ cl_ulong4 lo, hi; };
 }cl_ulong8;
-typedef union { cl_ulong s[16];
-struct{ cl_ulong x, y, z, w, __spacer4, __spacer5, __spacer6, __spacer7, __spacer8, __spacer9, sa, sb, sc, sd, se, sf; };
-struct{ cl_ulong s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, sA, sB, sC, sD, sE, sF; };
-struct{ cl_ulong8 lo, hi; };
+typedef union {
+	cl_ulong s[16];
+	struct{ cl_ulong x, y, z, w, __spacer4, __spacer5, __spacer6, __spacer7, __spacer8, __spacer9, sa, sb, sc, sd, se, sf; };
+	struct{ cl_ulong s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, sA, sB, sC, sD, sE, sF; };
+	struct{ cl_ulong8 lo, hi; };
 }cl_ulong16;
-typedef union { cl_float s[2];
-struct{ cl_float x, y; };
-struct{ cl_float s0, s1; };
-struct{ cl_float lo, hi; };
+typedef union {
+	cl_float s[2];
+	struct{ cl_float x, y; };
+	struct{ cl_float s0, s1; };
+	struct{ cl_float lo, hi; };
 }cl_float2;
-typedef union { cl_float s[4];
-struct{ cl_float x, y, z, w; };
-struct{ cl_float s0, s1, s2, s3; };
-struct{ cl_float2 lo, hi; };
+typedef union {
+	cl_float s[4];
+	struct{ cl_float x, y, z, w; };
+	struct{ cl_float s0, s1, s2, s3; };
+	struct{ cl_float2 lo, hi; };
 }cl_float4;
 typedef cl_float4 cl_float3;
-typedef union { cl_float s[8];
-struct{ cl_float x, y, z, w; };
-struct{ cl_float s0, s1, s2, s3, s4, s5, s6, s7; };
-struct{ cl_float4 lo, hi; };
+typedef union {
+	cl_float s[8];
+	struct{ cl_float x, y, z, w; };
+	struct{ cl_float s0, s1, s2, s3, s4, s5, s6, s7; };
+	struct{ cl_float4 lo, hi; };
 }cl_float8;
-typedef union { cl_float s[16];
-struct{ cl_float x, y, z, w, __spacer4, __spacer5, __spacer6, __spacer7, __spacer8, __spacer9, sa, sb, sc, sd, se, sf; };
-struct{ cl_float s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, sA, sB, sC, sD, sE, sF; };
-struct{ cl_float8 lo, hi; };
+typedef union {
+	cl_float s[16];
+	struct{ cl_float x, y, z, w, __spacer4, __spacer5, __spacer6, __spacer7, __spacer8, __spacer9, sa, sb, sc, sd, se, sf; };
+	struct{ cl_float s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, sA, sB, sC, sD, sE, sF; };
+	struct{ cl_float8 lo, hi; };
 }cl_float16;
-typedef union { cl_double s[2];
-struct{ cl_double x, y; };
-struct{ cl_double s0, s1; };
-struct{ cl_double lo, hi; };
+typedef union {
+	cl_double s[2];
+	struct{ cl_double x, y; };
+	struct{ cl_double s0, s1; };
+	struct{ cl_double lo, hi; };
 }cl_double2;
-typedef union { cl_double s[4];
-struct{ cl_double x, y, z, w; };
-struct{ cl_double s0, s1, s2, s3; };
-struct{ cl_double2 lo, hi; };
+typedef union {
+	cl_double s[4];
+	struct{ cl_double x, y, z, w; };
+	struct{ cl_double s0, s1, s2, s3; };
+	struct{ cl_double2 lo, hi; };
 }cl_double4;
 typedef cl_double4 cl_double3;
-typedef union { cl_double s[8];
-struct{ cl_double x, y, z, w; };
-struct{ cl_double s0, s1, s2, s3, s4, s5, s6, s7; };
-struct{ cl_double4 lo, hi; };
+typedef union {
+	cl_double s[8];
+	struct{ cl_double x, y, z, w; };
+	struct{ cl_double s0, s1, s2, s3, s4, s5, s6, s7; };
+	struct{ cl_double4 lo, hi; };
 }cl_double8;
-typedef union { cl_double s[16];
-struct{ cl_double x, y, z, w, __spacer4, __spacer5, __spacer6, __spacer7, __spacer8, __spacer9, sa, sb, sc, sd, se, sf; };
-struct{ cl_double s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, sA, sB, sC, sD, sE, sF; };
-struct{ cl_double8 lo, hi; };
+typedef union {
+	cl_double s[16];
+	struct{ cl_double x, y, z, w, __spacer4, __spacer5, __spacer6, __spacer7, __spacer8, __spacer9, sa, sb, sc, sd, se, sf; };
+	struct{ cl_double s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, sA, sB, sC, sD, sE, sF; };
+	struct{ cl_double8 lo, hi; };
 }cl_double16;
 /* #define  CL_PROGRAM_STRING_DEBUG_INFO       "#line "  _CL_STRINGIFY(__LINE__) " \"" __FILE__ "\" \n\n" ### string, not number "\"#line \"  _CL_STRINGIFY(__LINE__) \" \\\"\" __FILE__ \"\\\" \\n\\n\"" */
 /* END   /usr/include/CL/cl_platform.h */
@@ -467,28 +511,33 @@ typedef cl_bitfield cl_device_device_enqueue_capabilities;
 typedef cl_uint cl_khronos_vendor_id;
 typedef cl_properties cl_mem_properties;
 typedef cl_uint cl_version;
-typedef struct _cl_image_format { cl_channel_order image_channel_order;
-cl_channel_type image_channel_data_type;
+typedef struct _cl_image_format {
+	cl_channel_order image_channel_order;
+	cl_channel_type image_channel_data_type;
 } cl_image_format;
-typedef struct _cl_image_desc { cl_mem_object_type image_type;
-size_t image_width;
-size_t image_height;
-size_t image_depth;
-size_t image_array_size;
-size_t image_row_pitch;
-size_t image_slice_pitch;
-cl_uint num_mip_levels;
-cl_uint num_samples;
-__extension__ union { cl_mem buffer;
-cl_mem mem_object;
+typedef struct _cl_image_desc {
+	cl_mem_object_type image_type;
+	size_t image_width;
+	size_t image_height;
+	size_t image_depth;
+	size_t image_array_size;
+	size_t image_row_pitch;
+	size_t image_slice_pitch;
+	cl_uint num_mip_levels;
+	cl_uint num_samples;
+	__extension__ union {
+	cl_mem buffer;
+	cl_mem mem_object;
 };
 } cl_image_desc;
-typedef struct _cl_buffer_region { size_t origin;
-size_t size;
+typedef struct _cl_buffer_region {
+	size_t origin;
+	size_t size;
 } cl_buffer_region;
 enum { CL_NAME_VERSION_MAX_NAME_SIZE = 64 };
-typedef struct _cl_name_version { cl_version version;
-char name[64];
+typedef struct _cl_name_version {
+	cl_version version;
+	char name[64];
 } cl_name_version;
 enum { CL_SUCCESS = 0 };
 enum { CL_DEVICE_NOT_FOUND = -1 };

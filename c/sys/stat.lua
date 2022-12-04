@@ -29,24 +29,25 @@ enum { __nlink_t_defined = 1 };
 enum { _BITS_STAT_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/struct_stat.h */
 enum { _BITS_STRUCT_STAT_H = 1 };
-struct stat { __dev_t st_dev;
-__ino_t st_ino;
-__nlink_t st_nlink;
-__mode_t st_mode;
-__uid_t st_uid;
-__gid_t st_gid;
-int __pad0;
-__dev_t st_rdev;
-__off_t st_size;
-__blksize_t st_blksize;
-__blkcnt_t st_blocks;
-struct timespec st_atim;
-struct timespec st_mtim;
-struct timespec st_ctim;
+struct stat {
+	__dev_t st_dev;
+	__ino_t st_ino;
+	__nlink_t st_nlink;
+	__mode_t st_mode;
+	__uid_t st_uid;
+	__gid_t st_gid;
+	int __pad0;
+	__dev_t st_rdev;
+	__off_t st_size;
+	__blksize_t st_blksize;
+	__blkcnt_t st_blocks;
+	struct timespec st_atim;
+	struct timespec st_mtim;
+	struct timespec st_ctim;
 /* #  define st_atime st_atim.tv_sec ### string, not number "st_atim.tv_sec" */
 /* #  define st_mtime st_mtim.tv_sec ### string, not number "st_mtim.tv_sec" */
 /* #  define st_ctime st_ctim.tv_sec ### string, not number "st_ctim.tv_sec" */
-__syscall_slong_t __glibc_reserved[3];
+	__syscall_slong_t __glibc_reserved[3];
 };
 enum { _STATBUF_ST_BLKSIZE = 1 };
 enum { _STATBUF_ST_RDEV = 1 };
@@ -96,7 +97,7 @@ enum { S_IWOTH = 2 };
 enum { S_IXOTH = 1 };
 enum { S_IRWXO = 7 };
 enum { ACCESSPERMS = 511 };
-enum { ALLPERMS = 4095 };
+enum { ALLPERMS = 4032 };
 enum { DEFFILEMODE = 438 };
 enum { S_BLKSIZE = 512 };
 extern int stat (const char * __file, struct stat * __buf) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));

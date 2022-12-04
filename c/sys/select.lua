@@ -29,7 +29,8 @@ typedef __sigset_t sigset_t;
 ]] require 'ffi.c.bits.types.suseconds_t' ffi.cdef[[
 typedef long int __fd_mask;
 /* #define __NFDBITS	(8 * (int) sizeof (__fd_mask)) ### string, not number "(8 * (int) sizeof (__fd_mask))" */
-typedef struct { __fd_mask __fds_bits[1024 / (8 * (int) sizeof (__fd_mask))];
+typedef struct {
+	__fd_mask __fds_bits[1024 / (8 * (int) sizeof (__fd_mask))];
 } fd_set;
 enum { FD_SETSIZE = 1024 };
 typedef __fd_mask fd_mask;

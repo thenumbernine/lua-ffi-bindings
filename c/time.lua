@@ -38,17 +38,18 @@ enum { __struct_tm_defined = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.c.bits.types' ffi.cdef[[
 /* END   /usr/include/x86_64-linux-gnu/bits/types.h */
-struct tm { int tm_sec;
-int tm_min;
-int tm_hour;
-int tm_mday;
-int tm_mon;
-int tm_year;
-int tm_wday;
-int tm_yday;
-int tm_isdst;
-long int tm_gmtoff;
-const char *tm_zone;
+struct tm {
+	int tm_sec;
+	int tm_min;
+	int tm_hour;
+	int tm_mday;
+	int tm_mon;
+	int tm_year;
+	int tm_wday;
+	int tm_yday;
+	int tm_isdst;
+	long int tm_gmtoff;
+	const char *tm_zone;
 };
 /* END   /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
@@ -68,8 +69,9 @@ enum { __itimerspec_defined = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
 ]] require 'ffi.c.bits.types.struct_timespec' ffi.cdef[[
 /* END   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
-struct itimerspec { struct timespec it_interval;
-struct timespec it_value;
+struct itimerspec {
+	struct timespec it_interval;
+	struct timespec it_value;
 };
 /* END   /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h */
 struct sigevent;

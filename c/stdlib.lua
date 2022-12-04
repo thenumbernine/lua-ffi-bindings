@@ -26,15 +26,18 @@ enum { __WCOREFLAG = 128 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/floatn.h */
 ]] require 'ffi.c.bits.floatn' ffi.cdef[[
 /* END   /usr/include/x86_64-linux-gnu/bits/floatn.h */
-typedef struct { int quot;
-int rem;
+typedef struct {
+	int quot;
+	int rem;
 } div_t;
-typedef struct { long int quot;
-long int rem;
+typedef struct {
+	long int quot;
+	long int rem;
 } ldiv_t;
 enum { __ldiv_t_defined = 1 };
-__extension__ typedef struct { long long int quot;
-long long int rem;
+__extension__ typedef struct {
+	long long int quot;
+	long long int rem;
 } lldiv_t;
 enum { __lldiv_t_defined = 1 };
 enum { RAND_MAX = 2147483647 };
@@ -64,13 +67,14 @@ extern long int random (void) __attribute__ ((__nothrow__ , __leaf__));
 extern void srandom (unsigned int __seed) __attribute__ ((__nothrow__ , __leaf__));
 extern char *initstate (unsigned int __seed, char *__statebuf, size_t __statelen) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
 extern char *setstate (char *__statebuf) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
-struct random_data { int32_t *fptr;
-int32_t *rptr;
-int32_t *state;
-int rand_type;
-int rand_deg;
-int rand_sep;
-int32_t *end_ptr;
+struct random_data {
+	int32_t *fptr;
+	int32_t *rptr;
+	int32_t *state;
+	int rand_type;
+	int rand_deg;
+	int rand_sep;
+	int32_t *end_ptr;
 };
 extern int random_r (struct random_data * __buf, int32_t * __result) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 extern int srandom_r (unsigned int __seed, struct random_data *__buf) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
@@ -88,11 +92,12 @@ extern long int jrand48 (unsigned short int __xsubi[3]) __attribute__ ((__nothro
 extern void srand48 (long int __seedval) __attribute__ ((__nothrow__ , __leaf__));
 extern unsigned short int *seed48 (unsigned short int __seed16v[3]) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 extern void lcong48 (unsigned short int __param[7]) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
-struct drand48_data { unsigned short int __x[3];
-unsigned short int __old_x[3];
-unsigned short int __c;
-unsigned short int __init;
-__extension__ unsigned long long int __a;
+struct drand48_data {
+	unsigned short int __x[3];
+	unsigned short int __old_x[3];
+	unsigned short int __c;
+	unsigned short int __init;
+	__extension__ unsigned long long int __a;
 };
 extern int drand48_r (struct drand48_data * __buffer, double * __result) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 extern int erand48_r (unsigned short int __xsubi[3], struct drand48_data * __buffer, double * __result) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
@@ -167,7 +172,7 @@ extern int mblen (const char *__s, size_t __n) __attribute__ ((__nothrow__ , __l
 extern int mbtowc (wchar_t * __pwc, const char * __s, size_t __n) __attribute__ ((__nothrow__ , __leaf__));
 extern int wctomb (char *__s, wchar_t __wchar) __attribute__ ((__nothrow__ , __leaf__));
 extern size_t mbstowcs (wchar_t * __pwcs, const char * __s, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__access__ (__read_only__, 2)));
-extern size_t wcstombs (char * __s, const wchar_t * __pwcs, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__access__ (a, 1, s))) __attribute__ ((__access__ (__read_only__, 2)));
+extern size_t wcstombs (char * __s, const wchar_t * __pwcs, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__access__ (__write_only__, 1, 3))) __attribute__ ((__access__ (__read_only__, 2)));
 extern int rpmatch (const char *__response) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 extern int getsubopt (char ** __optionp, char *const * __tokens, char ** __valuep) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2, 3)));
 extern int getloadavg (double __loadavg[], int __nelem) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));

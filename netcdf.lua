@@ -294,8 +294,9 @@ extern int nc_inq_compound_fieldoffset(int ncid, nc_type xtype, int fieldid, siz
 extern int nc_inq_compound_fieldtype(int ncid, nc_type xtype, int fieldid, nc_type *field_typeidp);
 extern int nc_inq_compound_fieldndims(int ncid, nc_type xtype, int fieldid, int *ndimsp);
 extern int nc_inq_compound_fielddim_sizes(int ncid, nc_type xtype, int fieldid, int *dim_sizes);
-typedef struct { size_t len;
-void *p;
+typedef struct {
+	size_t len;
+	void *p;
 } nc_vlen_t;
 extern int nc_def_vlen(int ncid, const char *name, nc_type base_typeid, nc_type *xtypep);
 extern int nc_inq_vlen(int ncid, nc_type xtype, char *name, size_t *datum_sizep, nc_type *base_nc_typep);

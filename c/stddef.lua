@@ -53,8 +53,9 @@ enum { __DEFINED_wchar_t = 1 };
 typedef int wchar_t;
 /* #define NULL ((void *)0) ### string, not number "((void *)0)" */
 enum { _GCC_MAX_ALIGN_T = 1 };
-typedef struct { long long __max_align_ll __attribute__((__aligned__(__alignof__(long long))));
-long double __max_align_ld __attribute__((__aligned__(__alignof__(long double))));
+typedef struct {
+	long long __max_align_ll __attribute__((__aligned__(__alignof__(long long))));
+	long double __max_align_ld __attribute__((__aligned__(__alignof__(long double))));
 } max_align_t;
 /* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 ]]

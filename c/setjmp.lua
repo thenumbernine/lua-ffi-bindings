@@ -16,9 +16,10 @@ enum { __jmp_buf_tag_defined = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h */
 ]] require 'ffi.c.bits.types.__sigset_t' ffi.cdef[[
 /* END   /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h */
-struct __jmp_buf_tag { __jmp_buf __jmpbuf;
-int __mask_was_saved;
-__sigset_t __saved_mask;
+struct __jmp_buf_tag {
+	__jmp_buf __jmpbuf;
+	int __mask_was_saved;
+	__sigset_t __saved_mask;
 };
 /* END   /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h */
 typedef struct __jmp_buf_tag jmp_buf[1];

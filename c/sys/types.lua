@@ -84,9 +84,12 @@ enum { _BITS_BYTESWAP_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.c.bits.types' ffi.cdef[[
 /* END   /usr/include/x86_64-linux-gnu/bits/types.h */
-static __inline __uint16_t __bswap_16 (__uint16_t __bsx) { return __builtin_bswap16 (__bsx);
-} static __inline __uint32_t __bswap_32 (__uint32_t __bsx) { return __builtin_bswap32 (__bsx);
-} __extension__ static __inline __uint64_t __bswap_64 (__uint64_t __bsx) { return __builtin_bswap64 (__bsx);
+static __inline __uint16_t __bswap_16 (__uint16_t __bsx) {
+	return __builtin_bswap16 (__bsx);
+} static __inline __uint32_t __bswap_32 (__uint32_t __bsx) {
+	return __builtin_bswap32 (__bsx);
+} __extension__ static __inline __uint64_t __bswap_64 (__uint64_t __bsx) {
+	return __builtin_bswap64 (__bsx);
 }
 /* END   /usr/include/x86_64-linux-gnu/bits/byteswap.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/uintn-identity.h */
@@ -94,9 +97,12 @@ enum { _BITS_UINTN_IDENTITY_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.c.bits.types' ffi.cdef[[
 /* END   /usr/include/x86_64-linux-gnu/bits/types.h */
-static __inline __uint16_t __uint16_identity (__uint16_t __x) { return __x;
-} static __inline __uint32_t __uint32_identity (__uint32_t __x) { return __x;
-} static __inline __uint64_t __uint64_identity (__uint64_t __x) { return __x;
+static __inline __uint16_t __uint16_identity (__uint16_t __x) {
+	return __x;
+} static __inline __uint32_t __uint32_identity (__uint32_t __x) {
+	return __x;
+} static __inline __uint64_t __uint64_identity (__uint64_t __x) {
+	return __x;
 }
 /* END   /usr/include/x86_64-linux-gnu/bits/uintn-identity.h */
 /* END   /usr/include/endian.h */
@@ -136,96 +142,113 @@ enum { __ONCE_ALIGNMENT = 1 };
 /* END   /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h */
 enum { _BITS_ATOMIC_WIDE_COUNTER_H = 1 };
-typedef union { __extension__ unsigned long long int __value64;
-struct { unsigned int __low;
-unsigned int __high;
+typedef union {
+	__extension__ unsigned long long int __value64;
+	struct {
+	unsigned int __low;
+	unsigned int __high;
 } __value32;
 } __atomic_wide_counter;
 /* END   /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h */
-typedef struct __pthread_internal_list { struct __pthread_internal_list *__prev;
-struct __pthread_internal_list *__next;
+typedef struct __pthread_internal_list {
+	struct __pthread_internal_list *__prev;
+	struct __pthread_internal_list *__next;
 } __pthread_list_t;
-typedef struct __pthread_internal_slist { struct __pthread_internal_slist *__next;
+typedef struct __pthread_internal_slist {
+	struct __pthread_internal_slist *__next;
 } __pthread_slist_t;
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/struct_mutex.h */
 enum { _THREAD_MUTEX_INTERNAL_H = 1 };
-struct __pthread_mutex_s { int __lock;
-unsigned int __count;
-int __owner;
-unsigned int __nusers;
-int __kind;
-short __spins;
-short __elision;
-__pthread_list_t __list;
-enum { __PTHREAD_MUTEX_HAVE_PREV = 1 };
+struct __pthread_mutex_s {
+	int __lock;
+	unsigned int __count;
+	int __owner;
+	unsigned int __nusers;
+	int __kind;
+	short __spins;
+	short __elision;
+	__pthread_list_t __list;
+	enum { __PTHREAD_MUTEX_HAVE_PREV = 1 };
 };
 /* END   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h */
 enum { _RWLOCK_INTERNAL_H = 1 };
-struct __pthread_rwlock_arch_t { unsigned int __readers;
-unsigned int __writers;
-unsigned int __wrphase_futex;
-unsigned int __writers_futex;
-unsigned int __pad3;
-unsigned int __pad4;
-int __cur_writer;
-int __shared;
-signed char __rwelision;
-unsigned char __pad1[7];
+struct __pthread_rwlock_arch_t {
+	unsigned int __readers;
+	unsigned int __writers;
+	unsigned int __wrphase_futex;
+	unsigned int __writers_futex;
+	unsigned int __pad3;
+	unsigned int __pad4;
+	int __cur_writer;
+	int __shared;
+	signed char __rwelision;
+	unsigned char __pad1[7];
 /* #  define __PTHREAD_RWLOCK_ELISION_EXTRA 0, { 0, 0, 0, 0, 0, 0, 0 } ### string, not number "0, { 0, 0, 0, 0, 0, 0, 0 }" */
-unsigned long int __pad2;
-unsigned int __flags;
+	unsigned long int __pad2;
+	unsigned int __flags;
 };
 /* END   /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h */
-struct __pthread_cond_s { __atomic_wide_counter __wseq;
-__atomic_wide_counter __g1_start;
-unsigned int __g_refs[2];
-unsigned int __g_size[2];
-unsigned int __g1_orig_size;
-unsigned int __wrefs;
-unsigned int __g_signals[2];
+struct __pthread_cond_s {
+	__atomic_wide_counter __wseq;
+	__atomic_wide_counter __g1_start;
+	unsigned int __g_refs[2];
+	unsigned int __g_size[2];
+	unsigned int __g1_orig_size;
+	unsigned int __wrefs;
+	unsigned int __g_signals[2];
 };
 typedef unsigned int __tss_t;
 typedef unsigned long int __thrd_t;
-typedef struct { int __data;
+typedef struct {
+	int __data;
 } __once_flag;
 /* #define __ONCE_FLAG_INIT { 0 } ### string, not number "{ 0 }" */
 /* END   /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h */
 typedef unsigned long int pthread_t;
-typedef union { char __size[4];
-int __align;
+typedef union {
+	char __size[4];
+	int __align;
 } pthread_mutexattr_t;
-typedef union { char __size[4];
-int __align;
+typedef union {
+	char __size[4];
+	int __align;
 } pthread_condattr_t;
 typedef unsigned int pthread_key_t;
 typedef int pthread_once_t;
-union pthread_attr_t { char __size[56];
-long int __align;
+union pthread_attr_t {
+	char __size[56];
+	long int __align;
 };
 typedef union pthread_attr_t pthread_attr_t;
 enum { __have_pthread_attr_t = 1 };
-typedef union { struct __pthread_mutex_s __data;
-char __size[40];
-long int __align;
+typedef union {
+	struct __pthread_mutex_s __data;
+	char __size[40];
+	long int __align;
 } pthread_mutex_t;
-typedef union { struct __pthread_cond_s __data;
-char __size[48];
-__extension__ long long int __align;
+typedef union {
+	struct __pthread_cond_s __data;
+	char __size[48];
+	__extension__ long long int __align;
 } pthread_cond_t;
-typedef union { struct __pthread_rwlock_arch_t __data;
-char __size[56];
-long int __align;
+typedef union {
+	struct __pthread_rwlock_arch_t __data;
+	char __size[56];
+	long int __align;
 } pthread_rwlock_t;
-typedef union { char __size[8];
-long int __align;
+typedef union {
+	char __size[8];
+	long int __align;
 } pthread_rwlockattr_t;
 typedef volatile int pthread_spinlock_t;
-typedef union { char __size[32];
-long int __align;
+typedef union {
+	char __size[32];
+	long int __align;
 } pthread_barrier_t;
-typedef union { char __size[4];
-int __align;
+typedef union {
+	char __size[4];
+	int __align;
 } pthread_barrierattr_t;
 /* END   /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h */
 /* END   /usr/include/x86_64-linux-gnu/sys/types.h */

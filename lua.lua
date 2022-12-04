@@ -258,23 +258,24 @@ extern lua_Hook (lua_gethook) (lua_State *L);
 extern int (lua_gethookmask) (lua_State *L);
 extern int (lua_gethookcount) (lua_State *L);
 extern int (lua_setcstacklimit) (lua_State *L, unsigned int limit);
-struct lua_Debug { int event;
-const char *name;
-const char *namewhat;
-const char *what;
-const char *source;
-size_t srclen;
-int currentline;
-int linedefined;
-int lastlinedefined;
-unsigned char nups;
-unsigned char nparams;
-char isvararg;
-char istailcall;
-unsigned short ftransfer;
-unsigned short ntransfer;
-char short_src[60];
-struct CallInfo *i_ci;
+struct lua_Debug {
+	int event;
+	const char *name;
+	const char *namewhat;
+	const char *what;
+	const char *source;
+	size_t srclen;
+	int currentline;
+	int linedefined;
+	int lastlinedefined;
+	unsigned char nups;
+	unsigned char nparams;
+	char isvararg;
+	char istailcall;
+	unsigned short ftransfer;
+	unsigned short ntransfer;
+	char short_src[60];
+	struct CallInfo *i_ci;
 };
 /* END   /usr/include/lua5.4/lua.h */
 /* BEGIN /usr/include/lua5.4/lualib.h */
@@ -320,8 +321,9 @@ typedef struct luaL_Buffer luaL_Buffer;
 enum { LUA_ERRFILE = 6 };
 /* #define LUA_LOADED_TABLE	"_LOADED" ### string, not number "\"_LOADED\"" */
 /* #define LUA_PRELOAD_TABLE	"_PRELOAD" ### string, not number "\"_PRELOAD\"" */
-typedef struct luaL_Reg { const char *name;
-lua_CFunction func;
+typedef struct luaL_Reg {
+	const char *name;
+	lua_CFunction func;
 } luaL_Reg;
 /* #define LUAL_NUMSIZES	(sizeof(lua_Integer)*16 + sizeof(lua_Number)) ### string, not number "(sizeof(lua_Integer)*16 + sizeof(lua_Number))" */
 extern void (luaL_checkversion_) (lua_State *L, lua_Number ver, size_t sz);
@@ -363,12 +365,14 @@ extern void (luaL_setfuncs) (lua_State *L, const luaL_Reg *l, int nup);
 extern int (luaL_getsubtable) (lua_State *L, int idx, const char *fname);
 extern void (luaL_traceback) (lua_State *L, lua_State *L1, const char *msg, int level);
 extern void (luaL_requiref) (lua_State *L, const char *modname, lua_CFunction openf, int glb);
-struct luaL_Buffer { char *b;
-size_t size;
-size_t n;
-lua_State *L;
-union { lua_Number n; double u; void *s; lua_Integer i; long l;
-char b[((int)(16 * sizeof(void*) * sizeof(lua_Number)))];
+struct luaL_Buffer {
+	char *b;
+	size_t size;
+	size_t n;
+	lua_State *L;
+	union {
+	lua_Number n; double u; void *s; lua_Integer i; long l;
+	char b[((int)(16 * sizeof(void*) * sizeof(lua_Number)))];
 } init;
 };
 extern void (luaL_buffinit) (lua_State *L, luaL_Buffer *B);
@@ -380,8 +384,9 @@ extern void (luaL_pushresult) (luaL_Buffer *B);
 extern void (luaL_pushresultsize) (luaL_Buffer *B, size_t sz);
 extern char *(luaL_buffinitsize) (lua_State *L, luaL_Buffer *B, size_t sz);
 /* #define LUA_FILEHANDLE          "FILE*" ### string, not number "\"FILE*\"" */
-typedef struct luaL_Stream { FILE *f;
-lua_CFunction closef;
+typedef struct luaL_Stream {
+	FILE *f;
+	lua_CFunction closef;
 } luaL_Stream;
 /* END   /usr/include/lua5.4/lauxlib.h */
 ]]
