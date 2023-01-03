@@ -1,4 +1,3 @@
--- png 1.6.37 + zlib 1.2.8
 local ffi = require 'ffi'
 ffi.cdef[[
 /* BEGIN /usr/include/png.h */
