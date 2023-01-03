@@ -334,3 +334,5 @@ __attribute__((visibility("default"))) int zip_compression_method_supported(zip_
 __attribute__((visibility("default"))) int zip_encryption_method_supported(zip_uint16_t method, int encode);
 /* END   /usr/include/zip.h */
 ]]
+local zip = ffi.load'zip'
+return zip
