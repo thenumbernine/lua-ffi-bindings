@@ -34,11 +34,10 @@ so I decided to put that behavior in one place, here.  Maybe I'll put that into 
 ### Dependencies
 
 - LuaJIT
-- The Imgui library bindings depends on the auto-generated cimgui library bindings provided at https://github.com/sonoro1234/LuaJIT-ImGui.  You don't need to re-generate the bindings (unless you are regenerating them for a newer version of cimgui).  You only need to make sure that your `LUA_PATH` is set up so that the LuaJIT-ImGUI/build/imgui folder can be accessed via a "require 'imgui'" call.
 - [lua-ext](https://github.com/thenumbernine/lua-ext)
 - [template-lua](https://github.com/thenumbernine/lua-template)
+- [preproc-lua](https://github.com/thenumbernine/preproc-lua) optionally if you want to generate new headers.  This requires C headers to be present, which is no problem on linux, but for Windows you'll have to have MSVC or MinGW or something installed.
 
-In the future, these should be incorporated:
+In the future, I'm hoping to incorporate:
 
 - [include-lua](https://github.com/thenumbernine/include-lua)
-- [preproc-lua](https://github.com/thenumbernine/preproc-lua) optionally if you want to generate new headers.  This requires C headers to be present, which is no problem on linux, but for Windows you'll have to have MSVC or MinGW or something installed.
