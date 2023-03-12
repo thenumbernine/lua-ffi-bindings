@@ -3,16 +3,17 @@
 [![Donate via Stripe](https://img.shields.io/badge/Donate-Stripe-green.svg)](https://buy.stripe.com/00gbJZ0OdcNs9zi288)<br>
 [![Donate via Bitcoin](https://img.shields.io/badge/Donate-Bitcoin-green.svg)](bitcoin:37fsp7qQKU8XoHZGRQvVzQVP8FrEJ73cSJ)<br>
 
-Thanks to https://github.com/malkia/ufo where I got the first sets of headers for this project.
-
-Since then I've been replacing a few of them as versions increment.
 
 For some of these I use a `$LUAJIT_LIBPATH` environment variable to specify the base of the directory structure where .so files are located.
+
 From there sometimes I follow Malkia's structure of `/$ffi.os/$ffi.arch/` to further distinguish .so files.
 
-I'm slowly incorporating my [C preprocessor in Lua](https://github.com/thenumbernine/preproc-lua) project into automatically generating the headers from the compiler's include files.
+This is driven by my [C preprocessor in Lua](https://github.com/thenumbernine/preproc-lua) project, whose `generate.lua` file will automatically generate the headers from the compiler's include files.
 
 This is still a manually run and hand-tweaked process, but will hopefully eventually be automated into my [#include-in-Lua](https://github.com/thenumbernine/include-lua) project.
+
+The original versions started from https://github.com/malkia/ufo .
+
 
 The directory structure is a bit of a mess.
 
