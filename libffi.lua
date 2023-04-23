@@ -5,6 +5,23 @@ ffi.cdef[[
 /* BEGIN /usr/include/x86_64-linux-gnu/ffi.h */
 enum { LIBFFI_H = 1 };
 enum { X86_64 = 1 };
+enum { FFI_TYPE_VOID = 0 };
+enum { FFI_TYPE_INT = 1 };
+enum { FFI_TYPE_FLOAT = 2 };
+enum { FFI_TYPE_DOUBLE = 3 };
+enum { FFI_TYPE_LONGDOUBLE = 4 };
+enum { FFI_TYPE_UINT8 = 5 };
+enum { FFI_TYPE_SINT8 = 6 };
+enum { FFI_TYPE_UINT16 = 7 };
+enum { FFI_TYPE_SINT16 = 8 };
+enum { FFI_TYPE_UINT32 = 9 };
+enum { FFI_TYPE_SINT32 = 10 };
+enum { FFI_TYPE_UINT64 = 11 };
+enum { FFI_TYPE_SINT64 = 12 };
+enum { FFI_TYPE_STRUCT = 13 };
+enum { FFI_TYPE_POINTER = 14 };
+enum { FFI_TYPE_COMPLEX = 15 };
+enum { FFI_TYPE_LAST = 15 };
 /* BEGIN /usr/include/x86_64-linux-gnu/ffitarget.h */
 enum { LIBFFI_TARGET_H = 1 };
 enum { X86_ANY = 1 };
@@ -15,10 +32,10 @@ typedef signed long ffi_sarg;
 typedef enum ffi_abi { FFI_FIRST_ABI = 1, FFI_UNIX64, FFI_WIN64, FFI_EFI64 = FFI_WIN64, FFI_GNUW64, FFI_LAST_ABI, FFI_DEFAULT_ABI = FFI_UNIX64 } ffi_abi;
 enum { FFI_CLOSURES = 1 };
 enum { FFI_GO_CLOSURES = 1 };
-enum { FFI_TYPE_SMALL_STRUCT_1B = 1 };
-enum { FFI_TYPE_SMALL_STRUCT_2B = 2 };
-enum { FFI_TYPE_SMALL_STRUCT_4B = 3 };
-enum { FFI_TYPE_MS_STRUCT = 4 };
+enum { FFI_TYPE_SMALL_STRUCT_1B = 16 };
+enum { FFI_TYPE_SMALL_STRUCT_2B = 17 };
+enum { FFI_TYPE_SMALL_STRUCT_4B = 18 };
+enum { FFI_TYPE_MS_STRUCT = 19 };
 enum { FFI_TRAMPOLINE_SIZE = 32 };
 enum { FFI_NATIVE_RAW_API = 0 };
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/cet.h */
@@ -105,7 +122,7 @@ void *user_data;
 void *ffi_closure_alloc (size_t size, void **code);
 void ffi_closure_free (void *);
 ffi_status ffi_prep_closure (ffi_closure*, ffi_cif *, void (*fun)(ffi_cif*,void*,void**,void*), void *user_data) __attribute__((deprecated ("use ffi_prep_closure_loc instead")));
-ffi_status ffi_prep_closure_loc (ffi_closure*, ffi_cif *, void (*fun)(ffi_cif*,void*,void**,void*), void *user_data, void*codeloc);
+ffi_status ffi_prep_closure_loc (ffi_closure*, ffi_cif *, void (*fun)(ffi_cif*,void*,void**,void*), void *user_data, void *codeloc);
 typedef struct {
 	char tramp[32];
 	ffi_cif *cif;
@@ -137,23 +154,6 @@ ffi_status ffi_prep_cif(ffi_cif *cif, ffi_abi abi, unsigned int nargs, ffi_type 
 ffi_status ffi_prep_cif_var(ffi_cif *cif, ffi_abi abi, unsigned int nfixedargs, unsigned int ntotalargs, ffi_type *rtype, ffi_type **atypes);
 void ffi_call(ffi_cif *cif, void (*fn)(void), void *rvalue, void **avalue);
 ffi_status ffi_get_struct_offsets (ffi_abi abi, ffi_type *struct_type, size_t *offsets);
-enum { FFI_TYPE_VOID = 0 };
-enum { FFI_TYPE_INT = 1 };
-enum { FFI_TYPE_FLOAT = 2 };
-enum { FFI_TYPE_DOUBLE = 3 };
-enum { FFI_TYPE_LONGDOUBLE = 4 };
-enum { FFI_TYPE_UINT8 = 5 };
-enum { FFI_TYPE_SINT8 = 6 };
-enum { FFI_TYPE_UINT16 = 7 };
-enum { FFI_TYPE_SINT16 = 8 };
-enum { FFI_TYPE_UINT32 = 9 };
-enum { FFI_TYPE_SINT32 = 10 };
-enum { FFI_TYPE_UINT64 = 11 };
-enum { FFI_TYPE_SINT64 = 12 };
-enum { FFI_TYPE_STRUCT = 13 };
-enum { FFI_TYPE_POINTER = 14 };
-enum { FFI_TYPE_COMPLEX = 15 };
-enum { FFI_TYPE_LAST = 15 };
 /* END   /usr/include/x86_64-linux-gnu/ffi.h */
 ]]
 return ffi.load'ffi'

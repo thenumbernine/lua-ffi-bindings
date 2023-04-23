@@ -47,11 +47,11 @@ enum { Z_HAVE_STDARG_H = 1 };
 enum { Z_LFS64 = 1 };
 enum { z_off64_t = 0 };
 /* END   /usr/include/zconf.h */
-/* #define ZLIB_VERSION "1.2.11" ### string, not number "\"1.2.11\"" */
-enum { ZLIB_VERNUM = 4784 };
+/* #define ZLIB_VERSION "1.2.13" ### string, not number "\"1.2.13\"" */
+enum { ZLIB_VERNUM = 4816 };
 enum { ZLIB_VER_MAJOR = 1 };
 enum { ZLIB_VER_MINOR = 2 };
-enum { ZLIB_VER_REVISION = 11 };
+enum { ZLIB_VER_REVISION = 13 };
 enum { ZLIB_VER_SUBREVISION = 0 };
 typedef voidpf (*alloc_func) (voidpf opaque, uInt items, uInt size);
 typedef void (*free_func) (voidpf opaque, voidpf address);
@@ -231,8 +231,6 @@ extern int gzread (gzFile file, voidp buf, unsigned len);
 /* ### INCOMPLETE ARG MACRO ### OF ### IN LINE ### extern z_size_t  gzfread OF((voidp buf, z_size_t size, z_size_t nitems, */
 /* ### PREPENDING ### extern z_size_t  gzfread OF((voidp buf, z_size_t size, z_size_t nitems, ### TO ### gzFile file)); */
 extern z_size_t gzfread (voidp buf, z_size_t size, z_size_t nitems, gzFile file);
-/* ### INCOMPLETE ARG MACRO ### OF ### IN LINE ### extern int  gzwrite OF((gzFile file, */
-/* ### PREPENDING ### extern int  gzwrite OF((gzFile file, ### TO ### voidpc buf, unsigned len)); */
 extern int gzwrite (gzFile file, voidpc buf, unsigned len);
 /* ### INCOMPLETE ARG MACRO ### OF ### IN LINE ### extern z_size_t  gzfwrite OF((voidpc buf, z_size_t size, */
 /* ### PREPENDING ### extern z_size_t  gzfwrite OF((voidpc buf, z_size_t size, ### TO ### z_size_t nitems, gzFile file)); */
@@ -257,9 +255,10 @@ extern uLong adler32 (uLong adler, const Bytef *buf, uInt len);
 /* ### PREPENDING ### extern uLong  adler32_z OF((uLong adler, const Bytef *buf, ### TO ### z_size_t len)); */
 extern uLong adler32_z (uLong adler, const Bytef *buf, z_size_t len);
 extern uLong crc32 (uLong crc, const Bytef *buf, uInt len);
-/* ### INCOMPLETE ARG MACRO ### OF ### IN LINE ### extern uLong  crc32_z OF((uLong adler, const Bytef *buf, */
-/* ### PREPENDING ### extern uLong  crc32_z OF((uLong adler, const Bytef *buf, ### TO ### z_size_t len)); */
-extern uLong crc32_z (uLong adler, const Bytef *buf, z_size_t len);
+/* ### INCOMPLETE ARG MACRO ### OF ### IN LINE ### extern uLong  crc32_z OF((uLong crc, const Bytef *buf, */
+/* ### PREPENDING ### extern uLong  crc32_z OF((uLong crc, const Bytef *buf, ### TO ### z_size_t len)); */
+extern uLong crc32_z (uLong crc, const Bytef *buf, z_size_t len);
+extern uLong crc32_combine_op (uLong crc1, uLong crc2, uLong op);
 /* ### INCOMPLETE ARG MACRO ### OF ### IN LINE ### extern int  deflateInit_ OF((z_streamp strm, int level, */
 /* ### PREPENDING ### extern int  deflateInit_ OF((z_streamp strm, int level, ### TO ### const char *version, int stream_size)); */
 extern int deflateInit_ (z_streamp strm, int level, const char *version, int stream_size);
@@ -295,6 +294,7 @@ extern off_t gztell (gzFile);
 extern off_t gzoffset (gzFile);
 extern uLong adler32_combine (uLong, uLong, off_t);
 extern uLong crc32_combine (uLong, uLong, off_t);
+extern uLong crc32_combine_gen (off_t);
 extern const char * zError (int);
 extern int inflateSyncPoint (z_streamp);
 extern const z_crc_t * get_crc_table (void);

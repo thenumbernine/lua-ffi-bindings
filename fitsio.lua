@@ -2,11 +2,11 @@ local ffi = require 'ffi'
 ffi.cdef[[
 /* BEGIN /usr/include/fitsio.h */
 enum { _FITSIO_H = 1 };
-/* #define CFITSIO_VERSION 4.1.0 ### string, not number "4.1.0" */
+/* #define CFITSIO_VERSION 4.2.0 ### string, not number "4.2.0" */
 enum { CFITSIO_MICRO = 0 };
-enum { CFITSIO_MINOR = 1 };
+enum { CFITSIO_MINOR = 2 };
 enum { CFITSIO_MAJOR = 4 };
-enum { CFITSIO_SONAME = 9 };
+enum { CFITSIO_SONAME = 10 };
 enum { CFITS_API = 1 };
 /* BEGIN /usr/include/stdio.h */
 ]] require 'ffi.c.stdio' ffi.cdef[[
@@ -380,6 +380,7 @@ enum { ffcpimg = 0 };
 enum { fits_compress_img = 0 };
 enum { fits_decompress_img = 0 };
 enum { fits_read_col = 0 };
+enum { fits_read_cols = 0 };
 enum { fits_read_colnull = 0 };
 enum { fits_read_col_str = 0 };
 enum { fits_read_col_log = 0 };
@@ -503,6 +504,7 @@ enum { fits_write_subset_int = 0 };
 enum { fits_write_subset_flt = 0 };
 enum { fits_write_subset_dbl = 0 };
 enum { fits_write_col = 0 };
+enum { fits_write_cols = 0 };
 enum { fits_write_col_str = 0 };
 enum { fits_write_col_log = 0 };
 enum { fits_write_col_byt = 0 };
@@ -555,6 +557,7 @@ enum { fits_delete_col = 0 };
 enum { fits_copy_col = 0 };
 enum { fits_copy_cols = 0 };
 enum { fits_copy_rows = 0 };
+enum { fits_copy_selrows = 0 };
 enum { fits_modify_vector_len = 0 };
 enum { fits_read_img_coord = 0 };
 enum { fits_read_img_coord_version = 0 };
@@ -806,6 +809,7 @@ typedef struct {
 enum { InputCol = 0 };
 enum { InputOutputCol = 1 };
 enum { OutputCol = 2 };
+enum { TemporaryCol = 3 };
 enum { WCSLIB_GETWCSTAB = 1 };
 typedef struct {
 	int i;
@@ -1347,6 +1351,7 @@ int ffggpk(fitsfile *fptr, long group, long firstelem, long nelem, int *array, i
 int ffggpe(fitsfile *fptr, long group, long firstelem, long nelem, float *array, int *status);
 int ffggpd(fitsfile *fptr, long group, long firstelem, long nelem, double *array, int *status);
 int ffgcv( fitsfile *fptr, int datatype, int colnum, LONGLONG firstrow, LONGLONG firstelem, LONGLONG nelem, void *nulval, void *array, int *anynul, int *status);
+int ffgcvn (fitsfile *fptr, int ncols, int *datatype, int *colnum, LONGLONG firstrow, LONGLONG nrows, void **nulval, void **array, int *anynul, int *status);
 int ffgcf( fitsfile *fptr, int datatype, int colnum, LONGLONG firstrow, LONGLONG firstelem, LONGLONG nelem, void *array, char *nullarray, int *anynul, int *status);
 int ffgcvs(fitsfile *fptr, int colnum, LONGLONG firstrow, LONGLONG firstelem, LONGLONG nelem, char *nulval, char **array, int *anynul, int *status);
 int ffgcl (fitsfile *fptr, int colnum, LONGLONG firstrow, LONGLONG firstelem, LONGLONG nelem, char *array, int *status);
@@ -1495,6 +1500,7 @@ char *fits_iter_get_tunit(iteratorCol *col);
 char *fits_iter_get_tdisp(iteratorCol *col);
 int ffiter(int ncols, iteratorCol *data, long offset, long nPerLoop, int (*workFn)( long totaln, long offset, long firstn, long nvalues, int narrays, iteratorCol *data, void *userPointer), void *userPointer, int *status);
 int ffpcl(fitsfile *fptr, int datatype, int colnum, LONGLONG firstrow, LONGLONG firstelem, LONGLONG nelem, void *array, int *status);
+int ffpcln(fitsfile *fptr, int ncols, int *datatype, int *colnum, LONGLONG firstrow, LONGLONG nrows, void **array, void **nulval, int *status);
 int ffpcls(fitsfile *fptr, int colnum, LONGLONG firstrow, LONGLONG firstelem, LONGLONG nelem, char **array, int *status);
 int ffpcll(fitsfile *fptr, int colnum, LONGLONG firstrow, LONGLONG firstelem, LONGLONG nelem, char *array, int *status);
 int ffpclb(fitsfile *fptr, int colnum, LONGLONG firstrow, LONGLONG firstelem, LONGLONG nelem, unsigned char *array, int *status);
@@ -1542,6 +1548,7 @@ int ffdcol(fitsfile *fptr, int numcol, int *status);
 int ffcpcl(fitsfile *infptr, fitsfile *outfptr, int incol, int outcol, int create_col, int *status);
 int ffccls(fitsfile *infptr, fitsfile *outfptr, int incol, int outcol, int ncols, int create_col, int *status);
 int ffcprw(fitsfile *infptr, fitsfile *outfptr, LONGLONG firstrow, LONGLONG nrows, int *status);
+int ffcpsr(fitsfile *infptr, fitsfile *outfptr, LONGLONG firstrow, LONGLONG nrows, char *row_status, int *status);
 int ffcpht(fitsfile *infptr, fitsfile *outfptr, LONGLONG firstrow, LONGLONG nrows, int *status);
 int ffgics(fitsfile *fptr, double *xrval, double *yrval, double *xrpix, double *yrpix, double *xinc, double *yinc, double *rot, char *type, int *status);
 int ffgicsa(fitsfile *fptr, char version, double *xrval, double *yrval, double *xrpix, double *yrpix, double *xinc, double *yinc, double *rot, char *type, int *status);

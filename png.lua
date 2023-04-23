@@ -2,13 +2,13 @@ local ffi = require 'ffi'
 ffi.cdef[[
 /* BEGIN /usr/include/png.h */
 enum { PNG_H = 1 };
-/* #define PNG_LIBPNG_VER_STRING "1.6.38" ### string, not number "\"1.6.38\"" */
-/* #define PNG_HEADER_VERSION_STRING " libpng version 1.6.38 - September 14, 2022\n" ### string, not number "\" libpng version 1.6.38 - September 14, 2022\\n\"" */
+/* #define PNG_LIBPNG_VER_STRING "1.6.39" ### string, not number "\"1.6.39\"" */
+/* #define PNG_HEADER_VERSION_STRING " libpng version 1.6.39 - November 20, 2022\n" ### string, not number "\" libpng version 1.6.39 - November 20, 2022\\n\"" */
 enum { PNG_LIBPNG_VER_SONUM = 16 };
 enum { PNG_LIBPNG_VER_DLLNUM = 16 };
 enum { PNG_LIBPNG_VER_MAJOR = 1 };
 enum { PNG_LIBPNG_VER_MINOR = 6 };
-enum { PNG_LIBPNG_VER_RELEASE = 38 };
+enum { PNG_LIBPNG_VER_RELEASE = 39 };
 enum { PNG_LIBPNG_VER_BUILD = 0 };
 enum { PNG_LIBPNG_BUILD_ALPHA = 1 };
 enum { PNG_LIBPNG_BUILD_BETA = 2 };
@@ -19,7 +19,7 @@ enum { PNG_LIBPNG_BUILD_PATCH = 8 };
 enum { PNG_LIBPNG_BUILD_PRIVATE = 16 };
 enum { PNG_LIBPNG_BUILD_SPECIAL = 32 };
 enum { PNG_LIBPNG_BUILD_BASE_TYPE = 4 };
-enum { PNG_LIBPNG_VER = 10638 };
+enum { PNG_LIBPNG_VER = 10639 };
 /* BEGIN /usr/include/pnglibconf.h */
 enum { PNGLCONF_H = 1 };
 enum { PNG_16BIT_SUPPORTED = 1 };
@@ -208,7 +208,7 @@ enum { PNG_USER_CHUNK_MALLOC_MAX = 8000000 };
 enum { PNG_USER_HEIGHT_MAX = 1000000 };
 enum { PNG_USER_WIDTH_MAX = 1000000 };
 enum { PNG_ZBUF_SIZE = 8192 };
-enum { PNG_ZLIB_VERNUM = 4784 };
+enum { PNG_ZLIB_VERNUM = 4816 };
 enum { PNG_Z_DEFAULT_COMPRESSION = -1 };
 enum { PNG_Z_DEFAULT_NOFILTER_STRATEGY = 0 };
 enum { PNG_Z_DEFAULT_STRATEGY = 1 };
@@ -289,7 +289,7 @@ typedef char * * * png_charppp;
 /* END   /usr/include/pngconf.h */
 enum { PNG_LIBPNG_BUILD_TYPE = 4 };
 /* #define png_libpng_ver png_get_header_ver(NULL) ### string, not number "png_get_header_ver(NULL)" */
-typedef char* png_libpng_version_1_6_38;
+typedef char* png_libpng_version_1_6_39;
 typedef struct png_struct_def png_struct;
 typedef const png_struct * png_const_structp;
 typedef png_struct * png_structp;

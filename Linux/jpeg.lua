@@ -5,15 +5,12 @@ ffi.cdef[[
 enum { JPEGLIB_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/jconfig.h */
 enum { JPEG_LIB_VERSION = 80 };
-/* #define LIBJPEG_TURBO_VERSION  2.1.2 ### string, not number "2.1.2" */
-enum { LIBJPEG_TURBO_VERSION_NUMBER = 2001002 };
+/* #define LIBJPEG_TURBO_VERSION  2.1.5 ### string, not number "2.1.5" */
+enum { LIBJPEG_TURBO_VERSION_NUMBER = 2001005 };
 enum { C_ARITH_CODING_SUPPORTED = 1 };
 enum { D_ARITH_CODING_SUPPORTED = 1 };
 enum { WITH_SIMD = 1 };
 enum { BITS_IN_JSAMPLE = 8 };
-enum { NEED_SYS_TYPES_H = 1 };
-enum { HAVE_UNSIGNED_CHAR = 1 };
-enum { HAVE_UNSIGNED_SHORT = 1 };
 /* END   /usr/include/x86_64-linux-gnu/jconfig.h */
 /* BEGIN /usr/include/jmorecfg.h */
 enum { MAX_COMPONENTS = 10 };

@@ -1,4 +1,3 @@
--- OpenBLAS 0.3.20
 local ffi = require 'ffi'
 ffi.cdef[[
 /* BEGIN /usr/include/x86_64-linux-gnu/cblas.h */
@@ -31,7 +30,7 @@ enum { OPENBLAS_DLOCAL_BUFFER_SIZE = 4096 };
 enum { OPENBLAS_CLOCAL_BUFFER_SIZE = 8192 };
 enum { OPENBLAS_ZLOCAL_BUFFER_SIZE = 8192 };
 enum { OPENBLAS_GEMM_MULTITHREAD_THRESHOLD = 4 };
-/* #define OPENBLAS_VERSION " OpenBLAS 0.3.20 " ### string, not number "\" OpenBLAS 0.3.20 \"" */
+/* #define OPENBLAS_VERSION " OpenBLAS 0.3.21 " ### string, not number "\" OpenBLAS 0.3.21 \"" */
 enum { xdouble = 0 };
 typedef long BLASLONG;
 typedef unsigned long BLASULONG;
@@ -63,6 +62,7 @@ int openblas_get_num_procs(void);
 char* openblas_get_config(void);
 char* openblas_get_corename(void);
 int openblas_setaffinity(int thread_idx, size_t cpusetsize, cpu_set_t* cpu_set);
+int openblas_getaffinity(int thread_idx, size_t cpusetsize, cpu_set_t* cpu_set);
 int openblas_get_parallel(void);
 enum { OPENBLAS_SEQUENTIAL = 0 };
 enum { OPENBLAS_THREAD = 1 };

@@ -153,6 +153,7 @@ enum { PARENB = 256 };
 enum { PARODD = 512 };
 enum { HUPCL = 1024 };
 enum { CLOCAL = 2048 };
+enum { ADDRB = 536870912 };
 /* END   /usr/include/x86_64-linux-gnu/bits/termios-c_cflag.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/termios-c_lflag.h */
 enum { ISIG = 1 };
