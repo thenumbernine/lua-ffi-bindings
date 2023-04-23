@@ -30,10 +30,10 @@ enum { ZIP_INT16_MAX = 32767 };
 enum { ZIP_UINT16_MAX = 65535 };
 enum { ZIP_INT32_MIN = -1 };
 enum { ZIP_INT32_MAX = 2147483647 };
-/* #define ZIP_UINT32_MAX	 0xffffffffLU ### string, not number "0xffffffffLU" */
+enum { ZIP_UINT32_MAX = 0xffffffff }; /* ### string, not number "0xffffffffLU" */
 enum { ZIP_INT64_MIN = -1 };
-/* #define ZIP_INT64_MAX	 0x7fffffffffffffffLL ### string, number, replaceline "9.2233720368548e+18" */
-/* #define ZIP_UINT64_MAX	 0xffffffffffffffffULL ### string, not number "0xffffffffffffffffULL" */
+/* luajit can't handle enum { ZIP_INT64_MAX = 0x7fffffffffffffff }; ### string, number, replaceline "9.2233720368548e+18" */
+/* luajit can't handle enum { ZIP_UINT64_MAX = 0xffffffffffffffff }; ### string, not number "0xffffffffffffffffULL" */
 /* END   /usr/include/zipconf.h */
 /* #define ZIP_EXTERN __attribute__((visibility("default"))) ### string, not number "__attribute__((visibility(\"default\")))" */
 /* BEGIN /usr/include/stdio.h */
@@ -50,21 +50,21 @@ enum { ZIP_EXCL = 2 };
 enum { ZIP_CHECKCONS = 4 };
 enum { ZIP_TRUNCATE = 8 };
 enum { ZIP_RDONLY = 16 };
-/* #define ZIP_FL_NOCASE 1u ### string, not number "1u" */
-/* #define ZIP_FL_NODIR 2u ### string, not number "2u" */
-/* #define ZIP_FL_COMPRESSED 4u ### string, not number "4u" */
-/* #define ZIP_FL_UNCHANGED 8u ### string, not number "8u" */
-/* #define ZIP_FL_RECOMPRESS 16u ### string, not number "16u" */
-/* #define ZIP_FL_ENCRYPTED 32u ### string, not number "32u" */
-/* #define ZIP_FL_ENC_GUESS 0u ### string, not number "0u" */
-/* #define ZIP_FL_ENC_RAW 64u ### string, not number "64u" */
-/* #define ZIP_FL_ENC_STRICT 128u ### string, not number "128u" */
-/* #define ZIP_FL_LOCAL 256u ### string, not number "256u" */
-/* #define ZIP_FL_CENTRAL 512u ### string, not number "512u" */
-/* #define ZIP_FL_ENC_UTF_8 2048u ### string, not number "2048u" */
-/* #define ZIP_FL_ENC_CP437 4096u ### string, not number "4096u" */
-/* #define ZIP_FL_OVERWRITE 8192u ### string, not number "8192u" */
-/* #define ZIP_AFL_RDONLY 2u ### string, not number "2u" */
+enum { ZIP_FL_NOCASE = 1 }; /* ### string, not number "1u" */
+enum { ZIP_FL_NODIR = 2 }; /* ### string, not number "2u" */
+enum { ZIP_FL_COMPRESSED = 4 }; /* ### string, not number "4u" */
+enum { ZIP_FL_UNCHANGED = 8 }; /* ### string, not number "8u" */
+enum { ZIP_FL_RECOMPRESS = 16 }; /* ### string, not number "16u" */
+enum { ZIP_FL_ENCRYPTED = 32 }; /* ### string, not number "32u" */
+enum { ZIP_FL_ENC_GUESS = 0 }; /* ### string, not number "0u" */
+enum { ZIP_FL_ENC_RAW = 64 }; /* ### string, not number "64u" */
+enum { ZIP_FL_ENC_STRICT = 128 }; /* ### string, not number "128u" */
+enum { ZIP_FL_LOCAL = 256 }; /* ### string, not number "256u" */
+enum { ZIP_FL_CENTRAL = 512 }; /* ### string, not number "512u" */
+enum { ZIP_FL_ENC_UTF_8 = 2048 }; /* ### string, not number "2048u" */
+enum { ZIP_FL_ENC_CP437 = 4096 }; /* ### string, not number "4096u" */
+enum { ZIP_FL_OVERWRITE = 8192 }; /* ### string, not number "8192u" */
+enum { ZIP_AFL_RDONLY = 2 }; /* ### string, not number "2u" */
 enum { ZIP_EXTRA_FIELD_ALL = 65535 };
 enum { ZIP_EXTRA_FIELD_NEW = 65535 };
 enum { ZIP_ER_OK = 0 };
@@ -129,27 +129,27 @@ enum { ZIP_EM_AES_128 = 257 };
 enum { ZIP_EM_AES_192 = 258 };
 enum { ZIP_EM_AES_256 = 259 };
 enum { ZIP_EM_UNKNOWN = 65535 };
-/* #define ZIP_OPSYS_DOS 0x00u ### string, not number "0x00u" */
-/* #define ZIP_OPSYS_AMIGA 0x01u ### string, not number "0x01u" */
-/* #define ZIP_OPSYS_OPENVMS 0x02u ### string, not number "0x02u" */
-/* #define ZIP_OPSYS_UNIX 0x03u ### string, not number "0x03u" */
-/* #define ZIP_OPSYS_VM_CMS 0x04u ### string, not number "0x04u" */
-/* #define ZIP_OPSYS_ATARI_ST 0x05u ### string, not number "0x05u" */
-/* #define ZIP_OPSYS_OS_2 0x06u ### string, not number "0x06u" */
-/* #define ZIP_OPSYS_MACINTOSH 0x07u ### string, not number "0x07u" */
-/* #define ZIP_OPSYS_Z_SYSTEM 0x08u ### string, not number "0x08u" */
-/* #define ZIP_OPSYS_CPM 0x09u ### string, not number "0x09u" */
-/* #define ZIP_OPSYS_WINDOWS_NTFS 0x0au ### string, not number "0x0au" */
-/* #define ZIP_OPSYS_MVS 0x0bu ### string, not number "0x0bu" */
-/* #define ZIP_OPSYS_VSE 0x0cu ### string, not number "0x0cu" */
-/* #define ZIP_OPSYS_ACORN_RISC 0x0du ### string, not number "0x0du" */
-/* #define ZIP_OPSYS_VFAT 0x0eu ### string, not number "0x0eu" */
-/* #define ZIP_OPSYS_ALTERNATE_MVS 0x0fu ### string, not number "0x0fu" */
-/* #define ZIP_OPSYS_BEOS 0x10u ### string, not number "0x10u" */
-/* #define ZIP_OPSYS_TANDEM 0x11u ### string, not number "0x11u" */
-/* #define ZIP_OPSYS_OS_400 0x12u ### string, not number "0x12u" */
-/* #define ZIP_OPSYS_OS_X 0x13u ### string, not number "0x13u" */
-/* #define ZIP_OPSYS_DEFAULT ZIP_OPSYS_UNIX ### string, not number "ZIP_OPSYS_UNIX" */
+enum { ZIP_OPSYS_DOS = 0x00 }; /* ### string, not number "0x00u" */
+enum { ZIP_OPSYS_AMIGA = 0x01 }; /* ### string, not number "0x01u" */
+enum { ZIP_OPSYS_OPENVMS = 0x02 }; /* ### string, not number "0x02u" */
+enum { ZIP_OPSYS_UNIX = 0x03 }; /* ### string, not number "0x03u" */
+enum { ZIP_OPSYS_VM_CMS = 0x04 }; /* ### string, not number "0x04u" */
+enum { ZIP_OPSYS_ATARI_ST = 0x05 }; /* ### string, not number "0x05u" */
+enum { ZIP_OPSYS_OS_2 = 0x06 }; /* ### string, not number "0x06u" */
+enum { ZIP_OPSYS_MACINTOSH = 0x07 }; /* ### string, not number "0x07u" */
+enum { ZIP_OPSYS_Z_SYSTEM = 0x08 }; /* ### string, not number "0x08u" */
+enum { ZIP_OPSYS_CPM = 0x09 }; /* ### string, not number "0x09u" */
+enum { ZIP_OPSYS_WINDOWS_NTFS = 0x0a }; /* ### string, not number "0x0au" */
+enum { ZIP_OPSYS_MVS = 0x0b }; /* ### string, not number "0x0bu" */
+enum { ZIP_OPSYS_VSE = 0x0c }; /* ### string, not number "0x0cu" */
+enum { ZIP_OPSYS_ACORN_RISC = 0x0d }; /* ### string, not number "0x0du" */
+enum { ZIP_OPSYS_VFAT = 0x0e }; /* ### string, not number "0x0eu" */
+enum { ZIP_OPSYS_ALTERNATE_MVS = 0x0f }; /* ### string, not number "0x0fu" */
+enum { ZIP_OPSYS_BEOS = 0x10 }; /* ### string, not number "0x10u" */
+enum { ZIP_OPSYS_TANDEM = 0x11 }; /* ### string, not number "0x11u" */
+enum { ZIP_OPSYS_OS_400 = 0x12 }; /* ### string, not number "0x12u" */
+enum { ZIP_OPSYS_OS_X = 0x13 }; /* ### string, not number "0x13u" */
+enum { ZIP_OPSYS_DEFAULT = ZIP_OPSYS_UNIX }; /* ### string, not number "ZIP_OPSYS_UNIX" */
 enum zip_source_cmd { ZIP_SOURCE_OPEN, ZIP_SOURCE_READ, ZIP_SOURCE_CLOSE, ZIP_SOURCE_STAT, ZIP_SOURCE_ERROR, ZIP_SOURCE_FREE, ZIP_SOURCE_SEEK, ZIP_SOURCE_TELL, ZIP_SOURCE_BEGIN_WRITE, ZIP_SOURCE_COMMIT_WRITE, ZIP_SOURCE_ROLLBACK_WRITE, ZIP_SOURCE_WRITE, ZIP_SOURCE_SEEK_WRITE, ZIP_SOURCE_TELL_WRITE, ZIP_SOURCE_SUPPORTS, ZIP_SOURCE_REMOVE, ZIP_SOURCE_RESERVED_1, ZIP_SOURCE_BEGIN_WRITE_CLONING, ZIP_SOURCE_ACCEPT_EMPTY, ZIP_SOURCE_GET_FILE_ATTRIBUTES };
 typedef enum zip_source_cmd zip_source_cmd_t;
 /* #define ZIP_SOURCE_SUPPORTS_READABLE	(ZIP_SOURCE_MAKE_COMMAND_BITMASK(ZIP_SOURCE_OPEN)                                           | ZIP_SOURCE_MAKE_COMMAND_BITMASK(ZIP_SOURCE_READ)                                           | ZIP_SOURCE_MAKE_COMMAND_BITMASK(ZIP_SOURCE_CLOSE)                                           | ZIP_SOURCE_MAKE_COMMAND_BITMASK(ZIP_SOURCE_STAT)                                           | ZIP_SOURCE_MAKE_COMMAND_BITMASK(ZIP_SOURCE_ERROR)                                           | ZIP_SOURCE_MAKE_COMMAND_BITMASK(ZIP_SOURCE_FREE)) ### string, not number "(ZIP_SOURCE_MAKE_COMMAND_BITMASK(ZIP_SOURCE_OPEN)                                           | ZIP_SOURCE_MAKE_COMMAND_BITMASK(ZIP_SOURCE_READ)                                           | ZIP_SOURCE_MAKE_COMMAND_BITMASK(ZIP_SOURCE_CLOSE)                                           | ZIP_SOURCE_MAKE_COMMAND_BITMASK(ZIP_SOURCE_STAT)                                           | ZIP_SOURCE_MAKE_COMMAND_BITMASK(ZIP_SOURCE_ERROR)                                           | ZIP_SOURCE_MAKE_COMMAND_BITMASK(ZIP_SOURCE_FREE))" */
@@ -165,15 +165,15 @@ struct zip_error {
 	int sys_err;
 	char * str;
 };
-/* #define ZIP_STAT_NAME 0x0001u ### string, not number "0x0001u" */
-/* #define ZIP_STAT_INDEX 0x0002u ### string, not number "0x0002u" */
-/* #define ZIP_STAT_SIZE 0x0004u ### string, not number "0x0004u" */
-/* #define ZIP_STAT_COMP_SIZE 0x0008u ### string, not number "0x0008u" */
-/* #define ZIP_STAT_MTIME 0x0010u ### string, not number "0x0010u" */
-/* #define ZIP_STAT_CRC 0x0020u ### string, not number "0x0020u" */
-/* #define ZIP_STAT_COMP_METHOD 0x0040u ### string, not number "0x0040u" */
-/* #define ZIP_STAT_ENCRYPTION_METHOD 0x0080u ### string, not number "0x0080u" */
-/* #define ZIP_STAT_FLAGS 0x0100u ### string, not number "0x0100u" */
+enum { ZIP_STAT_NAME = 0x0001 }; /* ### string, not number "0x0001u" */
+enum { ZIP_STAT_INDEX = 0x0002 }; /* ### string, not number "0x0002u" */
+enum { ZIP_STAT_SIZE = 0x0004 }; /* ### string, not number "0x0004u" */
+enum { ZIP_STAT_COMP_SIZE = 0x0008 }; /* ### string, not number "0x0008u" */
+enum { ZIP_STAT_MTIME = 0x0010 }; /* ### string, not number "0x0010u" */
+enum { ZIP_STAT_CRC = 0x0020 }; /* ### string, not number "0x0020u" */
+enum { ZIP_STAT_COMP_METHOD = 0x0040 }; /* ### string, not number "0x0040u" */
+enum { ZIP_STAT_ENCRYPTION_METHOD = 0x0080 }; /* ### string, not number "0x0080u" */
+enum { ZIP_STAT_FLAGS = 0x0100 }; /* ### string, not number "0x0100u" */
 struct zip_stat {
 	zip_uint64_t valid;
 	const char * name;
@@ -200,11 +200,11 @@ struct zip_file_attributes {
 	zip_uint16_t general_purpose_bit_flags;
 	zip_uint16_t general_purpose_bit_mask;
 };
-/* #define ZIP_FILE_ATTRIBUTES_HOST_SYSTEM 0x0001u ### string, not number "0x0001u" */
-/* #define ZIP_FILE_ATTRIBUTES_ASCII 0x0002u ### string, not number "0x0002u" */
-/* #define ZIP_FILE_ATTRIBUTES_VERSION_NEEDED 0x0004u ### string, not number "0x0004u" */
-/* #define ZIP_FILE_ATTRIBUTES_EXTERNAL_FILE_ATTRIBUTES 0x0008u ### string, not number "0x0008u" */
-/* #define ZIP_FILE_ATTRIBUTES_GENERAL_PURPOSE_BIT_FLAGS 0x0010u ### string, not number "0x0010u" */
+enum { ZIP_FILE_ATTRIBUTES_HOST_SYSTEM = 0x0001 }; /* ### string, not number "0x0001u" */
+enum { ZIP_FILE_ATTRIBUTES_ASCII = 0x0002 }; /* ### string, not number "0x0002u" */
+enum { ZIP_FILE_ATTRIBUTES_VERSION_NEEDED = 0x0004 }; /* ### string, not number "0x0004u" */
+enum { ZIP_FILE_ATTRIBUTES_EXTERNAL_FILE_ATTRIBUTES = 0x0008 }; /* ### string, not number "0x0008u" */
+enum { ZIP_FILE_ATTRIBUTES_GENERAL_PURPOSE_BIT_FLAGS = 0x0010 }; /* ### string, not number "0x0010u" */
 struct zip;
 struct zip_file;
 struct zip_source;

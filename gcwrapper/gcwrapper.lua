@@ -4,6 +4,10 @@ note that the gc only sees the ffi struct
 and the ffi struct only has C data (no lua refs)
 and the cl.hpp GCWrapper dtor is custom per-parent-class
 so this needs to be a behavior
+
+TODO 
+... why don't I just use the Lua __gc metamethod of tables?
+why even use luajit's ctype metamethod?
 --]]
 
 local class = require 'ext.class'
