@@ -8,6 +8,7 @@ so this needs to be a behavior
 TODO 
 ... why don't I just use the Lua __gc metamethod of tables?
 why even use luajit's ctype metamethod?
+because vanilla Lua's __gc metamethod is not as reliable?
 --]]
 
 local class = require 'ext.class'
