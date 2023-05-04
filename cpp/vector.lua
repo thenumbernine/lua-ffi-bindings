@@ -154,6 +154,24 @@ function vector:__tostring()
 end
 
 --[[
+first = ptr into v, inclusive
+last = ptr into v, exclusive
+--]]
+function vector:erase(first, last)
+	if first >= last then return end
+	local iend = self:iend()
+	assert(first >= self.v and first <= iend)
+	assert(last >= self.v and last <= iend)
+	local change = last - first
+	while last < iend do
+		first[0] = last[0]
+		first = first + 1
+		last = last + 1
+	end
+	self.size = self.size - change
+end
+
+--[[
 local v = vector'int'
 v:push_back(10)
 print(v)
