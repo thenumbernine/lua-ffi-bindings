@@ -78,6 +78,11 @@ function vector:push_back(obj)
 	self.v[self.size - 1] = obj
 end
 
+function vector:emplace_back()
+	self:resize(self.size + 1)
+	return self:back()
+end
+
 -- returns a ptr to the last element
 function vector:back()
 	assert(self.size > 0)
