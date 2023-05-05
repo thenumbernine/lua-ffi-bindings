@@ -7,6 +7,7 @@ This does depend on my lua-ext project.
 --]]
 local ffi = require 'ffi'
 local class = require 'ext.class'
+local range = require 'ext.range'
 
 -- [=[
 --[[
@@ -169,6 +170,13 @@ function vector:erase(first, last)
 		last = last + 1
 	end
 	self.size = self.size - change
+end
+
+-- returns a Lua table of the elements.
+function vector:totable()
+	return range(0,self.size-1):mapi(function(i)
+		return self.v[i]
+	end)
 end
 
 --[[
