@@ -85,6 +85,7 @@ function vector:emplace_back()
 end
 
 -- returns a ptr to the last element
+-- "rbegin" ?
 function vector:back()
 	assert(self.size > 0)
 	return self.v + self.size - 1
@@ -102,6 +103,8 @@ vector.data = vector.begin
 function vector:iend()
 	return self.v + self.size
 end
+
+-- TODO "rend" for .v - 1?
 
 --[[
 insert(where, ptr first, ptr last)
