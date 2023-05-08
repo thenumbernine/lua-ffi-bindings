@@ -4,6 +4,8 @@ Of course the API isn't exact, since C++ and Lua do different member method call
 
 I'm not sure whether to put this here or in lua-ext.
 This does depend on my lua-ext project.
+
+.v is the field I'm using to hold raw access to the pointer, and using everywhere outside this because calling a function to access a field is too slow.
 --]]
 local ffi = require 'ffi'
 local class = require 'ext.class'
@@ -21,7 +23,7 @@ function vector:init(ctype, arg)
 	self.type = ctype
 	self.size = 0
 	self.capacity = 0
-	self:setcapacity(32)
+	self:reserve(32)
 	if arg ~= nil then
 		if type(arg) == 'number' then
 			self:resize(arg)
@@ -33,11 +35,13 @@ function vector:init(ctype, arg)
 		end
 	end
 
-	-- I don't want to set __index to vector or else things will go bad within class init ... so set it here:
+	-- use for debugging bounds
+	-- enable this and then swap out all your .v[] with []
 	--[[
+	local table = require 'ext.table'
 	local mt = table(vector)
 	function mt:__index(k)
-		local mv = mt[k] 
+		local mv = mt[k]
 		if mv ~= nil then return mv end
 		if k < 0 or k > self.size then
 			error("got out of bounds index: "..tostring(k))
@@ -60,7 +64,7 @@ function vector:__ipairs()
 	end)
 end
 
-function vector:setcapacity(newcap)
+function vector:reserve(newcap)
 	if newcap <= self.capacity then return end
 	local newv = ffi.new(self.type..'[?]', newcap)
 	ffi.copy(newv, self.v, ffi.sizeof(self.type) * self.size)
@@ -70,7 +74,7 @@ end
 
 function vector:resize(newsize)
 	newsize = assert(tonumber(newsize))
-	self:setcapacity( (math.floor(newsize / 32) + 1) * 32 )
+	self:reserve( (math.floor(newsize / 32) + 1) * 32 )
 	self.size = newsize
 end
 
@@ -84,27 +88,33 @@ function vector:emplace_back()
 	return self:back()
 end
 
+-- returns a ptr to the first element
+function vector:front()
+	return self.v
+end
+
 -- returns a ptr to the last element
--- "rbegin" ?
 function vector:back()
 	assert(self.size > 0)
 	return self.v + self.size - 1
 end
 
--- returns a ptr to the first element
-function vector:begin()
-	return self.v
-end
-
 -- because the __index removes access from the object itself ...
-vector.data = vector.begin
+vector.data = vector.front
+
+-- TODO use iterators and coroutines?  even though they are horribly slow
+vector.begin = vector.front
 
 -- returns a ptr past the last element
 function vector:iend()
 	return self.v + self.size
 end
 
--- TODO "rend" for .v - 1?
+vector.rbegin = vector.back
+
+function vector:rend()
+	return self.v - 1
+end
 
 --[[
 insert(where, ptr first, ptr last)
@@ -116,14 +126,14 @@ function vector:insert(...)
 		local where, first, last = ...
 		first = ffi.cast(self.type..'*', first)
 		last = ffi.cast(self.type..'*', last)
-		
+
 		local numToCopy = last - first
 		if numToCopy == 0 then return end
 		assert(numToCopy > 0)
-		
+
 		local offset = where - self.v
 		assert(offset >= 0 and offset <= self.size)
-		
+
 		local origSize = self.size
 		self:resize(self.size + numToCopy)
 		if offset < origSize then
@@ -140,21 +150,6 @@ function vector:insert(...)
 		end
 		self.v[offset] = value
 	end
-end
-
-function vector:__len()
-	--return rawget(self, 'size')
-	return self.size
-end
-
-function vector:__tostring()
-	local s = '['
-	local sep = ''
-	for i=0,self.size-1 do
-		s = s .. sep .. self.v[i]
-		sep = ', '
-	end
-	return s .. ']'
 end
 
 --[[
@@ -180,6 +175,21 @@ function vector:totable()
 	return range(0,self.size-1):mapi(function(i)
 		return self.v[i]
 	end)
+end
+
+function vector:__len()
+	--return rawget(self, 'size')
+	return self.size
+end
+
+function vector:__tostring()
+	local s = '['
+	local sep = ''
+	for i=0,self.size-1 do
+		s = s .. sep .. self.v[i]
+		sep = ', '
+	end
+	return s .. ']'
 end
 
 --[[
