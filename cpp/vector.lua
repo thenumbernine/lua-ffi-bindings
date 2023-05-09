@@ -66,7 +66,9 @@ end
 
 function vector:reserve(newcap)
 	if newcap <= self.capacity then return end
+	-- so self.capacity < newcap
 	local newv = ffi.new(self.type..'[?]', newcap)
+	assert(self.size <= self.capacity)
 	ffi.copy(newv, self.v, ffi.sizeof(self.type) * self.size)
 	self.v = newv
 	self.capacity = newcap
