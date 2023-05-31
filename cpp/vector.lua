@@ -18,6 +18,10 @@ have I made this before?
 --]]
 local vector = class()
 
+-- enable this and then swap out all your .v[] with []
+-- no promises it won't go horribly slow though
+vector.useIndexOp = false
+
 -- TODO how about a ctor based on ptr and size?
 function vector:init(ctype, arg)
 	self.type = ctype
@@ -35,25 +39,47 @@ function vector:init(ctype, arg)
 		end
 	end
 
-	-- use for debugging bounds
-	-- enable this and then swap out all your .v[] with []
-	--[[
-	local table = require 'ext.table'
-	local mt = table(vector)
-	function mt:__index(k)
-		local mv = mt[k]
-		if mv ~= nil then return mv end
-		if k < 0 or k > self.size then
-			error("got out of bounds index: "..tostring(k))
+	if self.useIndexOp then
+		local table = require 'ext.table'
+		local mt = table(vector)
+		function mt:__index(k)
+			-- see if the metatype has anything
+			local mv = mt[k]
+			if mv ~= nil then return mv end
+			-- then treat the index like vector access
+			if k < 0 or k >= self.size then
+				error("got out of bounds index: "..tostring(k))
+			end
+			if self.size > self.capacity then
+				error("got a bad size "..self.size.." vs capacity "..self.capacity)
+			end
+			if self.capacity * ffi.sizeof(self.type) ~= ffi.sizeof(self.v) then
+				-- TODO don't use capacity, just use ffi.sizeof ?
+				error("capacity is misaligned")
+			end
+			return self.v[k]
 		end
-		return self.v[k]
+		function mt:__newindex(k, v)
+			-- see if we are writing a field
+			if type(k) ~= 'number' then
+				rawset(self, k, v)
+				return
+			end
+			-- otherwise treat number access as vector access
+			if k < 0 or k >= self.size then
+				error("got out of bounds index: "..tostring(k))
+			end
+			if self.size > self.capacity then
+				error("got a bad size "..self.size.." vs capacity "..self.capacity)
+			end
+			if self.capacity * ffi.sizeof(self.type) ~= ffi.sizeof(self.v) then
+				-- TODO don't use capacity, just use ffi.sizeof ?
+				error("capacity is misaligned")
+			end
+			rawget(self, 'v')[k] = v
+		end
+		setmetatable(self, mt)
 	end
-	function mt:__newindex(k, v)
-		assert(k >= 0 and k < #self)
-		rawget(self, 'v')[k] = v
-	end
-	setmetatable(self, mt)
-	--]]
 end
 
 function vector:__ipairs()
@@ -64,10 +90,19 @@ function vector:__ipairs()
 	end)
 end
 
+-- [[ return the self.v object as a raw pointer / array
+function vector:alloc(ctype, capacity)
+	return ffi.new(ctype..'[?]', capacity)
+end
+--]]
+-- [[ return the self.v object with bounds-checking
+
+--]]
+
 function vector:reserve(newcap)
 	if newcap <= self.capacity then return end
 	-- so self.capacity < newcap
-	local newv = ffi.new(self.type..'[?]', newcap)
+	local newv = self:alloc(self.type, newcap)
 	assert(self.size <= self.capacity)
 	ffi.copy(newv, self.v, ffi.sizeof(self.type) * self.size)
 	self.v = newv
