@@ -61,16 +61,13 @@ typedef struct ]]..gctype..' '..gctype..[[;
 		-- 1) pass gc.ptr and make all my cl release()'s into wrappers that do this one step of indirection
 		-- 2) pass gc.ptr[0] and make my gl release()'s into wrappers that put the ptr into a single-sized array to pass into the glDelete...
 		local result
-		if notcleared then
-			result = release(gc.ptr)
-		end
-		
 		if gc.refcount <= 0 then
 			if notcleared then
+				result = release(gc.ptr)
 				-- clear gc.ptr[0] upon final release so future release()'s don't try to free it twice
 				gc.ptr[0] = clearValue
 			else
-				print("tried to free not-cleared object "..tostring(gc).." with id "..tostring(gc.ptr[0]).." with refcount <= 0, but it had already been freed.  did someone else already release() it?")
+				--print("tried to free not-cleared object "..tostring(gc).." with id "..tostring(gc.ptr[0]).." with refcount <= 0, but it had already been freed.  did someone else already release() it?")
 			end
 		end
 		return result
