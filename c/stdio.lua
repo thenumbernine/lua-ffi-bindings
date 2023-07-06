@@ -248,3 +248,9 @@ extern int __uflow (FILE *);
 extern int __overflow (FILE *, int);
 /* END   /usr/include/stdio.h */
 ]]
+-- special case since in the browser app where I'm capturing fopen for remote requests and caching
+-- feel free to not use the returend table and just use ffi.C for faster access
+-- but know you'll be losing compatability with browser
+return setmetatable({}, {
+	__index = ffi.C,
+})
