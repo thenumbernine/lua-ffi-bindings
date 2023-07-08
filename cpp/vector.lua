@@ -111,8 +111,12 @@ end
 
 function vector:resize(newsize)
 	newsize = assert(tonumber(newsize))
-	self:reserve( (math.floor(newsize / 32) + 1) * 32 )
+	self:reserve((math.floor(newsize / 32) + 1) * 32)
 	self.size = newsize
+end
+
+function vector:clear()
+	self:resize(0)
 end
 
 function vector:push_back(obj)
