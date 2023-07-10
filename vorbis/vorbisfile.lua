@@ -229,3 +229,4 @@ extern int ov_halfrate(OggVorbis_File *vf,int flag);
 extern int ov_halfrate_p(OggVorbis_File *vf);
 /* END   /usr/include/vorbis/vorbisfile.h */
 ]]
+return ffi.load'vorbisfile'
