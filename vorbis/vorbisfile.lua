@@ -229,4 +229,53 @@ extern int ov_halfrate(OggVorbis_File *vf,int flag);
 extern int ov_halfrate_p(OggVorbis_File *vf);
 /* END   /usr/include/vorbis/vorbisfile.h */
 ]]
-return ffi.load'vorbisfile'
+
+local lib = ffi.load'vorbisfile'
+
+-- don't use stdio, use ffi.C
+-- stdio risks browser shimming open and returning a Lua function
+-- but what that means is, for browser to work with vorbisfile,
+-- browser will have to shim each of he OV_CALLBACKs
+-- ... or browser should/will have to return ffi closures of ffi.open
+-- ... then we can use stdio here
+local stdio = require 'ffi.c.stdio'	-- fopen, fseek, fclose, ftell
+
+-- i'd free the closure but meh
+-- who puts a function as a static in a header anyways?
+local _ov_header_fseek_wrap = ffi.cast('int (*)(void *, ogg_int64_t, int)', function(f,off,whence)
+	if f == nil then return -1 end
+	return stdio.fseek(f,off,whence)
+end)
+
+local OV_CALLBACKS_DEFAULT = ffi.new'ov_callbacks'
+OV_CALLBACKS_DEFAULT.read_func = stdio.fread
+OV_CALLBACKS_DEFAULT.seek_func = _ov_header_fseek_wrap
+OV_CALLBACKS_DEFAULT.close_func = stdio.fclose
+OV_CALLBACKS_DEFAULT.tell_func = stdio.ftell
+
+local OV_CALLBACKS_NOCLOSE = ffi.new'ov_callbacks'
+OV_CALLBACKS_NOCLOSE.read_func = stdio.fread
+OV_CALLBACKS_NOCLOSE.seek_func = _ov_header_fseek_wrap
+OV_CALLBACKS_NOCLOSE.close_func = nil
+OV_CALLBACKS_NOCLOSE.tell_func = stdio.ftell
+
+local OV_CALLBACKS_STREAMONLY = ffi.new'ov_callbacks'
+OV_CALLBACKS_STREAMONLY.read_func = stdio.fread
+OV_CALLBACKS_STREAMONLY.seek_func = nil
+OV_CALLBACKS_STREAMONLY.close_func = stdio.fclose
+OV_CALLBACKS_STREAMONLY.tell_func = nil
+
+local OV_CALLBACKS_STREAMONLY_NOCLOSE = ffi.new'ov_callbacks'
+OV_CALLBACKS_STREAMONLY_NOCLOSE.read_func = stdio.fread
+OV_CALLBACKS_STREAMONLY_NOCLOSE.seek_func = nil
+OV_CALLBACKS_STREAMONLY_NOCLOSE.close_func = nil
+OV_CALLBACKS_STREAMONLY_NOCLOSE.tell_func = nil
+
+return setmetatable({
+	OV_CALLBACKS_DEFAULT = OV_CALLBACKS_DEFAULT,
+	OV_CALLBACKS_NOCLOSE = OV_CALLBACKS_NOCLOSE,
+	OV_CALLBACKS_STREAMONLY = OV_CALLBACKS_STREAMONLY,
+	OV_CALLBACKS_STREAMONLY_NOCLOSE = OV_CALLBACKS_STREAMONLY_NOCLOSE,
+}, {
+	__index = lib,
+})
