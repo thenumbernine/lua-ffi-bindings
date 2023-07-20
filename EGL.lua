@@ -297,4 +297,15 @@ EGLSurface eglCreatePlatformPixmapSurface (EGLDisplay dpy, EGLConfig config, voi
 EGLBoolean eglWaitSync (EGLDisplay dpy, EGLSync sync, EGLint flags);
 /* END   /usr/include/EGL/egl.h */
 ]]
-return ffi.load'EGL'
+return setmetatable({
+	EGL_DONT_CARE = ffi.cast('EGLint', -1),
+	EGL_NO_CONTEXT = ffi.cast('EGLDisplay',0),
+	EGL_NO_DISPLAY = ffi.cast('EGLDisplay',0),
+	EGL_NO_SURFACE = ffi.cast('EGLSurface',0),
+	EGL_UNKNOWN = ffi.cast('EGLint',-1),
+	EGL_DEFAULT_DISPLAY = ffi.cast('EGLNativeDisplayType',0),
+	EGL_NO_SYNC = ffi.cast('EGLSync',0),
+	EGL_NO_IMAGE = ffi.cast('EGLImage',0),
+}, {
+	__index = ffi.load'EGL',
+})
