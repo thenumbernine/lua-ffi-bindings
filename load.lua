@@ -24,6 +24,17 @@ local ffi = require 'ffi'
 return setmetatable({
 	-- can ffi.load"serial/hdf5" work? hmm...
 	hdf5 = {Linux = '/usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5.so'},
+	jpeg = {
+		-- For Windows msvc turbojpeg 2.0.3 cmake wouldn't build, so i used 2.0.4 instead
+		-- I wonder if this is the reason for the few subtle differences
+		-- TODO rebuild linux with 2.0.4 and see if they go away?
+		Windows = 'jpeg8',
+		-- for Linux, libturbojpeg 2.1.2 (which is not libjpeg-turbo *smh* who named this)
+		-- the header generated matches libturbojpeg 2.0.3 for Ubuntu ... except the version macros
+	},
+	GLU = {
+		Windows = 'GLU32',
+	},
 }, {
 	__call = function(self, reqname)
 		assert(type(reqname) == 'string', "expected string")
