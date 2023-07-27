@@ -22,6 +22,9 @@ All $names will be resolved as environment variables.
 --]]
 local ffi = require 'ffi'
 return setmetatable({
+	GLU = {
+		Windows = 'GLU32',
+	},
 	-- can ffi.load"serial/hdf5" work? hmm...
 	hdf5 = {Linux = '/usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5.so'},
 	jpeg = {
@@ -32,8 +35,8 @@ return setmetatable({
 		-- for Linux, libturbojpeg 2.1.2 (which is not libjpeg-turbo *smh* who named this)
 		-- the header generated matches libturbojpeg 2.0.3 for Ubuntu ... except the version macros
 	},
-	GLU = {
-		Windows = 'GLU32',
+	openal = {
+		Windows = 'OpenAL32',
 	},
 }, {
 	__call = function(self, reqname)
