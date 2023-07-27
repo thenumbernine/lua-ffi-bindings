@@ -1,22 +1,6 @@
 local ffi = require 'ffi'
 local sdl = require 'ffi.sdl'
-
-local libs = ffi_luajit_libs or {
-	OSX     = {x86="libSDL_mixer.so", x64="libSDL_mixer.so"},
-	Windows = {x86="SDL2_mixer.dll", x64="SDL2_mixer.dll"},
-	Linux   = {x86="libSDL_mixer.so", x64="libSDL_mixer.so", arm="libSDL_mixer.so"},
-	BSD     = {x86="libSDL_mixer.so", x64="libSDL_mixer.so"},
-	POSIX   = {x86="libSDL_mixer.so", x64="libSDL_mixer.so"},
-	Other   = {x86="libSDL_mixer.so", x64="libSDL_mixer.so"},
-}
-
-local lib = ffi_SDL_Mixer_lib or libs[ffi.os][ffi.arch]
-
-local sdl_mixer = ffi.load(lib)
-
 ffi.cdef[[
-
-
 typedef uint8_t Uint8;
 typedef uint16_t Uint16;
 typedef uint32_t Uint32;
@@ -281,7 +265,5 @@ Mix_Chunk * Mix_GetChunk(int channel);
 void Mix_CloseAudio(void);
 //#define Mix_SetError	SDL_SetError
 //#define Mix_GetError	SDL_GetError
-
 ]]
-
-return sdl_mixer
+return require 'ffi.load' 'SDL_mixer'

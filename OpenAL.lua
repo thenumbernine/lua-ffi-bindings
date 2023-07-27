@@ -329,10 +329,4 @@ typedef void ( *LPALCCAPTURESTOP)(ALCdevice *device);
 typedef void ( *LPALCCAPTURESAMPLES)(ALCdevice *device, ALCvoid *buffer, ALCsizei samples);
 /* END   /usr/include/AL/alc.h */
 ]]
-if ffi.os == 'OSX' then
-	return ffi.load'OpenAL.framework/OpenAL'
-elseif ffi.os == 'Windows' then
-	return ffi.load'openal32'
-else
-	return ffi.load'openal'
-end
+return require 'ffi.load' 'openal'

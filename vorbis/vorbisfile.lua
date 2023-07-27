@@ -230,7 +230,7 @@ extern int ov_halfrate_p(OggVorbis_File *vf);
 /* END   /usr/include/vorbis/vorbisfile.h */
 ]]
 
-local lib = ffi.load'vorbisfile'
+local lib = require 'ffi.load' 'vorbisfile'
 
 -- don't use stdio, use ffi.C
 -- stdio risks browser shimming open and returning a Lua function

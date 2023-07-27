@@ -1,19 +1,5 @@
 local ffi = require 'ffi'
 local sdl = require 'ffi.sdl'
-
-local libs = ffi_luajit_libs or {
-   OSX     = "SDL_image.dylib",
-   Windows = "SDL_image.dll",
-   Linux   = "SDL_image.so",
-   BSD     = "SDL_image.so",
-   POSIX   = "SDL_image.so",
-   Other   = "SDL_image.so",
-}
-
-local lib = os.getenv('LUAJIT_LIBPATH') .. '/' .. libs[ ffi.os ]
-
-local sdl_image  = ffi.load(lib)
-
 ffi.cdef[[
 
 enum {
@@ -95,7 +81,5 @@ SDL_Surface *  IMG_LoadXPM_RW(SDL_RWops *src);
 SDL_Surface *  IMG_LoadXV_RW(SDL_RWops *src);
 
 SDL_Surface *  IMG_ReadXPMFromArray(char **xpm);
-
 ]]
-
-return sdl_image
+return require 'ffi.load' 'SDL_image'

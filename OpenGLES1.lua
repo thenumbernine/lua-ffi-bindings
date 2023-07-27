@@ -534,4 +534,4 @@ enum { GL_IMPLEMENTATION_COLOR_READ_TYPE_OES = 35738 };
 enum { GL_IMPLEMENTATION_COLOR_READ_FORMAT_OES = 35739 };
 /* END   /usr/include/GLES/gl.h */
 ]]
-return ffi.load'GLESv1_CM'
+return require 'ffi.load' 'GLESv1_CM'

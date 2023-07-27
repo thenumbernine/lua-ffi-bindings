@@ -269,5 +269,4 @@ void cblas_sbgemv(const enum CBLAS_ORDER order, const enum CBLAS_TRANSPOSE trans
 void cblas_sbgemm(const enum CBLAS_ORDER Order, const enum CBLAS_TRANSPOSE TransA, const enum CBLAS_TRANSPOSE TransB, const blasint M, const blasint N, const blasint K, const float alpha, const bfloat16 *A, const blasint lda, const bfloat16 *B, const blasint ldb, const float beta, float *C, const blasint ldc);
 /* END   /usr/include/x86_64-linux-gnu/cblas.h */
 ]]
-local blas = ffi.load'openblas'
-return blas
+return require 'ffi.load' 'openblas'

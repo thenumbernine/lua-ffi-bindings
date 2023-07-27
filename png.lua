@@ -1424,14 +1424,4 @@ enum { PNG_OPTION_ON = 3 };
 extern int ( png_set_option) (png_structrp png_ptr, int option, int onoff);
 /* END   /usr/include/png.h */
 ]]
-local png
-if ffi.os == 'OSX' then
-	png = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/OSX/libpng.dylib')
-elseif ffi.os == 'Windows' then
-	png = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/Windows/' .. ffi.arch .. '/png.dll')
-elseif ffi.os == 'Linux' then
-	png = ffi.load'png'
-else
-	png = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/linux/libpng.so')
-end
-return png
+return require 'ffi.load' 'png'

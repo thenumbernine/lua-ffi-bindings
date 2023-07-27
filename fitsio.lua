@@ -1651,4 +1651,4 @@ int ffgtmo(void);
 int ffstmo(int sec, int *status);
 /* END   /usr/include/fitsio.h */
 ]]
-return ffi.load 'cfitsio'
+return require 'ffi.load' 'cfitsio'

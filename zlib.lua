@@ -311,7 +311,7 @@ extern int gzvprintf (gzFile file, const char *format, va_list va);
 /* END   /usr/include/zlib.h */
 ]]
 
-local zlib = ffi.load'z'
+local zlib = require 'ffi.load' 'z'
 local wrapper
 wrapper = setmetatable({
 	ZLIB_VERSION = "1.2.11",

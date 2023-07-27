@@ -1141,16 +1141,4 @@ extern cl_int clGetSupportedGLTextureFormatsINTEL( cl_context context, cl_mem_fl
 typedef cl_int ( * clGetSupportedGLTextureFormatsINTEL_fn)( cl_context context, cl_mem_flags flags, cl_mem_object_type image_type, cl_uint num_entries, cl_GLenum* gl_formats, cl_uint* num_texture_formats);
 /* END   /usr/include/CL/cl_gl.h */
 ]]
-local libs = ffi_OpenCL_libs or {
-	OSX = {x86 = 'OpenCL.framework/OpenCL', x64 = 'OpenCL.framework/OpenCL'},
-	Windows = {x86 = 'opencl.dll', x64 = 'opencl.dll'},
-	Linux = {
-	x86 = 'libOpenCL.so',
-	x64 = 'libOpenCL.so',
-	arm = 'bin/Linux/arm/libOpenCL.so'},
-	BSD = {x86 = 'libOpenCL.so', x64 = 'libOpenCL.so'},
-	POSIX = {x86 = 'libOpenCL.so', x64 = 'libOpenCL.so'},
-	Other = {x86 = 'libOpenCL.so', x64 = 'libOpenCL.so'},
-}
-local lib = ffi_OpenCL_lib or libs[ffi.os][ffi.arch]
-return ffi.load(lib)
+return require 'ffi.load' 'OpenCL'

@@ -623,4 +623,4 @@ void glVertexAttribPointer (GLuint index, GLint size, GLenum type, GLboolean nor
 void glViewport (GLint x, GLint y, GLsizei width, GLsizei height);
 /* END   /usr/include/GLES2/gl2.h */
 ]]
-return ffi.load'GLESv2'
+return require 'ffi.load' 'GLESv2'

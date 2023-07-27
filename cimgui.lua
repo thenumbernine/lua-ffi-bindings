@@ -3346,4 +3346,4 @@ _Bool ImGui_ImplOpenGL3_CreateDeviceObjects();
 void ImGui_ImplOpenGL3_DestroyDeviceObjects();
 /* END   /usr/local/include/imgui-1.89.7dock/imgui_impl_opengl3.h */
 ]]
-return ffi.load'cimgui_sdl'
+return require 'ffi.load' 'cimgui_sdl'

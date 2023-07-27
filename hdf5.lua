@@ -2406,5 +2406,4 @@ herr_t H5Pset_fapl_stdio(hid_t fapl_id);
 /* END   /usr/include/hdf5/serial/H5FDstdio.h */
 /* END   /usr/include/hdf5/serial/hdf5.h */
 ]]
---return ffi.load 'hdf5'	-- pkg-config --libs hdf5
-return ffi.load('/usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5.so')
+return require 'ffi.load' 'hdf5'

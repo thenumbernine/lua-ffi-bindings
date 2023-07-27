@@ -1357,5 +1357,4 @@ void cupmtr_ ( char const* side, char const* uplo, char const* trans, int32_t co
 void zupmtr_ ( char const* side, char const* uplo, char const* trans, int32_t const* m, int32_t const* n, double _Complex const* AP, double _Complex const* tau, double _Complex* C, int32_t const* ldc, double _Complex* work, int32_t* info , size_t, size_t, size_t );
 /* END   /usr/include/lapack.h */
 ]]
-local lapack = ffi.load'lapack'
-return lapack
+return require 'ffi.load' 'lapack'

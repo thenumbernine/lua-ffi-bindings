@@ -307,5 +307,5 @@ return setmetatable({
 	EGL_NO_SYNC = ffi.cast('EGLSync',0),
 	EGL_NO_IMAGE = ffi.cast('EGLImage',0),
 }, {
-	__index = ffi.load'EGL',
+	__index = require 'ffi.load' 'EGL',
 })

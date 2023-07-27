@@ -1,20 +1,5 @@
 local ffi = require 'ffi'
 require 'ffi.OpenAL'	-- for the AL* C types
-
-local libs = ffi_OpenALUT_libs or {
-	--OSX = 'OpenAL.framework/OpenALUT',	-- didn't come with ALUT so I used MacPorts ...
-	OSX = function() return os.getenv'LUAJIT_LIBPATH' .. '/bin/OSX/libalut.dylib' end,
-	Windows = function() return 'openalut32' end,
-	Linux = function() return 'alut' end,
-	BSD = function() return 'openal' end,
-	POSIX = function() return 'openal' end,
-	Other = function() return 'openal' end,
-}
-
-local lib = ffi_OpenAL_lib or libs[ffi.os]()
-
-local alut = ffi.load(lib)
-
 ffi.cdef[[
 enum {
   ALUT_API_MAJOR_VERSION = 1,
@@ -64,5 +49,4 @@ ALint alutGetMajorVersion (void);
 ALint alutGetMinorVersion (void);
 ALboolean alutSleep (ALfloat duration);
 ]]
-
-return alut
+return require 'ffi.load' 'alut'

@@ -156,4 +156,4 @@ void ffi_call(ffi_cif *cif, void (*fn)(void), void *rvalue, void **avalue);
 ffi_status ffi_get_struct_offsets (ffi_abi abi, ffi_type *struct_type, size_t *offsets);
 /* END   /usr/include/x86_64-linux-gnu/ffi.h */
 ]]
-return ffi.load'ffi'
+return require 'ffi.load' 'ffi'

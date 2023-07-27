@@ -390,15 +390,4 @@ typedef struct luaL_Stream {
 } luaL_Stream;
 /* END   /usr/include/lua5.4/lauxlib.h */
 ]]
-local lua
-if ffi.os == 'OSX' then
-	lua = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/OSX/liblua.dylib')
-elseif ffi.os == 'Windows' then
-	lua = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/Windows/' .. ffi.arch .. '/liblua1.dll')
-elseif ffi.os == 'Linux' then
-	-- TODO pkg-config --libs lua ?
-	lua = ffi.load'lua'
-else
-	lua = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/linux/liblua.so')
-end
-return lua
+return require 'ffi.load' 'lua'

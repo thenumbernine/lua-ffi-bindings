@@ -2511,5 +2511,4 @@ void LAPACKE_set_nancheck( int flag );
 int LAPACKE_get_nancheck( void );
 /* END   /usr/include/lapacke.h */
 ]]
-local lapacke = ffi.load'lapacke'
-return lapacke
+return require 'ffi.load' 'lapacke'

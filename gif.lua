@@ -1,4 +1,3 @@
--- gif 5.1.9
 local ffi = require 'ffi'
 ffi.cdef[[
 /* BEGIN /usr/include/gif_lib.h */
@@ -167,14 +166,4 @@ extern void GifDrawRectangle(SavedImage *Image, const int x, const int y, const 
 extern void GifDrawBoxedText8x8(SavedImage *Image, const int x, const int y, const char *legend, const int border, const int bg, const int fg);
 /* END   /usr/include/gif_lib.h */
 ]]
-local gif
-if ffi.os == 'OSX' then
-	gif = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/OSX/libgif.dylib')
-elseif ffi.os == 'Windows' then
-	gif = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/Windows/' .. ffi.arch .. '/libgif1.dll')
-elseif ffi.os == 'Linux' then
-	gif = ffi.load'gif'
-else
-	gif = ffi.load(os.getenv'LUAJIT_LIBPATH' .. '/bin/linux/libgif.so')
-end
-return gif
+return require 'ffi.load' 'gif'

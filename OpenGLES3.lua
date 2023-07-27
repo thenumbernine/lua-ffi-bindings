@@ -1154,4 +1154,4 @@ void glTexStorage3D (GLenum target, GLsizei levels, GLenum internalformat, GLsiz
 void glGetInternalformativ (GLenum target, GLenum internalformat, GLenum pname, GLsizei count, GLint *params);
 /* END   /usr/include/GLES3/gl3.h */
 ]]
-return ffi.load'GLESv2'
+return require 'ffi.load' 'GLESv2'

@@ -11271,4 +11271,4 @@ typedef void ( * PFNGLEGLIMAGETARGETRENDERBUFFERSTORAGEOESPROC) (GLenum target, 
 /* BEGIN /usr/include/GL/glext.h */
 /* END   /usr/include/GL/glext.h */
 ]]
-return ffi.load'GL'
+return require 'ffi.load' 'GL'

@@ -1,18 +1,4 @@
-local ffi  = require( "ffi" )
-
-local libs = ffi_glu_libs or {
-   OSX     = { x86 = "OpenGL.framework/OpenGL", x64 = "OpenGL.framework/OpenGL" },
-   Windows = { x86 = "GLU32.DLL",               x64 = "GLU32.DLL"               },
-   Linux   = { x86 = "libGLU.so",               x64 = "libGLU.so", arm = "libGLU.so.1" },
-   BSD     = { x86 = "libGLU.so",               x64 = "libGLU.so"               },
-   POSIX   = { x86 = "libGLU.so",               x64 = "libGLU.so"               },
-   Other   = { x86 = "libGLU.so",               x64 = "libGLU.so"               },
-}
-
-local lib  = ffi_glu_lib or libs[ ffi.os ][ ffi.arch ]
-
-local glu  = ffi.load( lib )
-
+local ffi = require 'ffi'
 ffi.cdef[[
 
 enum { GLU_EXT_object_space_tess = 1 };
@@ -258,5 +244,4 @@ void           gluTessVertex (GLUtesselator* tess, GLdouble *location, GLvoid* d
 GLint          gluUnProject (GLdouble winX, GLdouble winY, GLdouble winZ, const GLdouble *model, const GLdouble *proj, const GLint *view, GLdouble* objX, GLdouble* objY, GLdouble* objZ);
 GLint          gluUnProject4 (GLdouble winX, GLdouble winY, GLdouble winZ, GLdouble clipW, const GLdouble *model, const GLdouble *proj, const GLint *view, GLdouble nearPlane, GLdouble farPlane, GLdouble* objX, GLdouble* objY, GLdouble* objZ, GLdouble* objW);
 ]]
-
-return glu
+return require 'ffi.load' 'GLU'

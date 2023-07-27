@@ -630,4 +630,4 @@ enum { NC_HAVE_INQ_FORMAT_EXTENDED = 1 };
 enum { NC_HAVE_META_H = 1 };
 /* END   /usr/include/netcdf.h */
 ]]
-return ffi.load'libnetcdf'
+return require 'ffi.load' 'netcdf'

@@ -2128,17 +2128,4 @@ typedef union SDL_Event
 	char*                SDL_GetError(              );
 	void                 SDL_ClearError(            );
 ]]
-local libs = ffi_luajit_libs or {
-	OSX     = { x86 = "$LUAJIT_LIBPATH/bin/OSX/sdl.dylib", x64 = "$LUAJIT_LIBPATH/bin/OSX/sdl.dylib" },
-	Windows = { x86 = "$LUAJIT_LIBPATH/bin/Windows/x86/SDL2.dll", x64 = "$LUAJIT_LIBPATH/bin/Windows/x64/SDL2.dll" },
-	--Windows = { x86 = "$LUAJIT_LIBPATH/bin/Windows/x86/SDL.dll", x64 = "$LUAJIT_LIBPATH/bin/Windows/x64/SDL.dll" },
-	Linux   = { },
-	BSD     = { x86 = "bin/luajit32.so",  x64 = "bin/luajit64.so" },
-	POSIX   = { x86 = "bin/luajit32.so",  x64 = "bin/luajit64.so" },
-	Other   = { x86 = "bin/luajit32.so",  x64 = "bin/luajit64.so" },
-}
-local sdl  = ffi.load(
-	(libs[ ffi.os ][ ffi.arch ] or "SDL2")
-	:gsub('%$([_%w]+)', os.getenv)
-)
-return sdl
+return require 'ffi.load' 'SDL2'
