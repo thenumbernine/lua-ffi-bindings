@@ -7,31 +7,60 @@
 This repo contains luajit-C bindings for lots of common C files and some 3rd party libraries.
 
 Most of them are automatically created by my [C preprocessor in Lua](https://github.com/thenumbernine/preproc-lua) project, whose `generate.lua` file will automatically create the headers from the compiler's include files.
-
-For some files I use a `$LUAJIT_LIBPATH` environment variable to specify the base of the directory structure where `.so` files are located.
-
-From there, sometimes I follow [malkia's](https://github.com/malkia/ufo) structure of `/$ffi.os/$ffi.arch/` to further distinguish .so files.
-
 This is still a manually run and hand-tweaked process, but will hopefully eventually be automated into my [#include-in-Lua](https://github.com/thenumbernine/include-lua) project.
 
-The original versions of this started from https://github.com/malkia/ufo .
+The original versions of this started from https://github.com/malkia/ufo .  One or two headers are still from malkia.
+
+### ffi/load.lua
+
+This is a table used retrieve .so/.dll/.dylib's, and used to resolve finding them.
+
+Just calling `require 'ffi.load' '$libname'` by default will return `ffi.load '$libname'`.
+
+From here LuaJIT has some builtin name resolutions (appending the correct .so/.dll/.dylib extension per-OS, prepending 'lib' for Linux, searching system library paths, searching `LD_LIBRARY_PATH`, etc...).
+
+However you can optionally override it for a specific OS or architecture:
+
+If the value is a string then the name is directly replaced:
+```
+require 'ffi.load' .openal = 'openal32'
+local lib = require 'ffi.load' 'openal'`
+```
+... will assign lib to `ffi.load'openal32'` in all OS/arch cases.
+
+If the value is a table then it is assumed to be key'd by OS, and optionally second key'd by arch (x86 vs x64). 
+```
+require 'ffi.load' .openal = {Windows = 'openal32'}
+local lib = require 'ffi.load' 'openal'`
+```
+... will assign lib to `ffi.load'openal32'` on Windows and `ffi.load'openal'` on all other platforms.
+
+```
+require 'ffi.load' .openal = {Windows = {x86 = 'C:\path\to\x86\openal32.dll', x64 = 'C:\path\to\x64\openal32.dll'}}
+local lib = require 'ffi.load' 'openal'`
+```
+... will assign lib to `ffi.load'C:\path\to\x86\openal32.dll'` on Windows x86, `ffi.load 'C:\path\to\x64\openal32.dll'` on Windows x64, and `ffi.load'openal'` on all other platforms.
 
 
-The directory structure is a bit of a mess.
+### ffi/c/
 
-At first everything was just put in root.
-
-Then I started porting C headers and putting them into the `c` folder, so that luajit code `require 'ffi.c.$header'` was equivalent to C code `#include <$header.h>`.  
+I started porting C headers and putting them into the `c` folder, so that luajit code `require 'ffi.c.$header'` was equivalent to C code `#include <$header.h>`.  
 (But, you ask, why only put the builtin C headers in the `c` folder when the other libraries' headers go in the root folder?  Good question.)
 
-Then I started adding my own attempt at STL classes ported to LuaJIT classes in "lua-ffi-bindings/cpp",
+### ffi/$os/
+
+For multiple OS support (currently it is Linux from 64-bit Ubuntu, with a bit of 64-bit Windows 10) I am putting os-specific code in in `ffi.$os.$path`, and a file in `ffi.$path` to return the correct file based on your OS/etc.
+
+### ffi/cpp/
+
+I started adding my own attempt at STL classes ported to LuaJIT classes in "lua-ffi-bindings/cpp",
 so that luajit code `require 'ffi.cpp.$header'` was equivalent to C++ code `#include <$header>`.
 ... so far only "vector" exists but I might add more.
 
+### ffi/gcwrapper/
 
 A few of my Lua class wrappers all started to exhibit the same pattern for refcounting (lua-opencl) or automatically deleting resources (lua-gl) ...
 so I decided to put that behavior in one place, here.  Maybe I'll put that into its own unique repo soon.
-
 
 ### Dependencies
 
