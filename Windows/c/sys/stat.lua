@@ -1,0 +1,121 @@
+require 'ffi.c.sys.types'
+local ffi = require 'ffi'
+ffi.cdef[[
+/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/sys/stat.h */
+/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
+]] require 'ffi.Windows.c.corecrt' ffi.cdef[[
+/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
+/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/sys/types.h */
+]] require 'ffi.Windows.c.sys.types' ffi.cdef[[
+/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/sys/types.h */
+/* #pragma warning(push) */
+/* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */
+struct _stat32 {
+	_dev_t st_dev;
+	_ino_t st_ino;
+	unsigned short st_mode;
+	short st_nlink;
+	short st_uid;
+	short st_gid;
+	_dev_t st_rdev;
+	_off_t st_size;
+	__time32_t st_atime;
+	__time32_t st_mtime;
+	__time32_t st_ctime;
+};
+struct _stat32i64 {
+	_dev_t st_dev;
+	_ino_t st_ino;
+	unsigned short st_mode;
+	short st_nlink;
+	short st_uid;
+	short st_gid;
+	_dev_t st_rdev;
+	__int64 st_size;
+	__time32_t st_atime;
+	__time32_t st_mtime;
+	__time32_t st_ctime;
+};
+struct _stat64i32 {
+	_dev_t st_dev;
+	_ino_t st_ino;
+	unsigned short st_mode;
+	short st_nlink;
+	short st_uid;
+	short st_gid;
+	_dev_t st_rdev;
+	_off_t st_size;
+	__time64_t st_atime;
+	__time64_t st_mtime;
+	__time64_t st_ctime;
+};
+struct _stat64 {
+	_dev_t st_dev;
+	_ino_t st_ino;
+	unsigned short st_mode;
+	short st_nlink;
+	short st_uid;
+	short st_gid;
+	_dev_t st_rdev;
+	__int64 st_size;
+	__time64_t st_atime;
+	__time64_t st_mtime;
+	__time64_t st_ctime;
+};
+enum { __stat64 = 0 };
+struct stat {
+	_dev_t st_dev;
+	_ino_t st_ino;
+	unsigned short st_mode;
+	short st_nlink;
+	short st_uid;
+	short st_gid;
+	_dev_t st_rdev;
+	_off_t st_size;
+	time_t st_atime;
+	time_t st_mtime;
+	time_t st_ctime;
+};
+enum { _S_IFMT = 61440 };
+enum { _S_IFDIR = 16384 };
+enum { _S_IFCHR = 8192 };
+enum { _S_IFIFO = 4096 };
+enum { _S_IFREG = 32768 };
+enum { _S_IREAD = 256 };
+enum { _S_IWRITE = 128 };
+enum { _S_IEXEC = 64 };
+enum { S_IFMT = 61440 };
+enum { S_IFDIR = 16384 };
+enum { S_IFCHR = 8192 };
+enum { S_IFREG = 32768 };
+enum { S_IREAD = 256 };
+enum { S_IWRITE = 128 };
+enum { S_IEXEC = 64 };
+enum { _fstat = 0 };
+enum { _fstati64 = 0 };
+enum { _stat = 0 };
+enum { _stati64 = 0 };
+enum { _wstat = 0 };
+enum { _wstati64 = 0 };
+int __cdecl _fstat32( int _FileHandle, struct _stat32* _Stat );
+int __cdecl _fstat32i64( int _FileHandle, struct _stat32i64* _Stat );
+int __cdecl _fstat64i32( int _FileHandle, struct _stat64i32* _Stat );
+int __cdecl _fstat64( int _FileHandle, struct _stat64* _Stat );
+int __cdecl _stat32( char const* _FileName, struct _stat32* _Stat );
+int __cdecl _stat32i64( char const* _FileName, struct _stat32i64* _Stat );
+int __cdecl _stat64i32( char const* _FileName, struct _stat64i32* _Stat );
+int __cdecl _stat64( char const* _FileName, struct _stat64* _Stat );
+int __cdecl _wstat32( wchar_t const* _FileName, struct _stat32* _Stat );
+int __cdecl _wstat32i64( wchar_t const* _FileName, struct _stat32i64* _Stat );
+int __cdecl _wstat64i32( wchar_t const* _FileName, struct _stat64i32* _Stat );
+int __cdecl _wstat64( wchar_t const* _FileName, struct _stat64* _Stat );
+static __inline int __cdecl fstat(int const _FileHandle, struct stat* const _Stat) {
+	typedef char __static_assert_t[(sizeof(struct stat) == sizeof(struct _stat64i32)) != 0];
+	return _fstat64i32(_FileHandle, (struct _stat64i32*)_Stat);
+} static __inline int __cdecl stat(char const* const _FileName, struct stat* const _Stat) {
+	typedef char __static_assert_t[(sizeof(struct stat) == sizeof(struct _stat64i32)) != 0];
+	return _stat64i32(_FileName, (struct _stat64i32*)_Stat);
+}
+/* #pragma warning(pop)  */
+/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/sys/stat.h */
+]]
