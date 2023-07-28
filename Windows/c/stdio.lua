@@ -206,4 +206,9 @@ int __cdecl rmtmp(void);
 /* #pragma warning(pop)  */
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/stdio.h */
 ]]
-return ffi.C
+local lib = ffi.C
+return setmetatable({
+	fileno = lib._fileno,
+}, {
+	__index = ffi.C,
+})
