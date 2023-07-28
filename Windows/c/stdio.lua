@@ -119,183 +119,13 @@ int* __cdecl __p__commode(void);
 int __cdecl __stdio_common_vfprintf( unsigned __int64 _Options, FILE* _Stream, char const* _Format, _locale_t _Locale, va_list _ArgList );
 int __cdecl __stdio_common_vfprintf_s( unsigned __int64 _Options, FILE* _Stream, char const* _Format, _locale_t _Locale, va_list _ArgList );
 int __cdecl __stdio_common_vfprintf_p( unsigned __int64 _Options, FILE* _Stream, char const* _Format, _locale_t _Locale, va_list _ArgList );
-__inline int __cdecl _vfprintf_l( FILE* const _Stream, char const* const _Format, _locale_t const _Locale, va_list _ArgList ) {
-	return __stdio_common_vfprintf((*__local_stdio_printf_options()), _Stream, _Format, _Locale, _ArgList);
-} __inline int __cdecl vfprintf( FILE* const _Stream, char const* const _Format, va_list _ArgList ) {
-	return _vfprintf_l(_Stream, _Format, ((void *)0), _ArgList);
-} __inline int __cdecl _vfprintf_s_l( FILE* const _Stream, char const* const _Format, _locale_t const _Locale, va_list _ArgList ) {
-	return __stdio_common_vfprintf_s((*__local_stdio_printf_options()), _Stream, _Format, _Locale, _ArgList);
-} __inline int __cdecl _vfprintf_p_l( FILE* const _Stream, char const* const _Format, _locale_t const _Locale, va_list _ArgList ) {
-	return __stdio_common_vfprintf_p((*__local_stdio_printf_options()), _Stream, _Format, _Locale, _ArgList);
-} __inline int __cdecl _vfprintf_p( FILE* const _Stream, char const* const _Format, va_list _ArgList ) {
-	return _vfprintf_p_l(_Stream, _Format, ((void *)0), _ArgList);
-} __inline int __cdecl _vprintf_l( char const* const _Format, _locale_t const _Locale, va_list _ArgList ) {
-	return _vfprintf_l((__acrt_iob_func(1)), _Format, _Locale, _ArgList);
-} __inline int __cdecl vprintf( char const* const _Format, va_list _ArgList ) {
-	return _vfprintf_l((__acrt_iob_func(1)), _Format, ((void *)0), _ArgList);
-} __inline int __cdecl _vprintf_s_l( char const* const _Format, _locale_t const _Locale, va_list _ArgList ) {
-	return _vfprintf_s_l((__acrt_iob_func(1)), _Format, _Locale, _ArgList);
-} __inline int __cdecl _vprintf_p_l( char const* const _Format, _locale_t const _Locale, va_list _ArgList ) {
-	return _vfprintf_p_l((__acrt_iob_func(1)), _Format, _Locale, _ArgList);
-} __inline int __cdecl _vprintf_p( char const* const _Format, va_list _ArgList ) {
-	return _vfprintf_p_l((__acrt_iob_func(1)), _Format, ((void *)0), _ArgList);
-} __inline int __cdecl _fprintf_l( FILE* const _Stream, char const* const _Format, _locale_t const _Locale, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Locale);
-	_Result = _vfprintf_l(_Stream, _Format, _Locale, _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl fprintf( FILE* const _Stream, char const* const _Format, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Format);
-	_Result = _vfprintf_l(_Stream, _Format, ((void *)0), _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} int __cdecl _set_printf_count_output( int _Value );
+int __cdecl _set_printf_count_output( int _Value );
 int __cdecl _get_printf_count_output(void);
-__inline int __cdecl _fprintf_s_l( FILE* const _Stream, char const* const _Format, _locale_t const _Locale, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Locale);
-	_Result = _vfprintf_s_l(_Stream, _Format, _Locale, _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl _fprintf_p_l( FILE* const _Stream, char const* const _Format, _locale_t const _Locale, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Locale);
-	_Result = _vfprintf_p_l(_Stream, _Format, _Locale, _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl _fprintf_p( FILE* const _Stream, char const* const _Format, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Format);
-	_Result = _vfprintf_p_l(_Stream, _Format, ((void *)0), _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl _printf_l( char const* const _Format, _locale_t const _Locale, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Locale);
-	_Result = _vfprintf_l((__acrt_iob_func(1)), _Format, _Locale, _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl printf( char const* const _Format, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Format);
-	_Result = _vfprintf_l((__acrt_iob_func(1)), _Format, ((void *)0), _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl _printf_s_l( char const* const _Format, _locale_t const _Locale, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Locale);
-	_Result = _vfprintf_s_l((__acrt_iob_func(1)), _Format, _Locale, _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl _printf_p_l( char const* const _Format, _locale_t const _Locale, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Locale);
-	_Result = _vfprintf_p_l((__acrt_iob_func(1)), _Format, _Locale, _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl _printf_p( char const* const _Format, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Format);
-	_Result = _vfprintf_p_l((__acrt_iob_func(1)), _Format, ((void *)0), _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} int __cdecl __stdio_common_vfscanf( unsigned __int64 _Options, FILE* _Stream, char const* _Format, _locale_t _Locale, va_list _Arglist );
-__inline int __cdecl _vfscanf_l( FILE* const _Stream, char const* const _Format, _locale_t const _Locale, va_list _ArgList ) {
-	return __stdio_common_vfscanf( (*__local_stdio_scanf_options ()), _Stream, _Format, _Locale, _ArgList);
-} __inline int __cdecl vfscanf( FILE* const _Stream, char const* const _Format, va_list _ArgList ) {
-	return _vfscanf_l(_Stream, _Format, ((void *)0), _ArgList);
-} __inline int __cdecl _vfscanf_s_l( FILE* const _Stream, char const* const _Format, _locale_t const _Locale, va_list _ArgList ) {
-	return __stdio_common_vfscanf( (*__local_stdio_scanf_options ()) | (1ULL << 0), _Stream, _Format, _Locale, _ArgList);
-} __inline int __cdecl _vscanf_l( char const* const _Format, _locale_t const _Locale, va_list _ArgList ) {
-	return _vfscanf_l((__acrt_iob_func(0)), _Format, _Locale, _ArgList);
-} __inline int __cdecl vscanf( char const* const _Format, va_list _ArgList ) {
-	return _vfscanf_l((__acrt_iob_func(0)), _Format, ((void *)0), _ArgList);
-} __inline int __cdecl _vscanf_s_l( char const* const _Format, _locale_t const _Locale, va_list _ArgList ) {
-	return _vfscanf_s_l((__acrt_iob_func(0)), _Format, _Locale, _ArgList);
-} __inline int __cdecl _fscanf_l( FILE* const _Stream, char const* const _Format, _locale_t const _Locale, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Locale);
-	_Result = _vfscanf_l(_Stream, _Format, _Locale, _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl fscanf( FILE* const _Stream, char const* const _Format, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Format);
-	_Result = _vfscanf_l(_Stream, _Format, ((void *)0), _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl _fscanf_s_l( FILE* const _Stream, char const* const _Format, _locale_t const _Locale, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Locale);
-	_Result = _vfscanf_s_l(_Stream, _Format, _Locale, _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl _scanf_l( char const* const _Format, _locale_t const _Locale, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Locale);
-	_Result = _vfscanf_l((__acrt_iob_func(0)), _Format, _Locale, _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl scanf( char const* const _Format, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Format);
-	_Result = _vfscanf_l((__acrt_iob_func(0)), _Format, ((void *)0), _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl _scanf_s_l( char const* const _Format, _locale_t const _Locale, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Locale);
-	_Result = _vfscanf_s_l((__acrt_iob_func(0)), _Format, _Locale, _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} int __cdecl __stdio_common_vsprintf( unsigned __int64 _Options, char* _Buffer, size_t _BufferCount, char const* _Format, _locale_t _Locale, va_list _ArgList );
+int __cdecl __stdio_common_vfscanf( unsigned __int64 _Options, FILE* _Stream, char const* _Format, _locale_t _Locale, va_list _Arglist );
+int __cdecl __stdio_common_vsprintf( unsigned __int64 _Options, char* _Buffer, size_t _BufferCount, char const* _Format, _locale_t _Locale, va_list _ArgList );
 int __cdecl __stdio_common_vsprintf_s( unsigned __int64 _Options, char* _Buffer, size_t _BufferCount, char const* _Format, _locale_t _Locale, va_list _ArgList );
 int __cdecl __stdio_common_vsnprintf_s( unsigned __int64 _Options, char* _Buffer, size_t _BufferCount, size_t _MaxCount, char const* _Format, _locale_t _Locale, va_list _ArgList );
 int __cdecl __stdio_common_vsprintf_p( unsigned __int64 _Options, char* _Buffer, size_t _BufferCount, char const* _Format, _locale_t _Locale, va_list _ArgList );
-__inline int __cdecl _vsnprintf_l( char* const _Buffer, size_t const _BufferCount, char const* const _Format, _locale_t const _Locale, va_list _ArgList ) {
-	int const _Result = __stdio_common_vsprintf( (*__local_stdio_printf_options()) | (1ULL << 0), _Buffer, _BufferCount, _Format, _Locale, _ArgList);
-	return _Result < 0 ? -1 : _Result;
-} __inline int __cdecl _vsnprintf( char* const _Buffer, size_t const _BufferCount, char const* const _Format, va_list _ArgList ) {
-	return _vsnprintf_l(_Buffer, _BufferCount, _Format, ((void *)0), _ArgList);
-} __inline int __cdecl vsnprintf( char* const _Buffer, size_t const _BufferCount, char const* const _Format, va_list _ArgList ) {
-	int const _Result = __stdio_common_vsprintf( (*__local_stdio_printf_options()) | (1ULL << 1), _Buffer, _BufferCount, _Format, ((void *)0), _ArgList);
-	return _Result < 0 ? -1 : _Result;
-} __inline int __cdecl _vsprintf_l( char* const _Buffer, char const* const _Format, _locale_t const _Locale, va_list _ArgList ) {
-	return _vsnprintf_l(_Buffer, (size_t)-1, _Format, _Locale, _ArgList);
-} __inline int __cdecl vsprintf( char* const _Buffer, char const* const _Format, va_list _ArgList ) {
-	return _vsnprintf_l(_Buffer, (size_t)-1, _Format, ((void *)0), _ArgList);
-} __inline int __cdecl _vsprintf_s_l( char* const _Buffer, size_t const _BufferCount, char const* const _Format, _locale_t const _Locale, va_list _ArgList ) {
-	int const _Result = __stdio_common_vsprintf_s( (*__local_stdio_printf_options()), _Buffer, _BufferCount, _Format, _Locale, _ArgList);
-	return _Result < 0 ? -1 : _Result;
-} __inline int __cdecl _vsprintf_p_l( char* const _Buffer, size_t const _BufferCount, char const* const _Format, _locale_t const _Locale, va_list _ArgList ) {
-	int const _Result = __stdio_common_vsprintf_p( (*__local_stdio_printf_options()), _Buffer, _BufferCount, _Format, _Locale, _ArgList);
-	return _Result < 0 ? -1 : _Result;
-} __inline int __cdecl _vsprintf_p( char* const _Buffer, size_t const _BufferCount, char const* const _Format, va_list _ArgList ) {
-	return _vsprintf_p_l(_Buffer, _BufferCount, _Format, ((void *)0), _ArgList);
-} __inline int __cdecl _vsnprintf_s_l( char* const _Buffer, size_t const _BufferCount, size_t const _MaxCount, char const* const _Format, _locale_t const _Locale, va_list _ArgList ) {
-	int const _Result = __stdio_common_vsnprintf_s( (*__local_stdio_printf_options()), _Buffer, _BufferCount, _MaxCount, _Format, _Locale, _ArgList);
-	return _Result < 0 ? -1 : _Result;
-} __inline int __cdecl _vsnprintf_s( char* const _Buffer, size_t const _BufferCount, size_t const _MaxCount, char const* const _Format, va_list _ArgList ) {
-	return _vsnprintf_s_l(_Buffer, _BufferCount, _MaxCount, _Format, ((void *)0), _ArgList);
-}
 /* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_3 ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_3( */
 /* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_3( ### TO ### _Success_(return >= 0) */
 /* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_3 ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_3(    */
@@ -310,36 +140,6 @@ __inline int __cdecl _vsnprintf_l( char* const _Buffer, size_t const _BufferCoun
 /* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_3(    int, _vsnprintf_s,               char,        _Buffer,                           size_t,      _BufferCount,   char const*, _Format, ### TO ### va_list,     _ArgList */
 /* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_3 ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_3(    int, _vsnprintf_s,               char,        _Buffer,                           size_t,      _BufferCount,   char const*, _Format, va_list,     _ArgList */
 /* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_3(    int, _vsnprintf_s,               char,        _Buffer,                           size_t,      _BufferCount,   char const*, _Format, va_list,     _ArgList ### TO ### ) */
-__inline int __cdecl _vscprintf_l( char const* const _Format, _locale_t const _Locale, va_list _ArgList ) {
-	int const _Result = __stdio_common_vsprintf( (*__local_stdio_printf_options()) | (1ULL << 1), ((void *)0), 0, _Format, _Locale, _ArgList);
-	return _Result < 0 ? -1 : _Result;
-} __inline int __cdecl _vscprintf( char const* const _Format, va_list _ArgList ) {
-	return _vscprintf_l(_Format, ((void *)0), _ArgList);
-} __inline int __cdecl _vscprintf_p_l( char const* const _Format, _locale_t const _Locale, va_list _ArgList ) {
-	int const _Result = __stdio_common_vsprintf_p( (*__local_stdio_printf_options()) | (1ULL << 1), ((void *)0), 0, _Format, _Locale, _ArgList);
-	return _Result < 0 ? -1 : _Result;
-} __inline int __cdecl _vscprintf_p( char const* const _Format, va_list _ArgList ) {
-	return _vscprintf_p_l(_Format, ((void *)0), _ArgList);
-} __inline int __cdecl _vsnprintf_c_l( char* const _Buffer, size_t const _BufferCount, char const* const _Format, _locale_t const _Locale, va_list _ArgList ) {
-	int const _Result = __stdio_common_vsprintf( (*__local_stdio_printf_options()), _Buffer, _BufferCount, _Format, _Locale, _ArgList);
-	return _Result < 0 ? -1 : _Result;
-} __inline int __cdecl _vsnprintf_c( char* const _Buffer, size_t const _BufferCount, char const* const _Format, va_list _ArgList ) {
-	return _vsnprintf_c_l(_Buffer, _BufferCount, _Format, ((void *)0), _ArgList);
-} __inline int __cdecl _sprintf_l( char* const _Buffer, char const* const _Format, _locale_t const _Locale, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Locale);
-	_Result = _vsprintf_l(_Buffer, _Format, _Locale, _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl sprintf( char* const _Buffer, char const* const _Format, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Format);
-	_Result = _vsprintf_l(_Buffer, _Format, ((void *)0), _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-}
 /* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_1_ARGLIST ### IN LINE ### __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_1_ARGLIST( */
 /* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_1_ARGLIST( ### TO ### _Success_(return >= 0) */
 /* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_1_ARGLIST ### IN LINE ### __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_1_ARGLIST(    */
@@ -351,14 +151,6 @@ __inline int __cdecl _vscprintf_l( char const* const _Format, _locale_t const _L
 /* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_1_ARGLIST ### IN LINE ### __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_1_ARGLIST(    int, __RETURN_POLICY_SAME, , __cdecl, sprintf, vsprintf,    , char,        _Buffer,       char const*, _Format */
 /* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_1_ARGLIST(    int, __RETURN_POLICY_SAME, , __cdecl, sprintf, vsprintf,    , char,        _Buffer,       char const*, _Format ### TO ### ) */
 int __cdecl sprintf( char * _Buffer, char const* _Format , ...); int __cdecl vsprintf( char * _Buffer, char const* _Format , va_list _Args);
-__inline int __cdecl _sprintf_s_l( char* const _Buffer, size_t const _BufferCount, char const* const _Format, _locale_t const _Locale, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Locale);
-	_Result = _vsprintf_s_l(_Buffer, _BufferCount, _Format, _Locale, _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-}
 /* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_1_ARGLIST ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_1_ARGLIST( */
 /* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_1_ARGLIST( ### TO ### _Success_(return >= 0) */
 /* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_1_ARGLIST ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_1_ARGLIST(    */
@@ -369,42 +161,6 @@ __inline int __cdecl _sprintf_s_l( char* const _Buffer, size_t const _BufferCoun
 /* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_1_ARGLIST(    int, sprintf_s, vsprintf_s,               char,        _Buffer, ### TO ### _In_z_ _Printf_format_string_ char const*, _Format */
 /* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_1_ARGLIST ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_1_ARGLIST(    int, sprintf_s, vsprintf_s,               char,        _Buffer,   char const*, _Format */
 /* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_1_ARGLIST(    int, sprintf_s, vsprintf_s,               char,        _Buffer,   char const*, _Format ### TO ### ) */
-__inline int __cdecl _sprintf_p_l( char* const _Buffer, size_t const _BufferCount, char const* const _Format, _locale_t const _Locale, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Locale);
-	_Result = _vsprintf_p_l(_Buffer, _BufferCount, _Format, _Locale, _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl _sprintf_p( char* const _Buffer, size_t const _BufferCount, char const* const _Format, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Format);
-	_Result = _vsprintf_p_l(_Buffer, _BufferCount, _Format, ((void *)0), _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl _snprintf_l( char* const _Buffer, size_t const _BufferCount, char const* const _Format, _locale_t const _Locale, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Locale);
-	_Result = _vsnprintf_l(_Buffer, _BufferCount, _Format, _Locale, _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl snprintf( char* const _Buffer, size_t const _BufferCount, char const* const _Format, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Format);
-	_Result = vsnprintf(_Buffer, _BufferCount, _Format, _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl _snprintf( char* const _Buffer, size_t const _BufferCount, char const* const _Format, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Format);
-	_Result = _vsnprintf(_Buffer, _BufferCount, _Format, _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-}
 /* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX ### IN LINE ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX( */
 /* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX( ### TO ### _Success_(return >= 0) */
 /* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX ### IN LINE ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX(    */
@@ -420,35 +176,6 @@ __inline int __cdecl _sprintf_p_l( char* const _Buffer, size_t const _BufferCoun
 /* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX ### IN LINE ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX(    int, __RETURN_POLICY_SAME, , __cdecl, _snprintf, _vsnprintf,                     char,    , char,        _Buffer,                                           size_t,      _BufferCount,                   char const*, _Format */
 /* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX(    int, __RETURN_POLICY_SAME, , __cdecl, _snprintf, _vsnprintf,                     char,    , char,        _Buffer,                                           size_t,      _BufferCount,                   char const*, _Format ### TO ### ) */
 int __cdecl _snprintf( char * _Buffer, size_t _BufferCount, char const* _Format , ...); int __cdecl _vsnprintf( char * _Buffer, size_t _BufferCount, char const* _Format , va_list _Args);
-__inline int __cdecl _snprintf_c_l( char* const _Buffer, size_t const _BufferCount, char const* const _Format, _locale_t const _Locale, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Locale);
-	_Result = _vsnprintf_c_l(_Buffer, _BufferCount, _Format, _Locale, _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl _snprintf_c( char* const _Buffer, size_t const _BufferCount, char const* const _Format, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Format);
-	_Result = _vsnprintf_c_l(_Buffer, _BufferCount, _Format, ((void *)0), _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl _snprintf_s_l( char* const _Buffer, size_t const _BufferCount, size_t const _MaxCount, char const* const _Format, _locale_t const _Locale, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Locale);
-	_Result = _vsnprintf_s_l(_Buffer, _BufferCount, _MaxCount, _Format, _Locale, _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl _snprintf_s( char* const _Buffer, size_t const _BufferCount, size_t const _MaxCount, char const* const _Format, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Format);
-	_Result = _vsnprintf_s_l(_Buffer, _BufferCount, _MaxCount, _Format, ((void *)0), _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-}
 /* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST( */
 /* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST( ### TO ### _Success_(return >= 0) */
 /* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST(    */
@@ -461,94 +188,9 @@ __inline int __cdecl _snprintf_c_l( char* const _Buffer, size_t const _BufferCou
 /* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST(    int, _snprintf_s, _vsnprintf_s,               char,        _Buffer,                           size_t,      _BufferCount, ### TO ### _In_z_ _Printf_format_string_ char const*, _Format */
 /* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST(    int, _snprintf_s, _vsnprintf_s,               char,        _Buffer,                           size_t,      _BufferCount,   char const*, _Format */
 /* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST(    int, _snprintf_s, _vsnprintf_s,               char,        _Buffer,                           size_t,      _BufferCount,   char const*, _Format ### TO ### ) */
-__inline int __cdecl _scprintf_l( char const* const _Format, _locale_t const _Locale, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Locale);
-	_Result = _vscprintf_l(_Format, _Locale, _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl _scprintf( char const* const _Format, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Format);
-	_Result = _vscprintf_l(_Format, ((void *)0), _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl _scprintf_p_l( char const* const _Format, _locale_t const _Locale, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Locale);
-	_Result = _vscprintf_p_l(_Format, _Locale, _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl _scprintf_p( char const* const _Format, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Format);
-	_Result = _vscprintf_p(_Format, _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} int __cdecl __stdio_common_vsscanf( unsigned __int64 _Options, char const* _Buffer, size_t _BufferCount, char const* _Format, _locale_t _Locale, va_list _ArgList );
-__inline int __cdecl _vsscanf_l( char const* const _Buffer, char const* const _Format, _locale_t const _Locale, va_list _ArgList ) {
-	return __stdio_common_vsscanf( (*__local_stdio_scanf_options ()), _Buffer, (size_t)-1, _Format, _Locale, _ArgList);
-} __inline int __cdecl vsscanf( char const* const _Buffer, char const* const _Format, va_list _ArgList ) {
-	return _vsscanf_l(_Buffer, _Format, ((void *)0), _ArgList);
-} __inline int __cdecl _vsscanf_s_l( char const* const _Buffer, char const* const _Format, _locale_t const _Locale, va_list _ArgList ) {
-	return __stdio_common_vsscanf( (*__local_stdio_scanf_options ()) | (1ULL << 0), _Buffer, (size_t)-1, _Format, _Locale, _ArgList);
-} __inline int __cdecl _sscanf_l( char const* const _Buffer, char const* const _Format, _locale_t const _Locale, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Locale);
-	_Result = _vsscanf_l(_Buffer, _Format, _Locale, _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl sscanf( char const* const _Buffer, char const* const _Format, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Format);
-	_Result = _vsscanf_l(_Buffer, _Format, ((void *)0), _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl _sscanf_s_l( char const* const _Buffer, char const* const _Format, _locale_t const _Locale, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Locale);
-	_Result = _vsscanf_s_l(_Buffer, _Format, _Locale, _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-}
+int __cdecl __stdio_common_vsscanf( unsigned __int64 _Options, char const* _Buffer, size_t _BufferCount, char const* _Format, _locale_t _Locale, va_list _ArgList );
 /*     #pragma warning(push) */
 /*     #pragma warning(disable: 6530)  */
-__inline int __cdecl _snscanf_l( char const* const _Buffer, size_t const _BufferCount, char const* const _Format, _locale_t const _Locale, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Locale);
-	_Result = __stdio_common_vsscanf( (*__local_stdio_scanf_options ()), _Buffer, _BufferCount, _Format, _Locale, _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl _snscanf( char const* const _Buffer, size_t const _BufferCount, char const* const _Format, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Format);
-	_Result = __stdio_common_vsscanf( (*__local_stdio_scanf_options ()), _Buffer, _BufferCount, _Format, ((void *)0), _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl _snscanf_s_l( char const* const _Buffer, size_t const _BufferCount, char const* const _Format, _locale_t const _Locale, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Locale);
-	_Result = __stdio_common_vsscanf( (*__local_stdio_scanf_options ()) | (1ULL << 0), _Buffer, _BufferCount, _Format, _Locale, _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-} __inline int __cdecl _snscanf_s( char const* const _Buffer, size_t const _BufferCount, char const* const _Format, ...) {
-	int _Result;
-	va_list _ArgList;
-	__crt_va_start(_ArgList, _Format);
-	_Result = __stdio_common_vsscanf( (*__local_stdio_scanf_options ()) | (1ULL << 0), _Buffer, _BufferCount, _Format, ((void *)0), _ArgList);
-	__crt_va_end(_ArgList);
-	return _Result;
-}
 /*     #pragma warning(pop) */
 enum { SYS_OPEN = 20 };
 char* __cdecl tempnam( char const* _Directory, char const* _FilePrefix );
@@ -564,3 +206,4 @@ int __cdecl rmtmp(void);
 /* #pragma warning(pop)  */
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/stdio.h */
 ]]
+return ffi.C
