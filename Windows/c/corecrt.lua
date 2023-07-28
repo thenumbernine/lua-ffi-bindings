@@ -42,11 +42,10 @@ enum { _PGLOBAL = 1 };
 enum { _AGLOBAL = 1 };
 enum { __STDC_SECURE_LIB__ = 200411 };
 enum { __GOT_SECURE_LIB__ = 200411 };
-enum { __STDC_WANT_SECURE_LIB__ = 1 };
 enum { _SECURECRT_FILL_BUFFER_PATTERN = 254 };
 enum { _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES = 0 };
 enum { _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES_COUNT = 0 };
-enum { _CRT_SECURE_CPP_OVERLOAD_SECURE_NAMES = 1 };
+enum { _CRT_SECURE_CPP_OVERLOAD_SECURE_NAMES = 0 };
 enum { _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES_MEMORY = 0 };
 enum { _CRT_SECURE_CPP_OVERLOAD_SECURE_NAMES_MEMORY = 0 };
 /* #define _CRT_SECURE_CPP_NOTHROW throw() ### string, not number "throw()" */
@@ -72,7 +71,6 @@ typedef struct _Mbstatet {
 typedef _Mbstatet mbstate_t;
 typedef __time64_t time_t;
 enum { _TIME_T_DEFINED = 1 };
-typedef size_t rsize_t;
 enum { __EMPTY_DECLSPEC = 1 };
 /* #pragma warning(pop)  */
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
