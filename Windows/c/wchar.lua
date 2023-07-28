@@ -155,8 +155,8 @@ enum { SH_DENYNO = 64 };
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_share.h */
 /* #pragma warning(push) */
 /* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */
-enum { _wfinddata_t = 0 };
-enum { _wfinddatai64_t = 0 };
+
+
 typedef unsigned long _fsize_t;
 struct _wfinddata32_t {
 	unsigned attrib;
@@ -770,3 +770,33 @@ int __cdecl wctob( wint_t _WCh );
 /* #pragma warning(pop)  */
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/wchar.h */
 ]]
+ffi.cdef[[
+/* #ifdef _USE_32BIT_TIME_T
+	typedef _wfinddata32_t _wfinddata_t;
+	typedef _wfinddata32i64_t _wfinddatai64_t;
+#else */
+	typedef struct _wfinddata64i32_t _wfinddata_t;
+	typedef struct _wfinddata64_t _wfinddatai64_t;
+/* #endif */
+]]
+
+local lib = ffi.C
+return setmetatable({
+--[[
+#ifdef _USE_32BIT_TIME_T
+	_wfindfirst = lib._wfindfirst32,
+	_wfindnext = lib._wfindnext32,
+	_wfindfirsti64 = lib._wfindfirst32i64,
+	_wfindnexti64 = lib._wfindnext32i64,
+#else
+--]]
+	_wfindfirst = lib._wfindfirst64i32,
+	_wfindnext = lib._wfindnext64i32,
+	_wfindfirsti64 = lib._wfindfirst64,
+	_wfindnexti64 = lib._wfindnext64,
+--[[
+#endif
+--]]
+}, {
+	__index = ffi.C,
+})
