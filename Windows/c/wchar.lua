@@ -16,23 +16,7 @@ enum { _INC_WCHAR = 1 };
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_memcpy_s.h */
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wconio.h */
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_stdio_config.h */
-/* #pragma warning(push) */
-/* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */
-enum { _CRT_STDIO_INLINE = 0 };
-/* #define _CRT_INTERNAL_STDIO_SYMBOL_PREFIX "" ### string, not number "\"\"" */
- 
-/* #define _CRT_INTERNAL_LOCAL_PRINTF_OPTIONS (*__local_stdio_printf_options()) ### string, not number "(*__local_stdio_printf_options())" */
-/* #define _CRT_INTERNAL_LOCAL_SCANF_OPTIONS  (*__local_stdio_scanf_options ()) ### string, not number "(*__local_stdio_scanf_options ())" */
-/* #define _CRT_INTERNAL_PRINTF_LEGACY_VSPRINTF_NULL_TERMINATION (1ULL << 0) ### string, not number "(1ULL << 0)" */
-/* #define _CRT_INTERNAL_PRINTF_STANDARD_SNPRINTF_BEHAVIOR       (1ULL << 1) ### string, not number "(1ULL << 1)" */
-/* #define _CRT_INTERNAL_PRINTF_LEGACY_WIDE_SPECIFIERS           (1ULL << 2) ### string, not number "(1ULL << 2)" */
-/* #define _CRT_INTERNAL_PRINTF_LEGACY_MSVCRT_COMPATIBILITY      (1ULL << 3) ### string, not number "(1ULL << 3)" */
-/* #define _CRT_INTERNAL_PRINTF_LEGACY_THREE_DIGIT_EXPONENTS     (1ULL << 4) ### string, not number "(1ULL << 4)" */
-/* #define _CRT_INTERNAL_PRINTF_STANDARD_ROUNDING                (1ULL << 5) ### string, not number "(1ULL << 5)" */
-/* #define _CRT_INTERNAL_SCANF_SECURECRT                   (1ULL << 0) ### string, not number "(1ULL << 0)" */
-/* #define _CRT_INTERNAL_SCANF_LEGACY_WIDE_SPECIFIERS      (1ULL << 1) ### string, not number "(1ULL << 1)" */
-/* #define _CRT_INTERNAL_SCANF_LEGACY_MSVCRT_COMPATIBILITY (1ULL << 2) ### string, not number "(1ULL << 2)" */
-/* #pragma warning(pop)  */
+]] require 'ffi.Windows.c.corecrt_stdio_config' ffi.cdef[[
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_stdio_config.h */
 /* #pragma warning(push) */
 /* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */
@@ -152,131 +136,7 @@ int __cdecl _wsystem( wchar_t const* _Command );
 /* #pragma warning(pop)  */
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wprocess.h */
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstdio.h */
-/* #pragma warning(push) */
-/* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */
-enum { _FILE_DEFINED = 1 };
-typedef struct _iobuf {
-	void* _Placeholder;
-} FILE;
-FILE* __cdecl __acrt_iob_func(unsigned _Ix);
-/* #define stdin  (__acrt_iob_func(0)) ### string, not number "(__acrt_iob_func(0))" */
-/* #define stdout (__acrt_iob_func(1)) ### string, not number "(__acrt_iob_func(1))" */
-/* #define stderr (__acrt_iob_func(2)) ### string, not number "(__acrt_iob_func(2))" */
-/* #define WEOF ((wint_t)(0xFFFF)) ### string, not number "((wint_t)(0xFFFF))" */
-wint_t __cdecl fgetwc( FILE* _Stream );
-wint_t __cdecl _fgetwchar(void);
-wint_t __cdecl fputwc( wchar_t _Character, FILE* _Stream);
-wint_t __cdecl _fputwchar( wchar_t _Character );
-wint_t __cdecl getwc( FILE* _Stream );
-wint_t __cdecl getwchar(void);
-wchar_t* __cdecl fgetws( wchar_t* _Buffer, int _BufferCount, FILE* _Stream );
-int __cdecl fputws( wchar_t const* _Buffer, FILE* _Stream );
-wchar_t* __cdecl _getws_s( wchar_t* _Buffer, size_t _BufferCount );
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0 ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0( */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0( ### TO ### _Success_(return != 0) */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0 ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0(    */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0(    ### TO ### wchar_t*, _getws_s, */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0 ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0(    wchar_t*, _getws_s, */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0(    wchar_t*, _getws_s, ### TO ### _Always_(_Post_z_) wchar_t, _Buffer */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0 ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0(    wchar_t*, _getws_s,    wchar_t, _Buffer */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0(    wchar_t*, _getws_s,    wchar_t, _Buffer ### TO ### ) */
-wint_t __cdecl putwc( wchar_t _Character, FILE* _Stream );
-wint_t __cdecl putwchar( wchar_t _Character );
-int __cdecl _putws( wchar_t const* _Buffer );
-wint_t __cdecl ungetwc( wint_t _Character, FILE* _Stream );
-FILE * __cdecl _wfdopen( int _FileHandle, wchar_t const* _Mode );
-FILE* __cdecl _wfopen( wchar_t const* _FileName, wchar_t const* _Mode );
-errno_t __cdecl _wfopen_s( FILE** _Stream, wchar_t const* _FileName, wchar_t const* _Mode );
-FILE* __cdecl _wfreopen( wchar_t const* _FileName, wchar_t const* _Mode, FILE* _OldStream );
-errno_t __cdecl _wfreopen_s( FILE** _Stream, wchar_t const* _FileName, wchar_t const* _Mode, FILE* _OldStream );
-FILE* __cdecl _wfsopen( wchar_t const* _FileName, wchar_t const* _Mode, int _ShFlag );
-void __cdecl _wperror( wchar_t const* _ErrorMessage );
-FILE* __cdecl _wpopen( wchar_t const* _Command, wchar_t const* _Mode );
-int __cdecl _wremove( wchar_t const* _FileName );
-/*     #pragma push_macro("_wtempnam") */
-__declspec(allocator) wchar_t* __cdecl _wtempnam( wchar_t const* _Directory, wchar_t const* _FilePrefix );
-/*     #pragma pop_macro("_wtempnam") */
-errno_t __cdecl _wtmpnam_s( wchar_t* _Buffer, size_t _BufferCount );
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0 ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0( */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0( ### TO ### _Success_(return == 0) */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0 ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0(    */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0(    ### TO ### errno_t, _wtmpnam_s, */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0 ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0(    errno_t, _wtmpnam_s, */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0(    errno_t, _wtmpnam_s, ### TO ### _Always_(_Post_z_) wchar_t, _Buffer */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0 ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0(    errno_t, _wtmpnam_s,    wchar_t, _Buffer */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0(    errno_t, _wtmpnam_s,    wchar_t, _Buffer ### TO ### ) */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_0 ### IN LINE ### __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_0( */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_0( ### TO ### _Success_(return != 0) */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_0 ### IN LINE ### __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_0(    */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_0(    ### TO ### wchar_t*, __RETURN_POLICY_DST, _ACRTIMP, _wtmpnam, */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_0 ### IN LINE ### __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_0(    wchar_t*, __RETURN_POLICY_DST, , _wtmpnam, */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_0(    wchar_t*, __RETURN_POLICY_DST, , _wtmpnam, ### TO ### _Pre_maybenull_ _Always_(_Post_z_), wchar_t, _Buffer */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_0 ### IN LINE ### __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_0(    wchar_t*, __RETURN_POLICY_DST, , _wtmpnam,    , wchar_t, _Buffer */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_0(    wchar_t*, __RETURN_POLICY_DST, , _wtmpnam,    , wchar_t, _Buffer ### TO ### ) */
-wchar_t* __cdecl _wtmpnam( wchar_t * _Buffer );
-wint_t __cdecl _fgetwc_nolock( FILE* _Stream );
-wint_t __cdecl _fputwc_nolock( wchar_t _Character, FILE* _Stream );
-wint_t __cdecl _getwc_nolock( FILE* _Stream );
-wint_t __cdecl _putwc_nolock( wchar_t _Character, FILE* _Stream );
-wint_t __cdecl _ungetwc_nolock( wint_t _Character, FILE* _Stream );
-int __cdecl __stdio_common_vfwprintf( unsigned __int64 _Options, FILE* _Stream, wchar_t const* _Format, _locale_t _Locale, va_list _ArgList );
-int __cdecl __stdio_common_vfwprintf_s( unsigned __int64 _Options, FILE* _Stream, wchar_t const* _Format, _locale_t _Locale, va_list _ArgList );
-int __cdecl __stdio_common_vfwprintf_p( unsigned __int64 _Options, FILE* _Stream, wchar_t const* _Format, _locale_t _Locale, va_list _ArgList );
-                    int __cdecl __stdio_common_vfwscanf( unsigned __int64 _Options, FILE* _Stream, wchar_t const* _Format, _locale_t _Locale, va_list _ArgList );
-           
-/* #define _SWPRINTFS_DEPRECATED _CRT_DEPRECATE_TEXT(                                        "function has been changed to conform with the ISO C standard, "                  "adding an extra character count parameter. To use the traditional "                  "Microsoft version, set _CRT_NON_CONFORMING_SWPRINTFS.") ### string, not number "_CRT_DEPRECATE_TEXT(                                        \"function has been changed to conform with the ISO C standard, \"                  \"adding an extra character count parameter. To use the traditional \"                  \"Microsoft version, set _CRT_NON_CONFORMING_SWPRINTFS.\")" */
-int __cdecl __stdio_common_vswprintf( unsigned __int64 _Options, wchar_t* _Buffer, size_t _BufferCount, wchar_t const* _Format, _locale_t _Locale, va_list _ArgList );
-int __cdecl __stdio_common_vswprintf_s( unsigned __int64 _Options, wchar_t* _Buffer, size_t _BufferCount, wchar_t const* _Format, _locale_t _Locale, va_list _ArgList );
-int __cdecl __stdio_common_vsnwprintf_s( unsigned __int64 _Options, wchar_t* _Buffer, size_t _BufferCount, size_t _MaxCount, wchar_t const* _Format, _locale_t _Locale, va_list _ArgList );
-int __cdecl __stdio_common_vswprintf_p( unsigned __int64 _Options, wchar_t* _Buffer, size_t _BufferCount, wchar_t const* _Format, _locale_t _Locale, va_list _ArgList );
-  
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX ### IN LINE ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX( */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX( ### TO ### _Success_(return >= 0) */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX ### IN LINE ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX(    */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX(    ### TO ### int, __RETURN_POLICY_SAME, _CRT_STDIO_INLINE, __CRTDECL, _snwprintf, _vsnwprintf, */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX ### IN LINE ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX(    int, __RETURN_POLICY_SAME, __inline, __cdecl, _snwprintf, _vsnwprintf, */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX(    int, __RETURN_POLICY_SAME, __inline, __cdecl, _snwprintf, _vsnwprintf, ### TO ### _Pre_notnull_ _Post_maybez_                   wchar_t, */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX ### IN LINE ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX(    int, __RETURN_POLICY_SAME, __inline, __cdecl, _snwprintf, _vsnwprintf,                     wchar_t, */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX(    int, __RETURN_POLICY_SAME, __inline, __cdecl, _snwprintf, _vsnwprintf,                     wchar_t, ### TO ### _Out_writes_opt_(_BufferCount) _Post_maybez_, wchar_t,        _Buffer, */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX ### IN LINE ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX(    int, __RETURN_POLICY_SAME, __inline, __cdecl, _snwprintf, _vsnwprintf,                     wchar_t,    , wchar_t,        _Buffer, */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX(    int, __RETURN_POLICY_SAME, __inline, __cdecl, _snwprintf, _vsnwprintf,                     wchar_t,    , wchar_t,        _Buffer, ### TO ### _In_                                          size_t,         _BufferCount, */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX ### IN LINE ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX(    int, __RETURN_POLICY_SAME, __inline, __cdecl, _snwprintf, _vsnwprintf,                     wchar_t,    , wchar_t,        _Buffer,                                           size_t,         _BufferCount, */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX(    int, __RETURN_POLICY_SAME, __inline, __cdecl, _snwprintf, _vsnwprintf,                     wchar_t,    , wchar_t,        _Buffer,                                           size_t,         _BufferCount, ### TO ### _In_z_ _Printf_format_string_                 wchar_t const*, _Format */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX ### IN LINE ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX(    int, __RETURN_POLICY_SAME, __inline, __cdecl, _snwprintf, _vsnwprintf,                     wchar_t,    , wchar_t,        _Buffer,                                           size_t,         _BufferCount,                   wchar_t const*, _Format */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_ARGLIST_EX(    int, __RETURN_POLICY_SAME, __inline, __cdecl, _snwprintf, _vsnwprintf,                     wchar_t,    , wchar_t,        _Buffer,                                           size_t,         _BufferCount,                   wchar_t const*, _Format ### TO ### ) */
-  
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST( */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST( ### TO ### _Success_(return >= 0) */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST(    */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST(    ### TO ### int, _snwprintf_s, _vsnwprintf_s, */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST(    int, _snwprintf_s, _vsnwprintf_s, */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST(    int, _snwprintf_s, _vsnwprintf_s, ### TO ### _Always_(_Post_z_)            wchar_t,        _Buffer, */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST(    int, _snwprintf_s, _vsnwprintf_s,               wchar_t,        _Buffer, */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST(    int, _snwprintf_s, _vsnwprintf_s,               wchar_t,        _Buffer, ### TO ### _In_                          size_t,         _BufferCount, */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST(    int, _snwprintf_s, _vsnwprintf_s,               wchar_t,        _Buffer,                           size_t,         _BufferCount, */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST(    int, _snwprintf_s, _vsnwprintf_s,               wchar_t,        _Buffer,                           size_t,         _BufferCount, ### TO ### _In_z_ _Printf_format_string_ wchar_t const*, _Format */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST(    int, _snwprintf_s, _vsnwprintf_s,               wchar_t,        _Buffer,                           size_t,         _BufferCount,   wchar_t const*, _Format */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2_ARGLIST(    int, _snwprintf_s, _vsnwprintf_s,               wchar_t,        _Buffer,                           size_t,         _BufferCount,   wchar_t const*, _Format ### TO ### ) */
-   
-/*         #pragma warning(push) */
-/*         #pragma warning(disable: 4141 6054) */
-/*         #pragma warning(pop) */
-int __cdecl __stdio_common_vswscanf( unsigned __int64 _Options, wchar_t const* _Buffer, size_t _BufferCount, wchar_t const* _Format, _locale_t _Locale, va_list _ArgList );
-  
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2 ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2( */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2( ### TO ### _Success_(return >= 0) */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2 ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2(    */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2(    ### TO ### int, vswscanf_s, */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2 ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2(    int, vswscanf_s, */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2(    int, vswscanf_s, ### TO ### _In_z_                        wchar_t,        _Buffer, */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2 ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2(    int, vswscanf_s,                         wchar_t,        _Buffer, */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2(    int, vswscanf_s,                         wchar_t,        _Buffer, ### TO ### _In_z_ _Printf_format_string_ wchar_t const*, _Format, */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2 ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2(    int, vswscanf_s,                         wchar_t,        _Buffer,   wchar_t const*, _Format, */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2(    int, vswscanf_s,                         wchar_t,        _Buffer,   wchar_t const*, _Format, ### TO ### va_list,        _ArgList */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2 ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2(    int, vswscanf_s,                         wchar_t,        _Buffer,   wchar_t const*, _Format, va_list,        _ArgList */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_2(    int, vswscanf_s,                         wchar_t,        _Buffer,   wchar_t const*, _Format, va_list,        _ArgList ### TO ### ) */
-        
-/* #pragma warning(pop)  */
+]] require 'ffi.Windows.c.corecrt_wstdio' ffi.cdef[[
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstdio.h */
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstdlib.h */
 /* #pragma warning(push) */
