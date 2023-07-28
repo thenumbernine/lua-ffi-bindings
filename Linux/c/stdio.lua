@@ -6,7 +6,7 @@ enum { _STDIO_H = 1 };
 ]] require 'ffi.c.bits.libc-header-start' ffi.cdef[[
 /* END   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.c.stddef' ffi.cdef[[
+]] require 'ffi.Linux.c.stddef' ffi.cdef[[
 /* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
 ]] require 'ffi.c.stdarg' ffi.cdef[[
@@ -110,9 +110,7 @@ enum { _IOLBF = 1 };
 enum { _IONBF = 2 };
 enum { BUFSIZ = 8192 };
 enum { EOF = -1 };
-enum { SEEK_SET = 0 };
-enum { SEEK_CUR = 1 };
-enum { SEEK_END = 2 };
+]] require 'ffi.c.bits.types.SEEK' ffi.cdef[[
 /* # define P_tmpdir	"/tmp" ### string, not number "\"/tmp\"" */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/stdio_lim.h */
 enum { _BITS_STDIO_LIM_H = 1 };

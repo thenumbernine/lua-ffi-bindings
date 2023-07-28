@@ -112,7 +112,7 @@ enum { STDERR_FILENO = 2 };
 /* END   /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.c.bits.types.ssize_t' ffi.cdef[[
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.c.stddef' ffi.cdef[[
+]] require 'ffi.Linux.c.stddef' ffi.cdef[[
 /* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 ]] require 'ffi.c.bits.types.gid_t' ffi.cdef[[
 ]] require 'ffi.c.bits.types.uid_t' ffi.cdef[[
@@ -130,9 +130,7 @@ enum { X_OK = 1 };
 enum { F_OK = 0 };
 extern int access (const char *__name, int __type) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 extern int faccessat (int __fd, const char *__file, int __type, int __flag) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
-enum { SEEK_SET = 0 };
-enum { SEEK_CUR = 1 };
-enum { SEEK_END = 2 };
+]] require 'ffi.c.bits.types.SEEK' ffi.cdef[[
 enum { L_SET = 0 };
 enum { L_INCR = 1 };
 enum { L_XTND = 2 };
@@ -264,19 +262,15 @@ int getentropy (void *__buffer, size_t __length) __attribute__ ((__access__ (__w
 /* END   /usr/include/x86_64-linux-gnu/bits/unistd_ext.h */
 /* END   /usr/include/unistd.h */
 ]]
-
 -- I can't change ffi.C.getcwd to ffi.C._getcwd in the case of Windows
--- but I can at least return a table that changes names depending on the OS:
--- TODO do the __index trick, and split this file between Windows and Linux ?
-
-if ffi.os == 'Windows' then
-	return {
-		chdir = ffi.C._chdir,
-		getcwd = ffi.C._getcwd,
+local lib = ffi.C
+return setmetatable(
+	ffi.os == 'Windows' and {
+		chdir = lib._chdir,
+		getcwd = lib._getcwd,
+		rmdir = lib._rmdir,
+	} or {},
+	{
+		__index = lib,
 	}
-else
-	return {
-		chdir = ffi.C.chdir,
-		getcwd = ffi.C.getcwd,
-	}
-end
+)
