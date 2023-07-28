@@ -123,6 +123,9 @@ ffi.cdef[[
 typedef struct _stat64 __stat64;
 ]]
 
+-- for linux mkdir compat
+require 'ffi.Windows.c.direct'
+
 local lib = ffi.C
 return setmetatable({
 --[[
