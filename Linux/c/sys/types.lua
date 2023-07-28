@@ -17,15 +17,11 @@ typedef __u_quad_t u_quad_t;
 typedef __fsid_t fsid_t;
 enum { __u_char_defined = 1 };
 typedef __loff_t loff_t;
-typedef __ino_t ino_t;
-enum { __ino_t_defined = 1 };
-typedef __dev_t dev_t;
-enum { __dev_t_defined = 1 };
+]] require 'ffi.c.bits.types.ino_t' ffi.cdef[[
+]] require 'ffi.c.bits.types.dev_t' ffi.cdef[[
 ]] require 'ffi.c.bits.types.gid_t' ffi.cdef[[
-typedef __mode_t mode_t;
-enum { __mode_t_defined = 1 };
-typedef __nlink_t nlink_t;
-enum { __nlink_t_defined = 1 };
+]] require 'ffi.c.bits.types.mode_t' ffi.cdef[[
+]] require 'ffi.c.bits.types.nlink_t' ffi.cdef[[
 ]] require 'ffi.c.bits.types.uid_t' ffi.cdef[[
 ]] require 'ffi.c.bits.types.off_t' ffi.cdef[[
 ]] require 'ffi.c.bits.types.pid_t' ffi.cdef[[
@@ -50,7 +46,7 @@ enum { __key_t_defined = 1 };
 ]] require 'ffi.c.bits.types.timer_t' ffi.cdef[[
 /* END   /usr/include/x86_64-linux-gnu/bits/types/timer_t.h */
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.c.stddef' ffi.cdef[[
+]] require 'ffi.Linux.c.stddef' ffi.cdef[[
 /* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 typedef unsigned long int ulong;
 typedef unsigned short int ushort;

@@ -14,15 +14,11 @@ enum { _SYS_STAT_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
 ]] require 'ffi.c.bits.types.time_t' ffi.cdef[[
 /* END   /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
-typedef __dev_t dev_t;
-enum { __dev_t_defined = 1 };
+]] require 'ffi.c.bits.types.dev_t' ffi.cdef[[
 ]] require 'ffi.c.bits.types.gid_t' ffi.cdef[[
-typedef __ino_t ino_t;
-enum { __ino_t_defined = 1 };
-typedef __mode_t mode_t;
-enum { __mode_t_defined = 1 };
-typedef __nlink_t nlink_t;
-enum { __nlink_t_defined = 1 };
+]] require 'ffi.c.bits.types.ino_t' ffi.cdef[[
+]] require 'ffi.c.bits.types.mode_t' ffi.cdef[[
+]] require 'ffi.c.bits.types.nlink_t' ffi.cdef[[
 ]] require 'ffi.c.bits.types.off_t' ffi.cdef[[
 ]] require 'ffi.c.bits.types.uid_t' ffi.cdef[[
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/stat.h */
