@@ -62,7 +62,7 @@ struct _stat64 {
 	__time64_t st_mtime;
 	__time64_t st_ctime;
 };
-enum { __stat64 = 0 };
+
 struct stat {
 	_dev_t st_dev;
 	_ino_t st_ino;
@@ -91,12 +91,12 @@ enum { S_IFREG = 32768 };
 enum { S_IREAD = 256 };
 enum { S_IWRITE = 128 };
 enum { S_IEXEC = 64 };
-enum { _fstat = 0 };
-enum { _fstati64 = 0 };
-enum { _stat = 0 };
-enum { _stati64 = 0 };
-enum { _wstat = 0 };
-enum { _wstati64 = 0 };
+
+
+
+
+
+
 int __cdecl _fstat32( int _FileHandle, struct _stat32* _Stat );
 int __cdecl _fstat32i64( int _FileHandle, struct _stat32i64* _Stat );
 int __cdecl _fstat64i32( int _FileHandle, struct _stat64i32* _Stat );
@@ -119,3 +119,31 @@ static __inline int __cdecl fstat(int const _FileHandle, struct stat* const _Sta
 /* #pragma warning(pop)  */
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/sys/stat.h */
 ]]
+ffi.cdef[[
+typedef struct _stat64 __stat64;
+]]
+
+local lib = ffi.C
+return setmetatable({
+--[[
+#ifdef _USE_32BIT_TIME_T
+	_fstat = lib._fstat32,
+	_fstati64 = lib._fstat32i64,
+	_stat = lib._stat32,
+	_stati64 = lib._stat32i64,
+	_wstat = lib._wstat32,
+	_wstati64 = lib._wstat32i64,
+#else
+--]]
+	_fstat = lib._fstat64i32,
+	_fstati64 = lib._fstat64,
+	_stat = lib._stat64i32,
+	_stati64 = lib._stat64,
+	_wstat = lib._wstat64i32,
+	_wstati64 = lib._wstat64,
+--[[
+#endif
+--]]
+}, {
+	__index = ffi.C,
+})
