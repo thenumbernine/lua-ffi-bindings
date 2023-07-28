@@ -18,3 +18,8 @@ struct utimbuf {
 extern int utime (const char *__file, const struct utimbuf *__file_times) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 /* END   /usr/include/utime.h */
 ]]
+return setmetatable({
+	struct_utimbuf = 'struct utimbuf',
+}, {
+	__index = ffi.C,
+})

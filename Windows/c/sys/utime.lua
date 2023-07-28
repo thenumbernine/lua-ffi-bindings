@@ -36,3 +36,14 @@ int __cdecl _wutime64( wchar_t const* _FileName, struct __utimbuf64* _Time );
 /* #pragma warning(pop)  */
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/sys/utime.h */
 ]]
+local lib = ffi.C
+return setmetatable(
+ffi.arch == 'x86' and {
+	utime = lib._utime32,
+	struct_utimbuf = 'struct __utimbuf32',
+} or {
+	utime = lib._utime64,
+	struct_utimbuf = 'struct __utimbuf64'
+}, {
+	__index = lib,
+})
