@@ -10,6 +10,42 @@ enum { _INC_STRING = 1 };
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/errno.h */
 ]] require 'ffi.Windows.c.errno' ffi.cdef[[
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/errno.h */
+/* BEGIN C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.36.32532/include/vcruntime_string.h */
+/* #pragma warning(push) */
+/* #pragma warning(disable: _VCRUNTIME_DISABLED_WARNINGS) */
+void * __cdecl memchr( void const* _Buf, int _Val, size_t _MaxCount );
+int __cdecl memcmp( void const* _Buf1, void const* _Buf2, size_t _Size );
+/* ### INCOMPLETE ARG MACRO ### _At_buffer_ ### IN LINE ### _At_buffer_( */
+/* ### PREPENDING ### _At_buffer_( ### TO ### (unsigned char*)_Dst, */
+/* ### INCOMPLETE ARG MACRO ### _At_buffer_ ### IN LINE ### _At_buffer_( (unsigned char*)_Dst, */
+/* ### PREPENDING ### _At_buffer_( (unsigned char*)_Dst, ### TO ### _Iter_, */
+/* ### INCOMPLETE ARG MACRO ### _At_buffer_ ### IN LINE ### _At_buffer_( (unsigned char*)_Dst, _Iter_, */
+/* ### PREPENDING ### _At_buffer_( (unsigned char*)_Dst, _Iter_, ### TO ### _Size, */
+/* ### INCOMPLETE ARG MACRO ### _At_buffer_ ### IN LINE ### _At_buffer_( (unsigned char*)_Dst, _Iter_, _Size, */
+/* ### PREPENDING ### _At_buffer_( (unsigned char*)_Dst, _Iter_, _Size, ### TO ### _Post_satisfies_(((unsigned char*)_Dst)[_Iter_] == ((unsigned char*)_Src)[_Iter_]) */
+/* ### INCOMPLETE ARG MACRO ### _At_buffer_ ### IN LINE ### _At_buffer_( (unsigned char*)_Dst, _Iter_, _Size,    */
+/* ### PREPENDING ### _At_buffer_( (unsigned char*)_Dst, _Iter_, _Size,    ### TO ### ) */
+void* __cdecl memcpy( void* _Dst, void const* _Src, size_t _Size );
+void* __cdecl memmove( void* _Dst, void const* _Src, size_t _Size );
+/* ### INCOMPLETE ARG MACRO ### _At_buffer_ ### IN LINE ### _At_buffer_( */
+/* ### PREPENDING ### _At_buffer_( ### TO ### (unsigned char*)_Dst, */
+/* ### INCOMPLETE ARG MACRO ### _At_buffer_ ### IN LINE ### _At_buffer_( (unsigned char*)_Dst, */
+/* ### PREPENDING ### _At_buffer_( (unsigned char*)_Dst, ### TO ### _Iter_, */
+/* ### INCOMPLETE ARG MACRO ### _At_buffer_ ### IN LINE ### _At_buffer_( (unsigned char*)_Dst, _Iter_, */
+/* ### PREPENDING ### _At_buffer_( (unsigned char*)_Dst, _Iter_, ### TO ### _Size, */
+/* ### INCOMPLETE ARG MACRO ### _At_buffer_ ### IN LINE ### _At_buffer_( (unsigned char*)_Dst, _Iter_, _Size, */
+/* ### PREPENDING ### _At_buffer_( (unsigned char*)_Dst, _Iter_, _Size, ### TO ### _Post_satisfies_(((unsigned char*)_Dst)[_Iter_] == _Val) */
+/* ### INCOMPLETE ARG MACRO ### _At_buffer_ ### IN LINE ### _At_buffer_( (unsigned char*)_Dst, _Iter_, _Size,    */
+/* ### PREPENDING ### _At_buffer_( (unsigned char*)_Dst, _Iter_, _Size,    ### TO ### ) */
+void* __cdecl memset( void* _Dst, int _Val, size_t _Size );
+char * __cdecl strchr( char const* _Str, int _Val );
+char * __cdecl strrchr( char const* _Str, int _Ch );
+char * __cdecl strstr( char const* _Str, char const* _SubStr );
+wchar_t * __cdecl wcschr( wchar_t const* _Str, wchar_t _Ch );
+wchar_t * __cdecl wcsrchr( wchar_t const* _Str, wchar_t _Ch );
+wchar_t * __cdecl wcsstr( wchar_t const* _Str, wchar_t const* _SubStr );
+/* #pragma warning(pop)  */
+/* END   C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.36.32532/include/vcruntime_string.h */
 /* #pragma warning(push) */
 /* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */
 /* #define _CRT_MEMCPY_S_INLINE static __inline ### string, not number "static __inline" */
