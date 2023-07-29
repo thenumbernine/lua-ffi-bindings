@@ -8,7 +8,7 @@ enum { _OV_FILE_H_ = 1 };
 /* BEGIN /usr/include/vorbis/codec.h */
 enum { _vorbis_codec_h_ = 1 };
 /* BEGIN /usr/include/ogg/ogg.h */
-]] require 'ffi.ogg.ogg' ffi.cdef[[
+]] require 'ffi.ogg' ffi.cdef[[
 /* END   /usr/include/ogg/ogg.h */
 typedef struct vorbis_info{
 	int version;
