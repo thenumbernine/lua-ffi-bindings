@@ -109,13 +109,7 @@ int __cdecl _wstat32( wchar_t const* _FileName, struct _stat32* _Stat );
 int __cdecl _wstat32i64( wchar_t const* _FileName, struct _stat32i64* _Stat );
 int __cdecl _wstat64i32( wchar_t const* _FileName, struct _stat64i32* _Stat );
 int __cdecl _wstat64( wchar_t const* _FileName, struct _stat64* _Stat );
-static __inline int __cdecl fstat(int const _FileHandle, struct stat* const _Stat) {
-	typedef char __static_assert_t[(sizeof(struct stat) == sizeof(struct _stat64i32)) != 0];
-	return _fstat64i32(_FileHandle, (struct _stat64i32*)_Stat);
-} static __inline int __cdecl stat(char const* const _FileName, struct stat* const _Stat) {
-	typedef char __static_assert_t[(sizeof(struct stat) == sizeof(struct _stat64i32)) != 0];
-	return _stat64i32(_FileName, (struct _stat64i32*)_Stat);
-}
+
 /* #pragma warning(pop)  */
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/sys/stat.h */
 ]]
@@ -132,18 +126,43 @@ return setmetatable({
 #ifdef _USE_32BIT_TIME_T
 	_fstat = lib._fstat32,
 	_fstati64 = lib._fstat32i64,
-	_stat = lib._stat32,
-	_stati64 = lib._stat32i64,
+
 	_wstat = lib._wstat32,
 	_wstati64 = lib._wstat32i64,
+	-- header inline function Lua alias:
+	--fstat = lib._fstat32,
+	--stat = lib._stat32,
+
+	--_stat = lib._stat32,
+	--struct_stat = 'struct _stat32',
+	--_stati64 = lib._stat32i64,
+	--struct_stat64 = 'struct _stat32i64',
+
+	-- for lfs compat:
+	fstat = lib._fstat32,
+	stat = lib._stat32,
+	stat_struct = 'struct _stat32',
 #else
 --]]
 	_fstat = lib._fstat64i32,
 	_fstati64 = lib._fstat64,
-	_stat = lib._stat64i32,
-	_stati64 = lib._stat64,
+
 	_wstat = lib._wstat64i32,
 	_wstati64 = lib._wstat64,
+	-- header inline function Lua alias:
+	--fstat = lib._fstat64i32,
+	--stat = lib._stat64i32,
+	--_stat = lib._stat64i32,
+	--struct_stat = 'struct _stat64i32', -- this is the 'struct' that goes with the 'stat' function ...
+	--_stati64 = lib._stat64,
+	--struct_stat64 = 'struct _stat64',
+
+	-- but I think I want 'stat' to point to '_stat64'
+	-- and 'struct_stat' to point to 'struct _stat64'
+	-- for lfs_ffi compat between Linux and Windows
+	fstat = lib._fstat64,
+	stat = lib._stat64,
+	struct_stat = 'struct _stat64',
 --[[
 #endif
 --]]

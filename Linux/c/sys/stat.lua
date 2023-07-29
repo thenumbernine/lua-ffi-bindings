@@ -115,3 +115,9 @@ extern int utimensat (int __fd, const char *__path, const struct timespec __time
 extern int futimens (int __fd, const struct timespec __times[2]) __attribute__ ((__nothrow__ , __leaf__));
 /* END   /usr/include/x86_64-linux-gnu/sys/stat.h */
 ]]
+local lib = ffi.C
+return setmetatable({
+	struct_stat = 'struct stat',
+}, {
+	__index = lib,
+})
