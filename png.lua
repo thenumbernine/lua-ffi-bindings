@@ -1,6 +1,6 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN /usr/include/png.h */
+/* + BEGIN /usr/include/png.h */
 enum { PNG_H = 1 };
 /* #define PNG_LIBPNG_VER_STRING "1.6.39" ### string, not number "\"1.6.39\"" */
 /* #define PNG_HEADER_VERSION_STRING " libpng version 1.6.39 - November 20, 2022\n" ### string, not number "\" libpng version 1.6.39 - November 20, 2022\\n\"" */
@@ -20,7 +20,7 @@ enum { PNG_LIBPNG_BUILD_PRIVATE = 16 };
 enum { PNG_LIBPNG_BUILD_SPECIAL = 32 };
 enum { PNG_LIBPNG_BUILD_BASE_TYPE = 4 };
 enum { PNG_LIBPNG_VER = 10639 };
-/* BEGIN /usr/include/pnglibconf.h */
+/* ++ BEGIN /usr/include/pnglibconf.h */
 enum { PNGLCONF_H = 1 };
 enum { PNG_16BIT_SUPPORTED = 1 };
 enum { PNG_ALIGNED_MEMORY_SUPPORTED = 1 };
@@ -214,24 +214,24 @@ enum { PNG_Z_DEFAULT_NOFILTER_STRATEGY = 0 };
 enum { PNG_Z_DEFAULT_STRATEGY = 1 };
 enum { PNG_sCAL_PRECISION = 5 };
 enum { PNG_sRGB_PROFILE_CHECKS = 2 };
-/* END   /usr/include/pnglibconf.h */
-/* BEGIN /usr/include/pngconf.h */
+/* ++ END   /usr/include/pnglibconf.h */
+/* ++ BEGIN /usr/include/pngconf.h */
 enum { PNGCONF_H = 1 };
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
 ]] require 'ffi.c.limits' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-/* BEGIN /usr/include/stdio.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* +++ BEGIN /usr/include/stdio.h */
 ]] require 'ffi.c.stdio' ffi.cdef[[
-/* END   /usr/include/stdio.h */
-/* BEGIN /usr/include/setjmp.h */
+/* +++ END   /usr/include/stdio.h */
+/* +++ BEGIN /usr/include/setjmp.h */
 ]] require 'ffi.c.setjmp' ffi.cdef[[
-/* END   /usr/include/setjmp.h */
-/* BEGIN /usr/include/time.h */
+/* +++ END   /usr/include/setjmp.h */
+/* +++ BEGIN /usr/include/time.h */
 ]] require 'ffi.c.time' ffi.cdef[[
-/* END   /usr/include/time.h */
+/* +++ END   /usr/include/time.h */
 enum { PNG_CONST = 0 };
 enum { PNG_USE_READ_MACROS = 1 };
 enum { PNGCAPI = 1 };
@@ -286,7 +286,7 @@ typedef char * * png_charpp;
 typedef png_fixed_point * * png_fixed_point_pp;
 typedef double * * png_doublepp;
 typedef char * * * png_charppp;
-/* END   /usr/include/pngconf.h */
+/* ++ END   /usr/include/pngconf.h */
 enum { PNG_LIBPNG_BUILD_TYPE = 4 };
 /* #define png_libpng_ver png_get_header_ver(NULL) ### string, not number "png_get_header_ver(NULL)" */
 typedef char* png_libpng_version_1_6_39;
@@ -1422,6 +1422,6 @@ enum { PNG_OPTION_ON = 3 };
 /* ### INCOMPLETE ARG MACRO ### PNG_EXPORT ### IN LINE ### PNG_EXPORT(244, int, png_set_option, (png_structrp png_ptr, int option, */
 /* ### PREPENDING ### PNG_EXPORT(244, int, png_set_option, (png_structrp png_ptr, int option, ### TO ### int onoff)); */
 extern int ( png_set_option) (png_structrp png_ptr, int option, int onoff);
-/* END   /usr/include/png.h */
+/* + END   /usr/include/png.h */
 ]]
 return require 'ffi.load' 'png'

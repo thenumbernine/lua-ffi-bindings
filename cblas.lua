@@ -1,11 +1,11 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN /usr/include/x86_64-linux-gnu/cblas.h */
+/* + BEGIN /usr/include/x86_64-linux-gnu/cblas.h */
 enum { CBLAS_H = 1 };
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/openblas_config.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/openblas_config.h */
 enum { OPENBLAS_CONFIG_H = 1 };
 enum { OPENBLAS_OS_LINUX = 1 };
 enum { OPENBLAS_ARCH_X86_64 = 1 };
@@ -34,27 +34,27 @@ enum { OPENBLAS_GEMM_MULTITHREAD_THRESHOLD = 4 };
 enum { xdouble = 0 };
 typedef long BLASLONG;
 typedef unsigned long BLASULONG;
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
 ]] require 'ffi.c.stdint' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
 typedef uint16_t bfloat16;
 typedef int blasint;
 enum { FLOATRET = 0 };
-/* BEGIN /usr/include/stdio.h */
+/* +++ BEGIN /usr/include/stdio.h */
 ]] require 'ffi.c.stdio' ffi.cdef[[
-/* END   /usr/include/stdio.h */
+/* +++ END   /usr/include/stdio.h */
 enum { OPENBLAS_COMPLEX_C99 = 1 };
-/* BEGIN /usr/include/complex.h */
+/* +++ BEGIN /usr/include/complex.h */
 ]] require 'ffi.c.complex' ffi.cdef[[
-/* END   /usr/include/complex.h */
+/* +++ END   /usr/include/complex.h */
 typedef float _Complex openblas_complex_float;
 typedef double _Complex openblas_complex_double;
 typedef double _Complex openblas_complex_xdouble;
 enum { _GNU_SOURCE = 1 };
-/* BEGIN /usr/include/sched.h */
+/* +++ BEGIN /usr/include/sched.h */
 ]] require 'ffi.c.sched' ffi.cdef[[
-/* END   /usr/include/sched.h */
-/* END   /usr/include/x86_64-linux-gnu/openblas_config.h */
+/* +++ END   /usr/include/sched.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/openblas_config.h */
 void openblas_set_num_threads(int num_threads);
 void goto_set_num_threads(int num_threads);
 int openblas_get_num_threads(void);
@@ -267,6 +267,6 @@ void cblas_dbf16tod(const blasint n, const bfloat16 *in, const blasint incin, do
 float cblas_sbdot(const blasint n, const bfloat16 *x, const blasint incx, const bfloat16 *y, const blasint incy);
 void cblas_sbgemv(const enum CBLAS_ORDER order, const enum CBLAS_TRANSPOSE trans, const blasint m, const blasint n, const float alpha, const bfloat16 *a, const blasint lda, const bfloat16 *x, const blasint incx, const float beta, float *y, const blasint incy);
 void cblas_sbgemm(const enum CBLAS_ORDER Order, const enum CBLAS_TRANSPOSE TransA, const enum CBLAS_TRANSPOSE TransB, const blasint M, const blasint N, const blasint K, const float alpha, const bfloat16 *A, const blasint lda, const bfloat16 *B, const blasint ldb, const float beta, float *C, const blasint ldc);
-/* END   /usr/include/x86_64-linux-gnu/cblas.h */
+/* + END   /usr/include/x86_64-linux-gnu/cblas.h */
 ]]
 return require 'ffi.load' 'openblas'

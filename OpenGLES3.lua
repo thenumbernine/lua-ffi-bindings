@@ -1,21 +1,21 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN /usr/include/GLES3/gl3.h */
+/* + BEGIN /usr/include/GLES3/gl3.h */
 enum { __gles2_gl3_h_ = 1 };
-/* BEGIN /usr/include/GLES3/gl3platform.h */
+/* ++ BEGIN /usr/include/GLES3/gl3platform.h */
 enum { __gl3platform_h_ = 1 };
-/* BEGIN /usr/include/KHR/khrplatform.h */
+/* +++ BEGIN /usr/include/KHR/khrplatform.h */
 ]] require 'ffi.KHR.khrplatform' ffi.cdef[[
-/* END   /usr/include/KHR/khrplatform.h */
+/* +++ END   /usr/include/KHR/khrplatform.h */
 /* #define GL_APICALL  KHRONOS_APICALL ### string, not number "KHRONOS_APICALL" */
 /* #define GL_APIENTRY KHRONOS_APIENTRY ### string, not number "KHRONOS_APIENTRY" */
-/* END   /usr/include/GLES3/gl3platform.h */
+/* ++ END   /usr/include/GLES3/gl3platform.h */
 /* #define GL_APIENTRYP GL_APIENTRY* ### string, not number "GL_APIENTRY*" */
 enum { GL_GLES_PROTOTYPES = 1 };
 enum { GL_ES_VERSION_2_0 = 1 };
-/* BEGIN /usr/include/KHR/khrplatform.h */
+/* ++ BEGIN /usr/include/KHR/khrplatform.h */
 ]] require 'ffi.KHR.khrplatform' ffi.cdef[[
-/* END   /usr/include/KHR/khrplatform.h */
+/* ++ END   /usr/include/KHR/khrplatform.h */
 typedef khronos_int8_t GLbyte;
 typedef khronos_float_t GLclampf;
 typedef khronos_int32_t GLfixed;
@@ -1152,6 +1152,6 @@ void glInvalidateSubFramebuffer (GLenum target, GLsizei numAttachments, const GL
 void glTexStorage2D (GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height);
 void glTexStorage3D (GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth);
 void glGetInternalformativ (GLenum target, GLenum internalformat, GLenum pname, GLsizei count, GLint *params);
-/* END   /usr/include/GLES3/gl3.h */
+/* + END   /usr/include/GLES3/gl3.h */
 ]]
 return require 'ffi.load' 'GLESv2'

@@ -1,13 +1,13 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN /usr/include/netcdf.h */
+/* + BEGIN /usr/include/netcdf.h */
 enum { _NETCDF_ = 1 };
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-/* BEGIN /usr/include/errno.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++ BEGIN /usr/include/errno.h */
 ]] require 'ffi.c.errno' ffi.cdef[[
-/* END   /usr/include/errno.h */
+/* ++ END   /usr/include/errno.h */
 typedef int nc_type;
 enum { NC_NAT = 0 };
 enum { NC_BYTE = 1 };
@@ -628,6 +628,6 @@ extern int nc_finalize(void);
 enum { NC_HAVE_RENAME_GRP = 1 };
 enum { NC_HAVE_INQ_FORMAT_EXTENDED = 1 };
 enum { NC_HAVE_META_H = 1 };
-/* END   /usr/include/netcdf.h */
+/* + END   /usr/include/netcdf.h */
 ]]
 return require 'ffi.load' 'netcdf'

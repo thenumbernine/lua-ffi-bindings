@@ -1,6 +1,6 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN /usr/include/AL/al.h */
+/* + BEGIN /usr/include/AL/al.h */
 enum { AL_AL_H = 1 };
 enum { AL_API = 0 };
 enum { AL_APIENTRY = 1 };
@@ -236,8 +236,8 @@ typedef void ( *LPALDOPPLERFACTOR)(ALfloat value);
 typedef void ( *LPALDOPPLERVELOCITY)(ALfloat value);
 typedef void ( *LPALSPEEDOFSOUND)(ALfloat value);
 typedef void ( *LPALDISTANCEMODEL)(ALenum distanceModel);
-/* END   /usr/include/AL/al.h */
-/* BEGIN /usr/include/AL/alc.h */
+/* + END   /usr/include/AL/al.h */
+/* + BEGIN /usr/include/AL/alc.h */
 enum { AL_ALC_H = 1 };
 enum { ALC_API = 0 };
 enum { ALC_APIENTRY = 1 };
@@ -327,6 +327,6 @@ typedef ALCboolean ( *LPALCCAPTURECLOSEDEVICE)(ALCdevice *device);
 typedef void ( *LPALCCAPTURESTART)(ALCdevice *device);
 typedef void ( *LPALCCAPTURESTOP)(ALCdevice *device);
 typedef void ( *LPALCCAPTURESAMPLES)(ALCdevice *device, ALCvoid *buffer, ALCsizei samples);
-/* END   /usr/include/AL/alc.h */
+/* + END   /usr/include/AL/alc.h */
 ]]
 return require 'ffi.load' 'openal'

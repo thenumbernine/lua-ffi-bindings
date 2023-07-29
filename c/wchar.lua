@@ -2,5 +2,5 @@ local ffi = require 'ffi'
 if ffi.os == 'Windows' then
 	return require 'ffi.Windows.c.wchar'
 else
-	error"no wchar for your os"
+	return require 'ffi.Linux.c.wchar'
 end

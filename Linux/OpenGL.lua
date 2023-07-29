@@ -1,6 +1,6 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN /usr/include/GL/gl.h */
+/* + BEGIN /usr/include/GL/gl.h */
 enum { __gl_h_ = 1 };
 /* #  define GLAPI __attribute__((visibility("default"))) ### string, not number "__attribute__((visibility(\"default\")))" */
 enum { GLAPIENTRY = 1 };
@@ -1304,12 +1304,12 @@ typedef void ( * PFNGLMULTITEXCOORD4IARBPROC) (GLenum target, GLint s, GLint t, 
 typedef void ( * PFNGLMULTITEXCOORD4IVARBPROC) (GLenum target, const GLint *v);
 typedef void ( * PFNGLMULTITEXCOORD4SARBPROC) (GLenum target, GLshort s, GLshort t, GLshort r, GLshort q);
 typedef void ( * PFNGLMULTITEXCOORD4SVARBPROC) (GLenum target, const GLshort *v);
-/* BEGIN /usr/include/GL/glext.h */
+/* ++ BEGIN /usr/include/GL/glext.h */
 enum { __gl_glext_h_ = 1 };
 enum { GL_GLEXT_VERSION = 20220530 };
-/* BEGIN /usr/include/KHR/khrplatform.h */
+/* +++ BEGIN /usr/include/KHR/khrplatform.h */
 ]] require 'ffi.KHR.khrplatform' ffi.cdef[[
-/* END   /usr/include/KHR/khrplatform.h */
+/* +++ END   /usr/include/KHR/khrplatform.h */
 enum { GL_VERSION_1_4 = 1 };
 enum { GL_BLEND_DST_RGB = 32968 };
 enum { GL_BLEND_SRC_RGB = 32969 };
@@ -11251,7 +11251,7 @@ enum { GL_PHONG_WIN = 33002 };
 enum { GL_PHONG_HINT_WIN = 33003 };
 enum { GL_WIN_specular_fog = 1 };
 enum { GL_FOG_SPECULAR_TEXTURE_WIN = 33004 };
-/* END   /usr/include/GL/glext.h */
+/* ++ END   /usr/include/GL/glext.h */
 enum { GL_MESA_packed_depth_stencil = 1 };
 enum { GL_DEPTH_STENCIL_MESA = 34640 };
 enum { GL_UNSIGNED_INT_24_8_MESA = 34641 };
@@ -11267,8 +11267,8 @@ __attribute__((visibility("default"))) void glEGLImageTargetTexture2DOES (GLenum
 __attribute__((visibility("default"))) void glEGLImageTargetRenderbufferStorageOES (GLenum target, GLeglImageOES image);
 typedef void ( * PFNGLEGLIMAGETARGETTEXTURE2DOESPROC) (GLenum target, GLeglImageOES image);
 typedef void ( * PFNGLEGLIMAGETARGETRENDERBUFFERSTORAGEOESPROC) (GLenum target, GLeglImageOES image);
-/* END   /usr/include/GL/gl.h */
-/* BEGIN /usr/include/GL/glext.h */
-/* END   /usr/include/GL/glext.h */
+/* + END   /usr/include/GL/gl.h */
+/* + BEGIN /usr/include/GL/glext.h */
+/* + END   /usr/include/GL/glext.h */
 ]]
 return require 'ffi.load' 'GL'

@@ -1,16 +1,6 @@
 local ffi = require 'ffi'
 if ffi.os == 'Windows' then
-	require 'ffi.Windows.c.direct'	-- get our windows defs
-	local lib = ffi.C
-	-- TODO I see the orig name prototypes in direct.h ...
-	-- ... so do I even need the Lua alias anymore?
-	return setmetatable({
-		chdir = lib._chdir,
-		getcwd = lib._getcwd,
-		rmdir = lib._rmdir,
-	}, {
-		__index = lib,
-	})
+	return require 'ffi.Windows.c.unistd'
 else
 	return require 'ffi.Linux.c.unistd'
 end

@@ -1,21 +1,21 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN /usr/include/GLES2/gl2.h */
+/* + BEGIN /usr/include/GLES2/gl2.h */
 enum { __gles2_gl2_h_ = 1 };
-/* BEGIN /usr/include/GLES2/gl2platform.h */
+/* ++ BEGIN /usr/include/GLES2/gl2platform.h */
 enum { __gl2platform_h_ = 1 };
-/* BEGIN /usr/include/KHR/khrplatform.h */
+/* +++ BEGIN /usr/include/KHR/khrplatform.h */
 ]] require 'ffi.KHR.khrplatform' ffi.cdef[[
-/* END   /usr/include/KHR/khrplatform.h */
+/* +++ END   /usr/include/KHR/khrplatform.h */
 /* #define GL_APICALL  KHRONOS_APICALL ### string, not number "KHRONOS_APICALL" */
 /* #define GL_APIENTRY KHRONOS_APIENTRY ### string, not number "KHRONOS_APIENTRY" */
-/* END   /usr/include/GLES2/gl2platform.h */
+/* ++ END   /usr/include/GLES2/gl2platform.h */
 /* #define GL_APIENTRYP GL_APIENTRY* ### string, not number "GL_APIENTRY*" */
 enum { GL_GLES_PROTOTYPES = 1 };
 enum { GL_ES_VERSION_2_0 = 1 };
-/* BEGIN /usr/include/KHR/khrplatform.h */
+/* ++ BEGIN /usr/include/KHR/khrplatform.h */
 ]] require 'ffi.KHR.khrplatform' ffi.cdef[[
-/* END   /usr/include/KHR/khrplatform.h */
+/* ++ END   /usr/include/KHR/khrplatform.h */
 typedef khronos_int8_t GLbyte;
 typedef khronos_float_t GLclampf;
 typedef khronos_int32_t GLfixed;
@@ -621,6 +621,6 @@ void glVertexAttrib4f (GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w)
 void glVertexAttrib4fv (GLuint index, const GLfloat *v);
 void glVertexAttribPointer (GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void *pointer);
 void glViewport (GLint x, GLint y, GLsizei width, GLsizei height);
-/* END   /usr/include/GLES2/gl2.h */
+/* + END   /usr/include/GLES2/gl2.h */
 ]]
 return require 'ffi.load' 'GLESv2'

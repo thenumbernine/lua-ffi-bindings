@@ -1,9 +1,9 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* manually commented out: warning: Need to implement some method to align data here */
-/* BEGIN /usr/include/CL/cl.h */
+/* + BEGIN /usr/include/CL/cl.h */
 enum { __OPENCL_CL_H = 1 };
-/* BEGIN /usr/include/CL/cl_version.h */
+/* ++ BEGIN /usr/include/CL/cl_version.h */
 enum { __CL_VERSION_H = 1 };
 /* #pragma message("cl_version.h: CL_TARGET_OPENCL_VERSION is not defined. Defaulting to 300 (OpenCL 3.0)") */
 enum { CL_TARGET_OPENCL_VERSION = 300 };
@@ -14,11 +14,11 @@ enum { CL_VERSION_2_0 = 1 };
 enum { CL_VERSION_1_2 = 1 };
 enum { CL_VERSION_1_1 = 1 };
 enum { CL_VERSION_1_0 = 1 };
-/* END   /usr/include/CL/cl_version.h */
-/* BEGIN /usr/include/CL/cl_platform.h */
+/* ++ END   /usr/include/CL/cl_version.h */
+/* ++ BEGIN /usr/include/CL/cl_platform.h */
 enum { __CL_PLATFORM_H = 1 };
-/* BEGIN /usr/include/CL/cl_version.h */
-/* END   /usr/include/CL/cl_version.h */
+/* +++ BEGIN /usr/include/CL/cl_version.h */
+/* +++ END   /usr/include/CL/cl_version.h */
 enum { CL_API_ENTRY = 1 };
 enum { CL_API_CALL = 1 };
 enum { CL_CALLBACK = 1 };
@@ -48,9 +48,9 @@ enum { CL_API_PREFIX_DEPRECATED = 1 };
 /* #define CL_API_PREFIX__VERSION_2_1_DEPRECATED CL_API_PREFIX_COMMON CL_API_PREFIX_DEPRECATED ### string, not number "CL_API_PREFIX_COMMON CL_API_PREFIX_DEPRECATED" */
 /* #define CL_API_SUFFIX__VERSION_2_2_DEPRECATED CL_API_SUFFIX_COMMON CL_API_SUFFIX_DEPRECATED ### string, not number "CL_API_SUFFIX_COMMON CL_API_SUFFIX_DEPRECATED" */
 /* #define CL_API_PREFIX__VERSION_2_2_DEPRECATED CL_API_PREFIX_COMMON CL_API_PREFIX_DEPRECATED ### string, not number "CL_API_PREFIX_COMMON CL_API_PREFIX_DEPRECATED" */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
 ]] require 'ffi.c.stdint' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
 typedef int8_t cl_char;
 typedef uint8_t cl_uchar;
 typedef int16_t cl_short;
@@ -139,9 +139,9 @@ float nanf( const char * );
 /* #define CL_NAN           nanf( "" ) ### string, not number "nanf( \"\" )" */
 /* #define CL_MAXFLOAT         CL_FLT_MAX ### string, not number "CL_FLT_MAX" */
 /* #define CL_INFINITY         CL_HUGE_VALF ### string, not number "CL_HUGE_VALF" */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 typedef unsigned int cl_GLuint;
 typedef int cl_GLint;
 typedef unsigned int cl_GLenum;
@@ -425,7 +425,7 @@ typedef union {
 	struct{ cl_double8 lo, hi; };
 }cl_double16;
 /* #define  CL_PROGRAM_STRING_DEBUG_INFO       "#line "  _CL_STRINGIFY(__LINE__) " \"" __FILE__ "\" \n\n" ### string, not number "\"#line \"  _CL_STRINGIFY(__LINE__) \" \\\"\" __FILE__ \"\\\" \\n\\n\"" */
-/* END   /usr/include/CL/cl_platform.h */
+/* ++ END   /usr/include/CL/cl_platform.h */
 typedef struct _cl_platform_id * cl_platform_id;
 typedef struct _cl_device_id * cl_device_id;
 typedef struct _cl_context * cl_context;
@@ -1093,11 +1093,11 @@ extern void * clGetExtensionFunctionAddress(const char * func_name) __attribute_
 extern cl_command_queue clCreateCommandQueue(cl_context context, cl_device_id device, cl_command_queue_properties properties, cl_int * errcode_ret) __attribute__((deprecated));
 extern cl_sampler clCreateSampler(cl_context context, cl_bool normalized_coords, cl_addressing_mode addressing_mode, cl_filter_mode filter_mode, cl_int * errcode_ret) __attribute__((deprecated));
 extern cl_int clEnqueueTask(cl_command_queue command_queue, cl_kernel kernel, cl_uint num_events_in_wait_list, const cl_event * event_wait_list, cl_event * event) __attribute__((deprecated));
-/* END   /usr/include/CL/cl.h */
-/* BEGIN /usr/include/CL/cl_gl.h */
+/* + END   /usr/include/CL/cl.h */
+/* + BEGIN /usr/include/CL/cl_gl.h */
 enum { __OPENCL_CL_GL_H = 1 };
-/* BEGIN /usr/include/CL/cl.h */
-/* END   /usr/include/CL/cl.h */
+/* ++ BEGIN /usr/include/CL/cl.h */
+/* ++ END   /usr/include/CL/cl.h */
 typedef cl_uint cl_gl_object_type;
 typedef cl_uint cl_gl_texture_info;
 typedef cl_uint cl_gl_platform_info;
@@ -1139,6 +1139,6 @@ extern cl_event clCreateEventFromGLsyncKHR(cl_context context, cl_GLsync sync, c
 enum { cl_intel_sharing_format_query_gl = 1 };
 extern cl_int clGetSupportedGLTextureFormatsINTEL( cl_context context, cl_mem_flags flags, cl_mem_object_type image_type, cl_uint num_entries, cl_GLenum* gl_formats, cl_uint* num_texture_formats);
 typedef cl_int ( * clGetSupportedGLTextureFormatsINTEL_fn)( cl_context context, cl_mem_flags flags, cl_mem_object_type image_type, cl_uint num_entries, cl_GLenum* gl_formats, cl_uint* num_texture_formats);
-/* END   /usr/include/CL/cl_gl.h */
+/* + END   /usr/include/CL/cl_gl.h */
 ]]
 return require 'ffi.load' 'OpenCL'

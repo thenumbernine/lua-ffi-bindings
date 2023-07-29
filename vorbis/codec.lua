@@ -1,10 +1,10 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN /usr/include/vorbis/codec.h */
+/* + BEGIN /usr/include/vorbis/codec.h */
 enum { _vorbis_codec_h_ = 1 };
-/* BEGIN /usr/include/ogg/ogg.h */
-]] require 'ffi.ogg.ogg' ffi.cdef[[
-/* END   /usr/include/ogg/ogg.h */
+/* ++ BEGIN /usr/include/ogg/ogg.h */
+]] require 'ffi.ogg' ffi.cdef[[
+/* ++ END   /usr/include/ogg/ogg.h */
 typedef struct vorbis_info{
 	int version;
 	int channels;
@@ -120,5 +120,5 @@ enum { OV_ENOTAUDIO = -135 };
 enum { OV_EBADPACKET = -136 };
 enum { OV_EBADLINK = -137 };
 enum { OV_ENOSEEK = -138 };
-/* END   /usr/include/vorbis/codec.h */
+/* + END   /usr/include/vorbis/codec.h */
 ]]

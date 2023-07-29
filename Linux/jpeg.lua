@@ -1,9 +1,9 @@
 require 'ffi.c.stdio'	-- for FILE, even though jpeglib.h itself never includes <stdio.h> ... hmm ...
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN /usr/include/jpeglib.h */
+/* + BEGIN /usr/include/jpeglib.h */
 enum { JPEGLIB_H = 1 };
-/* BEGIN /usr/include/x86_64-linux-gnu/jconfig.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/jconfig.h */
 enum { JPEG_LIB_VERSION = 80 };
 /* #define LIBJPEG_TURBO_VERSION  2.1.5 ### string, not number "2.1.5" */
 enum { LIBJPEG_TURBO_VERSION_NUMBER = 2001005 };
@@ -11,8 +11,8 @@ enum { C_ARITH_CODING_SUPPORTED = 1 };
 enum { D_ARITH_CODING_SUPPORTED = 1 };
 enum { WITH_SIMD = 1 };
 enum { BITS_IN_JSAMPLE = 8 };
-/* END   /usr/include/x86_64-linux-gnu/jconfig.h */
-/* BEGIN /usr/include/jmorecfg.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/jconfig.h */
+/* ++ BEGIN /usr/include/jmorecfg.h */
 enum { MAX_COMPONENTS = 10 };
 typedef unsigned char JSAMPLE;
 enum { MAXJSAMPLE = 255 };
@@ -29,7 +29,7 @@ enum { FAR = 1 };
 typedef int boolean;
 enum { FALSE = 0 };
 enum { TRUE = 1 };
-/* END   /usr/include/jmorecfg.h */
+/* ++ END   /usr/include/jmorecfg.h */
 enum { DCTSIZE = 8 };
 enum { DCTSIZE2 = 64 };
 enum { NUM_QUANT_TBLS = 4 };
@@ -396,5 +396,17 @@ enum { JPEG_RST0 = 208 };
 enum { JPEG_EOI = 217 };
 enum { JPEG_APP0 = 224 };
 enum { JPEG_COM = 254 };
-/* END   /usr/include/jpeglib.h */
+/* + END   /usr/include/jpeglib.h */
 ]]
+local lib = require 'ffi.load' 'jpeg'
+-- these are #define's in jpeglib.h
+return setmetatable({
+	jpeg_create_compress = function(cinfo)
+		 return lib.jpeg_CreateCompress(cinfo, lib.JPEG_LIB_VERSION, ffi.sizeof('struct jpeg_compress_struct'))
+	end,
+	jpeg_create_decompress = function(cinfo)
+		 return lib.jpeg_CreateDecompress(cinfo, lib.JPEG_LIB_VERSION, ffi.sizeof('struct jpeg_decompress_struct'))
+	end
+}, {
+	__index = lib,
+})

@@ -1,29 +1,29 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN /usr/include/lapack.h */
+/* + BEGIN /usr/include/lapack.h */
 enum { LAPACK_H = 1 };
-/* BEGIN /usr/include/lapacke_mangling.h */
+/* ++ BEGIN /usr/include/lapacke_mangling.h */
 enum { LAPACK_HEADER_INCLUDED = 1 };
-/* END   /usr/include/lapacke_mangling.h */
-/* BEGIN /usr/include/stdlib.h */
+/* ++ END   /usr/include/lapacke_mangling.h */
+/* ++ BEGIN /usr/include/stdlib.h */
 ]] require 'ffi.c.stdlib' ffi.cdef[[
-/* END   /usr/include/stdlib.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
+/* ++ END   /usr/include/stdlib.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
 ]] require 'ffi.c.stdarg' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
-/* BEGIN /usr/include/inttypes.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
+/* ++ BEGIN /usr/include/inttypes.h */
 ]] require 'ffi.c.inttypes' ffi.cdef[[
-/* END   /usr/include/inttypes.h */
+/* ++ END   /usr/include/inttypes.h */
 enum { LAPACK_FORTRAN_STRLEN_END = 1 };
-/* BEGIN /usr/include/complex.h */
+/* ++ BEGIN /usr/include/complex.h */
 ]] require 'ffi.c.complex' ffi.cdef[[
-/* END   /usr/include/complex.h */
+/* ++ END   /usr/include/complex.h */
 /* #define lapack_complex_float    float _Complex ### string, not number "float _Complex" */
-/* BEGIN /usr/include/complex.h */
+/* ++ BEGIN /usr/include/complex.h */
 ]] require 'ffi.c.complex' ffi.cdef[[
-/* END   /usr/include/complex.h */
+/* ++ END   /usr/include/complex.h */
 /* #define lapack_complex_double   double _Complex ### string, not number "double _Complex" */
-enum { lapack_int = 0 };
+typedef int32_t lapack_int;
 /* #define LAPACK_IFMT       PRId32 ### string, not number "PRId32" */
 enum { lapack_logical = 0 };
 typedef float lapack_float_return;
@@ -192,8 +192,8 @@ void sgeqlf_ ( int32_t const* m, int32_t const* n, float* A, int32_t const* lda,
 void zgeqlf_ ( int32_t const* m, int32_t const* n, double _Complex* A, int32_t const* lda, double _Complex* tau, double _Complex* work, int32_t const* lwork, int32_t* info );
 void sgeqpf_ ( int32_t* m, int32_t* n, float* a, int32_t* lda, int32_t* jpvt, float* tau, float* work, int32_t *info );
 void dgeqpf_ ( int32_t* m, int32_t* n, double* a, int32_t* lda, int32_t* jpvt, double* tau, double* work, int32_t *info );
-void cgeqpf_ ( int32_t* m, int* n, float _Complex* a, int32_t* lda, int32_t* jpvt, float _Complex* tau, float _Complex* work, float* rwork, int32_t *info );
-void zgeqpf_ ( int32_t* m, int* n, double _Complex* a, int32_t* lda, int32_t* jpvt, double _Complex* tau, double _Complex* work, double* rwork, int32_t *info );
+void cgeqpf_ ( int32_t* m, lapack_int* n, float _Complex* a, int32_t* lda, int32_t* jpvt, float _Complex* tau, float _Complex* work, float* rwork, int32_t *info );
+void zgeqpf_ ( int32_t* m, lapack_int* n, double _Complex* a, int32_t* lda, int32_t* jpvt, double _Complex* tau, double _Complex* work, double* rwork, int32_t *info );
 void cgeqp3_ ( int32_t const* m, int32_t const* n, float _Complex* A, int32_t const* lda, int32_t* JPVT, float _Complex* tau, float _Complex* work, int32_t const* lwork, float* rwork, int32_t* info );
 void dgeqp3_ ( int32_t const* m, int32_t const* n, double* A, int32_t const* lda, int32_t* JPVT, double* tau, double* work, int32_t const* lwork, int32_t* info );
 void sgeqp3_ ( int32_t const* m, int32_t const* n, float* A, int32_t const* lda, int32_t* JPVT, float* tau, float* work, int32_t const* lwork, int32_t* info );
@@ -1355,6 +1355,6 @@ void cupgtr_ ( char const* uplo, int32_t const* n, float _Complex const* AP, flo
 void zupgtr_ ( char const* uplo, int32_t const* n, double _Complex const* AP, double _Complex const* tau, double _Complex* Q, int32_t const* ldq, double _Complex* work, int32_t* info , size_t );
 void cupmtr_ ( char const* side, char const* uplo, char const* trans, int32_t const* m, int32_t const* n, float _Complex const* AP, float _Complex const* tau, float _Complex* C, int32_t const* ldc, float _Complex* work, int32_t* info , size_t, size_t, size_t );
 void zupmtr_ ( char const* side, char const* uplo, char const* trans, int32_t const* m, int32_t const* n, double _Complex const* AP, double _Complex const* tau, double _Complex* C, int32_t const* ldc, double _Complex* work, int32_t* info , size_t, size_t, size_t );
-/* END   /usr/include/lapack.h */
+/* + END   /usr/include/lapack.h */
 ]]
 return require 'ffi.load' 'lapack'

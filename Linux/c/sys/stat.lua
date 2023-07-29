@@ -1,19 +1,19 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN /usr/include/x86_64-linux-gnu/sys/stat.h */
+/* + BEGIN /usr/include/x86_64-linux-gnu/sys/stat.h */
 enum { _SYS_STAT_H = 1 };
-/* BEGIN /usr/include/features.h */
+/* ++ BEGIN /usr/include/features.h */
 ]] require 'ffi.c.features' ffi.cdef[[
-/* END   /usr/include/features.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
+/* ++ END   /usr/include/features.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.c.bits.types' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/bits/types.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
 ]] require 'ffi.c.bits.types.struct_timespec' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
 ]] require 'ffi.c.bits.types.time_t' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
 ]] require 'ffi.c.bits.types.dev_t' ffi.cdef[[
 ]] require 'ffi.c.bits.types.gid_t' ffi.cdef[[
 ]] require 'ffi.c.bits.types.ino_t' ffi.cdef[[
@@ -21,9 +21,9 @@ enum { _SYS_STAT_H = 1 };
 ]] require 'ffi.c.bits.types.nlink_t' ffi.cdef[[
 ]] require 'ffi.c.bits.types.off_t' ffi.cdef[[
 ]] require 'ffi.c.bits.types.uid_t' ffi.cdef[[
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/stat.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/stat.h */
 enum { _BITS_STAT_H = 1 };
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/struct_stat.h */
+/* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/struct_stat.h */
 enum { _BITS_STRUCT_STAT_H = 1 };
 struct stat {
 	__dev_t st_dev;
@@ -48,7 +48,7 @@ struct stat {
 enum { _STATBUF_ST_BLKSIZE = 1 };
 enum { _STATBUF_ST_RDEV = 1 };
 enum { _STATBUF_ST_NSEC = 1 };
-/* END   /usr/include/x86_64-linux-gnu/bits/struct_stat.h */
+/* +++ END   /usr/include/x86_64-linux-gnu/bits/struct_stat.h */
 enum { __S_IFMT = 61440 };
 enum { __S_IFDIR = 16384 };
 enum { __S_IFCHR = 8192 };
@@ -65,7 +65,7 @@ enum { __S_IWRITE = 128 };
 enum { __S_IEXEC = 64 };
 enum { UTIME_NOW = 1073741823 };
 enum { UTIME_OMIT = 1073741822 };
-/* END   /usr/include/x86_64-linux-gnu/bits/stat.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/stat.h */
 enum { S_IFMT = 61440 };
 enum { S_IFDIR = 16384 };
 enum { S_IFCHR = 8192 };
@@ -113,7 +113,7 @@ extern int mkfifo (const char *__path, __mode_t __mode) __attribute__ ((__nothro
 extern int mkfifoat (int __fd, const char *__path, __mode_t __mode) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
 extern int utimensat (int __fd, const char *__path, const struct timespec __times[2], int __flags) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
 extern int futimens (int __fd, const struct timespec __times[2]) __attribute__ ((__nothrow__ , __leaf__));
-/* END   /usr/include/x86_64-linux-gnu/sys/stat.h */
+/* + END   /usr/include/x86_64-linux-gnu/sys/stat.h */
 ]]
 local lib = ffi.C
 return setmetatable({

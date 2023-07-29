@@ -1,20 +1,20 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN /usr/include/complex.h */
+/* + BEGIN /usr/include/complex.h */
 enum { _COMPLEX_H = 1 };
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 ]] require 'ffi.c.bits.libc-header-start' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/mathdef.h */
-/* END   /usr/include/x86_64-linux-gnu/bits/mathdef.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/floatn.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/mathdef.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/mathdef.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/floatn.h */
 ]] require 'ffi.c.bits.floatn' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/bits/floatn.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/floatn.h */
 /* manually commented out: enum { complex = 0 }; */
 /* #define _Complex_I	(__extension__ 1.0iF) ### string, not number "(__extension__ 1.0iF)" */
 /* #define I _Complex_I ### string, not number "_Complex_I" */
 /* manually commented out: enum { _Mdouble_ = 0 }; */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/cmathcalls.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/cmathcalls.h */
 /* # define _Mdouble_complex_ _Mdouble_ _Complex ### string, not number "_Mdouble_ _Complex" */
 extern double _Complex cacos (double _Complex __z) __attribute__ ((__nothrow__ , __leaf__)) ; extern double _Complex __cacos (double _Complex __z) __attribute__ ((__nothrow__ , __leaf__));
 extern double _Complex casin (double _Complex __z) __attribute__ ((__nothrow__ , __leaf__)) ; extern double _Complex __casin (double _Complex __z) __attribute__ ((__nothrow__ , __leaf__));
@@ -38,9 +38,9 @@ extern double _Complex conj (double _Complex __z) __attribute__ ((__nothrow__ , 
 extern double _Complex cproj (double _Complex __z) __attribute__ ((__nothrow__ , __leaf__)) ; extern double _Complex __cproj (double _Complex __z) __attribute__ ((__nothrow__ , __leaf__));
 extern double cimag (double _Complex __z) __attribute__ ((__nothrow__ , __leaf__)) ; extern double __cimag (double _Complex __z) __attribute__ ((__nothrow__ , __leaf__));
 extern double creal (double _Complex __z) __attribute__ ((__nothrow__ , __leaf__)) ; extern double __creal (double _Complex __z) __attribute__ ((__nothrow__ , __leaf__));
-/* END   /usr/include/x86_64-linux-gnu/bits/cmathcalls.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/cmathcalls.h */
 /* redefining matching value: #define _Mdouble_ 		float */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/cmathcalls.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/cmathcalls.h */
 extern float _Complex cacosf (float _Complex __z) __attribute__ ((__nothrow__ , __leaf__)) ; extern float _Complex __cacosf (float _Complex __z) __attribute__ ((__nothrow__ , __leaf__));
 extern float _Complex casinf (float _Complex __z) __attribute__ ((__nothrow__ , __leaf__)) ; extern float _Complex __casinf (float _Complex __z) __attribute__ ((__nothrow__ , __leaf__));
 extern float _Complex catanf (float _Complex __z) __attribute__ ((__nothrow__ , __leaf__)) ; extern float _Complex __catanf (float _Complex __z) __attribute__ ((__nothrow__ , __leaf__));
@@ -63,9 +63,9 @@ extern float _Complex conjf (float _Complex __z) __attribute__ ((__nothrow__ , _
 extern float _Complex cprojf (float _Complex __z) __attribute__ ((__nothrow__ , __leaf__)) ; extern float _Complex __cprojf (float _Complex __z) __attribute__ ((__nothrow__ , __leaf__));
 extern float cimagf (float _Complex __z) __attribute__ ((__nothrow__ , __leaf__)) ; extern float __cimagf (float _Complex __z) __attribute__ ((__nothrow__ , __leaf__));
 extern float crealf (float _Complex __z) __attribute__ ((__nothrow__ , __leaf__)) ; extern float __crealf (float _Complex __z) __attribute__ ((__nothrow__ , __leaf__));
-/* END   /usr/include/x86_64-linux-gnu/bits/cmathcalls.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/cmathcalls.h */
 /* # define _Mdouble_ 		long double ### string, not number "long double" */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/cmathcalls.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/cmathcalls.h */
 extern long double _Complex cacosl (long double _Complex __z) __attribute__ ((__nothrow__ , __leaf__)) ; extern long double _Complex __cacosl (long double _Complex __z) __attribute__ ((__nothrow__ , __leaf__));
 extern long double _Complex casinl (long double _Complex __z) __attribute__ ((__nothrow__ , __leaf__)) ; extern long double _Complex __casinl (long double _Complex __z) __attribute__ ((__nothrow__ , __leaf__));
 extern long double _Complex catanl (long double _Complex __z) __attribute__ ((__nothrow__ , __leaf__)) ; extern long double _Complex __catanl (long double _Complex __z) __attribute__ ((__nothrow__ , __leaf__));
@@ -88,6 +88,6 @@ extern long double _Complex conjl (long double _Complex __z) __attribute__ ((__n
 extern long double _Complex cprojl (long double _Complex __z) __attribute__ ((__nothrow__ , __leaf__)) ; extern long double _Complex __cprojl (long double _Complex __z) __attribute__ ((__nothrow__ , __leaf__));
 extern long double cimagl (long double _Complex __z) __attribute__ ((__nothrow__ , __leaf__)) ; extern long double __cimagl (long double _Complex __z) __attribute__ ((__nothrow__ , __leaf__));
 extern long double creall (long double _Complex __z) __attribute__ ((__nothrow__ , __leaf__)) ; extern long double __creall (long double _Complex __z) __attribute__ ((__nothrow__ , __leaf__));
-/* END   /usr/include/x86_64-linux-gnu/bits/cmathcalls.h */
-/* END   /usr/include/complex.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/cmathcalls.h */
+/* + END   /usr/include/complex.h */
 ]]

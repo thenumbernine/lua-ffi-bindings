@@ -1,14 +1,14 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN /usr/include/stdlib.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
+/* + BEGIN /usr/include/stdlib.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 ]] require 'ffi.c.bits.libc-header-start' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 enum { _STDLIB_H = 1 };
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/waitflags.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/waitflags.h */
 enum { WNOHANG = 1 };
 enum { WUNTRACED = 2 };
 enum { WSTOPPED = 2 };
@@ -18,14 +18,14 @@ enum { WNOWAIT = 16777216 };
 enum { __WNOTHREAD = 536870912 };
 enum { __WALL = 1073741824 };
 enum { __WCLONE = 2147483648 };
-/* END   /usr/include/x86_64-linux-gnu/bits/waitflags.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/waitstatus.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/waitflags.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/waitstatus.h */
 enum { __W_CONTINUED = 65535 };
 enum { __WCOREFLAG = 128 };
-/* END   /usr/include/x86_64-linux-gnu/bits/waitstatus.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/floatn.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/waitstatus.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/floatn.h */
 ]] require 'ffi.c.bits.floatn' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/bits/floatn.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/floatn.h */
 typedef struct {
 	int quot;
 	int rem;
@@ -60,9 +60,9 @@ __extension__ extern long long int strtoll (const char * __nptr, char ** __endpt
 __extension__ extern unsigned long long int strtoull (const char * __nptr, char ** __endptr, int __base) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 extern char *l64a (long int __n) __attribute__ ((__nothrow__ , __leaf__));
 extern long int a64l (const char *__s) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
-/* BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
 ]] require 'ffi.c.sys.types' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/sys/types.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/sys/types.h */
 extern long int random (void) __attribute__ ((__nothrow__ , __leaf__));
 extern void srandom (unsigned int __seed) __attribute__ ((__nothrow__ , __leaf__));
 extern char *initstate (unsigned int __seed, char *__statebuf, size_t __statelen) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
@@ -117,16 +117,16 @@ extern void *realloc (void *__ptr, size_t __size) __attribute__ ((__nothrow__ , 
 extern void free (void *__ptr) __attribute__ ((__nothrow__ , __leaf__));
 extern void *reallocarray (void *__ptr, size_t __nmemb, size_t __size) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__)) __attribute__ ((__alloc_size__ (2, 3))) __attribute__ ((__malloc__ (__builtin_free, 1)));
 extern void *reallocarray (void *__ptr, size_t __nmemb, size_t __size) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__ (reallocarray, 1)));
-/* BEGIN /usr/include/alloca.h */
+/* ++ BEGIN /usr/include/alloca.h */
 enum { _ALLOCA_H = 1 };
-/* BEGIN /usr/include/features.h */
+/* +++ BEGIN /usr/include/features.h */
 ]] require 'ffi.c.features' ffi.cdef[[
-/* END   /usr/include/features.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* +++ END   /usr/include/features.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 extern void *alloca (size_t __size) __attribute__ ((__nothrow__ , __leaf__));
-/* END   /usr/include/alloca.h */
+/* ++ END   /usr/include/alloca.h */
 extern void *valloc (size_t __size) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__alloc_size__ (1)));
 extern int posix_memalign (void **__memptr, size_t __alignment, size_t __size) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 extern void *aligned_alloc (size_t __alignment, size_t __size) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__alloc_align__ (1))) __attribute__ ((__alloc_size__ (2)));
@@ -176,10 +176,10 @@ extern size_t wcstombs (char * __s, const wchar_t * __pwcs, size_t __n) __attrib
 extern int rpmatch (const char *__response) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 extern int getsubopt (char ** __optionp, char *const * __tokens, char ** __valuep) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2, 3)));
 extern int getloadavg (double __loadavg[], int __nelem) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/stdlib-float.h */
-/* END   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/floatn.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/stdlib-float.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/floatn.h */
 ]] require 'ffi.c.bits.floatn' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/bits/floatn.h */
-/* END   /usr/include/stdlib.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/floatn.h */
+/* + END   /usr/include/stdlib.h */
 ]]

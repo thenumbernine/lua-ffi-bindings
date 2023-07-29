@@ -1,16 +1,16 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN /usr/include/zlib.h */
+/* + BEGIN /usr/include/zlib.h */
 enum { ZLIB_H = 1 };
-/* BEGIN /usr/include/zconf.h */
+/* ++ BEGIN /usr/include/zconf.h */
 enum { ZCONF_H = 1 };
 enum { STDC = 1 };
 enum { STDC99 = 1 };
 enum { z_const = 1 };
 /* #  define z_longlong long long ### string, not number "long long" */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 typedef size_t z_size_t;
 enum { MAX_MEM_LEVEL = 9 };
 enum { MAX_WBITS = 15 };
@@ -28,25 +28,25 @@ typedef uLong uLongf;
 typedef void const *voidpc;
 typedef void *voidpf;
 typedef void *voidp;
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
 ]] require 'ffi.c.limits' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
 enum { Z_U4 = 0 };
 typedef unsigned z_crc_t;
 enum { Z_HAVE_UNISTD_H = 1 };
 enum { Z_HAVE_STDARG_H = 1 };
-/* BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
+/* +++ BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
 ]] require 'ffi.c.sys.types' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/sys/types.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
+/* +++ END   /usr/include/x86_64-linux-gnu/sys/types.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
 ]] require 'ffi.c.stdarg' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
-/* BEGIN /usr/include/unistd.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
+/* +++ BEGIN /usr/include/unistd.h */
 ]] require 'ffi.c.unistd' ffi.cdef[[
-/* END   /usr/include/unistd.h */
+/* +++ END   /usr/include/unistd.h */
 enum { Z_LFS64 = 1 };
 enum { z_off64_t = 0 };
-/* END   /usr/include/zconf.h */
+/* ++ END   /usr/include/zconf.h */
 /* #define ZLIB_VERSION "1.2.13" ### string, not number "\"1.2.13\"" */
 enum { ZLIB_VERNUM = 4816 };
 enum { ZLIB_VER_MAJOR = 1 };
@@ -308,7 +308,7 @@ extern int deflateResetKeep (z_streamp);
 /* ### INCOMPLETE ARG MACRO ### Z_ARG ### IN LINE ### extern int             gzvprintf Z_ARG((gzFile file, const char *format, */
 /* ### PREPENDING ### extern int             gzvprintf Z_ARG((gzFile file, const char *format, ### TO ### va_list va)); */
 extern int gzvprintf (gzFile file, const char *format, va_list va);
-/* END   /usr/include/zlib.h */
+/* + END   /usr/include/zlib.h */
 ]]
 
 local zlib = require 'ffi.load' 'z'

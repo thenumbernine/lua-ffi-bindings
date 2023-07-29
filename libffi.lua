@@ -2,7 +2,7 @@
 -- will that make my stupid ?/?.lua LUA_PATH rule screw things up?  if so then move this file ... or rename it to libffi.lua or something
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN /usr/include/x86_64-linux-gnu/ffi.h */
+/* + BEGIN /usr/include/x86_64-linux-gnu/ffi.h */
 enum { LIBFFI_H = 1 };
 enum { X86_64 = 1 };
 enum { FFI_TYPE_VOID = 0 };
@@ -22,7 +22,7 @@ enum { FFI_TYPE_STRUCT = 13 };
 enum { FFI_TYPE_POINTER = 14 };
 enum { FFI_TYPE_COMPLEX = 15 };
 enum { FFI_TYPE_LAST = 15 };
-/* BEGIN /usr/include/x86_64-linux-gnu/ffitarget.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/ffitarget.h */
 enum { LIBFFI_TARGET_H = 1 };
 enum { X86_ANY = 1 };
 enum { FFI_TARGET_SPECIFIC_STACK_SPACE_ALLOCATION = 1 };
@@ -38,18 +38,18 @@ enum { FFI_TYPE_SMALL_STRUCT_4B = 18 };
 enum { FFI_TYPE_MS_STRUCT = 19 };
 enum { FFI_TRAMPOLINE_SIZE = 32 };
 enum { FFI_NATIVE_RAW_API = 0 };
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/cet.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/cet.h */
 enum { _CET_H_INCLUDED = 1 };
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/cet.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/cet.h */
 enum { ENDBR_PRESENT = 1 };
 enum { _CET_NOTRACK = 0 };
-/* END   /usr/include/x86_64-linux-gnu/ffitarget.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/ffitarget.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
 ]] require 'ffi.c.limits' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
 /* #define FFI_64_BIT_MAX 9223372036854775807 ### string, number, replaceline "9.2233720368548e+18" */
 /* #  define FFI_LONG_LONG_MAX LLONG_MAX ### string, number, replaceline "9.2233720368548e+18" */
 typedef struct _ffi_type {
@@ -154,6 +154,6 @@ ffi_status ffi_prep_cif(ffi_cif *cif, ffi_abi abi, unsigned int nargs, ffi_type 
 ffi_status ffi_prep_cif_var(ffi_cif *cif, ffi_abi abi, unsigned int nfixedargs, unsigned int ntotalargs, ffi_type *rtype, ffi_type **atypes);
 void ffi_call(ffi_cif *cif, void (*fn)(void), void *rvalue, void **avalue);
 ffi_status ffi_get_struct_offsets (ffi_abi abi, ffi_type *struct_type, size_t *offsets);
-/* END   /usr/include/x86_64-linux-gnu/ffi.h */
+/* + END   /usr/include/x86_64-linux-gnu/ffi.h */
 ]]
 return require 'ffi.load' 'ffi'

@@ -1,38 +1,38 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN /usr/include/ogg/ogg.h */
+/* + BEGIN /usr/include/ogg/ogg.h */
 enum { _OGG_H = 1 };
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-/* BEGIN /usr/include/ogg/os_types.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++ BEGIN /usr/include/ogg/os_types.h */
 enum { _OS_TYPES_H = 1 };
 enum { _ogg_malloc = 0 };
 enum { _ogg_calloc = 0 };
 enum { _ogg_realloc = 0 };
 enum { _ogg_free = 0 };
-/* BEGIN /usr/include/ogg/config_types.h */
+/* +++ BEGIN /usr/include/ogg/config_types.h */
 enum { __CONFIG_TYPES_H__ = 1 };
 enum { INCLUDE_INTTYPES_H = 1 };
 enum { INCLUDE_STDINT_H = 1 };
 enum { INCLUDE_SYS_TYPES_H = 1 };
-/* BEGIN /usr/include/inttypes.h */
+/* ++++ BEGIN /usr/include/inttypes.h */
 ]] require 'ffi.c.inttypes' ffi.cdef[[
-/* END   /usr/include/inttypes.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
+/* ++++ END   /usr/include/inttypes.h */
+/* ++++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
 ]] require 'ffi.c.stdint' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
+/* ++++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
+/* ++++ BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
 ]] require 'ffi.c.sys.types' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/sys/types.h */
+/* ++++ END   /usr/include/x86_64-linux-gnu/sys/types.h */
 typedef int16_t ogg_int16_t;
 typedef uint16_t ogg_uint16_t;
 typedef int32_t ogg_int32_t;
 typedef uint32_t ogg_uint32_t;
 typedef int64_t ogg_int64_t;
 typedef uint64_t ogg_uint64_t;
-/* END   /usr/include/ogg/config_types.h */
-/* END   /usr/include/ogg/os_types.h */
+/* +++ END   /usr/include/ogg/config_types.h */
+/* ++ END   /usr/include/ogg/os_types.h */
 typedef struct {
 	void *iov_base;
 	size_t iov_len;
@@ -158,5 +158,5 @@ extern int ogg_page_serialno(const ogg_page *og);
 extern long ogg_page_pageno(const ogg_page *og);
 extern int ogg_page_packets(const ogg_page *og);
 extern void ogg_packet_clear(ogg_packet *op);
-/* END   /usr/include/ogg/ogg.h */
+/* + END   /usr/include/ogg/ogg.h */
 ]]

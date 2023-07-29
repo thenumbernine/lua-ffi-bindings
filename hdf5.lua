@@ -1,10 +1,10 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN /usr/include/hdf5/serial/hdf5.h */
+/* + BEGIN /usr/include/hdf5/serial/hdf5.h */
 enum { HDF5_H = 1 };
-/* BEGIN /usr/include/hdf5/serial/H5public.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5public.h */
 enum { H5public_H = 1 };
-/* BEGIN /usr/include/hdf5/serial/H5pubconf.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5pubconf.h */
 enum { H5_CXX_HAVE_OFFSETOF = 1 };
 /* #define H5_DEFAULT_PLUGINDIR "/usr/lib/x86_64-linux-gnu/hdf5/serial/plugins" ### string, not number "\"/usr/lib/x86_64-linux-gnu/hdf5/serial/plugins\"" */
 enum { H5_DEV_T_IS_SCALAR = 1 };
@@ -185,8 +185,8 @@ enum { H5_USE_FILE_LOCKING = 1 };
 /* #define H5_VERSION "1.10.8" ### string, not number "\"1.10.8\"" */
 enum { H5_WANT_DATA_ACCURACY = 1 };
 enum { H5_WANT_DCONV_EXCEPTION = 1 };
-/* END   /usr/include/hdf5/serial/H5pubconf.h */
-/* BEGIN /usr/include/hdf5/serial/H5version.h */
+/* +++ END   /usr/include/hdf5/serial/H5pubconf.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5version.h */
 enum { H5version_H = 1 };
 enum { H5_USE_18_API = 1 };
 enum { H5Acreate_vers = 2 };
@@ -243,29 +243,29 @@ enum { H5Tget_array_dims = 0 };
 enum { H5Topen = 0 };
 enum { H5E_auto_t = 0 };
 enum { H5Z_class_t = 0 };
-/* END   /usr/include/hdf5/serial/H5version.h */
-/* BEGIN /usr/include/features.h */
+/* +++ END   /usr/include/hdf5/serial/H5version.h */
+/* +++ BEGIN /usr/include/features.h */
 ]] require 'ffi.c.features' ffi.cdef[[
-/* END   /usr/include/features.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
+/* +++ END   /usr/include/features.h */
+/* +++ BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
 ]] require 'ffi.c.sys.types' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/sys/types.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
+/* +++ END   /usr/include/x86_64-linux-gnu/sys/types.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
 ]] require 'ffi.c.limits' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
 ]] require 'ffi.c.stdarg' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
 ]] require 'ffi.c.stdint' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
-/* BEGIN /usr/include/inttypes.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
+/* +++ BEGIN /usr/include/inttypes.h */
 ]] require 'ffi.c.inttypes' ffi.cdef[[
-/* END   /usr/include/inttypes.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* +++ END   /usr/include/inttypes.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-/* BEGIN /usr/include/hdf5/serial/H5api_adpt.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5api_adpt.h */
 enum { H5API_ADPT_H = 1 };
 enum { H5_DLL = 1 };
 enum { H5_DLLVAR = 0 };
@@ -285,16 +285,16 @@ enum { H5_FCTESTDLL = 1 };
 enum { H5_FCTESTDLLVAR = 0 };
 enum { HDF5_HL_F90CSTUBDLL = 1 };
 enum { HDF5_HL_F90CSTUBDLLVAR = 0 };
-/* END   /usr/include/hdf5/serial/H5api_adpt.h */
+/* +++ END   /usr/include/hdf5/serial/H5api_adpt.h */
 enum { H5_VERS_MAJOR = 1 };
 enum { H5_VERS_MINOR = 10 };
 enum { H5_VERS_RELEASE = 8 };
 /* #define H5_VERS_SUBRELEASE "" ### string, not number "\"\"" */
 /* #define H5_VERS_INFO "HDF5 library version: 1.10.8" ### string, not number "\"HDF5 library version: 1.10.8\"" */
 typedef int herr_t;
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h */
 ]] require 'ffi.c.stdbool' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h */
 typedef _Bool hbool_t;
 typedef int htri_t;
 typedef unsigned long long hsize_t;
@@ -349,13 +349,13 @@ herr_t H5is_library_threadsafe(hbool_t *is_ts);
 herr_t H5free_memory(void *mem);
 void *H5allocate_memory(size_t size, hbool_t clear);
 void *H5resize_memory(void *mem, size_t size);
-/* END   /usr/include/hdf5/serial/H5public.h */
-/* BEGIN /usr/include/hdf5/serial/H5Apublic.h */
+/* ++ END   /usr/include/hdf5/serial/H5public.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5Apublic.h */
 enum { H5Apublic_H = 1 };
-/* BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
 enum { H5Ipublic_H = 1 };
-/* BEGIN /usr/include/hdf5/serial/H5public.h */
-/* END   /usr/include/hdf5/serial/H5public.h */
+/* ++++ BEGIN /usr/include/hdf5/serial/H5public.h */
+/* ++++ END   /usr/include/hdf5/serial/H5public.h */
 typedef enum H5I_type_t { H5I_UNINIT = (-2), H5I_BADID = (-1), H5I_FILE = 1, H5I_GROUP, H5I_DATATYPE, H5I_DATASPACE, H5I_DATASET, H5I_ATTR, H5I_REFERENCE, H5I_VFL, H5I_GENPROP_CLS, H5I_GENPROP_LST, H5I_ERROR_CLASS, H5I_ERROR_MSG, H5I_ERROR_STACK, H5I_NTYPES } H5I_type_t;
 typedef int64_t hid_t;
 enum { H5_SIZEOF_HID_T = 8 };
@@ -381,25 +381,25 @@ void *H5Isearch(H5I_type_t type, H5I_search_func_t func, void *key);
 herr_t H5Inmembers(H5I_type_t type, hsize_t *num_members);
 htri_t H5Itype_exists(H5I_type_t type);
 htri_t H5Iis_valid(hid_t id);
-/* END   /usr/include/hdf5/serial/H5Ipublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5Opublic.h */
+/* +++ END   /usr/include/hdf5/serial/H5Ipublic.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5Opublic.h */
 enum { H5Opublic_H = 1 };
-/* BEGIN /usr/include/hdf5/serial/H5public.h */
-/* END   /usr/include/hdf5/serial/H5public.h */
-/* BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
-/* END   /usr/include/hdf5/serial/H5Ipublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5Lpublic.h */
+/* ++++ BEGIN /usr/include/hdf5/serial/H5public.h */
+/* ++++ END   /usr/include/hdf5/serial/H5public.h */
+/* ++++ BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
+/* ++++ END   /usr/include/hdf5/serial/H5Ipublic.h */
+/* ++++ BEGIN /usr/include/hdf5/serial/H5Lpublic.h */
 enum { H5Lpublic_H = 1 };
-/* BEGIN /usr/include/hdf5/serial/H5public.h */
-/* END   /usr/include/hdf5/serial/H5public.h */
-/* BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
-/* END   /usr/include/hdf5/serial/H5Ipublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5Tpublic.h */
+/* +++++ BEGIN /usr/include/hdf5/serial/H5public.h */
+/* +++++ END   /usr/include/hdf5/serial/H5public.h */
+/* +++++ BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
+/* +++++ END   /usr/include/hdf5/serial/H5Ipublic.h */
+/* +++++ BEGIN /usr/include/hdf5/serial/H5Tpublic.h */
 enum { H5Tpublic_H = 1 };
-/* BEGIN /usr/include/hdf5/serial/H5public.h */
-/* END   /usr/include/hdf5/serial/H5public.h */
-/* BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
-/* END   /usr/include/hdf5/serial/H5Ipublic.h */
+/* ++++++ BEGIN /usr/include/hdf5/serial/H5public.h */
+/* ++++++ END   /usr/include/hdf5/serial/H5public.h */
+/* ++++++ BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
+/* ++++++ END   /usr/include/hdf5/serial/H5Ipublic.h */
 typedef enum H5T_class_t { H5T_NO_CLASS = -1, H5T_INTEGER = 0, H5T_FLOAT = 1, H5T_TIME = 2, H5T_STRING = 3, H5T_BITFIELD = 4, H5T_OPAQUE = 5, H5T_COMPOUND = 6, H5T_REFERENCE = 7, H5T_ENUM = 8, H5T_VLEN = 9, H5T_ARRAY = 10, H5T_NCLASSES } H5T_class_t;
 typedef enum H5T_order_t { H5T_ORDER_ERROR = -1, H5T_ORDER_LE = 0, H5T_ORDER_BE = 1, H5T_ORDER_VAX = 2, H5T_ORDER_MIXED = 3, H5T_ORDER_NONE = 4 } H5T_order_t;
 typedef enum H5T_sign_t { H5T_SGN_ERROR = -1, H5T_SGN_NONE = 0, H5T_SGN_2 = 1, H5T_NSGN = 2 } H5T_sign_t;
@@ -715,7 +715,7 @@ herr_t H5Tcommit1(hid_t loc_id, const char *name, hid_t type_id);
 hid_t H5Topen1(hid_t loc_id, const char *name);
 hid_t H5Tarray_create1(hid_t base_id, int ndims, const hsize_t dim[], const int perm[]);
 int H5Tget_array_dims1(hid_t type_id, hsize_t dims[], int perm[]);
-/* END   /usr/include/hdf5/serial/H5Tpublic.h */
+/* +++++ END   /usr/include/hdf5/serial/H5Tpublic.h */
 enum { H5L_MAX_LINK_NAME_LEN = 4294967295 };
 enum { H5L_SAME_LOC = 0 };
 enum { H5L_LINK_CLASS_T_VERS = 1 };
@@ -786,7 +786,7 @@ herr_t H5Lunregister(H5L_type_t id);
 htri_t H5Lis_registered(H5L_type_t id);
 herr_t H5Lunpack_elink_val(const void *ext_linkval , size_t link_size, unsigned *flags, const char **filename , const char **obj_path );
 herr_t H5Lcreate_external(const char *file_name, const char *obj_name, hid_t link_loc_id, const char *link_name, hid_t lcpl_id, hid_t lapl_id);
-/* END   /usr/include/hdf5/serial/H5Lpublic.h */
+/* ++++ END   /usr/include/hdf5/serial/H5Lpublic.h */
 /* #define H5O_COPY_SHALLOW_HIERARCHY_FLAG     (0x0001u) ### string, not number "(0x0001u)" */
 /* #define H5O_COPY_EXPAND_SOFT_LINK_FLAG      (0x0002u) ### string, not number "(0x0002u)" */
 /* #define H5O_COPY_EXPAND_EXT_LINK_FLAG       (0x0004u) ### string, not number "(0x0004u)" */
@@ -892,9 +892,9 @@ typedef struct H5O_stat_t {
 	unsigned nmesgs;
 	unsigned nchunks;
 } H5O_stat_t;
-/* END   /usr/include/hdf5/serial/H5Opublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5Tpublic.h */
-/* END   /usr/include/hdf5/serial/H5Tpublic.h */
+/* +++ END   /usr/include/hdf5/serial/H5Opublic.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5Tpublic.h */
+/* +++ END   /usr/include/hdf5/serial/H5Tpublic.h */
 typedef struct {
 	hbool_t corder_valid;
 	H5O_msg_crt_idx_t corder;
@@ -934,19 +934,19 @@ int H5Aget_num_attrs(hid_t loc_id);
 herr_t H5Aiterate1(hid_t loc_id, unsigned *idx, H5A_operator1_t op, void *op_data);
 hid_t H5Aopen_idx(hid_t loc_id, unsigned idx);
 hid_t H5Aopen_name(hid_t loc_id, const char *name);
-/* END   /usr/include/hdf5/serial/H5Apublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5ACpublic.h */
+/* ++ END   /usr/include/hdf5/serial/H5Apublic.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5ACpublic.h */
 enum { H5ACpublic_H = 1 };
-/* BEGIN /usr/include/hdf5/serial/H5public.h */
-/* END   /usr/include/hdf5/serial/H5public.h */
-/* BEGIN /usr/include/hdf5/serial/H5Cpublic.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5public.h */
+/* +++ END   /usr/include/hdf5/serial/H5public.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5Cpublic.h */
 enum { H5Cpublic_H = 1 };
-/* BEGIN /usr/include/hdf5/serial/H5public.h */
-/* END   /usr/include/hdf5/serial/H5public.h */
+/* ++++ BEGIN /usr/include/hdf5/serial/H5public.h */
+/* ++++ END   /usr/include/hdf5/serial/H5public.h */
 enum H5C_cache_incr_mode { H5C_incr__off, H5C_incr__threshold };
 enum H5C_cache_flash_incr_mode { H5C_flash_incr__off, H5C_flash_incr__add_space };
 enum H5C_cache_decr_mode { H5C_decr__off, H5C_decr__threshold, H5C_decr__age_out, H5C_decr__age_out_with_threshold };
-/* END   /usr/include/hdf5/serial/H5Cpublic.h */
+/* +++ END   /usr/include/hdf5/serial/H5Cpublic.h */
 enum { H5AC__CURR_CACHE_CONFIG_VERSION = 1 };
 enum { H5AC__MAX_TRACE_FILE_NAME_LEN = 1024 };
 enum { H5AC_METADATA_WRITE_STRATEGY__PROCESS_0_ONLY = 0 };
@@ -992,13 +992,13 @@ typedef struct H5AC_cache_image_config_t {
 	hbool_t save_resize_status;
 	int entry_ageout;
 } H5AC_cache_image_config_t;
-/* END   /usr/include/hdf5/serial/H5ACpublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5Dpublic.h */
+/* ++ END   /usr/include/hdf5/serial/H5ACpublic.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5Dpublic.h */
 enum { H5Dpublic_H = 1 };
-/* BEGIN /usr/include/hdf5/serial/H5public.h */
-/* END   /usr/include/hdf5/serial/H5public.h */
-/* BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
-/* END   /usr/include/hdf5/serial/H5Ipublic.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5public.h */
+/* +++ END   /usr/include/hdf5/serial/H5public.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
+/* +++ END   /usr/include/hdf5/serial/H5Ipublic.h */
 enum { H5D_CHUNK_CACHE_NSLOTS_DEFAULT = -1 };
 enum { H5D_CHUNK_CACHE_NBYTES_DEFAULT = -1 };
 /* #define H5D_CHUNK_CACHE_W0_DEFAULT     (-1.0) ### string, not number "(-1.0)" */
@@ -1056,16 +1056,16 @@ enum { H5D_CHUNK_BTREE = 0 };
 hid_t H5Dcreate1(hid_t loc_id, const char *name, hid_t type_id, hid_t space_id, hid_t dcpl_id);
 hid_t H5Dopen1(hid_t loc_id, const char *name);
 herr_t H5Dextend(hid_t dset_id, const hsize_t size[]);
-/* END   /usr/include/hdf5/serial/H5Dpublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5Epublic.h */
+/* ++ END   /usr/include/hdf5/serial/H5Dpublic.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5Epublic.h */
 enum { H5Epublic_H = 1 };
-/* BEGIN /usr/include/stdio.h */
+/* +++ BEGIN /usr/include/stdio.h */
 ]] require 'ffi.c.stdio' ffi.cdef[[
-/* END   /usr/include/stdio.h */
-/* BEGIN /usr/include/hdf5/serial/H5public.h */
-/* END   /usr/include/hdf5/serial/H5public.h */
-/* BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
-/* END   /usr/include/hdf5/serial/H5Ipublic.h */
+/* +++ END   /usr/include/stdio.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5public.h */
+/* +++ END   /usr/include/hdf5/serial/H5public.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
+/* +++ END   /usr/include/hdf5/serial/H5Ipublic.h */
 enum { H5E_DEFAULT = 0 };
 typedef enum H5E_type_t { H5E_MAJOR, H5E_MINOR } H5E_type_t;
 typedef struct H5E_error2_t {
@@ -1080,7 +1080,7 @@ typedef struct H5E_error2_t {
 /* #define H5OPEN H5open(), ### string, not number "H5open()," */
 /* #define H5E_ERR_CLS (H5OPEN H5E_ERR_CLS_g) ### string, not number "(H5OPEN H5E_ERR_CLS_g)" */
 extern hid_t H5E_ERR_CLS_g;
-/* BEGIN /usr/include/hdf5/serial/H5Epubgen.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5Epubgen.h */
 enum { H5Epubgen_H = 1 };
 /* #define H5E_FUNC             (H5OPEN H5E_FUNC_g) ### string, not number "(H5OPEN H5E_FUNC_g)" */
 /* #define H5E_FILE             (H5OPEN H5E_FILE_g) ### string, not number "(H5OPEN H5E_FILE_g)" */
@@ -1422,7 +1422,7 @@ extern hid_t H5E_CANTREMOVE_g;
 /* #define H5E_BADSIZE          (H5OPEN H5E_BADSIZE_g) ### string, not number "(H5OPEN H5E_BADSIZE_g)" */
 extern hid_t H5E_CANTCONVERT_g;
 extern hid_t H5E_BADSIZE_g;
-/* END   /usr/include/hdf5/serial/H5Epubgen.h */
+/* +++ END   /usr/include/hdf5/serial/H5Epubgen.h */
 /* #define H5E_BEGIN_TRY                                                                                             {                                                                                                                 unsigned H5E_saved_is_v2;                                                                                     union {                                                                                                           H5E_auto1_t efunc1;                                                                                           H5E_auto2_t efunc2;                                                                                       } H5E_saved;                                                                                                  void *H5E_saved_edata;                                                                                                                                                                                                      (void)H5Eauto_is_v2(H5E_DEFAULT, &H5E_saved_is_v2);                                                           if (H5E_saved_is_v2) {                                                                                            (void)H5Eget_auto2(H5E_DEFAULT, &H5E_saved.efunc2, &H5E_saved_edata);                                         (void)H5Eset_auto2(H5E_DEFAULT, NULL, NULL);                                                              }                                                                                                             else {                                                                                                            (void)H5Eget_auto1(&H5E_saved.efunc1, &H5E_saved_edata);                                                      (void)H5Eset_auto1(NULL, NULL);                                                                           } ### string, not number "{                                                                                                                 unsigned H5E_saved_is_v2;                                                                                     union {                                                                                                           H5E_auto1_t efunc1;                                                                                           H5E_auto2_t efunc2;                                                                                       } H5E_saved;                                                                                                  void *H5E_saved_edata;                                                                                                                                                                                                      (void)H5Eauto_is_v2(H5E_DEFAULT, &H5E_saved_is_v2);                                                           if (H5E_saved_is_v2) {                                                                                            (void)H5Eget_auto2(H5E_DEFAULT, &H5E_saved.efunc2, &H5E_saved_edata);                                         (void)H5Eset_auto2(H5E_DEFAULT, NULL, NULL);                                                              }                                                                                                             else {                                                                                                            (void)H5Eget_auto1(&H5E_saved.efunc1, &H5E_saved_edata);                                                      (void)H5Eset_auto1(NULL, NULL);                                                                           }" */
 /* #define H5E_END_TRY                                                                                               if (H5E_saved_is_v2)                                                                                              (void)H5Eset_auto2(H5E_DEFAULT, H5E_saved.efunc2, H5E_saved_edata);                                       else                                                                                                              (void)H5Eset_auto1(H5E_saved.efunc1, H5E_saved_edata);                                                    } ### string, not number "if (H5E_saved_is_v2)                                                                                              (void)H5Eset_auto2(H5E_DEFAULT, H5E_saved.efunc2, H5E_saved_edata);                                       else                                                                                                              (void)H5Eset_auto1(H5E_saved.efunc1, H5E_saved_edata);                                                    }" */
 typedef enum H5E_direction_t { H5E_WALK_UPWARD = 0, H5E_WALK_DOWNWARD = 1 } H5E_direction_t;
@@ -1467,15 +1467,15 @@ herr_t H5Eset_auto1(H5E_auto1_t func, void *client_data);
 herr_t H5Ewalk1(H5E_direction_t direction, H5E_walk1_t func, void *client_data);
 char *H5Eget_major(H5E_major_t maj);
 char *H5Eget_minor(H5E_minor_t min);
-/* END   /usr/include/hdf5/serial/H5Epublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5Fpublic.h */
+/* ++ END   /usr/include/hdf5/serial/H5Epublic.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5Fpublic.h */
 enum { H5Fpublic_H = 1 };
-/* BEGIN /usr/include/hdf5/serial/H5public.h */
-/* END   /usr/include/hdf5/serial/H5public.h */
-/* BEGIN /usr/include/hdf5/serial/H5ACpublic.h */
-/* END   /usr/include/hdf5/serial/H5ACpublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
-/* END   /usr/include/hdf5/serial/H5Ipublic.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5public.h */
+/* +++ END   /usr/include/hdf5/serial/H5public.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5ACpublic.h */
+/* +++ END   /usr/include/hdf5/serial/H5ACpublic.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
+/* +++ END   /usr/include/hdf5/serial/H5Ipublic.h */
 /* #define H5CHECK H5check(), ### string, not number "H5check()," */
 /* #define H5OPEN H5open(), ### string, not number "H5open()," */
 /* #define H5F_ACC_RDONLY (H5CHECK H5OPEN 0x0000u) ### string, not number "(H5CHECK H5OPEN 0x0000u)" */
@@ -1578,13 +1578,13 @@ typedef struct H5F_info1_t {
 } H5F_info1_t;
 herr_t H5Fget_info1(hid_t obj_id, H5F_info1_t *file_info);
 herr_t H5Fset_latest_format(hid_t file_id, hbool_t latest_format);
-/* END   /usr/include/hdf5/serial/H5Fpublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5FDpublic.h */
+/* ++ END   /usr/include/hdf5/serial/H5Fpublic.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5FDpublic.h */
 enum { H5FDpublic_H = 1 };
-/* BEGIN /usr/include/hdf5/serial/H5public.h */
-/* END   /usr/include/hdf5/serial/H5public.h */
-/* BEGIN /usr/include/hdf5/serial/H5Fpublic.h */
-/* END   /usr/include/hdf5/serial/H5Fpublic.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5public.h */
+/* +++ END   /usr/include/hdf5/serial/H5public.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5Fpublic.h */
+/* +++ END   /usr/include/hdf5/serial/H5Fpublic.h */
 enum { H5_HAVE_VFL = 1 };
 enum { H5FD_VFD_DEFAULT = 0 };
 typedef enum H5F_mem_t H5FD_mem_t;
@@ -1705,20 +1705,20 @@ herr_t H5FDtruncate(H5FD_t *file, hid_t dxpl_id, hbool_t closing);
 herr_t H5FDlock(H5FD_t *file, hbool_t rw);
 herr_t H5FDunlock(H5FD_t *file);
 herr_t H5FDdriver_query(hid_t driver_id, unsigned long *flags );
-/* END   /usr/include/hdf5/serial/H5FDpublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5Gpublic.h */
+/* ++ END   /usr/include/hdf5/serial/H5FDpublic.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5Gpublic.h */
 enum { H5Gpublic_H = 1 };
-/* BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
+/* +++ BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
 ]] require 'ffi.c.sys.types' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/sys/types.h */
-/* BEGIN /usr/include/hdf5/serial/H5public.h */
-/* END   /usr/include/hdf5/serial/H5public.h */
-/* BEGIN /usr/include/hdf5/serial/H5Lpublic.h */
-/* END   /usr/include/hdf5/serial/H5Lpublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5Opublic.h */
-/* END   /usr/include/hdf5/serial/H5Opublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5Tpublic.h */
-/* END   /usr/include/hdf5/serial/H5Tpublic.h */
+/* +++ END   /usr/include/x86_64-linux-gnu/sys/types.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5public.h */
+/* +++ END   /usr/include/hdf5/serial/H5public.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5Lpublic.h */
+/* +++ END   /usr/include/hdf5/serial/H5Lpublic.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5Opublic.h */
+/* +++ END   /usr/include/hdf5/serial/H5Opublic.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5Tpublic.h */
+/* +++ END   /usr/include/hdf5/serial/H5Tpublic.h */
 typedef enum H5G_storage_type_t { H5G_STORAGE_TYPE_UNKNOWN = -1, H5G_STORAGE_TYPE_SYMBOL_TABLE, H5G_STORAGE_TYPE_COMPACT, H5G_STORAGE_TYPE_DENSE } H5G_storage_type_t;
 typedef struct H5G_info_t {
 	H5G_storage_type_t storage_type;
@@ -1770,46 +1770,46 @@ herr_t H5Gget_num_objs(hid_t loc_id, hsize_t *num_objs);
 herr_t H5Gget_objinfo(hid_t loc_id, const char *name, hbool_t follow_link, H5G_stat_t *statbuf );
 ssize_t H5Gget_objname_by_idx(hid_t loc_id, hsize_t idx, char *name, size_t size);
 H5G_obj_t H5Gget_objtype_by_idx(hid_t loc_id, hsize_t idx);
-/* END   /usr/include/hdf5/serial/H5Gpublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
-/* END   /usr/include/hdf5/serial/H5Ipublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5Lpublic.h */
-/* END   /usr/include/hdf5/serial/H5Lpublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5MMpublic.h */
+/* ++ END   /usr/include/hdf5/serial/H5Gpublic.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
+/* ++ END   /usr/include/hdf5/serial/H5Ipublic.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5Lpublic.h */
+/* ++ END   /usr/include/hdf5/serial/H5Lpublic.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5MMpublic.h */
 enum { H5MMpublic_H = 1 };
-/* BEGIN /usr/include/hdf5/serial/H5public.h */
-/* END   /usr/include/hdf5/serial/H5public.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5public.h */
+/* +++ END   /usr/include/hdf5/serial/H5public.h */
 typedef void *(*H5MM_allocate_t)(size_t size, void *alloc_info);
 typedef void (*H5MM_free_t)(void *mem, void *free_info);
-/* END   /usr/include/hdf5/serial/H5MMpublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5Opublic.h */
-/* END   /usr/include/hdf5/serial/H5Opublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5Ppublic.h */
+/* ++ END   /usr/include/hdf5/serial/H5MMpublic.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5Opublic.h */
+/* ++ END   /usr/include/hdf5/serial/H5Opublic.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5Ppublic.h */
 enum { H5Ppublic_H = 1 };
-/* BEGIN /usr/include/hdf5/serial/H5public.h */
-/* END   /usr/include/hdf5/serial/H5public.h */
-/* BEGIN /usr/include/hdf5/serial/H5ACpublic.h */
-/* END   /usr/include/hdf5/serial/H5ACpublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5Dpublic.h */
-/* END   /usr/include/hdf5/serial/H5Dpublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5Fpublic.h */
-/* END   /usr/include/hdf5/serial/H5Fpublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5FDpublic.h */
-/* END   /usr/include/hdf5/serial/H5FDpublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
-/* END   /usr/include/hdf5/serial/H5Ipublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5Lpublic.h */
-/* END   /usr/include/hdf5/serial/H5Lpublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5MMpublic.h */
-/* END   /usr/include/hdf5/serial/H5MMpublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5Opublic.h */
-/* END   /usr/include/hdf5/serial/H5Opublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5Spublic.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5public.h */
+/* +++ END   /usr/include/hdf5/serial/H5public.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5ACpublic.h */
+/* +++ END   /usr/include/hdf5/serial/H5ACpublic.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5Dpublic.h */
+/* +++ END   /usr/include/hdf5/serial/H5Dpublic.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5Fpublic.h */
+/* +++ END   /usr/include/hdf5/serial/H5Fpublic.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5FDpublic.h */
+/* +++ END   /usr/include/hdf5/serial/H5FDpublic.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
+/* +++ END   /usr/include/hdf5/serial/H5Ipublic.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5Lpublic.h */
+/* +++ END   /usr/include/hdf5/serial/H5Lpublic.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5MMpublic.h */
+/* +++ END   /usr/include/hdf5/serial/H5MMpublic.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5Opublic.h */
+/* +++ END   /usr/include/hdf5/serial/H5Opublic.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5Spublic.h */
 enum { H5Spublic_H = 1 };
-/* BEGIN /usr/include/hdf5/serial/H5public.h */
-/* END   /usr/include/hdf5/serial/H5public.h */
-/* BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
-/* END   /usr/include/hdf5/serial/H5Ipublic.h */
+/* ++++ BEGIN /usr/include/hdf5/serial/H5public.h */
+/* ++++ END   /usr/include/hdf5/serial/H5public.h */
+/* ++++ BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
+/* ++++ END   /usr/include/hdf5/serial/H5Ipublic.h */
 /* #define H5S_ALL       (hid_t)0 ### string, not number "(hid_t)0" */
 /* #define H5S_UNLIMITED HSIZE_UNDEF ### string, not number "HSIZE_UNDEF" */
 enum { H5S_MAX_RANK = 32 };
@@ -1854,13 +1854,13 @@ herr_t H5Sselect_none(hid_t spaceid);
 hid_t H5Sselect_project_intersection(hid_t src_space_id, hid_t dst_space_id, hid_t src_intersect_space_id);
 htri_t H5Sselect_shape_same(hid_t space1_id, hid_t space2_id);
 htri_t H5Sselect_valid(hid_t spaceid);
-/* END   /usr/include/hdf5/serial/H5Spublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5Tpublic.h */
-/* END   /usr/include/hdf5/serial/H5Tpublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5Zpublic.h */
+/* +++ END   /usr/include/hdf5/serial/H5Spublic.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5Tpublic.h */
+/* +++ END   /usr/include/hdf5/serial/H5Tpublic.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5Zpublic.h */
 enum { H5Zpublic_H = 1 };
-/* BEGIN /usr/include/hdf5/serial/H5public.h */
-/* END   /usr/include/hdf5/serial/H5public.h */
+/* ++++ BEGIN /usr/include/hdf5/serial/H5public.h */
+/* ++++ END   /usr/include/hdf5/serial/H5public.h */
 typedef int H5Z_filter_t;
 enum { H5Z_FILTER_ERROR = -1 };
 enum { H5Z_FILTER_NONE = 0 };
@@ -1931,7 +1931,7 @@ typedef struct H5Z_class1_t {
 	H5Z_set_local_func_t set_local;
 	H5Z_func_t filter;
 } H5Z_class1_t;
-/* END   /usr/include/hdf5/serial/H5Zpublic.h */
+/* +++ END   /usr/include/hdf5/serial/H5Zpublic.h */
 /* #define H5OPEN H5open(), ### string, not number "H5open()," */
 /* #define H5P_ROOT             (H5OPEN H5P_CLS_ROOT_ID_g) ### string, not number "(H5OPEN H5P_CLS_ROOT_ID_g)" */
 /* #define H5P_OBJECT_CREATE    (H5OPEN H5P_CLS_OBJECT_CREATE_ID_g) ### string, not number "(H5OPEN H5P_CLS_OBJECT_CREATE_ID_g)" */
@@ -2214,11 +2214,11 @@ herr_t H5Pget_filter_by_id1(hid_t plist_id, H5Z_filter_t id, unsigned int *flags
 herr_t H5Pget_version(hid_t plist_id, unsigned *boot , unsigned *freelist , unsigned *stab , unsigned *shhdr );
 herr_t H5Pset_file_space(hid_t plist_id, H5F_file_space_type_t strategy, hsize_t threshold);
 herr_t H5Pget_file_space(hid_t plist_id, H5F_file_space_type_t *strategy, hsize_t *threshold);
-/* END   /usr/include/hdf5/serial/H5Ppublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5PLpublic.h */
+/* ++ END   /usr/include/hdf5/serial/H5Ppublic.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5PLpublic.h */
 enum { H5PLpublic_H = 1 };
-/* BEGIN /usr/include/hdf5/serial/H5public.h */
-/* END   /usr/include/hdf5/serial/H5public.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5public.h */
+/* +++ END   /usr/include/hdf5/serial/H5public.h */
 /* #define H5PL_NO_PLUGIN "::" ### string, not number "\"::\"" */
 typedef enum H5PL_type_t { H5PL_TYPE_ERROR = -1, H5PL_TYPE_FILTER = 0, H5PL_TYPE_NONE = 1 } H5PL_type_t;
 enum { H5PL_FILTER_PLUGIN = 1 };
@@ -2232,15 +2232,15 @@ herr_t H5PLinsert(const char *search_path, unsigned int index);
 herr_t H5PLremove(unsigned int index);
 ssize_t H5PLget(unsigned int index, char *path_buf , size_t buf_size);
 herr_t H5PLsize(unsigned int *num_paths );
-/* END   /usr/include/hdf5/serial/H5PLpublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5Rpublic.h */
+/* ++ END   /usr/include/hdf5/serial/H5PLpublic.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5Rpublic.h */
 enum { H5Rpublic_H = 1 };
-/* BEGIN /usr/include/hdf5/serial/H5public.h */
-/* END   /usr/include/hdf5/serial/H5public.h */
-/* BEGIN /usr/include/hdf5/serial/H5Gpublic.h */
-/* END   /usr/include/hdf5/serial/H5Gpublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
-/* END   /usr/include/hdf5/serial/H5Ipublic.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5public.h */
+/* +++ END   /usr/include/hdf5/serial/H5public.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5Gpublic.h */
+/* +++ END   /usr/include/hdf5/serial/H5Gpublic.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
+/* +++ END   /usr/include/hdf5/serial/H5Ipublic.h */
 /* #define H5R_OBJ_REF_BUF_SIZE sizeof(haddr_t) ### string, not number "sizeof(haddr_t)" */
 /* #define H5R_DSET_REG_REF_BUF_SIZE (sizeof(haddr_t) + 4) ### string, not number "(sizeof(haddr_t) + 4)" */
 typedef enum { H5R_BADTYPE = (-1), H5R_OBJECT, H5R_DATASET_REGION, H5R_MAXTYPE } H5R_type_t;
@@ -2253,32 +2253,32 @@ herr_t H5Rget_obj_type2(hid_t id, H5R_type_t ref_type, const void *_ref, H5O_typ
 ssize_t H5Rget_name(hid_t loc_id, H5R_type_t ref_type, const void *ref, char *name , size_t size);
 H5G_obj_t H5Rget_obj_type1(hid_t id, H5R_type_t ref_type, const void *ref);
 hid_t H5Rdereference1(hid_t obj_id, H5R_type_t ref_type, const void *ref);
-/* END   /usr/include/hdf5/serial/H5Rpublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5Spublic.h */
-/* END   /usr/include/hdf5/serial/H5Spublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5Tpublic.h */
-/* END   /usr/include/hdf5/serial/H5Tpublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5Zpublic.h */
-/* END   /usr/include/hdf5/serial/H5Zpublic.h */
-/* BEGIN /usr/include/hdf5/serial/H5FDcore.h */
+/* ++ END   /usr/include/hdf5/serial/H5Rpublic.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5Spublic.h */
+/* ++ END   /usr/include/hdf5/serial/H5Spublic.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5Tpublic.h */
+/* ++ END   /usr/include/hdf5/serial/H5Tpublic.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5Zpublic.h */
+/* ++ END   /usr/include/hdf5/serial/H5Zpublic.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5FDcore.h */
 enum { H5FDcore_H = 1 };
 /* #define H5FD_CORE (H5FD_core_init()) ### string, not number "(H5FD_core_init())" */
 hid_t H5FD_core_init(void);
 herr_t H5Pset_fapl_core(hid_t fapl_id, size_t increment, hbool_t backing_store);
 herr_t H5Pget_fapl_core(hid_t fapl_id, size_t *increment , hbool_t *backing_store );
-/* END   /usr/include/hdf5/serial/H5FDcore.h */
-/* BEGIN /usr/include/hdf5/serial/H5FDdirect.h */
+/* ++ END   /usr/include/hdf5/serial/H5FDcore.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5FDdirect.h */
 enum { H5FDdirect_H = 1 };
 enum { H5FD_DIRECT = -1 };
-/* END   /usr/include/hdf5/serial/H5FDdirect.h */
-/* BEGIN /usr/include/hdf5/serial/H5FDfamily.h */
+/* ++ END   /usr/include/hdf5/serial/H5FDdirect.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5FDfamily.h */
 enum { H5FDfamily_H = 1 };
 /* #define H5FD_FAMILY (H5FD_family_init()) ### string, not number "(H5FD_family_init())" */
 hid_t H5FD_family_init(void);
 herr_t H5Pset_fapl_family(hid_t fapl_id, hsize_t memb_size, hid_t memb_fapl_id);
 herr_t H5Pget_fapl_family(hid_t fapl_id, hsize_t *memb_size , hid_t *memb_fapl_id );
-/* END   /usr/include/hdf5/serial/H5FDfamily.h */
-/* BEGIN /usr/include/hdf5/serial/H5FDhdfs.h */
+/* ++ END   /usr/include/hdf5/serial/H5FDfamily.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5FDhdfs.h */
 enum { H5FDhdfs_H = 1 };
 enum { H5FD_HDFS = -1 };
 enum { H5FD__CURR_HDFS_FAPL_T_VERSION = 1 };
@@ -2296,8 +2296,8 @@ typedef struct H5FD_hdfs_fapl_t {
 hid_t H5FD_hdfs_init(void);
 herr_t H5Pget_fapl_hdfs(hid_t fapl_id, H5FD_hdfs_fapl_t *fa_out);
 herr_t H5Pset_fapl_hdfs(hid_t fapl_id, H5FD_hdfs_fapl_t *fa);
-/* END   /usr/include/hdf5/serial/H5FDhdfs.h */
-/* BEGIN /usr/include/hdf5/serial/H5FDlog.h */
+/* ++ END   /usr/include/hdf5/serial/H5FDhdfs.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5FDlog.h */
 enum { H5FDlog_H = 1 };
 /* #define H5FD_LOG (H5FD_log_init()) ### string, not number "(H5FD_log_init())" */
 enum { H5FD_LOG_TRUNCATE = 1 };
@@ -2328,32 +2328,32 @@ enum { H5FD_LOG_FREE = 524288 };
 enum { H5FD_LOG_ALL = 1048575 };
 hid_t H5FD_log_init(void);
 herr_t H5Pset_fapl_log(hid_t fapl_id, const char *logfile, unsigned long long flags, size_t buf_size);
-/* END   /usr/include/hdf5/serial/H5FDlog.h */
-/* BEGIN /usr/include/hdf5/serial/H5FDmirror.h */
+/* ++ END   /usr/include/hdf5/serial/H5FDlog.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5FDmirror.h */
 enum { H5FDmirror_H = 1 };
 enum { H5FD_MIRROR = 0 };
-/* END   /usr/include/hdf5/serial/H5FDmirror.h */
-/* BEGIN /usr/include/hdf5/serial/H5FDmpi.h */
+/* ++ END   /usr/include/hdf5/serial/H5FDmirror.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5FDmpi.h */
 enum { H5FDmpi_H = 1 };
 enum { H5D_ONE_LINK_CHUNK_IO_THRESHOLD = 0 };
 enum { H5D_MULTI_CHUNK_IO_COL_THRESHOLD = 60 };
 typedef enum H5FD_mpio_xfer_t { H5FD_MPIO_INDEPENDENT = 0, H5FD_MPIO_COLLECTIVE } H5FD_mpio_xfer_t;
 typedef enum H5FD_mpio_chunk_opt_t { H5FD_MPIO_CHUNK_DEFAULT = 0, H5FD_MPIO_CHUNK_ONE_IO, H5FD_MPIO_CHUNK_MULTI_IO } H5FD_mpio_chunk_opt_t;
 typedef enum H5FD_mpio_collective_opt_t { H5FD_MPIO_COLLECTIVE_IO = 0, H5FD_MPIO_INDIVIDUAL_IO } H5FD_mpio_collective_opt_t;
-/* BEGIN /usr/include/hdf5/serial/H5FDmpio.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5FDmpio.h */
 enum { H5FDmpio_H = 1 };
 enum { H5FD_MPIO = -1 };
-/* END   /usr/include/hdf5/serial/H5FDmpio.h */
-/* END   /usr/include/hdf5/serial/H5FDmpi.h */
-/* BEGIN /usr/include/hdf5/serial/H5FDmulti.h */
+/* +++ END   /usr/include/hdf5/serial/H5FDmpio.h */
+/* ++ END   /usr/include/hdf5/serial/H5FDmpi.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5FDmulti.h */
 enum { H5FDmulti_H = 1 };
 /* #define H5FD_MULTI (H5FD_multi_init()) ### string, not number "(H5FD_multi_init())" */
 hid_t H5FD_multi_init(void);
 herr_t H5Pset_fapl_multi(hid_t fapl_id, const H5FD_mem_t *memb_map, const hid_t *memb_fapl, const char *const *memb_name, const haddr_t *memb_addr, hbool_t relax);
 herr_t H5Pget_fapl_multi(hid_t fapl_id, H5FD_mem_t *memb_map , hid_t *memb_fapl , char **memb_name , haddr_t *memb_addr , hbool_t *relax );
 herr_t H5Pset_fapl_split(hid_t fapl, const char *meta_ext, hid_t meta_plist_id, const char *raw_ext, hid_t raw_plist_id);
-/* END   /usr/include/hdf5/serial/H5FDmulti.h */
-/* BEGIN /usr/include/hdf5/serial/H5FDros3.h */
+/* ++ END   /usr/include/hdf5/serial/H5FDmulti.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5FDros3.h */
 enum { H5FDros3_H = 1 };
 /* #define H5FD_ROS3 (H5FD_ros3_init()) ### string, not number "(H5FD_ros3_init())" */
 enum { H5FD_CURR_ROS3_FAPL_T_VERSION = 1 };
@@ -2370,14 +2370,14 @@ typedef struct H5FD_ros3_fapl_t {
 hid_t H5FD_ros3_init(void);
 herr_t H5Pget_fapl_ros3(hid_t fapl_id, H5FD_ros3_fapl_t *fa_out);
 herr_t H5Pset_fapl_ros3(hid_t fapl_id, H5FD_ros3_fapl_t *fa);
-/* END   /usr/include/hdf5/serial/H5FDros3.h */
-/* BEGIN /usr/include/hdf5/serial/H5FDsec2.h */
+/* ++ END   /usr/include/hdf5/serial/H5FDros3.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5FDsec2.h */
 enum { H5FDsec2_H = 1 };
 /* #define H5FD_SEC2 (H5FD_sec2_init()) ### string, not number "(H5FD_sec2_init())" */
 hid_t H5FD_sec2_init(void);
 herr_t H5Pset_fapl_sec2(hid_t fapl_id);
-/* END   /usr/include/hdf5/serial/H5FDsec2.h */
-/* BEGIN /usr/include/hdf5/serial/H5FDsplitter.h */
+/* ++ END   /usr/include/hdf5/serial/H5FDsec2.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5FDsplitter.h */
 enum { H5FDsplitter_H = 1 };
 /* #define H5FD_SPLITTER (H5FD_splitter_init()) ### string, not number "(H5FD_splitter_init())" */
 enum { H5FD_CURR_SPLITTER_VFD_CONFIG_VERSION = 1 };
@@ -2395,15 +2395,15 @@ typedef struct H5FD_splitter_vfd_config_t {
 hid_t H5FD_splitter_init(void);
 herr_t H5Pset_fapl_splitter(hid_t fapl_id, H5FD_splitter_vfd_config_t *config_ptr);
 herr_t H5Pget_fapl_splitter(hid_t fapl_id, H5FD_splitter_vfd_config_t *config_ptr);
-/* END   /usr/include/hdf5/serial/H5FDsplitter.h */
-/* BEGIN /usr/include/hdf5/serial/H5FDstdio.h */
+/* ++ END   /usr/include/hdf5/serial/H5FDsplitter.h */
+/* ++ BEGIN /usr/include/hdf5/serial/H5FDstdio.h */
 enum { H5FDstdio_H = 1 };
-/* BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
-/* END   /usr/include/hdf5/serial/H5Ipublic.h */
+/* +++ BEGIN /usr/include/hdf5/serial/H5Ipublic.h */
+/* +++ END   /usr/include/hdf5/serial/H5Ipublic.h */
 /* #define H5FD_STDIO (H5FD_stdio_init()) ### string, not number "(H5FD_stdio_init())" */
 hid_t H5FD_stdio_init(void);
 herr_t H5Pset_fapl_stdio(hid_t fapl_id);
-/* END   /usr/include/hdf5/serial/H5FDstdio.h */
-/* END   /usr/include/hdf5/serial/hdf5.h */
+/* ++ END   /usr/include/hdf5/serial/H5FDstdio.h */
+/* + END   /usr/include/hdf5/serial/hdf5.h */
 ]]
-return require 'ffi.load' 'hdf5'
+return require 'ffi.load' 'hdf5'	-- pkg-config --libs hdf5

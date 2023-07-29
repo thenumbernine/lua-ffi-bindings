@@ -1,10 +1,10 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN /usr/include/lapacke.h */
+/* + BEGIN /usr/include/lapacke.h */
 enum { _LAPACKE_H_ = 1 };
-/* BEGIN /usr/include/lapack.h */
+/* ++ BEGIN /usr/include/lapack.h */
 ]] require 'ffi.lapack' ffi.cdef[[
-/* END   /usr/include/lapack.h */
+/* ++ END   /usr/include/lapack.h */
 enum { LAPACK_ROW_MAJOR = 101 };
 enum { LAPACK_COL_MAJOR = 102 };
 enum { LAPACK_WORK_MEMORY_ERROR = -1010 };
@@ -2509,6 +2509,6 @@ int32_t LAPACKE_zhetrs_aa_2stage( int matrix_layout, char uplo, int32_t n, int32
 int32_t LAPACKE_zhetrs_aa_2stage_work( int matrix_layout, char uplo, int32_t n, int32_t nrhs, double _Complex* a, int32_t lda, double _Complex* tb, int32_t ltb, int32_t* ipiv, int32_t* ipiv2, double _Complex* b, int32_t ldb );
 void LAPACKE_set_nancheck( int flag );
 int LAPACKE_get_nancheck( void );
-/* END   /usr/include/lapacke.h */
+/* + END   /usr/include/lapacke.h */
 ]]
 return require 'ffi.load' 'lapacke'

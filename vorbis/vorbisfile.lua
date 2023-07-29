@@ -1,15 +1,15 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN /usr/include/vorbis/vorbisfile.h */
+/* + BEGIN /usr/include/vorbis/vorbisfile.h */
 enum { _OV_FILE_H_ = 1 };
-/* BEGIN /usr/include/stdio.h */
+/* ++ BEGIN /usr/include/stdio.h */
 ]] require 'ffi.c.stdio' ffi.cdef[[
-/* END   /usr/include/stdio.h */
-/* BEGIN /usr/include/vorbis/codec.h */
+/* ++ END   /usr/include/stdio.h */
+/* ++ BEGIN /usr/include/vorbis/codec.h */
 enum { _vorbis_codec_h_ = 1 };
-/* BEGIN /usr/include/ogg/ogg.h */
+/* +++ BEGIN /usr/include/ogg/ogg.h */
 ]] require 'ffi.ogg' ffi.cdef[[
-/* END   /usr/include/ogg/ogg.h */
+/* +++ END   /usr/include/ogg/ogg.h */
 typedef struct vorbis_info{
 	int version;
 	int channels;
@@ -125,43 +125,17 @@ enum { OV_ENOTAUDIO = -135 };
 enum { OV_EBADPACKET = -136 };
 enum { OV_EBADLINK = -137 };
 enum { OV_ENOSEEK = -138 };
-/* END   /usr/include/vorbis/codec.h */
+/* ++ END   /usr/include/vorbis/codec.h */
 typedef struct {
 	size_t (*read_func) (void *ptr, size_t size, size_t nmemb, void *datasource);
 	int (*seek_func) (void *datasource, ogg_int64_t offset, int whence);
 	int (*close_func) (void *datasource);
 	long (*tell_func) (void *datasource);
 } ov_callbacks;
-/*
-static int _ov_header_fseek_wrap(FILE *f,ogg_int64_t off,int whence){
-	if(f==((void *)0))return(-1);
-	return fseek(f,off,whence);
-}
-static ov_callbacks OV_CALLBACKS_DEFAULT = {
-	(size_t (*)(void *, size_t, size_t, void *)) fread,
-	(int (*)(void *, ogg_int64_t, int)) _ov_header_fseek_wrap,
-	(int (*)(void *)) fclose,
-	(long (*)(void *)) ftell
-};
-static ov_callbacks OV_CALLBACKS_NOCLOSE = {
-	(size_t (*)(void *, size_t, size_t, void *)) fread,
-	(int (*)(void *, ogg_int64_t, int)) _ov_header_fseek_wrap,
-	(int (*)(void *)) ((void *)0),
-	(long (*)(void *)) ftell
-};
-static ov_callbacks OV_CALLBACKS_STREAMONLY = {
-	(size_t (*)(void *, size_t, size_t, void *)) fread,
-	(int (*)(void *, ogg_int64_t, int)) ((void *)0),
-	(int (*)(void *)) fclose,
-	(long (*)(void *)) ((void *)0)
-};
-static ov_callbacks OV_CALLBACKS_STREAMONLY_NOCLOSE = {
-	(size_t (*)(void *, size_t, size_t, void *)) fread,
-	(int (*)(void *, ogg_int64_t, int)) ((void *)0),
-	(int (*)(void *)) ((void *)0),
-	(long (*)(void *)) ((void *)0)
-};
-*/
+ 
+
+
+
 enum { NOTOPEN = 0 };
 enum { PARTOPEN = 1 };
 enum { OPENED = 2 };
@@ -227,9 +201,8 @@ extern long ov_read(OggVorbis_File *vf,char *buffer,int length, int bigendianp,i
 extern int ov_crosslap(OggVorbis_File *vf1,OggVorbis_File *vf2);
 extern int ov_halfrate(OggVorbis_File *vf,int flag);
 extern int ov_halfrate_p(OggVorbis_File *vf);
-/* END   /usr/include/vorbis/vorbisfile.h */
+/* + END   /usr/include/vorbis/vorbisfile.h */
 ]]
-
 local lib = require 'ffi.load' 'vorbisfile'
 
 -- don't use stdio, use ffi.C

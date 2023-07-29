@@ -1,12 +1,12 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN /usr/include/EGL/egl.h */
+/* + BEGIN /usr/include/EGL/egl.h */
 enum { __egl_h_ = 1 };
-/* BEGIN /usr/include/EGL/eglplatform.h */
+/* ++ BEGIN /usr/include/EGL/eglplatform.h */
 enum { __eglplatform_h_ = 1 };
-/* BEGIN /usr/include/KHR/khrplatform.h */
+/* +++ BEGIN /usr/include/KHR/khrplatform.h */
 ]] require 'ffi.KHR.khrplatform' ffi.cdef[[
-/* END   /usr/include/KHR/khrplatform.h */
+/* +++ END   /usr/include/KHR/khrplatform.h */
 /* #define EGLAPI KHRONOS_APICALL ### string, not number "KHRONOS_APICALL" */
 /* #define EGLAPIENTRY  KHRONOS_APIENTRY ### string, not number "KHRONOS_APIENTRY" */
 /* #define EGLAPIENTRYP EGLAPIENTRY* ### string, not number "EGLAPIENTRY*" */
@@ -17,16 +17,16 @@ typedef EGLNativeDisplayType NativeDisplayType;
 typedef EGLNativePixmapType NativePixmapType;
 typedef EGLNativeWindowType NativeWindowType;
 typedef khronos_int32_t EGLint;
-/* END   /usr/include/EGL/eglplatform.h */
+/* ++ END   /usr/include/EGL/eglplatform.h */
 enum { EGL_EGL_PROTOTYPES = 1 };
 enum { EGL_VERSION_1_0 = 1 };
 typedef unsigned int EGLBoolean;
 typedef void *EGLDisplay;
-/* BEGIN /usr/include/KHR/khrplatform.h */
+/* ++ BEGIN /usr/include/KHR/khrplatform.h */
 ]] require 'ffi.KHR.khrplatform' ffi.cdef[[
-/* END   /usr/include/KHR/khrplatform.h */
-/* BEGIN /usr/include/EGL/eglplatform.h */
-/* END   /usr/include/EGL/eglplatform.h */
+/* ++ END   /usr/include/KHR/khrplatform.h */
+/* ++ BEGIN /usr/include/EGL/eglplatform.h */
+/* ++ END   /usr/include/EGL/eglplatform.h */
 typedef void *EGLConfig;
 typedef void *EGLSurface;
 typedef void *EGLContext;
@@ -295,7 +295,7 @@ EGLDisplay eglGetPlatformDisplay (EGLenum platform, void *native_display, const 
 EGLSurface eglCreatePlatformWindowSurface (EGLDisplay dpy, EGLConfig config, void *native_window, const EGLAttrib *attrib_list);
 EGLSurface eglCreatePlatformPixmapSurface (EGLDisplay dpy, EGLConfig config, void *native_pixmap, const EGLAttrib *attrib_list);
 EGLBoolean eglWaitSync (EGLDisplay dpy, EGLSync sync, EGLint flags);
-/* END   /usr/include/EGL/egl.h */
+/* + END   /usr/include/EGL/egl.h */
 ]]
 return setmetatable({
 	EGL_DONT_CARE = ffi.cast('EGLint', -1),

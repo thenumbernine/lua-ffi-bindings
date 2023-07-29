@@ -1,13 +1,13 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
+/* + BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
 enum { _SYS_TYPES_H = 1 };
-/* BEGIN /usr/include/features.h */
+/* ++ BEGIN /usr/include/features.h */
 ]] require 'ffi.c.features' ffi.cdef[[
-/* END   /usr/include/features.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
+/* ++ END   /usr/include/features.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.c.bits.types' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/bits/types.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
 typedef __u_char u_char;
 typedef __u_short u_short;
 typedef __u_int u_int;
@@ -33,53 +33,53 @@ typedef __caddr_t caddr_t;
 enum { __daddr_t_defined = 1 };
 typedef __key_t key_t;
 enum { __key_t_defined = 1 };
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types/clock_t.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/clock_t.h */
 ]] require 'ffi.c.bits.types.clock_t' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/bits/types/clock_t.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/types/clock_t.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h */
 ]] require 'ffi.c.bits.types.clockid_t' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
 ]] require 'ffi.c.bits.types.time_t' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types/timer_t.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/timer_t.h */
 ]] require 'ffi.c.bits.types.timer_t' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/bits/types/timer_t.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.Linux.c.stddef' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/types/timer_t.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+]] require 'ffi.c.stddef' ffi.cdef[[
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 typedef unsigned long int ulong;
 typedef unsigned short int ushort;
 typedef unsigned int uint;
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/stdint-intn.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/stdint-intn.h */
 ]] require 'ffi.c.bits.stdint-intn' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/bits/stdint-intn.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/stdint-intn.h */
 typedef __uint8_t u_int8_t;
 typedef __uint16_t u_int16_t;
 typedef __uint32_t u_int32_t;
 typedef __uint64_t u_int64_t;
 typedef int register_t __attribute__ ((__mode__ (__word__)));
 enum { __BIT_TYPES_DEFINED__ = 1 };
-/* BEGIN /usr/include/endian.h */
+/* ++ BEGIN /usr/include/endian.h */
 enum { _ENDIAN_H = 1 };
-/* BEGIN /usr/include/features.h */
+/* +++ BEGIN /usr/include/features.h */
 ]] require 'ffi.c.features' ffi.cdef[[
-/* END   /usr/include/features.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/endian.h */
+/* +++ END   /usr/include/features.h */
+/* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/endian.h */
 ]] require 'ffi.c.bits.endian' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/bits/endian.h */
+/* +++ END   /usr/include/x86_64-linux-gnu/bits/endian.h */
 enum { LITTLE_ENDIAN = 1234 };
 enum { BIG_ENDIAN = 4321 };
 enum { PDP_ENDIAN = 3412 };
 enum { BYTE_ORDER = 1234 };
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/byteswap.h */
+/* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/byteswap.h */
 enum { _BITS_BYTESWAP_H = 1 };
-/* BEGIN /usr/include/features.h */
+/* ++++ BEGIN /usr/include/features.h */
 ]] require 'ffi.c.features' ffi.cdef[[
-/* END   /usr/include/features.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
+/* ++++ END   /usr/include/features.h */
+/* ++++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.c.bits.types' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/bits/types.h */
+/* ++++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
 static __inline __uint16_t __bswap_16 (__uint16_t __bsx) {
 	return __builtin_bswap16 (__bsx);
 } static __inline __uint32_t __bswap_32 (__uint32_t __bsx) {
@@ -87,12 +87,12 @@ static __inline __uint16_t __bswap_16 (__uint16_t __bsx) {
 } __extension__ static __inline __uint64_t __bswap_64 (__uint64_t __bsx) {
 	return __builtin_bswap64 (__bsx);
 }
-/* END   /usr/include/x86_64-linux-gnu/bits/byteswap.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/uintn-identity.h */
+/* +++ END   /usr/include/x86_64-linux-gnu/bits/byteswap.h */
+/* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/uintn-identity.h */
 enum { _BITS_UINTN_IDENTITY_H = 1 };
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
+/* ++++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.c.bits.types' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/bits/types.h */
+/* ++++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
 static __inline __uint16_t __uint16_identity (__uint16_t __x) {
 	return __x;
 } static __inline __uint32_t __uint32_identity (__uint32_t __x) {
@@ -100,11 +100,11 @@ static __inline __uint16_t __uint16_identity (__uint16_t __x) {
 } static __inline __uint64_t __uint64_identity (__uint64_t __x) {
 	return __x;
 }
-/* END   /usr/include/x86_64-linux-gnu/bits/uintn-identity.h */
-/* END   /usr/include/endian.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/sys/select.h */
+/* +++ END   /usr/include/x86_64-linux-gnu/bits/uintn-identity.h */
+/* ++ END   /usr/include/endian.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/sys/select.h */
 ]] require 'ffi.c.sys.select' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/sys/select.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/sys/select.h */
 typedef __blksize_t blksize_t;
 enum { __blksize_t_defined = 1 };
 typedef __blkcnt_t blkcnt_t;
@@ -113,17 +113,17 @@ typedef __fsblkcnt_t fsblkcnt_t;
 enum { __fsblkcnt_t_defined = 1 };
 typedef __fsfilcnt_t fsfilcnt_t;
 enum { __fsfilcnt_t_defined = 1 };
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h */
 enum { _BITS_PTHREADTYPES_COMMON_H = 1 };
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h */
+/* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h */
 enum { _THREAD_SHARED_TYPES_H = 1 };
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h */
+/* ++++ BEGIN /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h */
 enum { _BITS_PTHREADTYPES_ARCH_H = 1 };
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+/* +++++ BEGIN /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* redefining matching value: # define __WORDSIZE	64 */
 /* redefining matching value: # define __WORDSIZE_TIME64_COMPAT32	1 */
 /* redefining matching value: # define __SYSCALL_WORDSIZE		64 */
-/* END   /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+/* +++++ END   /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 enum { __SIZEOF_PTHREAD_MUTEX_T = 40 };
 enum { __SIZEOF_PTHREAD_ATTR_T = 56 };
 enum { __SIZEOF_PTHREAD_RWLOCK_T = 56 };
@@ -135,8 +135,8 @@ enum { __SIZEOF_PTHREAD_RWLOCKATTR_T = 8 };
 enum { __SIZEOF_PTHREAD_BARRIERATTR_T = 4 };
 enum { __LOCK_ALIGNMENT = 1 };
 enum { __ONCE_ALIGNMENT = 1 };
-/* END   /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h */
+/* ++++ END   /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h */
+/* ++++ BEGIN /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h */
 enum { _BITS_ATOMIC_WIDE_COUNTER_H = 1 };
 typedef union {
 	__extension__ unsigned long long int __value64;
@@ -145,7 +145,7 @@ typedef union {
 	unsigned int __high;
 } __value32;
 } __atomic_wide_counter;
-/* END   /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h */
+/* ++++ END   /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h */
 typedef struct __pthread_internal_list {
 	struct __pthread_internal_list *__prev;
 	struct __pthread_internal_list *__next;
@@ -153,7 +153,7 @@ typedef struct __pthread_internal_list {
 typedef struct __pthread_internal_slist {
 	struct __pthread_internal_slist *__next;
 } __pthread_slist_t;
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/struct_mutex.h */
+/* ++++ BEGIN /usr/include/x86_64-linux-gnu/bits/struct_mutex.h */
 enum { _THREAD_MUTEX_INTERNAL_H = 1 };
 struct __pthread_mutex_s {
 	int __lock;
@@ -166,8 +166,8 @@ struct __pthread_mutex_s {
 	__pthread_list_t __list;
 	enum { __PTHREAD_MUTEX_HAVE_PREV = 1 };
 };
-/* END   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h */
+/* ++++ END   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h */
+/* ++++ BEGIN /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h */
 enum { _RWLOCK_INTERNAL_H = 1 };
 struct __pthread_rwlock_arch_t {
 	unsigned int __readers;
@@ -184,7 +184,7 @@ struct __pthread_rwlock_arch_t {
 	unsigned long int __pad2;
 	unsigned int __flags;
 };
-/* END   /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h */
+/* ++++ END   /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h */
 struct __pthread_cond_s {
 	__atomic_wide_counter __wseq;
 	__atomic_wide_counter __g1_start;
@@ -200,7 +200,7 @@ typedef struct {
 	int __data;
 } __once_flag;
 /* #define __ONCE_FLAG_INIT { 0 } ### string, not number "{ 0 }" */
-/* END   /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h */
+/* +++ END   /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h */
 typedef unsigned long int pthread_t;
 typedef union {
 	char __size[4];
@@ -246,6 +246,6 @@ typedef union {
 	char __size[4];
 	int __align;
 } pthread_barrierattr_t;
-/* END   /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h */
-/* END   /usr/include/x86_64-linux-gnu/sys/types.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h */
+/* + END   /usr/include/x86_64-linux-gnu/sys/types.h */
 ]]

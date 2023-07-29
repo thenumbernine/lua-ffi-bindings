@@ -1,6 +1,6 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN /usr/include/fitsio.h */
+/* + BEGIN /usr/include/fitsio.h */
 enum { _FITSIO_H = 1 };
 /* #define CFITSIO_VERSION 4.2.0 ### string, not number "4.2.0" */
 enum { CFITSIO_MICRO = 0 };
@@ -8,25 +8,25 @@ enum { CFITSIO_MINOR = 2 };
 enum { CFITSIO_MAJOR = 4 };
 enum { CFITSIO_SONAME = 10 };
 enum { CFITS_API = 1 };
-/* BEGIN /usr/include/stdio.h */
+/* ++ BEGIN /usr/include/stdio.h */
 ]] require 'ffi.c.stdio' ffi.cdef[[
-/* END   /usr/include/stdio.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
+/* ++ END   /usr/include/stdio.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
 ]] require 'ffi.c.sys.types' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/sys/types.h */
-/* BEGIN /usr/include/stdlib.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/sys/types.h */
+/* ++ BEGIN /usr/include/stdlib.h */
 ]] require 'ffi.c.stdlib' ffi.cdef[[
-/* END   /usr/include/stdlib.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
+/* ++ END   /usr/include/stdlib.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
 ]] require 'ffi.c.limits' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
 enum { USE_LL_SUFFIX = 1 };
 typedef long long LONGLONG;
 typedef unsigned long long ULONGLONG;
 enum { LONGLONG_TYPE = 1 };
 /* #define LONGLONG_MAX LLONG_MAX ### string, number, replaceline "9.2233720368548e+18" */
 /* #define LONGLONG_MIN LLONG_MIN ### string, number, replaceline "-9.2233720368548e+18" */
-/* BEGIN /usr/include/longnam.h */
+/* ++ BEGIN /usr/include/longnam.h */
 enum { _LONGNAME_H = 1 };
 enum { fits_parse_input_url = 0 };
 enum { fits_parse_input_filename = 0 };
@@ -596,7 +596,7 @@ enum { fits_verbose_https = 0 };
 enum { fits_show_download_progress = 0 };
 enum { fits_get_timeout = 0 };
 enum { fits_set_timeout = 0 };
-/* END   /usr/include/longnam.h */
+/* ++ END   /usr/include/longnam.h */
 enum { NIOBUF = 40 };
 enum { IOBUFLEN = 2880 };
 enum { FLEN_FILENAME = 1025 };
@@ -1649,6 +1649,6 @@ void ffvhtps(int flag);
 void ffshdwn(int flag);
 int ffgtmo(void);
 int ffstmo(int sec, int *status);
-/* END   /usr/include/fitsio.h */
+/* + END   /usr/include/fitsio.h */
 ]]
 return require 'ffi.load' 'cfitsio'

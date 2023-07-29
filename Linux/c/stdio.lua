@@ -1,66 +1,56 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN /usr/include/stdio.h */
+/* + BEGIN /usr/include/stdio.h */
 enum { _STDIO_H = 1 };
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 ]] require 'ffi.c.bits.libc-header-start' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.Linux.c.stddef' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+]] require 'ffi.c.stddef' ffi.cdef[[
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
 ]] require 'ffi.c.stdarg' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.c.bits.types' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/bits/types.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h */
 enum { _____fpos_t_defined = 1 };
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
+/* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.c.bits.types' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/bits/types.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h */
-enum { ____mbstate_t_defined = 1 };
-typedef struct {
-	int __count;
-	union {
-	unsigned int __wch;
-	char __wchb[4];
-} __value;
-} __mbstate_t;
-/* END   /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h */
+/* +++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
+/* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h */
+]] require 'ffi.c.bits.types.__mbstate_t' ffi.cdef[[
+/* +++ END   /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h */
 typedef struct _G_fpos_t {
 	__off_t __pos;
 	__mbstate_t __state;
 } __fpos_t;
-/* END   /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h */
 enum { _____fpos64_t_defined = 1 };
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
+/* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.c.bits.types' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/bits/types.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h */
-/* END   /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h */
+/* +++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
+/* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h */
+]] require 'ffi.c.bits.types.__mbstate_t' ffi.cdef[[
+/* +++ END   /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h */
 typedef struct _G_fpos64_t {
 	__off64_t __pos;
 	__mbstate_t __state;
 } __fpos64_t;
-/* END   /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types/__FILE.h */
-enum { ____FILE_defined = 1 };
-struct _IO_FILE;
-typedef struct _IO_FILE __FILE;
-/* END   /usr/include/x86_64-linux-gnu/bits/types/__FILE.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types/FILE.h */
-enum { __FILE_defined = 1 };
-struct _IO_FILE;
-typedef struct _IO_FILE FILE;
-/* END   /usr/include/x86_64-linux-gnu/bits/types/FILE.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/__FILE.h */
+]] require 'ffi.c.bits.types.__FILE' ffi.cdef[[
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/types/__FILE.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/FILE.h */
+]] require 'ffi.c.bits.types.FILE' ffi.cdef[[
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/types/FILE.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h */
 enum { __struct_FILE_defined = 1 };
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
+/* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.c.bits.types' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/bits/types.h */
+/* +++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
 struct _IO_FILE;
 struct _IO_marker;
 struct _IO_codecvt;
@@ -100,7 +90,7 @@ struct _IO_FILE {
 enum { _IO_EOF_SEEN = 16 };
 enum { _IO_ERR_SEEN = 32 };
 enum { _IO_USER_LOCK = 32768 };
-/* END   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h */
 ]] require 'ffi.c.va_list' ffi.cdef[[
 ]] require 'ffi.c.bits.types.off_t' ffi.cdef[[
 ]] require 'ffi.c.bits.types.ssize_t' ffi.cdef[[
@@ -112,14 +102,14 @@ enum { BUFSIZ = 8192 };
 enum { EOF = -1 };
 ]] require 'ffi.c.bits.types.SEEK' ffi.cdef[[
 /* # define P_tmpdir	"/tmp" ### string, not number "\"/tmp\"" */
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/stdio_lim.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/stdio_lim.h */
 enum { _BITS_STDIO_LIM_H = 1 };
 enum { L_tmpnam = 20 };
 enum { TMP_MAX = 238328 };
 enum { FILENAME_MAX = 4096 };
 enum { L_ctermid = 9 };
 enum { FOPEN_MAX = 16 };
-/* END   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h */
 extern FILE *stdin;
 extern FILE *stdout;
 extern FILE *stderr;
@@ -159,9 +149,9 @@ extern int dprintf (int __fd, const char * __fmt, ...) __attribute__ ((__format_
 extern int fscanf (FILE * __stream, const char * __format, ...);
 extern int scanf (const char * __format, ...);
 extern int sscanf (const char * __s, const char * __format, ...) __attribute__ ((__nothrow__ , __leaf__));
-/* BEGIN /usr/include/x86_64-linux-gnu/bits/floatn.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/floatn.h */
 ]] require 'ffi.c.bits.floatn' ffi.cdef[[
-/* END   /usr/include/x86_64-linux-gnu/bits/floatn.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/floatn.h */
 /* ### INCOMPLETE ARG MACRO ### __REDIRECT ### IN LINE ### extern int __REDIRECT (fscanf, (FILE * __stream, */
 /* ### PREPENDING ### extern int __REDIRECT (fscanf, (FILE * __stream, ### TO ### const char *__restrict __format, ...), */
 /* ### INCOMPLETE ARG MACRO ### __REDIRECT ### IN LINE ### extern int __REDIRECT (fscanf, (FILE * __stream, const char * __format, ...), */
@@ -244,7 +234,7 @@ extern int ftrylockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)
 extern void funlockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
 extern int __uflow (FILE *);
 extern int __overflow (FILE *, int);
-/* END   /usr/include/stdio.h */
+/* + END   /usr/include/stdio.h */
 ]]
 -- special case since in the browser app where I'm capturing fopen for remote requests and caching
 -- feel free to not use the returend table and just use ffi.C for faster access

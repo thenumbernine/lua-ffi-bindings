@@ -1,20 +1,20 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN /usr/include/x86_64-linux-gnu/tiffio.h */
+/* + BEGIN /usr/include/x86_64-linux-gnu/tiffio.h */
 enum { _TIFFIO_ = 1 };
-/* BEGIN /usr/include/x86_64-linux-gnu/tiff.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/tiff.h */
 enum { _TIFF_ = 1 };
-/* BEGIN /usr/include/x86_64-linux-gnu/tiffconf.h */
+/* +++ BEGIN /usr/include/x86_64-linux-gnu/tiffconf.h */
 enum { _TIFFCONF_ = 1 };
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 ]] require 'ffi.c.stddef' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
+/* ++++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
 ]] require 'ffi.c.stdint' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
-/* BEGIN /usr/include/inttypes.h */
+/* ++++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
+/* ++++ BEGIN /usr/include/inttypes.h */
 ]] require 'ffi.c.inttypes' ffi.cdef[[
-/* END   /usr/include/inttypes.h */
+/* ++++ END   /usr/include/inttypes.h */
 enum { TIFF_SSIZE_T = 0 };
 enum { HAVE_IEEEFP = 1 };
 enum { HOST_FILLORDER = 0 };
@@ -43,7 +43,7 @@ enum { CMYK_SUPPORT = 1 };
 enum { ICC_SUPPORT = 1 };
 enum { PHOTOSHOP_SUPPORT = 1 };
 enum { IPTC_SUPPORT = 1 };
-/* END   /usr/include/x86_64-linux-gnu/tiffconf.h */
+/* +++ END   /usr/include/x86_64-linux-gnu/tiffconf.h */
 enum { TIFF_VERSION_CLASSIC = 42 };
 enum { TIFF_VERSION_BIG = 43 };
 enum { TIFF_BIGENDIAN = 19789 };
@@ -601,14 +601,14 @@ enum { GPSTAG_AREAINFORMATION = 28 };
 enum { GPSTAG_DATESTAMP = 29 };
 enum { GPSTAG_DIFFERENTIAL = 30 };
 enum { GPSTAG_GPSHPOSITIONINGERROR = 31 };
-/* END   /usr/include/x86_64-linux-gnu/tiff.h */
-/* BEGIN /usr/include/x86_64-linux-gnu/tiffvers.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/tiff.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/tiffvers.h */
 /* #define TIFFLIB_VERSION_STR "LIBTIFF, Version 4.5.0\nCopyright (c) 1988-1996 Sam Leffler\nCopyright (c) 1991-1996 Silicon Graphics, Inc." ### string, not number "\"LIBTIFF, Version 4.5.0\\nCopyright (c) 1988-1996 Sam Leffler\\nCopyright (c) 1991-1996 Silicon Graphics, Inc.\"" */
 enum { TIFFLIB_VERSION = 20221213 };
 enum { TIFFLIB_MAJOR_VERSION = 4 };
 enum { TIFFLIB_MINOR_VERSION = 5 };
 enum { TIFFLIB_MICRO_VERSION = 0 };
-/* END   /usr/include/x86_64-linux-gnu/tiffvers.h */
+/* ++ END   /usr/include/x86_64-linux-gnu/tiffvers.h */
 typedef struct tiff TIFF;
 typedef int64_t tmsize_t;
 /* #define TIFF_TMSIZE_T_MAX (tmsize_t)(SIZE_MAX >> 1) ### string, not number "(tmsize_t)(SIZE_MAX >> 1)" */
@@ -709,12 +709,12 @@ typedef struct {
 	uint16_t scheme;
 	TIFFInitMethod init;
 } TIFFCodec;
-/* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
 ]] require 'ffi.c.stdarg' ffi.cdef[[
-/* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
-/* BEGIN /usr/include/stdio.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
+/* ++ BEGIN /usr/include/stdio.h */
 ]] require 'ffi.c.stdio' ffi.cdef[[
-/* END   /usr/include/stdio.h */
+/* ++ END   /usr/include/stdio.h */
 enum { LOGLUV_PUBLIC = 1 };
 typedef void (*TIFFErrorHandler)(const char *, const char *, va_list);
 typedef void (*TIFFErrorHandlerExt)(thandle_t, const char *, const char *, va_list);
@@ -951,5 +951,5 @@ typedef struct {
 	char *field_name;
 } TIFFFieldInfo;
 extern int TIFFMergeFieldInfo(TIFF *, const TIFFFieldInfo[], uint32_t);
-/* END   /usr/include/x86_64-linux-gnu/tiffio.h */
+/* + END   /usr/include/x86_64-linux-gnu/tiffio.h */
 ]]
