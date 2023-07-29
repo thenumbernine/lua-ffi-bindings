@@ -46,8 +46,7 @@ typedef unsigned char uint_fast8_t;
 typedef unsigned long int uint_fast16_t;
 typedef unsigned long int uint_fast32_t;
 typedef unsigned long int uint_fast64_t;
-typedef long int intptr_t;
-enum { __intptr_t_defined = 1 };
+]] require 'ffi.c.bits.types.intptr_t' ffi.cdef[[
 typedef unsigned long int uintptr_t;
 typedef __intmax_t intmax_t;
 typedef __uintmax_t uintmax_t;

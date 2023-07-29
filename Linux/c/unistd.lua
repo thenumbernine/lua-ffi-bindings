@@ -120,8 +120,7 @@ enum { STDERR_FILENO = 2 };
 typedef __useconds_t useconds_t;
 enum { __useconds_t_defined = 1 };
 ]] require 'ffi.c.bits.types.pid_t' ffi.cdef[[
-typedef __intptr_t intptr_t;
-enum { __intptr_t_defined = 1 };
+]] require 'ffi.c.bits.types.intptr_t' ffi.cdef[[
 typedef __socklen_t socklen_t;
 enum { __socklen_t_defined = 1 };
 enum { R_OK = 4 };
