@@ -8,8 +8,8 @@ ffi.cdef[[
 /* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */
 /* #pragma push_macro("_wgetcwd") */
 /* #pragma push_macro("_wgetdcwd") */
-__declspec(allocator) wchar_t* __cdecl _wgetcwd( wchar_t* _DstBuf, int _SizeInWords );
-__declspec(allocator) wchar_t* __cdecl _wgetdcwd( int _Drive, wchar_t* _DstBuf, int _SizeInWords );
+wchar_t* __cdecl _wgetcwd( wchar_t* _DstBuf, int _SizeInWords );
+wchar_t* __cdecl _wgetdcwd( int _Drive, wchar_t* _DstBuf, int _SizeInWords );
 enum { _wgetdcwd_nolock = 0 };
 /* #pragma pop_macro("_wgetcwd") */
 /* #pragma pop_macro("_wgetdcwd") */

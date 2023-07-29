@@ -54,7 +54,6 @@ enum { WINAPI_PARTITION_PHONE_APP = 0 };
 enum { WINAPI_PARTITION_GAMES = 1 };
 enum { WINAPI_PARTITION_SYSTEM = 0 };
 enum { WINAPI_PARTITION_PHONE = 0 };
-/* #define _WINAPI_DEPRECATED_DECLARATION  __declspec(deprecated("This API cannot be used in the context of the caller's application type.")) ### string, not number "__declspec(deprecated(\"This API cannot be used in the context of the caller's application type.\"))" */
 /* #pragma warning(pop) */
 /* END C:/Program Files (x86)/Windows Kits/10/include/10.0.18362.0/shared/winapifamily.h */
 /* #pragma region Desktop Family */
@@ -1023,7 +1022,6 @@ enum { GLAPI = 0 };
 enum { GL_GLEXT_VERSION = 20210107 };
 /* BEGIN C:/Users/Chris/include/KHR/khrplatform.h */
 enum { __khrplatform_h_ = 1 };
-/* #   define KHRONOS_APICALL __declspec(dllimport) ### string, not number "__declspec(dllimport)" */
 enum { KHRONOS_APIENTRY = 0 };
 enum { KHRONOS_APIATTRIBUTES = 1 };
 typedef __int32 khronos_int32_t;

@@ -69,7 +69,7 @@ int __cdecl _strcoll_l( char const* _String1, char const* _String2, _locale_t _L
 /* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_1( char*, __RETURN_POLICY_DST, , strcpy,   , char,        _Destination,                                         char const*, _Source ### TO ### ) */
 char* __cdecl strcpy( char * _Destination, char const* _Source );
 size_t __cdecl strcspn( char const* _Str, char const* _Control );
-__declspec(allocator) char* __cdecl _strdup( char const* _Source );
+char* __cdecl _strdup( char const* _Source );
 char* __cdecl _strerror( char const* _ErrorMessage );
 errno_t __cdecl _strerror_s( char* _Buffer, size_t _SizeInBytes, char const* _ErrorMessage );
 /* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_1 ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_1( */

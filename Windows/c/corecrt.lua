@@ -11,8 +11,6 @@ enum { _UCRT_RESTORE_CLANG_WARNINGS = 1 };
 enum { _ACRTIMP = 1 };
 /* #define _ACRTIMP_ALT _ACRTIMP ### string, not number "_ACRTIMP" */
 enum { _DCRTIMP = 1 };
-/* #define _CRTRESTRICT __declspec(restrict) ### string, not number "__declspec(restrict)" */
-/* #define _CRTALLOCATOR __declspec(allocator) ### string, not number "__declspec(allocator)" */
 enum { _CRT_JIT_INTRINSIC = 1 };
 enum { _CRT_GUARDOVERFLOW = 1 };
 enum { _CRT_HYBRIDPATCHABLE = 1 };
@@ -35,8 +33,8 @@ enum { _CRT_USE_WINAPI_FAMILY_DESKTOP_APP = 1 };
 enum { _ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE = 1 };
 enum { _CRT_BUILD_DESKTOP_APP = 1 };
 void __cdecl _invalid_parameter_noinfo(void);
-__declspec(noreturn) void __cdecl _invalid_parameter_noinfo_noreturn(void);
-__declspec(noreturn) void __cdecl _invoke_watson( wchar_t const* _Expression, wchar_t const* _FunctionName, wchar_t const* _FileName, unsigned int _LineNo, uintptr_t _Reserved);
+void __cdecl _invalid_parameter_noinfo_noreturn(void);
+void __cdecl _invoke_watson( wchar_t const* _Expression, wchar_t const* _FunctionName, wchar_t const* _FileName, unsigned int _LineNo, uintptr_t _Reserved);
 enum { _CRT_INTERNAL_NONSTDC_NAMES = 1 };
 enum { _PGLOBAL = 1 };
 enum { _AGLOBAL = 1 };

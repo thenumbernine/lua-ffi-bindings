@@ -78,7 +78,7 @@ int __cdecl _rmtmp(void);
 void __cdecl setbuf( FILE* _Stream, char* _Buffer );
 int __cdecl _setmaxstdio( int _Maximum );
 int __cdecl setvbuf( FILE* _Stream, char* _Buffer, int _Mode, size_t _Size );
-__declspec(allocator) char* __cdecl _tempnam( char const* _DirectoryName, char const* _FilePrefix );
+char* __cdecl _tempnam( char const* _DirectoryName, char const* _FilePrefix );
 FILE* __cdecl tmpfile(void);
 /* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0 ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0( */
 /* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0( ### TO ### _Success_(return == 0) */

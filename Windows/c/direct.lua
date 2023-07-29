@@ -23,8 +23,8 @@ int __cdecl _getdrive(void);
 unsigned long __cdecl _getdrives(void);
 /* #pragma push_macro("_getcwd") */
 /* #pragma push_macro("_getdcwd") */
-__declspec(allocator) char* __cdecl _getcwd( char* _DstBuf, int _SizeInBytes );
-__declspec(allocator) char* __cdecl _getdcwd( int _Drive, char* _DstBuf, int _SizeInBytes );
+char* __cdecl _getcwd( char* _DstBuf, int _SizeInBytes );
+char* __cdecl _getdcwd( int _Drive, char* _DstBuf, int _SizeInBytes );
 enum { _getdcwd_nolock = 0 };
 /* #pragma pop_macro("_getcwd") */
 /* #pragma pop_macro("_getdcwd") */

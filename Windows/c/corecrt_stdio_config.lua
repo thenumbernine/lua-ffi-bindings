@@ -8,13 +8,6 @@ ffi.cdef[[
 /* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */
 enum { _CRT_STDIO_INLINE = 0 };
 /* #define _CRT_INTERNAL_STDIO_SYMBOL_PREFIX "" ### string, not number "\"\"" */
-__declspec(noinline) __inline unsigned __int64* __cdecl __local_stdio_printf_options(void) {
-	static unsigned __int64 _OptionsStorage;
-	return &_OptionsStorage;
-} __declspec(noinline) __inline unsigned __int64* __cdecl __local_stdio_scanf_options(void) {
-	static unsigned __int64 _OptionsStorage;
-	return &_OptionsStorage;
-}
 /* #define _CRT_INTERNAL_LOCAL_PRINTF_OPTIONS (*__local_stdio_printf_options()) ### string, not number "(*__local_stdio_printf_options())" */
 /* #define _CRT_INTERNAL_LOCAL_SCANF_OPTIONS  (*__local_stdio_scanf_options ()) ### string, not number "(*__local_stdio_scanf_options ())" */
 /* #define _CRT_INTERNAL_PRINTF_LEGACY_VSPRINTF_NULL_TERMINATION (1ULL << 0) ### string, not number "(1ULL << 0)" */

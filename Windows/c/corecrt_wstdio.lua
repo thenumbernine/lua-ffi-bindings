@@ -49,7 +49,7 @@ void __cdecl _wperror( wchar_t const* _ErrorMessage );
 FILE* __cdecl _wpopen( wchar_t const* _Command, wchar_t const* _Mode );
 int __cdecl _wremove( wchar_t const* _FileName );
 /*     #pragma push_macro("_wtempnam") */
-__declspec(allocator) wchar_t* __cdecl _wtempnam( wchar_t const* _Directory, wchar_t const* _FilePrefix );
+wchar_t* __cdecl _wtempnam( wchar_t const* _Directory, wchar_t const* _FilePrefix );
 /*     #pragma pop_macro("_wtempnam") */
 errno_t __cdecl _wtmpnam_s( wchar_t* _Buffer, size_t _BufferCount );
 /* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0 ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0( */
