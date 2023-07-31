@@ -7,13 +7,13 @@ enum { _TIFF_ = 1 };
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/tiffconf.h */
 enum { _TIFFCONF_ = 1 };
 /* ++++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.c.stddef' ffi.cdef[[
+]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* ++++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 /* ++++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
-]] require 'ffi.c.stdint' ffi.cdef[[
+]] require 'ffi.req' 'c.stdint' ffi.cdef[[
 /* ++++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
 /* ++++ BEGIN /usr/include/inttypes.h */
-]] require 'ffi.c.inttypes' ffi.cdef[[
+]] require 'ffi.req' 'c.inttypes' ffi.cdef[[
 /* ++++ END   /usr/include/inttypes.h */
 enum { TIFF_SSIZE_T = 0 };
 enum { HAVE_IEEEFP = 1 };
@@ -710,10 +710,10 @@ typedef struct {
 	TIFFInitMethod init;
 } TIFFCodec;
 /* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
-]] require 'ffi.c.stdarg' ffi.cdef[[
+]] require 'ffi.req' 'c.stdarg' ffi.cdef[[
 /* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
 /* ++ BEGIN /usr/include/stdio.h */
-]] require 'ffi.c.stdio' ffi.cdef[[
+]] require 'ffi.req' 'c.stdio' ffi.cdef[[
 /* ++ END   /usr/include/stdio.h */
 enum { LOGLUV_PUBLIC = 1 };
 typedef void (*TIFFErrorHandler)(const char *, const char *, va_list);

@@ -3,7 +3,7 @@ ffi.cdef[[
 /* + BEGIN /usr/include/x86_64-linux-gnu/sys/ioctl.h */
 enum { _SYS_IOCTL_H = 1 };
 /* ++ BEGIN /usr/include/features.h */
-]] require 'ffi.c.features' ffi.cdef[[
+]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* ++ END   /usr/include/features.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/ioctls.h */
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/asm/ioctls.h */

@@ -3,21 +3,21 @@ ffi.cdef[[
 /* + BEGIN /usr/include/sched.h */
 enum { _SCHED_H = 1 };
 /* ++ BEGIN /usr/include/features.h */
-]] require 'ffi.c.features' ffi.cdef[[
+]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* ++ END   /usr/include/features.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-]] require 'ffi.c.bits.types' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
 /* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.c.stddef' ffi.cdef[[
+]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
-]] require 'ffi.c.bits.types.time_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.time_t' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
-]] require 'ffi.c.bits.types.struct_timespec' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.struct_timespec' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
-]] require 'ffi.c.bits.types.pid_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.pid_t' ffi.cdef[[
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/sched.h */
 enum { _BITS_SCHED_H = 1 };
 enum { SCHED_OTHER = 0 };

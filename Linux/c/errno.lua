@@ -3,7 +3,7 @@ ffi.cdef[[
 /* + BEGIN /usr/include/errno.h */
 enum { _ERRNO_H = 1 };
 /* ++ BEGIN /usr/include/features.h */
-]] require 'ffi.c.features' ffi.cdef[[
+]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* ++ END   /usr/include/features.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/errno.h */
 enum { _BITS_ERRNO_H = 1 };

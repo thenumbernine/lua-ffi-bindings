@@ -3,10 +3,10 @@ local ffi = require 'ffi'
 ffi.cdef[[
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/sys/stat.h */
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
-]] require 'ffi.Windows.c.corecrt' ffi.cdef[[
+]] require 'ffi.req' 'c.corecrt' ffi.cdef[[
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/sys/types.h */
-]] require 'ffi.Windows.c.sys.types' ffi.cdef[[
+]] require 'ffi.req' 'c.sys.types' ffi.cdef[[
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/sys/types.h */
 /* #pragma warning(push) */
 /* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */

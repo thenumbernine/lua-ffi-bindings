@@ -3,7 +3,7 @@ ffi.cdef[[
 /* BEGIN /usr/include/x86_64-linux-gnu/sys/sysinfo.h */
 enum { _SYS_SYSINFO_H = 1 };
 /* BEGIN /usr/include/features.h */
-]] require 'ffi.c.features' ffi.cdef[[
+]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* END /usr/include/features.h */
 /* BEGIN /usr/include/linux/kernel.h */
 enum { _LINUX_KERNEL_H = 1 };
@@ -38,7 +38,7 @@ __extension__ typedef unsigned long long __u64;
 enum { _LINUX_POSIX_TYPES_H = 1 };
 /* BEGIN /usr/include/linux/stddef.h */
 /* END /usr/include/1/stddef.h */
-]] require 'ffi.c.__FD_SETSIZE' ffi.cdef[[
+]] require 'ffi.req' 'c.__FD_SETSIZE' ffi.cdef[[
 typedef struct { unsigned long fds_bits[1024 / (8 * sizeof(long))];
 } __kernel_fd_set;
 typedef void (*__kernel_sighandler_t)(int);

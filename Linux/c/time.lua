@@ -3,15 +3,15 @@ ffi.cdef[[
 /* + BEGIN /usr/include/time.h */
 enum { _TIME_H = 1 };
 /* ++ BEGIN /usr/include/features.h */
-]] require 'ffi.c.features' ffi.cdef[[
+]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* ++ END   /usr/include/features.h */
 /* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.c.stddef' ffi.cdef[[
+]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/time.h */
 enum { _BITS_TIME_H = 1 };
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-]] require 'ffi.c.bits.types' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* +++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
 /* #define CLOCKS_PER_SEC  ((__clock_t) 1000000) ### string, not number "((__clock_t) 1000000)" */
 enum { CLOCK_REALTIME = 0 };
@@ -28,15 +28,15 @@ enum { CLOCK_TAI = 11 };
 enum { TIMER_ABSTIME = 1 };
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/time.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/clock_t.h */
-]] require 'ffi.c.bits.types.clock_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.clock_t' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/clock_t.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
-]] require 'ffi.c.bits.types.time_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.time_t' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h */
 enum { __struct_tm_defined = 1 };
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-]] require 'ffi.c.bits.types' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* +++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
 struct tm {
 	int tm_sec;
@@ -53,21 +53,21 @@ struct tm {
 };
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
-]] require 'ffi.c.bits.types.struct_timespec' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.struct_timespec' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h */
-]] require 'ffi.c.bits.types.clockid_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.clockid_t' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/timer_t.h */
-]] require 'ffi.c.bits.types.timer_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.timer_t' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/timer_t.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h */
 enum { __itimerspec_defined = 1 };
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-]] require 'ffi.c.bits.types' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* +++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
-]] require 'ffi.c.bits.types.struct_timespec' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.struct_timespec' ffi.cdef[[
 /* +++ END   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
 struct itimerspec {
 	struct timespec it_interval;
@@ -75,9 +75,9 @@ struct itimerspec {
 };
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h */
 struct sigevent;
-]] require 'ffi.c.bits.types.pid_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.pid_t' ffi.cdef[[
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/locale_t.h */
-]] require 'ffi.c.bits.types.locale_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.locale_t' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h */
 enum { TIME_UTC = 1 };
 extern clock_t clock (void) __attribute__ ((__nothrow__ , __leaf__));

@@ -3,10 +3,10 @@ ffi.cdef[[
 /* + BEGIN /usr/include/netcdf.h */
 enum { _NETCDF_ = 1 };
 /* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.c.stddef' ffi.cdef[[
+]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 /* ++ BEGIN /usr/include/errno.h */
-]] require 'ffi.c.errno' ffi.cdef[[
+]] require 'ffi.req' 'c.errno' ffi.cdef[[
 /* ++ END   /usr/include/errno.h */
 typedef int nc_type;
 enum { NC_NAT = 0 };

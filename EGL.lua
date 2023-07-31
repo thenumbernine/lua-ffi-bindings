@@ -5,7 +5,7 @@ enum { __egl_h_ = 1 };
 /* ++ BEGIN /usr/include/EGL/eglplatform.h */
 enum { __eglplatform_h_ = 1 };
 /* +++ BEGIN /usr/include/KHR/khrplatform.h */
-]] require 'ffi.KHR.khrplatform' ffi.cdef[[
+]] require 'ffi.req' 'KHR.khrplatform' ffi.cdef[[
 /* +++ END   /usr/include/KHR/khrplatform.h */
 /* #define EGLAPI KHRONOS_APICALL ### string, not number "KHRONOS_APICALL" */
 /* #define EGLAPIENTRY  KHRONOS_APIENTRY ### string, not number "KHRONOS_APIENTRY" */
@@ -23,7 +23,7 @@ enum { EGL_VERSION_1_0 = 1 };
 typedef unsigned int EGLBoolean;
 typedef void *EGLDisplay;
 /* ++ BEGIN /usr/include/KHR/khrplatform.h */
-]] require 'ffi.KHR.khrplatform' ffi.cdef[[
+]] require 'ffi.req' 'KHR.khrplatform' ffi.cdef[[
 /* ++ END   /usr/include/KHR/khrplatform.h */
 /* ++ BEGIN /usr/include/EGL/eglplatform.h */
 /* ++ END   /usr/include/EGL/eglplatform.h */

@@ -6,6 +6,7 @@ so to fix this ...
 3) custom-require (like luarocks does) ...
 proly #3 ... here:
 --]]
+local ffi = require 'ffi'
 return function(req)
 	assert(type(req) == 'string', 'expected string')
 	-- first search $os/$arch/$req

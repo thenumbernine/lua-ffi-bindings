@@ -5,10 +5,10 @@ ffi.cdef[[
 /* + BEGIN /usr/include/math.h */
 enum { _MATH_H = 1 };
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
-]] require 'ffi.c.bits.libc-header-start' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.libc-header-start' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-]] require 'ffi.c.bits.types' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/math-vector.h */
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h */
@@ -286,7 +286,7 @@ enum { __DECL_SIMD_tanf128x = 1 };
 /* +++ END   /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h */
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/math-vector.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/floatn.h */
-]] require 'ffi.c.bits.floatn' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.floatn' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/floatn.h */
 /* # define HUGE_VAL (__builtin_huge_val ()) ### string, not number "(__builtin_huge_val ())" */
 /* #  define HUGE_VALF (__builtin_huge_valf ()) ### string, not number "(__builtin_huge_valf ())" */

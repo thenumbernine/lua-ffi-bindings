@@ -3,7 +3,7 @@ ffi.cdef[[
 /* BEGIN C:/Users/Christopher Moore/include/ogg/ogg.h */
 enum { _OGG_H = 1 };
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/stddef.h */
-]] require 'ffi.Windows.c.stddef' ffi.cdef[[
+]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/stddef.h */
 /* BEGIN C:/Users/Christopher Moore/include/ogg/os_types.h */
 enum { _OS_TYPES_H = 1 };
@@ -12,7 +12,7 @@ enum { _ogg_calloc = 0 };
 enum { _ogg_realloc = 0 };
 enum { _ogg_free = 0 };
 /* BEGIN C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.36.32532/include/stdint.h */
-]] require 'ffi.Windows.c.stdint' ffi.cdef[[
+]] require 'ffi.req' 'c.stdint' ffi.cdef[[
 /* END   C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.36.32532/include/stdint.h */
 typedef int16_t ogg_int16_t;
 typedef uint16_t ogg_uint16_t;

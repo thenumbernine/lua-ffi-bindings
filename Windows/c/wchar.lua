@@ -3,11 +3,11 @@ ffi.cdef[[
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/wchar.h */
 enum { _INC_WCHAR = 1 };
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
-]] require 'ffi.Windows.c.corecrt' ffi.cdef[[
+]] require 'ffi.req' 'c.corecrt' ffi.cdef[[
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_memcpy_s.h */
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/errno.h */
-]] require 'ffi.Windows.c.errno' ffi.cdef[[
+]] require 'ffi.req' 'c.errno' ffi.cdef[[
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/errno.h */
 /* #pragma warning(push) */
 /* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */
@@ -16,7 +16,7 @@ enum { _INC_WCHAR = 1 };
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_memcpy_s.h */
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wconio.h */
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_stdio_config.h */
-]] require 'ffi.Windows.c.corecrt_stdio_config' ffi.cdef[[
+]] require 'ffi.req' 'c.corecrt_stdio_config' ffi.cdef[[
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_stdio_config.h */
 /* #pragma warning(push) */
 /* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */
@@ -108,10 +108,10 @@ int __cdecl is_wctype( wint_t _C, wctype_t _Type);
 /* #pragma warning(pop)  */
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wctype.h */
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wdirect.h */
-]] require 'ffi.Windows.c.corecrt_wdirect' ffi.cdef[[
+]] require 'ffi.req' 'c.corecrt_wdirect' ffi.cdef[[
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wdirect.h */
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wio.h */
-]] require 'ffi.Windows.c.corecrt_wio' ffi.cdef[[
+]] require 'ffi.req' 'c.corecrt_wio' ffi.cdef[[
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wio.h */
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wprocess.h */
 /* #pragma warning(push) */
@@ -136,19 +136,19 @@ int __cdecl _wsystem( wchar_t const* _Command );
 /* #pragma warning(pop)  */
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wprocess.h */
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstdio.h */
-]] require 'ffi.Windows.c.corecrt_wstdio' ffi.cdef[[
+]] require 'ffi.req' 'c.corecrt_wstdio' ffi.cdef[[
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstdio.h */
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstdlib.h */
-]] require 'ffi.Windows.c.corecrt_wstdlib' ffi.cdef[[
+]] require 'ffi.req' 'c.corecrt_wstdlib' ffi.cdef[[
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstdlib.h */
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstring.h */
-]] require 'ffi.Windows.c.corecrt_wstring' ffi.cdef[[
+]] require 'ffi.req' 'c.corecrt_wstring' ffi.cdef[[
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstring.h */
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wtime.h */
-]] require 'ffi.Windows.c.corecrt_wtime' ffi.cdef[[
+]] require 'ffi.req' 'c.corecrt_wtime' ffi.cdef[[
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wtime.h */
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/sys/stat.h */
-]] require 'ffi.Windows.c.sys.stat' ffi.cdef[[
+]] require 'ffi.req' 'c.sys.stat' ffi.cdef[[
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/sys/stat.h */
 /* #pragma warning(push) */
 /* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */

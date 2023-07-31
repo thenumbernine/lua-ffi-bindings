@@ -3,20 +3,20 @@ ffi.cdef[[
 /* BEGIN /usr/include/x86_64-linux-gnu/sys/time.h */
 enum { _SYS_TIME_H = 1 };
 /* BEGIN /usr/include/features.h */
-]] require 'ffi.c.features' ffi.cdef[[
+]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* END   /usr/include/features.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-]] require 'ffi.c.bits.types' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* END   /usr/include/x86_64-linux-gnu/bits/types.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
-]] require 'ffi.c.bits.types.time_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.time_t' ffi.cdef[[
 /* END   /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h */
-]] require 'ffi.c.bits.types.struct_timeval' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.struct_timeval' ffi.cdef[[
 /* END   /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h */
-]] require 'ffi.c.bits.types.suseconds_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.suseconds_t' ffi.cdef[[
 /* BEGIN /usr/include/x86_64-linux-gnu/sys/select.h */
-]] require 'ffi.c.sys.select' ffi.cdef[[
+]] require 'ffi.req' 'c.sys.select' ffi.cdef[[
 /* END   /usr/include/x86_64-linux-gnu/sys/select.h */
 struct timezone {
 	int tz_minuteswest;

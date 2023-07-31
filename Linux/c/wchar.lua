@@ -3,19 +3,19 @@ ffi.cdef[[
 /* + BEGIN /usr/include/wchar.h */
 enum { _WCHAR_H = 1 };
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
-]] require 'ffi.c.bits.libc-header-start' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.libc-header-start' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/floatn.h */
-]] require 'ffi.c.bits.floatn' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.floatn' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/floatn.h */
 /* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.c.stddef' ffi.cdef[[
+]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 /* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
-]] require 'ffi.c.stdarg' ffi.cdef[[
+]] require 'ffi.req' 'c.stdarg' ffi.cdef[[
 /* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/wchar.h */
-]] require 'ffi.c.bits.wchar' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.wchar' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/wchar.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/wint_t.h */
 enum { __wint_t_defined = 1 };
@@ -25,18 +25,18 @@ typedef unsigned int wint_t;
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h */
 enum { __mbstate_t_defined = 1 };
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h */
-]] require 'ffi.c.bits.types.__mbstate_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.__mbstate_t' ffi.cdef[[
 /* +++ END   /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h */
 typedef __mbstate_t mbstate_t;
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/__FILE.h */
-]] require 'ffi.c.bits.types.__FILE' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.__FILE' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/__FILE.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/FILE.h */
-]] require 'ffi.c.bits.types.FILE' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.FILE' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/FILE.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/locale_t.h */
-]] require 'ffi.c.bits.types.locale_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.locale_t' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h */
 enum { WCHAR_MIN = -2147483648 };
 enum { WCHAR_MAX = 2147483647 };

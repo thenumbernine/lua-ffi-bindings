@@ -3,12 +3,12 @@ ffi.cdef[[
 /* + BEGIN /usr/include/complex.h */
 enum { _COMPLEX_H = 1 };
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
-]] require 'ffi.c.bits.libc-header-start' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.libc-header-start' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/mathdef.h */
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/mathdef.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/floatn.h */
-]] require 'ffi.c.bits.floatn' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.floatn' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/floatn.h */
 /* manually commented out: enum { complex = 0 }; */
 /* #define _Complex_I	(__extension__ 1.0iF) ### string, not number "(__extension__ 1.0iF)" */

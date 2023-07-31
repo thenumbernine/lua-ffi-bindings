@@ -3,17 +3,17 @@ ffi.cdef[[
 /* + BEGIN /usr/local/include/imgui-1.89.7dock/cimgui.h */
 enum { CIMGUI_INCLUDED = 1 };
 /* ++ BEGIN /usr/include/stdio.h */
-]] require 'ffi.c.stdio' ffi.cdef[[
+]] require 'ffi.req' 'c.stdio' ffi.cdef[[
 /* ++ END   /usr/include/stdio.h */
 /* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
-]] require 'ffi.c.stdint' ffi.cdef[[
+]] require 'ffi.req' 'c.stdint' ffi.cdef[[
 /* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
 /* #define API  __attribute__((__visibility__("default"))) ### string, not number "__attribute__((__visibility__(\"default\")))" */
 /* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
-]] require 'ffi.c.stdarg' ffi.cdef[[
+]] require 'ffi.req' 'c.stdarg' ffi.cdef[[
 /* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
 /* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h */
-]] require 'ffi.c.stdbool' ffi.cdef[[
+]] require 'ffi.req' 'c.stdbool' ffi.cdef[[
 /* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h */
 enum { EXTERN = 0 };
 /* #define CIMGUI_API EXTERN API ### string, not number "EXTERN API" */
@@ -3324,7 +3324,7 @@ extern __attribute__((__visibility__("default"))) void ImVector_ImWchar_Init(ImV
 extern __attribute__((__visibility__("default"))) void ImVector_ImWchar_UnInit(ImVector_ImWchar* p);
 /* + END   /usr/local/include/imgui-1.89.7dock/cimgui.h */
 /* + BEGIN /usr/local/include/imgui-1.89.7dock/imgui_impl_sdl2.h */
-]] require 'ffi.sdl' ffi.cdef[[
+]] require 'ffi.req' 'sdl' ffi.cdef[[
 _Bool ImGui_ImplSDL2_InitForOpenGL(SDL_Window* window, void* sdl_gl_context);
 _Bool ImGui_ImplSDL2_InitForVulkan(SDL_Window* window);
 _Bool ImGui_ImplSDL2_InitForD3D(SDL_Window* window);

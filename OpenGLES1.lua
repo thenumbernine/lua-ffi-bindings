@@ -5,14 +5,14 @@ enum { __gles1_gl_h_ = 1 };
 /* ++ BEGIN /usr/include/GLES/glplatform.h */
 enum { __glplatform_h_ = 1 };
 /* +++ BEGIN /usr/include/KHR/khrplatform.h */
-]] require 'ffi.KHR.khrplatform' ffi.cdef[[
+]] require 'ffi.req' 'KHR.khrplatform' ffi.cdef[[
 /* +++ END   /usr/include/KHR/khrplatform.h */
 /* #define GL_API      KHRONOS_APICALL ### string, not number "KHRONOS_APICALL" */
 /* #define GL_APIENTRY KHRONOS_APIENTRY ### string, not number "KHRONOS_APIENTRY" */
 /* ++ END   /usr/include/GLES/glplatform.h */
 enum { GL_VERSION_ES_CM_1_0 = 1 };
 /* ++ BEGIN /usr/include/KHR/khrplatform.h */
-]] require 'ffi.KHR.khrplatform' ffi.cdef[[
+]] require 'ffi.req' 'KHR.khrplatform' ffi.cdef[[
 /* ++ END   /usr/include/KHR/khrplatform.h */
 typedef khronos_int8_t GLbyte;
 typedef khronos_float_t GLclampf;

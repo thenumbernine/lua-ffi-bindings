@@ -3,23 +3,23 @@ ffi.cdef[[
 /* BEGIN /usr/include/x86_64-linux-gnu/sys/param.h */
 enum { _SYS_PARAM_H = 1 };
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.c.stddef' ffi.cdef[[
+]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
-]] require 'ffi.c.sys.types' ffi.cdef[[
+]] require 'ffi.req' 'c.sys.types' ffi.cdef[[
 /* END   /usr/include/x86_64-linux-gnu/sys/types.h */
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
-]] require 'ffi.c.limits' ffi.cdef[[
+]] require 'ffi.req' 'c.limits' ffi.cdef[[
 /* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
 /* BEGIN /usr/include/endian.h */
 /* END   /usr/include/endian.h */
 /* BEGIN /usr/include/signal.h */
 enum { _SIGNAL_H = 1 };
 /* BEGIN /usr/include/features.h */
-]] require 'ffi.c.features' ffi.cdef[[
+]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* END   /usr/include/features.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-]] require 'ffi.c.bits.types' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* END   /usr/include/x86_64-linux-gnu/bits/types.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/signum-generic.h */
 enum { _BITS_SIGNUM_GENERIC_H = 1 };
@@ -73,14 +73,14 @@ enum { _NSIG = 65 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/sig_atomic_t.h */
 enum { __sig_atomic_t_defined = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-]] require 'ffi.c.bits.types' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* END   /usr/include/x86_64-linux-gnu/bits/types.h */
 typedef __sig_atomic_t sig_atomic_t;
 /* END   /usr/include/x86_64-linux-gnu/bits/types/sig_atomic_t.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h */
 /* END   /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
-]] require 'ffi.c.bits.types.struct_timespec' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.struct_timespec' ffi.cdef[[
 /* END   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/siginfo_t.h */
 enum { __siginfo_t_defined = 1 };
@@ -90,7 +90,7 @@ enum { __siginfo_t_defined = 1 };
 /* redefining matching value: # define __SYSCALL_WORDSIZE		64 */
 /* END   /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-]] require 'ffi.c.bits.types' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* END   /usr/include/x86_64-linux-gnu/bits/types.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h */
 enum { ____sigval_t_defined = 1 };
@@ -264,7 +264,7 @@ enum { __sigevent_t_defined = 1 };
 /* redefining matching value: # define __SYSCALL_WORDSIZE		64 */
 /* END   /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-]] require 'ffi.c.bits.types' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* END   /usr/include/x86_64-linux-gnu/bits/types.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h */
 /* END   /usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h */
@@ -352,7 +352,7 @@ extern int sigqueue (__pid_t __pid, int __sig, const union sigval __val) __attri
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/sigcontext.h */
 enum { _BITS_SIGCONTEXT_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-]] require 'ffi.c.bits.types' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* END   /usr/include/x86_64-linux-gnu/bits/types.h */
 enum { FP_XSTATE_MAGIC1 = 1179670611 };
 enum { FP_XSTATE_MAGIC2 = 1179670597 };
@@ -438,12 +438,12 @@ struct _xstate {
 /* END   /usr/include/x86_64-linux-gnu/bits/sigcontext.h */
 extern int sigreturn (struct sigcontext *__scp) __attribute__ ((__nothrow__ , __leaf__));
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.c.stddef' ffi.cdef[[
+]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/stack_t.h */
 enum { __stack_t_defined = 1 };
 /* BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.c.stddef' ffi.cdef[[
+]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 typedef struct {
 	void *ss_sp;
@@ -454,10 +454,10 @@ typedef struct {
 /* BEGIN /usr/include/x86_64-linux-gnu/sys/ucontext.h */
 enum { _SYS_UCONTEXT_H = 1 };
 /* BEGIN /usr/include/features.h */
-]] require 'ffi.c.features' ffi.cdef[[
+]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* END   /usr/include/features.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-]] require 'ffi.c.bits.types' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* END   /usr/include/x86_64-linux-gnu/bits/types.h */
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h */
 /* END   /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h */
@@ -532,7 +532,7 @@ extern int sigstack (struct sigstack *__ss, struct sigstack *__oss) __attribute_
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/sigthread.h */
 enum { _BITS_SIGTHREAD_H = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h */
-]] require 'ffi.c.bits.types.__sigset_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.__sigset_t' ffi.cdef[[
 /* END   /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h */
 extern int pthread_sigmask (int __how, const __sigset_t * __newmask, __sigset_t * __oldmask)__attribute__ ((__nothrow__ , __leaf__));
 extern int pthread_kill (pthread_t __threadid, int __signo) __attribute__ ((__nothrow__ , __leaf__));
@@ -547,7 +547,7 @@ extern int __libc_current_sigrtmax (void) __attribute__ ((__nothrow__ , __leaf__
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/param.h */
 /* manually commented out: enum { __undef_ARG_MAX = 1 }; */
 /* BEGIN /usr/include/linux/limits.h */
-]] require 'ffi.c.linux.limits' ffi.cdef[[
+]] require 'ffi.req' 'c.linux.limits' ffi.cdef[[
 /* END   /usr/include/linux/limits.h */
 /* BEGIN /usr/include/linux/param.h */
 enum { _LINUX_PARAM_H = 1 };

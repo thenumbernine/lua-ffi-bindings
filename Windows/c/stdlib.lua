@@ -3,7 +3,7 @@ ffi.cdef[[
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/stdlib.h */
 enum { _INC_STDLIB = 1 };
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
-]] require 'ffi.Windows.c.corecrt' ffi.cdef[[
+]] require 'ffi.req' 'c.corecrt' ffi.cdef[[
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_malloc.h */
 /* #pragma warning(push) */
@@ -34,7 +34,7 @@ void* __cdecl _aligned_recalloc( void* _Block, size_t _Count, size_t _Size, size
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_malloc.h */
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_search.h */
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/stddef.h */
-]] require 'ffi.Windows.c.stddef' ffi.cdef[[
+]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/stddef.h */
 /* #pragma warning(push) */
 /* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */
@@ -51,10 +51,10 @@ void* __cdecl lsearch( void const* _Key, void* _Base, unsigned int* _NumOfElemen
 /* #pragma warning(pop)  */
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_search.h */
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstdlib.h */
-]] require 'ffi.Windows.c.corecrt_wstdlib' ffi.cdef[[
+]] require 'ffi.req' 'c.corecrt_wstdlib' ffi.cdef[[
 /* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstdlib.h */
 /* BEGIN C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.36.32532/include/limits.h */
-]] require 'ffi.c.limits' ffi.cdef[[
+]] require 'ffi.req' 'c.limits' ffi.cdef[[
 /* END   C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.36.32532/include/limits.h */
 /* #pragma warning(push) */
 /* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */

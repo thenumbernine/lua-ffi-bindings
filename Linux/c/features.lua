@@ -22,11 +22,11 @@ enum { __USE_XOPEN2K8 = 1 };
 enum { _ATFILE_SOURCE = 1 };
 /* ++ BEGIN /usr/include/features-time64.h */
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/wordsize.h */
-]] require 'ffi.c.bits.wordsize' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.wordsize' ffi.cdef[[
 /* +++ END   /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/timesize.h */
 /* ++++ BEGIN /usr/include/x86_64-linux-gnu/bits/wordsize.h */
-]] require 'ffi.c.bits.wordsize' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.wordsize' ffi.cdef[[
 /* ++++ END   /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 enum { __TIMESIZE = 64 };
 /* +++ END   /usr/include/x86_64-linux-gnu/bits/timesize.h */
@@ -70,7 +70,7 @@ enum { __wur = 1 };
 /* # define __restrict_arr	__restrict ### string, not number "__restrict" */
 /* # define __attribute_nonstring__ __attribute__ ((__nonstring__)) ### string, not number "__attribute__ ((__nonstring__))" */
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/wordsize.h */
-]] require 'ffi.c.bits.wordsize' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.wordsize' ffi.cdef[[
 /* +++ END   /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/long-double.h */
 enum { __LDOUBLE_REDIRECTS_TO_FLOAT128_ABI = 0 };

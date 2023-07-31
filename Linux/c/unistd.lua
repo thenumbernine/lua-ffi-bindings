@@ -3,7 +3,7 @@ ffi.cdef[[
 /* + BEGIN /usr/include/unistd.h */
 enum { _UNISTD_H = 1 };
 /* ++ BEGIN /usr/include/features.h */
-]] require 'ffi.c.features' ffi.cdef[[
+]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* ++ END   /usr/include/features.h */
 enum { _POSIX_VERSION = 200809 };
 enum { __POSIX2_THIS_VERSION = 200809 };
@@ -108,19 +108,19 @@ enum { STDIN_FILENO = 0 };
 enum { STDOUT_FILENO = 1 };
 enum { STDERR_FILENO = 2 };
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-]] require 'ffi.c.bits.types' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
-]] require 'ffi.c.bits.types.ssize_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.ssize_t' ffi.cdef[[
 /* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.c.stddef' ffi.cdef[[
+]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.c.bits.types.gid_t' ffi.cdef[[
-]] require 'ffi.c.bits.types.uid_t' ffi.cdef[[
-]] require 'ffi.c.bits.types.off_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.gid_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.uid_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.off_t' ffi.cdef[[
 typedef __useconds_t useconds_t;
 enum { __useconds_t_defined = 1 };
-]] require 'ffi.c.bits.types.pid_t' ffi.cdef[[
-]] require 'ffi.c.bits.types.intptr_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.pid_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.intptr_t' ffi.cdef[[
 typedef __socklen_t socklen_t;
 enum { __socklen_t_defined = 1 };
 enum { R_OK = 4 };
@@ -129,7 +129,7 @@ enum { X_OK = 1 };
 enum { F_OK = 0 };
 extern int access (const char *__name, int __type) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 extern int faccessat (int __fd, const char *__file, int __type, int __flag) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
-]] require 'ffi.c.bits.types.SEEK' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.SEEK' ffi.cdef[[
 enum { L_SET = 0 };
 enum { L_INCR = 1 };
 enum { L_XTND = 2 };

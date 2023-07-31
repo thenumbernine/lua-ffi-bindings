@@ -8,10 +8,10 @@ enum { GIFLIB_RELEASE = 1 };
 enum { GIF_ERROR = 0 };
 enum { GIF_OK = 1 };
 /* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.c.stddef' ffi.cdef[[
+]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 /* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h */
-]] require 'ffi.c.stdbool' ffi.cdef[[
+]] require 'ffi.req' 'c.stdbool' ffi.cdef[[
 /* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h */
 /* #define GIF_STAMP "GIFVER" ### string, not number "\"GIFVER\"" */
 /* #define GIF_STAMP_LEN sizeof(GIF_STAMP) - 1 ### string, not number "sizeof(GIF_STAMP) - 1" */

@@ -5,7 +5,7 @@ enum { __gles2_gl2_h_ = 1 };
 /* ++ BEGIN /usr/include/GLES2/gl2platform.h */
 enum { __gl2platform_h_ = 1 };
 /* +++ BEGIN /usr/include/KHR/khrplatform.h */
-]] require 'ffi.KHR.khrplatform' ffi.cdef[[
+]] require 'ffi.req' 'KHR.khrplatform' ffi.cdef[[
 /* +++ END   /usr/include/KHR/khrplatform.h */
 /* #define GL_APICALL  KHRONOS_APICALL ### string, not number "KHRONOS_APICALL" */
 /* #define GL_APIENTRY KHRONOS_APIENTRY ### string, not number "KHRONOS_APIENTRY" */
@@ -14,7 +14,7 @@ enum { __gl2platform_h_ = 1 };
 enum { GL_GLES_PROTOTYPES = 1 };
 enum { GL_ES_VERSION_2_0 = 1 };
 /* ++ BEGIN /usr/include/KHR/khrplatform.h */
-]] require 'ffi.KHR.khrplatform' ffi.cdef[[
+]] require 'ffi.req' 'KHR.khrplatform' ffi.cdef[[
 /* ++ END   /usr/include/KHR/khrplatform.h */
 typedef khronos_int8_t GLbyte;
 typedef khronos_float_t GLclampf;

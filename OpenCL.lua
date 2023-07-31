@@ -49,7 +49,7 @@ enum { CL_API_PREFIX_DEPRECATED = 1 };
 /* #define CL_API_SUFFIX__VERSION_2_2_DEPRECATED CL_API_SUFFIX_COMMON CL_API_SUFFIX_DEPRECATED ### string, not number "CL_API_SUFFIX_COMMON CL_API_SUFFIX_DEPRECATED" */
 /* #define CL_API_PREFIX__VERSION_2_2_DEPRECATED CL_API_PREFIX_COMMON CL_API_PREFIX_DEPRECATED ### string, not number "CL_API_PREFIX_COMMON CL_API_PREFIX_DEPRECATED" */
 /* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
-]] require 'ffi.c.stdint' ffi.cdef[[
+]] require 'ffi.req' 'c.stdint' ffi.cdef[[
 /* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
 typedef int8_t cl_char;
 typedef uint8_t cl_uchar;
@@ -140,7 +140,7 @@ float nanf( const char * );
 /* #define CL_MAXFLOAT         CL_FLT_MAX ### string, not number "CL_FLT_MAX" */
 /* #define CL_INFINITY         CL_HUGE_VALF ### string, not number "CL_HUGE_VALF" */
 /* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.c.stddef' ffi.cdef[[
+]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 typedef unsigned int cl_GLuint;
 typedef int cl_GLint;

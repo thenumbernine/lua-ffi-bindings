@@ -245,25 +245,25 @@ enum { H5E_auto_t = 0 };
 enum { H5Z_class_t = 0 };
 /* +++ END   /usr/include/hdf5/serial/H5version.h */
 /* +++ BEGIN /usr/include/features.h */
-]] require 'ffi.c.features' ffi.cdef[[
+]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* +++ END   /usr/include/features.h */
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
-]] require 'ffi.c.sys.types' ffi.cdef[[
+]] require 'ffi.req' 'c.sys.types' ffi.cdef[[
 /* +++ END   /usr/include/x86_64-linux-gnu/sys/types.h */
 /* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
-]] require 'ffi.c.limits' ffi.cdef[[
+]] require 'ffi.req' 'c.limits' ffi.cdef[[
 /* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
 /* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
-]] require 'ffi.c.stdarg' ffi.cdef[[
+]] require 'ffi.req' 'c.stdarg' ffi.cdef[[
 /* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
 /* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
-]] require 'ffi.c.stdint' ffi.cdef[[
+]] require 'ffi.req' 'c.stdint' ffi.cdef[[
 /* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
 /* +++ BEGIN /usr/include/inttypes.h */
-]] require 'ffi.c.inttypes' ffi.cdef[[
+]] require 'ffi.req' 'c.inttypes' ffi.cdef[[
 /* +++ END   /usr/include/inttypes.h */
 /* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.c.stddef' ffi.cdef[[
+]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 /* +++ BEGIN /usr/include/hdf5/serial/H5api_adpt.h */
 enum { H5API_ADPT_H = 1 };
@@ -293,7 +293,7 @@ enum { H5_VERS_RELEASE = 8 };
 /* #define H5_VERS_INFO "HDF5 library version: 1.10.8" ### string, not number "\"HDF5 library version: 1.10.8\"" */
 typedef int herr_t;
 /* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h */
-]] require 'ffi.c.stdbool' ffi.cdef[[
+]] require 'ffi.req' 'c.stdbool' ffi.cdef[[
 /* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h */
 typedef _Bool hbool_t;
 typedef int htri_t;
@@ -1060,7 +1060,7 @@ herr_t H5Dextend(hid_t dset_id, const hsize_t size[]);
 /* ++ BEGIN /usr/include/hdf5/serial/H5Epublic.h */
 enum { H5Epublic_H = 1 };
 /* +++ BEGIN /usr/include/stdio.h */
-]] require 'ffi.c.stdio' ffi.cdef[[
+]] require 'ffi.req' 'c.stdio' ffi.cdef[[
 /* +++ END   /usr/include/stdio.h */
 /* +++ BEGIN /usr/include/hdf5/serial/H5public.h */
 /* +++ END   /usr/include/hdf5/serial/H5public.h */
@@ -1709,7 +1709,7 @@ herr_t H5FDdriver_query(hid_t driver_id, unsigned long *flags );
 /* ++ BEGIN /usr/include/hdf5/serial/H5Gpublic.h */
 enum { H5Gpublic_H = 1 };
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
-]] require 'ffi.c.sys.types' ffi.cdef[[
+]] require 'ffi.req' 'c.sys.types' ffi.cdef[[
 /* +++ END   /usr/include/x86_64-linux-gnu/sys/types.h */
 /* +++ BEGIN /usr/include/hdf5/serial/H5public.h */
 /* +++ END   /usr/include/hdf5/serial/H5public.h */

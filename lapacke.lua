@@ -3,7 +3,7 @@ ffi.cdef[[
 /* + BEGIN /usr/include/lapacke.h */
 enum { _LAPACKE_H_ = 1 };
 /* ++ BEGIN /usr/include/lapack.h */
-]] require 'ffi.lapack' ffi.cdef[[
+]] require 'ffi.req' 'lapack' ffi.cdef[[
 /* ++ END   /usr/include/lapack.h */
 enum { LAPACK_ROW_MAJOR = 101 };
 enum { LAPACK_COL_MAJOR = 102 };

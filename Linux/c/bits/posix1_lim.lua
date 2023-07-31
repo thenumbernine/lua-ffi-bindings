@@ -3,7 +3,7 @@ ffi.cdef[[
 /* + BEGIN /usr/include/x86_64-linux-gnu/bits/posix1_lim.h */
 enum { _BITS_POSIX1_LIM_H = 1 };
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/wordsize.h */
-]] require 'ffi.c.bits.wordsize' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.wordsize' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 enum { _POSIX_AIO_LISTIO_MAX = 2 };
 enum { _POSIX_AIO_MAX = 1 };
@@ -45,7 +45,7 @@ enum { __undef_LINK_MAX = 1 };
 enum { __undef_OPEN_MAX = 1 };
 enum { __undef_ARG_MAX = 1 };
 /* +++ BEGIN /usr/include/linux/limits.h */
-]] require 'ffi.c.linux.limits' ffi.cdef[[
+]] require 'ffi.req' 'c.linux.limits' ffi.cdef[[
 /* +++ END   /usr/include/linux/limits.h */
 enum { _POSIX_THREAD_KEYS_MAX = 128 };
 enum { PTHREAD_KEYS_MAX = 1024 };

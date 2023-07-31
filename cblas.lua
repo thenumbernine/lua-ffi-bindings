@@ -3,7 +3,7 @@ ffi.cdef[[
 /* + BEGIN /usr/include/x86_64-linux-gnu/cblas.h */
 enum { CBLAS_H = 1 };
 /* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.c.stddef' ffi.cdef[[
+]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/openblas_config.h */
 enum { OPENBLAS_CONFIG_H = 1 };
@@ -35,24 +35,24 @@ enum { xdouble = 0 };
 typedef long BLASLONG;
 typedef unsigned long BLASULONG;
 /* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
-]] require 'ffi.c.stdint' ffi.cdef[[
+]] require 'ffi.req' 'c.stdint' ffi.cdef[[
 /* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
 typedef uint16_t bfloat16;
 typedef int blasint;
 enum { FLOATRET = 0 };
 /* +++ BEGIN /usr/include/stdio.h */
-]] require 'ffi.c.stdio' ffi.cdef[[
+]] require 'ffi.req' 'c.stdio' ffi.cdef[[
 /* +++ END   /usr/include/stdio.h */
 enum { OPENBLAS_COMPLEX_C99 = 1 };
 /* +++ BEGIN /usr/include/complex.h */
-]] require 'ffi.c.complex' ffi.cdef[[
+]] require 'ffi.req' 'c.complex' ffi.cdef[[
 /* +++ END   /usr/include/complex.h */
 typedef float _Complex openblas_complex_float;
 typedef double _Complex openblas_complex_double;
 typedef double _Complex openblas_complex_xdouble;
 enum { _GNU_SOURCE = 1 };
 /* +++ BEGIN /usr/include/sched.h */
-]] require 'ffi.c.sched' ffi.cdef[[
+]] require 'ffi.req' 'c.sched' ffi.cdef[[
 /* +++ END   /usr/include/sched.h */
 /* ++ END   /usr/include/x86_64-linux-gnu/openblas_config.h */
 void openblas_set_num_threads(int num_threads);

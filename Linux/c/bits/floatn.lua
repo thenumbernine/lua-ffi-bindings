@@ -3,7 +3,7 @@ ffi.cdef[[
 /* + BEGIN /usr/include/x86_64-linux-gnu/bits/floatn.h */
 enum { _BITS_FLOATN_H = 1 };
 /* ++ BEGIN /usr/include/features.h */
-]] require 'ffi.c.features' ffi.cdef[[
+]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* ++ END   /usr/include/features.h */
 enum { __HAVE_FLOAT128 = 1 };
 enum { __HAVE_DISTINCT_FLOAT128 = 1 };
@@ -13,7 +13,7 @@ enum { __HAVE_FLOAT64X_LONG_DOUBLE = 1 };
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/floatn-common.h */
 enum { _BITS_FLOATN_COMMON_H = 1 };
 /* +++ BEGIN /usr/include/features.h */
-]] require 'ffi.c.features' ffi.cdef[[
+]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* +++ END   /usr/include/features.h */
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/long-double.h */
 /* redefining matching value: #define __LDOUBLE_REDIRECTS_TO_FLOAT128_ABI 0 */

@@ -6,21 +6,21 @@ enum { LAPACK_H = 1 };
 enum { LAPACK_HEADER_INCLUDED = 1 };
 /* ++ END   /usr/include/lapacke_mangling.h */
 /* ++ BEGIN /usr/include/stdlib.h */
-]] require 'ffi.c.stdlib' ffi.cdef[[
+]] require 'ffi.req' 'c.stdlib' ffi.cdef[[
 /* ++ END   /usr/include/stdlib.h */
 /* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
-]] require 'ffi.c.stdarg' ffi.cdef[[
+]] require 'ffi.req' 'c.stdarg' ffi.cdef[[
 /* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
 /* ++ BEGIN /usr/include/inttypes.h */
-]] require 'ffi.c.inttypes' ffi.cdef[[
+]] require 'ffi.req' 'c.inttypes' ffi.cdef[[
 /* ++ END   /usr/include/inttypes.h */
 enum { LAPACK_FORTRAN_STRLEN_END = 1 };
 /* ++ BEGIN /usr/include/complex.h */
-]] require 'ffi.c.complex' ffi.cdef[[
+]] require 'ffi.req' 'c.complex' ffi.cdef[[
 /* ++ END   /usr/include/complex.h */
 /* #define lapack_complex_float    float _Complex ### string, not number "float _Complex" */
 /* ++ BEGIN /usr/include/complex.h */
-]] require 'ffi.c.complex' ffi.cdef[[
+]] require 'ffi.req' 'c.complex' ffi.cdef[[
 /* ++ END   /usr/include/complex.h */
 /* #define lapack_complex_double   double _Complex ### string, not number "double _Complex" */
 typedef int32_t lapack_int;

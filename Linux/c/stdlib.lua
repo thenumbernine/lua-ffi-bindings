@@ -2,10 +2,10 @@ local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN /usr/include/stdlib.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
-]] require 'ffi.c.bits.libc-header-start' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.libc-header-start' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 /* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.c.stddef' ffi.cdef[[
+]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 enum { _STDLIB_H = 1 };
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/waitflags.h */
@@ -24,7 +24,7 @@ enum { __W_CONTINUED = 65535 };
 enum { __WCOREFLAG = 128 };
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/waitstatus.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/floatn.h */
-]] require 'ffi.c.bits.floatn' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.floatn' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/floatn.h */
 typedef struct {
 	int quot;
@@ -61,7 +61,7 @@ __extension__ extern unsigned long long int strtoull (const char * __nptr, char 
 extern char *l64a (long int __n) __attribute__ ((__nothrow__ , __leaf__));
 extern long int a64l (const char *__s) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
-]] require 'ffi.c.sys.types' ffi.cdef[[
+]] require 'ffi.req' 'c.sys.types' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/sys/types.h */
 extern long int random (void) __attribute__ ((__nothrow__ , __leaf__));
 extern void srandom (unsigned int __seed) __attribute__ ((__nothrow__ , __leaf__));
@@ -120,10 +120,10 @@ extern void *reallocarray (void *__ptr, size_t __nmemb, size_t __size) __attribu
 /* ++ BEGIN /usr/include/alloca.h */
 enum { _ALLOCA_H = 1 };
 /* +++ BEGIN /usr/include/features.h */
-]] require 'ffi.c.features' ffi.cdef[[
+]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* +++ END   /usr/include/features.h */
 /* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.c.stddef' ffi.cdef[[
+]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 extern void *alloca (size_t __size) __attribute__ ((__nothrow__ , __leaf__));
 /* ++ END   /usr/include/alloca.h */
@@ -179,7 +179,7 @@ extern int getloadavg (double __loadavg[], int __nelem) __attribute__ ((__nothro
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/stdlib-float.h */
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/floatn.h */
-]] require 'ffi.c.bits.floatn' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.floatn' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/floatn.h */
 /* + END   /usr/include/stdlib.h */
 ]]

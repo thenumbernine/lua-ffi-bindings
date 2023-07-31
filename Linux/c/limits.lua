@@ -8,14 +8,14 @@ enum { _GCC_NEXT_LIMITS_H = 1 };
 /* +++ BEGIN /usr/include/limits.h */
 enum { _LIBC_LIMITS_H_ = 1 };
 /* ++++ BEGIN /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
-]] require 'ffi.c.bits.libc-header-start' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.libc-header-start' ffi.cdef[[
 /* ++++ END   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 enum { MB_LEN_MAX = 16 };
 enum { LLONG_MIN = -1 };
 /* #  define LLONG_MAX	__LONG_LONG_MAX__ ### string, number, replaceline "9.2233720368548e+18" */
 /* #  define ULLONG_MAX	(LLONG_MAX * 2ULL + 1) ### string, not number "(LLONG_MAX * 2ULL + 1)" */
 /* ++++ BEGIN /usr/include/x86_64-linux-gnu/bits/posix1_lim.h */
-]] require 'ffi.c.bits.posix1_lim' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.posix1_lim' ffi.cdef[[
 /* ++++ END   /usr/include/x86_64-linux-gnu/bits/posix1_lim.h */
 /* ++++ BEGIN /usr/include/x86_64-linux-gnu/bits/posix2_lim.h */
 enum { _BITS_POSIX2_LIM_H = 1 };

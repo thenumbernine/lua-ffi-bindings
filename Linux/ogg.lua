@@ -3,7 +3,7 @@ ffi.cdef[[
 /* + BEGIN /usr/include/ogg/ogg.h */
 enum { _OGG_H = 1 };
 /* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.c.stddef' ffi.cdef[[
+]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 /* ++ BEGIN /usr/include/ogg/os_types.h */
 enum { _OS_TYPES_H = 1 };
@@ -17,13 +17,13 @@ enum { INCLUDE_INTTYPES_H = 1 };
 enum { INCLUDE_STDINT_H = 1 };
 enum { INCLUDE_SYS_TYPES_H = 1 };
 /* ++++ BEGIN /usr/include/inttypes.h */
-]] require 'ffi.c.inttypes' ffi.cdef[[
+]] require 'ffi.req' 'c.inttypes' ffi.cdef[[
 /* ++++ END   /usr/include/inttypes.h */
 /* ++++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
-]] require 'ffi.c.stdint' ffi.cdef[[
+]] require 'ffi.req' 'c.stdint' ffi.cdef[[
 /* ++++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
 /* ++++ BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
-]] require 'ffi.c.sys.types' ffi.cdef[[
+]] require 'ffi.req' 'c.sys.types' ffi.cdef[[
 /* ++++ END   /usr/include/x86_64-linux-gnu/sys/types.h */
 typedef int16_t ogg_int16_t;
 typedef uint16_t ogg_uint16_t;

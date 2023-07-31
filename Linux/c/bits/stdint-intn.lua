@@ -3,7 +3,7 @@ ffi.cdef[[
 /* + BEGIN /usr/include/x86_64-linux-gnu/bits/stdint-intn.h */
 enum { _BITS_STDINT_INTN_H = 1 };
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-]] require 'ffi.c.bits.types' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
 typedef __int8_t int8_t;
 typedef __int16_t int16_t;

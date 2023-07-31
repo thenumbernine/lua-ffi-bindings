@@ -3,16 +3,16 @@ ffi.cdef[[
 /* + BEGIN /usr/include/pthread.h */
 enum { _PTHREAD_H = 1 };
 /* ++ BEGIN /usr/include/features.h */
-]] require 'ffi.c.features' ffi.cdef[[
+]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* ++ END   /usr/include/features.h */
 /* ++ BEGIN /usr/include/sched.h */
-]] require 'ffi.c.sched' ffi.cdef[[
+]] require 'ffi.req' 'c.sched' ffi.cdef[[
 /* ++ END   /usr/include/sched.h */
 /* ++ BEGIN /usr/include/time.h */
-]] require 'ffi.c.time' ffi.cdef[[
+]] require 'ffi.req' 'c.time' ffi.cdef[[
 /* ++ END   /usr/include/time.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/endian.h */
-]] require 'ffi.c.bits.endian' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.endian' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/endian.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h */
 enum { _BITS_PTHREADTYPES_COMMON_H = 1 };
@@ -149,7 +149,7 @@ typedef union {
 } pthread_barrierattr_t;
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/setjmp.h */
-]] require 'ffi.c.bits.setjmp' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.setjmp' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/setjmp.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* redefining matching value: # define __WORDSIZE	64 */
@@ -157,18 +157,18 @@ typedef union {
 /* redefining matching value: # define __SYSCALL_WORDSIZE		64 */
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
-]] require 'ffi.c.bits.types.struct_timespec' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.struct_timespec' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h */
-]] require 'ffi.c.bits.types.__sigset_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.__sigset_t' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h */
 enum { __jmp_buf_tag_defined = 1 };
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/setjmp.h */
-]] require 'ffi.c.bits.setjmp' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.setjmp' ffi.cdef[[
 /* +++ END   /usr/include/x86_64-linux-gnu/bits/setjmp.h */
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h */
-]] require 'ffi.c.bits.types.__sigset_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.__sigset_t' ffi.cdef[[
 /* +++ END   /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h */
 struct __jmp_buf_tag {
 	__jmp_buf __jmpbuf;

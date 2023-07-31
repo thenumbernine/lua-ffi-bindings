@@ -3,10 +3,10 @@ ffi.cdef[[
 /* + BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
 enum { _SYS_TYPES_H = 1 };
 /* ++ BEGIN /usr/include/features.h */
-]] require 'ffi.c.features' ffi.cdef[[
+]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* ++ END   /usr/include/features.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-]] require 'ffi.c.bits.types' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
 typedef __u_char u_char;
 typedef __u_short u_short;
@@ -17,42 +17,42 @@ typedef __u_quad_t u_quad_t;
 typedef __fsid_t fsid_t;
 enum { __u_char_defined = 1 };
 typedef __loff_t loff_t;
-]] require 'ffi.c.bits.types.ino_t' ffi.cdef[[
-]] require 'ffi.c.bits.types.dev_t' ffi.cdef[[
-]] require 'ffi.c.bits.types.gid_t' ffi.cdef[[
-]] require 'ffi.c.bits.types.mode_t' ffi.cdef[[
-]] require 'ffi.c.bits.types.nlink_t' ffi.cdef[[
-]] require 'ffi.c.bits.types.uid_t' ffi.cdef[[
-]] require 'ffi.c.bits.types.off_t' ffi.cdef[[
-]] require 'ffi.c.bits.types.pid_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.ino_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.dev_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.gid_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.mode_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.nlink_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.uid_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.off_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.pid_t' ffi.cdef[[
 typedef __id_t id_t;
 enum { __id_t_defined = 1 };
-]] require 'ffi.c.bits.types.ssize_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.ssize_t' ffi.cdef[[
 typedef __daddr_t daddr_t;
 typedef __caddr_t caddr_t;
 enum { __daddr_t_defined = 1 };
 typedef __key_t key_t;
 enum { __key_t_defined = 1 };
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/clock_t.h */
-]] require 'ffi.c.bits.types.clock_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.clock_t' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/clock_t.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h */
-]] require 'ffi.c.bits.types.clockid_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.clockid_t' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
-]] require 'ffi.c.bits.types.time_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.time_t' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/timer_t.h */
-]] require 'ffi.c.bits.types.timer_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.timer_t' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/timer_t.h */
 /* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.c.stddef' ffi.cdef[[
+]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 typedef unsigned long int ulong;
 typedef unsigned short int ushort;
 typedef unsigned int uint;
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/stdint-intn.h */
-]] require 'ffi.c.bits.stdint-intn' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.stdint-intn' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/stdint-intn.h */
 typedef __uint8_t u_int8_t;
 typedef __uint16_t u_int16_t;
@@ -63,10 +63,10 @@ enum { __BIT_TYPES_DEFINED__ = 1 };
 /* ++ BEGIN /usr/include/endian.h */
 enum { _ENDIAN_H = 1 };
 /* +++ BEGIN /usr/include/features.h */
-]] require 'ffi.c.features' ffi.cdef[[
+]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* +++ END   /usr/include/features.h */
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/endian.h */
-]] require 'ffi.c.bits.endian' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.endian' ffi.cdef[[
 /* +++ END   /usr/include/x86_64-linux-gnu/bits/endian.h */
 enum { LITTLE_ENDIAN = 1234 };
 enum { BIG_ENDIAN = 4321 };
@@ -75,10 +75,10 @@ enum { BYTE_ORDER = 1234 };
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/byteswap.h */
 enum { _BITS_BYTESWAP_H = 1 };
 /* ++++ BEGIN /usr/include/features.h */
-]] require 'ffi.c.features' ffi.cdef[[
+]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* ++++ END   /usr/include/features.h */
 /* ++++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-]] require 'ffi.c.bits.types' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* ++++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
 static __inline __uint16_t __bswap_16 (__uint16_t __bsx) {
 	return __builtin_bswap16 (__bsx);
@@ -91,7 +91,7 @@ static __inline __uint16_t __bswap_16 (__uint16_t __bsx) {
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/uintn-identity.h */
 enum { _BITS_UINTN_IDENTITY_H = 1 };
 /* ++++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-]] require 'ffi.c.bits.types' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* ++++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
 static __inline __uint16_t __uint16_identity (__uint16_t __x) {
 	return __x;
@@ -103,7 +103,7 @@ static __inline __uint16_t __uint16_identity (__uint16_t __x) {
 /* +++ END   /usr/include/x86_64-linux-gnu/bits/uintn-identity.h */
 /* ++ END   /usr/include/endian.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/sys/select.h */
-]] require 'ffi.c.sys.select' ffi.cdef[[
+]] require 'ffi.req' 'c.sys.select' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/sys/select.h */
 typedef __blksize_t blksize_t;
 enum { __blksize_t_defined = 1 };

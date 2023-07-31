@@ -12,7 +12,7 @@ enum { _Nullable = 1 };
 enum { _Nonnull = 1 };
 enum { __STDC_FORMAT_MACROS = 1 };
 /* +++ BEGIN /usr/include/inttypes.h */
-]] require 'ffi.c.inttypes' ffi.cdef[[
+]] require 'ffi.req' 'c.inttypes' ffi.cdef[[
 /* +++ END   /usr/include/inttypes.h */
 typedef int8_t zip_int8_t;
 typedef uint8_t zip_uint8_t;
@@ -37,13 +37,13 @@ enum { ZIP_INT64_MIN = -1 };
 /* ++ END   /usr/include/zipconf.h */
 /* #define ZIP_EXTERN __attribute__((visibility("default"))) ### string, not number "__attribute__((visibility(\"default\")))" */
 /* ++ BEGIN /usr/include/stdio.h */
-]] require 'ffi.c.stdio' ffi.cdef[[
+]] require 'ffi.req' 'c.stdio' ffi.cdef[[
 /* ++ END   /usr/include/stdio.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
-]] require 'ffi.c.sys.types' ffi.cdef[[
+]] require 'ffi.req' 'c.sys.types' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/sys/types.h */
 /* ++ BEGIN /usr/include/time.h */
-]] require 'ffi.c.time' ffi.cdef[[
+]] require 'ffi.req' 'c.time' ffi.cdef[[
 /* ++ END   /usr/include/time.h */
 enum { ZIP_CREATE = 1 };
 enum { ZIP_EXCL = 2 };

@@ -3,18 +3,18 @@ ffi.cdef[[
 /* + BEGIN /usr/include/lua5.4/lua.h */
 enum { lua_h = 1 };
 /* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
-]] require 'ffi.c.stdarg' ffi.cdef[[
+]] require 'ffi.req' 'c.stdarg' ffi.cdef[[
 /* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
 /* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.c.stddef' ffi.cdef[[
+]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 /* ++ BEGIN /usr/include/lua5.4/luaconf.h */
 enum { luaconf_h = 1 };
 /* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
-]] require 'ffi.c.limits' ffi.cdef[[
+]] require 'ffi.req' 'c.limits' ffi.cdef[[
 /* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
 /* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.c.stddef' ffi.cdef[[
+]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 enum { LUAI_IS32INT = 1 };
 enum { LUA_INT_INT = 1 };
@@ -66,7 +66,7 @@ enum { LUAI_UACINT = 0 };
 /* #define LUA_MAXUNSIGNED		ULLONG_MAX ### string, not number "ULLONG_MAX" */
 enum { LUA_KCONTEXT = 0 };
 /* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
-]] require 'ffi.c.stdint' ffi.cdef[[
+]] require 'ffi.req' 'c.stdint' ffi.cdef[[
 /* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
 /* redefining matching value: #define LUA_KCONTEXT	intptr_t */
 enum { LUAI_MAXSTACK = 1000000 };
@@ -306,10 +306,10 @@ extern void (luaL_openlibs) (lua_State *L);
 /* + BEGIN /usr/include/lua5.4/lauxlib.h */
 enum { lauxlib_h = 1 };
 /* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.c.stddef' ffi.cdef[[
+]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 /* ++ BEGIN /usr/include/stdio.h */
-]] require 'ffi.c.stdio' ffi.cdef[[
+]] require 'ffi.req' 'c.stdio' ffi.cdef[[
 /* ++ END   /usr/include/stdio.h */
 /* ++ BEGIN /usr/include/lua5.4/luaconf.h */
 /* ++ END   /usr/include/lua5.4/luaconf.h */

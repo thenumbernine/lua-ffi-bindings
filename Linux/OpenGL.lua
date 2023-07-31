@@ -1308,7 +1308,7 @@ typedef void ( * PFNGLMULTITEXCOORD4SVARBPROC) (GLenum target, const GLshort *v)
 enum { __gl_glext_h_ = 1 };
 enum { GL_GLEXT_VERSION = 20220530 };
 /* +++ BEGIN /usr/include/KHR/khrplatform.h */
-]] require 'ffi.KHR.khrplatform' ffi.cdef[[
+]] require 'ffi.req' 'KHR.khrplatform' ffi.cdef[[
 /* +++ END   /usr/include/KHR/khrplatform.h */
 enum { GL_VERSION_1_4 = 1 };
 enum { GL_BLEND_DST_RGB = 32968 };

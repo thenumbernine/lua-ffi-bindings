@@ -3,7 +3,7 @@ ffi.cdef[[
 /* + BEGIN /usr/include/vorbis/codec.h */
 enum { _vorbis_codec_h_ = 1 };
 /* ++ BEGIN /usr/include/ogg/ogg.h */
-]] require 'ffi.ogg' ffi.cdef[[
+]] require 'ffi.req' 'ogg' ffi.cdef[[
 /* ++ END   /usr/include/ogg/ogg.h */
 typedef struct vorbis_info{
 	int version;

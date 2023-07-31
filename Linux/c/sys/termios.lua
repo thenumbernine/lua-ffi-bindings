@@ -5,10 +5,10 @@ enum { _SYS_TERMIOS_H = 1 };
 /* ++ BEGIN /usr/include/termios.h */
 enum { _TERMIOS_H = 1 };
 /* +++ BEGIN /usr/include/features.h */
-]] require 'ffi.c.features' ffi.cdef[[
+]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* +++ END   /usr/include/features.h */
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-]] require 'ffi.c.bits.types' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* +++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
 typedef __pid_t pid_t;
 enum { __pid_t_defined = 1 };

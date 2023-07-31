@@ -218,19 +218,19 @@ enum { PNG_sRGB_PROFILE_CHECKS = 2 };
 /* ++ BEGIN /usr/include/pngconf.h */
 enum { PNGCONF_H = 1 };
 /* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
-]] require 'ffi.c.limits' ffi.cdef[[
+]] require 'ffi.req' 'c.limits' ffi.cdef[[
 /* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
 /* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.c.stddef' ffi.cdef[[
+]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 /* +++ BEGIN /usr/include/stdio.h */
-]] require 'ffi.c.stdio' ffi.cdef[[
+]] require 'ffi.req' 'c.stdio' ffi.cdef[[
 /* +++ END   /usr/include/stdio.h */
 /* +++ BEGIN /usr/include/setjmp.h */
-]] require 'ffi.c.setjmp' ffi.cdef[[
+]] require 'ffi.req' 'c.setjmp' ffi.cdef[[
 /* +++ END   /usr/include/setjmp.h */
 /* +++ BEGIN /usr/include/time.h */
-]] require 'ffi.c.time' ffi.cdef[[
+]] require 'ffi.req' 'c.time' ffi.cdef[[
 /* +++ END   /usr/include/time.h */
 enum { PNG_CONST = 0 };
 enum { PNG_USE_READ_MACROS = 1 };

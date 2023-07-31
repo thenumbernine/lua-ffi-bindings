@@ -3,13 +3,13 @@ ffi.cdef[[
 /* + BEGIN /usr/include/dirent.h */
 enum { _DIRENT_H = 1 };
 /* ++ BEGIN /usr/include/features.h */
-]] require 'ffi.c.features' ffi.cdef[[
+]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* ++ END   /usr/include/features.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-]] require 'ffi.c.bits.types' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/dirent.h */
-]] require 'ffi.c.bits.dirent' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.dirent' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/dirent.h */
 enum { DT_UNKNOWN = 0,/* enum { DT_UNKNOWN = 0 }; */
 DT_FIFO = 1,/* enum { DT_FIFO = 0 }; */
@@ -29,17 +29,17 @@ extern struct dirent *readdir (DIR *__dirp) __attribute__ ((__nonnull__ (1)));
 extern int readdir_r (DIR * __dirp, struct dirent * __entry, struct dirent ** __result) __attribute__ ((__nonnull__ (1, 2, 3))) __attribute__ ((__deprecated__));
 extern void rewinddir (DIR *__dirp) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-]] require 'ffi.c.bits.types' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
 extern void seekdir (DIR *__dirp, long int __pos) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 extern long int telldir (DIR *__dirp) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 extern int dirfd (DIR *__dirp) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/posix1_lim.h */
-]] require 'ffi.c.bits.posix1_lim' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.posix1_lim' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/posix1_lim.h */
 enum { MAXNAMLEN = 255 };
 /* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.c.stddef' ffi.cdef[[
+]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 extern int scandir (const char * __dir, struct dirent *** __namelist, int (*__selector) (const struct dirent *), int (*__cmp) (const struct dirent **, const struct dirent **)) __attribute__ ((__nonnull__ (1, 2)));
 extern int alphasort (const struct dirent **__e1, const struct dirent **__e2) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));

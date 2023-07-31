@@ -3,7 +3,7 @@ ffi.cdef[[
 enum { __GLIBC_INTERNAL_STARTING_HEADER_IMPLEMENTATION = 1 };
 /* BEGIN /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 /* BEGIN /usr/include/features.h */
-]] require 'ffi.c.features' ffi.cdef[[
+]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* END /usr/include/features.h */
 enum { __GLIBC_USE_LIB_EXT2 = 0 };
 enum { __GLIBC_USE_IEC_60559_BFP_EXT = 0 };

@@ -45,10 +45,10 @@ enum { ENDBR_PRESENT = 1 };
 enum { _CET_NOTRACK = 0 };
 /* ++ END   /usr/include/x86_64-linux-gnu/ffitarget.h */
 /* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-]] require 'ffi.c.stddef' ffi.cdef[[
+]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
 /* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
-]] require 'ffi.c.limits' ffi.cdef[[
+]] require 'ffi.req' 'c.limits' ffi.cdef[[
 /* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
 /* #define FFI_64_BIT_MAX 9223372036854775807 ### string, number, replaceline "9.2233720368548e+18" */
 /* #  define FFI_LONG_LONG_MAX LLONG_MAX ### string, number, replaceline "9.2233720368548e+18" */

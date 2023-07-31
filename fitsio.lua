@@ -9,16 +9,16 @@ enum { CFITSIO_MAJOR = 4 };
 enum { CFITSIO_SONAME = 10 };
 enum { CFITS_API = 1 };
 /* ++ BEGIN /usr/include/stdio.h */
-]] require 'ffi.c.stdio' ffi.cdef[[
+]] require 'ffi.req' 'c.stdio' ffi.cdef[[
 /* ++ END   /usr/include/stdio.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
-]] require 'ffi.c.sys.types' ffi.cdef[[
+]] require 'ffi.req' 'c.sys.types' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/sys/types.h */
 /* ++ BEGIN /usr/include/stdlib.h */
-]] require 'ffi.c.stdlib' ffi.cdef[[
+]] require 'ffi.req' 'c.stdlib' ffi.cdef[[
 /* ++ END   /usr/include/stdlib.h */
 /* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
-]] require 'ffi.c.limits' ffi.cdef[[
+]] require 'ffi.req' 'c.limits' ffi.cdef[[
 /* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
 enum { USE_LL_SUFFIX = 1 };
 typedef long long LONGLONG;

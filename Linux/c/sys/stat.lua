@@ -3,24 +3,24 @@ ffi.cdef[[
 /* + BEGIN /usr/include/x86_64-linux-gnu/sys/stat.h */
 enum { _SYS_STAT_H = 1 };
 /* ++ BEGIN /usr/include/features.h */
-]] require 'ffi.c.features' ffi.cdef[[
+]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* ++ END   /usr/include/features.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
-]] require 'ffi.c.bits.types' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
-]] require 'ffi.c.bits.types.struct_timespec' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.struct_timespec' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
-]] require 'ffi.c.bits.types.time_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.time_t' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/time_t.h */
-]] require 'ffi.c.bits.types.dev_t' ffi.cdef[[
-]] require 'ffi.c.bits.types.gid_t' ffi.cdef[[
-]] require 'ffi.c.bits.types.ino_t' ffi.cdef[[
-]] require 'ffi.c.bits.types.mode_t' ffi.cdef[[
-]] require 'ffi.c.bits.types.nlink_t' ffi.cdef[[
-]] require 'ffi.c.bits.types.off_t' ffi.cdef[[
-]] require 'ffi.c.bits.types.uid_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.dev_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.gid_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.ino_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.mode_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.nlink_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.off_t' ffi.cdef[[
+]] require 'ffi.req' 'c.bits.types.uid_t' ffi.cdef[[
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/stat.h */
 enum { _BITS_STAT_H = 1 };
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/struct_stat.h */
