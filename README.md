@@ -10,7 +10,9 @@ This repo contains luajit-C bindings for lots of common C files and some 3rd par
 
 ### ffi/req.lua
 
-Searches through require paths `ffi.$os.$arch.$req, ffi.$os.$req, ffi.$arch.$req, ffi.$req` in this order.
+This is your `require` replacement.
+
+It searches through require paths `ffi.$os.$arch.$req, ffi.$os.$req, ffi.$arch.$req, ffi.$req` in this order.
 
 This spares me from duplicating a lot of if-statements in tiny files in the base directory.
 
@@ -27,15 +29,15 @@ local OpenAL = require 'ffi.req' 'OpenAL'
 
 ### ffi/load.lua
 
-This serves two purposes:
+This is your `ffi.load` replacement.
 
-One is a table used retrieve .so/.dll/.dylib's, and used to resolve finding them.
+This is used to retrieve .so/.dll/.dylib's, and used to resolve finding them.
 
 Just calling `require 'ffi.load' '$libname'` by default will return `ffi.load '$libname'`.
 
 From here LuaJIT has some builtin name resolutions (appending the correct .so/.dll/.dylib extension per-OS, prepending 'lib' for Linux, searching system library paths, searching `LD_LIBRARY_PATH`, etc...).
 
-Another is that you can optionally override it for a specific OS or architecture:
+However you can optionally use this table to override the search location for a specific OS or architecture:
 
 If the value is a string then the name is directly replaced:
 ``` Lua
