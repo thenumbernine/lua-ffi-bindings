@@ -20,9 +20,9 @@ return function(req)
 		ffi.arch..'.'..req,
 		req,
 	} do
-		local found, err = pcall(require, 'ffi.'..search)
-		if found then return found end
-		table.insert(errs, err)
+		local found, result = pcall(require, 'ffi.'..search)
+		if found then return result end
+		table.insert(errs, result)
 	end
-	return false, table.concat(errs, '\n')
+	error(table.concat(errs, '\n'))
 end

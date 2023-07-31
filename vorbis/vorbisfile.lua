@@ -211,7 +211,7 @@ local lib = require 'ffi.load' 'vorbisfile'
 -- browser will have to shim each of he OV_CALLBACKs
 -- ... or browser should/will have to return ffi closures of ffi.open
 -- ... then we can use stdio here
-local stdio = require 'ffi.c.stdio'	-- fopen, fseek, fclose, ftell
+local stdio = require 'ffi.req' 'c.stdio'	-- fopen, fseek, fclose, ftell
 
 -- i'd free the closure but meh
 -- who puts a function as a static in a header anyways?
