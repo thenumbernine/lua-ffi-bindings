@@ -1,5 +1,5 @@
 local ffi = require 'ffi'
-local sdl = require 'ffi.sdl'
+local sdl = require 'ffi.req' 'sdl'
 ffi.cdef[[
 typedef uint8_t Uint8;
 typedef uint16_t Uint16;

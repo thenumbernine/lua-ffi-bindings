@@ -1,5 +1,5 @@
 local ffi = require 'ffi'
-require 'ffi.OpenAL'	-- for the AL* C types
+require 'ffi.req' 'OpenAL'	-- for the AL* C types
 ffi.cdef[[
 enum {
   ALUT_API_MAJOR_VERSION = 1,

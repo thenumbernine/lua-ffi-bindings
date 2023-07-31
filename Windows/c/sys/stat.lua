@@ -1,4 +1,4 @@
-require 'ffi.c.sys.types'
+require 'ffi.req' 'c.sys.types'
 local ffi = require 'ffi'
 ffi.cdef[[
 /* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/sys/stat.h */
