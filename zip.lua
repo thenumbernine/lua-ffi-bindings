@@ -165,15 +165,16 @@ struct zip_error {
 	int sys_err;
 	char * str;
 };
-/* #define ZIP_STAT_NAME 0x0001u ### string, not number "0x0001u" */
-/* #define ZIP_STAT_INDEX 0x0002u ### string, not number "0x0002u" */
-/* #define ZIP_STAT_SIZE 0x0004u ### string, not number "0x0004u" */
-/* #define ZIP_STAT_COMP_SIZE 0x0008u ### string, not number "0x0008u" */
-/* #define ZIP_STAT_MTIME 0x0010u ### string, not number "0x0010u" */
-/* #define ZIP_STAT_CRC 0x0020u ### string, not number "0x0020u" */
-/* #define ZIP_STAT_COMP_METHOD 0x0040u ### string, not number "0x0040u" */
-/* #define ZIP_STAT_ENCRYPTION_METHOD 0x0080u ### string, not number "0x0080u" */
-/* #define ZIP_STAT_FLAGS 0x0100u ### string, not number "0x0100u" */
+/* TODO these have to b manually set */
+enum { ZIP_STAT_NAME = 0x0001 }; /* string, not number "0x0001u" */
+enum { ZIP_STAT_INDEX = 0x0002 }; /* string, not number "0x0002u" */
+enum { ZIP_STAT_SIZE = 0x0004 }; /* string, not number "0x0004u" */
+enum { ZIP_STAT_COMP_SIZE = 0x0008 }; /* string, not number "0x0008u" */
+enum { ZIP_STAT_MTIME = 0x0010 }; /* string, not number "0x0010u" */
+enum { ZIP_STAT_CRC = 0x0020 }; /* string, not number "0x0020u" */
+enum { ZIP_STAT_COMP_METHOD = 0x0040 }; /* string, not number "0x0040u" */
+enum { ZIP_STAT_ENCRYPTION_METHOD = 0x0080 }; /* string, not number "0x0080u" */
+enum { ZIP_STAT_FLAGS = 0x0100 }; /* string, not number "0x0100u" */
 struct zip_stat {
 	zip_uint64_t valid;
 	const char * name;
