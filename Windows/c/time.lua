@@ -124,17 +124,35 @@ void __cdecl tzset(void);
 /* #pragma warning(pop)  */
 /* + END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/time.h */
 ]]
-return setmetatable({
-	_wctime = ffi.C._wctime64,
-	_wctime_s = ffi.C._wctime64_s,
-	ctime = _ctime64,
-	difftime = _difftime64,
-	gmtime = _gmtime64,
-	localtime = _localtime64,
-	_mkgmtime = _mkgmtime64,
-	mktime = _mktime64,
-	time = _time64,
-	timespec_get = _timespec_get64,
-}, {
-	__index = ffi.C,
-})
+local lib = ffi.C
+if ffi.arch == 'x86' then
+	return setmetatable({
+		_wctime = lib._wctime32,		-- in corecrt_wtime.h
+		_wctime_s = lib._wctime32_s,		-- in corecrt_wtime.h
+		ctime = _ctime32,
+		difftime = _difftime32,
+		gmtime = _gmtime32,
+		localtime = _localtime32,
+		_mkgmtime = _mkgmtime32,
+		mktime = _mktime32,
+		time = _time32,
+		timespec_get = _timespec32_get,
+	}, {
+		__index = lib,
+	})
+elseif ffi.arch == 'x64' then
+	return setmetatable({
+		_wctime = lib._wctime64,		-- in corecrt_wtime.h
+		_wctime_s = lib._wctime64_s,		-- in corecrt_wtime.h
+		ctime = _ctime64,
+		difftime = _difftime64,
+		gmtime = _gmtime64,
+		localtime = _localtime64,
+		_mkgmtime = _mkgmtime64,
+		mktime = _mktime64,
+		time = _time64,
+		timespec_get = _timespec64_get,
+	}, {
+		__index = lib,
+	})
+end
