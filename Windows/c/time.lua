@@ -1,13 +1,13 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/time.h */
+/* + BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/time.h */
 enum { _INC_TIME = 1 };
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
+/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
 ]] require 'ffi.req' 'c.corecrt' ffi.cdef[[
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wtime.h */
+/* ++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
+/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wtime.h */
 ]] require 'ffi.req' 'c.corecrt_wtime' ffi.cdef[[
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wtime.h */
+/* ++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wtime.h */
 /* #pragma warning(push) */
 /* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */
 typedef long clock_t;
@@ -122,7 +122,7 @@ unsigned __cdecl _setsystime( struct tm* _Tm, unsigned _Milliseconds );
 /* #define CLK_TCK CLOCKS_PER_SEC ### string, not number "CLOCKS_PER_SEC" */
 void __cdecl tzset(void);
 /* #pragma warning(pop)  */
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/time.h */
+/* + END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/time.h */
 ]]
 return setmetatable({
 	_wctime = ffi.C._wctime64,

@@ -1,14 +1,14 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/io.h */
+/* + BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/io.h */
 enum { _INC_IO = 1 };
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_io.h */
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_share.h */
+/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_io.h */
+/* +++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_share.h */
 ]] require 'ffi.req' 'c.corecrt_share' ffi.cdef[[
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_share.h */
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wio.h */
+/* +++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_share.h */
+/* +++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wio.h */
 ]] require 'ffi.req' 'c.corecrt_wio' ffi.cdef[[
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wio.h */
+/* +++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wio.h */
 /* #pragma warning(push) */
 /* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */
 
@@ -138,8 +138,8 @@ int __cdecl unlink( char const* _FileName );
 int __cdecl write( int _FileHandle, void const* _Buf, unsigned int _MaxCharCount );
 /*         #pragma warning(pop) */
 /* #pragma warning(pop)  */
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_io.h */
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/io.h */
+/* ++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_io.h */
+/* + END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/io.h */
 ]]
 ffi.cdef[[
 /* #ifdef _USE_32BIT_TIME_T

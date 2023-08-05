@@ -1,23 +1,26 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/wchar.h */
+/* + BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/wchar.h */
 enum { _INC_WCHAR = 1 };
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
+/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
 ]] require 'ffi.req' 'c.corecrt' ffi.cdef[[
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_memcpy_s.h */
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/errno.h */
+/* ++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
+/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_memcpy_s.h */
+/* +++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/errno.h */
 ]] require 'ffi.req' 'c.errno' ffi.cdef[[
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/errno.h */
+/* +++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/errno.h */
+/* +++ BEGIN C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.36.32532/include/vcruntime_string.h */
+]] require 'ffi.req' 'c.vcruntime_string' ffi.cdef[[
+/* +++ END   C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.36.32532/include/vcruntime_string.h */
 /* #pragma warning(push) */
 /* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */
 /* #define _CRT_MEMCPY_S_INLINE static __inline ### string, not number "static __inline" */
 /* #pragma warning(pop)  */
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_memcpy_s.h */
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wconio.h */
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_stdio_config.h */
+/* ++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_memcpy_s.h */
+/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wconio.h */
+/* +++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_stdio_config.h */
 ]] require 'ffi.req' 'c.corecrt_stdio_config' ffi.cdef[[
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_stdio_config.h */
+/* +++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_stdio_config.h */
 /* #pragma warning(push) */
 /* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */
 /* #define WEOF ((wint_t)(0xFFFF)) ### string, not number "((wint_t)(0xFFFF))" */
@@ -44,11 +47,30 @@ wint_t __cdecl _ungetwch_nolock( wint_t _Character);
 int __cdecl __conio_common_vcwprintf( unsigned __int64 _Options, wchar_t const* _Format, _locale_t _Locale, va_list _ArgList );
 int __cdecl __conio_common_vcwprintf_s( unsigned __int64 _Options, wchar_t const* _Format, _locale_t _Locale, va_list _ArgList );
 int __cdecl __conio_common_vcwprintf_p( unsigned __int64 _Options, wchar_t const* _Format, _locale_t _Locale, va_list _ArgList );
-            int __cdecl __conio_common_vcwscanf( unsigned __int64 _Options, wchar_t const* _Format, _locale_t _Locale, va_list _ArgList );
-       
+int __cdecl _vcwprintf_l( wchar_t const* const _Format, _locale_t const _Locale, va_list _ArgList );
+int __cdecl _vcwprintf( wchar_t const* const _Format, va_list _ArgList );
+int __cdecl _vcwprintf_s_l( wchar_t const* const _Format, _locale_t const _Locale, va_list _ArgList );
+int __cdecl _vcwprintf_s( wchar_t const* const _Format, va_list _ArgList );
+int __cdecl _vcwprintf_p_l( wchar_t const* const _Format, _locale_t const _Locale, va_list _ArgList );
+int __cdecl _vcwprintf_p( const wchar_t* const _Format, va_list _ArgList );
+int __cdecl _cwprintf_l( wchar_t const* const _Format, _locale_t const _Locale, ...);
+int __cdecl _cwprintf( wchar_t const* const _Format, ...);
+int __cdecl _cwprintf_s_l( wchar_t const* const _Format, _locale_t const _Locale, ...);
+int __cdecl _cwprintf_s( wchar_t const* const _Format, ...);
+int __cdecl _cwprintf_p_l( wchar_t const* const _Format, _locale_t const _Locale, ...);
+int __cdecl _cwprintf_p( wchar_t const* const _Format, ...);
+int __cdecl __conio_common_vcwscanf( unsigned __int64 _Options, wchar_t const* _Format, _locale_t _Locale, va_list _ArgList );
+int __cdecl _vcwscanf_l( wchar_t const* const _Format, _locale_t const _Locale, va_list _ArgList );
+int __cdecl _vcwscanf( wchar_t const* const _Format, va_list _ArgList );
+int __cdecl _vcwscanf_s_l( wchar_t const* const _Format, _locale_t const _Locale, va_list _ArgList );
+int __cdecl _vcwscanf_s( wchar_t const* const _Format, va_list _ArgList );
+int __cdecl _cwscanf_l( wchar_t const* const _Format, _locale_t const _Locale, ...);
+int __cdecl _cwscanf( wchar_t const* const _Format, ...);
+int __cdecl _cwscanf_s_l( wchar_t const* const _Format, _locale_t const _Locale, ...);
+int __cdecl _cwscanf_s( wchar_t const* const _Format, ...);
 /* #pragma warning(pop)  */
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wconio.h */
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wctype.h */
+/* ++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wconio.h */
+/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wctype.h */
 /* #pragma warning(push) */
 /* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */
 /* #define WEOF ((wint_t)(0xFFFF)) ### string, not number "((wint_t)(0xFFFF))" */
@@ -106,14 +128,14 @@ int __cdecl isleadbyte( int _C);
 int __cdecl _isleadbyte_l( int _C, _locale_t _Locale);
 int __cdecl is_wctype( wint_t _C, wctype_t _Type);
 /* #pragma warning(pop)  */
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wctype.h */
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wdirect.h */
+/* ++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wctype.h */
+/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wdirect.h */
 ]] require 'ffi.req' 'c.corecrt_wdirect' ffi.cdef[[
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wdirect.h */
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wio.h */
+/* ++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wdirect.h */
+/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wio.h */
 ]] require 'ffi.req' 'c.corecrt_wio' ffi.cdef[[
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wio.h */
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wprocess.h */
+/* ++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wio.h */
+/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wprocess.h */
 /* #pragma warning(push) */
 /* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */
 intptr_t __cdecl _wexecl( wchar_t const* _FileName, wchar_t const* _ArgList, ...);
@@ -134,22 +156,22 @@ intptr_t __cdecl _wspawnvp( int _Mode, wchar_t const* _FileName, wchar_t const* 
 intptr_t __cdecl _wspawnvpe( int _Mode, wchar_t const* _FileName, wchar_t const* const* _ArgList, wchar_t const* const* _Env );
 int __cdecl _wsystem( wchar_t const* _Command );
 /* #pragma warning(pop)  */
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wprocess.h */
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstdio.h */
+/* ++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wprocess.h */
+/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstdio.h */
 ]] require 'ffi.req' 'c.corecrt_wstdio' ffi.cdef[[
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstdio.h */
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstdlib.h */
+/* ++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstdio.h */
+/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstdlib.h */
 ]] require 'ffi.req' 'c.corecrt_wstdlib' ffi.cdef[[
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstdlib.h */
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstring.h */
+/* ++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstdlib.h */
+/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstring.h */
 ]] require 'ffi.req' 'c.corecrt_wstring' ffi.cdef[[
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstring.h */
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wtime.h */
+/* ++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstring.h */
+/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wtime.h */
 ]] require 'ffi.req' 'c.corecrt_wtime' ffi.cdef[[
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wtime.h */
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/sys/stat.h */
+/* ++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wtime.h */
+/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/sys/stat.h */
 ]] require 'ffi.req' 'c.sys.stat' ffi.cdef[[
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/sys/stat.h */
+/* ++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/sys/stat.h */
 /* #pragma warning(push) */
 /* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */
 enum { WCHAR_MIN = 0 };
@@ -249,7 +271,7 @@ size_t __cdecl wcsrtombs( char * _Dest, wchar_t const** _PSource, size_t _Count,
 int __cdecl wctob( wint_t _WCh );
       
 /* #pragma warning(pop)  */
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/wchar.h */
+/* + END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/wchar.h */
 ]]
 ffi.cdef[[
 /* #ifdef _USE_32BIT_TIME_T

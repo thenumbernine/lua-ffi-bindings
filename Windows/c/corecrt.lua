@@ -1,6 +1,6 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
+/* + BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
 enum { _UCRT_DISABLED_WARNING_4412 = 1 };
 enum { _UCRT_EXTRA_DISABLED_WARNINGS = 1 };
 /* #define _UCRT_DISABLED_WARNINGS 4324 _UCRT_DISABLED_WARNING_4412 4514 4574 4710 4793 4820 4995 4996 28719 28726 28727 _UCRT_EXTRA_DISABLED_WARNINGS ### string, not number "4324 _UCRT_DISABLED_WARNING_4412 4514 4574 4710 4793 4820 4995 4996 28719 28726 28727 _UCRT_EXTRA_DISABLED_WARNINGS" */
@@ -11,6 +11,8 @@ enum { _UCRT_RESTORE_CLANG_WARNINGS = 1 };
 enum { _ACRTIMP = 1 };
 /* #define _ACRTIMP_ALT _ACRTIMP ### string, not number "_ACRTIMP" */
 enum { _DCRTIMP = 1 };
+/* #define _CRTRESTRICT __declspec(restrict) ### string, not number "__declspec(restrict)" */
+/* #define _CRTALLOCATOR __declspec(allocator) ### string, not number "__declspec(allocator)" */
 enum { _CRT_JIT_INTRINSIC = 1 };
 enum { _CRT_GUARDOVERFLOW = 1 };
 enum { _CRT_HYBRIDPATCHABLE = 1 };
@@ -71,5 +73,5 @@ typedef __time64_t time_t;
 enum { _TIME_T_DEFINED = 1 };
 enum { __EMPTY_DECLSPEC = 1 };
 /* #pragma warning(pop)  */
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
+/* + END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
 ]]

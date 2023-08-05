@@ -1,56 +1,23 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/string.h */
+/* + BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/string.h */
 enum { _INC_STRING = 1 };
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
+/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
 ]] require 'ffi.req' 'c.corecrt' ffi.cdef[[
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_memory.h */
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_memcpy_s.h */
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/errno.h */
+/* ++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
+/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_memory.h */
+/* +++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_memcpy_s.h */
+/* ++++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/errno.h */
 ]] require 'ffi.req' 'c.errno' ffi.cdef[[
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/errno.h */
-/* BEGIN C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.36.32532/include/vcruntime_string.h */
-/* #pragma warning(push) */
-/* #pragma warning(disable: _VCRUNTIME_DISABLED_WARNINGS) */
-void * __cdecl memchr( void const* _Buf, int _Val, size_t _MaxCount );
-int __cdecl memcmp( void const* _Buf1, void const* _Buf2, size_t _Size );
-/* ### INCOMPLETE ARG MACRO ### _At_buffer_ ### IN LINE ### _At_buffer_( */
-/* ### PREPENDING ### _At_buffer_( ### TO ### (unsigned char*)_Dst, */
-/* ### INCOMPLETE ARG MACRO ### _At_buffer_ ### IN LINE ### _At_buffer_( (unsigned char*)_Dst, */
-/* ### PREPENDING ### _At_buffer_( (unsigned char*)_Dst, ### TO ### _Iter_, */
-/* ### INCOMPLETE ARG MACRO ### _At_buffer_ ### IN LINE ### _At_buffer_( (unsigned char*)_Dst, _Iter_, */
-/* ### PREPENDING ### _At_buffer_( (unsigned char*)_Dst, _Iter_, ### TO ### _Size, */
-/* ### INCOMPLETE ARG MACRO ### _At_buffer_ ### IN LINE ### _At_buffer_( (unsigned char*)_Dst, _Iter_, _Size, */
-/* ### PREPENDING ### _At_buffer_( (unsigned char*)_Dst, _Iter_, _Size, ### TO ### _Post_satisfies_(((unsigned char*)_Dst)[_Iter_] == ((unsigned char*)_Src)[_Iter_]) */
-/* ### INCOMPLETE ARG MACRO ### _At_buffer_ ### IN LINE ### _At_buffer_( (unsigned char*)_Dst, _Iter_, _Size,    */
-/* ### PREPENDING ### _At_buffer_( (unsigned char*)_Dst, _Iter_, _Size,    ### TO ### ) */
-void* __cdecl memcpy( void* _Dst, void const* _Src, size_t _Size );
-void* __cdecl memmove( void* _Dst, void const* _Src, size_t _Size );
-/* ### INCOMPLETE ARG MACRO ### _At_buffer_ ### IN LINE ### _At_buffer_( */
-/* ### PREPENDING ### _At_buffer_( ### TO ### (unsigned char*)_Dst, */
-/* ### INCOMPLETE ARG MACRO ### _At_buffer_ ### IN LINE ### _At_buffer_( (unsigned char*)_Dst, */
-/* ### PREPENDING ### _At_buffer_( (unsigned char*)_Dst, ### TO ### _Iter_, */
-/* ### INCOMPLETE ARG MACRO ### _At_buffer_ ### IN LINE ### _At_buffer_( (unsigned char*)_Dst, _Iter_, */
-/* ### PREPENDING ### _At_buffer_( (unsigned char*)_Dst, _Iter_, ### TO ### _Size, */
-/* ### INCOMPLETE ARG MACRO ### _At_buffer_ ### IN LINE ### _At_buffer_( (unsigned char*)_Dst, _Iter_, _Size, */
-/* ### PREPENDING ### _At_buffer_( (unsigned char*)_Dst, _Iter_, _Size, ### TO ### _Post_satisfies_(((unsigned char*)_Dst)[_Iter_] == _Val) */
-/* ### INCOMPLETE ARG MACRO ### _At_buffer_ ### IN LINE ### _At_buffer_( (unsigned char*)_Dst, _Iter_, _Size,    */
-/* ### PREPENDING ### _At_buffer_( (unsigned char*)_Dst, _Iter_, _Size,    ### TO ### ) */
-void* __cdecl memset( void* _Dst, int _Val, size_t _Size );
-char * __cdecl strchr( char const* _Str, int _Val );
-char * __cdecl strrchr( char const* _Str, int _Ch );
-char * __cdecl strstr( char const* _Str, char const* _SubStr );
-wchar_t * __cdecl wcschr( wchar_t const* _Str, wchar_t _Ch );
-wchar_t * __cdecl wcsrchr( wchar_t const* _Str, wchar_t _Ch );
-wchar_t * __cdecl wcsstr( wchar_t const* _Str, wchar_t const* _SubStr );
-/* #pragma warning(pop)  */
-/* END   C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.36.32532/include/vcruntime_string.h */
+/* ++++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/errno.h */
+/* ++++ BEGIN C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.36.32532/include/vcruntime_string.h */
+]] require 'ffi.req' 'c.vcruntime_string' ffi.cdef[[
+/* ++++ END   C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.36.32532/include/vcruntime_string.h */
 /* #pragma warning(push) */
 /* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */
 /* #define _CRT_MEMCPY_S_INLINE static __inline ### string, not number "static __inline" */
 /* #pragma warning(pop)  */
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_memcpy_s.h */
+/* +++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_memcpy_s.h */
 /* #pragma warning(push) */
 /* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */
 int __cdecl _memicmp( void const* _Buf1, void const* _Buf2, size_t _Size );
@@ -58,10 +25,10 @@ int __cdecl _memicmp_l( void const* _Buf1, void const* _Buf2, size_t _Size, _loc
 void* __cdecl memccpy( void* _Dst, void const* _Src, int _Val, size_t _Size );
 int __cdecl memicmp( void const* _Buf1, void const* _Buf2, size_t _Size );
 /* #pragma warning(pop)  */
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_memory.h */
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstring.h */
+/* ++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_memory.h */
+/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstring.h */
 ]] require 'ffi.req' 'c.corecrt_wstring' ffi.cdef[[
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstring.h */
+/* ++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstring.h */
 /* #pragma warning(push) */
 /* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */
 enum { _NLSCMPERROR = 2147483647 };
@@ -255,7 +222,7 @@ errno_t __cdecl _strnset_s( char* _String, size_t _SizeInBytes, int _Value, size
 /* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_EX ### IN LINE ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_EX( char*, __RETURN_POLICY_DST, , _strnset, _strnset_s,      char,   , char,   _Destination,                        int,    _Value,                        size_t, _Count */
 /* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_EX( char*, __RETURN_POLICY_DST, , _strnset, _strnset_s,      char,   , char,   _Destination,                        int,    _Value,                        size_t, _Count ### TO ### ) */
 char* __cdecl _strnset( char * _Destination, int _Value, size_t _Count );
-char * __cdecl strpbrk( char const* _Str, char const* _Control );
+char const* __cdecl strpbrk( char const* _Str, char const* _Control );
 char* __cdecl _strrev( char* _Str );
 errno_t __cdecl _strset_s( char* _Destination, size_t _DestinationSize, int _Value );
 /* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_1 ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_1( */
@@ -325,5 +292,5 @@ char* __cdecl strrev( char* _String );
 char* __cdecl strset( char* _String, int _Value);
 char* __cdecl strupr( char* _String );
 /* #pragma warning(pop)  */
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/string.h */
+/* + END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/string.h */
 ]]

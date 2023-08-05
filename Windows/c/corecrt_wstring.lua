@@ -1,9 +1,12 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstring.h */
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
+/* + BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstring.h */
+/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
 ]] require 'ffi.req' 'c.corecrt' ffi.cdef[[
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
+/* ++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
+/* ++ BEGIN C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.36.32532/include/vcruntime_string.h */
+]] require 'ffi.req' 'c.vcruntime_string' ffi.cdef[[
+/* ++ END   C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.36.32532/include/vcruntime_string.h */
 /* #pragma warning(push) */
 /* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */
 wchar_t* __cdecl _wcsdup( wchar_t const* _String );
@@ -104,7 +107,7 @@ int __cdecl wcsncmp( wchar_t const* _String1, wchar_t const* _String2, size_t _M
 /* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_EX ### IN LINE ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_EX( wchar_t*, __RETURN_POLICY_DST, , wcsncpy, wcsncpy_s,           wchar_t,    , wchar_t,        _Destination,                wchar_t const*, _Source,                                 size_t,         _Count */
 /* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_STANDARD_NFUNC_0_2_EX( wchar_t*, __RETURN_POLICY_DST, , wcsncpy, wcsncpy_s,           wchar_t,    , wchar_t,        _Destination,                wchar_t const*, _Source,                                 size_t,         _Count ### TO ### ) */
 wchar_t* __cdecl wcsncpy( wchar_t * _Destination, wchar_t const* _Source, size_t _Count );
-wchar_t * __cdecl wcspbrk( wchar_t const* _String, wchar_t const* _Control );
+wchar_t const* __cdecl wcspbrk( wchar_t const* _String, wchar_t const* _Control );
 size_t __cdecl wcsspn( wchar_t const* _String, wchar_t const* _Control );
 wchar_t* __cdecl wcstok( wchar_t* _String, wchar_t const* _Delimiter, wchar_t** _Context );
 /* #define _WCSTOK_DEPRECATED _CRT_DEPRECATE_TEXT(                                            "wcstok has been changed to conform with the ISO C standard, "                     "adding an extra context parameter. To use the legacy Microsoft "                  "wcstok, define _CRT_NON_CONFORMING_WCSTOK.") ### string, not number "_CRT_DEPRECATE_TEXT(                                            \"wcstok has been changed to conform with the ISO C standard, \"                     \"adding an extra context parameter. To use the legacy Microsoft \"                  \"wcstok, define _CRT_NON_CONFORMING_WCSTOK.\")" */
@@ -268,5 +271,5 @@ wchar_t* __cdecl wcslwr( wchar_t* _String );
 wchar_t* __cdecl wcsupr( wchar_t* _String );
 int __cdecl wcsicoll( wchar_t const* _String1, wchar_t const* _String2 );
 /* #pragma warning(pop)  */
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstring.h */
+/* + END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wstring.h */
 ]]

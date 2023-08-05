@@ -1,26 +1,26 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* BEGIN C:/Users/Christopher Moore/include/ogg/ogg.h */
+/* + BEGIN C:/Users/Christopher Moore/include/ogg/ogg.h */
 enum { _OGG_H = 1 };
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/stddef.h */
+/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/stddef.h */
-/* BEGIN C:/Users/Christopher Moore/include/ogg/os_types.h */
+/* ++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/stddef.h */
+/* ++ BEGIN C:/Users/Christopher Moore/include/ogg/os_types.h */
 enum { _OS_TYPES_H = 1 };
 enum { _ogg_malloc = 0 };
 enum { _ogg_calloc = 0 };
 enum { _ogg_realloc = 0 };
 enum { _ogg_free = 0 };
-/* BEGIN C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.36.32532/include/stdint.h */
+/* +++ BEGIN C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.36.32532/include/stdint.h */
 ]] require 'ffi.req' 'c.stdint' ffi.cdef[[
-/* END   C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.36.32532/include/stdint.h */
+/* +++ END   C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.36.32532/include/stdint.h */
 typedef int16_t ogg_int16_t;
 typedef uint16_t ogg_uint16_t;
 typedef int32_t ogg_int32_t;
 typedef uint32_t ogg_uint32_t;
 typedef int64_t ogg_int64_t;
 typedef uint64_t ogg_uint64_t;
-/* END   C:/Users/Christopher Moore/include/ogg/os_types.h */
+/* ++ END   C:/Users/Christopher Moore/include/ogg/os_types.h */
 typedef struct {
 	void *iov_base;
 	size_t iov_len;
@@ -146,5 +146,5 @@ extern int ogg_page_serialno(const ogg_page *og);
 extern long ogg_page_pageno(const ogg_page *og);
 extern int ogg_page_packets(const ogg_page *og);
 extern void ogg_packet_clear(ogg_packet *op);
-/* END   C:/Users/Christopher Moore/include/ogg/ogg.h */
+/* + END   C:/Users/Christopher Moore/include/ogg/ogg.h */
 ]]

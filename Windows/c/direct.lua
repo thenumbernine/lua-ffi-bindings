@@ -3,10 +3,10 @@ ffi.cdef[[
 /* + BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/direct.h */
 enum { _INC_DIRECT = 1 };
 /* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
-]] require 'ffi.req' 'Windows.c.corecrt' ffi.cdef[[
+]] require 'ffi.req' 'c.corecrt' ffi.cdef[[
 /* ++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
 /* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wdirect.h */
-]] require 'ffi.req' 'Windows.c.corecrt_wdirect' ffi.cdef[[
+]] require 'ffi.req' 'c.corecrt_wdirect' ffi.cdef[[
 /* ++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wdirect.h */
 /* #pragma warning(push) */
 /* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */
