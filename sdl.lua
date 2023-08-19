@@ -73,7 +73,7 @@ ffi.cdef[[
 		SDL_HAT_LEFTUP      = 0x09,
 		SDL_HAT_LEFTDOWN    = 0x0c,
 	};
-	
+
 	extern  uint8_t              SDL_numjoysticks;
 
 	typedef unsigned long        SDL_threadID;
@@ -93,10 +93,10 @@ ffi.cdef[[
 	typedef struct SDL_Texture   SDL_Texture;
 	typedef struct SDL_iconv_t*  SDL_iconv_t;
 	typedef struct SDL_SysWMmsg  SDL_SysWMmsg;
-	typedef struct SDL_Cursor    SDL_Cursor;   
+	typedef struct SDL_Cursor    SDL_Cursor;
 	typedef struct SDL_Joystick  SDL_Joystick;
 
-	
+
 	typedef void              (* SDL_AudioCallback)(    void *userdata, uint8_t* stream, int len );
 	typedef uint32_t          (* SDL_OldTimerCallback)( uint32_t interval );
 	typedef uint32_t          (* SDL_TimerCallback)(    uint32_t interval, void *param );
@@ -128,44 +128,44 @@ ffi.cdef[[
 	};
 
 	typedef enum SDL_WindowFlags {
-	   SDL_WINDOW_FULLSCREEN    = 0x00000001,         
-	   SDL_WINDOW_OPENGL        = 0x00000002,             
-	   SDL_WINDOW_SHOWN         = 0x00000004,              
-	   SDL_WINDOW_HIDDEN        = 0x00000008,             
-	   SDL_WINDOW_BORDERLESS    = 0x00000010,         
-	   SDL_WINDOW_RESIZABLE     = 0x00000020,          
-	   SDL_WINDOW_MINIMIZED     = 0x00000040,          
-	   SDL_WINDOW_MAXIMIZED     = 0x00000080,          
-	   SDL_WINDOW_INPUT_GRABBED = 0x00000100,      
-	   SDL_WINDOW_INPUT_FOCUS   = 0x00000200,        
-	   SDL_WINDOW_MOUSE_FOCUS   = 0x00000400,        
-	   SDL_WINDOW_FOREIGN       = 0x00000800             
+	   SDL_WINDOW_FULLSCREEN    = 0x00000001,
+	   SDL_WINDOW_OPENGL        = 0x00000002,
+	   SDL_WINDOW_SHOWN         = 0x00000004,
+	   SDL_WINDOW_HIDDEN        = 0x00000008,
+	   SDL_WINDOW_BORDERLESS    = 0x00000010,
+	   SDL_WINDOW_RESIZABLE     = 0x00000020,
+	   SDL_WINDOW_MINIMIZED     = 0x00000040,
+	   SDL_WINDOW_MAXIMIZED     = 0x00000080,
+	   SDL_WINDOW_INPUT_GRABBED = 0x00000100,
+	   SDL_WINDOW_INPUT_FOCUS   = 0x00000200,
+	   SDL_WINDOW_MOUSE_FOCUS   = 0x00000400,
+	   SDL_WINDOW_FOREIGN       = 0x00000800
 	} SDL_WindowFlags;
 
 	typedef enum SDL_WindowEventID {
-	   SDL_WINDOWEVENT_NONE,           
-	   SDL_WINDOWEVENT_SHOWN,          
-	   SDL_WINDOWEVENT_HIDDEN,         
-	   SDL_WINDOWEVENT_EXPOSED,        
-	   SDL_WINDOWEVENT_MOVED,          
-	   SDL_WINDOWEVENT_RESIZED,        
-	   SDL_WINDOWEVENT_SIZE_CHANGED,   
-	   SDL_WINDOWEVENT_MINIMIZED,      
-	   SDL_WINDOWEVENT_MAXIMIZED,      
-	   SDL_WINDOWEVENT_RESTORED,       
-	   SDL_WINDOWEVENT_ENTER,          
-	   SDL_WINDOWEVENT_LEAVE,          
-	   SDL_WINDOWEVENT_FOCUS_GAINED,   
-	   SDL_WINDOWEVENT_FOCUS_LOST,     
-	   SDL_WINDOWEVENT_CLOSE      
+	   SDL_WINDOWEVENT_NONE,
+	   SDL_WINDOWEVENT_SHOWN,
+	   SDL_WINDOWEVENT_HIDDEN,
+	   SDL_WINDOWEVENT_EXPOSED,
+	   SDL_WINDOWEVENT_MOVED,
+	   SDL_WINDOWEVENT_RESIZED,
+	   SDL_WINDOWEVENT_SIZE_CHANGED,
+	   SDL_WINDOWEVENT_MINIMIZED,
+	   SDL_WINDOWEVENT_MAXIMIZED,
+	   SDL_WINDOWEVENT_RESTORED,
+	   SDL_WINDOWEVENT_ENTER,
+	   SDL_WINDOWEVENT_LEAVE,
+	   SDL_WINDOWEVENT_FOCUS_GAINED,
+	   SDL_WINDOWEVENT_FOCUS_LOST,
+	   SDL_WINDOWEVENT_CLOSE
 	} SDL_WindowEventID;
 
 	typedef enum SDL_assert_state {
-	   SDL_ASSERTION_RETRY,  
-	   SDL_ASSERTION_BREAK,  
-	   SDL_ASSERTION_ABORT,  
-	   SDL_ASSERTION_IGNORE,  
-	   SDL_ASSERTION_ALWAYS_IGNORE,  
+	   SDL_ASSERTION_RETRY,
+	   SDL_ASSERTION_BREAK,
+	   SDL_ASSERTION_ABORT,
+	   SDL_ASSERTION_IGNORE,
+	   SDL_ASSERTION_ALWAYS_IGNORE,
 	} SDL_assert_state;
 
 	typedef enum SDL_ThreadPriority {
@@ -319,11 +319,11 @@ ffi.cdef[[
 	   SDL_SCANCODE_EQUALS = 46,
 	   SDL_SCANCODE_LEFTBRACKET = 47,
 	   SDL_SCANCODE_RIGHTBRACKET = 48,
-	   SDL_SCANCODE_BACKSLASH = 49, 
-	   SDL_SCANCODE_NONUSHASH = 50, 
+	   SDL_SCANCODE_BACKSLASH = 49,
+	   SDL_SCANCODE_NONUSHASH = 50,
 	   SDL_SCANCODE_SEMICOLON = 51,
 	   SDL_SCANCODE_APOSTROPHE = 52,
-	   SDL_SCANCODE_GRAVE = 53, 
+	   SDL_SCANCODE_GRAVE = 53,
 	   SDL_SCANCODE_COMMA = 54,
 	   SDL_SCANCODE_PERIOD = 55,
 	   SDL_SCANCODE_SLASH = 56,
@@ -343,7 +343,7 @@ ffi.cdef[[
 	   SDL_SCANCODE_PRINTSCREEN = 70,
 	   SDL_SCANCODE_SCROLLLOCK = 71,
 	   SDL_SCANCODE_PAUSE = 72,
-	   SDL_SCANCODE_INSERT = 73, 
+	   SDL_SCANCODE_INSERT = 73,
 	   SDL_SCANCODE_HOME = 74,
 	   SDL_SCANCODE_PAGEUP = 75,
 	   SDL_SCANCODE_DELETE = 76,
@@ -353,7 +353,7 @@ ffi.cdef[[
 	   SDL_SCANCODE_LEFT = 80,
 	   SDL_SCANCODE_DOWN = 81,
 	   SDL_SCANCODE_UP = 82,
-	   SDL_SCANCODE_NUMLOCKCLEAR = 83, 
+	   SDL_SCANCODE_NUMLOCKCLEAR = 83,
 	   SDL_SCANCODE_KP_DIVIDE = 84,
 	   SDL_SCANCODE_KP_MULTIPLY = 85,
 	   SDL_SCANCODE_KP_MINUS = 86,
@@ -370,9 +370,9 @@ ffi.cdef[[
 	   SDL_SCANCODE_KP_9 = 97,
 	   SDL_SCANCODE_KP_0 = 98,
 	   SDL_SCANCODE_KP_PERIOD = 99,
-	   SDL_SCANCODE_NONUSBACKSLASH = 100, 
-	   SDL_SCANCODE_APPLICATION = 101, 
-	   SDL_SCANCODE_POWER = 102, 
+	   SDL_SCANCODE_NONUSBACKSLASH = 100,
+	   SDL_SCANCODE_APPLICATION = 101,
+	   SDL_SCANCODE_POWER = 102,
 	   SDL_SCANCODE_KP_EQUALS = 103,
 	   SDL_SCANCODE_F13 = 104,
 	   SDL_SCANCODE_F14 = 105,
@@ -391,7 +391,7 @@ ffi.cdef[[
 	   SDL_SCANCODE_MENU = 118,
 	   SDL_SCANCODE_SELECT = 119,
 	   SDL_SCANCODE_STOP = 120,
-	   SDL_SCANCODE_AGAIN = 121,   
+	   SDL_SCANCODE_AGAIN = 121,
 	   SDL_SCANCODE_UNDO = 122,
 	   SDL_SCANCODE_CUT = 123,
 	   SDL_SCANCODE_COPY = 124,
@@ -402,25 +402,25 @@ ffi.cdef[[
 	   SDL_SCANCODE_VOLUMEDOWN = 129,
 	   SDL_SCANCODE_KP_COMMA = 133,
 	   SDL_SCANCODE_KP_EQUALSAS400 = 134,
-	   SDL_SCANCODE_INTERNATIONAL1 = 135, 
+	   SDL_SCANCODE_INTERNATIONAL1 = 135,
 	   SDL_SCANCODE_INTERNATIONAL2 = 136,
-	   SDL_SCANCODE_INTERNATIONAL3 = 137, 
+	   SDL_SCANCODE_INTERNATIONAL3 = 137,
 	   SDL_SCANCODE_INTERNATIONAL4 = 138,
 	   SDL_SCANCODE_INTERNATIONAL5 = 139,
 	   SDL_SCANCODE_INTERNATIONAL6 = 140,
 	   SDL_SCANCODE_INTERNATIONAL7 = 141,
 	   SDL_SCANCODE_INTERNATIONAL8 = 142,
 	   SDL_SCANCODE_INTERNATIONAL9 = 143,
-	   SDL_SCANCODE_LANG1 = 144, 
-	   SDL_SCANCODE_LANG2 = 145, 
-	   SDL_SCANCODE_LANG3 = 146, 
-	   SDL_SCANCODE_LANG4 = 147, 
-	   SDL_SCANCODE_LANG5 = 148, 
-	   SDL_SCANCODE_LANG6 = 149, 
-	   SDL_SCANCODE_LANG7 = 150, 
-	   SDL_SCANCODE_LANG8 = 151, 
-	   SDL_SCANCODE_LANG9 = 152, 
-	   SDL_SCANCODE_ALTERASE = 153, 
+	   SDL_SCANCODE_LANG1 = 144,
+	   SDL_SCANCODE_LANG2 = 145,
+	   SDL_SCANCODE_LANG3 = 146,
+	   SDL_SCANCODE_LANG4 = 147,
+	   SDL_SCANCODE_LANG5 = 148,
+	   SDL_SCANCODE_LANG6 = 149,
+	   SDL_SCANCODE_LANG7 = 150,
+	   SDL_SCANCODE_LANG8 = 151,
+	   SDL_SCANCODE_LANG9 = 152,
+	   SDL_SCANCODE_ALTERASE = 153,
 	   SDL_SCANCODE_SYSREQ = 154,
 	   SDL_SCANCODE_CANCEL = 155,
 	   SDL_SCANCODE_CLEAR = 156,
@@ -480,13 +480,13 @@ ffi.cdef[[
 	   SDL_SCANCODE_KP_HEXADECIMAL = 221,
 	   SDL_SCANCODE_LCTRL = 224,
 	   SDL_SCANCODE_LSHIFT = 225,
-	   SDL_SCANCODE_LALT = 226, 
-	   SDL_SCANCODE_LGUI = 227, 
+	   SDL_SCANCODE_LALT = 226,
+	   SDL_SCANCODE_LGUI = 227,
 	   SDL_SCANCODE_RCTRL = 228,
 	   SDL_SCANCODE_RSHIFT = 229,
-	   SDL_SCANCODE_RALT = 230, 
-	   SDL_SCANCODE_RGUI = 231, 
-	   SDL_SCANCODE_MODE = 257,    
+	   SDL_SCANCODE_RALT = 230,
+	   SDL_SCANCODE_RGUI = 231,
+	   SDL_SCANCODE_MODE = 257,
 	   SDL_SCANCODE_AUDIONEXT = 258,
 	   SDL_SCANCODE_AUDIOPREV = 259,
 	   SDL_SCANCODE_AUDIOSTOP = 260,
@@ -506,13 +506,13 @@ ffi.cdef[[
 	   SDL_SCANCODE_AC_BOOKMARKS = 274,
 	   SDL_SCANCODE_BRIGHTNESSDOWN = 275,
 	   SDL_SCANCODE_BRIGHTNESSUP = 276,
-	   SDL_SCANCODE_DISPLAYSWITCH = 277, 
+	   SDL_SCANCODE_DISPLAYSWITCH = 277,
 	   SDL_SCANCODE_KBDILLUMTOGGLE = 278,
 	   SDL_SCANCODE_KBDILLUMDOWN = 279,
 	   SDL_SCANCODE_KBDILLUMUP = 280,
 	   SDL_SCANCODE_EJECT = 281,
 	   SDL_SCANCODE_SLEEP = 282,
-	   SDL_NUM_SCANCODES = 512 
+	   SDL_NUM_SCANCODES = 512
 	} SDL_Scancode;
 
 	enum {
@@ -605,7 +605,7 @@ ffi.cdef[[
 	   SDLK_INSERT             = SDL_SCANCODE_INSERT             | (1<<30),
 	   SDLK_HOME               = SDL_SCANCODE_HOME               | (1<<30),
 	   SDLK_PAGEUP             = SDL_SCANCODE_PAGEUP             | (1<<30),
-	   SDLK_DELETE             = '\177',		         
+	   SDLK_DELETE             = '\177',
 	   SDLK_END                = SDL_SCANCODE_END                | (1<<30),
 	   SDLK_PAGEDOWN           = SDL_SCANCODE_PAGEDOWN           | (1<<30),
 	   SDLK_RIGHT              = SDL_SCANCODE_RIGHT              | (1<<30),
@@ -775,10 +775,10 @@ ffi.cdef[[
 	} SDL_Keymod;
 
 	typedef enum {
-	   SDL_BLENDMODE_NONE  = 0x00000000,     
-	   SDL_BLENDMODE_BLEND = 0x00000001,    
-	   SDL_BLENDMODE_ADD   = 0x00000002,      
-	   SDL_BLENDMODE_MOD   = 0x00000004       
+	   SDL_BLENDMODE_NONE  = 0x00000000,
+	   SDL_BLENDMODE_BLEND = 0x00000001,
+	   SDL_BLENDMODE_ADD   = 0x00000002,
+	   SDL_BLENDMODE_MOD   = 0x00000004
 	} SDL_BlendMode;
 
 	typedef enum {
@@ -788,24 +788,24 @@ ffi.cdef[[
 	} SDL_HintPriority;
 
 	typedef enum SDL_PowerState {
-	   SDL_POWERSTATE_UNKNOWN,      
-	   SDL_POWERSTATE_ON_BATTERY,   
-	   SDL_POWERSTATE_NO_BATTERY,   
-	   SDL_POWERSTATE_CHARGING,     
-	   SDL_POWERSTATE_CHARGED       
+	   SDL_POWERSTATE_UNKNOWN,
+	   SDL_POWERSTATE_ON_BATTERY,
+	   SDL_POWERSTATE_NO_BATTERY,
+	   SDL_POWERSTATE_CHARGING,
+	   SDL_POWERSTATE_CHARGED
 	} SDL_PowerState;
 
 	typedef struct SDL_version {
-	   uint8_t major;        
-	   uint8_t minor;        
-	   uint8_t patch;        
+	   uint8_t major;
+	   uint8_t minor;
+	   uint8_t patch;
 	} SDL_version;
 
 	typedef struct SDL_Keysym {
-	   SDL_Scancode scancode;      
-	   SDL_Keycode sym;            
-	   uint16_t mod;                 
-	   uint32_t unicode;             
+	   SDL_Scancode scancode;
+	   SDL_Keycode sym;
+	   uint16_t mod;
+	   uint32_t unicode;
 	} SDL_Keysym;
 
 	typedef enum SDL_SYSWM_TYPE {
@@ -849,9 +849,9 @@ ffi.cdef[[
 	} SDL_LogPriority;
 
 	typedef struct SDL_DisplayMode {
-	   uint32_t format;              
-	   int      w, h, refresh_rate;                      
-	   void*    driverdata;           
+	   uint32_t format;
+	   int      w, h, refresh_rate;
+	   void*    driverdata;
 	} SDL_DisplayMode;
 
 	typedef enum SDL_GLattr {
@@ -883,29 +883,29 @@ ffi.cdef[[
 	} SDL_GrabMode;
 
 	typedef enum SDL_RendererFlags {
-	   SDL_RENDERER_SOFTWARE     = 0x00000001,          
-	   SDL_RENDERER_ACCELERATED  = 0x00000002,      
-	   SDL_RENDERER_PRESENTVSYNC = 0x00000004      
+	   SDL_RENDERER_SOFTWARE     = 0x00000001,
+	   SDL_RENDERER_ACCELERATED  = 0x00000002,
+	   SDL_RENDERER_PRESENTVSYNC = 0x00000004
 	} SDL_RendererFlags;
 
 	typedef enum SDL_TextureAccess {
-	   SDL_TEXTUREACCESS_STATIC,    
-	   SDL_TEXTUREACCESS_STREAMING  
+	   SDL_TEXTUREACCESS_STATIC,
+	   SDL_TEXTUREACCESS_STREAMING
 	} SDL_TextureAccess;
 
 	typedef enum SDL_TextureModulate {
-	   SDL_TEXTUREMODULATE_NONE = 0x00000000,     
-	   SDL_TEXTUREMODULATE_COLOR = 0x00000001,    
-	   SDL_TEXTUREMODULATE_ALPHA = 0x00000002     
+	   SDL_TEXTUREMODULATE_NONE = 0x00000000,
+	   SDL_TEXTUREMODULATE_COLOR = 0x00000001,
+	   SDL_TEXTUREMODULATE_ALPHA = 0x00000002
 	} SDL_TextureModulate;
 
 	typedef struct SDL_RendererInfo {
-	   const char *name;           
-	   uint32_t flags;               
-	   uint32_t num_texture_formats; 
-	   uint32_t texture_formats[16]; 
-	   int max_texture_width;      
-	   int max_texture_height;     
+	   const char *name;
+	   uint32_t flags;
+	   uint32_t num_texture_formats;
+	   uint32_t texture_formats[16];
+	   int max_texture_width;
+	   int max_texture_height;
 	} SDL_RendererInfo;
 
 	typedef struct SDL_SysWMinfo {
@@ -1014,13 +1014,13 @@ ffi.cdef[[
 	} SDL_RWops;
 
 	typedef struct SDL_AudioSpec {
-	   int               freq;                   
-	   SDL_AudioFormat   format;     
-	   uint8_t           channels;             
-	   uint8_t           silence;              
-	   uint16_t          samples;             
-	   uint16_t          padding;             
-	   uint32_t          size;                
+	   int               freq;
+	   SDL_AudioFormat   format;
+	   uint8_t           channels;
+	   uint8_t           silence;
+	   uint16_t          samples;
+	   uint16_t          padding;
+	   uint32_t          size;
 	   SDL_AudioCallback callback;
 	   void*             userdata;
 	} SDL_AudioSpec;
@@ -1028,30 +1028,30 @@ ffi.cdef[[
 	struct SDL_AudioCVT;
 	typedef void (* SDL_AudioFilter)( struct SDL_AudioCVT * cvt, SDL_AudioFormat format );
 	typedef struct SDL_AudioCVT {
-	   int             needed;                 
-	   SDL_AudioFormat src_format; 
-	   SDL_AudioFormat dst_format; 
-	   double          rate_incr;           
-	   uint8_t*        buf;                 
-	   int             len;                    
-	   int             len_cvt;                
-	   int             len_mult;               
-	   double          len_ratio;           
-	   SDL_AudioFilter filters[10];        
-	   int             filter_index;           
+	   int             needed;
+	   SDL_AudioFormat src_format;
+	   SDL_AudioFormat dst_format;
+	   double          rate_incr;
+	   uint8_t*        buf;
+	   int             len;
+	   int             len_cvt;
+	   int             len_mult;
+	   double          len_ratio;
+	   SDL_AudioFilter filters[10];
+	   int             filter_index;
 	} SDL_AudioCVT;
 
 	typedef struct SDL_Surface {
-	   uint32_t            flags;               
-	   SDL_PixelFormat*    format;    
-	   int                 w, h, pitch;                   
-	   void*               pixels;               
-	   void*               userdata;             
-	   int                 locked;                 
-	   void*               lock_data;            
-	   SDL_Rect            clip_rect;         
-	   struct SDL_BlitMap* map;    
-	   int                 refcount;               
+	   uint32_t            flags;
+	   SDL_PixelFormat*    format;
+	   int                 w, h, pitch;
+	   void*               pixels;
+	   void*               userdata;
+	   int                 locked;
+	   void*               lock_data;
+	   SDL_Rect            clip_rect;
+	   struct SDL_BlitMap* map;
+	   int                 refcount;
 	} SDL_Surface;
 
 	typedef uintptr_t         (* pfnSDL_CurrentBeginThread) (void *, unsigned, unsigned (* func) (void *), void *arg, unsigned, unsigned *threadID );
@@ -1064,7 +1064,7 @@ ffi.cdef[[
 	   uint16_t     x, y;
 	   uint16_t     pressure;
 	   uint16_t     xdelta, ydelta;
-	   uint16_t     last_x, last_y,last_pressure;  
+	   uint16_t     last_x, last_y,last_pressure;
 	   SDL_bool     down;
 	} SDL_Finger;
 
@@ -1074,8 +1074,8 @@ ffi.cdef[[
 	   float x_max, x_min, y_max, y_min;
 	   uint16_t xres,yres,pressureres;
 	   float native_xres,native_yres,native_pressureres;
-	   float tilt;                   
-	   float rotation;               
+	   float tilt;
+	   float rotation;
 	   SDL_TouchID id;
 	   SDL_Window *focus;
 	   char *name;
@@ -1628,17 +1628,17 @@ typedef union SDL_Event
 	} SDL_VideoInfo;
 
 	typedef struct SDL_Overlay {
-	   uint32_t format;              
-	   int w, h, planes;                 
-	   uint16_t *pitches;            
-	   uint8_t **pixels;             
+	   uint32_t format;
+	   int w, h, planes;
+	   uint16_t *pitches;
+	   uint8_t **pixels;
 	   struct private_yuvhwfuncs *hwfuncs;
 	   struct private_yuvhwdata *hwdata;
-	   uint32_t hw_overlay:1;        
+	   uint32_t hw_overlay:1;
 	   uint32_t UnusedBits:31;
 	} SDL_Overlay;
 
-	typedef int  (* SDL_EventFilter       )( void* userdata, SDL_Event* ); 
+	typedef int  (* SDL_EventFilter       )( void* userdata, SDL_Event* );
 	typedef void (* SDL_LogOutputFunction )( void* userdata, int category, SDL_LogPriority, const char* message );
 
 	void*                  SDL_malloc(               size_t size );
@@ -1728,7 +1728,7 @@ typedef union SDL_Event
 	size_t                 SDL_WriteBE32(            SDL_RWops * dst, uint32_t value );
 	size_t                 SDL_WriteLE64(            SDL_RWops * dst, uint64_t value );
 	size_t                 SDL_WriteBE64(            SDL_RWops * dst, uint64_t value );
-	   
+
 	int                    SDL_GetNumAudioDrivers(    void );
 	const char*            SDL_GetAudioDriver(        int index );
 	int                    SDL_AudioInit(             const char *driver_name );
@@ -1773,20 +1773,20 @@ typedef union SDL_Event
 	SDL_bool               SDL_HasSSE42(              );
 
 	const char*            SDL_GetPixelFormatName(uint32_t format);
-	SDL_bool               SDL_PixelFormatEnumToMasks( uint32_t format, int *bpp, uint32_t * Rmask, 
-						      uint32_t * Gmask, uint32_t * Bmask, uint32_t * Amask); 
-	uint32_t               SDL_MasksToPixelFormatEnum( int bpp, uint32_t Rmsk, uint32_t Gmsk, 
-						      uint32_t Bmsk, uint32_t Amsk); 
+	SDL_bool               SDL_PixelFormatEnumToMasks( uint32_t format, int *bpp, uint32_t * Rmask,
+						      uint32_t * Gmask, uint32_t * Bmask, uint32_t * Amask);
+	uint32_t               SDL_MasksToPixelFormatEnum( int bpp, uint32_t Rmsk, uint32_t Gmsk,
+						      uint32_t Bmsk, uint32_t Amsk);
 	SDL_PixelFormat*       SDL_AllocFormat(uint32_t pixel_format);
 	void                   SDL_FreeFormat(SDL_PixelFormat *format);
 	SDL_Palette*           SDL_AllocPalette(int ncolors);
 	int                    SDL_SetPixelFormatPalette( SDL_PixelFormat * format, SDL_Palette *palette);
-	int                    SDL_SetPaletteColors( SDL_Palette*, const SDL_Color* colors, 
+	int                    SDL_SetPaletteColors( SDL_Palette*, const SDL_Color* colors,
 						int firstcolor, int ncolors);
 	void                   SDL_FreePalette(   SDL_Palette* );
 	uint32_t               SDL_MapRGB(  const SDL_PixelFormat*, uint8_t r, uint8_t g, uint8_t b );
 	uint32_t               SDL_MapRGBA( const SDL_PixelFormat*, uint8_t r, uint8_t g, uint8_t b, uint8_t a );
-	void                   SDL_GetRGB(        uint32_t pixel, const SDL_PixelFormat* format, 
+	void                   SDL_GetRGB(        uint32_t pixel, const SDL_PixelFormat* format,
 					     uint8_t* r, uint8_t* g, uint8_t* b );
 	void                   SDL_GetRGBA(       uint32_t pixel, const SDL_PixelFormat* format,
 					     uint8_t* r, uint8_t* g, uint8_t* b, uint8_t* a );
@@ -1794,9 +1794,9 @@ typedef union SDL_Event
 	SDL_bool               SDL_HasIntersection(      const SDL_Rect*  A, const SDL_Rect * B);
 	SDL_bool               SDL_IntersectRect(        const SDL_Rect*  A, const SDL_Rect * B, SDL_Rect* result);
 	void                   SDL_UnionRect(            const SDL_Rect*  A, const SDL_Rect * B, SDL_Rect* result);
-	SDL_bool               SDL_EnclosePoints(        const SDL_Point* pnts, int cnt, 
+	SDL_bool               SDL_EnclosePoints(        const SDL_Point* pnts, int cnt,
 						    const SDL_Rect* clip, SDL_Rect* result);
-	SDL_bool               SDL_IntersectRectAndLine( const SDL_Rect*  rect, int *X1, int *Y1, 
+	SDL_bool               SDL_IntersectRectAndLine( const SDL_Rect*  rect, int *X1, int *Y1,
 						    int *X2, int *Y2);
 	typedef int (*SDL_blit) (struct SDL_Surface* src, SDL_Rect* srect,
 			    struct SDL_Surface* dst, SDL_Rect* drect);
@@ -1808,41 +1808,41 @@ typedef union SDL_Event
 					  uint32_t Rmask, uint32_t Gmask, uint32_t Bmask, uint32_t Amask );
 
 	void         SDL_FreeSurface(          SDL_Surface* );
-	int          SDL_SetSurfacePalette(    SDL_Surface*, SDL_Palette* palette ); 
+	int          SDL_SetSurfacePalette(    SDL_Surface*, SDL_Palette* palette );
 	int          SDL_LockSurface(          SDL_Surface* );
 	void         SDL_UnlockSurface(        SDL_Surface* );
-	SDL_Surface* SDL_LoadBMP_RW(                         SDL_RWops* src, int freesrc ); 
+	SDL_Surface* SDL_LoadBMP_RW(                         SDL_RWops* src, int freesrc );
 	int          SDL_SaveBMP_RW(           SDL_Surface*, SDL_RWops* dst, int freedst );
 	int          SDL_SetSurfaceRLE(        SDL_Surface*, int flag );
 	int          SDL_SetColorKey(          SDL_Surface*, int flag, uint32_t  key );
 	int          SDL_GetColorKey(          SDL_Surface*,           uint32_t* key );
 	int          SDL_SetSurfaceColorMod(   SDL_Surface*, uint8_t  r, uint8_t  g, uint8_t  b );
 	int          SDL_GetSurfaceColorMod(   SDL_Surface*, uint8_t *r, uint8_t* g, uint8_t* b );
-	int          SDL_SetSurfaceAlphaMod(   SDL_Surface*, uint8_t  alpha ); 
-	int          SDL_GetSurfaceAlphaMod(   SDL_Surface*, uint8_t* alpha ); 
+	int          SDL_SetSurfaceAlphaMod(   SDL_Surface*, uint8_t  alpha );
+	int          SDL_GetSurfaceAlphaMod(   SDL_Surface*, uint8_t* alpha );
 	int          SDL_SetSurfaceBlendMode(  SDL_Surface*, SDL_BlendMode  blendMode );
-	int          SDL_GetSurfaceBlendMode(  SDL_Surface*, SDL_BlendMode* blendMode ); 
+	int          SDL_GetSurfaceBlendMode(  SDL_Surface*, SDL_BlendMode* blendMode );
 
 	SDL_bool     SDL_SetClipRect(          SDL_Surface*, const SDL_Rect* rect );
-	void         SDL_GetClipRect(          SDL_Surface*,       SDL_Rect* rect ); 
+	void         SDL_GetClipRect(          SDL_Surface*,       SDL_Rect* rect );
 
 	SDL_Surface* SDL_ConvertSurface(       SDL_Surface*, SDL_PixelFormat* fmt, uint32_t flags );
-	SDL_Surface* SDL_ConvertSurfaceFormat( SDL_Surface*, uint32_t pixelformat, uint32_t flags ); 
+	SDL_Surface* SDL_ConvertSurfaceFormat( SDL_Surface*, uint32_t pixelformat, uint32_t flags );
 
 	int          SDL_FillRect(             SDL_Surface*, const SDL_Rect* rect,             uint32_t color );
 	int          SDL_FillRects(            SDL_Surface*, const SDL_Rect* rects, int count, uint32_t color );
 
-	int          SDL_UpperBlit(            SDL_Surface* src, const SDL_Rect* src_rect, 
+	int          SDL_UpperBlit(            SDL_Surface* src, const SDL_Rect* src_rect,
 					  SDL_Surface* dst,       SDL_Rect* dst_rect);
 
-	int          SDL_LowerBlit(            SDL_Surface* src,       SDL_Rect* src_rect, 
+	int          SDL_LowerBlit(            SDL_Surface* src,       SDL_Rect* src_rect,
 					  SDL_Surface* dst,       SDL_Rect* dst_rect);
 
-	int          SDL_SoftStretch(          SDL_Surface* src, const SDL_Rect* src_rect, 
+	int          SDL_SoftStretch(          SDL_Surface* src, const SDL_Rect* src_rect,
 					  SDL_Surface* dst, const SDL_Rect* dst_rect);
 
 	int          SDL_UpperBlitScaled(      SDL_Surface* src, const SDL_Rect* src_rect,
-					  SDL_Surface* dst,       SDL_Rect* dst_rect); 
+					  SDL_Surface* dst,       SDL_Rect* dst_rect);
 
 	int          SDL_LowerBlitScaled(      SDL_Surface* src,       SDL_Rect* src_rect,
 					  SDL_Surface* dst,       SDL_Rect* dst_rect);
@@ -1852,16 +1852,16 @@ typedef union SDL_Event
 					  uint32_t dst_format,       void* dst, int dst_pitch );
 
 	int              SDL_GetNumVideoDrivers(void);
-	const char*      SDL_GetVideoDriver(int index); 
-	int              SDL_VideoInit(const char *driver_name); 
-	void             SDL_VideoQuit(void); 
-	const char*      SDL_GetCurrentVideoDriver(void); 
-	int              SDL_GetNumVideoDisplays(void); 
+	const char*      SDL_GetVideoDriver(int index);
+	int              SDL_VideoInit(const char *driver_name);
+	void             SDL_VideoQuit(void);
+	const char*      SDL_GetCurrentVideoDriver(void);
+	int              SDL_GetNumVideoDisplays(void);
 	int              SDL_GetDisplayBounds(int displayIndex, SDL_Rect * rect);
-	int              SDL_GetNumDisplayModes(int displayIndex); 
+	int              SDL_GetNumDisplayModes(int displayIndex);
 	int              SDL_GetDisplayMode(int displayIndex, int modeIndex, SDL_DisplayMode * mode);
-	int              SDL_GetDesktopDisplayMode(int displayIndex, SDL_DisplayMode * mode); 
-	int              SDL_GetCurrentDisplayMode(int displayIndex, SDL_DisplayMode * mode); 
+	int              SDL_GetDesktopDisplayMode(int displayIndex, SDL_DisplayMode * mode);
+	int              SDL_GetCurrentDisplayMode(int displayIndex, SDL_DisplayMode * mode);
 	SDL_DisplayMode* SDL_GetClosestDisplayMode(int displayIndex, const SDL_DisplayMode * mode, SDL_DisplayMode * closest);
 	int            SDL_GetWindowDisplay(         SDL_Window*  );
 	int            SDL_SetWindowDisplayMode(     SDL_Window*, const SDL_DisplayMode* );
@@ -1934,8 +1934,8 @@ typedef union SDL_Event
 	void            SDL_WarpMouseInWindow(SDL_Window * window, int x, int y);
 	int             SDL_SetRelativeMouseMode(SDL_bool enabled);
 	SDL_bool        SDL_GetRelativeMouseMode(void);
-	SDL_Cursor*     SDL_CreateCursor(const uint8_t * data, const uint8_t* mask, int w, int h, int hot_x, int hot_y); 
-	SDL_Cursor*     SDL_CreateColorCursor(  SDL_Surface*, int hot_x, int hot_y ); 
+	SDL_Cursor*     SDL_CreateCursor(const uint8_t * data, const uint8_t* mask, int w, int h, int hot_x, int hot_y);
+	SDL_Cursor*     SDL_CreateColorCursor(  SDL_Surface*, int hot_x, int hot_y );
 	void            SDL_SetCursor(          SDL_Cursor* );
 	SDL_Cursor*     SDL_GetCursor(          void);
 	void            SDL_FreeCursor(         SDL_Cursor* );
@@ -1954,9 +1954,9 @@ typedef union SDL_Event
 	int             SDL_JoystickNumHats(    SDL_Joystick* );
 	int             SDL_JoystickNumButtons( SDL_Joystick* );
 	int16_t         SDL_JoystickGetAxis(    SDL_Joystick*, int axis );
-	uint8_t         SDL_JoystickGetHat(     SDL_Joystick*, int hat ); 
-	int             SDL_JoystickGetBall(    SDL_Joystick*, int ball, int *dx, int *dy ); 
-	uint8_t         SDL_JoystickGetButton(  SDL_Joystick*, int button ); 
+	uint8_t         SDL_JoystickGetHat(     SDL_Joystick*, int hat );
+	int             SDL_JoystickGetBall(    SDL_Joystick*, int ball, int *dx, int *dy );
+	uint8_t         SDL_JoystickGetButton(  SDL_Joystick*, int button );
 	void            SDL_JoystickClose(      SDL_Joystick* );
 
 	SDL_Touch*      SDL_GetTouch(               SDL_TouchID id );
@@ -1967,34 +1967,34 @@ typedef union SDL_Event
 	int             SDL_LoadDollarTemplates(    SDL_TouchID touchId, SDL_RWops *src );
 
 	void            SDL_PumpEvents(         );
-	int             SDL_PeepEvents(         SDL_Event* evts, int n_evts, SDL_eventaction action, 
-	                                   uint32_t minType, uint32_t maxType ); 
+	int             SDL_PeepEvents(         SDL_Event* evts, int n_evts, SDL_eventaction action,
+	                                   uint32_t minType, uint32_t maxType );
 	SDL_bool        SDL_HasEvent(           uint32_t type );
-	SDL_bool        SDL_HasEvents(          uint32_t minType, uint32_t maxType ); 
+	SDL_bool        SDL_HasEvents(          uint32_t minType, uint32_t maxType );
 	void            SDL_FlushEvent(         uint32_t type );
-	void            SDL_FlushEvents(        uint32_t minType, uint32_t maxType ); 
-	int             SDL_PollEvent(          SDL_Event * event ); 
-	int             SDL_WaitEvent(          SDL_Event * event ); 
-	int             SDL_WaitEventTimeout(   SDL_Event * event, int timeout ); 
-	int             SDL_PushEvent(          SDL_Event * event ); 
-	void            SDL_SetEventFilter(     SDL_EventFilter  filter, void*  userdata ); 
-	SDL_bool        SDL_GetEventFilter(     SDL_EventFilter* filter, void** userdata ); 
-	void            SDL_AddEventWatch(      SDL_EventFilter  filter, void*  userdata ); 
-	void            SDL_DelEventWatch(      SDL_EventFilter  filter, void*  userdata ); 
+	void            SDL_FlushEvents(        uint32_t minType, uint32_t maxType );
+	int             SDL_PollEvent(          SDL_Event * event );
+	int             SDL_WaitEvent(          SDL_Event * event );
+	int             SDL_WaitEventTimeout(   SDL_Event * event, int timeout );
+	int             SDL_PushEvent(          SDL_Event * event );
+	void            SDL_SetEventFilter(     SDL_EventFilter  filter, void*  userdata );
+	SDL_bool        SDL_GetEventFilter(     SDL_EventFilter* filter, void** userdata );
+	void            SDL_AddEventWatch(      SDL_EventFilter  filter, void*  userdata );
+	void            SDL_DelEventWatch(      SDL_EventFilter  filter, void*  userdata );
 	void            SDL_FilterEvents(       SDL_EventFilter  filter, void*  userdata );
 	uint8_t         SDL_EventState(         uint32_t type, int state);
 	uint32_t        SDL_RegisterEvents(     int numevents);
 
-	SDL_bool        SDL_SetHintWithPriority( const char* name, const char* val, SDL_HintPriority ); 
-	SDL_bool        SDL_SetHint(             const char* name, const char* val ); 
+	SDL_bool        SDL_SetHintWithPriority( const char* name, const char* val, SDL_HintPriority );
+	SDL_bool        SDL_SetHint(             const char* name, const char* val );
 	const char*     SDL_GetHint(             const char* name );
 	void            SDL_ClearHints(          );
 	void*           SDL_LoadObject(          const char *sofile );
 	void*           SDL_LoadFunction(        void* handle, const char* name );
 	void            SDL_UnloadObject(        void* handle );
 
-	void            SDL_LogSetAllPriority(   SDL_LogPriority ); 
-	void            SDL_LogSetPriority(      int category, SDL_LogPriority priority ); 
+	void            SDL_LogSetAllPriority(   SDL_LogPriority );
+	void            SDL_LogSetPriority(      int category, SDL_LogPriority priority );
 	SDL_LogPriority SDL_LogGetPriority(      int category );
 	void            SDL_LogResetPriorities(  );
 	void            SDL_Log(                 const char *fmt, ...);
@@ -2011,9 +2011,9 @@ typedef union SDL_Event
 	void            SDL_LogSetOutputFunction(SDL_LogOutputFunction callback, void *userdata);
 	SDL_PowerState  SDL_GetPowerInfo(int *secs, int *pct);
 
-	int           SDL_GetNumRenderDrivers(     ); 
-	int           SDL_GetRenderDriverInfo(     int index, SDL_RendererInfo* info ); 
-	SDL_Renderer* SDL_CreateRenderer(          SDL_Window*, int index, uint32_t flags ); 
+	int           SDL_GetNumRenderDrivers(     );
+	int           SDL_GetRenderDriverInfo(     int index, SDL_RendererInfo* info );
+	SDL_Renderer* SDL_CreateRenderer(          SDL_Window*, int index, uint32_t flags );
 	SDL_Renderer* SDL_CreateSoftwareRenderer(  SDL_Surface* );
 	SDL_Renderer* SDL_GetRenderer(             SDL_Window* );
 	int           SDL_GetRendererInfo(         SDL_Renderer*, SDL_RendererInfo* );
@@ -2021,33 +2021,33 @@ typedef union SDL_Event
 	SDL_Texture*  SDL_CreateTexture(           SDL_Renderer*, uint32_t  fmt, int  access, int  w, int  h );
 	int           SDL_QueryTexture(            SDL_Texture*,  uint32_t* fmt, int* access, int* w, int* h );
 	int           SDL_SetTextureColorMod(      SDL_Texture*, uint8_t  r, uint8_t  g, uint8_t  b );
-	int           SDL_GetTextureColorMod(      SDL_Texture*, uint8_t* r, uint8_t* g, uint8_t* b ); 
+	int           SDL_GetTextureColorMod(      SDL_Texture*, uint8_t* r, uint8_t* g, uint8_t* b );
 	int           SDL_SetTextureAlphaMod(      SDL_Texture*, uint8_t  alpha );
-	int           SDL_GetTextureAlphaMod(      SDL_Texture*, uint8_t* alpha ); 
+	int           SDL_GetTextureAlphaMod(      SDL_Texture*, uint8_t* alpha );
 	int           SDL_SetTextureBlendMode(     SDL_Texture*, SDL_BlendMode  blend_mode );
-	int           SDL_GetTextureBlendMode(     SDL_Texture*, SDL_BlendMode* blend_mode ); 
-	int           SDL_UpdateTexture(           SDL_Texture*, const SDL_Rect*, const void* pixels, int pitch ); 
+	int           SDL_GetTextureBlendMode(     SDL_Texture*, SDL_BlendMode* blend_mode );
+	int           SDL_UpdateTexture(           SDL_Texture*, const SDL_Rect*, const void* pixels, int pitch );
 	int           SDL_LockTexture(             SDL_Texture*, const SDL_Rect* rect, void **pixels, int *pitch );
-	void          SDL_UnlockTexture(           SDL_Texture*   ); 
+	void          SDL_UnlockTexture(           SDL_Texture*   );
 
 	int           SDL_RenderSetViewport(       SDL_Renderer*, const SDL_Rect * rect);
 	void          SDL_RenderGetViewport(       SDL_Renderer*, SDL_Rect * rect);
-	int           SDL_SetRenderDrawColor(      SDL_Renderer*, uint8_t r, uint8_t g, uint8_t b, uint8_t a); 
-	int           SDL_GetRenderDrawColor(      SDL_Renderer*, uint8_t* r, uint8_t* g, uint8_t* b, uint8_t* a); 
-	int           SDL_SetRenderDrawBlendMode(  SDL_Renderer*, SDL_BlendMode  blendMode ); 
-	int           SDL_GetRenderDrawBlendMode(  SDL_Renderer*, SDL_BlendMode* blendMode ); 
-	int           SDL_RenderClear(             SDL_Renderer*  ); 
-	int           SDL_RenderDrawPoint(         SDL_Renderer*, int x, int y ); 
-	int           SDL_RenderDrawPoints(        SDL_Renderer*, const SDL_Point * points, int count); 
-	int           SDL_RenderDrawLine(          SDL_Renderer*, int x1, int y1, int x2, int y2); 
-	int           SDL_RenderDrawLines(         SDL_Renderer*, const SDL_Point * points, int count); 
-	int           SDL_RenderDrawRect(          SDL_Renderer*, const SDL_Rect * rect); 
-	int           SDL_RenderDrawRects(         SDL_Renderer*, const SDL_Rect * rects, int count); 
-	int           SDL_RenderFillRect(          SDL_Renderer*, const SDL_Rect * rect); 
-	int           SDL_RenderFillRects(         SDL_Renderer*, const SDL_Rect * rects, int count); 
-	int           SDL_RenderCopy(              SDL_Renderer*, SDL_Texture*, 
+	int           SDL_SetRenderDrawColor(      SDL_Renderer*, uint8_t r, uint8_t g, uint8_t b, uint8_t a);
+	int           SDL_GetRenderDrawColor(      SDL_Renderer*, uint8_t* r, uint8_t* g, uint8_t* b, uint8_t* a);
+	int           SDL_SetRenderDrawBlendMode(  SDL_Renderer*, SDL_BlendMode  blendMode );
+	int           SDL_GetRenderDrawBlendMode(  SDL_Renderer*, SDL_BlendMode* blendMode );
+	int           SDL_RenderClear(             SDL_Renderer*  );
+	int           SDL_RenderDrawPoint(         SDL_Renderer*, int x, int y );
+	int           SDL_RenderDrawPoints(        SDL_Renderer*, const SDL_Point * points, int count);
+	int           SDL_RenderDrawLine(          SDL_Renderer*, int x1, int y1, int x2, int y2);
+	int           SDL_RenderDrawLines(         SDL_Renderer*, const SDL_Point * points, int count);
+	int           SDL_RenderDrawRect(          SDL_Renderer*, const SDL_Rect * rect);
+	int           SDL_RenderDrawRects(         SDL_Renderer*, const SDL_Rect * rects, int count);
+	int           SDL_RenderFillRect(          SDL_Renderer*, const SDL_Rect * rect);
+	int           SDL_RenderFillRects(         SDL_Renderer*, const SDL_Rect * rects, int count);
+	int           SDL_RenderCopy(              SDL_Renderer*, SDL_Texture*,
 	                                           const SDL_Rect* src_rec, const SDL_Rect * dstrect );
-	int           SDL_RenderReadPixels(        SDL_Renderer*, const SDL_Rect* rect, 
+	int           SDL_RenderReadPixels(        SDL_Renderer*, const SDL_Rect* rect,
 	                                           uint32_t fmt, void *pixels, int pitch);
 	void          SDL_RenderPresent(           SDL_Renderer* );
 	void          SDL_DestroyTexture(          SDL_Texture*  );
