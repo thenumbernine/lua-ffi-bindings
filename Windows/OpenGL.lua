@@ -11352,7 +11352,7 @@ enum { GL_WIN_specular_fog = 1 };
 /* END C:/Users/Chris/include/GL/glext.h */
 ]]
 ffi.cdef(code)
-local gl = ffi.load"OpenGL32.dll"
+local gl = require 'ffi.load' 'GL'
 return setmetatable({
 	code = code,
 }, {__index=gl})

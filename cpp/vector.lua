@@ -111,6 +111,7 @@ end
 
 function vector:resize(newsize)
 	newsize = assert(tonumber(newsize))
+	-- TODO increase by %age?  like 20% or so? with a min threshold of 32 / increments of 32?
 	self:reserve((math.floor(newsize / 32) + 1) * 32)
 	self.size = newsize
 end

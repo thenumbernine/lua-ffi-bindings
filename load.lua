@@ -22,6 +22,9 @@ All $names will be resolved as environment variables.
 --]]
 local ffi = require 'ffi'
 return setmetatable({
+	GL = {
+		Windows = 'OpenGL32',
+	},
 	GLU = {
 		Windows = 'GLU32',
 	},
