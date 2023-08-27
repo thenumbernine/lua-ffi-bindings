@@ -1,5 +1,6 @@
 local ffi = require 'ffi'
 ffi.cdef[[
+/* WARNING: redefining LLONG_MIN from -1 to -9.2233720368548e+18 (originally (-LLONG_MAX - 1LL)) */
 /* + BEGIN /usr/include/png.h */
 enum { PNG_H = 1 };
 /* #define PNG_LIBPNG_VER_STRING "1.6.39" ### string, not number "\"1.6.39\"" */
