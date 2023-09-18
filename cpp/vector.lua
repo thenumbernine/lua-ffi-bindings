@@ -15,6 +15,11 @@ local range = require 'ext.range'
 --[[
 stl vector class
 have I made this before?
+
+TODO here's an idea for embedding vectors in other ffi structs ...
+make vector a ffi struct itself
+give it a metatype
+and generate it per-type that's used (and maybe store in package.loaded['ffi.cpp.vector.<typename>'])
 --]]
 local vector = class()
 
