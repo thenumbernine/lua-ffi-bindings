@@ -1654,7 +1654,6 @@ int ffstmo(int sec, int *status);
 
 -- since macro functions are the weak point of my binding code generator,
 -- here's the fitsio longnam.h file contents manually:
--- TODO copy this into preproc's bindings generator
 local lib = require 'ffi.load' 'cfitsio'
 local wrapper = setmetatable({
 	--[[ in longnam.h but not in fitsio.h:
