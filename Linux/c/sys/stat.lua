@@ -116,8 +116,15 @@ extern int futimens (int __fd, const struct timespec __times[2]) __attribute__ (
 /* + END   /usr/include/x86_64-linux-gnu/sys/stat.h */
 ]]
 local lib = ffi.C
-return setmetatable({
+local statlib = setmetatable({
 	struct_stat = 'struct stat',
 }, {
 	__index = lib,
 })
+-- allow nils instead of errors if we access fields not present (for the sake of lfs_ffi)
+ffi.metatype(statlib.struct_stat, {
+	__index = function(t,k)
+		return nil
+	end,
+})
+return statlib

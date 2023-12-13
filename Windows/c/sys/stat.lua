@@ -121,7 +121,7 @@ typedef struct _stat64 __stat64;
 require 'ffi.Windows.c.direct'
 
 local lib = ffi.C
-return setmetatable({
+local statlib = setmetatable({
 --[[
 #ifdef _USE_32BIT_TIME_T
 	_fstat = lib._fstat32,
@@ -169,3 +169,10 @@ return setmetatable({
 }, {
 	__index = ffi.C,
 })
+-- allow nils instead of errors if we access fields not present (for the sake of lfs_ffi)
+ffi.metatype(statlib.struct_stat, {
+	__index = function(t,k)
+		return nil
+	end,
+})
+return statlib
