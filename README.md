@@ -16,7 +16,7 @@ It searches through require paths `ffi.$os.$arch.$req, ffi.$os.$req, ffi.$arch.$
 
 This spares me from duplicating a lot of if-statements in tiny files in the base directory.
 
-Ex: 
+Ex:
 
 ``` Lua
 -- on Windows this will return ffi/Windows/OpenGL.lua
@@ -46,7 +46,7 @@ local lib = require 'ffi.load' 'openal'`
 ```
 ... will assign lib to `ffi.load'openal32'` in all OS/arch cases.
 
-If the value is a table then it is assumed to be key'd by OS, and optionally second key'd by arch (x86 vs x64). 
+If the value is a table then it is assumed to be key'd by OS, and optionally second key'd by arch (x86 vs x64).
 ``` Lua
 require 'ffi.load' .openal = {Windows = 'openal32'}
 local lib = require 'ffi.load' 'openal'`
@@ -62,7 +62,7 @@ local lib = require 'ffi.load' 'openal'`
 
 ### ffi/c/
 
-I started porting C headers and putting them into the `c` folder, so that luajit code `require 'ffi.c.$header'` was equivalent to C code `#include <$header.h>`.  
+I started porting C headers and putting them into the `c` folder, so that luajit code `require 'ffi.req' 'c.$header'` was equivalent to C code `#include <$header.h>`.
 (But, you ask, why only put the builtin C headers in the `c` folder when the other libraries' headers go in the root folder?  Good question.)
 
 ### `ffi/$os/$arch/, ffi/$os/, ffi/$arch/`
