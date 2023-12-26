@@ -54,10 +54,10 @@ local lib = require 'ffi.load' 'openal'`
 ... will assign lib to `ffi.load'openal32'` on Windows and `ffi.load'openal'` on all other platforms.
 
 ``` Lua
-require 'ffi.load' .openal = {Windows = {x86 = 'C:\\path\\to\\x86\\openal32.dll', x64 = 'C:\\path\\to\\x64\\openal32.dll'}}
+require 'ffi.load' .openal = {Windows = {x86 = 'C:\path\to\x86\openal32.dll', x64 = 'C:\path\to\x64\openal32.dll'}}
 local lib = require 'ffi.load' 'openal'`
 ```
-... will assign lib to `ffi.load'C:\\path\\to\\x86\\openal32.dll'` on Windows x86, `ffi.load 'C:\\path\\to\\x64\\openal32.dll'` on Windows x64, and `ffi.load'openal'` on all other platforms.
+... will assign lib to `ffi.load'C:\path\to\x86\openal32.dll'` on Windows x86, `ffi.load 'C:\path\to\x64\openal32.dll'` on Windows x64, and `ffi.load'openal'` on all other platforms.
 
 
 ### ffi/c/
