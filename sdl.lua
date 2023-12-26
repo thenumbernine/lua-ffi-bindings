@@ -284,10 +284,10 @@ ffi.cdef[[
        SDL_PIXELFORMAT_IYUV    = ((uint32_t)((uint8_t)'I')) | (((uint32_t)((uint8_t)'Y')) << 8) | (((uint32_t)((uint8_t)'U')) << 16) | (((uint32_t)((uint8_t)'V')) << 24),
        SDL_PIXELFORMAT_YUY2    = ((uint32_t)((uint8_t)'Y')) | (((uint32_t)((uint8_t)'U')) << 8) | (((uint32_t)((uint8_t)'Y')) << 16) | (((uint32_t)((uint8_t)'2')) << 24),
        SDL_PIXELFORMAT_UYVY    = ((uint32_t)((uint8_t)'U')) | (((uint32_t)((uint8_t)'Y')) << 8) | (((uint32_t)((uint8_t)'V')) << 16) | (((uint32_t)((uint8_t)'Y')) << 24),
-       SDL_PIXELFORMAT_YVYU    = ((uint32_t)((uint8_t)'Y')) | (((uint32_t)((uint8_t)'V')) << 8) | (((uint32_t)((uint8_t)'Y')) << 16) | (((uint32_t)((uint8_t)'U')) << 24)
-       SDL_PIXELFORMAT_NV12    = ((uint32_t)((uint8_t)'N')) | (((uint32_t)((uint8_t)'V')) << 8) | (((uint32_t)((uint8_t)'1')) << 16) | (((uint32_t)((uint8_t)'2')) << 24)
-       SDL_PIXELFORMAT_NV21    = ((uint32_t)((uint8_t)'N')) | (((uint32_t)((uint8_t)'V')) << 8) | (((uint32_t)((uint8_t)'2')) << 16) | (((uint32_t)((uint8_t)'1')) << 24)
-       SDL_PIXELFORMAT_EXTERNAL_OES =      ((uint32_t)((uint8_t)'O')) | (((uint32_t)((uint8_t)'E')) << 8) | (((uint32_t)((uint8_t)'S')) << 16) | (((uint32_t)((uint8_t)' ')) << 24)
+       SDL_PIXELFORMAT_YVYU    = ((uint32_t)((uint8_t)'Y')) | (((uint32_t)((uint8_t)'V')) << 8) | (((uint32_t)((uint8_t)'Y')) << 16) | (((uint32_t)((uint8_t)'U')) << 24),
+       SDL_PIXELFORMAT_NV12    = ((uint32_t)((uint8_t)'N')) | (((uint32_t)((uint8_t)'V')) << 8) | (((uint32_t)((uint8_t)'1')) << 16) | (((uint32_t)((uint8_t)'2')) << 24),
+       SDL_PIXELFORMAT_NV21    = ((uint32_t)((uint8_t)'N')) | (((uint32_t)((uint8_t)'V')) << 8) | (((uint32_t)((uint8_t)'2')) << 16) | (((uint32_t)((uint8_t)'1')) << 24),
+       SDL_PIXELFORMAT_EXTERNAL_OES =      ((uint32_t)((uint8_t)'O')) | (((uint32_t)((uint8_t)'E')) << 8) | (((uint32_t)((uint8_t)'S')) << 16) | (((uint32_t)((uint8_t)' ')) << 24),
     };
 
 
