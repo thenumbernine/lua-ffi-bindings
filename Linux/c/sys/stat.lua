@@ -1,7 +1,6 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN /usr/include/x86_64-linux-gnu/sys/stat.h */
-enum { _SYS_STAT_H = 1 };
 /* ++ BEGIN /usr/include/features.h */
 ]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* ++ END   /usr/include/features.h */
@@ -22,9 +21,7 @@ enum { _SYS_STAT_H = 1 };
 ]] require 'ffi.req' 'c.bits.types.off_t' ffi.cdef[[
 ]] require 'ffi.req' 'c.bits.types.uid_t' ffi.cdef[[
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/stat.h */
-enum { _BITS_STAT_H = 1 };
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/struct_stat.h */
-enum { _BITS_STRUCT_STAT_H = 1 };
 struct stat {
 	__dev_t st_dev;
 	__ino_t st_ino;
@@ -45,24 +42,7 @@ struct stat {
 /* #  define st_ctime st_ctim.tv_sec ### string, not number "st_ctim.tv_sec" */
 	__syscall_slong_t __glibc_reserved[3];
 };
-enum { _STATBUF_ST_BLKSIZE = 1 };
-enum { _STATBUF_ST_RDEV = 1 };
-enum { _STATBUF_ST_NSEC = 1 };
 /* +++ END   /usr/include/x86_64-linux-gnu/bits/struct_stat.h */
-enum { __S_IFMT = 61440 };
-enum { __S_IFDIR = 16384 };
-enum { __S_IFCHR = 8192 };
-enum { __S_IFBLK = 24576 };
-enum { __S_IFREG = 32768 };
-enum { __S_IFIFO = 4096 };
-enum { __S_IFLNK = 40960 };
-enum { __S_IFSOCK = 49152 };
-enum { __S_ISUID = 2048 };
-enum { __S_ISGID = 1024 };
-enum { __S_ISVTX = 512 };
-enum { __S_IREAD = 256 };
-enum { __S_IWRITE = 128 };
-enum { __S_IEXEC = 64 };
 enum { UTIME_NOW = 1073741823 };
 enum { UTIME_OMIT = 1073741822 };
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/stat.h */

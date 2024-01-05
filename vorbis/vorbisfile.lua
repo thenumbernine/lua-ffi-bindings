@@ -1,12 +1,10 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN /usr/include/vorbis/vorbisfile.h */
-enum { _OV_FILE_H_ = 1 };
 /* ++ BEGIN /usr/include/stdio.h */
 ]] require 'ffi.req' 'c.stdio' ffi.cdef[[
 /* ++ END   /usr/include/stdio.h */
 /* ++ BEGIN /usr/include/vorbis/codec.h */
-enum { _vorbis_codec_h_ = 1 };
 /* +++ BEGIN /usr/include/ogg/ogg.h */
 ]] require 'ffi.req' 'ogg' ffi.cdef[[
 /* +++ END   /usr/include/ogg/ogg.h */

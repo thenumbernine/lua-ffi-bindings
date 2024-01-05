@@ -1,9 +1,7 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN /usr/include/EGL/egl.h */
-enum { __egl_h_ = 1 };
 /* ++ BEGIN /usr/include/EGL/eglplatform.h */
-enum { __eglplatform_h_ = 1 };
 /* +++ BEGIN /usr/include/KHR/khrplatform.h */
 ]] require 'ffi.req' 'KHR.khrplatform' ffi.cdef[[
 /* +++ END   /usr/include/KHR/khrplatform.h */

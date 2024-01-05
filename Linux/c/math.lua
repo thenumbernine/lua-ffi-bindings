@@ -1,9 +1,6 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* WARNING: redefining __MATH_DECLARING_DOUBLE from 1 to 0 (originally 0) */
-/* WARNING: redefining __MATH_DECLARING_FLOATN from 0 to 1 (originally 1) */
 /* + BEGIN /usr/include/math.h */
-enum { _MATH_H = 1 };
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 ]] require 'ffi.req' 'c.bits.libc-header-start' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
@@ -12,277 +9,6 @@ enum { _MATH_H = 1 };
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/math-vector.h */
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h */
-enum { _BITS_LIBM_SIMD_DECL_STUBS_H = 1 };
-enum { __DECL_SIMD_cos = 1 };
-enum { __DECL_SIMD_cosf = 1 };
-enum { __DECL_SIMD_cosl = 1 };
-enum { __DECL_SIMD_cosf16 = 1 };
-enum { __DECL_SIMD_cosf32 = 1 };
-enum { __DECL_SIMD_cosf64 = 1 };
-enum { __DECL_SIMD_cosf128 = 1 };
-enum { __DECL_SIMD_cosf32x = 1 };
-enum { __DECL_SIMD_cosf64x = 1 };
-enum { __DECL_SIMD_cosf128x = 1 };
-enum { __DECL_SIMD_sin = 1 };
-enum { __DECL_SIMD_sinf = 1 };
-enum { __DECL_SIMD_sinl = 1 };
-enum { __DECL_SIMD_sinf16 = 1 };
-enum { __DECL_SIMD_sinf32 = 1 };
-enum { __DECL_SIMD_sinf64 = 1 };
-enum { __DECL_SIMD_sinf128 = 1 };
-enum { __DECL_SIMD_sinf32x = 1 };
-enum { __DECL_SIMD_sinf64x = 1 };
-enum { __DECL_SIMD_sinf128x = 1 };
-enum { __DECL_SIMD_sincos = 1 };
-enum { __DECL_SIMD_sincosf = 1 };
-enum { __DECL_SIMD_sincosl = 1 };
-enum { __DECL_SIMD_sincosf16 = 1 };
-enum { __DECL_SIMD_sincosf32 = 1 };
-enum { __DECL_SIMD_sincosf64 = 1 };
-enum { __DECL_SIMD_sincosf128 = 1 };
-enum { __DECL_SIMD_sincosf32x = 1 };
-enum { __DECL_SIMD_sincosf64x = 1 };
-enum { __DECL_SIMD_sincosf128x = 1 };
-enum { __DECL_SIMD_log = 1 };
-enum { __DECL_SIMD_logf = 1 };
-enum { __DECL_SIMD_logl = 1 };
-enum { __DECL_SIMD_logf16 = 1 };
-enum { __DECL_SIMD_logf32 = 1 };
-enum { __DECL_SIMD_logf64 = 1 };
-enum { __DECL_SIMD_logf128 = 1 };
-enum { __DECL_SIMD_logf32x = 1 };
-enum { __DECL_SIMD_logf64x = 1 };
-enum { __DECL_SIMD_logf128x = 1 };
-enum { __DECL_SIMD_exp = 1 };
-enum { __DECL_SIMD_expf = 1 };
-enum { __DECL_SIMD_expl = 1 };
-enum { __DECL_SIMD_expf16 = 1 };
-enum { __DECL_SIMD_expf32 = 1 };
-enum { __DECL_SIMD_expf64 = 1 };
-enum { __DECL_SIMD_expf128 = 1 };
-enum { __DECL_SIMD_expf32x = 1 };
-enum { __DECL_SIMD_expf64x = 1 };
-enum { __DECL_SIMD_expf128x = 1 };
-enum { __DECL_SIMD_pow = 1 };
-enum { __DECL_SIMD_powf = 1 };
-enum { __DECL_SIMD_powl = 1 };
-enum { __DECL_SIMD_powf16 = 1 };
-enum { __DECL_SIMD_powf32 = 1 };
-enum { __DECL_SIMD_powf64 = 1 };
-enum { __DECL_SIMD_powf128 = 1 };
-enum { __DECL_SIMD_powf32x = 1 };
-enum { __DECL_SIMD_powf64x = 1 };
-enum { __DECL_SIMD_powf128x = 1 };
-enum { __DECL_SIMD_acos = 1 };
-enum { __DECL_SIMD_acosf = 1 };
-enum { __DECL_SIMD_acosl = 1 };
-enum { __DECL_SIMD_acosf16 = 1 };
-enum { __DECL_SIMD_acosf32 = 1 };
-enum { __DECL_SIMD_acosf64 = 1 };
-enum { __DECL_SIMD_acosf128 = 1 };
-enum { __DECL_SIMD_acosf32x = 1 };
-enum { __DECL_SIMD_acosf64x = 1 };
-enum { __DECL_SIMD_acosf128x = 1 };
-enum { __DECL_SIMD_atan = 1 };
-enum { __DECL_SIMD_atanf = 1 };
-enum { __DECL_SIMD_atanl = 1 };
-enum { __DECL_SIMD_atanf16 = 1 };
-enum { __DECL_SIMD_atanf32 = 1 };
-enum { __DECL_SIMD_atanf64 = 1 };
-enum { __DECL_SIMD_atanf128 = 1 };
-enum { __DECL_SIMD_atanf32x = 1 };
-enum { __DECL_SIMD_atanf64x = 1 };
-enum { __DECL_SIMD_atanf128x = 1 };
-enum { __DECL_SIMD_asin = 1 };
-enum { __DECL_SIMD_asinf = 1 };
-enum { __DECL_SIMD_asinl = 1 };
-enum { __DECL_SIMD_asinf16 = 1 };
-enum { __DECL_SIMD_asinf32 = 1 };
-enum { __DECL_SIMD_asinf64 = 1 };
-enum { __DECL_SIMD_asinf128 = 1 };
-enum { __DECL_SIMD_asinf32x = 1 };
-enum { __DECL_SIMD_asinf64x = 1 };
-enum { __DECL_SIMD_asinf128x = 1 };
-enum { __DECL_SIMD_hypot = 1 };
-enum { __DECL_SIMD_hypotf = 1 };
-enum { __DECL_SIMD_hypotl = 1 };
-enum { __DECL_SIMD_hypotf16 = 1 };
-enum { __DECL_SIMD_hypotf32 = 1 };
-enum { __DECL_SIMD_hypotf64 = 1 };
-enum { __DECL_SIMD_hypotf128 = 1 };
-enum { __DECL_SIMD_hypotf32x = 1 };
-enum { __DECL_SIMD_hypotf64x = 1 };
-enum { __DECL_SIMD_hypotf128x = 1 };
-enum { __DECL_SIMD_exp2 = 1 };
-enum { __DECL_SIMD_exp2f = 1 };
-enum { __DECL_SIMD_exp2l = 1 };
-enum { __DECL_SIMD_exp2f16 = 1 };
-enum { __DECL_SIMD_exp2f32 = 1 };
-enum { __DECL_SIMD_exp2f64 = 1 };
-enum { __DECL_SIMD_exp2f128 = 1 };
-enum { __DECL_SIMD_exp2f32x = 1 };
-enum { __DECL_SIMD_exp2f64x = 1 };
-enum { __DECL_SIMD_exp2f128x = 1 };
-enum { __DECL_SIMD_exp10 = 1 };
-enum { __DECL_SIMD_exp10f = 1 };
-enum { __DECL_SIMD_exp10l = 1 };
-enum { __DECL_SIMD_exp10f16 = 1 };
-enum { __DECL_SIMD_exp10f32 = 1 };
-enum { __DECL_SIMD_exp10f64 = 1 };
-enum { __DECL_SIMD_exp10f128 = 1 };
-enum { __DECL_SIMD_exp10f32x = 1 };
-enum { __DECL_SIMD_exp10f64x = 1 };
-enum { __DECL_SIMD_exp10f128x = 1 };
-enum { __DECL_SIMD_cosh = 1 };
-enum { __DECL_SIMD_coshf = 1 };
-enum { __DECL_SIMD_coshl = 1 };
-enum { __DECL_SIMD_coshf16 = 1 };
-enum { __DECL_SIMD_coshf32 = 1 };
-enum { __DECL_SIMD_coshf64 = 1 };
-enum { __DECL_SIMD_coshf128 = 1 };
-enum { __DECL_SIMD_coshf32x = 1 };
-enum { __DECL_SIMD_coshf64x = 1 };
-enum { __DECL_SIMD_coshf128x = 1 };
-enum { __DECL_SIMD_expm1 = 1 };
-enum { __DECL_SIMD_expm1f = 1 };
-enum { __DECL_SIMD_expm1l = 1 };
-enum { __DECL_SIMD_expm1f16 = 1 };
-enum { __DECL_SIMD_expm1f32 = 1 };
-enum { __DECL_SIMD_expm1f64 = 1 };
-enum { __DECL_SIMD_expm1f128 = 1 };
-enum { __DECL_SIMD_expm1f32x = 1 };
-enum { __DECL_SIMD_expm1f64x = 1 };
-enum { __DECL_SIMD_expm1f128x = 1 };
-enum { __DECL_SIMD_sinh = 1 };
-enum { __DECL_SIMD_sinhf = 1 };
-enum { __DECL_SIMD_sinhl = 1 };
-enum { __DECL_SIMD_sinhf16 = 1 };
-enum { __DECL_SIMD_sinhf32 = 1 };
-enum { __DECL_SIMD_sinhf64 = 1 };
-enum { __DECL_SIMD_sinhf128 = 1 };
-enum { __DECL_SIMD_sinhf32x = 1 };
-enum { __DECL_SIMD_sinhf64x = 1 };
-enum { __DECL_SIMD_sinhf128x = 1 };
-enum { __DECL_SIMD_cbrt = 1 };
-enum { __DECL_SIMD_cbrtf = 1 };
-enum { __DECL_SIMD_cbrtl = 1 };
-enum { __DECL_SIMD_cbrtf16 = 1 };
-enum { __DECL_SIMD_cbrtf32 = 1 };
-enum { __DECL_SIMD_cbrtf64 = 1 };
-enum { __DECL_SIMD_cbrtf128 = 1 };
-enum { __DECL_SIMD_cbrtf32x = 1 };
-enum { __DECL_SIMD_cbrtf64x = 1 };
-enum { __DECL_SIMD_cbrtf128x = 1 };
-enum { __DECL_SIMD_atan2 = 1 };
-enum { __DECL_SIMD_atan2f = 1 };
-enum { __DECL_SIMD_atan2l = 1 };
-enum { __DECL_SIMD_atan2f16 = 1 };
-enum { __DECL_SIMD_atan2f32 = 1 };
-enum { __DECL_SIMD_atan2f64 = 1 };
-enum { __DECL_SIMD_atan2f128 = 1 };
-enum { __DECL_SIMD_atan2f32x = 1 };
-enum { __DECL_SIMD_atan2f64x = 1 };
-enum { __DECL_SIMD_atan2f128x = 1 };
-enum { __DECL_SIMD_log10 = 1 };
-enum { __DECL_SIMD_log10f = 1 };
-enum { __DECL_SIMD_log10l = 1 };
-enum { __DECL_SIMD_log10f16 = 1 };
-enum { __DECL_SIMD_log10f32 = 1 };
-enum { __DECL_SIMD_log10f64 = 1 };
-enum { __DECL_SIMD_log10f128 = 1 };
-enum { __DECL_SIMD_log10f32x = 1 };
-enum { __DECL_SIMD_log10f64x = 1 };
-enum { __DECL_SIMD_log10f128x = 1 };
-enum { __DECL_SIMD_log2 = 1 };
-enum { __DECL_SIMD_log2f = 1 };
-enum { __DECL_SIMD_log2l = 1 };
-enum { __DECL_SIMD_log2f16 = 1 };
-enum { __DECL_SIMD_log2f32 = 1 };
-enum { __DECL_SIMD_log2f64 = 1 };
-enum { __DECL_SIMD_log2f128 = 1 };
-enum { __DECL_SIMD_log2f32x = 1 };
-enum { __DECL_SIMD_log2f64x = 1 };
-enum { __DECL_SIMD_log2f128x = 1 };
-enum { __DECL_SIMD_log1p = 1 };
-enum { __DECL_SIMD_log1pf = 1 };
-enum { __DECL_SIMD_log1pl = 1 };
-enum { __DECL_SIMD_log1pf16 = 1 };
-enum { __DECL_SIMD_log1pf32 = 1 };
-enum { __DECL_SIMD_log1pf64 = 1 };
-enum { __DECL_SIMD_log1pf128 = 1 };
-enum { __DECL_SIMD_log1pf32x = 1 };
-enum { __DECL_SIMD_log1pf64x = 1 };
-enum { __DECL_SIMD_log1pf128x = 1 };
-enum { __DECL_SIMD_atanh = 1 };
-enum { __DECL_SIMD_atanhf = 1 };
-enum { __DECL_SIMD_atanhl = 1 };
-enum { __DECL_SIMD_atanhf16 = 1 };
-enum { __DECL_SIMD_atanhf32 = 1 };
-enum { __DECL_SIMD_atanhf64 = 1 };
-enum { __DECL_SIMD_atanhf128 = 1 };
-enum { __DECL_SIMD_atanhf32x = 1 };
-enum { __DECL_SIMD_atanhf64x = 1 };
-enum { __DECL_SIMD_atanhf128x = 1 };
-enum { __DECL_SIMD_acosh = 1 };
-enum { __DECL_SIMD_acoshf = 1 };
-enum { __DECL_SIMD_acoshl = 1 };
-enum { __DECL_SIMD_acoshf16 = 1 };
-enum { __DECL_SIMD_acoshf32 = 1 };
-enum { __DECL_SIMD_acoshf64 = 1 };
-enum { __DECL_SIMD_acoshf128 = 1 };
-enum { __DECL_SIMD_acoshf32x = 1 };
-enum { __DECL_SIMD_acoshf64x = 1 };
-enum { __DECL_SIMD_acoshf128x = 1 };
-enum { __DECL_SIMD_erf = 1 };
-enum { __DECL_SIMD_erff = 1 };
-enum { __DECL_SIMD_erfl = 1 };
-enum { __DECL_SIMD_erff16 = 1 };
-enum { __DECL_SIMD_erff32 = 1 };
-enum { __DECL_SIMD_erff64 = 1 };
-enum { __DECL_SIMD_erff128 = 1 };
-enum { __DECL_SIMD_erff32x = 1 };
-enum { __DECL_SIMD_erff64x = 1 };
-enum { __DECL_SIMD_erff128x = 1 };
-enum { __DECL_SIMD_tanh = 1 };
-enum { __DECL_SIMD_tanhf = 1 };
-enum { __DECL_SIMD_tanhl = 1 };
-enum { __DECL_SIMD_tanhf16 = 1 };
-enum { __DECL_SIMD_tanhf32 = 1 };
-enum { __DECL_SIMD_tanhf64 = 1 };
-enum { __DECL_SIMD_tanhf128 = 1 };
-enum { __DECL_SIMD_tanhf32x = 1 };
-enum { __DECL_SIMD_tanhf64x = 1 };
-enum { __DECL_SIMD_tanhf128x = 1 };
-enum { __DECL_SIMD_asinh = 1 };
-enum { __DECL_SIMD_asinhf = 1 };
-enum { __DECL_SIMD_asinhl = 1 };
-enum { __DECL_SIMD_asinhf16 = 1 };
-enum { __DECL_SIMD_asinhf32 = 1 };
-enum { __DECL_SIMD_asinhf64 = 1 };
-enum { __DECL_SIMD_asinhf128 = 1 };
-enum { __DECL_SIMD_asinhf32x = 1 };
-enum { __DECL_SIMD_asinhf64x = 1 };
-enum { __DECL_SIMD_asinhf128x = 1 };
-enum { __DECL_SIMD_erfc = 1 };
-enum { __DECL_SIMD_erfcf = 1 };
-enum { __DECL_SIMD_erfcl = 1 };
-enum { __DECL_SIMD_erfcf16 = 1 };
-enum { __DECL_SIMD_erfcf32 = 1 };
-enum { __DECL_SIMD_erfcf64 = 1 };
-enum { __DECL_SIMD_erfcf128 = 1 };
-enum { __DECL_SIMD_erfcf32x = 1 };
-enum { __DECL_SIMD_erfcf64x = 1 };
-enum { __DECL_SIMD_erfcf128x = 1 };
-enum { __DECL_SIMD_tan = 1 };
-enum { __DECL_SIMD_tanf = 1 };
-enum { __DECL_SIMD_tanl = 1 };
-enum { __DECL_SIMD_tanf16 = 1 };
-enum { __DECL_SIMD_tanf32 = 1 };
-enum { __DECL_SIMD_tanf64 = 1 };
-enum { __DECL_SIMD_tanf128 = 1 };
-enum { __DECL_SIMD_tanf32x = 1 };
-enum { __DECL_SIMD_tanf64x = 1 };
-enum { __DECL_SIMD_tanf128x = 1 };
 /* +++ END   /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h */
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/math-vector.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/floatn.h */
@@ -294,21 +20,15 @@ enum { __DECL_SIMD_tanf128x = 1 };
 /* #  define INFINITY (__builtin_inff ()) ### string, not number "(__builtin_inff ())" */
 /* #  define NAN (__builtin_nanf ("")) ### string, not number "(__builtin_nanf (\"\"))" */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h */
-enum { __GLIBC_FLT_EVAL_METHOD = 0 };
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h */
 typedef float float_t;
 typedef double double_t;
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/fp-logb.h */
-enum { __FP_LOGB0_IS_MIN = 1 };
-enum { __FP_LOGBNAN_IS_MIN = 1 };
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/fp-logb.h */
 enum { FP_ILOGB0 = -2147483648 };
 enum { FP_ILOGBNAN = -2147483648 };
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/fp-fast.h */
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/fp-fast.h */
-enum { _Mdouble_ = 0 };
-
-
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h */
 extern int __fpclassify(double __value) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
 extern int __signbit(double __value) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
@@ -391,9 +111,6 @@ extern double fmin(double __x, double __y) __attribute__ ((__nothrow__ , __leaf_
 extern double fma(double __x, double __y, double __z) __attribute__ ((__nothrow__ , __leaf__)) ; extern double __fma(double __x, double __y, double __z) __attribute__ ((__nothrow__ , __leaf__));
 extern double scalb(double __x, double __n) __attribute__ ((__nothrow__ , __leaf__)) ; extern double __scalb(double __x, double __n) __attribute__ ((__nothrow__ , __leaf__));
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/mathcalls.h */
-/* redefining matching value: # define _Mdouble_		float */
-
-/* redefining matching value: # define __MATH_DECLARING_FLOATN  0 */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h */
 extern int __fpclassifyf(float __value) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
 extern int __signbitf(float __value) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
@@ -476,10 +193,6 @@ extern float fminf(float __x, float __y) __attribute__ ((__nothrow__ , __leaf__)
 extern float fmaf(float __x, float __y, float __z) __attribute__ ((__nothrow__ , __leaf__)) ; extern float __fmaf(float __x, float __y, float __z) __attribute__ ((__nothrow__ , __leaf__));
 extern float scalbf(float __x, float __n) __attribute__ ((__nothrow__ , __leaf__)) ; extern float __scalbf(float __x, float __n) __attribute__ ((__nothrow__ , __leaf__));
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/mathcalls.h */
-/* #  define _Mdouble_		long double ### string, not number "long double" */
-/* redefining matching value: #  define __MATH_DECLARING_DOUBLE  0 */
-/* redefining matching value: #  define __MATH_DECLARING_FLOATN  0 */
-enum { __MATH_DECLARE_LDOUBLE = 1 };
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h */
 extern int __fpclassifyl(long double __value) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
 extern int __signbitl(long double __value) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
@@ -562,15 +275,6 @@ extern long double fminl(long double __x, long double __y) __attribute__ ((__not
 extern long double fmal(long double __x, long double __y, long double __z) __attribute__ ((__nothrow__ , __leaf__)) ; extern long double __fmal(long double __x, long double __y, long double __z) __attribute__ ((__nothrow__ , __leaf__));
 extern long double scalbl(long double __x, long double __n) __attribute__ ((__nothrow__ , __leaf__)) ; extern long double __scalbl(long double __x, long double __n) __attribute__ ((__nothrow__ , __leaf__));
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/mathcalls.h */
-/* redefining matching value: # define _Mdouble_		_Float32 */
-/* redefining matching value: # define __MATH_DECLARING_DOUBLE  0 */
-
-/* redefining matching value: # define _Mdouble_		_Float64 */
-/* redefining matching value: # define __MATH_DECLARING_DOUBLE  0 */
-/* redefining matching value: # define __MATH_DECLARING_FLOATN  1 */
-
-/* redefining matching value: # define __MATH_DECLARING_DOUBLE  0 */
-/* redefining matching value: # define __MATH_DECLARING_FLOATN  1 */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h */
 
 
@@ -580,15 +284,6 @@ extern long double scalbl(long double __x, long double __n) __attribute__ ((__no
 
 
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h */
-/* redefining matching value: # define _Mdouble_		_Float32x */
-/* redefining matching value: # define __MATH_DECLARING_DOUBLE  0 */
-/* redefining matching value: # define __MATH_DECLARING_FLOATN  1 */
-/* redefining matching value: # define _Mdouble_		_Float64x */
-/* redefining matching value: # define __MATH_DECLARING_DOUBLE  0 */
-/* redefining matching value: # define __MATH_DECLARING_FLOATN  1 */
-/* #define __MATHCALL_NARROW_ARGS_1 (_Marg_ __x) ### string, not number "(_Marg_ __x)" */
-/* #define __MATHCALL_NARROW_ARGS_2 (_Marg_ __x, _Marg_ __y) ### string, not number "(_Marg_ __x, _Marg_ __y)" */
-/* #define __MATHCALL_NARROW_ARGS_3 (_Marg_ __x, _Marg_ __y, _Marg_ __z) ### string, not number "(_Marg_ __x, _Marg_ __y, _Marg_ __z)" */
 extern int signgam;
 enum { FP_NAN = 
 0, FP_INFINITE = 
@@ -599,18 +294,18 @@ enum { FP_NAN =
 enum { MATH_ERRNO = 1 };
 enum { MATH_ERREXCEPT = 2 };
 enum { math_errhandling = 3 };
-/* # define M_E		2.7182818284590452354 ### string, number, replaceline "2.7182818284590452354" */
-/* # define M_LOG2E	1.4426950408889634074 ### string, number, replaceline "1.4426950408889634074" */
-/* # define M_LOG10E	0.43429448190325182765 ### string, number, replaceline "0.43429448190325182765" */
-/* # define M_LN2		0.69314718055994530942 ### string, number, replaceline "0.69314718055994530942" */
-/* # define M_LN10		2.30258509299404568402 ### string, number, replaceline "2.30258509299404568402" */
-/* # define M_PI		3.14159265358979323846 ### string, number, replaceline "3.14159265358979323846" */
-/* # define M_PI_2		1.57079632679489661923 ### string, number, replaceline "1.57079632679489661923" */
-/* # define M_PI_4		0.78539816339744830962 ### string, number, replaceline "0.78539816339744830962" */
-/* # define M_1_PI		0.31830988618379067154 ### string, number, replaceline "0.31830988618379067154" */
-/* # define M_2_PI		0.63661977236758134308 ### string, number, replaceline "0.63661977236758134308" */
-/* # define M_2_SQRTPI	1.12837916709551257390 ### string, number, replaceline "1.12837916709551257390" */
-/* # define M_SQRT2	1.41421356237309504880 ### string, number, replaceline "1.41421356237309504880" */
-/* # define M_SQRT1_2	0.70710678118654752440 ### string, number, replaceline "0.70710678118654752440" */
+/* # define M_E		2.7182818284590452354 ### string, not number "2.7182818284590452354" */
+/* # define M_LOG2E	1.4426950408889634074 ### string, not number "1.4426950408889634074" */
+/* # define M_LOG10E	0.43429448190325182765 ### string, not number "0.43429448190325182765" */
+/* # define M_LN2		0.69314718055994530942 ### string, not number "0.69314718055994530942" */
+/* # define M_LN10		2.30258509299404568402 ### string, not number "2.30258509299404568402" */
+/* # define M_PI		3.14159265358979323846 ### string, not number "3.14159265358979323846" */
+/* # define M_PI_2		1.57079632679489661923 ### string, not number "1.57079632679489661923" */
+/* # define M_PI_4		0.78539816339744830962 ### string, not number "0.78539816339744830962" */
+/* # define M_1_PI		0.31830988618379067154 ### string, not number "0.31830988618379067154" */
+/* # define M_2_PI		0.63661977236758134308 ### string, not number "0.63661977236758134308" */
+/* # define M_2_SQRTPI	1.12837916709551257390 ### string, not number "1.12837916709551257390" */
+/* # define M_SQRT2	1.41421356237309504880 ### string, not number "1.41421356237309504880" */
+/* # define M_SQRT1_2	0.70710678118654752440 ### string, not number "0.70710678118654752440" */
 /* + END   /usr/include/math.h */
 ]]

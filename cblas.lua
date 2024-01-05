@@ -2,9 +2,9 @@ local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN /usr/include/x86_64-linux-gnu/cblas.h */
 enum { CBLAS_H = 1 };
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/openblas_config.h */
 enum { OPENBLAS_CONFIG_H = 1 };
 enum { OPENBLAS_OS_LINUX = 1 };
@@ -30,13 +30,13 @@ enum { OPENBLAS_DLOCAL_BUFFER_SIZE = 4096 };
 enum { OPENBLAS_CLOCAL_BUFFER_SIZE = 8192 };
 enum { OPENBLAS_ZLOCAL_BUFFER_SIZE = 8192 };
 enum { OPENBLAS_GEMM_MULTITHREAD_THRESHOLD = 4 };
-/* #define OPENBLAS_VERSION " OpenBLAS 0.3.21 " ### string, not number "\" OpenBLAS 0.3.21 \"" */
+/* #define OPENBLAS_VERSION " OpenBLAS 0.3.23 " ### string, not number "\" OpenBLAS 0.3.23 \"" */
 enum { xdouble = 0 };
 typedef long BLASLONG;
 typedef unsigned long BLASULONG;
-/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
 ]] require 'ffi.req' 'c.stdint' ffi.cdef[[
-/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
 typedef uint16_t bfloat16;
 typedef int blasint;
 enum { FLOATRET = 0 };
@@ -50,7 +50,6 @@ enum { OPENBLAS_COMPLEX_C99 = 1 };
 typedef float _Complex openblas_complex_float;
 typedef double _Complex openblas_complex_double;
 typedef double _Complex openblas_complex_xdouble;
-enum { _GNU_SOURCE = 1 };
 /* +++ BEGIN /usr/include/sched.h */
 ]] require 'ffi.req' 'c.sched' ffi.cdef[[
 /* +++ END   /usr/include/sched.h */

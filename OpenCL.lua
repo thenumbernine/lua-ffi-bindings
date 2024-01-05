@@ -2,11 +2,8 @@ local ffi = require 'ffi'
 ffi.cdef[[
 /* manually commented out: warning: Need to implement some method to align data here */
 /* + BEGIN /usr/include/CL/opencl.h */
-enum { __OPENCL_H = 1 };
 /* ++ BEGIN /usr/include/CL/cl.h */
-enum { __OPENCL_CL_H = 1 };
 /* +++ BEGIN /usr/include/CL/cl_version.h */
-enum { __CL_VERSION_H = 1 };
 /* #pragma message("cl_version.h: CL_TARGET_OPENCL_VERSION is not defined. Defaulting to 300 (OpenCL 3.0)") */
 enum { CL_TARGET_OPENCL_VERSION = 300 };
 enum { CL_VERSION_3_0 = 1 };
@@ -18,7 +15,6 @@ enum { CL_VERSION_1_1 = 1 };
 enum { CL_VERSION_1_0 = 1 };
 /* +++ END   /usr/include/CL/cl_version.h */
 /* +++ BEGIN /usr/include/CL/cl_platform.h */
-enum { __CL_PLATFORM_H = 1 };
 /* ++++ BEGIN /usr/include/CL/cl_version.h */
 /* ++++ END   /usr/include/CL/cl_version.h */
 enum { CL_API_ENTRY = 1 };
@@ -50,9 +46,9 @@ enum { CL_API_PREFIX_DEPRECATED = 1 };
 /* #define CL_API_PREFIX__VERSION_2_1_DEPRECATED CL_API_PREFIX_COMMON CL_API_PREFIX_DEPRECATED ### string, not number "CL_API_PREFIX_COMMON CL_API_PREFIX_DEPRECATED" */
 /* #define CL_API_SUFFIX__VERSION_2_2_DEPRECATED CL_API_SUFFIX_COMMON CL_API_SUFFIX_DEPRECATED ### string, not number "CL_API_SUFFIX_COMMON CL_API_SUFFIX_DEPRECATED" */
 /* #define CL_API_PREFIX__VERSION_2_2_DEPRECATED CL_API_PREFIX_COMMON CL_API_PREFIX_DEPRECATED ### string, not number "CL_API_PREFIX_COMMON CL_API_PREFIX_DEPRECATED" */
-/* ++++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
+/* ++++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
 ]] require 'ffi.req' 'c.stdint' ffi.cdef[[
-/* ++++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
+/* ++++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
 typedef int8_t cl_char;
 typedef uint8_t cl_uchar;
 typedef int16_t cl_short;
@@ -77,7 +73,7 @@ enum { CL_INT_MAX = 2147483647 };
 enum { CL_INT_MIN = -2147483648 };
 enum { CL_UINT_MAX = 4294967295 };
 /* #define CL_LONG_MAX         ((cl_long) 0x7FFFFFFFFFFFFFFFLL) ### string, not number "((cl_long) 0x7FFFFFFFFFFFFFFFLL)" */
-/* #define CL_LONG_MIN         ((cl_long) -0x7FFFFFFFFFFFFFFFLL - 1LL) ### string, number, replaceline "-9.2233720368548e+18" */
+/* #define CL_LONG_MIN         ((cl_long) -0x7FFFFFFFFFFFFFFFLL - 1LL) ### string, not number "-9.2233720368548e+18" */
 /* #define CL_ULONG_MAX        ((cl_ulong) 0xFFFFFFFFFFFFFFFFULL) ### string, not number "((cl_ulong) 0xFFFFFFFFFFFFFFFFULL)" */
 enum { CL_FLT_DIG = 6 };
 enum { CL_FLT_MANT_DIG = 24 };
@@ -106,22 +102,22 @@ enum { CL_DBL_MAX_EXP = 1024 };
 enum { CL_DBL_MIN_10_EXP = -307 };
 enum { CL_DBL_MIN_EXP = -1021 };
 enum { CL_DBL_RADIX = 2 };
-/* #define CL_DBL_MAX          179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.0 ### string, number, replaceline "179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.0" */
-/* #define CL_DBL_MIN          2.225073858507201383090e-308 ### string, number, replaceline "2.225073858507201383090e-308" */
-/* #define CL_DBL_EPSILON      2.220446049250313080847e-16 ### string, number, replaceline "2.220446049250313080847e-16" */
-/* #define CL_M_E              2.7182818284590452354 ### string, number, replaceline "2.7182818284590452354" */
-/* #define CL_M_LOG2E          1.4426950408889634074 ### string, number, replaceline "1.4426950408889634074" */
-/* #define CL_M_LOG10E         0.43429448190325182765 ### string, number, replaceline "0.43429448190325182765" */
-/* #define CL_M_LN2            0.69314718055994530942 ### string, number, replaceline "0.69314718055994530942" */
-/* #define CL_M_LN10           2.30258509299404568402 ### string, number, replaceline "2.30258509299404568402" */
-/* #define CL_M_PI             3.14159265358979323846 ### string, number, replaceline "3.14159265358979323846" */
-/* #define CL_M_PI_2           1.57079632679489661923 ### string, number, replaceline "1.57079632679489661923" */
-/* #define CL_M_PI_4           0.78539816339744830962 ### string, number, replaceline "0.78539816339744830962" */
-/* #define CL_M_1_PI           0.31830988618379067154 ### string, number, replaceline "0.31830988618379067154" */
-/* #define CL_M_2_PI           0.63661977236758134308 ### string, number, replaceline "0.63661977236758134308" */
-/* #define CL_M_2_SQRTPI       1.12837916709551257390 ### string, number, replaceline "1.12837916709551257390" */
-/* #define CL_M_SQRT2          1.41421356237309504880 ### string, number, replaceline "1.41421356237309504880" */
-/* #define CL_M_SQRT1_2        0.70710678118654752440 ### string, number, replaceline "0.70710678118654752440" */
+/* #define CL_DBL_MAX          179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.0 ### string, not number "179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.0" */
+/* #define CL_DBL_MIN          2.225073858507201383090e-308 ### string, not number "2.225073858507201383090e-308" */
+/* #define CL_DBL_EPSILON      2.220446049250313080847e-16 ### string, not number "2.220446049250313080847e-16" */
+/* #define CL_M_E              2.7182818284590452354 ### string, not number "2.7182818284590452354" */
+/* #define CL_M_LOG2E          1.4426950408889634074 ### string, not number "1.4426950408889634074" */
+/* #define CL_M_LOG10E         0.43429448190325182765 ### string, not number "0.43429448190325182765" */
+/* #define CL_M_LN2            0.69314718055994530942 ### string, not number "0.69314718055994530942" */
+/* #define CL_M_LN10           2.30258509299404568402 ### string, not number "2.30258509299404568402" */
+/* #define CL_M_PI             3.14159265358979323846 ### string, not number "3.14159265358979323846" */
+/* #define CL_M_PI_2           1.57079632679489661923 ### string, not number "1.57079632679489661923" */
+/* #define CL_M_PI_4           0.78539816339744830962 ### string, not number "0.78539816339744830962" */
+/* #define CL_M_1_PI           0.31830988618379067154 ### string, not number "0.31830988618379067154" */
+/* #define CL_M_2_PI           0.63661977236758134308 ### string, not number "0.63661977236758134308" */
+/* #define CL_M_2_SQRTPI       1.12837916709551257390 ### string, not number "1.12837916709551257390" */
+/* #define CL_M_SQRT2          1.41421356237309504880 ### string, not number "1.41421356237309504880" */
+/* #define CL_M_SQRT1_2        0.70710678118654752440 ### string, not number "0.70710678118654752440" */
 /* #define CL_M_E_F            2.718281828f ### string, not number "2.718281828f" */
 /* #define CL_M_LOG2E_F        1.442695041f ### string, not number "1.442695041f" */
 /* #define CL_M_LOG10E_F       0.434294482f ### string, not number "0.434294482f" */
@@ -141,14 +137,12 @@ float nanf( const char * );
 /* #define CL_NAN           nanf( "" ) ### string, not number "nanf( \"\" )" */
 /* #define CL_MAXFLOAT         CL_FLT_MAX ### string, not number "CL_FLT_MAX" */
 /* #define CL_INFINITY         CL_HUGE_VALF ### string, not number "CL_HUGE_VALF" */
-/* ++++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* ++++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
 typedef unsigned int cl_GLuint;
 typedef int cl_GLint;
 typedef unsigned int cl_GLenum;
-enum { __CL_HAS_ANON_STRUCT__ = 1 };
-enum { __CL_ANON_STRUCT__ = 1 };
 enum { CL_HAS_NAMED_VECTOR_FIELDS = 1 };
 enum { CL_HAS_HI_LO_VECTOR_FIELDS = 1 };
 typedef union {
@@ -1097,13 +1091,23 @@ extern cl_sampler clCreateSampler(cl_context context, cl_bool normalized_coords,
 extern cl_int clEnqueueTask(cl_command_queue command_queue, cl_kernel kernel, cl_uint num_events_in_wait_list, const cl_event * event_wait_list, cl_event * event) __attribute__((deprecated));
 /* ++ END   /usr/include/CL/cl.h */
 /* ++ BEGIN /usr/include/CL/cl_gl.h */
-enum { __OPENCL_CL_GL_H = 1 };
+enum { OPENCL_CL_GL_H_ = 1 };
 /* +++ BEGIN /usr/include/CL/cl.h */
 /* +++ END   /usr/include/CL/cl.h */
+enum { cl_khr_gl_sharing = 1 };
+/* #define CL_KHR_GL_SHARING_EXTENSION_NAME      "cl_khr_gl_sharing" ### string, not number "\"cl_khr_gl_sharing\"" */
+typedef cl_uint cl_gl_context_info;
+enum { CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR = -1000 };
+enum { CL_CURRENT_DEVICE_FOR_GL_CONTEXT_KHR = 8198 };
+enum { CL_DEVICES_FOR_GL_CONTEXT_KHR = 8199 };
+enum { CL_GL_CONTEXT_KHR = 8200 };
+enum { CL_EGL_DISPLAY_KHR = 8201 };
+enum { CL_GLX_DISPLAY_KHR = 8202 };
+enum { CL_WGL_HDC_KHR = 8203 };
+enum { CL_CGL_SHAREGROUP_KHR = 8204 };
 typedef cl_uint cl_gl_object_type;
 typedef cl_uint cl_gl_texture_info;
 typedef cl_uint cl_gl_platform_info;
-typedef struct __GLsync *cl_GLsync;
 enum { CL_GL_OBJECT_BUFFER = 8192 };
 enum { CL_GL_OBJECT_TEXTURE2D = 8193 };
 enum { CL_GL_OBJECT_TEXTURE3D = 8194 };
@@ -1114,36 +1118,44 @@ enum { CL_GL_OBJECT_TEXTURE1D_ARRAY = 8208 };
 enum { CL_GL_OBJECT_TEXTURE_BUFFER = 8209 };
 enum { CL_GL_TEXTURE_TARGET = 8196 };
 enum { CL_GL_MIPMAP_LEVEL = 8197 };
-enum { CL_GL_NUM_SAMPLES = 8210 };
-extern cl_mem clCreateFromGLBuffer(cl_context context, cl_mem_flags flags, cl_GLuint bufobj, cl_int * errcode_ret);
-extern cl_mem clCreateFromGLTexture(cl_context context, cl_mem_flags flags, cl_GLenum target, cl_GLint miplevel, cl_GLuint texture, cl_int * errcode_ret);
-extern cl_mem clCreateFromGLRenderbuffer(cl_context context, cl_mem_flags flags, cl_GLuint renderbuffer, cl_int * errcode_ret);
-extern cl_int clGetGLObjectInfo(cl_mem memobj, cl_gl_object_type * gl_object_type, cl_GLuint * gl_object_name);
-extern cl_int clGetGLTextureInfo(cl_mem memobj, cl_gl_texture_info param_name, size_t param_value_size, void * param_value, size_t * param_value_size_ret);
-extern cl_int clEnqueueAcquireGLObjects(cl_command_queue command_queue, cl_uint num_objects, const cl_mem * mem_objects, cl_uint num_events_in_wait_list, const cl_event * event_wait_list, cl_event * event);
-extern cl_int clEnqueueReleaseGLObjects(cl_command_queue command_queue, cl_uint num_objects, const cl_mem * mem_objects, cl_uint num_events_in_wait_list, const cl_event * event_wait_list, cl_event * event);
-extern cl_mem clCreateFromGLTexture2D(cl_context context, cl_mem_flags flags, cl_GLenum target, cl_GLint miplevel, cl_GLuint texture, cl_int * errcode_ret) __attribute__((deprecated));
-extern cl_mem clCreateFromGLTexture3D(cl_context context, cl_mem_flags flags, cl_GLenum target, cl_GLint miplevel, cl_GLuint texture, cl_int * errcode_ret) __attribute__((deprecated));
-enum { cl_khr_gl_sharing = 1 };
-typedef cl_uint cl_gl_context_info;
-enum { CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR = -1000 };
-enum { CL_CURRENT_DEVICE_FOR_GL_CONTEXT_KHR = 8198 };
-enum { CL_DEVICES_FOR_GL_CONTEXT_KHR = 8199 };
-enum { CL_GL_CONTEXT_KHR = 8200 };
-enum { CL_EGL_DISPLAY_KHR = 8201 };
-enum { CL_GLX_DISPLAY_KHR = 8202 };
-enum { CL_WGL_HDC_KHR = 8203 };
-enum { CL_CGL_SHAREGROUP_KHR = 8204 };
-extern cl_int clGetGLContextInfoKHR(const cl_context_properties * properties, cl_gl_context_info param_name, size_t param_value_size, void * param_value, size_t * param_value_size_ret);
-typedef cl_int ( *clGetGLContextInfoKHR_fn)( const cl_context_properties * properties, cl_gl_context_info param_name, size_t param_value_size, void * param_value, size_t * param_value_size_ret);
+typedef cl_int ( * clGetGLContextInfoKHR_fn)( const cl_context_properties* properties, cl_gl_context_info param_name, size_t param_value_size, void* param_value, size_t* param_value_size_ret);
+typedef cl_mem ( * clCreateFromGLBuffer_fn)( cl_context context, cl_mem_flags flags, cl_GLuint bufobj, cl_int* errcode_ret);
+extern cl_int clGetGLContextInfoKHR( const cl_context_properties* properties, cl_gl_context_info param_name, size_t param_value_size, void* param_value, size_t* param_value_size_ret);
+extern cl_mem clCreateFromGLBuffer( cl_context context, cl_mem_flags flags, cl_GLuint bufobj, cl_int* errcode_ret);
+typedef cl_mem ( * clCreateFromGLTexture_fn)( cl_context context, cl_mem_flags flags, cl_GLenum target, cl_GLint miplevel, cl_GLuint texture, cl_int* errcode_ret);
+extern cl_mem clCreateFromGLTexture( cl_context context, cl_mem_flags flags, cl_GLenum target, cl_GLint miplevel, cl_GLuint texture, cl_int* errcode_ret);
+typedef cl_mem ( * clCreateFromGLRenderbuffer_fn)( cl_context context, cl_mem_flags flags, cl_GLuint renderbuffer, cl_int* errcode_ret);
+typedef cl_int ( * clGetGLObjectInfo_fn)( cl_mem memobj, cl_gl_object_type* gl_object_type, cl_GLuint* gl_object_name);
+typedef cl_int ( * clGetGLTextureInfo_fn)( cl_mem memobj, cl_gl_texture_info param_name, size_t param_value_size, void* param_value, size_t* param_value_size_ret);
+typedef cl_int ( * clEnqueueAcquireGLObjects_fn)( cl_command_queue command_queue, cl_uint num_objects, const cl_mem* mem_objects, cl_uint num_events_in_wait_list, const cl_event* event_wait_list, cl_event* event);
+typedef cl_int ( * clEnqueueReleaseGLObjects_fn)( cl_command_queue command_queue, cl_uint num_objects, const cl_mem* mem_objects, cl_uint num_events_in_wait_list, const cl_event* event_wait_list, cl_event* event);
+extern cl_mem clCreateFromGLRenderbuffer( cl_context context, cl_mem_flags flags, cl_GLuint renderbuffer, cl_int* errcode_ret);
+extern cl_int clGetGLObjectInfo( cl_mem memobj, cl_gl_object_type* gl_object_type, cl_GLuint* gl_object_name);
+extern cl_int clGetGLTextureInfo( cl_mem memobj, cl_gl_texture_info param_name, size_t param_value_size, void* param_value, size_t* param_value_size_ret);
+extern cl_int clEnqueueAcquireGLObjects( cl_command_queue command_queue, cl_uint num_objects, const cl_mem* mem_objects, cl_uint num_events_in_wait_list, const cl_event* event_wait_list, cl_event* event);
+extern cl_int clEnqueueReleaseGLObjects( cl_command_queue command_queue, cl_uint num_objects, const cl_mem* mem_objects, cl_uint num_events_in_wait_list, const cl_event* event_wait_list, cl_event* event);
+typedef cl_mem ( * clCreateFromGLTexture2D_fn)( cl_context context, cl_mem_flags flags, cl_GLenum target, cl_GLint miplevel, cl_GLuint texture, cl_int* errcode_ret) __attribute__((deprecated));
+typedef cl_mem ( * clCreateFromGLTexture3D_fn)( cl_context context, cl_mem_flags flags, cl_GLenum target, cl_GLint miplevel, cl_GLuint texture, cl_int* errcode_ret) __attribute__((deprecated));
+extern cl_mem clCreateFromGLTexture2D( cl_context context, cl_mem_flags flags, cl_GLenum target, cl_GLint miplevel, cl_GLuint texture, cl_int* errcode_ret) __attribute__((deprecated));
+extern cl_mem clCreateFromGLTexture3D( cl_context context, cl_mem_flags flags, cl_GLenum target, cl_GLint miplevel, cl_GLuint texture, cl_int* errcode_ret) __attribute__((deprecated));
+enum { cl_khr_gl_event = 1 };
+/* #define CL_KHR_GL_EVENT_EXTENSION_NAME      "cl_khr_gl_event" ### string, not number "\"cl_khr_gl_event\"" */
+typedef struct __GLsync * cl_GLsync;
 enum { CL_COMMAND_GL_FENCE_SYNC_OBJECT_KHR = 8205 };
-extern cl_event clCreateEventFromGLsyncKHR(cl_context context, cl_GLsync sync, cl_int * errcode_ret);
+typedef cl_event ( * clCreateEventFromGLsyncKHR_fn)( cl_context context, cl_GLsync sync, cl_int* errcode_ret);
+extern cl_event clCreateEventFromGLsyncKHR( cl_context context, cl_GLsync sync, cl_int* errcode_ret);
+enum { cl_khr_gl_depth_images = 1 };
+/* #define CL_KHR_GL_DEPTH_IMAGES_EXTENSION_NAME      "cl_khr_gl_depth_images" ### string, not number "\"cl_khr_gl_depth_images\"" */
+enum { cl_khr_gl_msaa_sharing = 1 };
+/* #define CL_KHR_GL_MSAA_SHARING_EXTENSION_NAME      "cl_khr_gl_msaa_sharing" ### string, not number "\"cl_khr_gl_msaa_sharing\"" */
+enum { CL_GL_NUM_SAMPLES = 8210 };
 enum { cl_intel_sharing_format_query_gl = 1 };
-extern cl_int clGetSupportedGLTextureFormatsINTEL( cl_context context, cl_mem_flags flags, cl_mem_object_type image_type, cl_uint num_entries, cl_GLenum* gl_formats, cl_uint* num_texture_formats);
+/* #define CL_INTEL_SHARING_FORMAT_QUERY_GL_EXTENSION_NAME      "cl_intel_sharing_format_query_gl" ### string, not number "\"cl_intel_sharing_format_query_gl\"" */
 typedef cl_int ( * clGetSupportedGLTextureFormatsINTEL_fn)( cl_context context, cl_mem_flags flags, cl_mem_object_type image_type, cl_uint num_entries, cl_GLenum* gl_formats, cl_uint* num_texture_formats);
+extern cl_int clGetSupportedGLTextureFormatsINTEL( cl_context context, cl_mem_flags flags, cl_mem_object_type image_type, cl_uint num_entries, cl_GLenum* gl_formats, cl_uint* num_texture_formats);
 /* ++ END   /usr/include/CL/cl_gl.h */
 /* ++ BEGIN /usr/include/CL/cl_ext.h */
-enum { __CL_EXT_H = 1 };
+enum { OPENCL_CL_EXT_H_ = 1 };
 /* +++ BEGIN /usr/include/CL/cl.h */
 /* +++ END   /usr/include/CL/cl.h */
 enum { cl_khr_command_buffer = 1 };
@@ -1173,6 +1185,7 @@ enum { CL_COMMAND_BUFFER_NUM_QUEUES_KHR = 4757 };
 enum { CL_COMMAND_BUFFER_REFERENCE_COUNT_KHR = 4758 };
 enum { CL_COMMAND_BUFFER_STATE_KHR = 4759 };
 enum { CL_COMMAND_BUFFER_PROPERTIES_ARRAY_KHR = 4760 };
+enum { CL_COMMAND_BUFFER_CONTEXT_KHR = 4761 };
 enum { CL_COMMAND_BUFFER_STATE_RECORDING_KHR = 0 };
 enum { CL_COMMAND_BUFFER_STATE_EXECUTABLE_KHR = 1 };
 enum { CL_COMMAND_BUFFER_STATE_PENDING_KHR = 2 };
@@ -1208,6 +1221,19 @@ extern cl_int clCommandFillBufferKHR( cl_command_buffer_khr command_buffer, cl_c
 extern cl_int clCommandFillImageKHR( cl_command_buffer_khr command_buffer, cl_command_queue command_queue, cl_mem image, const void* fill_color, const size_t* origin, const size_t* region, cl_uint num_sync_points_in_wait_list, const cl_sync_point_khr* sync_point_wait_list, cl_sync_point_khr* sync_point, cl_mutable_command_khr* mutable_handle);
 extern cl_int clCommandNDRangeKernelKHR( cl_command_buffer_khr command_buffer, cl_command_queue command_queue, const cl_ndrange_kernel_command_properties_khr* properties, cl_kernel kernel, cl_uint work_dim, const size_t* global_work_offset, const size_t* global_work_size, const size_t* local_work_size, cl_uint num_sync_points_in_wait_list, const cl_sync_point_khr* sync_point_wait_list, cl_sync_point_khr* sync_point, cl_mutable_command_khr* mutable_handle);
 extern cl_int clGetCommandBufferInfoKHR( cl_command_buffer_khr command_buffer, cl_command_buffer_info_khr param_name, size_t param_value_size, void* param_value, size_t* param_value_size_ret);
+enum { cl_khr_command_buffer_multi_device = 1 };
+/* #define CL_KHR_COMMAND_BUFFER_MULTI_DEVICE_EXTENSION_NAME      "cl_khr_command_buffer_multi_device" ### string, not number "\"cl_khr_command_buffer_multi_device\"" */
+typedef cl_bitfield cl_platform_command_buffer_capabilities_khr;
+enum { CL_PLATFORM_COMMAND_BUFFER_CAPABILITIES_KHR = 2312 };
+enum { CL_COMMAND_BUFFER_PLATFORM_UNIVERSAL_SYNC_KHR = 1 };
+enum { CL_COMMAND_BUFFER_PLATFORM_REMAP_QUEUES_KHR = 2 };
+enum { CL_COMMAND_BUFFER_PLATFORM_AUTOMATIC_REMAP_KHR = 4 };
+enum { CL_DEVICE_COMMAND_BUFFER_NUM_SYNC_DEVICES_KHR = 4779 };
+enum { CL_DEVICE_COMMAND_BUFFER_SYNC_DEVICES_KHR = 4780 };
+enum { CL_COMMAND_BUFFER_CAPABILITY_MULTIPLE_QUEUE_KHR = 16 };
+enum { CL_COMMAND_BUFFER_DEVICE_SIDE_SYNC_KHR = 4 };
+typedef cl_command_buffer_khr ( * clRemapCommandBufferKHR_fn)( cl_command_buffer_khr command_buffer, cl_bool automatic, cl_uint num_queues, const cl_command_queue* queues, cl_uint num_handles, const cl_mutable_command_khr* handles, cl_mutable_command_khr* handles_ret, cl_int* errcode_ret);
+extern cl_command_buffer_khr clRemapCommandBufferKHR( cl_command_buffer_khr command_buffer, cl_bool automatic, cl_uint num_queues, const cl_command_queue* queues, cl_uint num_handles, const cl_mutable_command_khr* handles, cl_mutable_command_khr* handles_ret, cl_int* errcode_ret);
 enum { cl_khr_command_buffer_mutable_dispatch = 1 };
 /* #define CL_KHR_COMMAND_BUFFER_MUTABLE_DISPATCH_EXTENSION_NAME      "cl_khr_command_buffer_mutable_dispatch" ### string, not number "\"cl_khr_command_buffer_mutable_dispatch\"" */
 typedef cl_uint cl_command_buffer_structure_type_khr;
@@ -1268,38 +1294,62 @@ typedef cl_int ( * clUpdateMutableCommandsKHR_fn)( cl_command_buffer_khr command
 typedef cl_int ( * clGetMutableCommandInfoKHR_fn)( cl_mutable_command_khr command, cl_mutable_command_info_khr param_name, size_t param_value_size, void* param_value, size_t* param_value_size_ret);
 extern cl_int clUpdateMutableCommandsKHR( cl_command_buffer_khr command_buffer, const cl_mutable_base_config_khr* mutable_config);
 extern cl_int clGetMutableCommandInfoKHR( cl_mutable_command_khr command, cl_mutable_command_info_khr param_name, size_t param_value_size, void* param_value, size_t* param_value_size_ret);
+enum { cl_khr_fp64 = 1 };
+/* #define CL_KHR_FP64_EXTENSION_NAME      "cl_khr_fp64" ### string, not number "\"cl_khr_fp64\"" */
+enum { cl_khr_fp16 = 1 };
+/* #define CL_KHR_FP16_EXTENSION_NAME      "cl_khr_fp16" ### string, not number "\"cl_khr_fp16\"" */
 enum { CL_DEVICE_HALF_FP_CONFIG = 4147 };
 enum { cl_APPLE_SetMemObjectDestructor = 1 };
-extern cl_int clSetMemObjectDestructorAPPLE( cl_mem memobj, void (* pfn_notify)(cl_mem memobj, void * user_data), void * user_data);
+/* #define CL_APPLE_SETMEMOBJECTDESTRUCTOR_EXTENSION_NAME      "cl_APPLE_SetMemObjectDestructor" ### string, not number "\"cl_APPLE_SetMemObjectDestructor\"" */
+typedef cl_int ( * clSetMemObjectDestructorAPPLE_fn)( cl_mem memobj, void (* pfn_notify)(cl_mem memobj, void* user_data), void* user_data);
+extern cl_int clSetMemObjectDestructorAPPLE( cl_mem memobj, void (* pfn_notify)(cl_mem memobj, void* user_data), void* user_data);
 enum { cl_APPLE_ContextLoggingFunctions = 1 };
-extern void clLogMessagesToSystemLogAPPLE( const char * errstr, const void * private_info, size_t cb, void * user_data);
-extern void clLogMessagesToStdoutAPPLE( const char * errstr, const void * private_info, size_t cb, void * user_data);
-extern void clLogMessagesToStderrAPPLE( const char * errstr, const void * private_info, size_t cb, void * user_data);
+/* #define CL_APPLE_CONTEXTLOGGINGFUNCTIONS_EXTENSION_NAME      "cl_APPLE_ContextLoggingFunctions" ### string, not number "\"cl_APPLE_ContextLoggingFunctions\"" */
+typedef void ( * clLogMessagesToSystemLogAPPLE_fn)( const char* errstr, const void* private_info, size_t cb, void* user_data);
+typedef void ( * clLogMessagesToStdoutAPPLE_fn)( const char* errstr, const void* private_info, size_t cb, void* user_data);
+typedef void ( * clLogMessagesToStderrAPPLE_fn)( const char* errstr, const void* private_info, size_t cb, void* user_data);
+extern void clLogMessagesToSystemLogAPPLE( const char* errstr, const void* private_info, size_t cb, void* user_data);
+extern void clLogMessagesToStdoutAPPLE( const char* errstr, const void* private_info, size_t cb, void* user_data);
+extern void clLogMessagesToStderrAPPLE( const char* errstr, const void* private_info, size_t cb, void* user_data);
 enum { cl_khr_icd = 1 };
+/* #define CL_KHR_ICD_EXTENSION_NAME      "cl_khr_icd" ### string, not number "\"cl_khr_icd\"" */
 enum { CL_PLATFORM_ICD_SUFFIX_KHR = 2336 };
 enum { CL_PLATFORM_NOT_FOUND_KHR = -1001 };
-extern cl_int clIcdGetPlatformIDsKHR(cl_uint num_entries, cl_platform_id * platforms, cl_uint * num_platforms);
-typedef cl_int ( *clIcdGetPlatformIDsKHR_fn)(cl_uint num_entries, cl_platform_id * platforms, cl_uint * num_platforms);
+typedef cl_int ( * clIcdGetPlatformIDsKHR_fn)( cl_uint num_entries, cl_platform_id* platforms, cl_uint* num_platforms);
+extern cl_int clIcdGetPlatformIDsKHR( cl_uint num_entries, cl_platform_id* platforms, cl_uint* num_platforms);
 enum { cl_khr_il_program = 1 };
+/* #define CL_KHR_IL_PROGRAM_EXTENSION_NAME      "cl_khr_il_program" ### string, not number "\"cl_khr_il_program\"" */
 enum { CL_DEVICE_IL_VERSION_KHR = 4187 };
 enum { CL_PROGRAM_IL_KHR = 4457 };
-extern cl_program clCreateProgramWithILKHR(cl_context context, const void * il, size_t length, cl_int * errcode_ret);
-typedef cl_program ( *clCreateProgramWithILKHR_fn)(cl_context context, const void * il, size_t length, cl_int * errcode_ret);
+typedef cl_program ( * clCreateProgramWithILKHR_fn)( cl_context context, const void* il, size_t length, cl_int* errcode_ret);
+extern cl_program clCreateProgramWithILKHR( cl_context context, const void* il, size_t length, cl_int* errcode_ret);
+enum { cl_khr_image2d_from_buffer = 1 };
+/* #define CL_KHR_IMAGE2D_FROM_BUFFER_EXTENSION_NAME      "cl_khr_image2d_from_buffer" ### string, not number "\"cl_khr_image2d_from_buffer\"" */
 enum { CL_DEVICE_IMAGE_PITCH_ALIGNMENT_KHR = 4170 };
 enum { CL_DEVICE_IMAGE_BASE_ADDRESS_ALIGNMENT_KHR = 4171 };
+enum { cl_khr_initialize_memory = 1 };
+/* #define CL_KHR_INITIALIZE_MEMORY_EXTENSION_NAME      "cl_khr_initialize_memory" ### string, not number "\"cl_khr_initialize_memory\"" */
 enum { CL_CONTEXT_MEMORY_INITIALIZE_KHR = 8240 };
-enum { CL_CONTEXT_TERMINATED_KHR = -1121 };
+enum { cl_khr_terminate_context = 1 };
+/* #define CL_KHR_TERMINATE_CONTEXT_EXTENSION_NAME      "cl_khr_terminate_context" ### string, not number "\"cl_khr_terminate_context\"" */
+typedef cl_bitfield cl_device_terminate_capability_khr;
 enum { CL_DEVICE_TERMINATE_CAPABILITY_KHR = 8241 };
 enum { CL_CONTEXT_TERMINATE_KHR = 8242 };
-enum { cl_khr_terminate_context = 1 };
-extern cl_int clTerminateContextKHR(cl_context context);
-typedef cl_int ( *clTerminateContextKHR_fn)(cl_context context);
+enum { CL_DEVICE_TERMINATE_CAPABILITY_CONTEXT_KHR = 1 };
+enum { CL_CONTEXT_TERMINATED_KHR = -1121 };
+typedef cl_int ( * clTerminateContextKHR_fn)( cl_context context);
+extern cl_int clTerminateContextKHR( cl_context context);
+enum { cl_khr_spir = 1 };
+/* #define CL_KHR_SPIR_EXTENSION_NAME      "cl_khr_spir" ### string, not number "\"cl_khr_spir\"" */
 enum { CL_DEVICE_SPIR_VERSIONS = 16608 };
 enum { CL_PROGRAM_BINARY_TYPE_INTERMEDIATE = 16609 };
 enum { cl_khr_create_command_queue = 1 };
+/* #define CL_KHR_CREATE_COMMAND_QUEUE_EXTENSION_NAME      "cl_khr_create_command_queue" ### string, not number "\"cl_khr_create_command_queue\"" */
 typedef cl_properties cl_queue_properties_khr;
-extern cl_command_queue clCreateCommandQueueWithPropertiesKHR(cl_context context, cl_device_id device, const cl_queue_properties_khr* properties, cl_int* errcode_ret);
-typedef cl_command_queue ( *clCreateCommandQueueWithPropertiesKHR_fn)(cl_context context, cl_device_id device, const cl_queue_properties_khr* properties, cl_int* errcode_ret);
+typedef cl_command_queue ( * clCreateCommandQueueWithPropertiesKHR_fn)( cl_context context, cl_device_id device, const cl_queue_properties_khr* properties, cl_int* errcode_ret);
+extern cl_command_queue clCreateCommandQueueWithPropertiesKHR( cl_context context, cl_device_id device, const cl_queue_properties_khr* properties, cl_int* errcode_ret);
+enum { cl_nv_device_attribute_query = 1 };
+/* #define CL_NV_DEVICE_ATTRIBUTE_QUERY_EXTENSION_NAME      "cl_nv_device_attribute_query" ### string, not number "\"cl_nv_device_attribute_query\"" */
 enum { CL_DEVICE_COMPUTE_CAPABILITY_MAJOR_NV = 16384 };
 enum { CL_DEVICE_COMPUTE_CAPABILITY_MINOR_NV = 16385 };
 enum { CL_DEVICE_REGISTERS_PER_BLOCK_NV = 16386 };
@@ -1310,6 +1360,8 @@ enum { CL_DEVICE_INTEGRATED_MEMORY_NV = 16390 };
 enum { cl_amd_device_memory_flags = 1 };
 enum { CL_MEM_USE_PERSISTENT_MEM_AMD = 64 };
 enum { CL_DEVICE_MAX_ATOMIC_COUNTERS_EXT = 16434 };
+enum { cl_amd_device_attribute_query = 1 };
+/* #define CL_AMD_DEVICE_ATTRIBUTE_QUERY_EXTENSION_NAME      "cl_amd_device_attribute_query" ### string, not number "\"cl_amd_device_attribute_query\"" */
 enum { CL_DEVICE_PROFILING_TIMER_OFFSET_AMD = 16438 };
 enum { CL_DEVICE_TOPOLOGY_AMD = 16439 };
 enum { CL_DEVICE_BOARD_NAME_AMD = 16440 };
@@ -1336,46 +1388,57 @@ struct { cl_uint type; cl_char unused[17]; cl_char bus; cl_char device; cl_char 
 } cl_device_topology_amd;
 enum { CL_DEVICE_TOPOLOGY_TYPE_PCIE_AMD = 1 };
 enum { CL_CONTEXT_OFFLINE_DEVICES_AMD = 16447 };
+enum { cl_arm_printf = 1 };
+/* #define CL_ARM_PRINTF_EXTENSION_NAME      "cl_arm_printf" ### string, not number "\"cl_arm_printf\"" */
 enum { CL_PRINTF_CALLBACK_ARM = 16560 };
 enum { CL_PRINTF_BUFFERSIZE_ARM = 16561 };
 enum { cl_ext_device_fission = 1 };
-extern cl_int clReleaseDeviceEXT(cl_device_id device);
-typedef cl_int ( *clReleaseDeviceEXT_fn)(cl_device_id device);
-extern cl_int clRetainDeviceEXT(cl_device_id device);
-typedef cl_int ( *clRetainDeviceEXT_fn)(cl_device_id device);
+/* #define CL_EXT_DEVICE_FISSION_EXTENSION_NAME      "cl_ext_device_fission" ### string, not number "\"cl_ext_device_fission\"" */
 typedef cl_ulong cl_device_partition_property_ext;
-extern cl_int clCreateSubDevicesEXT(cl_device_id in_device, const cl_device_partition_property_ext * properties, cl_uint num_entries, cl_device_id * out_devices, cl_uint * num_devices);
-typedef cl_int ( * clCreateSubDevicesEXT_fn)(cl_device_id in_device, const cl_device_partition_property_ext * properties, cl_uint num_entries, cl_device_id * out_devices, cl_uint * num_devices);
-enum { CL_DEVICE_PARTITION_EQUALLY_EXT = 16464 };
-enum { CL_DEVICE_PARTITION_BY_COUNTS_EXT = 16465 };
-enum { CL_DEVICE_PARTITION_BY_NAMES_EXT = 16466 };
-enum { CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN_EXT = 16467 };
+enum { CL_DEVICE_PARTITION_FAILED_EXT = -1057 };
+enum { CL_INVALID_PARTITION_COUNT_EXT = -1058 };
+enum { CL_INVALID_PARTITION_NAME_EXT = -1059 };
 enum { CL_DEVICE_PARENT_DEVICE_EXT = 16468 };
 enum { CL_DEVICE_PARTITION_TYPES_EXT = 16469 };
 enum { CL_DEVICE_AFFINITY_DOMAINS_EXT = 16470 };
 enum { CL_DEVICE_REFERENCE_COUNT_EXT = 16471 };
 enum { CL_DEVICE_PARTITION_STYLE_EXT = 16472 };
-enum { CL_DEVICE_PARTITION_FAILED_EXT = -1057 };
-enum { CL_INVALID_PARTITION_COUNT_EXT = -1058 };
-enum { CL_INVALID_PARTITION_NAME_EXT = -1059 };
+enum { CL_DEVICE_PARTITION_EQUALLY_EXT = 16464 };
+enum { CL_DEVICE_PARTITION_BY_COUNTS_EXT = 16465 };
+enum { CL_DEVICE_PARTITION_BY_NAMES_EXT = 16466 };
+enum { CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN_EXT = 16467 };
 enum { CL_AFFINITY_DOMAIN_L1_CACHE_EXT = 1 };
 enum { CL_AFFINITY_DOMAIN_L2_CACHE_EXT = 2 };
 enum { CL_AFFINITY_DOMAIN_L3_CACHE_EXT = 3 };
 enum { CL_AFFINITY_DOMAIN_L4_CACHE_EXT = 4 };
 enum { CL_AFFINITY_DOMAIN_NUMA_EXT = 16 };
 enum { CL_AFFINITY_DOMAIN_NEXT_FISSIONABLE_EXT = 256 };
-/* #define CL_PROPERTIES_LIST_END_EXT                  ((cl_device_partition_property_ext) 0) ### string, not number "((cl_device_partition_property_ext) 0)" */
-/* #define CL_PARTITION_BY_COUNTS_LIST_END_EXT         ((cl_device_partition_property_ext) 0) ### string, not number "((cl_device_partition_property_ext) 0)" */
-/* #define CL_PARTITION_BY_NAMES_LIST_END_EXT          ((cl_device_partition_property_ext) 0 - 1) ### string, not number "((cl_device_partition_property_ext) 0 - 1)" */
+/* #define CL_PROPERTIES_LIST_END_EXT                          ((cl_device_partition_property_ext)0) ### string, not number "((cl_device_partition_property_ext)0)" */
+/* #define CL_PARTITION_BY_COUNTS_LIST_END_EXT                 ((cl_device_partition_property_ext)0) ### string, not number "((cl_device_partition_property_ext)0)" */
+/* #define CL_PARTITION_BY_NAMES_LIST_END_EXT                  ((cl_device_partition_property_ext)0 - 1) ### string, not number "((cl_device_partition_property_ext)0 - 1)" */
+typedef cl_int ( * clReleaseDeviceEXT_fn)( cl_device_id device);
+typedef cl_int ( * clRetainDeviceEXT_fn)( cl_device_id device);
+typedef cl_int ( * clCreateSubDevicesEXT_fn)( cl_device_id in_device, const cl_device_partition_property_ext* properties, cl_uint num_entries, cl_device_id* out_devices, cl_uint* num_devices);
+extern cl_int clReleaseDeviceEXT( cl_device_id device);
+extern cl_int clRetainDeviceEXT( cl_device_id device);
+extern cl_int clCreateSubDevicesEXT( cl_device_id in_device, const cl_device_partition_property_ext* properties, cl_uint num_entries, cl_device_id* out_devices, cl_uint* num_devices);
 enum { cl_ext_migrate_memobject = 1 };
+/* #define CL_EXT_MIGRATE_MEMOBJECT_EXTENSION_NAME      "cl_ext_migrate_memobject" ### string, not number "\"cl_ext_migrate_memobject\"" */
 typedef cl_bitfield cl_mem_migration_flags_ext;
 enum { CL_MIGRATE_MEM_OBJECT_HOST_EXT = 1 };
 enum { CL_COMMAND_MIGRATE_MEM_OBJECT_EXT = 16448 };
-extern cl_int clEnqueueMigrateMemObjectEXT(cl_command_queue command_queue, cl_uint num_mem_objects, const cl_mem * mem_objects, cl_mem_migration_flags_ext flags, cl_uint num_events_in_wait_list, const cl_event * event_wait_list, cl_event * event);
-typedef cl_int ( *clEnqueueMigrateMemObjectEXT_fn)(cl_command_queue command_queue, cl_uint num_mem_objects, const cl_mem * mem_objects, cl_mem_migration_flags_ext flags, cl_uint num_events_in_wait_list, const cl_event * event_wait_list, cl_event * event);
+typedef cl_int ( * clEnqueueMigrateMemObjectEXT_fn)( cl_command_queue command_queue, cl_uint num_mem_objects, const cl_mem* mem_objects, cl_mem_migration_flags_ext flags, cl_uint num_events_in_wait_list, const cl_event* event_wait_list, cl_event* event);
+extern cl_int clEnqueueMigrateMemObjectEXT( cl_command_queue command_queue, cl_uint num_mem_objects, const cl_mem* mem_objects, cl_mem_migration_flags_ext flags, cl_uint num_events_in_wait_list, const cl_event* event_wait_list, cl_event* event);
 enum { cl_ext_cxx_for_opencl = 1 };
+/* #define CL_EXT_CXX_FOR_OPENCL_EXTENSION_NAME      "cl_ext_cxx_for_opencl" ### string, not number "\"cl_ext_cxx_for_opencl\"" */
 enum { CL_DEVICE_CXX_FOR_OPENCL_NUMERIC_VERSION_EXT = 16944 };
 enum { cl_qcom_ext_host_ptr = 1 };
+/* #define CL_QCOM_EXT_HOST_PTR_EXTENSION_NAME      "cl_qcom_ext_host_ptr" ### string, not number "\"cl_qcom_ext_host_ptr\"" */
+typedef cl_uint cl_image_pitch_info_qcom;
+typedef struct _cl_mem_ext_host_ptr {
+	cl_uint allocation_type;
+	cl_uint host_cache_policy;
+} cl_mem_ext_host_ptr;
 enum { CL_MEM_EXT_HOST_PTR_QCOM = 536870912 };
 enum { CL_DEVICE_EXT_MEM_PADDING_IN_BYTES_QCOM = 16544 };
 enum { CL_DEVICE_PAGE_SIZE_QCOM = 16545 };
@@ -1385,77 +1448,95 @@ enum { CL_MEM_HOST_UNCACHED_QCOM = 16548 };
 enum { CL_MEM_HOST_WRITEBACK_QCOM = 16549 };
 enum { CL_MEM_HOST_WRITETHROUGH_QCOM = 16550 };
 enum { CL_MEM_HOST_WRITE_COMBINING_QCOM = 16551 };
-typedef cl_uint cl_image_pitch_info_qcom;
-extern cl_int clGetDeviceImageInfoQCOM(cl_device_id device, size_t image_width, size_t image_height, const cl_image_format *image_format, cl_image_pitch_info_qcom param_name, size_t param_value_size, void *param_value, size_t *param_value_size_ret);
-typedef struct _cl_mem_ext_host_ptr {
-	cl_uint allocation_type;
-	cl_uint host_cache_policy;
-} cl_mem_ext_host_ptr;
+typedef cl_int ( * clGetDeviceImageInfoQCOM_fn)( cl_device_id device, size_t image_width, size_t image_height, const cl_image_format* image_format, cl_image_pitch_info_qcom param_name, size_t param_value_size, void* param_value, size_t* param_value_size_ret);
+extern cl_int clGetDeviceImageInfoQCOM( cl_device_id device, size_t image_width, size_t image_height, const cl_image_format* image_format, cl_image_pitch_info_qcom param_name, size_t param_value_size, void* param_value, size_t* param_value_size_ret);
+enum { cl_qcom_ext_host_ptr_iocoherent = 1 };
+/* #define CL_QCOM_EXT_HOST_PTR_IOCOHERENT_EXTENSION_NAME      "cl_qcom_ext_host_ptr_iocoherent" ### string, not number "\"cl_qcom_ext_host_ptr_iocoherent\"" */
 enum { CL_MEM_HOST_IOCOHERENT_QCOM = 16553 };
-enum { CL_MEM_ION_HOST_PTR_QCOM = 16552 };
+enum { cl_qcom_ion_host_ptr = 1 };
+/* #define CL_QCOM_ION_HOST_PTR_EXTENSION_NAME      "cl_qcom_ion_host_ptr" ### string, not number "\"cl_qcom_ion_host_ptr\"" */
 typedef struct _cl_mem_ion_host_ptr {
 	cl_mem_ext_host_ptr ext_host_ptr;
 	int ion_filedesc;
 	void* ion_hostptr;
 } cl_mem_ion_host_ptr;
-enum { CL_MEM_ANDROID_NATIVE_BUFFER_HOST_PTR_QCOM = 16582 };
+enum { CL_MEM_ION_HOST_PTR_QCOM = 16552 };
+enum { cl_qcom_android_native_buffer_host_ptr = 1 };
+/* #define CL_QCOM_ANDROID_NATIVE_BUFFER_HOST_PTR_EXTENSION_NAME      "cl_qcom_android_native_buffer_host_ptr" ### string, not number "\"cl_qcom_android_native_buffer_host_ptr\"" */
 typedef struct _cl_mem_android_native_buffer_host_ptr {
 	cl_mem_ext_host_ptr ext_host_ptr;
 	void* anb_ptr;
 } cl_mem_android_native_buffer_host_ptr;
+enum { CL_MEM_ANDROID_NATIVE_BUFFER_HOST_PTR_QCOM = 16582 };
+enum { cl_img_yuv_image = 1 };
+/* #define CL_IMG_YUV_IMAGE_EXTENSION_NAME      "cl_img_yuv_image" ### string, not number "\"cl_img_yuv_image\"" */
 enum { CL_NV21_IMG = 16592 };
 enum { CL_YV12_IMG = 16593 };
+enum { cl_img_cached_allocations = 1 };
+/* #define CL_IMG_CACHED_ALLOCATIONS_EXTENSION_NAME      "cl_img_cached_allocations" ### string, not number "\"cl_img_cached_allocations\"" */
 enum { CL_MEM_USE_UNCACHED_CPU_MEMORY_IMG = 67108864 };
 enum { CL_MEM_USE_CACHED_CPU_MEMORY_IMG = 134217728 };
 enum { cl_img_use_gralloc_ptr = 1 };
+/* #define CL_IMG_USE_GRALLOC_PTR_EXTENSION_NAME      "cl_img_use_gralloc_ptr" ### string, not number "\"cl_img_use_gralloc_ptr\"" */
+enum { CL_GRALLOC_RESOURCE_NOT_ACQUIRED_IMG = 16596 };
+enum { CL_INVALID_GRALLOC_OBJECT_IMG = 16597 };
 enum { CL_MEM_USE_GRALLOC_PTR_IMG = 268435456 };
 enum { CL_COMMAND_ACQUIRE_GRALLOC_OBJECTS_IMG = 16594 };
 enum { CL_COMMAND_RELEASE_GRALLOC_OBJECTS_IMG = 16595 };
-enum { CL_GRALLOC_RESOURCE_NOT_ACQUIRED_IMG = 16596 };
-enum { CL_INVALID_GRALLOC_OBJECT_IMG = 16597 };
-extern cl_int clEnqueueAcquireGrallocObjectsIMG(cl_command_queue command_queue, cl_uint num_objects, const cl_mem * mem_objects, cl_uint num_events_in_wait_list, const cl_event * event_wait_list, cl_event * event);
-extern cl_int clEnqueueReleaseGrallocObjectsIMG(cl_command_queue command_queue, cl_uint num_objects, const cl_mem * mem_objects, cl_uint num_events_in_wait_list, const cl_event * event_wait_list, cl_event * event);
+typedef cl_int ( * clEnqueueAcquireGrallocObjectsIMG_fn)( cl_command_queue command_queue, cl_uint num_objects, const cl_mem* mem_objects, cl_uint num_events_in_wait_list, const cl_event* event_wait_list, cl_event* event);
+typedef cl_int ( * clEnqueueReleaseGrallocObjectsIMG_fn)( cl_command_queue command_queue, cl_uint num_objects, const cl_mem* mem_objects, cl_uint num_events_in_wait_list, const cl_event* event_wait_list, cl_event* event);
+extern cl_int clEnqueueAcquireGrallocObjectsIMG( cl_command_queue command_queue, cl_uint num_objects, const cl_mem* mem_objects, cl_uint num_events_in_wait_list, const cl_event* event_wait_list, cl_event* event);
+extern cl_int clEnqueueReleaseGrallocObjectsIMG( cl_command_queue command_queue, cl_uint num_objects, const cl_mem* mem_objects, cl_uint num_events_in_wait_list, const cl_event* event_wait_list, cl_event* event);
 enum { cl_img_generate_mipmap = 1 };
+/* #define CL_IMG_GENERATE_MIPMAP_EXTENSION_NAME      "cl_img_generate_mipmap" ### string, not number "\"cl_img_generate_mipmap\"" */
 typedef cl_uint cl_mipmap_filter_mode_img;
 enum { CL_MIPMAP_FILTER_ANY_IMG = 0 };
 enum { CL_MIPMAP_FILTER_BOX_IMG = 1 };
 enum { CL_COMMAND_GENERATE_MIPMAP_IMG = 16598 };
-extern cl_int clEnqueueGenerateMipmapIMG(cl_command_queue command_queue, cl_mem src_image, cl_mem dst_image, cl_mipmap_filter_mode_img mipmap_filter_mode, const size_t *array_region, const size_t *mip_region, cl_uint num_events_in_wait_list, const cl_event *event_wait_list, cl_event *event);
+typedef cl_int ( * clEnqueueGenerateMipmapIMG_fn)( cl_command_queue command_queue, cl_mem src_image, cl_mem dst_image, cl_mipmap_filter_mode_img mipmap_filter_mode, const size_t* array_region, const size_t* mip_region, cl_uint num_events_in_wait_list, const cl_event* event_wait_list, cl_event* event);
+extern cl_int clEnqueueGenerateMipmapIMG( cl_command_queue command_queue, cl_mem src_image, cl_mem dst_image, cl_mipmap_filter_mode_img mipmap_filter_mode, const size_t* array_region, const size_t* mip_region, cl_uint num_events_in_wait_list, const cl_event* event_wait_list, cl_event* event);
 enum { cl_img_mem_properties = 1 };
+/* #define CL_IMG_MEM_PROPERTIES_EXTENSION_NAME      "cl_img_mem_properties" ### string, not number "\"cl_img_mem_properties\"" */
 enum { CL_MEM_ALLOC_FLAGS_IMG = 16599 };
-typedef cl_bitfield cl_mem_alloc_flags_img;
 enum { CL_MEM_ALLOC_RELAX_REQUIREMENTS_IMG = 1 };
 enum { cl_khr_subgroups = 1 };
+/* #define CL_KHR_SUBGROUPS_EXTENSION_NAME      "cl_khr_subgroups" ### string, not number "\"cl_khr_subgroups\"" */
 enum { CL_KERNEL_MAX_SUB_GROUP_SIZE_FOR_NDRANGE_KHR = 8243 };
 enum { CL_KERNEL_SUB_GROUP_COUNT_FOR_NDRANGE_KHR = 8244 };
-extern cl_int clGetKernelSubGroupInfoKHR(cl_kernel in_kernel, cl_device_id in_device, cl_kernel_sub_group_info param_name, size_t input_value_size, const void * input_value, size_t param_value_size, void * param_value, size_t * param_value_size_ret) __attribute__((deprecated));
-typedef cl_int ( * clGetKernelSubGroupInfoKHR_fn)(cl_kernel in_kernel, cl_device_id in_device, cl_kernel_sub_group_info param_name, size_t input_value_size, const void * input_value, size_t param_value_size, void * param_value, size_t * param_value_size_ret) __attribute__((deprecated));
+typedef cl_int ( * clGetKernelSubGroupInfoKHR_fn)( cl_kernel in_kernel, cl_device_id in_device, cl_kernel_sub_group_info param_name, size_t input_value_size, const void* input_value, size_t param_value_size, void* param_value, size_t* param_value_size_ret) __attribute__((deprecated));
+extern cl_int clGetKernelSubGroupInfoKHR( cl_kernel in_kernel, cl_device_id in_device, cl_kernel_sub_group_info param_name, size_t input_value_size, const void* input_value, size_t param_value_size, void* param_value, size_t* param_value_size_ret) __attribute__((deprecated));
+enum { cl_khr_mipmap_image = 1 };
+/* #define CL_KHR_MIPMAP_IMAGE_EXTENSION_NAME      "cl_khr_mipmap_image" ### string, not number "\"cl_khr_mipmap_image\"" */
 enum { CL_SAMPLER_MIP_FILTER_MODE_KHR = 4437 };
 enum { CL_SAMPLER_LOD_MIN_KHR = 4438 };
 enum { CL_SAMPLER_LOD_MAX_KHR = 4439 };
 enum { cl_khr_priority_hints = 1 };
+/* #define CL_KHR_PRIORITY_HINTS_EXTENSION_NAME      "cl_khr_priority_hints" ### string, not number "\"cl_khr_priority_hints\"" */
 typedef cl_uint cl_queue_priority_khr;
 enum { CL_QUEUE_PRIORITY_KHR = 4246 };
 enum { CL_QUEUE_PRIORITY_HIGH_KHR = 1 };
 enum { CL_QUEUE_PRIORITY_MED_KHR = 2 };
 enum { CL_QUEUE_PRIORITY_LOW_KHR = 4 };
 enum { cl_khr_throttle_hints = 1 };
+/* #define CL_KHR_THROTTLE_HINTS_EXTENSION_NAME      "cl_khr_throttle_hints" ### string, not number "\"cl_khr_throttle_hints\"" */
 typedef cl_uint cl_queue_throttle_khr;
 enum { CL_QUEUE_THROTTLE_KHR = 4247 };
 enum { CL_QUEUE_THROTTLE_HIGH_KHR = 1 };
 enum { CL_QUEUE_THROTTLE_MED_KHR = 2 };
 enum { CL_QUEUE_THROTTLE_LOW_KHR = 4 };
 enum { cl_khr_subgroup_named_barrier = 1 };
+/* #define CL_KHR_SUBGROUP_NAMED_BARRIER_EXTENSION_NAME      "cl_khr_subgroup_named_barrier" ### string, not number "\"cl_khr_subgroup_named_barrier\"" */
 enum { CL_DEVICE_MAX_NAMED_BARRIER_COUNT_KHR = 8245 };
 enum { cl_khr_extended_versioning = 1 };
+/* #define CL_KHR_EXTENDED_VERSIONING_EXTENSION_NAME      "cl_khr_extended_versioning" ### string, not number "\"cl_khr_extended_versioning\"" */
 enum { CL_VERSION_MAJOR_BITS_KHR = 10 };
 enum { CL_VERSION_MINOR_BITS_KHR = 10 };
 enum { CL_VERSION_PATCH_BITS_KHR = 12 };
 enum { CL_VERSION_MAJOR_MASK_KHR = 1023 };
 enum { CL_VERSION_MINOR_MASK_KHR = 1023 };
 enum { CL_VERSION_PATCH_MASK_KHR = 4095 };
-typedef cl_uint cl_version_khr;
 enum { CL_NAME_VERSION_MAX_NAME_SIZE_KHR = 64 };
+typedef cl_uint cl_version_khr;
 typedef struct _cl_name_version_khr {
 	cl_version_khr version;
 	char name[64];
@@ -1468,6 +1549,7 @@ enum { CL_DEVICE_EXTENSIONS_WITH_VERSION_KHR = 4192 };
 enum { CL_DEVICE_ILS_WITH_VERSION_KHR = 4193 };
 enum { CL_DEVICE_BUILT_IN_KERNELS_WITH_VERSION_KHR = 4194 };
 enum { cl_khr_device_uuid = 1 };
+/* #define CL_KHR_DEVICE_UUID_EXTENSION_NAME      "cl_khr_device_uuid" ### string, not number "\"cl_khr_device_uuid\"" */
 enum { CL_UUID_SIZE_KHR = 16 };
 enum { CL_LUID_SIZE_KHR = 8 };
 enum { CL_DEVICE_UUID_KHR = 4202 };
@@ -1476,6 +1558,7 @@ enum { CL_DEVICE_LUID_VALID_KHR = 4204 };
 enum { CL_DEVICE_LUID_KHR = 4205 };
 enum { CL_DEVICE_NODE_MASK_KHR = 4206 };
 enum { cl_khr_pci_bus_info = 1 };
+/* #define CL_KHR_PCI_BUS_INFO_EXTENSION_NAME      "cl_khr_pci_bus_info" ### string, not number "\"cl_khr_pci_bus_info\"" */
 typedef struct _cl_device_pci_bus_info_khr {
 	cl_uint pci_domain;
 	cl_uint pci_bus;
@@ -1484,12 +1567,12 @@ typedef struct _cl_device_pci_bus_info_khr {
 } cl_device_pci_bus_info_khr;
 enum { CL_DEVICE_PCI_BUS_INFO_KHR = 16655 };
 enum { cl_khr_suggested_local_work_size = 1 };
-extern cl_int clGetKernelSuggestedLocalWorkSizeKHR( cl_command_queue command_queue, cl_kernel kernel, cl_uint work_dim, const size_t* global_work_offset, const size_t* global_work_size, size_t* suggested_local_work_size);
+/* #define CL_KHR_SUGGESTED_LOCAL_WORK_SIZE_EXTENSION_NAME      "cl_khr_suggested_local_work_size" ### string, not number "\"cl_khr_suggested_local_work_size\"" */
 typedef cl_int ( * clGetKernelSuggestedLocalWorkSizeKHR_fn)( cl_command_queue command_queue, cl_kernel kernel, cl_uint work_dim, const size_t* global_work_offset, const size_t* global_work_size, size_t* suggested_local_work_size);
+extern cl_int clGetKernelSuggestedLocalWorkSizeKHR( cl_command_queue command_queue, cl_kernel kernel, cl_uint work_dim, const size_t* global_work_offset, const size_t* global_work_size, size_t* suggested_local_work_size);
 enum { cl_khr_integer_dot_product = 1 };
+/* #define CL_KHR_INTEGER_DOT_PRODUCT_EXTENSION_NAME      "cl_khr_integer_dot_product" ### string, not number "\"cl_khr_integer_dot_product\"" */
 typedef cl_bitfield cl_device_integer_dot_product_capabilities_khr;
-enum { CL_DEVICE_INTEGER_DOT_PRODUCT_INPUT_4x8BIT_PACKED_KHR = 1 };
-enum { CL_DEVICE_INTEGER_DOT_PRODUCT_INPUT_4x8BIT_KHR = 2 };
 typedef struct _cl_device_integer_dot_product_acceleration_properties_khr {
 	cl_bool signed_accelerated;
 	cl_bool unsigned_accelerated;
@@ -1498,10 +1581,13 @@ typedef struct _cl_device_integer_dot_product_acceleration_properties_khr {
 	cl_bool accumulating_saturating_unsigned_accelerated;
 	cl_bool accumulating_saturating_mixed_signedness_accelerated;
 } cl_device_integer_dot_product_acceleration_properties_khr;
+enum { CL_DEVICE_INTEGER_DOT_PRODUCT_INPUT_4x8BIT_PACKED_KHR = 1 };
+enum { CL_DEVICE_INTEGER_DOT_PRODUCT_INPUT_4x8BIT_KHR = 2 };
 enum { CL_DEVICE_INTEGER_DOT_PRODUCT_CAPABILITIES_KHR = 4211 };
 enum { CL_DEVICE_INTEGER_DOT_PRODUCT_ACCELERATION_PROPERTIES_8BIT_KHR = 4212 };
 enum { CL_DEVICE_INTEGER_DOT_PRODUCT_ACCELERATION_PROPERTIES_4x8BIT_PACKED_KHR = 4213 };
 enum { cl_khr_external_memory = 1 };
+/* #define CL_KHR_EXTERNAL_MEMORY_EXTENSION_NAME      "cl_khr_external_memory" ### string, not number "\"cl_khr_external_memory\"" */
 typedef cl_uint cl_external_memory_handle_type_khr;
 enum { CL_PLATFORM_EXTERNAL_MEMORY_IMPORT_HANDLE_TYPES_KHR = 8260 };
 enum { CL_DEVICE_EXTERNAL_MEMORY_IMPORT_HANDLE_TYPES_KHR = 8271 };
@@ -1514,18 +1600,23 @@ typedef cl_int ( * clEnqueueReleaseExternalMemObjectsKHR_fn)( cl_command_queue c
 extern cl_int clEnqueueAcquireExternalMemObjectsKHR( cl_command_queue command_queue, cl_uint num_mem_objects, const cl_mem* mem_objects, cl_uint num_events_in_wait_list, const cl_event* event_wait_list, cl_event* event);
 extern cl_int clEnqueueReleaseExternalMemObjectsKHR( cl_command_queue command_queue, cl_uint num_mem_objects, const cl_mem* mem_objects, cl_uint num_events_in_wait_list, const cl_event* event_wait_list, cl_event* event);
 enum { cl_khr_external_memory_dma_buf = 1 };
+/* #define CL_KHR_EXTERNAL_MEMORY_DMA_BUF_EXTENSION_NAME      "cl_khr_external_memory_dma_buf" ### string, not number "\"cl_khr_external_memory_dma_buf\"" */
 enum { CL_EXTERNAL_MEMORY_HANDLE_DMA_BUF_KHR = 8295 };
 enum { cl_khr_external_memory_dx = 1 };
+/* #define CL_KHR_EXTERNAL_MEMORY_DX_EXTENSION_NAME      "cl_khr_external_memory_dx" ### string, not number "\"cl_khr_external_memory_dx\"" */
 enum { CL_EXTERNAL_MEMORY_HANDLE_D3D11_TEXTURE_KHR = 8291 };
 enum { CL_EXTERNAL_MEMORY_HANDLE_D3D11_TEXTURE_KMT_KHR = 8292 };
 enum { CL_EXTERNAL_MEMORY_HANDLE_D3D12_HEAP_KHR = 8293 };
 enum { CL_EXTERNAL_MEMORY_HANDLE_D3D12_RESOURCE_KHR = 8294 };
 enum { cl_khr_external_memory_opaque_fd = 1 };
+/* #define CL_KHR_EXTERNAL_MEMORY_OPAQUE_FD_EXTENSION_NAME      "cl_khr_external_memory_opaque_fd" ### string, not number "\"cl_khr_external_memory_opaque_fd\"" */
 enum { CL_EXTERNAL_MEMORY_HANDLE_OPAQUE_FD_KHR = 8288 };
 enum { cl_khr_external_memory_win32 = 1 };
+/* #define CL_KHR_EXTERNAL_MEMORY_WIN32_EXTENSION_NAME      "cl_khr_external_memory_win32" ### string, not number "\"cl_khr_external_memory_win32\"" */
 enum { CL_EXTERNAL_MEMORY_HANDLE_OPAQUE_WIN32_KHR = 8289 };
 enum { CL_EXTERNAL_MEMORY_HANDLE_OPAQUE_WIN32_KMT_KHR = 8290 };
 enum { cl_khr_external_semaphore = 1 };
+/* #define CL_KHR_EXTERNAL_SEMAPHORE_EXTENSION_NAME      "cl_khr_external_semaphore" ### string, not number "\"cl_khr_external_semaphore\"" */
 typedef struct _cl_semaphore_khr * cl_semaphore_khr;
 typedef cl_uint cl_external_semaphore_handle_type_khr;
 enum { CL_PLATFORM_SEMAPHORE_IMPORT_HANDLE_TYPES_KHR = 8247 };
@@ -1537,15 +1628,20 @@ enum { CL_SEMAPHORE_EXPORT_HANDLE_TYPES_LIST_END_KHR = 0 };
 typedef cl_int ( * clGetSemaphoreHandleForTypeKHR_fn)( cl_semaphore_khr sema_object, cl_device_id device, cl_external_semaphore_handle_type_khr handle_type, size_t handle_size, void* handle_ptr, size_t* handle_size_ret);
 extern cl_int clGetSemaphoreHandleForTypeKHR( cl_semaphore_khr sema_object, cl_device_id device, cl_external_semaphore_handle_type_khr handle_type, size_t handle_size, void* handle_ptr, size_t* handle_size_ret);
 enum { cl_khr_external_semaphore_dx_fence = 1 };
+/* #define CL_KHR_EXTERNAL_SEMAPHORE_DX_FENCE_EXTENSION_NAME      "cl_khr_external_semaphore_dx_fence" ### string, not number "\"cl_khr_external_semaphore_dx_fence\"" */
 enum { CL_SEMAPHORE_HANDLE_D3D12_FENCE_KHR = 8281 };
 enum { cl_khr_external_semaphore_opaque_fd = 1 };
+/* #define CL_KHR_EXTERNAL_SEMAPHORE_OPAQUE_FD_EXTENSION_NAME      "cl_khr_external_semaphore_opaque_fd" ### string, not number "\"cl_khr_external_semaphore_opaque_fd\"" */
 enum { CL_SEMAPHORE_HANDLE_OPAQUE_FD_KHR = 8277 };
 enum { cl_khr_external_semaphore_sync_fd = 1 };
+/* #define CL_KHR_EXTERNAL_SEMAPHORE_SYNC_FD_EXTENSION_NAME      "cl_khr_external_semaphore_sync_fd" ### string, not number "\"cl_khr_external_semaphore_sync_fd\"" */
 enum { CL_SEMAPHORE_HANDLE_SYNC_FD_KHR = 8280 };
 enum { cl_khr_external_semaphore_win32 = 1 };
+/* #define CL_KHR_EXTERNAL_SEMAPHORE_WIN32_EXTENSION_NAME      "cl_khr_external_semaphore_win32" ### string, not number "\"cl_khr_external_semaphore_win32\"" */
 enum { CL_SEMAPHORE_HANDLE_OPAQUE_WIN32_KHR = 8278 };
 enum { CL_SEMAPHORE_HANDLE_OPAQUE_WIN32_KMT_KHR = 8279 };
 enum { cl_khr_semaphore = 1 };
+/* #define CL_KHR_SEMAPHORE_EXTENSION_NAME      "cl_khr_semaphore" ### string, not number "\"cl_khr_semaphore\"" */
 typedef cl_properties cl_semaphore_properties_khr;
 typedef cl_uint cl_semaphore_info_khr;
 typedef cl_uint cl_semaphore_type_khr;
@@ -1574,6 +1670,7 @@ extern cl_int clGetSemaphoreInfoKHR( cl_semaphore_khr sema_object, cl_semaphore_
 extern cl_int clReleaseSemaphoreKHR( cl_semaphore_khr sema_object);
 extern cl_int clRetainSemaphoreKHR( cl_semaphore_khr sema_object);
 enum { cl_arm_import_memory = 1 };
+/* #define CL_ARM_IMPORT_MEMORY_EXTENSION_NAME      "cl_arm_import_memory" ### string, not number "\"cl_arm_import_memory\"" */
 typedef intptr_t cl_import_properties_arm;
 enum { CL_IMPORT_TYPE_ARM = 16562 };
 enum { CL_IMPORT_TYPE_HOST_ARM = 16563 };
@@ -1581,11 +1678,16 @@ enum { CL_IMPORT_TYPE_DMA_BUF_ARM = 16564 };
 enum { CL_IMPORT_TYPE_PROTECTED_ARM = 16565 };
 enum { CL_IMPORT_TYPE_ANDROID_HARDWARE_BUFFER_ARM = 16866 };
 enum { CL_IMPORT_DMA_BUF_DATA_CONSISTENCY_WITH_HOST_ARM = 16867 };
+/* #define CL_IMPORT_MEMORY_WHOLE_ALLOCATION_ARM               SIZE_MAX ### string, not number "1.844674407371e+19" */
 enum { CL_IMPORT_ANDROID_HARDWARE_BUFFER_PLANE_INDEX_ARM = 16879 };
 enum { CL_IMPORT_ANDROID_HARDWARE_BUFFER_LAYER_INDEX_ARM = 16880 };
-/* #define CL_IMPORT_MEMORY_WHOLE_ALLOCATION_ARM SIZE_MAX ### string, number, replaceline "1.844674407371e+19" */
-extern cl_mem clImportMemoryARM( cl_context context, cl_mem_flags flags, const cl_import_properties_arm *properties, void *memory, size_t size, cl_int *errcode_ret);
+typedef cl_mem ( * clImportMemoryARM_fn)( cl_context context, cl_mem_flags flags, const cl_import_properties_arm* properties, void* memory, size_t size, cl_int* errcode_ret);
+extern cl_mem clImportMemoryARM( cl_context context, cl_mem_flags flags, const cl_import_properties_arm* properties, void* memory, size_t size, cl_int* errcode_ret);
 enum { cl_arm_shared_virtual_memory = 1 };
+/* #define CL_ARM_SHARED_VIRTUAL_MEMORY_EXTENSION_NAME      "cl_arm_shared_virtual_memory" ### string, not number "\"cl_arm_shared_virtual_memory\"" */
+typedef cl_bitfield cl_svm_mem_flags_arm;
+typedef cl_uint cl_kernel_exec_info_arm;
+typedef cl_bitfield cl_device_svm_capabilities_arm;
 enum { CL_DEVICE_SVM_CAPABILITIES_ARM = 16566 };
 enum { CL_MEM_USES_SVM_POINTER_ARM = 16567 };
 enum { CL_KERNEL_EXEC_INFO_SVM_PTRS_ARM = 16568 };
@@ -1601,26 +1703,34 @@ enum { CL_DEVICE_SVM_FINE_GRAIN_SYSTEM_ARM = 4 };
 enum { CL_DEVICE_SVM_ATOMICS_ARM = 8 };
 enum { CL_MEM_SVM_FINE_GRAIN_BUFFER_ARM = 1024 };
 enum { CL_MEM_SVM_ATOMICS_ARM = 2048 };
-typedef cl_bitfield cl_svm_mem_flags_arm;
-typedef cl_uint cl_kernel_exec_info_arm;
-typedef cl_bitfield cl_device_svm_capabilities_arm;
-extern void * clSVMAllocARM(cl_context context, cl_svm_mem_flags_arm flags, size_t size, cl_uint alignment);
-extern void clSVMFreeARM(cl_context context, void * svm_pointer);
-extern cl_int clEnqueueSVMFreeARM(cl_command_queue command_queue, cl_uint num_svm_pointers, void * svm_pointers[], void ( * pfn_free_func)(cl_command_queue queue, cl_uint num_svm_pointers, void * svm_pointers[], void * user_data), void * user_data, cl_uint num_events_in_wait_list, const cl_event * event_wait_list, cl_event * event);
-extern cl_int clEnqueueSVMMemcpyARM(cl_command_queue command_queue, cl_bool blocking_copy, void * dst_ptr, const void * src_ptr, size_t size, cl_uint num_events_in_wait_list, const cl_event * event_wait_list, cl_event * event);
-extern cl_int clEnqueueSVMMemFillARM(cl_command_queue command_queue, void * svm_ptr, const void * pattern, size_t pattern_size, size_t size, cl_uint num_events_in_wait_list, const cl_event * event_wait_list, cl_event * event);
-extern cl_int clEnqueueSVMMapARM(cl_command_queue command_queue, cl_bool blocking_map, cl_map_flags flags, void * svm_ptr, size_t size, cl_uint num_events_in_wait_list, const cl_event * event_wait_list, cl_event * event);
-extern cl_int clEnqueueSVMUnmapARM(cl_command_queue command_queue, void * svm_ptr, cl_uint num_events_in_wait_list, const cl_event * event_wait_list, cl_event * event);
-extern cl_int clSetKernelArgSVMPointerARM(cl_kernel kernel, cl_uint arg_index, const void * arg_value);
-extern cl_int clSetKernelExecInfoARM(cl_kernel kernel, cl_kernel_exec_info_arm param_name, size_t param_value_size, const void * param_value);
+typedef void* ( * clSVMAllocARM_fn)( cl_context context, cl_svm_mem_flags_arm flags, size_t size, cl_uint alignment);
+typedef void ( * clSVMFreeARM_fn)( cl_context context, void* svm_pointer);
+typedef cl_int ( * clEnqueueSVMFreeARM_fn)( cl_command_queue command_queue, cl_uint num_svm_pointers, void* svm_pointers[], void (* pfn_free_func)(cl_command_queue queue, cl_uint num_svm_pointers, void * svm_pointers[], void *user_data), void* user_data, cl_uint num_events_in_wait_list, const cl_event* event_wait_list, cl_event* event);
+typedef cl_int ( * clEnqueueSVMMemcpyARM_fn)( cl_command_queue command_queue, cl_bool blocking_copy, void* dst_ptr, const void* src_ptr, size_t size, cl_uint num_events_in_wait_list, const cl_event* event_wait_list, cl_event* event);
+typedef cl_int ( * clEnqueueSVMMemFillARM_fn)( cl_command_queue command_queue, void* svm_ptr, const void* pattern, size_t pattern_size, size_t size, cl_uint num_events_in_wait_list, const cl_event* event_wait_list, cl_event* event);
+typedef cl_int ( * clEnqueueSVMMapARM_fn)( cl_command_queue command_queue, cl_bool blocking_map, cl_map_flags flags, void* svm_ptr, size_t size, cl_uint num_events_in_wait_list, const cl_event* event_wait_list, cl_event* event);
+typedef cl_int ( * clEnqueueSVMUnmapARM_fn)( cl_command_queue command_queue, void* svm_ptr, cl_uint num_events_in_wait_list, const cl_event* event_wait_list, cl_event* event);
+typedef cl_int ( * clSetKernelArgSVMPointerARM_fn)( cl_kernel kernel, cl_uint arg_index, const void* arg_value);
+typedef cl_int ( * clSetKernelExecInfoARM_fn)( cl_kernel kernel, cl_kernel_exec_info_arm param_name, size_t param_value_size, const void* param_value);
+extern void* clSVMAllocARM( cl_context context, cl_svm_mem_flags_arm flags, size_t size, cl_uint alignment);
+extern void clSVMFreeARM( cl_context context, void* svm_pointer);
+extern cl_int clEnqueueSVMFreeARM( cl_command_queue command_queue, cl_uint num_svm_pointers, void* svm_pointers[], void (* pfn_free_func)(cl_command_queue queue, cl_uint num_svm_pointers, void * svm_pointers[], void *user_data), void* user_data, cl_uint num_events_in_wait_list, const cl_event* event_wait_list, cl_event* event);
+extern cl_int clEnqueueSVMMemcpyARM( cl_command_queue command_queue, cl_bool blocking_copy, void* dst_ptr, const void* src_ptr, size_t size, cl_uint num_events_in_wait_list, const cl_event* event_wait_list, cl_event* event);
+extern cl_int clEnqueueSVMMemFillARM( cl_command_queue command_queue, void* svm_ptr, const void* pattern, size_t pattern_size, size_t size, cl_uint num_events_in_wait_list, const cl_event* event_wait_list, cl_event* event);
+extern cl_int clEnqueueSVMMapARM( cl_command_queue command_queue, cl_bool blocking_map, cl_map_flags flags, void* svm_ptr, size_t size, cl_uint num_events_in_wait_list, const cl_event* event_wait_list, cl_event* event);
+extern cl_int clEnqueueSVMUnmapARM( cl_command_queue command_queue, void* svm_ptr, cl_uint num_events_in_wait_list, const cl_event* event_wait_list, cl_event* event);
+extern cl_int clSetKernelArgSVMPointerARM( cl_kernel kernel, cl_uint arg_index, const void* arg_value);
+extern cl_int clSetKernelExecInfoARM( cl_kernel kernel, cl_kernel_exec_info_arm param_name, size_t param_value_size, const void* param_value);
 enum { cl_arm_get_core_id = 1 };
+/* #define CL_ARM_GET_CORE_ID_EXTENSION_NAME      "cl_arm_get_core_id" ### string, not number "\"cl_arm_get_core_id\"" */
 enum { CL_DEVICE_COMPUTE_UNITS_BITFIELD_ARM = 16575 };
 enum { cl_arm_job_slot_selection = 1 };
+/* #define CL_ARM_JOB_SLOT_SELECTION_EXTENSION_NAME      "cl_arm_job_slot_selection" ### string, not number "\"cl_arm_job_slot_selection\"" */
 enum { CL_DEVICE_JOB_SLOTS_ARM = 16864 };
 enum { CL_QUEUE_JOB_SLOT_ARM = 16865 };
 enum { cl_arm_scheduling_controls = 1 };
+/* #define CL_ARM_SCHEDULING_CONTROLS_EXTENSION_NAME      "cl_arm_scheduling_controls" ### string, not number "\"cl_arm_scheduling_controls\"" */
 typedef cl_bitfield cl_device_scheduling_controls_capabilities_arm;
-enum { CL_DEVICE_SCHEDULING_CONTROLS_CAPABILITIES_ARM = 16868 };
 enum { CL_DEVICE_SCHEDULING_KERNEL_BATCHING_ARM = 1 };
 enum { CL_DEVICE_SCHEDULING_WORKGROUP_BATCH_SIZE_ARM = 2 };
 enum { CL_DEVICE_SCHEDULING_WORKGROUP_BATCH_SIZE_MODIFIER_ARM = 4 };
@@ -1628,33 +1738,37 @@ enum { CL_DEVICE_SCHEDULING_DEFERRED_FLUSH_ARM = 8 };
 enum { CL_DEVICE_SCHEDULING_REGISTER_ALLOCATION_ARM = 16 };
 enum { CL_DEVICE_SCHEDULING_WARP_THROTTLING_ARM = 32 };
 enum { CL_DEVICE_SCHEDULING_COMPUTE_UNIT_BATCH_QUEUE_SIZE_ARM = 64 };
+enum { CL_DEVICE_SCHEDULING_CONTROLS_CAPABILITIES_ARM = 16868 };
 enum { CL_DEVICE_SUPPORTED_REGISTER_ALLOCATIONS_ARM = 16875 };
 enum { CL_DEVICE_MAX_WARP_COUNT_ARM = 16874 };
-enum { CL_KERNEL_MAX_WARP_COUNT_ARM = 16873 };
 enum { CL_KERNEL_EXEC_INFO_WORKGROUP_BATCH_SIZE_ARM = 16869 };
 enum { CL_KERNEL_EXEC_INFO_WORKGROUP_BATCH_SIZE_MODIFIER_ARM = 16870 };
 enum { CL_KERNEL_EXEC_INFO_WARP_COUNT_LIMIT_ARM = 16872 };
 enum { CL_KERNEL_EXEC_INFO_COMPUTE_UNIT_MAX_QUEUED_BATCHES_ARM = 16881 };
+enum { CL_KERNEL_MAX_WARP_COUNT_ARM = 16873 };
 enum { CL_QUEUE_KERNEL_BATCHING_ARM = 16871 };
 enum { CL_QUEUE_DEFERRED_FLUSH_ARM = 16876 };
 enum { cl_arm_controlled_kernel_termination = 1 };
-enum { CL_COMMAND_TERMINATED_ITSELF_WITH_FAILURE_ARM = -1108 };
-enum { CL_DEVICE_CONTROLLED_TERMINATION_CAPABILITIES_ARM = 16878 };
+/* #define CL_ARM_CONTROLLED_KERNEL_TERMINATION_EXTENSION_NAME      "cl_arm_controlled_kernel_termination" ### string, not number "\"cl_arm_controlled_kernel_termination\"" */
 typedef cl_bitfield cl_device_controlled_termination_capabilities_arm;
+enum { CL_COMMAND_TERMINATED_ITSELF_WITH_FAILURE_ARM = -1108 };
 enum { CL_DEVICE_CONTROLLED_TERMINATION_SUCCESS_ARM = 1 };
 enum { CL_DEVICE_CONTROLLED_TERMINATION_FAILURE_ARM = 2 };
 enum { CL_DEVICE_CONTROLLED_TERMINATION_QUERY_ARM = 4 };
+enum { CL_DEVICE_CONTROLLED_TERMINATION_CAPABILITIES_ARM = 16878 };
 enum { CL_EVENT_COMMAND_TERMINATION_REASON_ARM = 16877 };
-typedef cl_uint cl_command_termination_reason_arm;
 enum { CL_COMMAND_TERMINATION_COMPLETION_ARM = 0 };
 enum { CL_COMMAND_TERMINATION_CONTROLLED_SUCCESS_ARM = 1 };
 enum { CL_COMMAND_TERMINATION_CONTROLLED_FAILURE_ARM = 2 };
 enum { CL_COMMAND_TERMINATION_ERROR_ARM = 3 };
 enum { cl_arm_protected_memory_allocation = 1 };
-/* #define CL_MEM_PROTECTED_ALLOC_ARM (1ULL << 36) ### string, not number "(1ULL << 36)" */
+/* #define CL_ARM_PROTECTED_MEMORY_ALLOCATION_EXTENSION_NAME      "cl_arm_protected_memory_allocation" ### string, not number "\"cl_arm_protected_memory_allocation\"" */
+/* #define CL_MEM_PROTECTED_ALLOC_ARM                          ((cl_bitfield)1 << 36) ### string, not number "((cl_bitfield)1 << 36)" */
 enum { cl_intel_exec_by_local_thread = 1 };
-/* #define CL_QUEUE_THREAD_LOCAL_EXEC_ENABLE_INTEL      (((cl_bitfield)1) << 31) ### string, not number "(((cl_bitfield)1) << 31)" */
+/* #define CL_INTEL_EXEC_BY_LOCAL_THREAD_EXTENSION_NAME      "cl_intel_exec_by_local_thread" ### string, not number "\"cl_intel_exec_by_local_thread\"" */
+/* #define CL_QUEUE_THREAD_LOCAL_EXEC_ENABLE_INTEL             ((cl_bitfield)1 << 31) ### string, not number "((cl_bitfield)1 << 31)" */
 enum { cl_intel_device_attribute_query = 1 };
+/* #define CL_INTEL_DEVICE_ATTRIBUTE_QUERY_EXTENSION_NAME      "cl_intel_device_attribute_query" ### string, not number "\"cl_intel_device_attribute_query\"" */
 typedef cl_bitfield cl_device_feature_capabilities_intel;
 enum { CL_DEVICE_FEATURE_FLAG_DP4A_INTEL = 1 };
 enum { CL_DEVICE_FEATURE_FLAG_DPAS_INTEL = 2 };
@@ -1666,29 +1780,39 @@ enum { CL_DEVICE_NUM_EUS_PER_SUB_SLICE_INTEL = 16980 };
 enum { CL_DEVICE_NUM_THREADS_PER_EU_INTEL = 16981 };
 enum { CL_DEVICE_FEATURE_CAPABILITIES_INTEL = 16982 };
 enum { cl_intel_device_partition_by_names = 1 };
+/* #define CL_INTEL_DEVICE_PARTITION_BY_NAMES_EXTENSION_NAME      "cl_intel_device_partition_by_names" ### string, not number "\"cl_intel_device_partition_by_names\"" */
 enum { CL_DEVICE_PARTITION_BY_NAMES_INTEL = 16466 };
 enum { CL_PARTITION_BY_NAMES_LIST_END_INTEL = -1 };
 enum { cl_intel_accelerator = 1 };
-enum { cl_intel_motion_estimation = 1 };
-enum { cl_intel_advanced_motion_estimation = 1 };
+/* #define CL_INTEL_ACCELERATOR_EXTENSION_NAME      "cl_intel_accelerator" ### string, not number "\"cl_intel_accelerator\"" */
 typedef struct _cl_accelerator_intel* cl_accelerator_intel;
 typedef cl_uint cl_accelerator_type_intel;
 typedef cl_uint cl_accelerator_info_intel;
+enum { CL_ACCELERATOR_DESCRIPTOR_INTEL = 16528 };
+enum { CL_ACCELERATOR_REFERENCE_COUNT_INTEL = 16529 };
+enum { CL_ACCELERATOR_CONTEXT_INTEL = 16530 };
+enum { CL_ACCELERATOR_TYPE_INTEL = 16531 };
+enum { CL_INVALID_ACCELERATOR_INTEL = -1094 };
+enum { CL_INVALID_ACCELERATOR_TYPE_INTEL = -1095 };
+enum { CL_INVALID_ACCELERATOR_DESCRIPTOR_INTEL = -1096 };
+enum { CL_ACCELERATOR_TYPE_NOT_SUPPORTED_INTEL = -1097 };
+typedef cl_accelerator_intel ( * clCreateAcceleratorINTEL_fn)( cl_context context, cl_accelerator_type_intel accelerator_type, size_t descriptor_size, const void* descriptor, cl_int* errcode_ret);
+typedef cl_int ( * clGetAcceleratorInfoINTEL_fn)( cl_accelerator_intel accelerator, cl_accelerator_info_intel param_name, size_t param_value_size, void* param_value, size_t* param_value_size_ret);
+typedef cl_int ( * clRetainAcceleratorINTEL_fn)( cl_accelerator_intel accelerator);
+typedef cl_int ( * clReleaseAcceleratorINTEL_fn)( cl_accelerator_intel accelerator);
+extern cl_accelerator_intel clCreateAcceleratorINTEL( cl_context context, cl_accelerator_type_intel accelerator_type, size_t descriptor_size, const void* descriptor, cl_int* errcode_ret);
+extern cl_int clGetAcceleratorInfoINTEL( cl_accelerator_intel accelerator, cl_accelerator_info_intel param_name, size_t param_value_size, void* param_value, size_t* param_value_size_ret);
+extern cl_int clRetainAcceleratorINTEL( cl_accelerator_intel accelerator);
+extern cl_int clReleaseAcceleratorINTEL( cl_accelerator_intel accelerator);
+enum { cl_intel_motion_estimation = 1 };
+/* #define CL_INTEL_MOTION_ESTIMATION_EXTENSION_NAME      "cl_intel_motion_estimation" ### string, not number "\"cl_intel_motion_estimation\"" */
 typedef struct _cl_motion_estimation_desc_intel {
 	cl_uint mb_block_type;
 	cl_uint subpixel_mode;
 	cl_uint sad_adjust_mode;
 	cl_uint search_path_type;
 } cl_motion_estimation_desc_intel;
-enum { CL_INVALID_ACCELERATOR_INTEL = -1094 };
-enum { CL_INVALID_ACCELERATOR_TYPE_INTEL = -1095 };
-enum { CL_INVALID_ACCELERATOR_DESCRIPTOR_INTEL = -1096 };
-enum { CL_ACCELERATOR_TYPE_NOT_SUPPORTED_INTEL = -1097 };
 enum { CL_ACCELERATOR_TYPE_MOTION_ESTIMATION_INTEL = 0 };
-enum { CL_ACCELERATOR_DESCRIPTOR_INTEL = 16528 };
-enum { CL_ACCELERATOR_REFERENCE_COUNT_INTEL = 16529 };
-enum { CL_ACCELERATOR_CONTEXT_INTEL = 16530 };
-enum { CL_ACCELERATOR_TYPE_INTEL = 16531 };
 enum { CL_ME_MB_TYPE_16x16_INTEL = 0 };
 enum { CL_ME_MB_TYPE_8x8_INTEL = 1 };
 enum { CL_ME_MB_TYPE_4x4_INTEL = 2 };
@@ -1700,18 +1824,16 @@ enum { CL_ME_SAD_ADJUST_MODE_HAAR_INTEL = 1 };
 enum { CL_ME_SEARCH_PATH_RADIUS_2_2_INTEL = 0 };
 enum { CL_ME_SEARCH_PATH_RADIUS_4_4_INTEL = 1 };
 enum { CL_ME_SEARCH_PATH_RADIUS_16_12_INTEL = 5 };
-enum { CL_ME_SKIP_BLOCK_TYPE_16x16_INTEL = 0 };
+enum { cl_intel_advanced_motion_estimation = 1 };
+/* #define CL_INTEL_ADVANCED_MOTION_ESTIMATION_EXTENSION_NAME      "cl_intel_advanced_motion_estimation" ### string, not number "\"cl_intel_advanced_motion_estimation\"" */
+enum { CL_DEVICE_ME_VERSION_INTEL = 16510 };
+enum { CL_ME_VERSION_LEGACY_INTEL = 0 };
+enum { CL_ME_VERSION_ADVANCED_VER_1_INTEL = 1 };
+enum { CL_ME_VERSION_ADVANCED_VER_2_INTEL = 2 };
 enum { CL_ME_CHROMA_INTRA_PREDICT_ENABLED_INTEL = 1 };
 enum { CL_ME_LUMA_INTRA_PREDICT_ENABLED_INTEL = 2 };
-enum { CL_ME_SKIP_BLOCK_TYPE_8x8_INTEL = 4 };
-enum { CL_ME_FORWARD_INPUT_MODE_INTEL = 1 };
-enum { CL_ME_BACKWARD_INPUT_MODE_INTEL = 2 };
-enum { CL_ME_BIDIRECTION_INPUT_MODE_INTEL = 3 };
-enum { CL_ME_BIDIR_WEIGHT_QUARTER_INTEL = 16 };
-enum { CL_ME_BIDIR_WEIGHT_THIRD_INTEL = 21 };
-enum { CL_ME_BIDIR_WEIGHT_HALF_INTEL = 32 };
-enum { CL_ME_BIDIR_WEIGHT_TWO_THIRD_INTEL = 43 };
-enum { CL_ME_BIDIR_WEIGHT_THREE_QUARTER_INTEL = 48 };
+enum { CL_ME_SKIP_BLOCK_TYPE_16x16_INTEL = 0 };
+enum { CL_ME_SKIP_BLOCK_TYPE_8x8_INTEL = 1 };
 enum { CL_ME_COST_PENALTY_NONE_INTEL = 0 };
 enum { CL_ME_COST_PENALTY_LOW_INTEL = 1 };
 enum { CL_ME_COST_PENALTY_NORMAL_INTEL = 2 };
@@ -1734,44 +1856,49 @@ enum { CL_ME_CHROMA_PREDICTOR_MODE_DC_INTEL = 0 };
 enum { CL_ME_CHROMA_PREDICTOR_MODE_HORIZONTAL_INTEL = 1 };
 enum { CL_ME_CHROMA_PREDICTOR_MODE_VERTICAL_INTEL = 2 };
 enum { CL_ME_CHROMA_PREDICTOR_MODE_PLANE_INTEL = 3 };
-enum { CL_DEVICE_ME_VERSION_INTEL = 16510 };
-enum { CL_ME_VERSION_LEGACY_INTEL = 0 };
-enum { CL_ME_VERSION_ADVANCED_VER_1_INTEL = 1 };
-enum { CL_ME_VERSION_ADVANCED_VER_2_INTEL = 2 };
-extern cl_accelerator_intel clCreateAcceleratorINTEL( cl_context context, cl_accelerator_type_intel accelerator_type, size_t descriptor_size, const void* descriptor, cl_int* errcode_ret);
-typedef cl_accelerator_intel ( *clCreateAcceleratorINTEL_fn)( cl_context context, cl_accelerator_type_intel accelerator_type, size_t descriptor_size, const void* descriptor, cl_int* errcode_ret);
-extern cl_int clGetAcceleratorInfoINTEL( cl_accelerator_intel accelerator, cl_accelerator_info_intel param_name, size_t param_value_size, void* param_value, size_t* param_value_size_ret);
-typedef cl_int ( *clGetAcceleratorInfoINTEL_fn)( cl_accelerator_intel accelerator, cl_accelerator_info_intel param_name, size_t param_value_size, void* param_value, size_t* param_value_size_ret);
-extern cl_int clRetainAcceleratorINTEL( cl_accelerator_intel accelerator);
-typedef cl_int ( *clRetainAcceleratorINTEL_fn)( cl_accelerator_intel accelerator);
-extern cl_int clReleaseAcceleratorINTEL( cl_accelerator_intel accelerator);
-typedef cl_int ( *clReleaseAcceleratorINTEL_fn)( cl_accelerator_intel accelerator);
+enum { CL_ME_FORWARD_INPUT_MODE_INTEL = 1 };
+enum { CL_ME_BACKWARD_INPUT_MODE_INTEL = 2 };
+enum { CL_ME_BIDIRECTION_INPUT_MODE_INTEL = 3 };
+enum { CL_ME_BIDIR_WEIGHT_QUARTER_INTEL = 16 };
+enum { CL_ME_BIDIR_WEIGHT_THIRD_INTEL = 21 };
+enum { CL_ME_BIDIR_WEIGHT_HALF_INTEL = 32 };
+enum { CL_ME_BIDIR_WEIGHT_TWO_THIRD_INTEL = 43 };
+enum { CL_ME_BIDIR_WEIGHT_THREE_QUARTER_INTEL = 48 };
 enum { cl_intel_simultaneous_sharing = 1 };
+/* #define CL_INTEL_SIMULTANEOUS_SHARING_EXTENSION_NAME      "cl_intel_simultaneous_sharing" ### string, not number "\"cl_intel_simultaneous_sharing\"" */
 enum { CL_DEVICE_SIMULTANEOUS_INTEROPS_INTEL = 16644 };
 enum { CL_DEVICE_NUM_SIMULTANEOUS_INTEROPS_INTEL = 16645 };
 enum { cl_intel_egl_image_yuv = 1 };
+/* #define CL_INTEL_EGL_IMAGE_YUV_EXTENSION_NAME      "cl_intel_egl_image_yuv" ### string, not number "\"cl_intel_egl_image_yuv\"" */
 enum { CL_EGL_YUV_PLANE_INTEL = 16647 };
 enum { cl_intel_packed_yuv = 1 };
+/* #define CL_INTEL_PACKED_YUV_EXTENSION_NAME      "cl_intel_packed_yuv" ### string, not number "\"cl_intel_packed_yuv\"" */
 enum { CL_YUYV_INTEL = 16502 };
 enum { CL_UYVY_INTEL = 16503 };
 enum { CL_YVYU_INTEL = 16504 };
 enum { CL_VYUY_INTEL = 16505 };
 enum { cl_intel_required_subgroup_size = 1 };
+/* #define CL_INTEL_REQUIRED_SUBGROUP_SIZE_EXTENSION_NAME      "cl_intel_required_subgroup_size" ### string, not number "\"cl_intel_required_subgroup_size\"" */
 enum { CL_DEVICE_SUB_GROUP_SIZES_INTEL = 16648 };
 enum { CL_KERNEL_SPILL_MEM_SIZE_INTEL = 16649 };
 enum { CL_KERNEL_COMPILE_SUB_GROUP_SIZE_INTEL = 16650 };
 enum { cl_intel_driver_diagnostics = 1 };
+/* #define CL_INTEL_DRIVER_DIAGNOSTICS_EXTENSION_NAME      "cl_intel_driver_diagnostics" ### string, not number "\"cl_intel_driver_diagnostics\"" */
 typedef cl_uint cl_diagnostics_verbose_level;
 enum { CL_CONTEXT_SHOW_DIAGNOSTICS_INTEL = 16646 };
 enum { CL_CONTEXT_DIAGNOSTICS_LEVEL_ALL_INTEL = 255 };
 enum { CL_CONTEXT_DIAGNOSTICS_LEVEL_GOOD_INTEL = 1 };
 enum { CL_CONTEXT_DIAGNOSTICS_LEVEL_BAD_INTEL = 2 };
 enum { CL_CONTEXT_DIAGNOSTICS_LEVEL_NEUTRAL_INTEL = 4 };
+enum { cl_intel_planar_yuv = 1 };
+/* #define CL_INTEL_PLANAR_YUV_EXTENSION_NAME      "cl_intel_planar_yuv" ### string, not number "\"cl_intel_planar_yuv\"" */
 enum { CL_NV12_INTEL = 16654 };
 enum { CL_MEM_NO_ACCESS_INTEL = 16777216 };
 enum { CL_MEM_ACCESS_FLAGS_UNRESTRICTED_INTEL = 33554432 };
 enum { CL_DEVICE_PLANAR_YUV_MAX_WIDTH_INTEL = 16766 };
 enum { CL_DEVICE_PLANAR_YUV_MAX_HEIGHT_INTEL = 16767 };
+enum { cl_intel_device_side_avc_motion_estimation = 1 };
+/* #define CL_INTEL_DEVICE_SIDE_AVC_MOTION_ESTIMATION_EXTENSION_NAME      "cl_intel_device_side_avc_motion_estimation" ### string, not number "\"cl_intel_device_side_avc_motion_estimation\"" */
 enum { CL_DEVICE_AVC_ME_VERSION_INTEL = 16651 };
 enum { CL_DEVICE_AVC_ME_SUPPORTS_TEXTURE_SAMPLER_USE_INTEL = 16652 };
 enum { CL_DEVICE_AVC_ME_SUPPORTS_PREEMPTION_INTEL = 16653 };
@@ -1877,6 +2004,7 @@ enum { CL_AVC_ME_SLICE_TYPE_INTRA_INTEL = 2 };
 enum { CL_AVC_ME_INTERLACED_SCAN_TOP_FIELD_INTEL = 0 };
 enum { CL_AVC_ME_INTERLACED_SCAN_BOTTOM_FIELD_INTEL = 1 };
 enum { cl_intel_unified_shared_memory = 1 };
+/* #define CL_INTEL_UNIFIED_SHARED_MEMORY_EXTENSION_NAME      "cl_intel_unified_shared_memory" ### string, not number "\"cl_intel_unified_shared_memory\"" */
 typedef cl_bitfield cl_device_unified_shared_memory_capabilities_intel;
 typedef cl_properties cl_mem_properties_intel;
 typedef cl_bitfield cl_mem_alloc_flags_intel;
@@ -1940,12 +2068,27 @@ enum { cl_intel_mem_alloc_buffer_location = 1 };
 /* #define CL_INTEL_MEM_ALLOC_BUFFER_LOCATION_EXTENSION_NAME      "cl_intel_mem_alloc_buffer_location" ### string, not number "\"cl_intel_mem_alloc_buffer_location\"" */
 enum { CL_MEM_ALLOC_BUFFER_LOCATION_INTEL = 16798 };
 enum { cl_intel_create_buffer_with_properties = 1 };
-extern cl_mem clCreateBufferWithPropertiesINTEL( cl_context context, const cl_mem_properties_intel* properties, cl_mem_flags flags, size_t size, void * host_ptr, cl_int * errcode_ret);
-typedef cl_mem ( * clCreateBufferWithPropertiesINTEL_fn)( cl_context context, const cl_mem_properties_intel* properties, cl_mem_flags flags, size_t size, void * host_ptr, cl_int * errcode_ret);
+/* #define CL_INTEL_CREATE_BUFFER_WITH_PROPERTIES_EXTENSION_NAME      "cl_intel_create_buffer_with_properties" ### string, not number "\"cl_intel_create_buffer_with_properties\"" */
+typedef cl_mem ( * clCreateBufferWithPropertiesINTEL_fn)( cl_context context, const cl_mem_properties_intel* properties, cl_mem_flags flags, size_t size, void* host_ptr, cl_int* errcode_ret);
+extern cl_mem clCreateBufferWithPropertiesINTEL( cl_context context, const cl_mem_properties_intel* properties, cl_mem_flags flags, size_t size, void* host_ptr, cl_int* errcode_ret);
+enum { cl_intel_program_scope_host_pipe = 1 };
+/* #define CL_INTEL_PROGRAM_SCOPE_HOST_PIPE_EXTENSION_NAME      "cl_intel_program_scope_host_pipe" ### string, not number "\"cl_intel_program_scope_host_pipe\"" */
+enum { CL_COMMAND_READ_HOST_PIPE_INTEL = 16916 };
+enum { CL_COMMAND_WRITE_HOST_PIPE_INTEL = 16917 };
+enum { CL_PROGRAM_NUM_HOST_PIPES_INTEL = 16918 };
+enum { CL_PROGRAM_HOST_PIPE_NAMES_INTEL = 16919 };
+typedef cl_int ( * clEnqueueReadHostPipeINTEL_fn)( cl_command_queue command_queue, cl_program program, const char* pipe_symbol, cl_bool blocking_read, void* ptr, size_t size, cl_uint num_events_in_wait_list, const cl_event* event_wait_list, cl_event* event);
+typedef cl_int ( * clEnqueueWriteHostPipeINTEL_fn)( cl_command_queue command_queue, cl_program program, const char* pipe_symbol, cl_bool blocking_write, const void* ptr, size_t size, cl_uint num_events_in_wait_list, const cl_event* event_wait_list, cl_event* event);
+extern cl_int clEnqueueReadHostPipeINTEL( cl_command_queue command_queue, cl_program program, const char* pipe_symbol, cl_bool blocking_read, void* ptr, size_t size, cl_uint num_events_in_wait_list, const cl_event* event_wait_list, cl_event* event);
+extern cl_int clEnqueueWriteHostPipeINTEL( cl_command_queue command_queue, cl_program program, const char* pipe_symbol, cl_bool blocking_write, const void* ptr, size_t size, cl_uint num_events_in_wait_list, const cl_event* event_wait_list, cl_event* event);
+enum { cl_intel_mem_channel_property = 1 };
+/* #define CL_INTEL_MEM_CHANNEL_PROPERTY_EXTENSION_NAME      "cl_intel_mem_channel_property" ### string, not number "\"cl_intel_mem_channel_property\"" */
 enum { CL_MEM_CHANNEL_INTEL = 16915 };
 enum { cl_intel_mem_force_host_memory = 1 };
+/* #define CL_INTEL_MEM_FORCE_HOST_MEMORY_EXTENSION_NAME      "cl_intel_mem_force_host_memory" ### string, not number "\"cl_intel_mem_force_host_memory\"" */
 enum { CL_MEM_FORCE_HOST_MEMORY_INTEL = 1048576 };
 enum { cl_intel_command_queue_families = 1 };
+/* #define CL_INTEL_COMMAND_QUEUE_FAMILIES_EXTENSION_NAME      "cl_intel_command_queue_families" ### string, not number "\"cl_intel_command_queue_families\"" */
 typedef cl_bitfield cl_command_queue_capabilities_intel;
 enum { CL_QUEUE_FAMILY_MAX_NAME_SIZE_INTEL = 64 };
 typedef struct _cl_queue_family_properties_intel {
@@ -1975,21 +2118,56 @@ enum { CL_QUEUE_CAPABILITY_MARKER_INTEL = 16777216 };
 enum { CL_QUEUE_CAPABILITY_BARRIER_INTEL = 33554432 };
 enum { CL_QUEUE_CAPABILITY_KERNEL_INTEL = 67108864 };
 enum { cl_intel_queue_no_sync_operations = 1 };
+/* #define CL_INTEL_QUEUE_NO_SYNC_OPERATIONS_EXTENSION_NAME      "cl_intel_queue_no_sync_operations" ### string, not number "\"cl_intel_queue_no_sync_operations\"" */
 enum { CL_QUEUE_NO_SYNC_OPERATIONS_INTEL = 536870912 };
 enum { cl_intel_sharing_format_query = 1 };
+/* #define CL_INTEL_SHARING_FORMAT_QUERY_EXTENSION_NAME      "cl_intel_sharing_format_query" ### string, not number "\"cl_intel_sharing_format_query\"" */
 enum { cl_ext_image_requirements_info = 1 };
+/* #define CL_EXT_IMAGE_REQUIREMENTS_INFO_EXTENSION_NAME      "cl_ext_image_requirements_info" ### string, not number "\"cl_ext_image_requirements_info\"" */
 typedef cl_uint cl_image_requirements_info_ext;
-enum { CL_IMAGE_REQUIREMENTS_ROW_PITCH_ALIGNMENT_EXT = 4752 };
 enum { CL_IMAGE_REQUIREMENTS_BASE_ADDRESS_ALIGNMENT_EXT = 4754 };
+enum { CL_IMAGE_REQUIREMENTS_ROW_PITCH_ALIGNMENT_EXT = 4752 };
 enum { CL_IMAGE_REQUIREMENTS_SIZE_EXT = 4786 };
 enum { CL_IMAGE_REQUIREMENTS_MAX_WIDTH_EXT = 4787 };
 enum { CL_IMAGE_REQUIREMENTS_MAX_HEIGHT_EXT = 4788 };
 enum { CL_IMAGE_REQUIREMENTS_MAX_DEPTH_EXT = 4789 };
 enum { CL_IMAGE_REQUIREMENTS_MAX_ARRAY_SIZE_EXT = 4790 };
-extern cl_int clGetImageRequirementsInfoEXT( cl_context context, const cl_mem_properties* properties, cl_mem_flags flags, const cl_image_format* image_format, const cl_image_desc* image_desc, cl_image_requirements_info_ext param_name, size_t param_value_size, void* param_value, size_t* param_value_size_ret);
 typedef cl_int ( * clGetImageRequirementsInfoEXT_fn)( cl_context context, const cl_mem_properties* properties, cl_mem_flags flags, const cl_image_format* image_format, const cl_image_desc* image_desc, cl_image_requirements_info_ext param_name, size_t param_value_size, void* param_value, size_t* param_value_size_ret);
+extern cl_int clGetImageRequirementsInfoEXT( cl_context context, const cl_mem_properties* properties, cl_mem_flags flags, const cl_image_format* image_format, const cl_image_desc* image_desc, cl_image_requirements_info_ext param_name, size_t param_value_size, void* param_value, size_t* param_value_size_ret);
 enum { cl_ext_image_from_buffer = 1 };
+/* #define CL_EXT_IMAGE_FROM_BUFFER_EXTENSION_NAME      "cl_ext_image_from_buffer" ### string, not number "\"cl_ext_image_from_buffer\"" */
 enum { CL_IMAGE_REQUIREMENTS_SLICE_PITCH_ALIGNMENT_EXT = 4753 };
+enum { cl_loader_info = 1 };
+/* #define CL_LOADER_INFO_EXTENSION_NAME      "cl_loader_info" ### string, not number "\"cl_loader_info\"" */
+typedef cl_uint cl_icdl_info;
+enum { CL_ICDL_OCL_VERSION = 1 };
+enum { CL_ICDL_VERSION = 2 };
+enum { CL_ICDL_NAME = 3 };
+enum { CL_ICDL_VENDOR = 4 };
+typedef cl_int ( * clGetICDLoaderInfoOCLICD_fn)( cl_icdl_info param_name, size_t param_value_size, void* param_value, size_t* param_value_size_ret);
+extern cl_int clGetICDLoaderInfoOCLICD( cl_icdl_info param_name, size_t param_value_size, void* param_value, size_t* param_value_size_ret);
+enum { cl_khr_depth_images = 1 };
+/* #define CL_KHR_DEPTH_IMAGES_EXTENSION_NAME      "cl_khr_depth_images" ### string, not number "\"cl_khr_depth_images\"" */
+enum { cl_ext_float_atomics = 1 };
+/* #define CL_EXT_FLOAT_ATOMICS_EXTENSION_NAME      "cl_ext_float_atomics" ### string, not number "\"cl_ext_float_atomics\"" */
+typedef cl_bitfield cl_device_fp_atomic_capabilities_ext;
+enum { CL_DEVICE_GLOBAL_FP_ATOMIC_LOAD_STORE_EXT = 1 };
+enum { CL_DEVICE_GLOBAL_FP_ATOMIC_ADD_EXT = 2 };
+enum { CL_DEVICE_GLOBAL_FP_ATOMIC_MIN_MAX_EXT = 4 };
+enum { CL_DEVICE_LOCAL_FP_ATOMIC_LOAD_STORE_EXT = 65536 };
+enum { CL_DEVICE_LOCAL_FP_ATOMIC_ADD_EXT = 131072 };
+enum { CL_DEVICE_LOCAL_FP_ATOMIC_MIN_MAX_EXT = 262144 };
+enum { CL_DEVICE_SINGLE_FP_ATOMIC_CAPABILITIES_EXT = 16945 };
+enum { CL_DEVICE_DOUBLE_FP_ATOMIC_CAPABILITIES_EXT = 16946 };
+enum { CL_DEVICE_HALF_FP_ATOMIC_CAPABILITIES_EXT = 16947 };
+enum { cl_intel_create_mem_object_properties = 1 };
+/* #define CL_INTEL_CREATE_MEM_OBJECT_PROPERTIES_EXTENSION_NAME      "cl_intel_create_mem_object_properties" ### string, not number "\"cl_intel_create_mem_object_properties\"" */
+enum { CL_MEM_LOCALLY_UNCACHED_RESOURCE_INTEL = 16920 };
+enum { CL_MEM_DEVICE_ID_INTEL = 16921 };
+enum { cl_pocl_content_size = 1 };
+/* #define CL_POCL_CONTENT_SIZE_EXTENSION_NAME      "cl_pocl_content_size" ### string, not number "\"cl_pocl_content_size\"" */
+typedef cl_int ( * clSetContentSizeBufferPoCL_fn)( cl_mem buffer, cl_mem content_size_buffer);
+extern cl_int clSetContentSizeBufferPoCL( cl_mem buffer, cl_mem content_size_buffer);
 /* ++ END   /usr/include/CL/cl_ext.h */
 /* + END   /usr/include/CL/opencl.h */
 ]]

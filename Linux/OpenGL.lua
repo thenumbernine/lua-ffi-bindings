@@ -1,7 +1,6 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN /usr/include/GL/gl.h */
-enum { __gl_h_ = 1 };
 /* #  define GLAPI __attribute__((visibility("default"))) ### string, not number "__attribute__((visibility(\"default\")))" */
 enum { GLAPIENTRY = 1 };
 /* #define APIENTRY GLAPIENTRY ### string, not number "GLAPIENTRY" */
@@ -1305,7 +1304,6 @@ typedef void ( * PFNGLMULTITEXCOORD4IVARBPROC) (GLenum target, const GLint *v);
 typedef void ( * PFNGLMULTITEXCOORD4SARBPROC) (GLenum target, GLshort s, GLshort t, GLshort r, GLshort q);
 typedef void ( * PFNGLMULTITEXCOORD4SVARBPROC) (GLenum target, const GLshort *v);
 /* ++ BEGIN /usr/include/GL/glext.h */
-enum { __gl_glext_h_ = 1 };
 enum { GL_GLEXT_VERSION = 20220530 };
 /* +++ BEGIN /usr/include/KHR/khrplatform.h */
 ]] require 'ffi.req' 'KHR.khrplatform' ffi.cdef[[
@@ -2322,7 +2320,7 @@ enum { GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES = 35395 };
 enum { GL_UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER = 35396 };
 enum { GL_UNIFORM_BLOCK_REFERENCED_BY_GEOMETRY_SHADER = 35397 };
 enum { GL_UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER = 35398 };
-/* #define GL_INVALID_INDEX                  0xFFFFFFFFu ### string, not number "0xFFFFFFFFu" */
+enum { GL_INVALID_INDEX = 0xFFFFFFFFu };
 typedef void ( * PFNGLDRAWARRAYSINSTANCEDPROC) (GLenum mode, GLint first, GLsizei count, GLsizei instancecount);
 typedef void ( * PFNGLDRAWELEMENTSINSTANCEDPROC) (GLenum mode, GLsizei count, GLenum type, const void *indices, GLsizei instancecount);
 typedef void ( * PFNGLTEXBUFFERPROC) (GLenum target, GLenum internalformat, GLuint buffer);

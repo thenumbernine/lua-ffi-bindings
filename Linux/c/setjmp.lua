@@ -1,7 +1,6 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN /usr/include/setjmp.h */
-enum { _SETJMP_H = 1 };
 /* ++ BEGIN /usr/include/features.h */
 ]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* ++ END   /usr/include/features.h */
@@ -9,7 +8,6 @@ enum { _SETJMP_H = 1 };
 ]] require 'ffi.req' 'c.bits.setjmp' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/setjmp.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h */
-enum { __jmp_buf_tag_defined = 1 };
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/setjmp.h */
 ]] require 'ffi.req' 'c.bits.setjmp' ffi.cdef[[
 /* +++ END   /usr/include/x86_64-linux-gnu/bits/setjmp.h */

@@ -1,18 +1,14 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN /usr/include/errno.h */
-enum { _ERRNO_H = 1 };
 /* ++ BEGIN /usr/include/features.h */
 ]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* ++ END   /usr/include/features.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/errno.h */
-enum { _BITS_ERRNO_H = 1 };
 /* +++ BEGIN /usr/include/linux/errno.h */
 /* ++++ BEGIN /usr/include/x86_64-linux-gnu/asm/errno.h */
 /* +++++ BEGIN /usr/include/asm-generic/errno.h */
-enum { _ASM_GENERIC_ERRNO_H = 1 };
 /* ++++++ BEGIN /usr/include/asm-generic/errno-base.h */
-enum { _ASM_GENERIC_ERRNO_BASE_H = 1 };
 enum { EPERM = 1 };
 enum { ENOENT = 2 };
 enum { ESRCH = 3 };

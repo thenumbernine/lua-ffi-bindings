@@ -250,21 +250,21 @@ enum { H5Z_class_t = 0 };
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
 ]] require 'ffi.req' 'c.sys.types' ffi.cdef[[
 /* +++ END   /usr/include/x86_64-linux-gnu/sys/types.h */
-/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h */
 ]] require 'ffi.req' 'c.limits' ffi.cdef[[
-/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
-/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h */
 ]] require 'ffi.req' 'c.stdarg' ffi.cdef[[
-/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
-/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
 ]] require 'ffi.req' 'c.stdint' ffi.cdef[[
-/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
 /* +++ BEGIN /usr/include/inttypes.h */
 ]] require 'ffi.req' 'c.inttypes' ffi.cdef[[
 /* +++ END   /usr/include/inttypes.h */
-/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
 /* +++ BEGIN /usr/include/hdf5/serial/H5api_adpt.h */
 enum { H5API_ADPT_H = 1 };
 enum { H5_DLL = 1 };
@@ -292,9 +292,9 @@ enum { H5_VERS_RELEASE = 8 };
 /* #define H5_VERS_SUBRELEASE "" ### string, not number "\"\"" */
 /* #define H5_VERS_INFO "HDF5 library version: 1.10.8" ### string, not number "\"HDF5 library version: 1.10.8\"" */
 typedef int herr_t;
-/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h */
 ]] require 'ffi.req' 'c.stdbool' ffi.cdef[[
-/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h */
 typedef _Bool hbool_t;
 typedef int htri_t;
 typedef unsigned long long hsize_t;
@@ -309,7 +309,7 @@ enum { H5_SIZEOF_HSIZE_T = 8 };
 enum { H5_SIZEOF_HSSIZE_T = 8 };
 /* #define HSIZE_UNDEF        ULLONG_MAX ### string, not number "ULLONG_MAX" */
 typedef unsigned long haddr_t;
-/* #define HADDR_UNDEF       ULONG_MAX ### string, number, replaceline "1.844674407371e+19" */
+/* #define HADDR_UNDEF       ULONG_MAX ### string, not number "1.844674407371e+19" */
 enum { H5_SIZEOF_HADDR_T = 8 };
 /* #define PRIdHADDR "ld" ### string, not number "\"ld\"" */
 /* #define PRIoHADDR "lo" ### string, not number "\"lo\"" */
@@ -317,7 +317,7 @@ enum { H5_SIZEOF_HADDR_T = 8 };
 /* #define PRIxHADDR "lx" ### string, not number "\"lx\"" */
 /* #define PRIXHADDR "lX" ### string, not number "\"lX\"" */
 /* #define H5_PRINTF_HADDR_FMT "%" PRIuHADDR ### string, not number "\"%\" PRIuHADDR" */
-/* #define HADDR_MAX           (HADDR_UNDEF - 1) ### string, number, replaceline "1.844674407371e+19" */
+/* #define HADDR_MAX           (HADDR_UNDEF - 1) ### string, not number "1.844674407371e+19" */
 typedef enum { H5_ITER_UNKNOWN = -1, H5_ITER_INC, H5_ITER_DEC, H5_ITER_NATIVE, H5_ITER_N } H5_iter_order_t;
 enum { H5_ITER_ERROR = -1 };
 enum { H5_ITER_CONT = 0 };
@@ -810,11 +810,11 @@ enum { H5O_HDR_STORE_TIMES = 32 };
 enum { H5O_HDR_ALL_FLAGS = 63 };
 enum { H5O_SHMESG_MAX_NINDEXES = 8 };
 enum { H5O_SHMESG_MAX_LIST_SIZE = 5000 };
-/* #define H5O_INFO_BASIC     0x0001u ### string, not number "0x0001u" */
-/* #define H5O_INFO_TIME      0x0002u ### string, not number "0x0002u" */
-/* #define H5O_INFO_NUM_ATTRS 0x0004u ### string, not number "0x0004u" */
-/* #define H5O_INFO_HDR       0x0008u ### string, not number "0x0008u" */
-/* #define H5O_INFO_META_SIZE 0x0010u ### string, not number "0x0010u" */
+enum { H5O_INFO_BASIC = 0x0001u };
+enum { H5O_INFO_TIME = 0x0002u };
+enum { H5O_INFO_NUM_ATTRS = 0x0004u };
+enum { H5O_INFO_HDR = 0x0008u };
+enum { H5O_INFO_META_SIZE = 0x0010u };
 /* #define H5O_INFO_ALL       (H5O_INFO_BASIC | H5O_INFO_TIME | H5O_INFO_NUM_ATTRS | H5O_INFO_HDR | H5O_INFO_META_SIZE) ### string, not number "(H5O_INFO_BASIC | H5O_INFO_TIME | H5O_INFO_NUM_ATTRS | H5O_INFO_HDR | H5O_INFO_META_SIZE)" */
 typedef enum H5O_type_t { H5O_TYPE_UNKNOWN = -1, H5O_TYPE_GROUP, H5O_TYPE_DATASET, H5O_TYPE_NAMED_DATATYPE, H5O_TYPE_NTYPES } H5O_type_t;
 typedef struct H5O_hdr_info_t {

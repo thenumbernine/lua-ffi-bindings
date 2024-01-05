@@ -1,7 +1,6 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN /usr/include/linux/limits.h */
-enum { _LINUX_LIMITS_H = 1 };
 enum { NR_OPEN = 1024 };
 enum { NGROUPS_MAX = 65536 };
 enum { ARG_MAX = 131072 };

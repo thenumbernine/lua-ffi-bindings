@@ -2,20 +2,20 @@ local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN /usr/include/lua5.4/lua.h */
 enum { lua_h = 1 };
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h */
 ]] require 'ffi.req' 'c.stdarg' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
 /* ++ BEGIN /usr/include/lua5.4/luaconf.h */
 enum { luaconf_h = 1 };
-/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h */
 ]] require 'ffi.req' 'c.limits' ffi.cdef[[
-/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
-/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
 enum { LUAI_IS32INT = 1 };
 enum { LUA_INT_INT = 1 };
 enum { LUA_INT_LONG = 2 };
@@ -34,7 +34,6 @@ enum { LUA_FLOAT_TYPE = 2 };
 /* #define LUA_EXEC_DIR            "!" ### string, not number "\"!\"" */
 /* #define LUA_VDIR	LUA_VERSION_MAJOR "." LUA_VERSION_MINOR ### string, not number "LUA_VERSION_MAJOR \".\" LUA_VERSION_MINOR" */
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/lua5.4-deb-multiarch.h */
-enum { _LUA_DEB_MULTIARCH_ = 1 };
 /* #define DEB_HOST_MULTIARCH "x86_64-linux-gnu" ### string, not number "\"x86_64-linux-gnu\"" */
 /* +++ END   /usr/include/x86_64-linux-gnu/lua5.4-deb-multiarch.h */
 /* #define LUA_ROOT	"/usr/local/" ### string, not number "\"/usr/local/\"" */
@@ -61,13 +60,13 @@ enum { LUAI_UACINT = 0 };
 /* #define LUA_UNSIGNED		unsigned LUAI_UACINT ### string, not number "unsigned LUAI_UACINT" */
 /* #define LUA_INTEGER		long long ### string, not number "long long" */
 /* #define LUA_INTEGER_FRMLEN	"ll" ### string, not number "\"ll\"" */
-/* #define LUA_MAXINTEGER		LLONG_MAX ### string, number, replaceline "9.2233720368548e+18" */
-/* #define LUA_MININTEGER		LLONG_MIN ### string, number, replaceline "-9.2233720368548e+18" */
+/* #define LUA_MAXINTEGER		LLONG_MAX ### string, not number "9.2233720368548e+18" */
+/* #define LUA_MININTEGER		LLONG_MIN ### string, not number "-9.2233720368548e+18" */
 /* #define LUA_MAXUNSIGNED		ULLONG_MAX ### string, not number "ULLONG_MAX" */
 enum { LUA_KCONTEXT = 0 };
-/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
 ]] require 'ffi.req' 'c.stdint' ffi.cdef[[
-/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
 /* redefining matching value: #define LUA_KCONTEXT	intptr_t */
 enum { LUAI_MAXSTACK = 1000000 };
 /* #define LUA_EXTRASPACE		(sizeof(void *)) ### string, not number "(sizeof(void *))" */
@@ -77,12 +76,12 @@ enum { LUA_IDSIZE = 60 };
 /* ++ END   /usr/include/lua5.4/luaconf.h */
 /* #define LUA_VERSION_MAJOR	"5" ### string, not number "\"5\"" */
 /* #define LUA_VERSION_MINOR	"4" ### string, not number "\"4\"" */
-/* #define LUA_VERSION_RELEASE	"4" ### string, not number "\"4\"" */
+/* #define LUA_VERSION_RELEASE	"6" ### string, not number "\"6\"" */
 enum { LUA_VERSION_NUM = 504 };
-enum { LUA_VERSION_RELEASE_NUM = 50404 };
+enum { LUA_VERSION_RELEASE_NUM = 50406 };
 /* #define LUA_VERSION	"Lua " LUA_VERSION_MAJOR "." LUA_VERSION_MINOR ### string, not number "\"Lua \" LUA_VERSION_MAJOR \".\" LUA_VERSION_MINOR" */
 /* #define LUA_RELEASE	LUA_VERSION "." LUA_VERSION_RELEASE ### string, not number "LUA_VERSION \".\" LUA_VERSION_RELEASE" */
-/* #define LUA_COPYRIGHT	LUA_RELEASE "  Copyright (C) 1994-2022 Lua.org, PUC-Rio" ### string, not number "LUA_RELEASE \"  Copyright (C) 1994-2022 Lua.org, PUC-Rio\"" */
+/* #define LUA_COPYRIGHT	LUA_RELEASE "  Copyright (C) 1994-2023 Lua.org, PUC-Rio" ### string, not number "LUA_RELEASE \"  Copyright (C) 1994-2023 Lua.org, PUC-Rio\"" */
 /* #define LUA_AUTHORS	"R. Ierusalimschy, L. H. de Figueiredo, W. Celes" ### string, not number "\"R. Ierusalimschy, L. H. de Figueiredo, W. Celes\"" */
 /* #define LUA_SIGNATURE	"\x1bLua" ### string, not number "\"\\x1bLua\"" */
 enum { LUA_MULTRET = -1 };
@@ -119,10 +118,13 @@ typedef const char * (*lua_Reader) (lua_State *L, void *ud, size_t *sz);
 typedef int (*lua_Writer) (lua_State *L, const void *p, size_t sz, void *ud);
 typedef void * (*lua_Alloc) (void *ud, void *ptr, size_t osize, size_t nsize);
 typedef void (*lua_WarnFunction) (void *ud, const char *msg, int tocont);
+typedef struct lua_Debug lua_Debug;
+typedef void (*lua_Hook) (lua_State *L, lua_Debug *ar);
 extern const char lua_ident[];
 extern lua_State *(lua_newstate) (lua_Alloc f, void *ud);
 extern void (lua_close) (lua_State *L);
 extern lua_State *(lua_newthread) (lua_State *L);
+extern int (lua_closethread) (lua_State *L, lua_State *from);
 extern int (lua_resetthread) (lua_State *L);
 extern lua_CFunction (lua_atpanic) (lua_State *L, lua_CFunction panicf);
 extern lua_Number (lua_version) (lua_State *L);
@@ -242,8 +244,6 @@ enum { LUA_MASKCALL = 1 };
 enum { LUA_MASKRET = 2 };
 enum { LUA_MASKLINE = 4 };
 enum { LUA_MASKCOUNT = 8 };
-typedef struct lua_Debug lua_Debug;
-typedef void (*lua_Hook) (lua_State *L, lua_Debug *ar);
 extern int (lua_getstack) (lua_State *L, int level, lua_Debug *ar);
 extern int (lua_getinfo) (lua_State *L, const char *what, lua_Debug *ar);
 extern const char *(lua_getlocal) (lua_State *L, const lua_Debug *ar, int n);
@@ -305,9 +305,9 @@ extern void (luaL_openlibs) (lua_State *L);
 /* + END   /usr/include/lua5.4/lualib.h */
 /* + BEGIN /usr/include/lua5.4/lauxlib.h */
 enum { lauxlib_h = 1 };
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
 /* ++ BEGIN /usr/include/stdio.h */
 ]] require 'ffi.req' 'c.stdio' ffi.cdef[[
 /* ++ END   /usr/include/stdio.h */

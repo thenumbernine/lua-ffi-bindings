@@ -8,9 +8,9 @@ enum { STDC = 1 };
 enum { STDC99 = 1 };
 enum { z_const = 1 };
 /* #  define z_longlong long long ### string, not number "long long" */
-/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
 typedef size_t z_size_t;
 enum { MAX_MEM_LEVEL = 9 };
 enum { MAX_WBITS = 15 };
@@ -28,9 +28,9 @@ typedef uLong uLongf;
 typedef void const *voidpc;
 typedef void *voidpf;
 typedef void *voidp;
-/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h */
 ]] require 'ffi.req' 'c.limits' ffi.cdef[[
-/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h */
 enum { Z_U4 = 0 };
 typedef unsigned z_crc_t;
 enum { Z_HAVE_UNISTD_H = 1 };
@@ -38,14 +38,13 @@ enum { Z_HAVE_STDARG_H = 1 };
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
 ]] require 'ffi.req' 'c.sys.types' ffi.cdef[[
 /* +++ END   /usr/include/x86_64-linux-gnu/sys/types.h */
-/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h */
 ]] require 'ffi.req' 'c.stdarg' ffi.cdef[[
-/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h */
 /* +++ BEGIN /usr/include/unistd.h */
 ]] require 'ffi.req' 'c.unistd' ffi.cdef[[
 /* +++ END   /usr/include/unistd.h */
 enum { Z_LFS64 = 1 };
-enum { z_off64_t = 0 };
 /* ++ END   /usr/include/zconf.h */
 /* #define ZLIB_VERSION "1.2.13" ### string, not number "\"1.2.13\"" */
 enum { ZLIB_VERNUM = 4816 };

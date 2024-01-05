@@ -1,29 +1,26 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN /usr/include/wchar.h */
-enum { _WCHAR_H = 1 };
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 ]] require 'ffi.req' 'c.bits.libc-header-start' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/floatn.h */
 ]] require 'ffi.req' 'c.bits.floatn' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/floatn.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h */
 ]] require 'ffi.req' 'c.stdarg' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h */
+typedef __gnuc_va_list va_list;
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/wchar.h */
 ]] require 'ffi.req' 'c.bits.wchar' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/wchar.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/wint_t.h */
-enum { __wint_t_defined = 1 };
-enum { _WINT_T = 1 };
 typedef unsigned int wint_t;
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/wint_t.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h */
-enum { __mbstate_t_defined = 1 };
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h */
 ]] require 'ffi.req' 'c.bits.types.__mbstate_t' ffi.cdef[[
 /* +++ END   /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h */
@@ -44,6 +41,8 @@ enum { WCHAR_MAX = 2147483647 };
 struct tm;
 extern wchar_t *wcscpy (wchar_t * __dest, const wchar_t * __src) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 extern wchar_t *wcsncpy (wchar_t * __dest, const wchar_t * __src, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+extern size_t wcslcpy (wchar_t * __dest, const wchar_t * __src, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2))) __attribute__ ((__access__ (__write_only__, 1, 3)));
+extern size_t wcslcat (wchar_t * __dest, const wchar_t * __src, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2))) __attribute__ ((__access__ (__read_write__, 1, 3)));
 extern wchar_t *wcscat (wchar_t * __dest, const wchar_t * __src) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 extern wchar_t *wcsncat (wchar_t * __dest, const wchar_t * __src, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 extern int wcscmp (const wchar_t *__s1, const wchar_t *__s2) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
@@ -91,7 +90,6 @@ __extension__ extern long long int wcstoll (const wchar_t * __nptr, wchar_t ** _
 __extension__ extern unsigned long long int wcstoull (const wchar_t * __nptr, wchar_t ** __endptr, int __base) __attribute__ ((__nothrow__ , __leaf__));
 extern wchar_t *wcpcpy (wchar_t * __dest, const wchar_t * __src) __attribute__ ((__nothrow__ , __leaf__));
 extern wchar_t *wcpncpy (wchar_t * __dest, const wchar_t * __src, size_t __n) __attribute__ ((__nothrow__ , __leaf__));
-enum { __attr_dealloc_fclose = 1 };
 extern __FILE *open_wmemstream (wchar_t **__bufloc, size_t *__sizeloc) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__));
 extern int fwide (__FILE *__fp, int __mode) __attribute__ ((__nothrow__ , __leaf__));
 extern int fwprintf (__FILE * __stream, const wchar_t * __format, ...);

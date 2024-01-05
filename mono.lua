@@ -1,16 +1,13 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN /usr/lib/pkgconfig/../../include/mono-2.0/mono/jit/jit.h */
-enum { _MONO_JIT_JIT_H_ = 1 };
 /* ++ BEGIN /usr/lib/pkgconfig/../../include/mono-2.0/mono/metadata/appdomain.h */
-enum { _MONO_METADATA_APPDOMAIN_H_ = 1 };
 /* +++ BEGIN /usr/lib/pkgconfig/../../include/mono-2.0/mono/utils/mono-publib.h */
-enum { __MONO_PUBLIB_H__ = 1 };
 enum { MONO_BEGIN_DECLS = 1 };
 enum { MONO_END_DECLS = 1 };
-/* ++++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
+/* ++++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
 ]] require 'ffi.req' 'c.stdint' ffi.cdef[[
-/* ++++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
+/* ++++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
 /* #define MONO_API_EXPORT __attribute__ ((__visibility__ ("default"))) ### string, not number "__attribute__ ((__visibility__ (\"default\")))" */
 enum { MONO_API_IMPORT = 1 };
 /* ++++ BEGIN /usr/include/stdlib.h */
@@ -41,20 +38,16 @@ enum { MONO_CONST_RETURN = 0 };
 enum { MONO_ZERO_LEN_ARRAY = 0 };
 enum { MONO_RT_EXTERNAL_ONLY = 1 };
 enum { MONO_RT_MANAGED_ATTR = 1 };
-/* #define _MONO_DEPRECATED __attribute__ ((__deprecated__)) ### string, not number "__attribute__ ((__deprecated__))" */
 /* #define MONO_DEPRECATED MONO_API MONO_RT_EXTERNAL_ONLY _MONO_DEPRECATED ### string, not number "MONO_API MONO_RT_EXTERNAL_ONLY _MONO_DEPRECATED" */
 /* +++ END   /usr/lib/pkgconfig/../../include/mono-2.0/mono/utils/mono-publib.h */
 /* +++ BEGIN /usr/lib/pkgconfig/../../include/mono-2.0/mono/utils/mono-forward.h */
-enum { _MONO_UTILS_FORWARD_ = 1 };
 typedef struct _MonoDomain MonoDomain;
 typedef struct _MonoJitInfo MonoJitInfo;
 /* +++ END   /usr/lib/pkgconfig/../../include/mono-2.0/mono/utils/mono-forward.h */
 /* +++ BEGIN /usr/lib/pkgconfig/../../include/mono-2.0/mono/metadata/object.h */
-enum { _MONO_CLI_OBJECT_H_ = 1 };
 /* ++++ BEGIN /usr/lib/pkgconfig/../../include/mono-2.0/mono/utils/mono-forward.h */
 /* ++++ END   /usr/lib/pkgconfig/../../include/mono-2.0/mono/utils/mono-forward.h */
 /* ++++ BEGIN /usr/lib/pkgconfig/../../include/mono-2.0/mono/metadata/object-forward.h */
-enum { __MONO_OBJECT_FORWARD_H__ = 1 };
 /* +++++ BEGIN /usr/lib/pkgconfig/../../include/mono-2.0/mono/utils/mono-publib.h */
 /* +++++ END   /usr/lib/pkgconfig/../../include/mono-2.0/mono/utils/mono-publib.h */
 typedef struct _MonoClass MonoClass;
@@ -66,22 +59,18 @@ typedef struct _MonoReflectionAssembly MonoReflectionAssembly;
 typedef struct _MonoReflectionTypeBuilder MonoReflectionTypeBuilder;
 /* ++++ END   /usr/lib/pkgconfig/../../include/mono-2.0/mono/metadata/object-forward.h */
 /* ++++ BEGIN /usr/lib/pkgconfig/../../include/mono-2.0/mono/metadata/class.h */
-enum { _MONO_CLI_CLASS_H_ = 1 };
 /* +++++ BEGIN /usr/lib/pkgconfig/../../include/mono-2.0/mono/metadata/metadata.h */
-enum { __MONO_METADATA_H__ = 1 };
 /* ++++++ BEGIN /usr/lib/pkgconfig/../../include/mono-2.0/mono/utils/mono-publib.h */
 /* ++++++ END   /usr/lib/pkgconfig/../../include/mono-2.0/mono/utils/mono-publib.h */
 /* ++++++ BEGIN /usr/lib/pkgconfig/../../include/mono-2.0/mono/utils/mono-forward.h */
 /* ++++++ END   /usr/lib/pkgconfig/../../include/mono-2.0/mono/utils/mono-forward.h */
 /* ++++++ BEGIN /usr/lib/pkgconfig/../../include/mono-2.0/mono/metadata/blob.h */
-enum { _MONO_METADATA_BLOB_H_ = 1 };
 enum { MONO_TYPE_END = 0x00, MONO_TYPE_VOID = 0x01, MONO_TYPE_BOOLEAN = 0x02, MONO_TYPE_CHAR = 0x03, MONO_TYPE_I1 = 0x04, MONO_TYPE_U1 = 0x05, MONO_TYPE_I2 = 0x06, MONO_TYPE_U2 = 0x07, MONO_TYPE_I4 = 0x08, MONO_TYPE_U4 = 0x09, MONO_TYPE_I8 = 0x0a, MONO_TYPE_U8 = 0x0b, MONO_TYPE_R4 = 0x0c, MONO_TYPE_R8 = 0x0d, MONO_TYPE_STRING = 0x0e, MONO_TYPE_PTR = 0x0f, MONO_TYPE_BYREF = 0x10, MONO_TYPE_VALUETYPE = 0x11, MONO_TYPE_CLASS = 0x12, MONO_TYPE_VAR = 0x13, MONO_TYPE_ARRAY = 0x14, MONO_TYPE_GENERICINST= 0x15, MONO_TYPE_TYPEDBYREF = 0x16, MONO_TYPE_I = 0x18, MONO_TYPE_U = 0x19, MONO_TYPE_FNPTR = 0x1b, MONO_TYPE_OBJECT = 0x1c, MONO_TYPE_SZARRAY = 0x1d, MONO_TYPE_MVAR = 0x1e, MONO_TYPE_CMOD_REQD = 0x1f, MONO_TYPE_CMOD_OPT = 0x20, MONO_TYPE_INTERNAL = 0x21, MONO_TYPE_MODIFIER = 0x40, MONO_TYPE_SENTINEL = 0x41, MONO_TYPE_PINNED = 0x45, MONO_TYPE_ENUM = 0x55 }; typedef int MonoTypeEnum;
 enum { MONO_TABLE_MODULE, MONO_TABLE_TYPEREF, MONO_TABLE_TYPEDEF, MONO_TABLE_FIELD_POINTER, MONO_TABLE_FIELD, MONO_TABLE_METHOD_POINTER, MONO_TABLE_METHOD, MONO_TABLE_PARAM_POINTER, MONO_TABLE_PARAM, MONO_TABLE_INTERFACEIMPL, MONO_TABLE_MEMBERREF, MONO_TABLE_CONSTANT, MONO_TABLE_CUSTOMATTRIBUTE, MONO_TABLE_FIELDMARSHAL, MONO_TABLE_DECLSECURITY, MONO_TABLE_CLASSLAYOUT, MONO_TABLE_FIELDLAYOUT, MONO_TABLE_STANDALONESIG, MONO_TABLE_EVENTMAP, MONO_TABLE_EVENT_POINTER, MONO_TABLE_EVENT, MONO_TABLE_PROPERTYMAP, MONO_TABLE_PROPERTY_POINTER, MONO_TABLE_PROPERTY, MONO_TABLE_METHODSEMANTICS, MONO_TABLE_METHODIMPL, MONO_TABLE_MODULEREF, MONO_TABLE_TYPESPEC, MONO_TABLE_IMPLMAP, MONO_TABLE_FIELDRVA, MONO_TABLE_UNUSED6, MONO_TABLE_UNUSED7, MONO_TABLE_ASSEMBLY, MONO_TABLE_ASSEMBLYPROCESSOR, MONO_TABLE_ASSEMBLYOS, MONO_TABLE_ASSEMBLYREF, MONO_TABLE_ASSEMBLYREFPROCESSOR, MONO_TABLE_ASSEMBLYREFOS, MONO_TABLE_FILE, MONO_TABLE_EXPORTEDTYPE, MONO_TABLE_MANIFESTRESOURCE, MONO_TABLE_NESTEDCLASS, MONO_TABLE_GENERICPARAM, MONO_TABLE_METHODSPEC, MONO_TABLE_GENERICPARAMCONSTRAINT, MONO_TABLE_UNUSED8, MONO_TABLE_UNUSED9, MONO_TABLE_UNUSED10, MONO_TABLE_DOCUMENT, MONO_TABLE_METHODBODY, MONO_TABLE_LOCALSCOPE, MONO_TABLE_LOCALVARIABLE, MONO_TABLE_LOCALCONSTANT, MONO_TABLE_IMPORTSCOPE, MONO_TABLE_STATEMACHINEMETHOD, MONO_TABLE_CUSTOMDEBUGINFORMATION  
  
 }; typedef int MonoMetaTableEnum;
 /* ++++++ END   /usr/lib/pkgconfig/../../include/mono-2.0/mono/metadata/blob.h */
 /* ++++++ BEGIN /usr/lib/pkgconfig/../../include/mono-2.0/mono/metadata/row-indexes.h */
-enum { __MONO_METADATA_ROW_INDEXES_H__ = 1 };
 enum { MONO_ASSEMBLY_HASH_ALG, MONO_ASSEMBLY_MAJOR_VERSION, MONO_ASSEMBLY_MINOR_VERSION, MONO_ASSEMBLY_BUILD_NUMBER, MONO_ASSEMBLY_REV_NUMBER, MONO_ASSEMBLY_FLAGS, MONO_ASSEMBLY_PUBLIC_KEY, MONO_ASSEMBLY_NAME, MONO_ASSEMBLY_CULTURE, MONO_ASSEMBLY_SIZE };
 enum { MONO_ASSEMBLYOS_PLATFORM, MONO_ASSEMBLYOS_MAJOR_VERSION, MONO_ASSEMBLYOS_MINOR_VERSION, MONO_ASSEMBLYOS_SIZE };
 enum { MONO_ASSEMBLY_PROCESSOR, MONO_ASSEMBLY_PROCESSOR_SIZE };
@@ -146,14 +135,12 @@ enum { MONO_RESOLTION_SCOPE_MODULE, MONO_RESOLTION_SCOPE_MODULEREF, MONO_RESOLTI
 enum { MONO_TYPEORMETHOD_TYPE, MONO_TYPEORMETHOD_METHOD, MONO_TYPEORMETHOD_BITS = 1, MONO_TYPEORMETHOD_MASK = 1 };
 /* ++++++ END   /usr/lib/pkgconfig/../../include/mono-2.0/mono/metadata/row-indexes.h */
 /* ++++++ BEGIN /usr/lib/pkgconfig/../../include/mono-2.0/mono/metadata/image.h */
-enum { _MONONET_METADATA_IMAGE_H_ = 1 };
 /* +++++++ BEGIN /usr/include/stdio.h */
 ]] require 'ffi.req' 'c.stdio' ffi.cdef[[
 /* +++++++ END   /usr/include/stdio.h */
 /* +++++++ BEGIN /usr/lib/pkgconfig/../../include/mono-2.0/mono/utils/mono-publib.h */
 /* +++++++ END   /usr/lib/pkgconfig/../../include/mono-2.0/mono/utils/mono-publib.h */
 /* +++++++ BEGIN /usr/lib/pkgconfig/../../include/mono-2.0/mono/utils/mono-error.h */
-enum { __MONO_ERROR_H__ = 1 };
 /* ++++++++ BEGIN /usr/lib/pkgconfig/../../include/mono-2.0/mono/utils/mono-publib.h */
 /* ++++++++ END   /usr/lib/pkgconfig/../../include/mono-2.0/mono/utils/mono-publib.h */
 enum { MONO_ERROR_FREE_STRINGS = 0x0001, MONO_ERROR_INCOMPLETE = 0x0002, MONO_ERROR_MEMPOOL_BOXED = 0x0004 };
@@ -377,7 +364,6 @@ uint32_t mono_metadata_decode_table_row_col (MonoImage *image, int table, int id
 /* +++++ BEGIN /usr/lib/pkgconfig/../../include/mono-2.0/mono/metadata/image.h */
 /* +++++ END   /usr/lib/pkgconfig/../../include/mono-2.0/mono/metadata/image.h */
 /* +++++ BEGIN /usr/lib/pkgconfig/../../include/mono-2.0/mono/metadata/loader.h */
-enum { _MONO_METADATA_LOADER_H_ = 1 };
 /* ++++++ BEGIN /usr/lib/pkgconfig/../../include/mono-2.0/mono/utils/mono-forward.h */
 /* ++++++ END   /usr/lib/pkgconfig/../../include/mono-2.0/mono/utils/mono-forward.h */
 /* ++++++ BEGIN /usr/lib/pkgconfig/../../include/mono-2.0/mono/metadata/metadata.h */
@@ -638,7 +624,6 @@ void mono_gc_wbarrier_value_copy (void* dest, void* src, int count, MonoClass *k
 void mono_gc_wbarrier_object_copy (MonoObject* obj, MonoObject *src);
 /* +++ END   /usr/lib/pkgconfig/../../include/mono-2.0/mono/metadata/object.h */
 /* +++ BEGIN /usr/lib/pkgconfig/../../include/mono-2.0/mono/metadata/reflection.h */
-enum { __METADATA_REFLECTION_H__ = 1 };
 /* ++++ BEGIN /usr/lib/pkgconfig/../../include/mono-2.0/mono/utils/mono-publib.h */
 /* ++++ END   /usr/lib/pkgconfig/../../include/mono-2.0/mono/utils/mono-publib.h */
 /* ++++ BEGIN /usr/lib/pkgconfig/../../include/mono-2.0/mono/metadata/object.h */
@@ -817,4 +802,4 @@ MonoDomain* mono_jit_thread_attach (MonoDomain *domain);
 /* + END   /usr/lib/pkgconfig/../../include/mono-2.0/mono/jit/jit.h */
 ]]
 ffi.load('/usr/lib/x86_64-linux-gnu/libstdc++.so.6', true)
-return ffi.load '/usr/lib/libmono-2.0.so' 
+return ffi.load '/usr/lib/libmono-2.0.so'

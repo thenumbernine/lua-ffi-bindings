@@ -1,34 +1,15 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN /usr/include/x86_64-linux-gnu/sys/ioctl.h */
-enum { _SYS_IOCTL_H = 1 };
 /* ++ BEGIN /usr/include/features.h */
 ]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* ++ END   /usr/include/features.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/ioctls.h */
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/asm/ioctls.h */
 /* ++++ BEGIN /usr/include/asm-generic/ioctls.h */
-enum { __ASM_GENERIC_IOCTLS_H = 1 };
 /* +++++ BEGIN /usr/include/linux/ioctl.h */
-enum { _LINUX_IOCTL_H = 1 };
 /* ++++++ BEGIN /usr/include/x86_64-linux-gnu/asm/ioctl.h */
 /* +++++++ BEGIN /usr/include/asm-generic/ioctl.h */
-enum { _ASM_GENERIC_IOCTL_H = 1 };
-enum { _IOC_NRBITS = 8 };
-enum { _IOC_TYPEBITS = 8 };
-enum { _IOC_SIZEBITS = 14 };
-enum { _IOC_DIRBITS = 2 };
-enum { _IOC_NRMASK = 255 };
-enum { _IOC_TYPEMASK = 255 };
-enum { _IOC_SIZEMASK = 16383 };
-enum { _IOC_DIRMASK = 3 };
-enum { _IOC_NRSHIFT = 0 };
-enum { _IOC_TYPESHIFT = 8 };
-enum { _IOC_SIZESHIFT = 16 };
-enum { _IOC_DIRSHIFT = 30 };
-enum { _IOC_NONE = 0 };
-enum { _IOC_WRITE = 1 };
-enum { _IOC_READ = 2 };
 enum { IOC_IN = 1073741824 };
 enum { IOC_OUT = -2147483648 };
 enum { IOC_INOUT = -1073741824 };
@@ -229,7 +210,6 @@ enum { N_SYNC_PPP = 14 };
 enum { N_HCI = 15 };
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/ioctl-types.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/sys/ttydefaults.h */
-enum { _SYS_TTYDEFAULTS_H_ = 1 };
 enum { TTYDEF_IFLAG = 0 };
 enum { TTYDEF_OFLAG = 0 };
 enum { TTYDEF_LFLAG = 0 };

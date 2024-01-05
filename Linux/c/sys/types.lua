@@ -1,7 +1,6 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
-enum { _SYS_TYPES_H = 1 };
 /* ++ BEGIN /usr/include/features.h */
 ]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* ++ END   /usr/include/features.h */
@@ -15,7 +14,6 @@ typedef __u_long u_long;
 typedef __quad_t quad_t;
 typedef __u_quad_t u_quad_t;
 typedef __fsid_t fsid_t;
-enum { __u_char_defined = 1 };
 typedef __loff_t loff_t;
 ]] require 'ffi.req' 'c.bits.types.ino_t' ffi.cdef[[
 ]] require 'ffi.req' 'c.bits.types.dev_t' ffi.cdef[[
@@ -26,13 +24,10 @@ typedef __loff_t loff_t;
 ]] require 'ffi.req' 'c.bits.types.off_t' ffi.cdef[[
 ]] require 'ffi.req' 'c.bits.types.pid_t' ffi.cdef[[
 typedef __id_t id_t;
-enum { __id_t_defined = 1 };
 ]] require 'ffi.req' 'c.bits.types.ssize_t' ffi.cdef[[
 typedef __daddr_t daddr_t;
 typedef __caddr_t caddr_t;
-enum { __daddr_t_defined = 1 };
 typedef __key_t key_t;
-enum { __key_t_defined = 1 };
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/clock_t.h */
 ]] require 'ffi.req' 'c.bits.types.clock_t' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/clock_t.h */
@@ -45,9 +40,9 @@ enum { __key_t_defined = 1 };
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/timer_t.h */
 ]] require 'ffi.req' 'c.bits.types.timer_t' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/timer_t.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
 typedef unsigned long int ulong;
 typedef unsigned short int ushort;
 typedef unsigned int uint;
@@ -59,9 +54,7 @@ typedef __uint16_t u_int16_t;
 typedef __uint32_t u_int32_t;
 typedef __uint64_t u_int64_t;
 typedef int register_t __attribute__ ((__mode__ (__word__)));
-enum { __BIT_TYPES_DEFINED__ = 1 };
 /* ++ BEGIN /usr/include/endian.h */
-enum { _ENDIAN_H = 1 };
 /* +++ BEGIN /usr/include/features.h */
 ]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* +++ END   /usr/include/features.h */
@@ -73,7 +66,6 @@ enum { BIG_ENDIAN = 4321 };
 enum { PDP_ENDIAN = 3412 };
 enum { BYTE_ORDER = 1234 };
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/byteswap.h */
-enum { _BITS_BYTESWAP_H = 1 };
 /* ++++ BEGIN /usr/include/features.h */
 ]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* ++++ END   /usr/include/features.h */
@@ -89,7 +81,6 @@ static __inline __uint16_t __bswap_16 (__uint16_t __bsx) {
 }
 /* +++ END   /usr/include/x86_64-linux-gnu/bits/byteswap.h */
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/uintn-identity.h */
-enum { _BITS_UINTN_IDENTITY_H = 1 };
 /* ++++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* ++++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
@@ -106,38 +97,17 @@ static __inline __uint16_t __uint16_identity (__uint16_t __x) {
 ]] require 'ffi.req' 'c.sys.select' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/sys/select.h */
 typedef __blksize_t blksize_t;
-enum { __blksize_t_defined = 1 };
 typedef __blkcnt_t blkcnt_t;
-enum { __blkcnt_t_defined = 1 };
 typedef __fsblkcnt_t fsblkcnt_t;
-enum { __fsblkcnt_t_defined = 1 };
 typedef __fsfilcnt_t fsfilcnt_t;
-enum { __fsfilcnt_t_defined = 1 };
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h */
-enum { _BITS_PTHREADTYPES_COMMON_H = 1 };
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h */
-enum { _THREAD_SHARED_TYPES_H = 1 };
 /* ++++ BEGIN /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h */
-enum { _BITS_PTHREADTYPES_ARCH_H = 1 };
 /* +++++ BEGIN /usr/include/x86_64-linux-gnu/bits/wordsize.h */
-/* redefining matching value: # define __WORDSIZE	64 */
-/* redefining matching value: # define __WORDSIZE_TIME64_COMPAT32	1 */
-/* redefining matching value: # define __SYSCALL_WORDSIZE		64 */
+]] require 'ffi.req' 'c.bits.wordsize' ffi.cdef[[
 /* +++++ END   /usr/include/x86_64-linux-gnu/bits/wordsize.h */
-enum { __SIZEOF_PTHREAD_MUTEX_T = 40 };
-enum { __SIZEOF_PTHREAD_ATTR_T = 56 };
-enum { __SIZEOF_PTHREAD_RWLOCK_T = 56 };
-enum { __SIZEOF_PTHREAD_BARRIER_T = 32 };
-enum { __SIZEOF_PTHREAD_MUTEXATTR_T = 4 };
-enum { __SIZEOF_PTHREAD_COND_T = 48 };
-enum { __SIZEOF_PTHREAD_CONDATTR_T = 4 };
-enum { __SIZEOF_PTHREAD_RWLOCKATTR_T = 8 };
-enum { __SIZEOF_PTHREAD_BARRIERATTR_T = 4 };
-enum { __LOCK_ALIGNMENT = 1 };
-enum { __ONCE_ALIGNMENT = 1 };
 /* ++++ END   /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h */
 /* ++++ BEGIN /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h */
-enum { _BITS_ATOMIC_WIDE_COUNTER_H = 1 };
 typedef union {
 	__extension__ unsigned long long int __value64;
 	struct {
@@ -154,7 +124,6 @@ typedef struct __pthread_internal_slist {
 	struct __pthread_internal_slist *__next;
 } __pthread_slist_t;
 /* ++++ BEGIN /usr/include/x86_64-linux-gnu/bits/struct_mutex.h */
-enum { _THREAD_MUTEX_INTERNAL_H = 1 };
 struct __pthread_mutex_s {
 	int __lock;
 	unsigned int __count;
@@ -164,11 +133,9 @@ struct __pthread_mutex_s {
 	short __spins;
 	short __elision;
 	__pthread_list_t __list;
-	enum { __PTHREAD_MUTEX_HAVE_PREV = 1 };
 };
 /* ++++ END   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h */
 /* ++++ BEGIN /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h */
-enum { _RWLOCK_INTERNAL_H = 1 };
 struct __pthread_rwlock_arch_t {
 	unsigned int __readers;
 	unsigned int __writers;
@@ -180,7 +147,6 @@ struct __pthread_rwlock_arch_t {
 	int __shared;
 	signed char __rwelision;
 	unsigned char __pad1[7];
-/* #  define __PTHREAD_RWLOCK_ELISION_EXTRA 0, { 0, 0, 0, 0, 0, 0, 0 } ### string, not number "0, { 0, 0, 0, 0, 0, 0, 0 }" */
 	unsigned long int __pad2;
 	unsigned int __flags;
 };
@@ -199,7 +165,6 @@ typedef unsigned long int __thrd_t;
 typedef struct {
 	int __data;
 } __once_flag;
-/* #define __ONCE_FLAG_INIT { 0 } ### string, not number "{ 0 }" */
 /* +++ END   /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h */
 typedef unsigned long int pthread_t;
 typedef union {
@@ -217,7 +182,6 @@ union pthread_attr_t {
 	long int __align;
 };
 typedef union pthread_attr_t pthread_attr_t;
-enum { __have_pthread_attr_t = 1 };
 typedef union {
 	struct __pthread_mutex_s __data;
 	char __size[40];

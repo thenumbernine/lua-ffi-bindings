@@ -1,17 +1,14 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN /usr/include/x86_64-linux-gnu/sys/termios.h */
-enum { _SYS_TERMIOS_H = 1 };
 /* ++ BEGIN /usr/include/termios.h */
-enum { _TERMIOS_H = 1 };
 /* +++ BEGIN /usr/include/features.h */
 ]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* +++ END   /usr/include/features.h */
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* +++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
-typedef __pid_t pid_t;
-enum { __pid_t_defined = 1 };
+]] require 'ffi.req' 'c.bits.types.pid_t' ffi.cdef[[
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/termios.h */
 typedef unsigned char cc_t;
 typedef unsigned int speed_t;
@@ -27,8 +24,6 @@ struct termios {
 	cc_t c_cc[32];
 	speed_t c_ispeed;
 	speed_t c_ospeed;
-	enum { _HAVE_STRUCT_TERMIOS_C_ISPEED = 1 };
-	enum { _HAVE_STRUCT_TERMIOS_C_OSPEED = 1 };
 };
 /* ++++ END   /usr/include/x86_64-linux-gnu/bits/termios-struct.h */
 /* ++++ BEGIN /usr/include/x86_64-linux-gnu/bits/termios-c_cc.h */
@@ -139,7 +134,6 @@ enum { B2500000 = 4108 };
 enum { B3000000 = 4109 };
 enum { B3500000 = 4110 };
 enum { B4000000 = 4111 };
-enum { __MAX_BAUD = 4111 };
 /* ++++ END   /usr/include/x86_64-linux-gnu/bits/termios-baud.h */
 /* ++++ BEGIN /usr/include/x86_64-linux-gnu/bits/termios-c_cflag.h */
 enum { CSIZE = 48 };
@@ -203,7 +197,6 @@ extern int tcflush (int __fd, int __queue_selector) __attribute__ ((__nothrow__ 
 extern int tcflow (int __fd, int __action) __attribute__ ((__nothrow__ , __leaf__));
 extern __pid_t tcgetsid (int __fd) __attribute__ ((__nothrow__ , __leaf__));
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/sys/ttydefaults.h */
-enum { _SYS_TTYDEFAULTS_H_ = 1 };
 enum { TTYDEF_IFLAG = 11554 };
 enum { TTYDEF_OFLAG = 6149 };
 enum { TTYDEF_LFLAG = 35355 };

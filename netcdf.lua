@@ -1,10 +1,9 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN /usr/include/netcdf.h */
-enum { _NETCDF_ = 1 };
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
 /* ++ BEGIN /usr/include/errno.h */
 ]] require 'ffi.req' 'c.errno' ffi.cdef[[
 /* ++ END   /usr/include/errno.h */
@@ -50,15 +49,14 @@ enum { NC_MAX_INT = 2147483647 };
 enum { NC_MIN_INT = -2147483648 };
 /* #define NC_MAX_FLOAT 3.402823466e+38f ### string, not number "3.402823466e+38f" */
 /* #define NC_MIN_FLOAT (-NC_MAX_FLOAT) ### string, not number "(-NC_MAX_FLOAT)" */
-/* #define NC_MAX_DOUBLE 1.7976931348623157e+308 ### string, number, replaceline "1.7976931348623157e+308" */
+/* #define NC_MAX_DOUBLE 1.7976931348623157e+308 ### string, not number "1.7976931348623157e+308" */
 /* #define NC_MIN_DOUBLE (-NC_MAX_DOUBLE) ### string, not number "(-NC_MAX_DOUBLE)" */
 enum { NC_MAX_UBYTE = 255 };
 enum { NC_MAX_USHORT = 65535 };
 enum { NC_MAX_UINT = 4294967295 };
-/* #define NC_MAX_INT64 (9223372036854775807LL) ### string, number, replaceline "9.2233720368548e+18" */
-/* #define NC_MIN_INT64 (-9223372036854775807LL-1) ### string, number, replaceline "-9.2233720368548e+18" */
+/* #define NC_MAX_INT64 (9223372036854775807LL) ### string, not number "9.2233720368548e+18" */
+/* #define NC_MIN_INT64 (-9223372036854775807LL-1) ### string, not number "-9.2233720368548e+18" */
 /* #define NC_MAX_UINT64 (18446744073709551615ULL) ### string, not number "(18446744073709551615ULL)" */
-/* #define _FillValue      "_FillValue" ### string, not number "\"_FillValue\"" */
 enum { NC_FILL = 0 };
 enum { NC_NOFILL = 256 };
 enum { NC_NOWRITE = 0 };
@@ -312,6 +310,7 @@ extern int nc_def_enum(int ncid, nc_type base_typeid, const char *name, nc_type 
 extern int nc_insert_enum(int ncid, nc_type xtype, const char *name, const void *value);
 extern int nc_inq_enum(int ncid, nc_type xtype, char *name, nc_type *base_nc_typep, size_t *base_sizep, size_t *num_membersp);
 extern int nc_inq_enum_member(int ncid, nc_type xtype, int idx, char *name, void *value);
+/* #define NC_UNDEFINED_ENUM_IDENT "_UNDEFINED" ### string, not number "\"_UNDEFINED\"" */
 extern int nc_inq_enum_ident(int ncid, nc_type xtype, long long value, char *identifier);
 extern int nc_def_opaque(int ncid, size_t size, const char *name, nc_type *xtypep);
 extern int nc_inq_opaque(int ncid, nc_type xtype, char *name, size_t *sizep);
@@ -625,6 +624,8 @@ extern int ncrecget(int ncid, long recnum, void **datap);
 extern int ncrecput(int ncid, long recnum, void *const *datap);
 extern int nc_initialize(void);
 extern int nc_finalize(void);
+extern char* nc_rc_get(const char* key);
+extern int nc_rc_set(const char* key, const char* value);
 enum { NC_HAVE_RENAME_GRP = 1 };
 enum { NC_HAVE_INQ_FORMAT_EXTENDED = 1 };
 enum { NC_HAVE_META_H = 1 };

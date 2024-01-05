@@ -1,9 +1,7 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN /usr/include/GLES3/gl3.h */
-enum { __gles2_gl3_h_ = 1 };
 /* ++ BEGIN /usr/include/GLES3/gl3platform.h */
-enum { __gl3platform_h_ = 1 };
 /* +++ BEGIN /usr/include/KHR/khrplatform.h */
 ]] require 'ffi.req' 'KHR.khrplatform' ffi.cdef[[
 /* +++ END   /usr/include/KHR/khrplatform.h */
@@ -892,7 +890,7 @@ enum { GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS = 35394 };
 enum { GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES = 35395 };
 enum { GL_UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER = 35396 };
 enum { GL_UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER = 35398 };
-/* #define GL_INVALID_INDEX                  0xFFFFFFFFu ### string, not number "0xFFFFFFFFu" */
+enum { GL_INVALID_INDEX = 0xFFFFFFFFu };
 enum { GL_MAX_VERTEX_OUTPUT_COMPONENTS = 37154 };
 enum { GL_MAX_FRAGMENT_INPUT_COMPONENTS = 37157 };
 enum { GL_MAX_SERVER_WAIT_TIMEOUT = 37137 };

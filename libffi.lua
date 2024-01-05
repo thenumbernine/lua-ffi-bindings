@@ -38,20 +38,18 @@ enum { FFI_TYPE_SMALL_STRUCT_4B = 18 };
 enum { FFI_TYPE_MS_STRUCT = 19 };
 enum { FFI_TRAMPOLINE_SIZE = 32 };
 enum { FFI_NATIVE_RAW_API = 0 };
-/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/cet.h */
-enum { _CET_H_INCLUDED = 1 };
-/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/cet.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/cet.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/cet.h */
 enum { ENDBR_PRESENT = 1 };
-enum { _CET_NOTRACK = 0 };
 /* ++ END   /usr/include/x86_64-linux-gnu/ffitarget.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h */
 ]] require 'ffi.req' 'c.limits' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h */
-/* #define FFI_64_BIT_MAX 9223372036854775807 ### string, number, replaceline "9.2233720368548e+18" */
-/* #  define FFI_LONG_LONG_MAX LLONG_MAX ### string, number, replaceline "9.2233720368548e+18" */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h */
+/* #define FFI_64_BIT_MAX 9223372036854775807 ### string, not number "9.2233720368548e+18" */
+/* #  define FFI_LONG_LONG_MAX LLONG_MAX ### string, not number "9.2233720368548e+18" */
 typedef struct _ffi_type {
 	size_t size;
 	unsigned short alignment;

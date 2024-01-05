@@ -1,7 +1,6 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN /usr/include/pthread.h */
-enum { _PTHREAD_H = 1 };
 /* ++ BEGIN /usr/include/features.h */
 ]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* ++ END   /usr/include/features.h */
@@ -15,30 +14,13 @@ enum { _PTHREAD_H = 1 };
 ]] require 'ffi.req' 'c.bits.endian' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/endian.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h */
-enum { _BITS_PTHREADTYPES_COMMON_H = 1 };
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h */
-enum { _THREAD_SHARED_TYPES_H = 1 };
 /* ++++ BEGIN /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h */
-enum { _BITS_PTHREADTYPES_ARCH_H = 1 };
 /* +++++ BEGIN /usr/include/x86_64-linux-gnu/bits/wordsize.h */
-/* redefining matching value: # define __WORDSIZE	64 */
-/* redefining matching value: # define __WORDSIZE_TIME64_COMPAT32	1 */
-/* redefining matching value: # define __SYSCALL_WORDSIZE		64 */
+]] require 'ffi.req' 'c.bits.wordsize' ffi.cdef[[
 /* +++++ END   /usr/include/x86_64-linux-gnu/bits/wordsize.h */
-enum { __SIZEOF_PTHREAD_MUTEX_T = 40 };
-enum { __SIZEOF_PTHREAD_ATTR_T = 56 };
-enum { __SIZEOF_PTHREAD_RWLOCK_T = 56 };
-enum { __SIZEOF_PTHREAD_BARRIER_T = 32 };
-enum { __SIZEOF_PTHREAD_MUTEXATTR_T = 4 };
-enum { __SIZEOF_PTHREAD_COND_T = 48 };
-enum { __SIZEOF_PTHREAD_CONDATTR_T = 4 };
-enum { __SIZEOF_PTHREAD_RWLOCKATTR_T = 8 };
-enum { __SIZEOF_PTHREAD_BARRIERATTR_T = 4 };
-enum { __LOCK_ALIGNMENT = 1 };
-enum { __ONCE_ALIGNMENT = 1 };
 /* ++++ END   /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h */
 /* ++++ BEGIN /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h */
-enum { _BITS_ATOMIC_WIDE_COUNTER_H = 1 };
 typedef union {
 	__extension__ unsigned long long int __value64;
 	struct {
@@ -55,7 +37,6 @@ typedef struct __pthread_internal_slist {
 	struct __pthread_internal_slist *__next;
 } __pthread_slist_t;
 /* ++++ BEGIN /usr/include/x86_64-linux-gnu/bits/struct_mutex.h */
-enum { _THREAD_MUTEX_INTERNAL_H = 1 };
 struct __pthread_mutex_s {
 	int __lock;
 	unsigned int __count;
@@ -65,11 +46,9 @@ struct __pthread_mutex_s {
 	short __spins;
 	short __elision;
 	__pthread_list_t __list;
-	enum { __PTHREAD_MUTEX_HAVE_PREV = 1 };
 };
 /* ++++ END   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h */
 /* ++++ BEGIN /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h */
-enum { _RWLOCK_INTERNAL_H = 1 };
 struct __pthread_rwlock_arch_t {
 	unsigned int __readers;
 	unsigned int __writers;
@@ -81,7 +60,6 @@ struct __pthread_rwlock_arch_t {
 	int __shared;
 	signed char __rwelision;
 	unsigned char __pad1[7];
-/* #  define __PTHREAD_RWLOCK_ELISION_EXTRA 0, { 0, 0, 0, 0, 0, 0, 0 } ### string, not number "0, { 0, 0, 0, 0, 0, 0, 0 }" */
 	unsigned long int __pad2;
 	unsigned int __flags;
 };
@@ -100,7 +78,6 @@ typedef unsigned long int __thrd_t;
 typedef struct {
 	int __data;
 } __once_flag;
-/* #define __ONCE_FLAG_INIT { 0 } ### string, not number "{ 0 }" */
 /* +++ END   /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h */
 typedef unsigned long int pthread_t;
 typedef union {
@@ -118,7 +95,6 @@ union pthread_attr_t {
 	long int __align;
 };
 typedef union pthread_attr_t pthread_attr_t;
-enum { __have_pthread_attr_t = 1 };
 typedef union {
 	struct __pthread_mutex_s __data;
 	char __size[40];
@@ -152,9 +128,7 @@ typedef union {
 ]] require 'ffi.req' 'c.bits.setjmp' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/setjmp.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/wordsize.h */
-/* redefining matching value: # define __WORDSIZE	64 */
-/* redefining matching value: # define __WORDSIZE_TIME64_COMPAT32	1 */
-/* redefining matching value: # define __SYSCALL_WORDSIZE		64 */
+]] require 'ffi.req' 'c.bits.wordsize' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
 ]] require 'ffi.req' 'c.bits.types.struct_timespec' ffi.cdef[[
@@ -163,7 +137,6 @@ typedef union {
 ]] require 'ffi.req' 'c.bits.types.__sigset_t' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h */
-enum { __jmp_buf_tag_defined = 1 };
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/setjmp.h */
 ]] require 'ffi.req' 'c.bits.setjmp' ffi.cdef[[
 /* +++ END   /usr/include/x86_64-linux-gnu/bits/setjmp.h */
@@ -257,7 +230,6 @@ typedef struct {
 	struct __cancel_jmp_buf_tag __cancel_jmp_buf[1];
 	void *__pad[4];
 } __pthread_unwind_buf_t __attribute__ ((__aligned__));
-enum { __cleanup_fct_attribute = 1 };
 struct __pthread_cleanup_frame {
 	void (*__cancel_routine) (void *);
 	void *__cancel_arg;

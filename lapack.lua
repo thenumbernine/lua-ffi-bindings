@@ -8,9 +8,9 @@ enum { LAPACK_HEADER_INCLUDED = 1 };
 /* ++ BEGIN /usr/include/stdlib.h */
 ]] require 'ffi.req' 'c.stdlib' ffi.cdef[[
 /* ++ END   /usr/include/stdlib.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h */
 ]] require 'ffi.req' 'c.stdarg' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h */
 /* ++ BEGIN /usr/include/inttypes.h */
 ]] require 'ffi.req' 'c.inttypes' ffi.cdef[[
 /* ++ END   /usr/include/inttypes.h */

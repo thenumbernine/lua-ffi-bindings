@@ -1,9 +1,7 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN /usr/include/GLES2/gl2.h */
-enum { __gles2_gl2_h_ = 1 };
 /* ++ BEGIN /usr/include/GLES2/gl2platform.h */
-enum { __gl2platform_h_ = 1 };
 /* +++ BEGIN /usr/include/KHR/khrplatform.h */
 ]] require 'ffi.req' 'KHR.khrplatform' ffi.cdef[[
 /* +++ END   /usr/include/KHR/khrplatform.h */

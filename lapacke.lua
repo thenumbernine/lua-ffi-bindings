@@ -1,7 +1,6 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN /usr/include/lapacke.h */
-enum { _LAPACKE_H_ = 1 };
 /* ++ BEGIN /usr/include/lapack.h */
 ]] require 'ffi.req' 'lapack' ffi.cdef[[
 /* ++ END   /usr/include/lapack.h */

@@ -5,16 +5,16 @@ enum { CIMGUI_INCLUDED = 1 };
 /* ++ BEGIN /usr/include/stdio.h */
 ]] require 'ffi.req' 'c.stdio' ffi.cdef[[
 /* ++ END   /usr/include/stdio.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
 ]] require 'ffi.req' 'c.stdint' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
 /* #define API  __attribute__((__visibility__("default"))) ### string, not number "__attribute__((__visibility__(\"default\")))" */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h */
 ]] require 'ffi.req' 'c.stdarg' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h */
 ]] require 'ffi.req' 'c.stdbool' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h */
 enum { EXTERN = 0 };
 /* #define CIMGUI_API EXTERN API ### string, not number "EXTERN API" */
 enum { CONST = 0 };

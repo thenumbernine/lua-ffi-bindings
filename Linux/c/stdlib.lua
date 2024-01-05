@@ -4,10 +4,9 @@ ffi.cdef[[
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 ]] require 'ffi.req' 'c.bits.libc-header-start' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-enum { _STDLIB_H = 1 };
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/waitflags.h */
 enum { WNOHANG = 1 };
 enum { WUNTRACED = 2 };
@@ -15,13 +14,8 @@ enum { WSTOPPED = 2 };
 enum { WEXITED = 4 };
 enum { WCONTINUED = 8 };
 enum { WNOWAIT = 16777216 };
-enum { __WNOTHREAD = 536870912 };
-enum { __WALL = 1073741824 };
-enum { __WCLONE = 2147483648 };
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/waitflags.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/waitstatus.h */
-enum { __W_CONTINUED = 65535 };
-enum { __WCOREFLAG = 128 };
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/waitstatus.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/floatn.h */
 ]] require 'ffi.req' 'c.bits.floatn' ffi.cdef[[
@@ -34,12 +28,10 @@ typedef struct {
 	long int quot;
 	long int rem;
 } ldiv_t;
-enum { __ldiv_t_defined = 1 };
 __extension__ typedef struct {
 	long long int quot;
 	long long int rem;
 } lldiv_t;
-enum { __lldiv_t_defined = 1 };
 enum { RAND_MAX = 2147483647 };
 enum { EXIT_FAILURE = 1 };
 enum { EXIT_SUCCESS = 0 };
@@ -118,13 +110,12 @@ extern void free (void *__ptr) __attribute__ ((__nothrow__ , __leaf__));
 extern void *reallocarray (void *__ptr, size_t __nmemb, size_t __size) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__)) __attribute__ ((__alloc_size__ (2, 3))) __attribute__ ((__malloc__ (__builtin_free, 1)));
 extern void *reallocarray (void *__ptr, size_t __nmemb, size_t __size) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__ (reallocarray, 1)));
 /* ++ BEGIN /usr/include/alloca.h */
-enum { _ALLOCA_H = 1 };
 /* +++ BEGIN /usr/include/features.h */
 ]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* +++ END   /usr/include/features.h */
-/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
 extern void *alloca (size_t __size) __attribute__ ((__nothrow__ , __leaf__));
 /* ++ END   /usr/include/alloca.h */
 extern void *valloc (size_t __size) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__alloc_size__ (1)));
@@ -148,7 +139,6 @@ extern int mkstemps (char *__template, int __suffixlen) __attribute__ ((__nonnul
 extern char *mkdtemp (char *__template) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 extern int system (const char *__command);
 extern char *realpath (const char * __name, char * __resolved) __attribute__ ((__nothrow__ , __leaf__));
-enum { __COMPAR_FN_T = 1 };
 typedef int (*__compar_fn_t) (const void *, const void *);
 extern void *bsearch (const void *__key, const void *__base, size_t __nmemb, size_t __size, __compar_fn_t __compar) __attribute__ ((__nonnull__ (1, 2, 5)));
 extern void qsort (void *__base, size_t __nmemb, size_t __size, __compar_fn_t __compar) __attribute__ ((__nonnull__ (1, 4)));

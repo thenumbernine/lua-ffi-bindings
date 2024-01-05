@@ -1,21 +1,19 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN /usr/include/stdio.h */
-enum { _STDIO_H = 1 };
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 ]] require 'ffi.req' 'c.bits.libc-header-start' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h */
 ]] require 'ffi.req' 'c.stdarg' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h */
-enum { _____fpos_t_defined = 1 };
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* +++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
@@ -28,7 +26,6 @@ typedef struct _G_fpos_t {
 } __fpos_t;
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h */
-enum { _____fpos64_t_defined = 1 };
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* +++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
@@ -47,7 +44,6 @@ typedef struct _G_fpos64_t {
 ]] require 'ffi.req' 'c.bits.types.FILE' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/FILE.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h */
-enum { __struct_FILE_defined = 1 };
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* +++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
@@ -87,29 +83,37 @@ struct _IO_FILE {
 	int _mode;
 	char _unused2[15 * sizeof (int) - 4 * sizeof (void *) - sizeof (size_t)];
 };
-enum { _IO_EOF_SEEN = 16 };
-enum { _IO_ERR_SEEN = 32 };
-enum { _IO_USER_LOCK = 32768 };
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h */
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h */
+/* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
+]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
+/* +++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
+typedef __ssize_t cookie_read_function_t (void *__cookie, char *__buf, size_t __nbytes);
+typedef __ssize_t cookie_write_function_t (void *__cookie, const char *__buf, size_t __nbytes);
+typedef int cookie_seek_function_t (void *__cookie, __off64_t *__pos, int __w);
+typedef int cookie_close_function_t (void *__cookie);
+typedef struct _IO_cookie_io_functions_t {
+	cookie_read_function_t *read;
+	cookie_write_function_t *write;
+	cookie_seek_function_t *seek;
+	cookie_close_function_t *close;
+} cookie_io_functions_t;
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h */
 ]] require 'ffi.req' 'c.va_list' ffi.cdef[[
 ]] require 'ffi.req' 'c.bits.types.off_t' ffi.cdef[[
 ]] require 'ffi.req' 'c.bits.types.ssize_t' ffi.cdef[[
 typedef __fpos_t fpos_t;
-enum { _IOFBF = 0 };
-enum { _IOLBF = 1 };
-enum { _IONBF = 2 };
 enum { BUFSIZ = 8192 };
 enum { EOF = -1 };
 ]] require 'ffi.req' 'c.bits.types.SEEK' ffi.cdef[[
 /* # define P_tmpdir	"/tmp" ### string, not number "\"/tmp\"" */
-/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/stdio_lim.h */
-enum { _BITS_STDIO_LIM_H = 1 };
 enum { L_tmpnam = 20 };
 enum { TMP_MAX = 238328 };
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/stdio_lim.h */
 enum { FILENAME_MAX = 4096 };
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h */
 enum { L_ctermid = 9 };
 enum { FOPEN_MAX = 16 };
-/* ++ END   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h */
 extern FILE *stdin;
 extern FILE *stdout;
 extern FILE *stderr;
@@ -119,8 +123,7 @@ extern FILE *stderr;
 extern int remove (const char *__filename) __attribute__ ((__nothrow__ , __leaf__));
 extern int rename (const char *__old, const char *__new) __attribute__ ((__nothrow__ , __leaf__));
 extern int renameat (int __oldfd, const char *__old, int __newfd, const char *__new) __attribute__ ((__nothrow__ , __leaf__));
-extern int fclose (FILE *__stream);
-/* #define __attr_dealloc_fclose __attr_dealloc (fclose, 1) ### string, not number "__attr_dealloc (fclose, 1)" */
+extern int fclose (FILE *__stream) __attribute__ ((__nonnull__ (1)));
 extern FILE *tmpfile (void) __attribute__ ((__malloc__)) __attribute__ ((__malloc__ (fclose, 1)));
 extern char *tmpnam (char[20]) __attribute__ ((__nothrow__ , __leaf__));
 extern char *tmpnam_r (char __s[20]) __attribute__ ((__nothrow__ , __leaf__));
@@ -128,8 +131,9 @@ extern char *tempnam (const char *__dir, const char *__pfx) __attribute__ ((__no
 extern int fflush (FILE *__stream);
 extern int fflush_unlocked (FILE *__stream);
 extern FILE *fopen (const char * __filename, const char * __modes) __attribute__ ((__malloc__)) __attribute__ ((__malloc__ (fclose, 1)));
-extern FILE *freopen (const char * __filename, const char * __modes, FILE * __stream);
+extern FILE *freopen (const char * __filename, const char * __modes, FILE * __stream) __attribute__ ((__nonnull__ (3)));
 extern FILE *fdopen (int __fd, const char *__modes) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__malloc__ (fclose, 1)));
+extern FILE *fopencookie (void * __magic_cookie, const char * __modes, cookie_io_functions_t __io_funcs) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__malloc__ (fclose, 1)));
 extern FILE *fmemopen (void *__s, size_t __len, const char *__modes) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__malloc__ (fclose, 1)));
 extern FILE *open_memstream (char **__bufloc, size_t *__sizeloc) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__malloc__ (fclose, 1)));
 extern void setbuf (FILE * __stream, char * __buf) __attribute__ ((__nothrow__ , __leaf__));
@@ -144,6 +148,9 @@ extern int vprintf (const char * __format, __gnuc_va_list __arg);
 extern int vsprintf (char * __s, const char * __format, __gnuc_va_list __arg) __attribute__ ((__nothrow__));
 extern int snprintf (char * __s, size_t __maxlen, const char * __format, ...) __attribute__ ((__nothrow__)) __attribute__ ((__format__ (__printf__, 3, 4)));
 extern int vsnprintf (char * __s, size_t __maxlen, const char * __format, __gnuc_va_list __arg) __attribute__ ((__nothrow__)) __attribute__ ((__format__ (__printf__, 3, 0)));
+extern int vasprintf (char ** __ptr, const char * __f, __gnuc_va_list __arg) __attribute__ ((__nothrow__)) __attribute__ ((__format__ (__printf__, 2, 0)));
+extern int __asprintf (char ** __ptr, const char * __fmt, ...) __attribute__ ((__nothrow__)) __attribute__ ((__format__ (__printf__, 2, 3)));
+extern int asprintf (char ** __ptr, const char * __fmt, ...) __attribute__ ((__nothrow__)) __attribute__ ((__format__ (__printf__, 2, 3)));
 extern int vdprintf (int __fd, const char * __fmt, __gnuc_va_list __arg) __attribute__ ((__format__ (__printf__, 2, 0)));
 extern int dprintf (int __fd, const char * __fmt, ...) __attribute__ ((__format__ (__printf__, 2, 3)));
 extern int fscanf (FILE * __stream, const char * __format, ...);
@@ -223,7 +230,7 @@ extern int ferror (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
 extern void clearerr_unlocked (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
 extern int feof_unlocked (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
 extern int ferror_unlocked (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
-extern void perror (const char *__s);
+extern void perror (const char *__s) __attribute__ ((__cold__));
 extern int fileno (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
 extern int fileno_unlocked (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
 extern int pclose (FILE *__stream);

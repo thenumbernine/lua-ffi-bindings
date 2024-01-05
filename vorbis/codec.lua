@@ -1,7 +1,6 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN /usr/include/vorbis/codec.h */
-enum { _vorbis_codec_h_ = 1 };
 /* ++ BEGIN /usr/include/ogg/ogg.h */
 ]] require 'ffi.req' 'ogg' ffi.cdef[[
 /* ++ END   /usr/include/ogg/ogg.h */
