@@ -20,7 +20,11 @@ return function(req)
 		ffi.arch..'.'..req,
 		req,
 	} do
-		local found, result = pcall(require, 'ffi.'..search)
+		local found, result = xpcall(function()
+			return require('ffi.'..search)
+		end, function(err)
+			return err..'\n'..debug.traceback()
+		end)
 		if found then return result end
 		table.insert(errs, result)
 	end
