@@ -210,11 +210,17 @@ function vector:erase(first, last)
 	assert(first >= self.v and first <= iend)
 	assert(last >= self.v and last <= iend)
 	local change = last - first
+	-- [[
 	while last < iend do
 		first[0] = last[0]
 		first = first + 1
 		last = last + 1
 	end
+	--]]
+	--[[
+	local count = iend - last
+	ffi.copy(first, last, ffi.sizeof(T) * count)
+	--]]
 	self.size = self.size - change
 end
 
