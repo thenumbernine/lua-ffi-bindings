@@ -236,6 +236,10 @@ function vector:__len()
 	return self.size
 end
 
+function vector:empty()
+	return self.size == 0
+end
+
 function vector:__tostring()
 	local s = '['
 	local sep = ''
