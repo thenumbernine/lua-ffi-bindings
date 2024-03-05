@@ -1,4 +1,4 @@
---[[ 
+--[[
 std::vector class, written in LuaJIT, but written to be memory-compatible with c++ (at least gcc with glibc < 4.8 so far)
 TODO maybe move that to its own repo, like std-ffi.vector ?
 --]]
@@ -212,14 +212,14 @@ end
 local function makeStdVector(T, name)
 	-- TODO std_vector_*
 	name = name or 'vector_'..T:gsub('%*', '_ptr'):gsub('%s+', '')
-	
+
 	-- check types so I don't declare one twice (and error luajit)
 	-- fun fact, if the type hasn't yet been defined, ffi will error instead of fail quietly (and quickly)
 	local ctype = require 'ext.op'.land(pcall(ffi.typeof, name))
 	if ctype then return ctype end
 
 	local Tptr = T..' *'
-	
+
 	-- stl vector in my gcc / linux is 24 bytes
 	-- template type of our vector ... 8 bytes mind you
 	struct{
@@ -241,8 +241,8 @@ local function makeStdVector(T, name)
 
 			mt.T = T
 			mt.Tptr = Tptr
-		
-			-- __index for numbers to lookup in .v[] 
+
+			-- __index for numbers to lookup in .v[]
 			function mt:__index(k)
 				-- NOTICE
 				-- getmetatable(any cdata) returns the string "ffi"
@@ -269,7 +269,7 @@ local function makeStdVector(T, name)
 				end
 				return self.v[k]
 			end
-			
+
 			function mt:__newindex(k, v)
 				-- see if we are writing a field
 				if type(k) ~= 'number' then
@@ -307,6 +307,16 @@ local function makeStdVector(T, name)
 		o.finish = nil
 		o.endOfStorage = nil
 		o:reserve(32)
+		if arg ~= nil then
+			if type(arg) == 'number' then
+				o:resize(arg)
+			elseif type(arg) == 'table' then
+				o:resize(#arg)
+				for i,v in ipairs(arg) do
+					o.v[i-1] = v
+				end
+			end
+		end
 		return o
 	end
 end
@@ -314,7 +324,7 @@ end
 return setmetatable({}, {
 	__index = {
 		makeStdVector = makeStdVector,
-		
+
 		-- allow outside access to vectorbase
 		-- so anyone wanting to tweak the inherited class before creating a vector can do so
 		vectorbase = vectorbase,
