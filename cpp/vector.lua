@@ -62,6 +62,7 @@ function vectorbase:reserve(newcap)
 	local oldcap = self:capacity()
 	if newcap <= oldcap then return end
 	-- so self:capacity() < newcap
+	-- TODO realloc?
 	local newv = ffi.C.malloc(ffi.sizeof(self.T) * newcap)
 	local size = self:size()
 	assert(size <= oldcap)
@@ -310,4 +311,15 @@ local function makeStdVector(T, name)
 	end
 end
 
-return makeStdVector
+return setmetatable({}, {
+	__index = {
+		makeStdVector = makeStdVector,
+		
+		-- allow outside access to vectorbase
+		-- so anyone wanting to tweak the inherited class before creating a vector can do so
+		vectorbase = vectorbase,
+	},
+	__call = function(t, ...)
+		return makeStdVector(...)
+	end,
+})
