@@ -22,6 +22,10 @@ All $names will be resolved as environment variables.
 --]]
 local ffi = require 'ffi'
 return setmetatable({
+	cimgui_sdl = {
+		-- why doesn't this automatically search here?
+		Linux = '/usr/local/lib/libcimgui_sdl.so',
+	},
 	GL = {
 		Windows = 'OpenGL32',
 	},

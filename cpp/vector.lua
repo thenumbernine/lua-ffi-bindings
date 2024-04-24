@@ -26,6 +26,16 @@ end
 vectorbase.__len = vectorbase.size
 
 function vectorbase:capacity()
+--DEBUG: print'vectorbase.capacity()'
+--DEBUG: print('ffi.typeof(self) = ', ffi.typeof(self))
+--DEBUG: print('(void*)self = ', tostring(ffi.cast('void*', self)))
+-- TODO how come printing pointers is crashing?
+--DEBUG: -- print('self.start', tostring(self.start))
+--DEBUG: -- print('self.start', ''..self.start)
+--DEBUG: print('self.start', tostring(ffi.cast('void*', self.start)))
+--DEBUG: print('self.endOfStorage', tostring(ffi.cast('void*', self.endOfStorage)))
+--DEBUG: -- print('self.endOfStorage', tostring(self.endOfStorage))
+--DEBUG: print('returning', tostring(self.endOfStorage - self.start))
 	return self.endOfStorage - self.start
 end
 
@@ -59,11 +69,19 @@ function vectorbase:__ipairs()
 end
 
 function vectorbase:reserve(newcap)
+--DEBUG: print('vectorbase.reserve', newcap)
 	local oldcap = self:capacity()
-	if newcap <= oldcap then return end
+--DEBUG: print('oldcap', oldcap)
+	if newcap <= oldcap then
+--DEBUG: print('newcap <= oldcap, returning')
+		return
+	end
 	-- so self:capacity() < newcap
 	-- TODO realloc?
-	local newv = ffi.C.malloc(ffi.sizeof(self.T) * newcap)
+	local bytes = ffi.sizeof(self.T) * newcap
+--DEBUG: print('allocating '..tostring(bytes)..' bytes')
+	local newv = ffi.C.malloc(bytes)
+	if newv == nil then error("malloc failed to allocate "..bytes) end
 	local size = self:size()
 	assert(size <= oldcap)
 	ffi.copy(newv, self.v, ffi.sizeof(self.T) * size)
@@ -75,14 +93,15 @@ end
 
 function vectorbase:resize(newsize)
 	-- TODO increase by %age?  like 20% or so? with a min threshold of 32 / increments of 32?
-	self:reserve(
-		bit.lshift(
-			bit.rshift(ffi.cast('size_t', newsize), 5) + 1,
-			5
-		)
-	)
+	local newcap = bit.lshift(bit.rshift(ffi.cast('size_t', newsize), 5) + 1, 5)
+--DEBUG: print('vectorbase.resize', newsize)
+--DEBUG: print('newcap', newcap)
+--DEBUG: assert(newcap >= self:capacity())
+	self:reserve(newcap)
+--DEBUG: assert(self:capacity() == newcap)
 	-- TODO ffi.fill with zero here?
 	self.finish = self.v + newsize
+--DEBUG: assert(self:size() >= newsize)
 end
 
 function vectorbase:clear()
@@ -91,6 +110,7 @@ end
 
 function vectorbase:push_back(obj)
 	self:resize(self:size() + 1)
+--DEBUG: assert(self:size() > 0)
 	self.finish[-1] = obj
 end
 
