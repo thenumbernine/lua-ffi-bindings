@@ -1,6 +1,7 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-enum { __khrplatform_h_ = 1 };
+/* + BEGIN C:/Users/Chris/include/KHR/khrplatform.h */
+/* #   define KHRONOS_APICALL __declspec(dllimport) ### string, not number "__declspec(dllimport)" */
 enum { KHRONOS_APIENTRY = 0 };
 enum { KHRONOS_APIATTRIBUTES = 1 };
 typedef __int32 khronos_int32_t;
@@ -22,4 +23,5 @@ typedef khronos_uint64_t khronos_utime_nanoseconds_t;
 typedef khronos_int64_t khronos_stime_nanoseconds_t;
 enum { KHRONOS_MAX_ENUM = 2147483647 };
 typedef enum { KHRONOS_FALSE = 0, KHRONOS_TRUE = 1, KHRONOS_BOOLEAN_ENUM_FORCE_SIZE = 0x7FFFFFFF } khronos_boolean_enum_t;
+/* + END   C:/Users/Chris/include/KHR/khrplatform.h */
 ]]
