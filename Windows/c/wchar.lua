@@ -149,8 +149,8 @@ int __cdecl _wsystem( wchar_t const* _Command );
 /* ++ END   C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/ucrt/sys/stat.h */
 /* #pragma warning(push) */
 /* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */
-enum { WCHAR_MIN = 0 };
-enum { WCHAR_MAX = 65535 };
+/* enum { WCHAR_MIN = 0 }; */ /* also in Windows/c/stdint.h */
+/* enum { WCHAR_MAX = 65535 }; */ /* also in Windows/c/stdint.h */
 typedef wchar_t _Wint_t;
 wchar_t* __cdecl _wsetlocale( int _Category, wchar_t const* _Locale );
 _locale_t __cdecl _wcreate_locale( int _Category, wchar_t const* _Locale );
