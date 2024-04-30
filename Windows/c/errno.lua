@@ -1,10 +1,9 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* + BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/errno.h */
-enum { _INC_ERRNO = 1 };
-/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
+/* + BEGIN C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/ucrt/errno.h */
+/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/ucrt/corecrt.h */
 ]] require 'ffi.req' 'c.corecrt' ffi.cdef[[
-/* ++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
+/* ++ END   C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/ucrt/corecrt.h */
 /* #pragma warning(push) */
 /* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */
 int* __cdecl _errno(void);
@@ -12,7 +11,6 @@ int* __cdecl _errno(void);
 errno_t __cdecl _set_errno( int _Value);
 errno_t __cdecl _get_errno( int* _Value);
 unsigned long* __cdecl __doserrno(void);
-/* #define _doserrno (*__doserrno()) ### string, not number "(*__doserrno())" */
 errno_t __cdecl _set_doserrno( unsigned long _Value);
 errno_t __cdecl _get_doserrno( unsigned long * _Value);
 enum { EPERM = 1 };
@@ -50,7 +48,6 @@ enum { ENAMETOOLONG = 38 };
 enum { ENOLCK = 39 };
 enum { ENOSYS = 40 };
 enum { ENOTEMPTY = 41 };
-enum { _SECURECRT_ERRCODE_VALUES_DEFINED = 1 };
 enum { EINVAL = 22 };
 enum { ERANGE = 34 };
 enum { EILSEQ = 42 };
@@ -98,5 +95,5 @@ enum { ETIMEDOUT = 138 };
 enum { ETXTBSY = 139 };
 enum { EWOULDBLOCK = 140 };
 /* #pragma warning(pop)  */
-/* + END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/errno.h */
+/* + END   C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/ucrt/errno.h */
 ]]

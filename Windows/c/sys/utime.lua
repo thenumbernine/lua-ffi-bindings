@@ -1,9 +1,9 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* + BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/sys/utime.h */
-/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
+/* + BEGIN C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/ucrt/sys/utime.h */
+/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/ucrt/corecrt.h */
 ]] require 'ffi.req' 'c.corecrt' ffi.cdef[[
-/* ++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt.h */
+/* ++ END   C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/ucrt/corecrt.h */
 /* #pragma warning(push) */
 /* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */
 struct _utimbuf {
@@ -34,7 +34,7 @@ int __cdecl _futime64( int _FileHandle, struct __utimbuf64* _Time );
 int __cdecl _wutime64( wchar_t const* _FileName, struct __utimbuf64* _Time );
    
 /* #pragma warning(pop)  */
-/* + END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/sys/utime.h */
+/* + END   C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/ucrt/sys/utime.h */
 ]]
 local lib = ffi.C
 return setmetatable(

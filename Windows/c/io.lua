@@ -1,18 +1,15 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* + BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/io.h */
-enum { _INC_IO = 1 };
-/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_io.h */
-/* +++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_share.h */
+/* + BEGIN C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/ucrt/io.h */
+/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/ucrt/corecrt_io.h */
+/* +++ BEGIN C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/ucrt/corecrt_share.h */
 ]] require 'ffi.req' 'c.corecrt_share' ffi.cdef[[
-/* +++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_share.h */
-/* +++ BEGIN C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wio.h */
+/* +++ END   C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/ucrt/corecrt_share.h */
+/* +++ BEGIN C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/ucrt/corecrt_wio.h */
 ]] require 'ffi.req' 'c.corecrt_wio' ffi.cdef[[
-/* +++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_wio.h */
+/* +++ END   C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/ucrt/corecrt_wio.h */
 /* #pragma warning(push) */
 /* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */
-
-
 struct _finddata32_t {
 	unsigned attrib;
 	__time32_t time_create;
@@ -45,16 +42,6 @@ struct __finddata64_t {
 	__int64 size;
 	char name[260];
 };
-enum { _A_NORMAL = 0 };
-enum { _A_RDONLY = 1 };
-enum { _A_HIDDEN = 2 };
-enum { _A_SYSTEM = 4 };
-enum { _A_SUBDIR = 16 };
-enum { _A_ARCH = 32 };
-enum { _findfirst = 0 };
-enum { _findnext = 0 };
-enum { _findfirsti64 = 0 };
-enum { _findnexti64 = 0 };
 int __cdecl _access( char const* _FileName, int _AccessMode );
 errno_t __cdecl _access_s( char const* _FileName, int _AccessMode );
 int __cdecl _chmod( char const* _FileName, int _Mode );
@@ -75,18 +62,6 @@ int __cdecl _isatty( int _FileHandle );
 int __cdecl _locking( int _FileHandle, int _LockMode, long _NumOfBytes );
 long __cdecl _lseek( int _FileHandle, long _Offset, int _Origin );
 errno_t __cdecl _mktemp_s( char* _TemplateName, size_t _Size );
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0 ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0( */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0( ### TO ### errno_t, _mktemp_s, */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0 ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0( errno_t, _mktemp_s, */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0( errno_t, _mktemp_s, ### TO ### _Prepost_z_ char, _TemplateName */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0 ### IN LINE ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0( errno_t, _mktemp_s,  char, _TemplateName */
-/* ### PREPENDING ### __DEFINE_CPP_OVERLOAD_SECURE_FUNC_0_0( errno_t, _mktemp_s,  char, _TemplateName ### TO ### ) */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_0 ### IN LINE ###  __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_0( */
-/* ### PREPENDING ###  __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_0( ### TO ### char *, __RETURN_POLICY_DST, _ACRTIMP, _mktemp, */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_0 ### IN LINE ###  __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_0( char *, __RETURN_POLICY_DST, , _mktemp, */
-/* ### PREPENDING ###  __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_0( char *, __RETURN_POLICY_DST, , _mktemp, ### TO ### _Inout_z_, char, _TemplateName */
-/* ### INCOMPLETE ARG MACRO ### __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_0 ### IN LINE ###  __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_0( char *, __RETURN_POLICY_DST, , _mktemp, , char, _TemplateName */
-/* ### PREPENDING ###  __DEFINE_CPP_OVERLOAD_STANDARD_FUNC_0_0( char *, __RETURN_POLICY_DST, , _mktemp, , char, _TemplateName ### TO ### ) */
 char * __cdecl _mktemp( char * _TemplateName );
 int __cdecl _open_osfhandle( intptr_t _OSFileHandle, int _Flags );
 int __cdecl _pipe( int* _PtHandles, unsigned int _PipeSize, int _TextMode );
@@ -138,8 +113,8 @@ int __cdecl unlink( char const* _FileName );
 int __cdecl write( int _FileHandle, void const* _Buf, unsigned int _MaxCharCount );
 /*         #pragma warning(pop) */
 /* #pragma warning(pop)  */
-/* ++ END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/corecrt_io.h */
-/* + END   C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/io.h */
+/* ++ END   C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/ucrt/corecrt_io.h */
+/* + END   C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/ucrt/io.h */
 ]]
 ffi.cdef[[
 /* #ifdef _USE_32BIT_TIME_T
