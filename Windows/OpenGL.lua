@@ -1,16 +1,11 @@
--- ok what's in ffi/OpenGL.lua is my Ubuntu Linux generation 
--- what's in ffi/Windows/OpenGL.lua is my Windows 10 generation
+local code = ''
 local ffi = require 'ffi'
-local code = [[
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/include/10.0.18362.0/um/GL/gl.h */
-enum { __gl_h_ = 1 };
-enum { __GL_H__ = 1 };
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/include/10.0.18362.0/shared/winapifamily.h */
-enum { _INC_WINAPIFAMILY = 1 };
+code = code .. [[
+/* + BEGIN C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/um/GL/gl.h */
+/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/shared/winapifamily.h */
 /* #pragma warning(push) */
 /* #pragma warning(disable:4001)  */
-/* BEGIN C:/Program Files (x86)/Windows Kits/10/include/10.0.18362.0/shared/winpackagefamily.h */
-enum { _INC_WINPACKAGEFAMILY = 1 };
+/* +++ BEGIN C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/shared/winpackagefamily.h */
 /* #pragma warning(push) */
 /* #pragma warning(disable:4001)  */
 enum { WINAPI_PARTITION_SERVER = 1 };
@@ -38,7 +33,7 @@ enum { WINAPI_PARTITION_PKG_MPSSVC = 1 };
 enum { WINAPI_PARTITION_PKG_APPXDEPLOYMENT = 1 };
 enum { WINAPI_PARTITION_PKG_WER = 1 };
 /* #pragma warning(pop) */
-/* END C:/Program Files (x86)/Windows Kits/10/include/10.0.18362.0/shared/winpackagefamily.h */
+/* +++ END   C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/shared/winpackagefamily.h */
 enum { WINAPI_FAMILY_PC_APP = 2 };
 enum { WINAPI_FAMILY_PHONE_APP = 3 };
 enum { WINAPI_FAMILY_SYSTEM = 4 };
@@ -54,8 +49,9 @@ enum { WINAPI_PARTITION_PHONE_APP = 0 };
 enum { WINAPI_PARTITION_GAMES = 1 };
 enum { WINAPI_PARTITION_SYSTEM = 0 };
 enum { WINAPI_PARTITION_PHONE = 0 };
+enum { APP_DEPRECATED_HRESULT = 0 };
 /* #pragma warning(pop) */
-/* END C:/Program Files (x86)/Windows Kits/10/include/10.0.18362.0/shared/winapifamily.h */
+/* ++ END   C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/shared/winapifamily.h */
 /* #pragma region Desktop Family */
 typedef unsigned int GLenum;
 typedef unsigned char GLboolean;
@@ -1014,36 +1010,14 @@ typedef void ( * PFNGLGETCOLORTABLEEXTPROC) (GLenum target, GLenum format, GLenu
 typedef void ( * PFNGLGETCOLORTABLEPARAMETERIVEXTPROC) (GLenum target, GLenum pname, GLint *params);
 typedef void ( * PFNGLGETCOLORTABLEPARAMETERFVEXTPROC) (GLenum target, GLenum pname, GLfloat *params);
 /* #pragma endregion */
-/* END C:/Program Files (x86)/Windows Kits/10/include/10.0.18362.0/um/GL/gl.h */
-/* BEGIN C:/Users/Chris/include/GL/glext.h */
-enum { __gl_glext_h_ = 1 };
+/* + END   C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/um/GL/gl.h */
+/* + BEGIN C:/Users/Chris/include/GL/glext.h */
 /* #define APIENTRYP APIENTRY * ### string, not number "APIENTRY *" */
 enum { GLAPI = 0 };
 enum { GL_GLEXT_VERSION = 20210107 };
-/* BEGIN C:/Users/Chris/include/KHR/khrplatform.h */
-enum { __khrplatform_h_ = 1 };
-enum { KHRONOS_APIENTRY = 0 };
-enum { KHRONOS_APIATTRIBUTES = 1 };
-typedef __int32 khronos_int32_t;
-typedef unsigned __int32 khronos_uint32_t;
-typedef __int64 khronos_int64_t;
-typedef unsigned __int64 khronos_uint64_t;
-enum { KHRONOS_SUPPORT_INT64 = 1 };
-enum { KHRONOS_SUPPORT_FLOAT = 1 };
-typedef signed char khronos_int8_t;
-typedef unsigned char khronos_uint8_t;
-typedef signed short int khronos_int16_t;
-typedef unsigned short int khronos_uint16_t;
-typedef signed long long int khronos_intptr_t;
-typedef unsigned long long int khronos_uintptr_t;
-typedef signed long long int khronos_ssize_t;
-typedef unsigned long long int khronos_usize_t;
-typedef float khronos_float_t;
-typedef khronos_uint64_t khronos_utime_nanoseconds_t;
-typedef khronos_int64_t khronos_stime_nanoseconds_t;
-enum { KHRONOS_MAX_ENUM = 2147483647 };
-typedef enum { KHRONOS_FALSE = 0, KHRONOS_TRUE = 1, KHRONOS_BOOLEAN_ENUM_FORCE_SIZE = 0x7FFFFFFF } khronos_boolean_enum_t;
-/* END C:/Users/Chris/include/KHR/khrplatform.h */
+/* ++ BEGIN C:/Users/Chris/include/KHR/khrplatform.h */
+]] require 'ffi.req' 'KHR.khrplatform' code = code .. [[
+/* ++ END   C:/Users/Chris/include/KHR/khrplatform.h */
 enum { GL_VERSION_1_2 = 1 };
 enum { GL_UNSIGNED_BYTE_3_3_2 = 32818 };
 enum { GL_UNSIGNED_SHORT_4_4_4_4 = 32819 };
@@ -2295,7 +2269,7 @@ enum { GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES = 35395 };
 enum { GL_UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER = 35396 };
 enum { GL_UNIFORM_BLOCK_REFERENCED_BY_GEOMETRY_SHADER = 35397 };
 enum { GL_UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER = 35398 };
-/* #define GL_INVALID_INDEX                  0xFFFFFFFFu ### string, not number "0xFFFFFFFFu" */
+enum { GL_INVALID_INDEX = 0xFFFFFFFFu };
 typedef void ( * PFNGLDRAWARRAYSINSTANCEDPROC) (GLenum mode, GLint first, GLsizei count, GLsizei instancecount);
 typedef void ( * PFNGLDRAWELEMENTSINSTANCEDPROC) (GLenum mode, GLsizei count, GLenum type, const void *indices, GLsizei instancecount);
 typedef void ( * PFNGLTEXBUFFERPROC) (GLenum target, GLenum internalformat, GLuint buffer);
@@ -11349,10 +11323,10 @@ enum { GL_WIN_phong_shading = 1 };
 /* redefining matching value: #define GL_PHONG_HINT_WIN                 0x80EB */
 enum { GL_WIN_specular_fog = 1 };
 /* redefining matching value: #define GL_FOG_SPECULAR_TEXTURE_WIN       0x80EC */
-/* END C:/Users/Chris/include/GL/glext.h */
+/* + END   C:/Users/Chris/include/GL/glext.h */
 ]]
 ffi.cdef(code)
 local gl = require 'ffi.load' 'GL'
 return setmetatable({
-	code = code,
+	code = code,	-- Windows GLApp needs to be able to read the ffi.cdef string for parsing out wglGetProcAddress's
 }, {__index=gl})
