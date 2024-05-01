@@ -21,24 +21,6 @@ enum { PNG_LIBPNG_BUILD_SPECIAL = 32 };
 enum { PNG_LIBPNG_BUILD_BASE_TYPE = 4 };
 enum { PNG_LIBPNG_VER = 10637 };
 /* ++ BEGIN C:/Users/Chris/include/pnglibconf.h */
-enum { PNG_INFLATE_BUF_SIZE = 1024 };
-enum { PNG_MAX_GAMMA_8 = 11 };
-enum { PNG_QUANTIZE_BLUE_BITS = 5 };
-enum { PNG_QUANTIZE_GREEN_BITS = 5 };
-enum { PNG_QUANTIZE_RED_BITS = 5 };
-enum { PNG_TEXT_Z_DEFAULT_COMPRESSION = -1 };
-enum { PNG_TEXT_Z_DEFAULT_STRATEGY = 0 };
-enum { PNG_USER_CHUNK_CACHE_MAX = 1000 };
-enum { PNG_USER_CHUNK_MALLOC_MAX = 8000000 };
-enum { PNG_USER_HEIGHT_MAX = 1000000 };
-enum { PNG_USER_WIDTH_MAX = 1000000 };
-enum { PNG_ZBUF_SIZE = 8192 };
-enum { PNG_ZLIB_VERNUM = 4784 };
-enum { PNG_Z_DEFAULT_COMPRESSION = -1 };
-enum { PNG_Z_DEFAULT_NOFILTER_STRATEGY = 0 };
-enum { PNG_Z_DEFAULT_STRATEGY = 1 };
-enum { PNG_sCAL_PRECISION = 5 };
-enum { PNG_sRGB_PROFILE_CHECKS = 2 };
 /* ++ END   C:/Users/Chris/include/pnglibconf.h */
 /* ++ BEGIN C:/Users/Chris/include/pngconf.h */
 enum { PNGCONF_H = 1 };
@@ -703,4 +685,4 @@ enum { PNG_OPTION_ON = 3 };
 extern int (__cdecl png_set_option) (png_structrp png_ptr, int option, int onoff);
 /* + END   C:/Users/Chris/include/png.h */
 ]]
-return require 'ffi.load' 'png'
+return require 'ffi.load' 'libpng16'

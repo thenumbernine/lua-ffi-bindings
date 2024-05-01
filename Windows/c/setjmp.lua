@@ -34,9 +34,14 @@ typedef struct _JUMP_BUFFER {
 	SETJMP_FLOAT128 Xmm15;
 } _JUMP_BUFFER;
 typedef _JBTYPE jmp_buf[16];
-enum { setjmp = 0 };
 int __cdecl _setjmp( jmp_buf _Buf );
 void __cdecl longjmp( jmp_buf _Buf, int _Value );
 /* #pragma warning(pop)  */
 /* + END   C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.39.33519/include/setjmp.h */
 ]]
+local lib = ffi.C
+return setmetatable({
+	-- setjmp = lib._setjmp,
+}, {
+	__index = lib
+})
