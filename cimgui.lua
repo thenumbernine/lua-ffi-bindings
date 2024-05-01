@@ -3491,8 +3491,8 @@ _Bool ImGui_ImplSDL2_InitForOther(SDL_Window* window);
 void ImGui_ImplSDL2_Shutdown();
 void ImGui_ImplSDL2_NewFrame();
 _Bool ImGui_ImplSDL2_ProcessEvent(const SDL_Event* event);
-enum ImGui_ImplSDL2_GamepadMode { ImGui_ImplSDL2_GamepadMode_AutoFirst, ImGui_ImplSDL2_GamepadMode_AutoAll, ImGui_ImplSDL2_GamepadMode_Manual };
-void ImGui_ImplSDL2_SetGamepadMode(ImGui_ImplSDL2_GamepadMode mode, struct _SDL_GameController** manual_gamepads_array = ((void *)0), int manual_gamepads_count = -1);
+typedef enum ImGui_ImplSDL2_GamepadMode { ImGui_ImplSDL2_GamepadMode_AutoFirst, ImGui_ImplSDL2_GamepadMode_AutoAll, ImGui_ImplSDL2_GamepadMode_Manual } ImGui_ImplSDL2_GamepadMode;
+void ImGui_ImplSDL2_SetGamepadMode(ImGui_ImplSDL2_GamepadMode mode, struct _SDL_GameController** manual_gamepads_array, int manual_gamepads_count);
 /* + END   /usr/local/include/imgui-1.90.5dock/imgui_impl_sdl2.h */
 /* + BEGIN /usr/local/include/imgui-1.90.5dock/imgui_impl_opengl3.h */
 _Bool ImGui_ImplOpenGL3_Init(const char* glsl_version);
