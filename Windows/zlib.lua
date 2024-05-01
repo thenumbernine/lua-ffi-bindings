@@ -17,7 +17,6 @@ enum { MAX_WBITS = 15 };
 enum { ZEXTERN = 0 };
 enum { ZEXPORT = 1 };
 enum { ZEXPORTVA = 1 };
-enum { = 1 };
 typedef unsigned char Byte;
 typedef unsigned int uInt;
 typedef unsigned long uLong;

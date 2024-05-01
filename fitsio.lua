@@ -2,11 +2,10 @@ local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN /usr/include/fitsio.h */
 /* #define CFITSIO_VERSION 4.2.0 ### string, not number "4.2.0" */
-enum { CFITSIO_MICRO = 0 };
-enum { CFITSIO_MINOR = 2 };
 enum { CFITSIO_MAJOR = 4 };
+enum { CFITSIO_MINOR = 2 };
+enum { CFITSIO_MICRO = 0 };
 enum { CFITSIO_SONAME = 10 };
-enum { CFITS_API = 1 };
 /* ++ BEGIN /usr/include/stdio.h */
 ]] require 'ffi.req' 'c.stdio' ffi.cdef[[
 /* ++ END   /usr/include/stdio.h */
@@ -19,15 +18,11 @@ enum { CFITS_API = 1 };
 /* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h */
 ]] require 'ffi.req' 'c.limits' ffi.cdef[[
 /* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h */
-enum { USE_LL_SUFFIX = 1 };
 typedef long long LONGLONG;
 typedef unsigned long long ULONGLONG;
-enum { LONGLONG_TYPE = 1 };
 /* #define LONGLONG_MAX LLONG_MAX ### string, not number "9.2233720368548e+18" */
 /* #define LONGLONG_MIN LLONG_MIN ### string, not number "-9.2233720368548e+18" */
 /* ++ BEGIN /usr/include/longnam.h */
-enum { fits_parse_output_url = 0 };
-enum { fits_compress_img = 0 };
 /* ++ END   /usr/include/longnam.h */
 enum { NIOBUF = 40 };
 enum { IOBUFLEN = 2880 };

@@ -2,56 +2,6 @@ local code = ''
 local ffi = require 'ffi'
 code = code .. [[
 /* + BEGIN C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/um/GL/gl.h */
-/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/shared/winapifamily.h */
-/* #pragma warning(push) */
-/* #pragma warning(disable:4001)  */
-/* +++ BEGIN C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/shared/winpackagefamily.h */
-/* #pragma warning(push) */
-/* #pragma warning(disable:4001)  */
-enum { WINAPI_PARTITION_SERVER = 1 };
-enum { WINAPI_PARTITION_PKG_WINTRUST = 1 };
-enum { WINAPI_PARTITION_PKG_WEBSERVICES = 1 };
-enum { WINAPI_PARTITION_PKG_EVENTLOGSERVICE = 1 };
-enum { WINAPI_PARTITION_PKG_VHD = 1 };
-enum { WINAPI_PARTITION_PKG_PERFCOUNTER = 1 };
-enum { WINAPI_PARTITION_PKG_SECURESTARTUP = 1 };
-enum { WINAPI_PARTITION_PKG_REMOTEFS = 1 };
-enum { WINAPI_PARTITION_PKG_BOOTABLESKU = 1 };
-enum { WINAPI_PARTITION_PKG_CMDTOOLS = 1 };
-enum { WINAPI_PARTITION_PKG_DISM = 1 };
-enum { WINAPI_PARTITION_PKG_CORESETUP = 1 };
-enum { WINAPI_PARTITION_PKG_APPRUNTIME = 1 };
-enum { WINAPI_PARTITION_PKG_ESENT = 1 };
-enum { WINAPI_PARTITION_PKG_WINMGMT = 1 };
-enum { WINAPI_PARTITION_PKG_WNV = 1 };
-enum { WINAPI_PARTITION_PKG_CLUSTER = 1 };
-enum { WINAPI_PARTITION_PKG_VSS = 1 };
-enum { WINAPI_PARTITION_PKG_TRAFFIC = 1 };
-enum { WINAPI_PARTITION_PKG_ISCSI = 1 };
-enum { WINAPI_PARTITION_PKG_STORAGE = 1 };
-enum { WINAPI_PARTITION_PKG_MPSSVC = 1 };
-enum { WINAPI_PARTITION_PKG_APPXDEPLOYMENT = 1 };
-enum { WINAPI_PARTITION_PKG_WER = 1 };
-/* #pragma warning(pop) */
-/* +++ END   C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/shared/winpackagefamily.h */
-enum { WINAPI_FAMILY_PC_APP = 2 };
-enum { WINAPI_FAMILY_PHONE_APP = 3 };
-enum { WINAPI_FAMILY_SYSTEM = 4 };
-enum { WINAPI_FAMILY_SERVER = 5 };
-enum { WINAPI_FAMILY_GAMES = 6 };
-enum { WINAPI_FAMILY_DESKTOP_APP = 100 };
-enum { WINAPI_FAMILY_APP = 2 };
-enum { WINAPI_FAMILY = 100 };
-enum { WINAPI_PARTITION_DESKTOP = 1 };
-enum { WINAPI_PARTITION_APP = 1 };
-enum { WINAPI_PARTITION_PC_APP = 1 };
-enum { WINAPI_PARTITION_PHONE_APP = 0 };
-enum { WINAPI_PARTITION_GAMES = 1 };
-enum { WINAPI_PARTITION_SYSTEM = 0 };
-enum { WINAPI_PARTITION_PHONE = 0 };
-enum { APP_DEPRECATED_HRESULT = 0 };
-/* #pragma warning(pop) */
-/* ++ END   C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/shared/winapifamily.h */
 /* #pragma region Desktop Family */
 typedef unsigned int GLenum;
 typedef unsigned char GLboolean;
