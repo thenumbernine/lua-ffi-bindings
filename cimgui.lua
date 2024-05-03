@@ -3425,6 +3425,9 @@ extern __attribute__((__visibility__("default"))) void igShadeVertsTransformPos(
 extern __attribute__((__visibility__("default"))) void igGcCompactTransientMiscBuffers(void);
 extern __attribute__((__visibility__("default"))) void igGcCompactTransientWindowBuffers(ImGuiWindow* window);
 extern __attribute__((__visibility__("default"))) void igGcAwakeTransientWindowBuffers(ImGuiWindow* window);
+]]
+-- I'm disabling these because luajit is getting too many symbols ...
+--[[ ffi.cdef[[
 extern __attribute__((__visibility__("default"))) void igDebugLog(const char* fmt,...);
 extern __attribute__((__visibility__("default"))) void igDebugLogV(const char* fmt,va_list args);
 extern __attribute__((__visibility__("default"))) void igDebugAllocHook(ImGuiDebugAllocInfo* info,int frame_count,void* ptr,size_t size);
@@ -3440,7 +3443,6 @@ extern __attribute__((__visibility__("default"))) void igDebugLocateItemResolveW
 extern __attribute__((__visibility__("default"))) void igDebugBreakClearData(void);
 extern __attribute__((__visibility__("default"))) _Bool igDebugBreakButton(const char* label,const char* description_of_location);
 extern __attribute__((__visibility__("default"))) void igDebugBreakButtonTooltip(_Bool keyboard_only,const char* description_of_location);
-extern __attribute__((__visibility__("default"))) void igShowFontAtlas(ImFontAtlas* atlas);
 extern __attribute__((__visibility__("default"))) void igDebugHookIdInfo(ImGuiID id,ImGuiDataType data_type,const void* data_id,const void* data_id_end);
 extern __attribute__((__visibility__("default"))) void igDebugNodeColumns(ImGuiOldColumns* columns);
 extern __attribute__((__visibility__("default"))) void igDebugNodeDockNode(ImGuiDockNode* node,const char* label);
@@ -3461,7 +3463,10 @@ extern __attribute__((__visibility__("default"))) void igDebugNodeWindowsListByB
 extern __attribute__((__visibility__("default"))) void igDebugNodeViewport(ImGuiViewportP* viewport);
 extern __attribute__((__visibility__("default"))) void igDebugRenderKeyboardPreview(ImDrawList* draw_list);
 extern __attribute__((__visibility__("default"))) void igDebugRenderViewportThumbnail(ImDrawList* draw_list,ImGuiViewportP* viewport,const ImRect bb);
+]]
+ffi.cdef[[
 extern __attribute__((__visibility__("default"))) const ImFontBuilderIO* igImFontAtlasGetBuilderForStbTruetype(void);
+extern __attribute__((__visibility__("default"))) void igShowFontAtlas(ImFontAtlas* atlas);
 extern __attribute__((__visibility__("default"))) void igImFontAtlasUpdateConfigDataPointers(ImFontAtlas* atlas);
 extern __attribute__((__visibility__("default"))) void igImFontAtlasBuildInit(ImFontAtlas* atlas);
 extern __attribute__((__visibility__("default"))) void igImFontAtlasBuildSetupFont(ImFontAtlas* atlas,ImFont* font,ImFontConfig* font_config,float ascent,float descent);
