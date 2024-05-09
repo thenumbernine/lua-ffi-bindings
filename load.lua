@@ -45,6 +45,9 @@ return setmetatable({
 	openal = {
 		Windows = 'OpenAL32',
 	},
+	png = {
+		Windows = 'libpng16',
+	},
 }, {
 	__call = function(self, reqname)
 		assert(type(reqname) == 'string', "expected string")
