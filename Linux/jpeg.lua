@@ -80,13 +80,23 @@ typedef enum { JCS_UNKNOWN, JCS_GRAYSCALE, JCS_RGB, JCS_YCbCr, JCS_CMYK, JCS_YCC
 typedef enum { JDCT_ISLOW, JDCT_IFAST, JDCT_FLOAT } J_DCT_METHOD;
 typedef enum { JDITHER_NONE, JDITHER_ORDERED, JDITHER_FS } J_DITHER_MODE;
 struct jpeg_common_struct {
-	struct jpeg_error_mgr *err; struct jpeg_memory_mgr *mem; struct jpeg_progress_mgr *progress; void *client_data; boolean is_decompressor; int global_state;
+	struct jpeg_error_mgr *err;
+	struct jpeg_memory_mgr *mem;
+	struct jpeg_progress_mgr *progress;
+	void *client_data;
+	boolean is_decompressor;
+	int global_state;
 };
 typedef struct jpeg_common_struct *j_common_ptr;
 typedef struct jpeg_compress_struct *j_compress_ptr;
 typedef struct jpeg_decompress_struct *j_decompress_ptr;
 struct jpeg_compress_struct {
-	struct jpeg_error_mgr *err; struct jpeg_memory_mgr *mem; struct jpeg_progress_mgr *progress; void *client_data; boolean is_decompressor; int global_state;
+	struct jpeg_error_mgr *err;
+	struct jpeg_memory_mgr *mem;
+	struct jpeg_progress_mgr *progress;
+	void *client_data;
+	boolean is_decompressor;
+	int global_state;
 	struct jpeg_destination_mgr *dest;
 	JDIMENSION image_width;
 	JDIMENSION image_height;
@@ -155,7 +165,12 @@ struct jpeg_compress_struct {
 	int script_space_size;
 };
 struct jpeg_decompress_struct {
-	struct jpeg_error_mgr *err; struct jpeg_memory_mgr *mem; struct jpeg_progress_mgr *progress; void *client_data; boolean is_decompressor; int global_state;
+	struct jpeg_error_mgr *err;
+	struct jpeg_memory_mgr *mem;
+	struct jpeg_progress_mgr *progress;
+	void *client_data;
+	boolean is_decompressor;
+	int global_state;
 	struct jpeg_source_mgr *src;
 	JDIMENSION image_width;
 	JDIMENSION image_height;
@@ -414,7 +429,7 @@ wrapper = require 'ffi.libwrapper'{
 		jpeg_read_icc_profile = [[boolean jpeg_read_icc_profile(j_decompress_ptr cinfo, JOCTET **icc_data_ptr, unsigned int *icc_data_len);]],
 
 		-- these are #define's in jpeglib.h
-	
+
 		jpeg_create_compress = function()
 			return function(cinfo)
 				return wrapper.jpeg_CreateCompress(cinfo, wrapper.JPEG_LIB_VERSION, ffi.sizeof'struct jpeg_compress_struct')
