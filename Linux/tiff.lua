@@ -1,54 +1,31 @@
 local ffi = require 'ffi'
-ffi.cdef[[
-/* + BEGIN /usr/include/x86_64-linux-gnu/tiffio.h */
-/* ++ BEGIN /usr/include/x86_64-linux-gnu/tiff.h */
-/* +++ BEGIN /usr/include/x86_64-linux-gnu/tiffconf.h */
-/* ++++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
-]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* ++++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
-/* ++++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
-]] require 'ffi.req' 'c.stdint' ffi.cdef[[
-/* ++++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
-/* ++++ BEGIN /usr/include/inttypes.h */
-]] require 'ffi.req' 'c.inttypes' ffi.cdef[[
-/* ++++ END   /usr/include/inttypes.h */
-enum { TIFF_SSIZE_T = 0 };
-enum { HAVE_IEEEFP = 1 };
-enum { HOST_FILLORDER = 0 };
-enum { HOST_BIGENDIAN = 0 };
-enum { CCITT_SUPPORT = 1 };
-enum { JPEG_SUPPORT = 1 };
-enum { JBIG_SUPPORT = 1 };
-enum { LERC_SUPPORT = 1 };
-enum { LOGLUV_SUPPORT = 1 };
-enum { LZW_SUPPORT = 1 };
-enum { NEXT_SUPPORT = 1 };
-enum { OJPEG_SUPPORT = 1 };
-enum { PACKBITS_SUPPORT = 1 };
-enum { PIXARLOG_SUPPORT = 1 };
-enum { THUNDER_SUPPORT = 1 };
-enum { ZIP_SUPPORT = 1 };
-enum { LIBDEFLATE_SUPPORT = 1 };
-enum { STRIPCHOP_DEFAULT = 0 };
-enum { SUBIFD_SUPPORT = 1 };
-enum { DEFAULT_EXTRASAMPLE_AS_ALPHA = 1 };
-enum { CHECK_JPEG_YCBCR_SUBSAMPLING = 1 };
-enum { MDI_SUPPORT = 1 };
-enum { COLORIMETRY_SUPPORT = 1 };
-enum { YCBCR_SUPPORT = 1 };
-enum { CMYK_SUPPORT = 1 };
-enum { ICC_SUPPORT = 1 };
-enum { PHOTOSHOP_SUPPORT = 1 };
-enum { IPTC_SUPPORT = 1 };
-/* +++ END   /usr/include/x86_64-linux-gnu/tiffconf.h */
-enum { TIFF_VERSION_CLASSIC = 42 };
-enum { TIFF_VERSION_BIG = 43 };
-enum { TIFF_BIGENDIAN = 19789 };
-enum { TIFF_LITTLEENDIAN = 18761 };
-enum { MDI_LITTLEENDIAN = 20549 };
-enum { MDI_BIGENDIAN = 17744 };
+
+-- comments
+
+--[[
 /* #define TIFF_GCC_DEPRECATED __attribute__((deprecated)) ### string, not number "__attribute__((deprecated))" */
-enum { TIFF_MSC_DEPRECATED = 1 };
+/* #define TIFFLIB_VERSION_STR "LIBTIFF, Version 4.5.1\nCopyright (c) 1988-1996 Sam Leffler\nCopyright (c) 1991-1996 Silicon Graphics, Inc." ### string, not number "\"LIBTIFF, Version 4.5.1\\nCopyright (c) 1988-1996 Sam Leffler\\nCopyright (c) 1991-1996 Silicon Graphics, Inc.\"" */
+/* #define TIFF_TMSIZE_T_MAX (tmsize_t)(SIZE_MAX >> 1) ### string, not number "(tmsize_t)(SIZE_MAX >> 1)" */
+/* #define D65_X0 (95.0470F) ### string, not number "(95.0470F)" */
+/* #define D65_Y0 (100.0F) ### string, not number "(100.0F)" */
+/* #define D65_Z0 (108.8827F) ### string, not number "(108.8827F)" */
+/* #define D50_X0 (96.4250F) ### string, not number "(96.4250F)" */
+/* #define D50_Y0 (100.0F) ### string, not number "(100.0F)" */
+/* #define D50_Z0 (82.4680F) ### string, not number "(82.4680F)" */
+/* #define U_NEU 0.210526316 ### string, not number "0.210526316" */
+/* #define V_NEU 0.473684211 ### string, not number "0.473684211" */
+/* #define UVSCALE 410. ### string, number, replaceline "410." */
+--]]
+
+-- typedefs
+
+require 'ffi.req' 'c.stddef'
+require 'ffi.req' 'c.stdint'
+require 'ffi.req' 'c.inttypes'
+require 'ffi.req' 'c.stdarg'
+require 'ffi.req' 'c.stdio'
+
+ffi.cdef[[
 typedef int8_t int8 __attribute__((deprecated));
 typedef uint8_t uint8 __attribute__((deprecated));
 typedef int16_t int16 __attribute__((deprecated));
@@ -75,640 +52,8 @@ typedef struct {
 	uint64_t tiff_diroff;
 } TIFFHeaderBig;
 typedef enum { TIFF_NOTYPE = 0, TIFF_BYTE = 1, TIFF_ASCII = 2, TIFF_SHORT = 3, TIFF_LONG = 4, TIFF_RATIONAL = 5, TIFF_SBYTE = 6, TIFF_UNDEFINED = 7, TIFF_SSHORT = 8, TIFF_SLONG = 9, TIFF_SRATIONAL = 10, TIFF_FLOAT = 11, TIFF_DOUBLE = 12, TIFF_IFD = 13, TIFF_LONG8 = 16, TIFF_SLONG8 = 17, TIFF_IFD8 = 18 } TIFFDataType;
-enum { TIFFTAG_SUBFILETYPE = 254 };
-enum { FILETYPE_REDUCEDIMAGE = 1 };
-enum { FILETYPE_PAGE = 2 };
-enum { FILETYPE_MASK = 4 };
-enum { TIFFTAG_OSUBFILETYPE = 255 };
-enum { OFILETYPE_IMAGE = 1 };
-enum { OFILETYPE_REDUCEDIMAGE = 2 };
-enum { OFILETYPE_PAGE = 3 };
-enum { TIFFTAG_IMAGEWIDTH = 256 };
-enum { TIFFTAG_IMAGELENGTH = 257 };
-enum { TIFFTAG_BITSPERSAMPLE = 258 };
-enum { TIFFTAG_COMPRESSION = 259 };
-enum { COMPRESSION_NONE = 1 };
-enum { COMPRESSION_CCITTRLE = 2 };
-enum { COMPRESSION_CCITTFAX3 = 3 };
-enum { COMPRESSION_CCITT_T4 = 3 };
-enum { COMPRESSION_CCITTFAX4 = 4 };
-enum { COMPRESSION_CCITT_T6 = 4 };
-enum { COMPRESSION_LZW = 5 };
-enum { COMPRESSION_OJPEG = 6 };
-enum { COMPRESSION_JPEG = 7 };
-enum { COMPRESSION_T85 = 9 };
-enum { COMPRESSION_T43 = 10 };
-enum { COMPRESSION_NEXT = 32766 };
-enum { COMPRESSION_CCITTRLEW = 32771 };
-enum { COMPRESSION_PACKBITS = 32773 };
-enum { COMPRESSION_THUNDERSCAN = 32809 };
-enum { COMPRESSION_IT8CTPAD = 32895 };
-enum { COMPRESSION_IT8LW = 32896 };
-enum { COMPRESSION_IT8MP = 32897 };
-enum { COMPRESSION_IT8BL = 32898 };
-enum { COMPRESSION_PIXARFILM = 32908 };
-enum { COMPRESSION_PIXARLOG = 32909 };
-enum { COMPRESSION_DEFLATE = 32946 };
-enum { COMPRESSION_ADOBE_DEFLATE = 8 };
-enum { COMPRESSION_DCS = 32947 };
-enum { COMPRESSION_JBIG = 34661 };
-enum { COMPRESSION_SGILOG = 34676 };
-enum { COMPRESSION_SGILOG24 = 34677 };
-enum { COMPRESSION_JP2000 = 34712 };
-enum { COMPRESSION_LERC = 34887 };
-enum { COMPRESSION_LZMA = 34925 };
-enum { COMPRESSION_ZSTD = 50000 };
-enum { COMPRESSION_WEBP = 50001 };
-enum { COMPRESSION_JXL = 50002 };
-enum { TIFFTAG_PHOTOMETRIC = 262 };
-enum { PHOTOMETRIC_MINISWHITE = 0 };
-enum { PHOTOMETRIC_MINISBLACK = 1 };
-enum { PHOTOMETRIC_RGB = 2 };
-enum { PHOTOMETRIC_PALETTE = 3 };
-enum { PHOTOMETRIC_MASK = 4 };
-enum { PHOTOMETRIC_SEPARATED = 5 };
-enum { PHOTOMETRIC_YCBCR = 6 };
-enum { PHOTOMETRIC_CIELAB = 8 };
-enum { PHOTOMETRIC_ICCLAB = 9 };
-enum { PHOTOMETRIC_ITULAB = 10 };
-enum { PHOTOMETRIC_CFA = 32803 };
-enum { PHOTOMETRIC_LOGL = 32844 };
-enum { PHOTOMETRIC_LOGLUV = 32845 };
-enum { TIFFTAG_THRESHHOLDING = 263 };
-enum { THRESHHOLD_BILEVEL = 1 };
-enum { THRESHHOLD_HALFTONE = 2 };
-enum { THRESHHOLD_ERRORDIFFUSE = 3 };
-enum { TIFFTAG_CELLWIDTH = 264 };
-enum { TIFFTAG_CELLLENGTH = 265 };
-enum { TIFFTAG_FILLORDER = 266 };
-enum { FILLORDER_MSB2LSB = 1 };
-enum { FILLORDER_LSB2MSB = 2 };
-enum { TIFFTAG_DOCUMENTNAME = 269 };
-enum { TIFFTAG_IMAGEDESCRIPTION = 270 };
-enum { TIFFTAG_MAKE = 271 };
-enum { TIFFTAG_MODEL = 272 };
-enum { TIFFTAG_STRIPOFFSETS = 273 };
-enum { TIFFTAG_ORIENTATION = 274 };
-enum { ORIENTATION_TOPLEFT = 1 };
-enum { ORIENTATION_TOPRIGHT = 2 };
-enum { ORIENTATION_BOTRIGHT = 3 };
-enum { ORIENTATION_BOTLEFT = 4 };
-enum { ORIENTATION_LEFTTOP = 5 };
-enum { ORIENTATION_RIGHTTOP = 6 };
-enum { ORIENTATION_RIGHTBOT = 7 };
-enum { ORIENTATION_LEFTBOT = 8 };
-enum { TIFFTAG_SAMPLESPERPIXEL = 277 };
-enum { TIFFTAG_ROWSPERSTRIP = 278 };
-enum { TIFFTAG_STRIPBYTECOUNTS = 279 };
-enum { TIFFTAG_MINSAMPLEVALUE = 280 };
-enum { TIFFTAG_MAXSAMPLEVALUE = 281 };
-enum { TIFFTAG_XRESOLUTION = 282 };
-enum { TIFFTAG_YRESOLUTION = 283 };
-enum { TIFFTAG_PLANARCONFIG = 284 };
-enum { PLANARCONFIG_CONTIG = 1 };
-enum { PLANARCONFIG_SEPARATE = 2 };
-enum { TIFFTAG_PAGENAME = 285 };
-enum { TIFFTAG_XPOSITION = 286 };
-enum { TIFFTAG_YPOSITION = 287 };
-enum { TIFFTAG_FREEOFFSETS = 288 };
-enum { TIFFTAG_FREEBYTECOUNTS = 289 };
-enum { TIFFTAG_GRAYRESPONSEUNIT = 290 };
-enum { GRAYRESPONSEUNIT_10S = 1 };
-enum { GRAYRESPONSEUNIT_100S = 2 };
-enum { GRAYRESPONSEUNIT_1000S = 3 };
-enum { GRAYRESPONSEUNIT_10000S = 4 };
-enum { GRAYRESPONSEUNIT_100000S = 5 };
-enum { TIFFTAG_GRAYRESPONSECURVE = 291 };
-enum { TIFFTAG_GROUP3OPTIONS = 292 };
-enum { TIFFTAG_T4OPTIONS = 292 };
-enum { GROUP3OPT_2DENCODING = 1 };
-enum { GROUP3OPT_UNCOMPRESSED = 2 };
-enum { GROUP3OPT_FILLBITS = 4 };
-enum { TIFFTAG_GROUP4OPTIONS = 293 };
-enum { TIFFTAG_T6OPTIONS = 293 };
-enum { GROUP4OPT_UNCOMPRESSED = 2 };
-enum { TIFFTAG_RESOLUTIONUNIT = 296 };
-enum { RESUNIT_NONE = 1 };
-enum { RESUNIT_INCH = 2 };
-enum { RESUNIT_CENTIMETER = 3 };
-enum { TIFFTAG_PAGENUMBER = 297 };
-enum { TIFFTAG_COLORRESPONSEUNIT = 300 };
-enum { COLORRESPONSEUNIT_10S = 1 };
-enum { COLORRESPONSEUNIT_100S = 2 };
-enum { COLORRESPONSEUNIT_1000S = 3 };
-enum { COLORRESPONSEUNIT_10000S = 4 };
-enum { COLORRESPONSEUNIT_100000S = 5 };
-enum { TIFFTAG_TRANSFERFUNCTION = 301 };
-enum { TIFFTAG_SOFTWARE = 305 };
-enum { TIFFTAG_DATETIME = 306 };
-enum { TIFFTAG_ARTIST = 315 };
-enum { TIFFTAG_HOSTCOMPUTER = 316 };
-enum { TIFFTAG_PREDICTOR = 317 };
-enum { PREDICTOR_NONE = 1 };
-enum { PREDICTOR_HORIZONTAL = 2 };
-enum { PREDICTOR_FLOATINGPOINT = 3 };
-enum { TIFFTAG_WHITEPOINT = 318 };
-enum { TIFFTAG_PRIMARYCHROMATICITIES = 319 };
-enum { TIFFTAG_COLORMAP = 320 };
-enum { TIFFTAG_HALFTONEHINTS = 321 };
-enum { TIFFTAG_TILEWIDTH = 322 };
-enum { TIFFTAG_TILELENGTH = 323 };
-enum { TIFFTAG_TILEOFFSETS = 324 };
-enum { TIFFTAG_TILEBYTECOUNTS = 325 };
-enum { TIFFTAG_BADFAXLINES = 326 };
-enum { TIFFTAG_CLEANFAXDATA = 327 };
-enum { CLEANFAXDATA_CLEAN = 0 };
-enum { CLEANFAXDATA_REGENERATED = 1 };
-enum { CLEANFAXDATA_UNCLEAN = 2 };
-enum { TIFFTAG_CONSECUTIVEBADFAXLINES = 328 };
-enum { TIFFTAG_SUBIFD = 330 };
-enum { TIFFTAG_INKSET = 332 };
-enum { INKSET_CMYK = 1 };
-enum { INKSET_MULTIINK = 2 };
-enum { TIFFTAG_INKNAMES = 333 };
-enum { TIFFTAG_NUMBEROFINKS = 334 };
-enum { TIFFTAG_DOTRANGE = 336 };
-enum { TIFFTAG_TARGETPRINTER = 337 };
-enum { TIFFTAG_EXTRASAMPLES = 338 };
-enum { EXTRASAMPLE_UNSPECIFIED = 0 };
-enum { EXTRASAMPLE_ASSOCALPHA = 1 };
-enum { EXTRASAMPLE_UNASSALPHA = 2 };
-enum { TIFFTAG_SAMPLEFORMAT = 339 };
-enum { SAMPLEFORMAT_UINT = 1 };
-enum { SAMPLEFORMAT_INT = 2 };
-enum { SAMPLEFORMAT_IEEEFP = 3 };
-enum { SAMPLEFORMAT_VOID = 4 };
-enum { SAMPLEFORMAT_COMPLEXINT = 5 };
-enum { SAMPLEFORMAT_COMPLEXIEEEFP = 6 };
-enum { TIFFTAG_SMINSAMPLEVALUE = 340 };
-enum { TIFFTAG_SMAXSAMPLEVALUE = 341 };
-enum { TIFFTAG_CLIPPATH = 343 };
-enum { TIFFTAG_XCLIPPATHUNITS = 344 };
-enum { TIFFTAG_YCLIPPATHUNITS = 345 };
-enum { TIFFTAG_INDEXED = 346 };
-enum { TIFFTAG_JPEGTABLES = 347 };
-enum { TIFFTAG_OPIPROXY = 351 };
-enum { TIFFTAG_GLOBALPARAMETERSIFD = 400 };
-enum { TIFFTAG_PROFILETYPE = 401 };
-enum { PROFILETYPE_UNSPECIFIED = 0 };
-enum { PROFILETYPE_G3_FAX = 1 };
-enum { TIFFTAG_FAXPROFILE = 402 };
-enum { FAXPROFILE_S = 1 };
-enum { FAXPROFILE_F = 2 };
-enum { FAXPROFILE_J = 3 };
-enum { FAXPROFILE_C = 4 };
-enum { FAXPROFILE_L = 5 };
-enum { FAXPROFILE_M = 6 };
-enum { TIFFTAG_CODINGMETHODS = 403 };
-enum { CODINGMETHODS_T4_1D = 2 };
-enum { CODINGMETHODS_T4_2D = 4 };
-enum { CODINGMETHODS_T6 = 8 };
-enum { CODINGMETHODS_T85 = 16 };
-enum { CODINGMETHODS_T42 = 32 };
-enum { CODINGMETHODS_T43 = 64 };
-enum { TIFFTAG_VERSIONYEAR = 404 };
-enum { TIFFTAG_MODENUMBER = 405 };
-enum { TIFFTAG_DECODE = 433 };
-enum { TIFFTAG_IMAGEBASECOLOR = 434 };
-enum { TIFFTAG_T82OPTIONS = 435 };
-enum { TIFFTAG_JPEGPROC = 512 };
-enum { JPEGPROC_BASELINE = 1 };
-enum { JPEGPROC_LOSSLESS = 14 };
-enum { TIFFTAG_JPEGIFOFFSET = 513 };
-enum { TIFFTAG_JPEGIFBYTECOUNT = 514 };
-enum { TIFFTAG_JPEGRESTARTINTERVAL = 515 };
-enum { TIFFTAG_JPEGLOSSLESSPREDICTORS = 517 };
-enum { TIFFTAG_JPEGPOINTTRANSFORM = 518 };
-enum { TIFFTAG_JPEGQTABLES = 519 };
-enum { TIFFTAG_JPEGDCTABLES = 520 };
-enum { TIFFTAG_JPEGACTABLES = 521 };
-enum { TIFFTAG_YCBCRCOEFFICIENTS = 529 };
-enum { TIFFTAG_YCBCRSUBSAMPLING = 530 };
-enum { TIFFTAG_YCBCRPOSITIONING = 531 };
-enum { YCBCRPOSITION_CENTERED = 1 };
-enum { YCBCRPOSITION_COSITED = 2 };
-enum { TIFFTAG_REFERENCEBLACKWHITE = 532 };
-enum { TIFFTAG_STRIPROWCOUNTS = 559 };
-enum { TIFFTAG_XMLPACKET = 700 };
-enum { TIFFTAG_OPIIMAGEID = 32781 };
-enum { TIFFTAG_TIFFANNOTATIONDATA = 32932 };
-enum { TIFFTAG_REFPTS = 32953 };
-enum { TIFFTAG_REGIONTACKPOINT = 32954 };
-enum { TIFFTAG_REGIONWARPCORNERS = 32955 };
-enum { TIFFTAG_REGIONAFFINE = 32956 };
-enum { TIFFTAG_MATTEING = 32995 };
-enum { TIFFTAG_DATATYPE = 32996 };
-enum { TIFFTAG_IMAGEDEPTH = 32997 };
-enum { TIFFTAG_TILEDEPTH = 32998 };
-enum { TIFFTAG_PIXAR_IMAGEFULLWIDTH = 33300 };
-enum { TIFFTAG_PIXAR_IMAGEFULLLENGTH = 33301 };
-enum { TIFFTAG_PIXAR_TEXTUREFORMAT = 33302 };
-enum { TIFFTAG_PIXAR_WRAPMODES = 33303 };
-enum { TIFFTAG_PIXAR_FOVCOT = 33304 };
-enum { TIFFTAG_PIXAR_MATRIX_WORLDTOSCREEN = 33305 };
-enum { TIFFTAG_PIXAR_MATRIX_WORLDTOCAMERA = 33306 };
-enum { TIFFTAG_WRITERSERIALNUMBER = 33405 };
-enum { TIFFTAG_CFAREPEATPATTERNDIM = 33421 };
-enum { TIFFTAG_CFAPATTERN = 33422 };
-enum { TIFFTAG_BATTERYLEVEL = 33423 };
-enum { TIFFTAG_COPYRIGHT = 33432 };
-enum { TIFFTAG_MD_FILETAG = 33445 };
-enum { TIFFTAG_MD_SCALEPIXEL = 33446 };
-enum { TIFFTAG_MD_COLORTABLE = 33447 };
-enum { TIFFTAG_MD_LABNAME = 33448 };
-enum { TIFFTAG_MD_SAMPLEINFO = 33449 };
-enum { TIFFTAG_MD_PREPDATE = 33450 };
-enum { TIFFTAG_MD_PREPTIME = 33451 };
-enum { TIFFTAG_MD_FILEUNITS = 33452 };
-enum { TIFFTAG_RICHTIFFIPTC = 33723 };
-enum { TIFFTAG_INGR_PACKET_DATA_TAG = 33918 };
-enum { TIFFTAG_INGR_FLAG_REGISTERS = 33919 };
-enum { TIFFTAG_IRASB_TRANSORMATION_MATRIX = 33920 };
-enum { TIFFTAG_MODELTIEPOINTTAG = 33922 };
-enum { TIFFTAG_IT8SITE = 34016 };
-enum { TIFFTAG_IT8COLORSEQUENCE = 34017 };
-enum { TIFFTAG_IT8HEADER = 34018 };
-enum { TIFFTAG_IT8RASTERPADDING = 34019 };
-enum { TIFFTAG_IT8BITSPERRUNLENGTH = 34020 };
-enum { TIFFTAG_IT8BITSPEREXTENDEDRUNLENGTH = 34021 };
-enum { TIFFTAG_IT8COLORTABLE = 34022 };
-enum { TIFFTAG_IT8IMAGECOLORINDICATOR = 34023 };
-enum { TIFFTAG_IT8BKGCOLORINDICATOR = 34024 };
-enum { TIFFTAG_IT8IMAGECOLORVALUE = 34025 };
-enum { TIFFTAG_IT8BKGCOLORVALUE = 34026 };
-enum { TIFFTAG_IT8PIXELINTENSITYRANGE = 34027 };
-enum { TIFFTAG_IT8TRANSPARENCYINDICATOR = 34028 };
-enum { TIFFTAG_IT8COLORCHARACTERIZATION = 34029 };
-enum { TIFFTAG_IT8HCUSAGE = 34030 };
-enum { TIFFTAG_IT8TRAPINDICATOR = 34031 };
-enum { TIFFTAG_IT8CMYKEQUIVALENT = 34032 };
-enum { TIFFTAG_FRAMECOUNT = 34232 };
-enum { TIFFTAG_MODELTRANSFORMATIONTAG = 34264 };
-enum { TIFFTAG_PHOTOSHOP = 34377 };
-enum { TIFFTAG_EXIFIFD = 34665 };
-enum { TIFFTAG_ICCPROFILE = 34675 };
-enum { TIFFTAG_IMAGELAYER = 34732 };
-enum { TIFFTAG_JBIGOPTIONS = 34750 };
-enum { TIFFTAG_GPSIFD = 34853 };
-enum { TIFFTAG_FAXRECVPARAMS = 34908 };
-enum { TIFFTAG_FAXSUBADDRESS = 34909 };
-enum { TIFFTAG_FAXRECVTIME = 34910 };
-enum { TIFFTAG_FAXDCS = 34911 };
-enum { TIFFTAG_STONITS = 37439 };
-enum { TIFFTAG_FEDEX_EDR = 34929 };
-enum { TIFFTAG_IMAGESOURCEDATA = 37724 };
-enum { TIFFTAG_INTEROPERABILITYIFD = 40965 };
-enum { TIFFTAG_GDAL_METADATA = 42112 };
-enum { TIFFTAG_GDAL_NODATA = 42113 };
-enum { TIFFTAG_OCE_SCANJOB_DESCRIPTION = 50215 };
-enum { TIFFTAG_OCE_APPLICATION_SELECTOR = 50216 };
-enum { TIFFTAG_OCE_IDENTIFICATION_NUMBER = 50217 };
-enum { TIFFTAG_OCE_IMAGELOGIC_CHARACTERISTICS = 50218 };
-enum { TIFFTAG_LERC_PARAMETERS = 50674 };
-enum { TIFFTAG_DNGVERSION = 50706 };
-enum { TIFFTAG_DNGBACKWARDVERSION = 50707 };
-enum { TIFFTAG_UNIQUECAMERAMODEL = 50708 };
-enum { TIFFTAG_LOCALIZEDCAMERAMODEL = 50709 };
-enum { TIFFTAG_CFAPLANECOLOR = 50710 };
-enum { TIFFTAG_CFALAYOUT = 50711 };
-enum { TIFFTAG_LINEARIZATIONTABLE = 50712 };
-enum { TIFFTAG_BLACKLEVELREPEATDIM = 50713 };
-enum { TIFFTAG_BLACKLEVEL = 50714 };
-enum { TIFFTAG_BLACKLEVELDELTAH = 50715 };
-enum { TIFFTAG_BLACKLEVELDELTAV = 50716 };
-enum { TIFFTAG_WHITELEVEL = 50717 };
-enum { TIFFTAG_DEFAULTSCALE = 50718 };
-enum { TIFFTAG_DEFAULTCROPORIGIN = 50719 };
-enum { TIFFTAG_DEFAULTCROPSIZE = 50720 };
-enum { TIFFTAG_COLORMATRIX1 = 50721 };
-enum { TIFFTAG_COLORMATRIX2 = 50722 };
-enum { TIFFTAG_CAMERACALIBRATION1 = 50723 };
-enum { TIFFTAG_CAMERACALIBRATION2 = 50724 };
-enum { TIFFTAG_REDUCTIONMATRIX1 = 50725 };
-enum { TIFFTAG_REDUCTIONMATRIX2 = 50726 };
-enum { TIFFTAG_ANALOGBALANCE = 50727 };
-enum { TIFFTAG_ASSHOTNEUTRAL = 50728 };
-enum { TIFFTAG_ASSHOTWHITEXY = 50729 };
-enum { TIFFTAG_BASELINEEXPOSURE = 50730 };
-enum { TIFFTAG_BASELINENOISE = 50731 };
-enum { TIFFTAG_BASELINESHARPNESS = 50732 };
-enum { TIFFTAG_BAYERGREENSPLIT = 50733 };
-enum { TIFFTAG_LINEARRESPONSELIMIT = 50734 };
-enum { TIFFTAG_CAMERASERIALNUMBER = 50735 };
-enum { TIFFTAG_LENSINFO = 50736 };
-enum { TIFFTAG_CHROMABLURRADIUS = 50737 };
-enum { TIFFTAG_ANTIALIASSTRENGTH = 50738 };
-enum { TIFFTAG_SHADOWSCALE = 50739 };
-enum { TIFFTAG_DNGPRIVATEDATA = 50740 };
-enum { TIFFTAG_MAKERNOTESAFETY = 50741 };
-enum { TIFFTAG_CALIBRATIONILLUMINANT1 = 50778 };
-enum { TIFFTAG_CALIBRATIONILLUMINANT2 = 50779 };
-enum { TIFFTAG_BESTQUALITYSCALE = 50780 };
-enum { TIFFTAG_RAWDATAUNIQUEID = 50781 };
-enum { TIFFTAG_ORIGINALRAWFILENAME = 50827 };
-enum { TIFFTAG_ORIGINALRAWFILEDATA = 50828 };
-enum { TIFFTAG_ACTIVEAREA = 50829 };
-enum { TIFFTAG_MASKEDAREAS = 50830 };
-enum { TIFFTAG_ASSHOTICCPROFILE = 50831 };
-enum { TIFFTAG_ASSHOTPREPROFILEMATRIX = 50832 };
-enum { TIFFTAG_CURRENTICCPROFILE = 50833 };
-enum { TIFFTAG_CURRENTPREPROFILEMATRIX = 50834 };
-enum { TIFFTAG_COLORIMETRICREFERENCE = 50879 };
-enum { TIFFTAG_CAMERACALIBRATIONSIGNATURE = 50931 };
-enum { TIFFTAG_PROFILECALIBRATIONSIGNATURE = 50932 };
-enum { TIFFTAG_ASSHOTPROFILENAME = 50934 };
-enum { TIFFTAG_NOISEREDUCTIONAPPLIED = 50935 };
-enum { TIFFTAG_PROFILENAME = 50936 };
-enum { TIFFTAG_PROFILEHUESATMAPDIMS = 50937 };
-enum { TIFFTAG_PROFILEHUESATMAPDATA1 = 50938 };
-enum { TIFFTAG_PROFILEHUESATMAPDATA2 = 50939 };
-enum { TIFFTAG_PROFILETONECURVE = 50940 };
-enum { TIFFTAG_PROFILEEMBEDPOLICY = 50941 };
-enum { TIFFTAG_PROFILECOPYRIGHT = 50942 };
-enum { TIFFTAG_FORWARDMATRIX1 = 50964 };
-enum { TIFFTAG_FORWARDMATRIX2 = 50965 };
-enum { TIFFTAG_PREVIEWAPPLICATIONNAME = 50966 };
-enum { TIFFTAG_PREVIEWAPPLICATIONVERSION = 50967 };
-enum { TIFFTAG_PREVIEWSETTINGSNAME = 50968 };
-enum { TIFFTAG_PREVIEWSETTINGSDIGEST = 50969 };
-enum { TIFFTAG_PREVIEWCOLORSPACE = 50970 };
-enum { TIFFTAG_PREVIEWDATETIME = 50971 };
-enum { TIFFTAG_RAWIMAGEDIGEST = 50972 };
-enum { TIFFTAG_ORIGINALRAWFILEDIGEST = 50973 };
-enum { TIFFTAG_SUBTILEBLOCKSIZE = 50974 };
-enum { TIFFTAG_ROWINTERLEAVEFACTOR = 50975 };
-enum { TIFFTAG_PROFILELOOKTABLEDIMS = 50981 };
-enum { TIFFTAG_PROFILELOOKTABLEDATA = 50982 };
-enum { TIFFTAG_OPCODELIST1 = 51008 };
-enum { TIFFTAG_OPCODELIST2 = 51009 };
-enum { TIFFTAG_OPCODELIST3 = 51022 };
-enum { TIFFTAG_NOISEPROFILE = 51041 };
-enum { TIFFTAG_DEFAULTUSERCROP = 51125 };
-enum { TIFFTAG_DEFAULTBLACKRENDER = 51110 };
-enum { TIFFTAG_BASELINEEXPOSUREOFFSET = 51109 };
-enum { TIFFTAG_PROFILELOOKTABLEENCODING = 51108 };
-enum { TIFFTAG_PROFILEHUESATMAPENCODING = 51107 };
-enum { TIFFTAG_ORIGINALDEFAULTFINALSIZE = 51089 };
-enum { TIFFTAG_ORIGINALBESTQUALITYFINALSIZE = 51090 };
-enum { TIFFTAG_ORIGINALDEFAULTCROPSIZE = 51091 };
-enum { TIFFTAG_NEWRAWIMAGEDIGEST = 51111 };
-enum { TIFFTAG_RAWTOPREVIEWGAIN = 51112 };
-enum { TIFFTAG_DEPTHFORMAT = 51177 };
-enum { TIFFTAG_DEPTHNEAR = 51178 };
-enum { TIFFTAG_DEPTHFAR = 51179 };
-enum { TIFFTAG_DEPTHUNITS = 51180 };
-enum { TIFFTAG_DEPTHMEASURETYPE = 51181 };
-enum { TIFFTAG_ENHANCEPARAMS = 51182 };
-enum { TIFFTAG_PROFILEGAINTABLEMAP = 52525 };
-enum { TIFFTAG_SEMANTICNAME = 52526 };
-enum { TIFFTAG_SEMANTICINSTANCEID = 52528 };
-enum { TIFFTAG_MASKSUBAREA = 52536 };
-enum { TIFFTAG_RGBTABLES = 52543 };
-enum { TIFFTAG_CALIBRATIONILLUMINANT3 = 52529 };
-enum { TIFFTAG_COLORMATRIX3 = 52531 };
-enum { TIFFTAG_CAMERACALIBRATION3 = 52530 };
-enum { TIFFTAG_REDUCTIONMATRIX3 = 52538 };
-enum { TIFFTAG_PROFILEHUESATMAPDATA3 = 52537 };
-enum { TIFFTAG_FORWARDMATRIX3 = 52532 };
-enum { TIFFTAG_ILLUMINANTDATA1 = 52533 };
-enum { TIFFTAG_ILLUMINANTDATA2 = 52534 };
-enum { TIFFTAG_ILLUMINANTDATA3 = 53535 };
-enum { TIFFTAG_EP_CFAREPEATPATTERNDIM = 33421 };
-enum { TIFFTAG_EP_CFAPATTERN = 33422 };
-enum { TIFFTAG_EP_BATTERYLEVEL = 33423 };
-enum { TIFFTAG_EP_INTERLACE = 34857 };
-enum { TIFFTAG_EP_IPTC_NAA = 33723 };
-enum { TIFFTAG_EP_TIMEZONEOFFSET = 34858 };
-enum { TIFFTAG_EP_SELFTIMERMODE = 34859 };
-enum { TIFFTAG_EP_FLASHENERGY = 37387 };
-enum { TIFFTAG_EP_SPATIALFREQUENCYRESPONSE = 37388 };
-enum { TIFFTAG_EP_NOISE = 37389 };
-enum { TIFFTAG_EP_FOCALPLANEXRESOLUTION = 37390 };
-enum { TIFFTAG_EP_FOCALPLANEYRESOLUTION = 37391 };
-enum { TIFFTAG_EP_FOCALPLANERESOLUTIONUNIT = 37392 };
-enum { TIFFTAG_EP_IMAGENUMBER = 37393 };
-enum { TIFFTAG_EP_SECURITYCLASSIFICATION = 37394 };
-enum { TIFFTAG_EP_IMAGEHISTORY = 37395 };
-enum { TIFFTAG_EP_EXPOSUREINDEX = 37397 };
-enum { TIFFTAG_EP_STANDARDID = 37398 };
-enum { TIFFTAG_EP_SENSINGMETHOD = 37399 };
-enum { TIFFTAG_EP_EXPOSURETIME = 33434 };
-enum { TIFFTAG_EP_FNUMBER = 33437 };
-enum { TIFFTAG_EP_EXPOSUREPROGRAM = 34850 };
-enum { TIFFTAG_EP_SPECTRALSENSITIVITY = 34852 };
-enum { TIFFTAG_EP_ISOSPEEDRATINGS = 34855 };
-enum { TIFFTAG_EP_OECF = 34856 };
-enum { TIFFTAG_EP_DATETIMEORIGINAL = 36867 };
-enum { TIFFTAG_EP_COMPRESSEDBITSPERPIXEL = 37122 };
-enum { TIFFTAG_EP_SHUTTERSPEEDVALUE = 37377 };
-enum { TIFFTAG_EP_APERTUREVALUE = 37378 };
-enum { TIFFTAG_EP_BRIGHTNESSVALUE = 37379 };
-enum { TIFFTAG_EP_EXPOSUREBIASVALUE = 37380 };
-enum { TIFFTAG_EP_MAXAPERTUREVALUE = 37381 };
-enum { TIFFTAG_EP_SUBJECTDISTANCE = 37382 };
-enum { TIFFTAG_EP_METERINGMODE = 37383 };
-enum { TIFFTAG_EP_LIGHTSOURCE = 37384 };
-enum { TIFFTAG_EP_FLASH = 37385 };
-enum { TIFFTAG_EP_FOCALLENGTH = 37386 };
-enum { TIFFTAG_EP_SUBJECTLOCATION = 37396 };
-enum { TIFFTAG_RPCCOEFFICIENT = 50844 };
-enum { TIFFTAG_ALIAS_LAYER_METADATA = 50784 };
-enum { TIFFTAG_TIFF_RSID = 50908 };
-enum { TIFFTAG_GEO_METADATA = 50909 };
-enum { TIFFTAG_EXTRACAMERAPROFILES = 50933 };
-enum { TIFFTAG_DCSHUESHIFTVALUES = 65535 };
-enum { TIFFTAG_FAXMODE = 65536 };
-enum { FAXMODE_CLASSIC = 0 };
-enum { FAXMODE_NORTC = 1 };
-enum { FAXMODE_NOEOL = 2 };
-enum { FAXMODE_BYTEALIGN = 4 };
-enum { FAXMODE_WORDALIGN = 8 };
-enum { FAXMODE_CLASSF = 1 };
-enum { TIFFTAG_JPEGQUALITY = 65537 };
-enum { TIFFTAG_JPEGCOLORMODE = 65538 };
-enum { JPEGCOLORMODE_RAW = 0 };
-enum { JPEGCOLORMODE_RGB = 1 };
-enum { TIFFTAG_JPEGTABLESMODE = 65539 };
-enum { JPEGTABLESMODE_QUANT = 1 };
-enum { JPEGTABLESMODE_HUFF = 2 };
-enum { TIFFTAG_FAXFILLFUNC = 65540 };
-enum { TIFFTAG_PIXARLOGDATAFMT = 65549 };
-enum { PIXARLOGDATAFMT_8BIT = 0 };
-enum { PIXARLOGDATAFMT_8BITABGR = 1 };
-enum { PIXARLOGDATAFMT_11BITLOG = 2 };
-enum { PIXARLOGDATAFMT_12BITPICIO = 3 };
-enum { PIXARLOGDATAFMT_16BIT = 4 };
-enum { PIXARLOGDATAFMT_FLOAT = 5 };
-enum { TIFFTAG_DCSIMAGERTYPE = 65550 };
-enum { DCSIMAGERMODEL_M3 = 0 };
-enum { DCSIMAGERMODEL_M5 = 1 };
-enum { DCSIMAGERMODEL_M6 = 2 };
-enum { DCSIMAGERFILTER_IR = 0 };
-enum { DCSIMAGERFILTER_MONO = 1 };
-enum { DCSIMAGERFILTER_CFA = 2 };
-enum { DCSIMAGERFILTER_OTHER = 3 };
-enum { TIFFTAG_DCSINTERPMODE = 65551 };
-enum { DCSINTERPMODE_NORMAL = 0 };
-enum { DCSINTERPMODE_PREVIEW = 1 };
-enum { TIFFTAG_DCSBALANCEARRAY = 65552 };
-enum { TIFFTAG_DCSCORRECTMATRIX = 65553 };
-enum { TIFFTAG_DCSGAMMA = 65554 };
-enum { TIFFTAG_DCSTOESHOULDERPTS = 65555 };
-enum { TIFFTAG_DCSCALIBRATIONFD = 65556 };
-enum { TIFFTAG_ZIPQUALITY = 65557 };
-enum { TIFFTAG_PIXARLOGQUALITY = 65558 };
-enum { TIFFTAG_DCSCLIPRECTANGLE = 65559 };
-enum { TIFFTAG_SGILOGDATAFMT = 65560 };
-enum { SGILOGDATAFMT_FLOAT = 0 };
-enum { SGILOGDATAFMT_16BIT = 1 };
-enum { SGILOGDATAFMT_RAW = 2 };
-enum { SGILOGDATAFMT_8BIT = 3 };
-enum { TIFFTAG_SGILOGENCODE = 65561 };
-enum { SGILOGENCODE_NODITHER = 0 };
-enum { SGILOGENCODE_RANDITHER = 1 };
-enum { TIFFTAG_LZMAPRESET = 65562 };
-enum { TIFFTAG_PERSAMPLE = 65563 };
-enum { PERSAMPLE_MERGED = 0 };
-enum { PERSAMPLE_MULTI = 1 };
-enum { TIFFTAG_ZSTD_LEVEL = 65564 };
-enum { TIFFTAG_LERC_VERSION = 65565 };
-enum { LERC_VERSION_2_4 = 4 };
-enum { TIFFTAG_LERC_ADD_COMPRESSION = 65566 };
-enum { LERC_ADD_COMPRESSION_NONE = 0 };
-enum { LERC_ADD_COMPRESSION_DEFLATE = 1 };
-enum { LERC_ADD_COMPRESSION_ZSTD = 2 };
-enum { TIFFTAG_LERC_MAXZERROR = 65567 };
-enum { TIFFTAG_WEBP_LEVEL = 65568 };
-enum { TIFFTAG_WEBP_LOSSLESS = 65569 };
-enum { TIFFTAG_WEBP_LOSSLESS_EXACT = 65571 };
-enum { TIFFTAG_DEFLATE_SUBCODEC = 65570 };
-enum { DEFLATE_SUBCODEC_ZLIB = 0 };
-enum { DEFLATE_SUBCODEC_LIBDEFLATE = 1 };
-enum { EXIFTAG_EXPOSURETIME = 33434 };
-enum { EXIFTAG_FNUMBER = 33437 };
-enum { EXIFTAG_EXPOSUREPROGRAM = 34850 };
-enum { EXIFTAG_SPECTRALSENSITIVITY = 34852 };
-enum { EXIFTAG_ISOSPEEDRATINGS = 34855 };
-enum { EXIFTAG_PHOTOGRAPHICSENSITIVITY = 34855 };
-enum { EXIFTAG_OECF = 34856 };
-enum { EXIFTAG_EXIFVERSION = 36864 };
-enum { EXIFTAG_DATETIMEORIGINAL = 36867 };
-enum { EXIFTAG_DATETIMEDIGITIZED = 36868 };
-enum { EXIFTAG_COMPONENTSCONFIGURATION = 37121 };
-enum { EXIFTAG_COMPRESSEDBITSPERPIXEL = 37122 };
-enum { EXIFTAG_SHUTTERSPEEDVALUE = 37377 };
-enum { EXIFTAG_APERTUREVALUE = 37378 };
-enum { EXIFTAG_BRIGHTNESSVALUE = 37379 };
-enum { EXIFTAG_EXPOSUREBIASVALUE = 37380 };
-enum { EXIFTAG_MAXAPERTUREVALUE = 37381 };
-enum { EXIFTAG_SUBJECTDISTANCE = 37382 };
-enum { EXIFTAG_METERINGMODE = 37383 };
-enum { EXIFTAG_LIGHTSOURCE = 37384 };
-enum { EXIFTAG_FLASH = 37385 };
-enum { EXIFTAG_FOCALLENGTH = 37386 };
-enum { EXIFTAG_SUBJECTAREA = 37396 };
-enum { EXIFTAG_MAKERNOTE = 37500 };
-enum { EXIFTAG_USERCOMMENT = 37510 };
-enum { EXIFTAG_SUBSECTIME = 37520 };
-enum { EXIFTAG_SUBSECTIMEORIGINAL = 37521 };
-enum { EXIFTAG_SUBSECTIMEDIGITIZED = 37522 };
-enum { EXIFTAG_FLASHPIXVERSION = 40960 };
-enum { EXIFTAG_COLORSPACE = 40961 };
-enum { EXIFTAG_PIXELXDIMENSION = 40962 };
-enum { EXIFTAG_PIXELYDIMENSION = 40963 };
-enum { EXIFTAG_RELATEDSOUNDFILE = 40964 };
-enum { EXIFTAG_FLASHENERGY = 41483 };
-enum { EXIFTAG_SPATIALFREQUENCYRESPONSE = 41484 };
-enum { EXIFTAG_FOCALPLANEXRESOLUTION = 41486 };
-enum { EXIFTAG_FOCALPLANEYRESOLUTION = 41487 };
-enum { EXIFTAG_FOCALPLANERESOLUTIONUNIT = 41488 };
-enum { EXIFTAG_SUBJECTLOCATION = 41492 };
-enum { EXIFTAG_EXPOSUREINDEX = 41493 };
-enum { EXIFTAG_SENSINGMETHOD = 41495 };
-enum { EXIFTAG_FILESOURCE = 41728 };
-enum { EXIFTAG_SCENETYPE = 41729 };
-enum { EXIFTAG_CFAPATTERN = 41730 };
-enum { EXIFTAG_CUSTOMRENDERED = 41985 };
-enum { EXIFTAG_EXPOSUREMODE = 41986 };
-enum { EXIFTAG_WHITEBALANCE = 41987 };
-enum { EXIFTAG_DIGITALZOOMRATIO = 41988 };
-enum { EXIFTAG_FOCALLENGTHIN35MMFILM = 41989 };
-enum { EXIFTAG_SCENECAPTURETYPE = 41990 };
-enum { EXIFTAG_GAINCONTROL = 41991 };
-enum { EXIFTAG_CONTRAST = 41992 };
-enum { EXIFTAG_SATURATION = 41993 };
-enum { EXIFTAG_SHARPNESS = 41994 };
-enum { EXIFTAG_DEVICESETTINGDESCRIPTION = 41995 };
-enum { EXIFTAG_SUBJECTDISTANCERANGE = 41996 };
-enum { EXIFTAG_IMAGEUNIQUEID = 42016 };
-enum { EXIFTAG_SENSITIVITYTYPE = 34864 };
-enum { EXIFTAG_STANDARDOUTPUTSENSITIVITY = 34865 };
-enum { EXIFTAG_RECOMMENDEDEXPOSUREINDEX = 34866 };
-enum { EXIFTAG_ISOSPEED = 34867 };
-enum { EXIFTAG_ISOSPEEDLATITUDEYYY = 34868 };
-enum { EXIFTAG_ISOSPEEDLATITUDEZZZ = 34869 };
-enum { EXIFTAG_OFFSETTIME = 36880 };
-enum { EXIFTAG_OFFSETTIMEORIGINAL = 36881 };
-enum { EXIFTAG_OFFSETTIMEDIGITIZED = 36882 };
-enum { EXIFTAG_TEMPERATURE = 37888 };
-enum { EXIFTAG_HUMIDITY = 37889 };
-enum { EXIFTAG_PRESSURE = 37890 };
-enum { EXIFTAG_WATERDEPTH = 37891 };
-enum { EXIFTAG_ACCELERATION = 37892 };
-enum { EXIFTAG_CAMERAELEVATIONANGLE = 37893 };
-enum { EXIFTAG_CAMERAOWNERNAME = 42032 };
-enum { EXIFTAG_BODYSERIALNUMBER = 42033 };
-enum { EXIFTAG_LENSSPECIFICATION = 42034 };
-enum { EXIFTAG_LENSMAKE = 42035 };
-enum { EXIFTAG_LENSMODEL = 42036 };
-enum { EXIFTAG_LENSSERIALNUMBER = 42037 };
-enum { EXIFTAG_GAMMA = 42240 };
-enum { EXIFTAG_COMPOSITEIMAGE = 42080 };
-enum { EXIFTAG_SOURCEIMAGENUMBEROFCOMPOSITEIMAGE = 42081 };
-enum { EXIFTAG_SOURCEEXPOSURETIMESOFCOMPOSITEIMAGE = 42082 };
-enum { GPSTAG_VERSIONID = 0 };
-enum { GPSTAG_LATITUDEREF = 1 };
-enum { GPSTAG_LATITUDE = 2 };
-enum { GPSTAG_LONGITUDEREF = 3 };
-enum { GPSTAG_LONGITUDE = 4 };
-enum { GPSTAG_ALTITUDEREF = 5 };
-enum { GPSTAG_ALTITUDE = 6 };
-enum { GPSTAG_TIMESTAMP = 7 };
-enum { GPSTAG_SATELLITES = 8 };
-enum { GPSTAG_STATUS = 9 };
-enum { GPSTAG_MEASUREMODE = 10 };
-enum { GPSTAG_DOP = 11 };
-enum { GPSTAG_SPEEDREF = 12 };
-enum { GPSTAG_SPEED = 13 };
-enum { GPSTAG_TRACKREF = 14 };
-enum { GPSTAG_TRACK = 15 };
-enum { GPSTAG_IMGDIRECTIONREF = 16 };
-enum { GPSTAG_IMGDIRECTION = 17 };
-enum { GPSTAG_MAPDATUM = 18 };
-enum { GPSTAG_DESTLATITUDEREF = 19 };
-enum { GPSTAG_DESTLATITUDE = 20 };
-enum { GPSTAG_DESTLONGITUDEREF = 21 };
-enum { GPSTAG_DESTLONGITUDE = 22 };
-enum { GPSTAG_DESTBEARINGREF = 23 };
-enum { GPSTAG_DESTBEARING = 24 };
-enum { GPSTAG_DESTDISTANCEREF = 25 };
-enum { GPSTAG_DESTDISTANCE = 26 };
-enum { GPSTAG_PROCESSINGMETHOD = 27 };
-enum { GPSTAG_AREAINFORMATION = 28 };
-enum { GPSTAG_DATESTAMP = 29 };
-enum { GPSTAG_DIFFERENTIAL = 30 };
-enum { GPSTAG_GPSHPOSITIONINGERROR = 31 };
-/* ++ END   /usr/include/x86_64-linux-gnu/tiff.h */
-/* ++ BEGIN /usr/include/x86_64-linux-gnu/tiffvers.h */
-/* #define TIFFLIB_VERSION_STR "LIBTIFF, Version 4.5.1\nCopyright (c) 1988-1996 Sam Leffler\nCopyright (c) 1991-1996 Silicon Graphics, Inc." ### string, not number "\"LIBTIFF, Version 4.5.1\\nCopyright (c) 1988-1996 Sam Leffler\\nCopyright (c) 1991-1996 Silicon Graphics, Inc.\"" */
-enum { TIFFLIB_VERSION = 20230609 };
-enum { TIFFLIB_MAJOR_VERSION = 4 };
-enum { TIFFLIB_MINOR_VERSION = 5 };
-enum { TIFFLIB_MICRO_VERSION = 1 };
-/* ++ END   /usr/include/x86_64-linux-gnu/tiffvers.h */
 typedef struct tiff TIFF;
 typedef int64_t tmsize_t;
-/* #define TIFF_TMSIZE_T_MAX (tmsize_t)(SIZE_MAX >> 1) ### string, not number "(tmsize_t)(SIZE_MAX >> 1)" */
 typedef uint64_t toff_t;
 typedef uint32_t ttag_t;
 typedef uint32_t tdir_t;
@@ -719,19 +64,6 @@ typedef tstrile_t ttile_t;
 typedef tmsize_t tsize_t;
 typedef void *tdata_t;
 typedef void *thandle_t;
-enum { TIFFPRINT_NONE = 0 };
-enum { TIFFPRINT_STRIPS = 1 };
-enum { TIFFPRINT_CURVES = 2 };
-enum { TIFFPRINT_COLORMAP = 4 };
-enum { TIFFPRINT_JPEGQTABLES = 256 };
-enum { TIFFPRINT_JPEGACTABLES = 512 };
-enum { TIFFPRINT_JPEGDCTABLES = 512 };
-/* #define D65_X0 (95.0470F) ### string, not number "(95.0470F)" */
-/* #define D65_Y0 (100.0F) ### string, not number "(100.0F)" */
-/* #define D65_Z0 (108.8827F) ### string, not number "(108.8827F)" */
-/* #define D50_X0 (96.4250F) ### string, not number "(96.4250F)" */
-/* #define D50_Y0 (100.0F) ### string, not number "(100.0F)" */
-/* #define D50_Z0 (82.4680F) ### string, not number "(82.4680F)" */
 typedef unsigned char TIFFRGBValue;
 typedef struct {
 	float d_mat[3][3];
@@ -758,7 +90,6 @@ typedef struct {
 } TIFFYCbCrToRGB;
 typedef struct {
 	int range;
-	enum { CIELABTORGB_TABLE_RANGE = 1500 };
 	float rstep, gstep, bstep;
 	float X0, Y0, Z0;
 	TIFFDisplay display;
@@ -786,19 +117,19 @@ struct _TIFFRGBAImage {
 	uint16_t *bluecmap;
 	int (*get)(TIFFRGBAImage *, uint32_t *, uint32_t, uint32_t);
 	union {
-	void (*any)(TIFFRGBAImage *);
-	tileContigRoutine contig;
-	tileSeparateRoutine separate;
-} put;
-TIFFRGBValue *Map;
-uint32_t **BWmap;
-uint32_t **PALmap;
-TIFFYCbCrToRGB *ycbcr;
-TIFFCIELabToRGB *cielab;
-uint8_t *UaToAa;
-uint8_t *Bitdepth16To8;
-int row_offset;
-int col_offset;
+		void (*any)(TIFFRGBAImage *);
+		tileContigRoutine contig;
+		tileSeparateRoutine separate;
+	} put;
+	TIFFRGBValue *Map;
+	uint32_t **BWmap;
+	uint32_t **PALmap;
+	TIFFYCbCrToRGB *ycbcr;
+	TIFFCIELabToRGB *cielab;
+	uint8_t *UaToAa;
+	uint8_t *Bitdepth16To8;
+	int row_offset;
+	int col_offset;
 };
 typedef int (*TIFFInitMethod)(TIFF *, int);
 typedef struct {
@@ -810,13 +141,6 @@ typedef struct {
 	uint32_t uNum;
 	uint32_t uDenom;
 } TIFFRational_t;
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h */
-]] require 'ffi.req' 'c.stdarg' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h */
-/* ++ BEGIN /usr/include/stdio.h */
-]] require 'ffi.req' 'c.stdio' ffi.cdef[[
-/* ++ END   /usr/include/stdio.h */
-enum { LOGLUV_PUBLIC = 1 };
 typedef void (*TIFFErrorHandler)(const char *, const char *, va_list);
 typedef void (*TIFFErrorHandlerExt)(thandle_t, const char *, const char *, va_list);
 typedef int (*TIFFErrorHandlerExtR)(TIFF *, void *user_data, const char *, const char *, va_list);
@@ -827,40 +151,8 @@ typedef toff_t (*TIFFSizeProc)(thandle_t);
 typedef int (*TIFFMapFileProc)(thandle_t, void **base, toff_t *size);
 typedef void (*TIFFUnmapFileProc)(thandle_t, void *base, toff_t size);
 typedef void (*TIFFExtendProc)(TIFF *);
-extern const char *TIFFGetVersion(void);
-extern const TIFFCodec *TIFFFindCODEC(uint16_t);
-extern TIFFCodec *TIFFRegisterCODEC(uint16_t, const char *, TIFFInitMethod);
-extern void TIFFUnRegisterCODEC(TIFFCodec *);
-extern int TIFFIsCODECConfigured(uint16_t);
-extern TIFFCodec *TIFFGetConfiguredCODECs(void);
-extern void *_TIFFmalloc(tmsize_t s);
-extern void *_TIFFcalloc(tmsize_t nmemb, tmsize_t siz);
-extern void *_TIFFrealloc(void *p, tmsize_t s);
-extern void _TIFFmemset(void *p, int v, tmsize_t c);
-extern void _TIFFmemcpy(void *d, const void *s, tmsize_t c);
-extern int _TIFFmemcmp(const void *p1, const void *p2, tmsize_t c);
-extern void _TIFFfree(void *p);
-extern int TIFFGetTagListCount(TIFF *);
-extern uint32_t TIFFGetTagListEntry(TIFF *, int tag_index);
-enum { TIFF_ANY = 0 };
-enum { TIFF_VARIABLE = -1 };
-enum { TIFF_SPP = -2 };
-enum { TIFF_VARIABLE2 = -3 };
-enum { FIELD_CUSTOM = 65 };
 typedef struct _TIFFField TIFFField;
 typedef struct _TIFFFieldArray TIFFFieldArray;
-extern const TIFFField *TIFFFindField(TIFF *, uint32_t, TIFFDataType);
-extern const TIFFField *TIFFFieldWithTag(TIFF *, uint32_t);
-extern const TIFFField *TIFFFieldWithName(TIFF *, const char *);
-extern uint32_t TIFFFieldTag(const TIFFField *);
-extern const char *TIFFFieldName(const TIFFField *);
-extern TIFFDataType TIFFFieldDataType(const TIFFField *);
-extern int TIFFFieldPassCount(const TIFFField *);
-extern int TIFFFieldReadCount(const TIFFField *);
-extern int TIFFFieldWriteCount(const TIFFField *);
-extern int TIFFFieldSetGetSize(const TIFFField *);
-extern int TIFFFieldSetGetCountSize( const TIFFField *);
-extern int TIFFFieldIsAnonymous(const TIFFField *);
 typedef int (*TIFFVSetMethod)(TIFF *, uint32_t, va_list);
 typedef int (*TIFFVGetMethod)(TIFF *, uint32_t, va_list);
 typedef void (*TIFFPrintMethod)(TIFF *, FILE *, long);
@@ -869,178 +161,7 @@ typedef struct {
 	TIFFVGetMethod vgetfield;
 	TIFFPrintMethod printdir;
 } TIFFTagMethods;
-extern TIFFTagMethods *TIFFAccessTagMethods(TIFF *);
-extern void *TIFFGetClientInfo(TIFF *, const char *);
-extern void TIFFSetClientInfo(TIFF *, void *, const char *);
-extern void TIFFCleanup(TIFF *tif);
-extern void TIFFClose(TIFF *tif);
-extern int TIFFFlush(TIFF *tif);
-extern int TIFFFlushData(TIFF *tif);
-extern int TIFFGetField(TIFF *tif, uint32_t tag, ...);
-extern int TIFFVGetField(TIFF *tif, uint32_t tag, va_list ap);
-extern int TIFFGetFieldDefaulted(TIFF *tif, uint32_t tag, ...);
-extern int TIFFVGetFieldDefaulted(TIFF *tif, uint32_t tag, va_list ap);
-extern int TIFFReadDirectory(TIFF *tif);
-extern int TIFFReadCustomDirectory(TIFF *tif, toff_t diroff, const TIFFFieldArray *infoarray);
-extern int TIFFReadEXIFDirectory(TIFF *tif, toff_t diroff);
-extern int TIFFReadGPSDirectory(TIFF *tif, toff_t diroff);
-extern uint64_t TIFFScanlineSize64(TIFF *tif);
-extern tmsize_t TIFFScanlineSize(TIFF *tif);
-extern uint64_t TIFFRasterScanlineSize64(TIFF *tif);
-extern tmsize_t TIFFRasterScanlineSize(TIFF *tif);
-extern uint64_t TIFFStripSize64(TIFF *tif);
-extern tmsize_t TIFFStripSize(TIFF *tif);
-extern uint64_t TIFFRawStripSize64(TIFF *tif, uint32_t strip);
-extern tmsize_t TIFFRawStripSize(TIFF *tif, uint32_t strip);
-extern uint64_t TIFFVStripSize64(TIFF *tif, uint32_t nrows);
-extern tmsize_t TIFFVStripSize(TIFF *tif, uint32_t nrows);
-extern uint64_t TIFFTileRowSize64(TIFF *tif);
-extern tmsize_t TIFFTileRowSize(TIFF *tif);
-extern uint64_t TIFFTileSize64(TIFF *tif);
-extern tmsize_t TIFFTileSize(TIFF *tif);
-extern uint64_t TIFFVTileSize64(TIFF *tif, uint32_t nrows);
-extern tmsize_t TIFFVTileSize(TIFF *tif, uint32_t nrows);
-extern uint32_t TIFFDefaultStripSize(TIFF *tif, uint32_t request);
-extern void TIFFDefaultTileSize(TIFF *, uint32_t *, uint32_t *);
-extern int TIFFFileno(TIFF *);
-extern int TIFFSetFileno(TIFF *, int);
-extern thandle_t TIFFClientdata(TIFF *);
-extern thandle_t TIFFSetClientdata(TIFF *, thandle_t);
-extern int TIFFGetMode(TIFF *);
-extern int TIFFSetMode(TIFF *, int);
-extern int TIFFIsTiled(TIFF *);
-extern int TIFFIsByteSwapped(TIFF *);
-extern int TIFFIsUpSampled(TIFF *);
-extern int TIFFIsMSB2LSB(TIFF *);
-extern int TIFFIsBigEndian(TIFF *);
-extern int TIFFIsBigTIFF(TIFF *);
-extern TIFFReadWriteProc TIFFGetReadProc(TIFF *);
-extern TIFFReadWriteProc TIFFGetWriteProc(TIFF *);
-extern TIFFSeekProc TIFFGetSeekProc(TIFF *);
-extern TIFFCloseProc TIFFGetCloseProc(TIFF *);
-extern TIFFSizeProc TIFFGetSizeProc(TIFF *);
-extern TIFFMapFileProc TIFFGetMapFileProc(TIFF *);
-extern TIFFUnmapFileProc TIFFGetUnmapFileProc(TIFF *);
-extern uint32_t TIFFCurrentRow(TIFF *);
-extern tdir_t TIFFCurrentDirectory(TIFF *);
-extern tdir_t TIFFNumberOfDirectories(TIFF *);
-extern uint64_t TIFFCurrentDirOffset(TIFF *);
-extern uint32_t TIFFCurrentStrip(TIFF *);
-extern uint32_t TIFFCurrentTile(TIFF *tif);
-extern int TIFFReadBufferSetup(TIFF *tif, void *bp, tmsize_t size);
-extern int TIFFWriteBufferSetup(TIFF *tif, void *bp, tmsize_t size);
-extern int TIFFSetupStrips(TIFF *);
-extern int TIFFWriteCheck(TIFF *, int, const char *);
-extern void TIFFFreeDirectory(TIFF *);
-extern int TIFFCreateDirectory(TIFF *);
-extern int TIFFCreateCustomDirectory(TIFF *, const TIFFFieldArray *);
-extern int TIFFCreateEXIFDirectory(TIFF *);
-extern int TIFFCreateGPSDirectory(TIFF *);
-extern int TIFFLastDirectory(TIFF *);
-extern int TIFFSetDirectory(TIFF *, tdir_t);
-extern int TIFFSetSubDirectory(TIFF *, uint64_t);
-extern int TIFFUnlinkDirectory(TIFF *, tdir_t);
-extern int TIFFSetField(TIFF *, uint32_t, ...);
-extern int TIFFVSetField(TIFF *, uint32_t, va_list);
-extern int TIFFUnsetField(TIFF *, uint32_t);
-extern int TIFFWriteDirectory(TIFF *);
-extern int TIFFWriteCustomDirectory(TIFF *, uint64_t *);
-extern int TIFFCheckpointDirectory(TIFF *);
-extern int TIFFRewriteDirectory(TIFF *);
-extern int TIFFDeferStrileArrayWriting(TIFF *);
-extern int TIFFForceStrileArrayWriting(TIFF *);
-extern void TIFFPrintDirectory(TIFF *, FILE *, long);
-extern int TIFFReadScanline(TIFF *tif, void *buf, uint32_t row, uint16_t sample);
-extern int TIFFWriteScanline(TIFF *tif, void *buf, uint32_t row, uint16_t sample);
-extern int TIFFReadRGBAImage(TIFF *, uint32_t, uint32_t, uint32_t *, int);
-extern int TIFFReadRGBAImageOriented(TIFF *, uint32_t, uint32_t, uint32_t *, int, int);
-extern int TIFFReadRGBAStrip(TIFF *, uint32_t, uint32_t *);
-extern int TIFFReadRGBATile(TIFF *, uint32_t, uint32_t, uint32_t *);
-extern int TIFFReadRGBAStripExt(TIFF *, uint32_t, uint32_t *, int stop_on_error);
-extern int TIFFReadRGBATileExt(TIFF *, uint32_t, uint32_t, uint32_t *, int stop_on_error);
-extern int TIFFRGBAImageOK(TIFF *, char[1024]);
-extern int TIFFRGBAImageBegin(TIFFRGBAImage *, TIFF *, int, char[1024]);
-extern int TIFFRGBAImageGet(TIFFRGBAImage *, uint32_t *, uint32_t, uint32_t);
-extern void TIFFRGBAImageEnd(TIFFRGBAImage *);
-extern const char *TIFFFileName(TIFF *);
-extern const char *TIFFSetFileName(TIFF *, const char *);
-extern void TIFFError(const char *, const char *, ...) __attribute__((__format__(__printf__, 2, 3)));
-extern void TIFFErrorExt(thandle_t, const char *, const char *, ...) __attribute__((__format__(__printf__, 3, 4)));
-extern void TIFFWarning(const char *, const char *, ...) __attribute__((__format__(__printf__, 2, 3)));
-extern void TIFFWarningExt(thandle_t, const char *, const char *, ...) __attribute__((__format__(__printf__, 3, 4)));
-extern TIFFErrorHandler TIFFSetErrorHandler(TIFFErrorHandler);
-extern TIFFErrorHandlerExt TIFFSetErrorHandlerExt(TIFFErrorHandlerExt);
-extern TIFFErrorHandler TIFFSetWarningHandler(TIFFErrorHandler);
-extern TIFFErrorHandlerExt TIFFSetWarningHandlerExt(TIFFErrorHandlerExt);
-extern void TIFFWarningExtR(TIFF *, const char *, const char *, ...) __attribute__((__format__(__printf__, 3, 4)));
-extern void TIFFErrorExtR(TIFF *, const char *, const char *, ...) __attribute__((__format__(__printf__, 3, 4)));
 typedef struct TIFFOpenOptions TIFFOpenOptions;
-extern TIFFOpenOptions *TIFFOpenOptionsAlloc(void);
-extern void TIFFOpenOptionsFree(TIFFOpenOptions *);
-extern void TIFFOpenOptionsSetMaxSingleMemAlloc(TIFFOpenOptions *opts, tmsize_t max_single_mem_alloc);
-extern void TIFFOpenOptionsSetErrorHandlerExtR(TIFFOpenOptions *opts, TIFFErrorHandlerExtR handler, void *errorhandler_user_data);
-extern void TIFFOpenOptionsSetWarningHandlerExtR(TIFFOpenOptions *opts, TIFFErrorHandlerExtR handler, void *warnhandler_user_data);
-extern TIFF *TIFFOpen(const char *, const char *);
-extern TIFF *TIFFOpenExt(const char *, const char *, TIFFOpenOptions *opts);
-extern TIFF *TIFFFdOpen(int, const char *, const char *);
-extern TIFF *TIFFFdOpenExt(int, const char *, const char *, TIFFOpenOptions *opts);
-extern TIFF *TIFFClientOpen(const char *, const char *, thandle_t, TIFFReadWriteProc, TIFFReadWriteProc, TIFFSeekProc, TIFFCloseProc, TIFFSizeProc, TIFFMapFileProc, TIFFUnmapFileProc);
-extern TIFF *TIFFClientOpenExt(const char *, const char *, thandle_t, TIFFReadWriteProc, TIFFReadWriteProc, TIFFSeekProc, TIFFCloseProc, TIFFSizeProc, TIFFMapFileProc, TIFFUnmapFileProc, TIFFOpenOptions *opts);
-extern TIFFExtendProc TIFFSetTagExtender(TIFFExtendProc);
-extern uint32_t TIFFComputeTile(TIFF *tif, uint32_t x, uint32_t y, uint32_t z, uint16_t s);
-extern int TIFFCheckTile(TIFF *tif, uint32_t x, uint32_t y, uint32_t z, uint16_t s);
-extern uint32_t TIFFNumberOfTiles(TIFF *);
-extern tmsize_t TIFFReadTile(TIFF *tif, void *buf, uint32_t x, uint32_t y, uint32_t z, uint16_t s);
-extern tmsize_t TIFFWriteTile(TIFF *tif, void *buf, uint32_t x, uint32_t y, uint32_t z, uint16_t s);
-extern uint32_t TIFFComputeStrip(TIFF *, uint32_t, uint16_t);
-extern uint32_t TIFFNumberOfStrips(TIFF *);
-extern tmsize_t TIFFReadEncodedStrip(TIFF *tif, uint32_t strip, void *buf, tmsize_t size);
-extern tmsize_t TIFFReadRawStrip(TIFF *tif, uint32_t strip, void *buf, tmsize_t size);
-extern tmsize_t TIFFReadEncodedTile(TIFF *tif, uint32_t tile, void *buf, tmsize_t size);
-extern tmsize_t TIFFReadRawTile(TIFF *tif, uint32_t tile, void *buf, tmsize_t size);
-extern int TIFFReadFromUserBuffer(TIFF *tif, uint32_t strile, void *inbuf, tmsize_t insize, void *outbuf, tmsize_t outsize);
-extern tmsize_t TIFFWriteEncodedStrip(TIFF *tif, uint32_t strip, void *data, tmsize_t cc);
-extern tmsize_t TIFFWriteRawStrip(TIFF *tif, uint32_t strip, void *data, tmsize_t cc);
-extern tmsize_t TIFFWriteEncodedTile(TIFF *tif, uint32_t tile, void *data, tmsize_t cc);
-extern tmsize_t TIFFWriteRawTile(TIFF *tif, uint32_t tile, void *data, tmsize_t cc);
-extern int TIFFDataWidth( TIFFDataType);
-extern void TIFFSetWriteOffset(TIFF *tif, toff_t off);
-extern void TIFFSwabShort(uint16_t *);
-extern void TIFFSwabLong(uint32_t *);
-extern void TIFFSwabLong8(uint64_t *);
-extern void TIFFSwabFloat(float *);
-extern void TIFFSwabDouble(double *);
-extern void TIFFSwabArrayOfShort(uint16_t *wp, tmsize_t n);
-extern void TIFFSwabArrayOfTriples(uint8_t *tp, tmsize_t n);
-extern void TIFFSwabArrayOfLong(uint32_t *lp, tmsize_t n);
-extern void TIFFSwabArrayOfLong8(uint64_t *lp, tmsize_t n);
-extern void TIFFSwabArrayOfFloat(float *fp, tmsize_t n);
-extern void TIFFSwabArrayOfDouble(double *dp, tmsize_t n);
-extern void TIFFReverseBits(uint8_t *cp, tmsize_t n);
-extern const unsigned char *TIFFGetBitRevTable(int);
-extern uint64_t TIFFGetStrileOffset(TIFF *tif, uint32_t strile);
-extern uint64_t TIFFGetStrileByteCount(TIFF *tif, uint32_t strile);
-extern uint64_t TIFFGetStrileOffsetWithErr(TIFF *tif, uint32_t strile, int *pbErr);
-extern uint64_t TIFFGetStrileByteCountWithErr(TIFF *tif, uint32_t strile, int *pbErr);
-/* #define U_NEU 0.210526316 ### string, not number "0.210526316" */
-/* #define V_NEU 0.473684211 ### string, not number "0.473684211" */
-/* #define UVSCALE 410. ### string, number, replaceline "410." */
-extern double LogL16toY(int);
-extern double LogL10toY(int);
-extern void XYZtoRGB24(float *, uint8_t *);
-extern int uv_decode(double *, double *, int);
-extern void LogLuv24toXYZ(uint32_t, float *);
-extern void LogLuv32toXYZ(uint32_t, float *);
-extern int LogL16fromY(double, int);
-extern int LogL10fromY(double, int);
-extern int uv_encode(double, double, int);
-extern uint32_t LogLuv24fromXYZ(float *, int);
-extern uint32_t LogLuv32fromXYZ(float *, int);
-extern int TIFFCIELabToRGBInit(TIFFCIELabToRGB *, const TIFFDisplay *, float *);
-extern void TIFFCIELabToXYZ(TIFFCIELabToRGB *, uint32_t, int32_t, int32_t, float *, float *, float *);
-extern void TIFFXYZToRGB(TIFFCIELabToRGB *, float, float, float, uint32_t *, uint32_t *, uint32_t *);
-extern int TIFFYCbCrToRGBInit(TIFFYCbCrToRGB *, float *, float *);
-extern void TIFFYCbCrtoRGB(TIFFYCbCrToRGB *, uint32_t, int32_t, int32_t, uint32_t *, uint32_t *, uint32_t *);
 typedef struct {
 	ttag_t field_tag;
 	short field_readcount;
@@ -1051,6 +172,889 @@ typedef struct {
 	unsigned char field_passcount;
 	char *field_name;
 } TIFFFieldInfo;
-extern int TIFFMergeFieldInfo(TIFF *, const TIFFFieldInfo[], uint32_t);
-/* + END   /usr/include/x86_64-linux-gnu/tiffio.h */
 ]]
+
+local wrapper
+wrapper = require 'ffi.libwrapper'{
+	lib = require 'ffi.load' 'tiff',
+	defs = {
+
+		-- enums
+
+		TIFF_SSIZE_T = 0,
+		HAVE_IEEEFP = 1,
+		HOST_FILLORDER = 0,
+		HOST_BIGENDIAN = 0,
+		CCITT_SUPPORT = 1,
+		JPEG_SUPPORT = 1,
+		JBIG_SUPPORT = 1,
+		LERC_SUPPORT = 1,
+		LOGLUV_SUPPORT = 1,
+		LZW_SUPPORT = 1,
+		NEXT_SUPPORT = 1,
+		OJPEG_SUPPORT = 1,
+		PACKBITS_SUPPORT = 1,
+		PIXARLOG_SUPPORT = 1,
+		THUNDER_SUPPORT = 1,
+		ZIP_SUPPORT = 1,
+		LIBDEFLATE_SUPPORT = 1,
+		STRIPCHOP_DEFAULT = 0,
+		SUBIFD_SUPPORT = 1,
+		DEFAULT_EXTRASAMPLE_AS_ALPHA = 1,
+		CHECK_JPEG_YCBCR_SUBSAMPLING = 1,
+		MDI_SUPPORT = 1,
+		COLORIMETRY_SUPPORT = 1,
+		YCBCR_SUPPORT = 1,
+		CMYK_SUPPORT = 1,
+		ICC_SUPPORT = 1,
+		PHOTOSHOP_SUPPORT = 1,
+		IPTC_SUPPORT = 1,
+		TIFF_VERSION_CLASSIC = 42,
+		TIFF_VERSION_BIG = 43,
+		TIFF_BIGENDIAN = 19789,
+		TIFF_LITTLEENDIAN = 18761,
+		MDI_LITTLEENDIAN = 20549,
+		MDI_BIGENDIAN = 17744,
+		TIFF_MSC_DEPRECATED = 1,
+		TIFFTAG_SUBFILETYPE = 254,
+		FILETYPE_REDUCEDIMAGE = 1,
+		FILETYPE_PAGE = 2,
+		FILETYPE_MASK = 4,
+		TIFFTAG_OSUBFILETYPE = 255,
+		OFILETYPE_IMAGE = 1,
+		OFILETYPE_REDUCEDIMAGE = 2,
+		OFILETYPE_PAGE = 3,
+		TIFFTAG_IMAGEWIDTH = 256,
+		TIFFTAG_IMAGELENGTH = 257,
+		TIFFTAG_BITSPERSAMPLE = 258,
+		TIFFTAG_COMPRESSION = 259,
+		COMPRESSION_NONE = 1,
+		COMPRESSION_CCITTRLE = 2,
+		COMPRESSION_CCITTFAX3 = 3,
+		COMPRESSION_CCITT_T4 = 3,
+		COMPRESSION_CCITTFAX4 = 4,
+		COMPRESSION_CCITT_T6 = 4,
+		COMPRESSION_LZW = 5,
+		COMPRESSION_OJPEG = 6,
+		COMPRESSION_JPEG = 7,
+		COMPRESSION_T85 = 9,
+		COMPRESSION_T43 = 10,
+		COMPRESSION_NEXT = 32766,
+		COMPRESSION_CCITTRLEW = 32771,
+		COMPRESSION_PACKBITS = 32773,
+		COMPRESSION_THUNDERSCAN = 32809,
+		COMPRESSION_IT8CTPAD = 32895,
+		COMPRESSION_IT8LW = 32896,
+		COMPRESSION_IT8MP = 32897,
+		COMPRESSION_IT8BL = 32898,
+		COMPRESSION_PIXARFILM = 32908,
+		COMPRESSION_PIXARLOG = 32909,
+		COMPRESSION_DEFLATE = 32946,
+		COMPRESSION_ADOBE_DEFLATE = 8,
+		COMPRESSION_DCS = 32947,
+		COMPRESSION_JBIG = 34661,
+		COMPRESSION_SGILOG = 34676,
+		COMPRESSION_SGILOG24 = 34677,
+		COMPRESSION_JP2000 = 34712,
+		COMPRESSION_LERC = 34887,
+		COMPRESSION_LZMA = 34925,
+		COMPRESSION_ZSTD = 50000,
+		COMPRESSION_WEBP = 50001,
+		COMPRESSION_JXL = 50002,
+		TIFFTAG_PHOTOMETRIC = 262,
+		PHOTOMETRIC_MINISWHITE = 0,
+		PHOTOMETRIC_MINISBLACK = 1,
+		PHOTOMETRIC_RGB = 2,
+		PHOTOMETRIC_PALETTE = 3,
+		PHOTOMETRIC_MASK = 4,
+		PHOTOMETRIC_SEPARATED = 5,
+		PHOTOMETRIC_YCBCR = 6,
+		PHOTOMETRIC_CIELAB = 8,
+		PHOTOMETRIC_ICCLAB = 9,
+		PHOTOMETRIC_ITULAB = 10,
+		PHOTOMETRIC_CFA = 32803,
+		PHOTOMETRIC_LOGL = 32844,
+		PHOTOMETRIC_LOGLUV = 32845,
+		TIFFTAG_THRESHHOLDING = 263,
+		THRESHHOLD_BILEVEL = 1,
+		THRESHHOLD_HALFTONE = 2,
+		THRESHHOLD_ERRORDIFFUSE = 3,
+		TIFFTAG_CELLWIDTH = 264,
+		TIFFTAG_CELLLENGTH = 265,
+		TIFFTAG_FILLORDER = 266,
+		FILLORDER_MSB2LSB = 1,
+		FILLORDER_LSB2MSB = 2,
+		TIFFTAG_DOCUMENTNAME = 269,
+		TIFFTAG_IMAGEDESCRIPTION = 270,
+		TIFFTAG_MAKE = 271,
+		TIFFTAG_MODEL = 272,
+		TIFFTAG_STRIPOFFSETS = 273,
+		TIFFTAG_ORIENTATION = 274,
+		ORIENTATION_TOPLEFT = 1,
+		ORIENTATION_TOPRIGHT = 2,
+		ORIENTATION_BOTRIGHT = 3,
+		ORIENTATION_BOTLEFT = 4,
+		ORIENTATION_LEFTTOP = 5,
+		ORIENTATION_RIGHTTOP = 6,
+		ORIENTATION_RIGHTBOT = 7,
+		ORIENTATION_LEFTBOT = 8,
+		TIFFTAG_SAMPLESPERPIXEL = 277,
+		TIFFTAG_ROWSPERSTRIP = 278,
+		TIFFTAG_STRIPBYTECOUNTS = 279,
+		TIFFTAG_MINSAMPLEVALUE = 280,
+		TIFFTAG_MAXSAMPLEVALUE = 281,
+		TIFFTAG_XRESOLUTION = 282,
+		TIFFTAG_YRESOLUTION = 283,
+		TIFFTAG_PLANARCONFIG = 284,
+		PLANARCONFIG_CONTIG = 1,
+		PLANARCONFIG_SEPARATE = 2,
+		TIFFTAG_PAGENAME = 285,
+		TIFFTAG_XPOSITION = 286,
+		TIFFTAG_YPOSITION = 287,
+		TIFFTAG_FREEOFFSETS = 288,
+		TIFFTAG_FREEBYTECOUNTS = 289,
+		TIFFTAG_GRAYRESPONSEUNIT = 290,
+		GRAYRESPONSEUNIT_10S = 1,
+		GRAYRESPONSEUNIT_100S = 2,
+		GRAYRESPONSEUNIT_1000S = 3,
+		GRAYRESPONSEUNIT_10000S = 4,
+		GRAYRESPONSEUNIT_100000S = 5,
+		TIFFTAG_GRAYRESPONSECURVE = 291,
+		TIFFTAG_GROUP3OPTIONS = 292,
+		TIFFTAG_T4OPTIONS = 292,
+		GROUP3OPT_2DENCODING = 1,
+		GROUP3OPT_UNCOMPRESSED = 2,
+		GROUP3OPT_FILLBITS = 4,
+		TIFFTAG_GROUP4OPTIONS = 293,
+		TIFFTAG_T6OPTIONS = 293,
+		GROUP4OPT_UNCOMPRESSED = 2,
+		TIFFTAG_RESOLUTIONUNIT = 296,
+		RESUNIT_NONE = 1,
+		RESUNIT_INCH = 2,
+		RESUNIT_CENTIMETER = 3,
+		TIFFTAG_PAGENUMBER = 297,
+		TIFFTAG_COLORRESPONSEUNIT = 300,
+		COLORRESPONSEUNIT_10S = 1,
+		COLORRESPONSEUNIT_100S = 2,
+		COLORRESPONSEUNIT_1000S = 3,
+		COLORRESPONSEUNIT_10000S = 4,
+		COLORRESPONSEUNIT_100000S = 5,
+		TIFFTAG_TRANSFERFUNCTION = 301,
+		TIFFTAG_SOFTWARE = 305,
+		TIFFTAG_DATETIME = 306,
+		TIFFTAG_ARTIST = 315,
+		TIFFTAG_HOSTCOMPUTER = 316,
+		TIFFTAG_PREDICTOR = 317,
+		PREDICTOR_NONE = 1,
+		PREDICTOR_HORIZONTAL = 2,
+		PREDICTOR_FLOATINGPOINT = 3,
+		TIFFTAG_WHITEPOINT = 318,
+		TIFFTAG_PRIMARYCHROMATICITIES = 319,
+		TIFFTAG_COLORMAP = 320,
+		TIFFTAG_HALFTONEHINTS = 321,
+		TIFFTAG_TILEWIDTH = 322,
+		TIFFTAG_TILELENGTH = 323,
+		TIFFTAG_TILEOFFSETS = 324,
+		TIFFTAG_TILEBYTECOUNTS = 325,
+		TIFFTAG_BADFAXLINES = 326,
+		TIFFTAG_CLEANFAXDATA = 327,
+		CLEANFAXDATA_CLEAN = 0,
+		CLEANFAXDATA_REGENERATED = 1,
+		CLEANFAXDATA_UNCLEAN = 2,
+		TIFFTAG_CONSECUTIVEBADFAXLINES = 328,
+		TIFFTAG_SUBIFD = 330,
+		TIFFTAG_INKSET = 332,
+		INKSET_CMYK = 1,
+		INKSET_MULTIINK = 2,
+		TIFFTAG_INKNAMES = 333,
+		TIFFTAG_NUMBEROFINKS = 334,
+		TIFFTAG_DOTRANGE = 336,
+		TIFFTAG_TARGETPRINTER = 337,
+		TIFFTAG_EXTRASAMPLES = 338,
+		EXTRASAMPLE_UNSPECIFIED = 0,
+		EXTRASAMPLE_ASSOCALPHA = 1,
+		EXTRASAMPLE_UNASSALPHA = 2,
+		TIFFTAG_SAMPLEFORMAT = 339,
+		SAMPLEFORMAT_UINT = 1,
+		SAMPLEFORMAT_INT = 2,
+		SAMPLEFORMAT_IEEEFP = 3,
+		SAMPLEFORMAT_VOID = 4,
+		SAMPLEFORMAT_COMPLEXINT = 5,
+		SAMPLEFORMAT_COMPLEXIEEEFP = 6,
+		TIFFTAG_SMINSAMPLEVALUE = 340,
+		TIFFTAG_SMAXSAMPLEVALUE = 341,
+		TIFFTAG_CLIPPATH = 343,
+		TIFFTAG_XCLIPPATHUNITS = 344,
+		TIFFTAG_YCLIPPATHUNITS = 345,
+		TIFFTAG_INDEXED = 346,
+		TIFFTAG_JPEGTABLES = 347,
+		TIFFTAG_OPIPROXY = 351,
+		TIFFTAG_GLOBALPARAMETERSIFD = 400,
+		TIFFTAG_PROFILETYPE = 401,
+		PROFILETYPE_UNSPECIFIED = 0,
+		PROFILETYPE_G3_FAX = 1,
+		TIFFTAG_FAXPROFILE = 402,
+		FAXPROFILE_S = 1,
+		FAXPROFILE_F = 2,
+		FAXPROFILE_J = 3,
+		FAXPROFILE_C = 4,
+		FAXPROFILE_L = 5,
+		FAXPROFILE_M = 6,
+		TIFFTAG_CODINGMETHODS = 403,
+		CODINGMETHODS_T4_1D = 2,
+		CODINGMETHODS_T4_2D = 4,
+		CODINGMETHODS_T6 = 8,
+		CODINGMETHODS_T85 = 16,
+		CODINGMETHODS_T42 = 32,
+		CODINGMETHODS_T43 = 64,
+		TIFFTAG_VERSIONYEAR = 404,
+		TIFFTAG_MODENUMBER = 405,
+		TIFFTAG_DECODE = 433,
+		TIFFTAG_IMAGEBASECOLOR = 434,
+		TIFFTAG_T82OPTIONS = 435,
+		TIFFTAG_JPEGPROC = 512,
+		JPEGPROC_BASELINE = 1,
+		JPEGPROC_LOSSLESS = 14,
+		TIFFTAG_JPEGIFOFFSET = 513,
+		TIFFTAG_JPEGIFBYTECOUNT = 514,
+		TIFFTAG_JPEGRESTARTINTERVAL = 515,
+		TIFFTAG_JPEGLOSSLESSPREDICTORS = 517,
+		TIFFTAG_JPEGPOINTTRANSFORM = 518,
+		TIFFTAG_JPEGQTABLES = 519,
+		TIFFTAG_JPEGDCTABLES = 520,
+		TIFFTAG_JPEGACTABLES = 521,
+		TIFFTAG_YCBCRCOEFFICIENTS = 529,
+		TIFFTAG_YCBCRSUBSAMPLING = 530,
+		TIFFTAG_YCBCRPOSITIONING = 531,
+		YCBCRPOSITION_CENTERED = 1,
+		YCBCRPOSITION_COSITED = 2,
+		TIFFTAG_REFERENCEBLACKWHITE = 532,
+		TIFFTAG_STRIPROWCOUNTS = 559,
+		TIFFTAG_XMLPACKET = 700,
+		TIFFTAG_OPIIMAGEID = 32781,
+		TIFFTAG_TIFFANNOTATIONDATA = 32932,
+		TIFFTAG_REFPTS = 32953,
+		TIFFTAG_REGIONTACKPOINT = 32954,
+		TIFFTAG_REGIONWARPCORNERS = 32955,
+		TIFFTAG_REGIONAFFINE = 32956,
+		TIFFTAG_MATTEING = 32995,
+		TIFFTAG_DATATYPE = 32996,
+		TIFFTAG_IMAGEDEPTH = 32997,
+		TIFFTAG_TILEDEPTH = 32998,
+		TIFFTAG_PIXAR_IMAGEFULLWIDTH = 33300,
+		TIFFTAG_PIXAR_IMAGEFULLLENGTH = 33301,
+		TIFFTAG_PIXAR_TEXTUREFORMAT = 33302,
+		TIFFTAG_PIXAR_WRAPMODES = 33303,
+		TIFFTAG_PIXAR_FOVCOT = 33304,
+		TIFFTAG_PIXAR_MATRIX_WORLDTOSCREEN = 33305,
+		TIFFTAG_PIXAR_MATRIX_WORLDTOCAMERA = 33306,
+		TIFFTAG_WRITERSERIALNUMBER = 33405,
+		TIFFTAG_CFAREPEATPATTERNDIM = 33421,
+		TIFFTAG_CFAPATTERN = 33422,
+		TIFFTAG_BATTERYLEVEL = 33423,
+		TIFFTAG_COPYRIGHT = 33432,
+		TIFFTAG_MD_FILETAG = 33445,
+		TIFFTAG_MD_SCALEPIXEL = 33446,
+		TIFFTAG_MD_COLORTABLE = 33447,
+		TIFFTAG_MD_LABNAME = 33448,
+		TIFFTAG_MD_SAMPLEINFO = 33449,
+		TIFFTAG_MD_PREPDATE = 33450,
+		TIFFTAG_MD_PREPTIME = 33451,
+		TIFFTAG_MD_FILEUNITS = 33452,
+		TIFFTAG_RICHTIFFIPTC = 33723,
+		TIFFTAG_INGR_PACKET_DATA_TAG = 33918,
+		TIFFTAG_INGR_FLAG_REGISTERS = 33919,
+		TIFFTAG_IRASB_TRANSORMATION_MATRIX = 33920,
+		TIFFTAG_MODELTIEPOINTTAG = 33922,
+		TIFFTAG_IT8SITE = 34016,
+		TIFFTAG_IT8COLORSEQUENCE = 34017,
+		TIFFTAG_IT8HEADER = 34018,
+		TIFFTAG_IT8RASTERPADDING = 34019,
+		TIFFTAG_IT8BITSPERRUNLENGTH = 34020,
+		TIFFTAG_IT8BITSPEREXTENDEDRUNLENGTH = 34021,
+		TIFFTAG_IT8COLORTABLE = 34022,
+		TIFFTAG_IT8IMAGECOLORINDICATOR = 34023,
+		TIFFTAG_IT8BKGCOLORINDICATOR = 34024,
+		TIFFTAG_IT8IMAGECOLORVALUE = 34025,
+		TIFFTAG_IT8BKGCOLORVALUE = 34026,
+		TIFFTAG_IT8PIXELINTENSITYRANGE = 34027,
+		TIFFTAG_IT8TRANSPARENCYINDICATOR = 34028,
+		TIFFTAG_IT8COLORCHARACTERIZATION = 34029,
+		TIFFTAG_IT8HCUSAGE = 34030,
+		TIFFTAG_IT8TRAPINDICATOR = 34031,
+		TIFFTAG_IT8CMYKEQUIVALENT = 34032,
+		TIFFTAG_FRAMECOUNT = 34232,
+		TIFFTAG_MODELTRANSFORMATIONTAG = 34264,
+		TIFFTAG_PHOTOSHOP = 34377,
+		TIFFTAG_EXIFIFD = 34665,
+		TIFFTAG_ICCPROFILE = 34675,
+		TIFFTAG_IMAGELAYER = 34732,
+		TIFFTAG_JBIGOPTIONS = 34750,
+		TIFFTAG_GPSIFD = 34853,
+		TIFFTAG_FAXRECVPARAMS = 34908,
+		TIFFTAG_FAXSUBADDRESS = 34909,
+		TIFFTAG_FAXRECVTIME = 34910,
+		TIFFTAG_FAXDCS = 34911,
+		TIFFTAG_STONITS = 37439,
+		TIFFTAG_FEDEX_EDR = 34929,
+		TIFFTAG_IMAGESOURCEDATA = 37724,
+		TIFFTAG_INTEROPERABILITYIFD = 40965,
+		TIFFTAG_GDAL_METADATA = 42112,
+		TIFFTAG_GDAL_NODATA = 42113,
+		TIFFTAG_OCE_SCANJOB_DESCRIPTION = 50215,
+		TIFFTAG_OCE_APPLICATION_SELECTOR = 50216,
+		TIFFTAG_OCE_IDENTIFICATION_NUMBER = 50217,
+		TIFFTAG_OCE_IMAGELOGIC_CHARACTERISTICS = 50218,
+		TIFFTAG_LERC_PARAMETERS = 50674,
+		TIFFTAG_DNGVERSION = 50706,
+		TIFFTAG_DNGBACKWARDVERSION = 50707,
+		TIFFTAG_UNIQUECAMERAMODEL = 50708,
+		TIFFTAG_LOCALIZEDCAMERAMODEL = 50709,
+		TIFFTAG_CFAPLANECOLOR = 50710,
+		TIFFTAG_CFALAYOUT = 50711,
+		TIFFTAG_LINEARIZATIONTABLE = 50712,
+		TIFFTAG_BLACKLEVELREPEATDIM = 50713,
+		TIFFTAG_BLACKLEVEL = 50714,
+		TIFFTAG_BLACKLEVELDELTAH = 50715,
+		TIFFTAG_BLACKLEVELDELTAV = 50716,
+		TIFFTAG_WHITELEVEL = 50717,
+		TIFFTAG_DEFAULTSCALE = 50718,
+		TIFFTAG_DEFAULTCROPORIGIN = 50719,
+		TIFFTAG_DEFAULTCROPSIZE = 50720,
+		TIFFTAG_COLORMATRIX1 = 50721,
+		TIFFTAG_COLORMATRIX2 = 50722,
+		TIFFTAG_CAMERACALIBRATION1 = 50723,
+		TIFFTAG_CAMERACALIBRATION2 = 50724,
+		TIFFTAG_REDUCTIONMATRIX1 = 50725,
+		TIFFTAG_REDUCTIONMATRIX2 = 50726,
+		TIFFTAG_ANALOGBALANCE = 50727,
+		TIFFTAG_ASSHOTNEUTRAL = 50728,
+		TIFFTAG_ASSHOTWHITEXY = 50729,
+		TIFFTAG_BASELINEEXPOSURE = 50730,
+		TIFFTAG_BASELINENOISE = 50731,
+		TIFFTAG_BASELINESHARPNESS = 50732,
+		TIFFTAG_BAYERGREENSPLIT = 50733,
+		TIFFTAG_LINEARRESPONSELIMIT = 50734,
+		TIFFTAG_CAMERASERIALNUMBER = 50735,
+		TIFFTAG_LENSINFO = 50736,
+		TIFFTAG_CHROMABLURRADIUS = 50737,
+		TIFFTAG_ANTIALIASSTRENGTH = 50738,
+		TIFFTAG_SHADOWSCALE = 50739,
+		TIFFTAG_DNGPRIVATEDATA = 50740,
+		TIFFTAG_MAKERNOTESAFETY = 50741,
+		TIFFTAG_CALIBRATIONILLUMINANT1 = 50778,
+		TIFFTAG_CALIBRATIONILLUMINANT2 = 50779,
+		TIFFTAG_BESTQUALITYSCALE = 50780,
+		TIFFTAG_RAWDATAUNIQUEID = 50781,
+		TIFFTAG_ORIGINALRAWFILENAME = 50827,
+		TIFFTAG_ORIGINALRAWFILEDATA = 50828,
+		TIFFTAG_ACTIVEAREA = 50829,
+		TIFFTAG_MASKEDAREAS = 50830,
+		TIFFTAG_ASSHOTICCPROFILE = 50831,
+		TIFFTAG_ASSHOTPREPROFILEMATRIX = 50832,
+		TIFFTAG_CURRENTICCPROFILE = 50833,
+		TIFFTAG_CURRENTPREPROFILEMATRIX = 50834,
+		TIFFTAG_COLORIMETRICREFERENCE = 50879,
+		TIFFTAG_CAMERACALIBRATIONSIGNATURE = 50931,
+		TIFFTAG_PROFILECALIBRATIONSIGNATURE = 50932,
+		TIFFTAG_ASSHOTPROFILENAME = 50934,
+		TIFFTAG_NOISEREDUCTIONAPPLIED = 50935,
+		TIFFTAG_PROFILENAME = 50936,
+		TIFFTAG_PROFILEHUESATMAPDIMS = 50937,
+		TIFFTAG_PROFILEHUESATMAPDATA1 = 50938,
+		TIFFTAG_PROFILEHUESATMAPDATA2 = 50939,
+		TIFFTAG_PROFILETONECURVE = 50940,
+		TIFFTAG_PROFILEEMBEDPOLICY = 50941,
+		TIFFTAG_PROFILECOPYRIGHT = 50942,
+		TIFFTAG_FORWARDMATRIX1 = 50964,
+		TIFFTAG_FORWARDMATRIX2 = 50965,
+		TIFFTAG_PREVIEWAPPLICATIONNAME = 50966,
+		TIFFTAG_PREVIEWAPPLICATIONVERSION = 50967,
+		TIFFTAG_PREVIEWSETTINGSNAME = 50968,
+		TIFFTAG_PREVIEWSETTINGSDIGEST = 50969,
+		TIFFTAG_PREVIEWCOLORSPACE = 50970,
+		TIFFTAG_PREVIEWDATETIME = 50971,
+		TIFFTAG_RAWIMAGEDIGEST = 50972,
+		TIFFTAG_ORIGINALRAWFILEDIGEST = 50973,
+		TIFFTAG_SUBTILEBLOCKSIZE = 50974,
+		TIFFTAG_ROWINTERLEAVEFACTOR = 50975,
+		TIFFTAG_PROFILELOOKTABLEDIMS = 50981,
+		TIFFTAG_PROFILELOOKTABLEDATA = 50982,
+		TIFFTAG_OPCODELIST1 = 51008,
+		TIFFTAG_OPCODELIST2 = 51009,
+		TIFFTAG_OPCODELIST3 = 51022,
+		TIFFTAG_NOISEPROFILE = 51041,
+		TIFFTAG_DEFAULTUSERCROP = 51125,
+		TIFFTAG_DEFAULTBLACKRENDER = 51110,
+		TIFFTAG_BASELINEEXPOSUREOFFSET = 51109,
+		TIFFTAG_PROFILELOOKTABLEENCODING = 51108,
+		TIFFTAG_PROFILEHUESATMAPENCODING = 51107,
+		TIFFTAG_ORIGINALDEFAULTFINALSIZE = 51089,
+		TIFFTAG_ORIGINALBESTQUALITYFINALSIZE = 51090,
+		TIFFTAG_ORIGINALDEFAULTCROPSIZE = 51091,
+		TIFFTAG_NEWRAWIMAGEDIGEST = 51111,
+		TIFFTAG_RAWTOPREVIEWGAIN = 51112,
+		TIFFTAG_DEPTHFORMAT = 51177,
+		TIFFTAG_DEPTHNEAR = 51178,
+		TIFFTAG_DEPTHFAR = 51179,
+		TIFFTAG_DEPTHUNITS = 51180,
+		TIFFTAG_DEPTHMEASURETYPE = 51181,
+		TIFFTAG_ENHANCEPARAMS = 51182,
+		TIFFTAG_PROFILEGAINTABLEMAP = 52525,
+		TIFFTAG_SEMANTICNAME = 52526,
+		TIFFTAG_SEMANTICINSTANCEID = 52528,
+		TIFFTAG_MASKSUBAREA = 52536,
+		TIFFTAG_RGBTABLES = 52543,
+		TIFFTAG_CALIBRATIONILLUMINANT3 = 52529,
+		TIFFTAG_COLORMATRIX3 = 52531,
+		TIFFTAG_CAMERACALIBRATION3 = 52530,
+		TIFFTAG_REDUCTIONMATRIX3 = 52538,
+		TIFFTAG_PROFILEHUESATMAPDATA3 = 52537,
+		TIFFTAG_FORWARDMATRIX3 = 52532,
+		TIFFTAG_ILLUMINANTDATA1 = 52533,
+		TIFFTAG_ILLUMINANTDATA2 = 52534,
+		TIFFTAG_ILLUMINANTDATA3 = 53535,
+		TIFFTAG_EP_CFAREPEATPATTERNDIM = 33421,
+		TIFFTAG_EP_CFAPATTERN = 33422,
+		TIFFTAG_EP_BATTERYLEVEL = 33423,
+		TIFFTAG_EP_INTERLACE = 34857,
+		TIFFTAG_EP_IPTC_NAA = 33723,
+		TIFFTAG_EP_TIMEZONEOFFSET = 34858,
+		TIFFTAG_EP_SELFTIMERMODE = 34859,
+		TIFFTAG_EP_FLASHENERGY = 37387,
+		TIFFTAG_EP_SPATIALFREQUENCYRESPONSE = 37388,
+		TIFFTAG_EP_NOISE = 37389,
+		TIFFTAG_EP_FOCALPLANEXRESOLUTION = 37390,
+		TIFFTAG_EP_FOCALPLANEYRESOLUTION = 37391,
+		TIFFTAG_EP_FOCALPLANERESOLUTIONUNIT = 37392,
+		TIFFTAG_EP_IMAGENUMBER = 37393,
+		TIFFTAG_EP_SECURITYCLASSIFICATION = 37394,
+		TIFFTAG_EP_IMAGEHISTORY = 37395,
+		TIFFTAG_EP_EXPOSUREINDEX = 37397,
+		TIFFTAG_EP_STANDARDID = 37398,
+		TIFFTAG_EP_SENSINGMETHOD = 37399,
+		TIFFTAG_EP_EXPOSURETIME = 33434,
+		TIFFTAG_EP_FNUMBER = 33437,
+		TIFFTAG_EP_EXPOSUREPROGRAM = 34850,
+		TIFFTAG_EP_SPECTRALSENSITIVITY = 34852,
+		TIFFTAG_EP_ISOSPEEDRATINGS = 34855,
+		TIFFTAG_EP_OECF = 34856,
+		TIFFTAG_EP_DATETIMEORIGINAL = 36867,
+		TIFFTAG_EP_COMPRESSEDBITSPERPIXEL = 37122,
+		TIFFTAG_EP_SHUTTERSPEEDVALUE = 37377,
+		TIFFTAG_EP_APERTUREVALUE = 37378,
+		TIFFTAG_EP_BRIGHTNESSVALUE = 37379,
+		TIFFTAG_EP_EXPOSUREBIASVALUE = 37380,
+		TIFFTAG_EP_MAXAPERTUREVALUE = 37381,
+		TIFFTAG_EP_SUBJECTDISTANCE = 37382,
+		TIFFTAG_EP_METERINGMODE = 37383,
+		TIFFTAG_EP_LIGHTSOURCE = 37384,
+		TIFFTAG_EP_FLASH = 37385,
+		TIFFTAG_EP_FOCALLENGTH = 37386,
+		TIFFTAG_EP_SUBJECTLOCATION = 37396,
+		TIFFTAG_RPCCOEFFICIENT = 50844,
+		TIFFTAG_ALIAS_LAYER_METADATA = 50784,
+		TIFFTAG_TIFF_RSID = 50908,
+		TIFFTAG_GEO_METADATA = 50909,
+		TIFFTAG_EXTRACAMERAPROFILES = 50933,
+		TIFFTAG_DCSHUESHIFTVALUES = 65535,
+		TIFFTAG_FAXMODE = 65536,
+		FAXMODE_CLASSIC = 0,
+		FAXMODE_NORTC = 1,
+		FAXMODE_NOEOL = 2,
+		FAXMODE_BYTEALIGN = 4,
+		FAXMODE_WORDALIGN = 8,
+		FAXMODE_CLASSF = 1,
+		TIFFTAG_JPEGQUALITY = 65537,
+		TIFFTAG_JPEGCOLORMODE = 65538,
+		JPEGCOLORMODE_RAW = 0,
+		JPEGCOLORMODE_RGB = 1,
+		TIFFTAG_JPEGTABLESMODE = 65539,
+		JPEGTABLESMODE_QUANT = 1,
+		JPEGTABLESMODE_HUFF = 2,
+		TIFFTAG_FAXFILLFUNC = 65540,
+		TIFFTAG_PIXARLOGDATAFMT = 65549,
+		PIXARLOGDATAFMT_8BIT = 0,
+		PIXARLOGDATAFMT_8BITABGR = 1,
+		PIXARLOGDATAFMT_11BITLOG = 2,
+		PIXARLOGDATAFMT_12BITPICIO = 3,
+		PIXARLOGDATAFMT_16BIT = 4,
+		PIXARLOGDATAFMT_FLOAT = 5,
+		TIFFTAG_DCSIMAGERTYPE = 65550,
+		DCSIMAGERMODEL_M3 = 0,
+		DCSIMAGERMODEL_M5 = 1,
+		DCSIMAGERMODEL_M6 = 2,
+		DCSIMAGERFILTER_IR = 0,
+		DCSIMAGERFILTER_MONO = 1,
+		DCSIMAGERFILTER_CFA = 2,
+		DCSIMAGERFILTER_OTHER = 3,
+		TIFFTAG_DCSINTERPMODE = 65551,
+		DCSINTERPMODE_NORMAL = 0,
+		DCSINTERPMODE_PREVIEW = 1,
+		TIFFTAG_DCSBALANCEARRAY = 65552,
+		TIFFTAG_DCSCORRECTMATRIX = 65553,
+		TIFFTAG_DCSGAMMA = 65554,
+		TIFFTAG_DCSTOESHOULDERPTS = 65555,
+		TIFFTAG_DCSCALIBRATIONFD = 65556,
+		TIFFTAG_ZIPQUALITY = 65557,
+		TIFFTAG_PIXARLOGQUALITY = 65558,
+		TIFFTAG_DCSCLIPRECTANGLE = 65559,
+		TIFFTAG_SGILOGDATAFMT = 65560,
+		SGILOGDATAFMT_FLOAT = 0,
+		SGILOGDATAFMT_16BIT = 1,
+		SGILOGDATAFMT_RAW = 2,
+		SGILOGDATAFMT_8BIT = 3,
+		TIFFTAG_SGILOGENCODE = 65561,
+		SGILOGENCODE_NODITHER = 0,
+		SGILOGENCODE_RANDITHER = 1,
+		TIFFTAG_LZMAPRESET = 65562,
+		TIFFTAG_PERSAMPLE = 65563,
+		PERSAMPLE_MERGED = 0,
+		PERSAMPLE_MULTI = 1,
+		TIFFTAG_ZSTD_LEVEL = 65564,
+		TIFFTAG_LERC_VERSION = 65565,
+		LERC_VERSION_2_4 = 4,
+		TIFFTAG_LERC_ADD_COMPRESSION = 65566,
+		LERC_ADD_COMPRESSION_NONE = 0,
+		LERC_ADD_COMPRESSION_DEFLATE = 1,
+		LERC_ADD_COMPRESSION_ZSTD = 2,
+		TIFFTAG_LERC_MAXZERROR = 65567,
+		TIFFTAG_WEBP_LEVEL = 65568,
+		TIFFTAG_WEBP_LOSSLESS = 65569,
+		TIFFTAG_WEBP_LOSSLESS_EXACT = 65571,
+		TIFFTAG_DEFLATE_SUBCODEC = 65570,
+		DEFLATE_SUBCODEC_ZLIB = 0,
+		DEFLATE_SUBCODEC_LIBDEFLATE = 1,
+		EXIFTAG_EXPOSURETIME = 33434,
+		EXIFTAG_FNUMBER = 33437,
+		EXIFTAG_EXPOSUREPROGRAM = 34850,
+		EXIFTAG_SPECTRALSENSITIVITY = 34852,
+		EXIFTAG_ISOSPEEDRATINGS = 34855,
+		EXIFTAG_PHOTOGRAPHICSENSITIVITY = 34855,
+		EXIFTAG_OECF = 34856,
+		EXIFTAG_EXIFVERSION = 36864,
+		EXIFTAG_DATETIMEORIGINAL = 36867,
+		EXIFTAG_DATETIMEDIGITIZED = 36868,
+		EXIFTAG_COMPONENTSCONFIGURATION = 37121,
+		EXIFTAG_COMPRESSEDBITSPERPIXEL = 37122,
+		EXIFTAG_SHUTTERSPEEDVALUE = 37377,
+		EXIFTAG_APERTUREVALUE = 37378,
+		EXIFTAG_BRIGHTNESSVALUE = 37379,
+		EXIFTAG_EXPOSUREBIASVALUE = 37380,
+		EXIFTAG_MAXAPERTUREVALUE = 37381,
+		EXIFTAG_SUBJECTDISTANCE = 37382,
+		EXIFTAG_METERINGMODE = 37383,
+		EXIFTAG_LIGHTSOURCE = 37384,
+		EXIFTAG_FLASH = 37385,
+		EXIFTAG_FOCALLENGTH = 37386,
+		EXIFTAG_SUBJECTAREA = 37396,
+		EXIFTAG_MAKERNOTE = 37500,
+		EXIFTAG_USERCOMMENT = 37510,
+		EXIFTAG_SUBSECTIME = 37520,
+		EXIFTAG_SUBSECTIMEORIGINAL = 37521,
+		EXIFTAG_SUBSECTIMEDIGITIZED = 37522,
+		EXIFTAG_FLASHPIXVERSION = 40960,
+		EXIFTAG_COLORSPACE = 40961,
+		EXIFTAG_PIXELXDIMENSION = 40962,
+		EXIFTAG_PIXELYDIMENSION = 40963,
+		EXIFTAG_RELATEDSOUNDFILE = 40964,
+		EXIFTAG_FLASHENERGY = 41483,
+		EXIFTAG_SPATIALFREQUENCYRESPONSE = 41484,
+		EXIFTAG_FOCALPLANEXRESOLUTION = 41486,
+		EXIFTAG_FOCALPLANEYRESOLUTION = 41487,
+		EXIFTAG_FOCALPLANERESOLUTIONUNIT = 41488,
+		EXIFTAG_SUBJECTLOCATION = 41492,
+		EXIFTAG_EXPOSUREINDEX = 41493,
+		EXIFTAG_SENSINGMETHOD = 41495,
+		EXIFTAG_FILESOURCE = 41728,
+		EXIFTAG_SCENETYPE = 41729,
+		EXIFTAG_CFAPATTERN = 41730,
+		EXIFTAG_CUSTOMRENDERED = 41985,
+		EXIFTAG_EXPOSUREMODE = 41986,
+		EXIFTAG_WHITEBALANCE = 41987,
+		EXIFTAG_DIGITALZOOMRATIO = 41988,
+		EXIFTAG_FOCALLENGTHIN35MMFILM = 41989,
+		EXIFTAG_SCENECAPTURETYPE = 41990,
+		EXIFTAG_GAINCONTROL = 41991,
+		EXIFTAG_CONTRAST = 41992,
+		EXIFTAG_SATURATION = 41993,
+		EXIFTAG_SHARPNESS = 41994,
+		EXIFTAG_DEVICESETTINGDESCRIPTION = 41995,
+		EXIFTAG_SUBJECTDISTANCERANGE = 41996,
+		EXIFTAG_IMAGEUNIQUEID = 42016,
+		EXIFTAG_SENSITIVITYTYPE = 34864,
+		EXIFTAG_STANDARDOUTPUTSENSITIVITY = 34865,
+		EXIFTAG_RECOMMENDEDEXPOSUREINDEX = 34866,
+		EXIFTAG_ISOSPEED = 34867,
+		EXIFTAG_ISOSPEEDLATITUDEYYY = 34868,
+		EXIFTAG_ISOSPEEDLATITUDEZZZ = 34869,
+		EXIFTAG_OFFSETTIME = 36880,
+		EXIFTAG_OFFSETTIMEORIGINAL = 36881,
+		EXIFTAG_OFFSETTIMEDIGITIZED = 36882,
+		EXIFTAG_TEMPERATURE = 37888,
+		EXIFTAG_HUMIDITY = 37889,
+		EXIFTAG_PRESSURE = 37890,
+		EXIFTAG_WATERDEPTH = 37891,
+		EXIFTAG_ACCELERATION = 37892,
+		EXIFTAG_CAMERAELEVATIONANGLE = 37893,
+		EXIFTAG_CAMERAOWNERNAME = 42032,
+		EXIFTAG_BODYSERIALNUMBER = 42033,
+		EXIFTAG_LENSSPECIFICATION = 42034,
+		EXIFTAG_LENSMAKE = 42035,
+		EXIFTAG_LENSMODEL = 42036,
+		EXIFTAG_LENSSERIALNUMBER = 42037,
+		EXIFTAG_GAMMA = 42240,
+		EXIFTAG_COMPOSITEIMAGE = 42080,
+		EXIFTAG_SOURCEIMAGENUMBEROFCOMPOSITEIMAGE = 42081,
+		EXIFTAG_SOURCEEXPOSURETIMESOFCOMPOSITEIMAGE = 42082,
+		GPSTAG_VERSIONID = 0,
+		GPSTAG_LATITUDEREF = 1,
+		GPSTAG_LATITUDE = 2,
+		GPSTAG_LONGITUDEREF = 3,
+		GPSTAG_LONGITUDE = 4,
+		GPSTAG_ALTITUDEREF = 5,
+		GPSTAG_ALTITUDE = 6,
+		GPSTAG_TIMESTAMP = 7,
+		GPSTAG_SATELLITES = 8,
+		GPSTAG_STATUS = 9,
+		GPSTAG_MEASUREMODE = 10,
+		GPSTAG_DOP = 11,
+		GPSTAG_SPEEDREF = 12,
+		GPSTAG_SPEED = 13,
+		GPSTAG_TRACKREF = 14,
+		GPSTAG_TRACK = 15,
+		GPSTAG_IMGDIRECTIONREF = 16,
+		GPSTAG_IMGDIRECTION = 17,
+		GPSTAG_MAPDATUM = 18,
+		GPSTAG_DESTLATITUDEREF = 19,
+		GPSTAG_DESTLATITUDE = 20,
+		GPSTAG_DESTLONGITUDEREF = 21,
+		GPSTAG_DESTLONGITUDE = 22,
+		GPSTAG_DESTBEARINGREF = 23,
+		GPSTAG_DESTBEARING = 24,
+		GPSTAG_DESTDISTANCEREF = 25,
+		GPSTAG_DESTDISTANCE = 26,
+		GPSTAG_PROCESSINGMETHOD = 27,
+		GPSTAG_AREAINFORMATION = 28,
+		GPSTAG_DATESTAMP = 29,
+		GPSTAG_DIFFERENTIAL = 30,
+		GPSTAG_GPSHPOSITIONINGERROR = 31,
+		TIFFLIB_VERSION = 20230609,
+		TIFFLIB_MAJOR_VERSION = 4,
+		TIFFLIB_MINOR_VERSION = 5,
+		TIFFLIB_MICRO_VERSION = 1,
+		TIFFPRINT_NONE = 0,
+		TIFFPRINT_STRIPS = 1,
+		TIFFPRINT_CURVES = 2,
+		TIFFPRINT_COLORMAP = 4,
+		TIFFPRINT_JPEGQTABLES = 256,
+		TIFFPRINT_JPEGACTABLES = 512,
+		TIFFPRINT_JPEGDCTABLES = 512,
+		CIELABTORGB_TABLE_RANGE = 1500,
+		LOGLUV_PUBLIC = 1,
+		TIFF_ANY = 0,
+		TIFF_VARIABLE = -1,
+		TIFF_SPP = -2,
+		TIFF_VARIABLE2 = -3,
+		FIELD_CUSTOM = 65,
+
+		-- functions
+
+		TIFFGetVersion = [[const char * TIFFGetVersion();]],
+		TIFFFindCODEC = [[const TIFFCodec * TIFFFindCODEC(uint16_t);]],
+		TIFFRegisterCODEC = [[TIFFCodec * TIFFRegisterCODEC(uint16_t, const char *, TIFFInitMethod);]],
+		TIFFUnRegisterCODEC = [[void TIFFUnRegisterCODEC(TIFFCodec *);]],
+		TIFFIsCODECConfigured = [[int TIFFIsCODECConfigured(uint16_t);]],
+		TIFFGetConfiguredCODECs = [[TIFFCodec * TIFFGetConfiguredCODECs();]],
+		_TIFFmalloc = [[void * _TIFFmalloc(tmsize_t s);]],
+		_TIFFcalloc = [[void * _TIFFcalloc(tmsize_t nmemb, tmsize_t siz);]],
+		_TIFFrealloc = [[void * _TIFFrealloc(void *p, tmsize_t s);]],
+		_TIFFmemset = [[void _TIFFmemset(void *p, int v, tmsize_t c);]],
+		_TIFFmemcpy = [[void _TIFFmemcpy(void *d, const void *s, tmsize_t c);]],
+		_TIFFmemcmp = [[int _TIFFmemcmp(const void *p1, const void *p2, tmsize_t c);]],
+		_TIFFfree = [[void _TIFFfree(void *p);]],
+		TIFFGetTagListCount = [[int TIFFGetTagListCount(TIFF *);]],
+		TIFFGetTagListEntry = [[uint32_t TIFFGetTagListEntry(TIFF *, int tag_index);]],
+		TIFFFindField = [[const TIFFField * TIFFFindField(TIFF *, uint32_t, TIFFDataType);]],
+		TIFFFieldWithTag = [[const TIFFField * TIFFFieldWithTag(TIFF *, uint32_t);]],
+		TIFFFieldWithName = [[const TIFFField * TIFFFieldWithName(TIFF *, const char *);]],
+		TIFFFieldTag = [[uint32_t TIFFFieldTag(const TIFFField *);]],
+		TIFFFieldName = [[const char * TIFFFieldName(const TIFFField *);]],
+		TIFFFieldDataType = [[TIFFDataType TIFFFieldDataType(const TIFFField *);]],
+		TIFFFieldPassCount = [[int TIFFFieldPassCount(const TIFFField *);]],
+		TIFFFieldReadCount = [[int TIFFFieldReadCount(const TIFFField *);]],
+		TIFFFieldWriteCount = [[int TIFFFieldWriteCount(const TIFFField *);]],
+		TIFFFieldSetGetSize = [[int TIFFFieldSetGetSize(const TIFFField *);]],
+		TIFFFieldSetGetCountSize = [[int TIFFFieldSetGetCountSize(const TIFFField *);]],
+		TIFFFieldIsAnonymous = [[int TIFFFieldIsAnonymous(const TIFFField *);]],
+		TIFFAccessTagMethods = [[TIFFTagMethods * TIFFAccessTagMethods(TIFF *);]],
+		TIFFGetClientInfo = [[void * TIFFGetClientInfo(TIFF *, const char *);]],
+		TIFFSetClientInfo = [[void TIFFSetClientInfo(TIFF *, void *, const char *);]],
+		TIFFCleanup = [[void TIFFCleanup(TIFF *tif);]],
+		TIFFClose = [[void TIFFClose(TIFF *tif);]],
+		TIFFFlush = [[int TIFFFlush(TIFF *tif);]],
+		TIFFFlushData = [[int TIFFFlushData(TIFF *tif);]],
+		TIFFGetField = [[int TIFFGetField(TIFF *tif, uint32_t tag, ...);]],
+		TIFFVGetField = [[int TIFFVGetField(TIFF *tif, uint32_t tag, va_list ap);]],
+		TIFFGetFieldDefaulted = [[int TIFFGetFieldDefaulted(TIFF *tif, uint32_t tag, ...);]],
+		TIFFVGetFieldDefaulted = [[int TIFFVGetFieldDefaulted(TIFF *tif, uint32_t tag, va_list ap);]],
+		TIFFReadDirectory = [[int TIFFReadDirectory(TIFF *tif);]],
+		TIFFReadCustomDirectory = [[int TIFFReadCustomDirectory(TIFF *tif, toff_t diroff, const TIFFFieldArray *infoarray);]],
+		TIFFReadEXIFDirectory = [[int TIFFReadEXIFDirectory(TIFF *tif, toff_t diroff);]],
+		TIFFReadGPSDirectory = [[int TIFFReadGPSDirectory(TIFF *tif, toff_t diroff);]],
+		TIFFScanlineSize64 = [[uint64_t TIFFScanlineSize64(TIFF *tif);]],
+		TIFFScanlineSize = [[tmsize_t TIFFScanlineSize(TIFF *tif);]],
+		TIFFRasterScanlineSize64 = [[uint64_t TIFFRasterScanlineSize64(TIFF *tif);]],
+		TIFFRasterScanlineSize = [[tmsize_t TIFFRasterScanlineSize(TIFF *tif);]],
+		TIFFStripSize64 = [[uint64_t TIFFStripSize64(TIFF *tif);]],
+		TIFFStripSize = [[tmsize_t TIFFStripSize(TIFF *tif);]],
+		TIFFRawStripSize64 = [[uint64_t TIFFRawStripSize64(TIFF *tif, uint32_t strip);]],
+		TIFFRawStripSize = [[tmsize_t TIFFRawStripSize(TIFF *tif, uint32_t strip);]],
+		TIFFVStripSize64 = [[uint64_t TIFFVStripSize64(TIFF *tif, uint32_t nrows);]],
+		TIFFVStripSize = [[tmsize_t TIFFVStripSize(TIFF *tif, uint32_t nrows);]],
+		TIFFTileRowSize64 = [[uint64_t TIFFTileRowSize64(TIFF *tif);]],
+		TIFFTileRowSize = [[tmsize_t TIFFTileRowSize(TIFF *tif);]],
+		TIFFTileSize64 = [[uint64_t TIFFTileSize64(TIFF *tif);]],
+		TIFFTileSize = [[tmsize_t TIFFTileSize(TIFF *tif);]],
+		TIFFVTileSize64 = [[uint64_t TIFFVTileSize64(TIFF *tif, uint32_t nrows);]],
+		TIFFVTileSize = [[tmsize_t TIFFVTileSize(TIFF *tif, uint32_t nrows);]],
+		TIFFDefaultStripSize = [[uint32_t TIFFDefaultStripSize(TIFF *tif, uint32_t request);]],
+		TIFFDefaultTileSize = [[void TIFFDefaultTileSize(TIFF *, uint32_t *, uint32_t *);]],
+		TIFFFileno = [[int TIFFFileno(TIFF *);]],
+		TIFFSetFileno = [[int TIFFSetFileno(TIFF *, int);]],
+		TIFFClientdata = [[thandle_t TIFFClientdata(TIFF *);]],
+		TIFFSetClientdata = [[thandle_t TIFFSetClientdata(TIFF *, thandle_t);]],
+		TIFFGetMode = [[int TIFFGetMode(TIFF *);]],
+		TIFFSetMode = [[int TIFFSetMode(TIFF *, int);]],
+		TIFFIsTiled = [[int TIFFIsTiled(TIFF *);]],
+		TIFFIsByteSwapped = [[int TIFFIsByteSwapped(TIFF *);]],
+		TIFFIsUpSampled = [[int TIFFIsUpSampled(TIFF *);]],
+		TIFFIsMSB2LSB = [[int TIFFIsMSB2LSB(TIFF *);]],
+		TIFFIsBigEndian = [[int TIFFIsBigEndian(TIFF *);]],
+		TIFFIsBigTIFF = [[int TIFFIsBigTIFF(TIFF *);]],
+		TIFFGetReadProc = [[TIFFReadWriteProc TIFFGetReadProc(TIFF *);]],
+		TIFFGetWriteProc = [[TIFFReadWriteProc TIFFGetWriteProc(TIFF *);]],
+		TIFFGetSeekProc = [[TIFFSeekProc TIFFGetSeekProc(TIFF *);]],
+		TIFFGetCloseProc = [[TIFFCloseProc TIFFGetCloseProc(TIFF *);]],
+		TIFFGetSizeProc = [[TIFFSizeProc TIFFGetSizeProc(TIFF *);]],
+		TIFFGetMapFileProc = [[TIFFMapFileProc TIFFGetMapFileProc(TIFF *);]],
+		TIFFGetUnmapFileProc = [[TIFFUnmapFileProc TIFFGetUnmapFileProc(TIFF *);]],
+		TIFFCurrentRow = [[uint32_t TIFFCurrentRow(TIFF *);]],
+		TIFFCurrentDirectory = [[tdir_t TIFFCurrentDirectory(TIFF *);]],
+		TIFFNumberOfDirectories = [[tdir_t TIFFNumberOfDirectories(TIFF *);]],
+		TIFFCurrentDirOffset = [[uint64_t TIFFCurrentDirOffset(TIFF *);]],
+		TIFFCurrentStrip = [[uint32_t TIFFCurrentStrip(TIFF *);]],
+		TIFFCurrentTile = [[uint32_t TIFFCurrentTile(TIFF *tif);]],
+		TIFFReadBufferSetup = [[int TIFFReadBufferSetup(TIFF *tif, void *bp, tmsize_t size);]],
+		TIFFWriteBufferSetup = [[int TIFFWriteBufferSetup(TIFF *tif, void *bp, tmsize_t size);]],
+		TIFFSetupStrips = [[int TIFFSetupStrips(TIFF *);]],
+		TIFFWriteCheck = [[int TIFFWriteCheck(TIFF *, int, const char *);]],
+		TIFFFreeDirectory = [[void TIFFFreeDirectory(TIFF *);]],
+		TIFFCreateDirectory = [[int TIFFCreateDirectory(TIFF *);]],
+		TIFFCreateCustomDirectory = [[int TIFFCreateCustomDirectory(TIFF *, const TIFFFieldArray *);]],
+		TIFFCreateEXIFDirectory = [[int TIFFCreateEXIFDirectory(TIFF *);]],
+		TIFFCreateGPSDirectory = [[int TIFFCreateGPSDirectory(TIFF *);]],
+		TIFFLastDirectory = [[int TIFFLastDirectory(TIFF *);]],
+		TIFFSetDirectory = [[int TIFFSetDirectory(TIFF *, tdir_t);]],
+		TIFFSetSubDirectory = [[int TIFFSetSubDirectory(TIFF *, uint64_t);]],
+		TIFFUnlinkDirectory = [[int TIFFUnlinkDirectory(TIFF *, tdir_t);]],
+		TIFFSetField = [[int TIFFSetField(TIFF *, uint32_t, ...);]],
+		TIFFVSetField = [[int TIFFVSetField(TIFF *, uint32_t, va_list);]],
+		TIFFUnsetField = [[int TIFFUnsetField(TIFF *, uint32_t);]],
+		TIFFWriteDirectory = [[int TIFFWriteDirectory(TIFF *);]],
+		TIFFWriteCustomDirectory = [[int TIFFWriteCustomDirectory(TIFF *, uint64_t *);]],
+		TIFFCheckpointDirectory = [[int TIFFCheckpointDirectory(TIFF *);]],
+		TIFFRewriteDirectory = [[int TIFFRewriteDirectory(TIFF *);]],
+		TIFFDeferStrileArrayWriting = [[int TIFFDeferStrileArrayWriting(TIFF *);]],
+		TIFFForceStrileArrayWriting = [[int TIFFForceStrileArrayWriting(TIFF *);]],
+		TIFFPrintDirectory = [[void TIFFPrintDirectory(TIFF *, FILE *, long);]],
+		TIFFReadScanline = [[int TIFFReadScanline(TIFF *tif, void *buf, uint32_t row, uint16_t sample);]],
+		TIFFWriteScanline = [[int TIFFWriteScanline(TIFF *tif, void *buf, uint32_t row, uint16_t sample);]],
+		TIFFReadRGBAImage = [[int TIFFReadRGBAImage(TIFF *, uint32_t, uint32_t, uint32_t *, int);]],
+		TIFFReadRGBAImageOriented = [[int TIFFReadRGBAImageOriented(TIFF *, uint32_t, uint32_t, uint32_t *, int, int);]],
+		TIFFReadRGBAStrip = [[int TIFFReadRGBAStrip(TIFF *, uint32_t, uint32_t *);]],
+		TIFFReadRGBATile = [[int TIFFReadRGBATile(TIFF *, uint32_t, uint32_t, uint32_t *);]],
+		TIFFReadRGBAStripExt = [[int TIFFReadRGBAStripExt(TIFF *, uint32_t, uint32_t *, int stop_on_error);]],
+		TIFFReadRGBATileExt = [[int TIFFReadRGBATileExt(TIFF *, uint32_t, uint32_t, uint32_t *, int stop_on_error);]],
+		TIFFRGBAImageOK = [[int TIFFRGBAImageOK(TIFF *, char[1024]);]],
+		TIFFRGBAImageBegin = [[int TIFFRGBAImageBegin(TIFFRGBAImage *, TIFF *, int, char[1024]);]],
+		TIFFRGBAImageGet = [[int TIFFRGBAImageGet(TIFFRGBAImage *, uint32_t *, uint32_t, uint32_t);]],
+		TIFFRGBAImageEnd = [[void TIFFRGBAImageEnd(TIFFRGBAImage *);]],
+		TIFFFileName = [[const char * TIFFFileName(TIFF *);]],
+		TIFFSetFileName = [[const char * TIFFSetFileName(TIFF *, const char *);]],
+		TIFFError = [[void TIFFError(const char *, const char *, ...) __attribute__((__format__(__printf__, 2, 3)));]],
+		TIFFErrorExt = [[void TIFFErrorExt(thandle_t, const char *, const char *, ...) __attribute__((__format__(__printf__, 3, 4)));]],
+		TIFFWarning = [[void TIFFWarning(const char *, const char *, ...) __attribute__((__format__(__printf__, 2, 3)));]],
+		TIFFWarningExt = [[void TIFFWarningExt(thandle_t, const char *, const char *, ...) __attribute__((__format__(__printf__, 3, 4)));]],
+		TIFFSetErrorHandler = [[TIFFErrorHandler TIFFSetErrorHandler(TIFFErrorHandler);]],
+		TIFFSetErrorHandlerExt = [[TIFFErrorHandlerExt TIFFSetErrorHandlerExt(TIFFErrorHandlerExt);]],
+		TIFFSetWarningHandler = [[TIFFErrorHandler TIFFSetWarningHandler(TIFFErrorHandler);]],
+		TIFFSetWarningHandlerExt = [[TIFFErrorHandlerExt TIFFSetWarningHandlerExt(TIFFErrorHandlerExt);]],
+		TIFFWarningExtR = [[void TIFFWarningExtR(TIFF *, const char *, const char *, ...) __attribute__((__format__(__printf__, 3, 4)));]],
+		TIFFErrorExtR = [[void TIFFErrorExtR(TIFF *, const char *, const char *, ...) __attribute__((__format__(__printf__, 3, 4)));]],
+		TIFFOpenOptionsAlloc = [[TIFFOpenOptions * TIFFOpenOptionsAlloc();]],
+		TIFFOpenOptionsFree = [[void TIFFOpenOptionsFree(TIFFOpenOptions *);]],
+		TIFFOpenOptionsSetMaxSingleMemAlloc = [[void TIFFOpenOptionsSetMaxSingleMemAlloc(TIFFOpenOptions *opts, tmsize_t max_single_mem_alloc);]],
+		TIFFOpenOptionsSetErrorHandlerExtR = [[void TIFFOpenOptionsSetErrorHandlerExtR(TIFFOpenOptions *opts, TIFFErrorHandlerExtR handler, void *errorhandler_user_data);]],
+		TIFFOpenOptionsSetWarningHandlerExtR = [[void TIFFOpenOptionsSetWarningHandlerExtR(TIFFOpenOptions *opts, TIFFErrorHandlerExtR handler, void *warnhandler_user_data);]],
+		TIFFOpen = [[TIFF * TIFFOpen(const char *, const char *);]],
+		TIFFOpenExt = [[TIFF * TIFFOpenExt(const char *, const char *, TIFFOpenOptions *opts);]],
+		TIFFFdOpen = [[TIFF * TIFFFdOpen(int, const char *, const char *);]],
+		TIFFFdOpenExt = [[TIFF * TIFFFdOpenExt(int, const char *, const char *, TIFFOpenOptions *opts);]],
+		TIFFClientOpen = [[TIFF * TIFFClientOpen(const char *, const char *, thandle_t, TIFFReadWriteProc, TIFFReadWriteProc, TIFFSeekProc, TIFFCloseProc, TIFFSizeProc, TIFFMapFileProc, TIFFUnmapFileProc);]],
+		TIFFClientOpenExt = [[TIFF * TIFFClientOpenExt(const char *, const char *, thandle_t, TIFFReadWriteProc, TIFFReadWriteProc, TIFFSeekProc, TIFFCloseProc, TIFFSizeProc, TIFFMapFileProc, TIFFUnmapFileProc, TIFFOpenOptions *opts);]],
+		TIFFSetTagExtender = [[TIFFExtendProc TIFFSetTagExtender(TIFFExtendProc);]],
+		TIFFComputeTile = [[uint32_t TIFFComputeTile(TIFF *tif, uint32_t x, uint32_t y, uint32_t z, uint16_t s);]],
+		TIFFCheckTile = [[int TIFFCheckTile(TIFF *tif, uint32_t x, uint32_t y, uint32_t z, uint16_t s);]],
+		TIFFNumberOfTiles = [[uint32_t TIFFNumberOfTiles(TIFF *);]],
+		TIFFReadTile = [[tmsize_t TIFFReadTile(TIFF *tif, void *buf, uint32_t x, uint32_t y, uint32_t z, uint16_t s);]],
+		TIFFWriteTile = [[tmsize_t TIFFWriteTile(TIFF *tif, void *buf, uint32_t x, uint32_t y, uint32_t z, uint16_t s);]],
+		TIFFComputeStrip = [[uint32_t TIFFComputeStrip(TIFF *, uint32_t, uint16_t);]],
+		TIFFNumberOfStrips = [[uint32_t TIFFNumberOfStrips(TIFF *);]],
+		TIFFReadEncodedStrip = [[tmsize_t TIFFReadEncodedStrip(TIFF *tif, uint32_t strip, void *buf, tmsize_t size);]],
+		TIFFReadRawStrip = [[tmsize_t TIFFReadRawStrip(TIFF *tif, uint32_t strip, void *buf, tmsize_t size);]],
+		TIFFReadEncodedTile = [[tmsize_t TIFFReadEncodedTile(TIFF *tif, uint32_t tile, void *buf, tmsize_t size);]],
+		TIFFReadRawTile = [[tmsize_t TIFFReadRawTile(TIFF *tif, uint32_t tile, void *buf, tmsize_t size);]],
+		TIFFReadFromUserBuffer = [[int TIFFReadFromUserBuffer(TIFF *tif, uint32_t strile, void *inbuf, tmsize_t insize, void *outbuf, tmsize_t outsize);]],
+		TIFFWriteEncodedStrip = [[tmsize_t TIFFWriteEncodedStrip(TIFF *tif, uint32_t strip, void *data, tmsize_t cc);]],
+		TIFFWriteRawStrip = [[tmsize_t TIFFWriteRawStrip(TIFF *tif, uint32_t strip, void *data, tmsize_t cc);]],
+		TIFFWriteEncodedTile = [[tmsize_t TIFFWriteEncodedTile(TIFF *tif, uint32_t tile, void *data, tmsize_t cc);]],
+		TIFFWriteRawTile = [[tmsize_t TIFFWriteRawTile(TIFF *tif, uint32_t tile, void *data, tmsize_t cc);]],
+		TIFFDataWidth = [[int TIFFDataWidth(TIFFDataType);]],
+		TIFFSetWriteOffset = [[void TIFFSetWriteOffset(TIFF *tif, toff_t off);]],
+		TIFFSwabShort = [[void TIFFSwabShort(uint16_t *);]],
+		TIFFSwabLong = [[void TIFFSwabLong(uint32_t *);]],
+		TIFFSwabLong8 = [[void TIFFSwabLong8(uint64_t *);]],
+		TIFFSwabFloat = [[void TIFFSwabFloat(float *);]],
+		TIFFSwabDouble = [[void TIFFSwabDouble(double *);]],
+		TIFFSwabArrayOfShort = [[void TIFFSwabArrayOfShort(uint16_t *wp, tmsize_t n);]],
+		TIFFSwabArrayOfTriples = [[void TIFFSwabArrayOfTriples(uint8_t *tp, tmsize_t n);]],
+		TIFFSwabArrayOfLong = [[void TIFFSwabArrayOfLong(uint32_t *lp, tmsize_t n);]],
+		TIFFSwabArrayOfLong8 = [[void TIFFSwabArrayOfLong8(uint64_t *lp, tmsize_t n);]],
+		TIFFSwabArrayOfFloat = [[void TIFFSwabArrayOfFloat(float *fp, tmsize_t n);]],
+		TIFFSwabArrayOfDouble = [[void TIFFSwabArrayOfDouble(double *dp, tmsize_t n);]],
+		TIFFReverseBits = [[void TIFFReverseBits(uint8_t *cp, tmsize_t n);]],
+		TIFFGetBitRevTable = [[const unsigned char * TIFFGetBitRevTable(int);]],
+		TIFFGetStrileOffset = [[uint64_t TIFFGetStrileOffset(TIFF *tif, uint32_t strile);]],
+		TIFFGetStrileByteCount = [[uint64_t TIFFGetStrileByteCount(TIFF *tif, uint32_t strile);]],
+		TIFFGetStrileOffsetWithErr = [[uint64_t TIFFGetStrileOffsetWithErr(TIFF *tif, uint32_t strile, int *pbErr);]],
+		TIFFGetStrileByteCountWithErr = [[uint64_t TIFFGetStrileByteCountWithErr(TIFF *tif, uint32_t strile, int *pbErr);]],
+		LogL16toY = [[double LogL16toY(int);]],
+		LogL10toY = [[double LogL10toY(int);]],
+		XYZtoRGB24 = [[void XYZtoRGB24(float *, uint8_t *);]],
+		uv_decode = [[int uv_decode(double *, double *, int);]],
+		LogLuv24toXYZ = [[void LogLuv24toXYZ(uint32_t, float *);]],
+		LogLuv32toXYZ = [[void LogLuv32toXYZ(uint32_t, float *);]],
+		LogL16fromY = [[int LogL16fromY(double, int);]],
+		LogL10fromY = [[int LogL10fromY(double, int);]],
+		uv_encode = [[int uv_encode(double, double, int);]],
+		LogLuv24fromXYZ = [[uint32_t LogLuv24fromXYZ(float *, int);]],
+		LogLuv32fromXYZ = [[uint32_t LogLuv32fromXYZ(float *, int);]],
+		TIFFCIELabToRGBInit = [[int TIFFCIELabToRGBInit(TIFFCIELabToRGB *, const TIFFDisplay *, float *);]],
+		TIFFCIELabToXYZ = [[void TIFFCIELabToXYZ(TIFFCIELabToRGB *, uint32_t, int32_t, int32_t, float *, float *, float *);]],
+		TIFFXYZToRGB = [[void TIFFXYZToRGB(TIFFCIELabToRGB *, float, float, float, uint32_t *, uint32_t *, uint32_t *);]],
+		TIFFYCbCrToRGBInit = [[int TIFFYCbCrToRGBInit(TIFFYCbCrToRGB *, float *, float *);]],
+		TIFFYCbCrtoRGB = [[void TIFFYCbCrtoRGB(TIFFYCbCrToRGB *, uint32_t, int32_t, int32_t, uint32_t *, uint32_t *, uint32_t *);]],
+		TIFFMergeFieldInfo = [[int TIFFMergeFieldInfo(TIFF *, const TIFFFieldInfo[], uint32_t);]],
+	},
+}
