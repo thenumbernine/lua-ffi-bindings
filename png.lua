@@ -680,7 +680,7 @@ local defs = {
 	png_set_option = [[int png_set_option(png_structrp png_ptr, int option, int onoff);]],
 
 }
-return require 'ffi.libwrapper'.wraplib{
+return require 'ffi.libwrapper'{
 	defs = defs,
 	lib = require 'ffi.load' 'png',
 }

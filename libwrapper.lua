@@ -104,4 +104,10 @@ function M.libwrapper(args)
 	end
 end
 
+setmetatable(M, {
+	__call = function(t,...)
+		return M.libwrapper(...)
+	end,
+})
+
 return M
