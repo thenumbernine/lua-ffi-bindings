@@ -25,9 +25,10 @@ local op = require 'ext.op'
 local ffi = require 'ffi'
 
 local M = {}
-	
-M.mode = 'immediate'	-- load immediately into ffi.C[k]
---M.mode = 'defer'			-- defer loading ffi.C[k] until requested
+
+-- for now I'll defer-by-default, combined with only using ffi.libwrapper with slow/offline libs like libpng/cfitsio/libtiff that I don't call in tight loops
+--M.mode = 'immediate'	-- load immediately into ffi.C[k]
+M.mode = 'defer'		-- defer loading ffi.C[k] until requested
 --M.mode = 'defer-lua'	-- defer loading wrapper[k] until requested
 
 --[[
@@ -36,8 +37,7 @@ args:
 		... number values represent enums, to-be-defined in either the lib / ffi.C or in the wrapper (based on M.mode)
 		... string values represent ffi.cdef's
 		... function values are executed.  these are useful for subsequent invocations / generating dependent types before ffi.cdef'ing our own type.
-
-(TODO JUST USE THE MODULE SYSTEM.  THE DAG AND ffi.cdef CALLS ARE ALREADY THERE.)
+			(TODO JUST USE THE MODULE SYSTEM.  THE DAG AND ffi.cdef CALLS ARE ALREADY THERE.)
 
 	lib = `require 'ffi.load' (libraryName)`
 
@@ -55,12 +55,16 @@ function M.libwrapper(args)
 		-- just define all into lib
 		-- this can incur 'table overflow'
 		-- but should be fast since the returned object is lib / ffi.C
+		-- TODO for immediate mode, I could always just assign __index=lib directly
+		-- however this would make things a lot more rigid, it'd make it not possible to change away from immediate mode to any other mode after launching an app (tho who will do that?)
 		for k,v in pairs(defs) do
 --DEBUG(ffi.libwrapper): print('libwrapper loading', k)
 			if type(v) == 'number' then
 				ffi.cdef('enum { '..k..' = '..v..' };')
 			elseif type(v) == 'string' then
 				ffi.cdef(v)
+			elseif type(v) == 'function' then
+				v()
 			else
 				error("expected defs type to be number or string")
 			end
@@ -92,6 +96,10 @@ function M.libwrapper(args)
 						return v
 					elseif type(v) == 'string' then
 						ffi.cdef(v)
+						-- it should be there by now ...
+						return op.safeindex(lib, k)
+					elseif type(v) == 'string' then
+						v()
 						-- it should be there by now ...
 						return op.safeindex(lib, k)
 					else
