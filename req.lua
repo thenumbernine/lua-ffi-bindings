@@ -25,7 +25,10 @@ return function(req)
 		end, function(err)
 			return err..'\n'..debug.traceback()
 		end)
-		if found then return result end
+		if found then
+--DEBUG(ffi.req):print('ffi.req', req, search)
+			return result
+		end
 		table.insert(errs, result)
 	end
 	error(table.concat(errs, '\n'))
