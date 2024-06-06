@@ -88,7 +88,7 @@ enum zip_source_cmd { ZIP_SOURCE_OPEN, ZIP_SOURCE_READ, ZIP_SOURCE_CLOSE, ZIP_SO
 return require 'ffi.libwrapper'{
 	lib = require 'ffi.load' 'zip',
 	defs = {
-		
+
 		-- enums
 
 		LIBZIP_VERSION_MAJOR = 1,
