@@ -442,3 +442,4 @@ wrapper = require 'ffi.libwrapper'{
 		end,
 	},
 }
+return wrapper
