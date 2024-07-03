@@ -33,7 +33,7 @@ M.mode = 'defer'		-- defer loading ffi.C[k] until requested
 
 --[[
 args:
-	defs = {[k] = gen()} key is symbol/enum name, 
+	defs = {[k] = gen()} key is symbol/enum name,
 		... number values represent enums, to-be-defined in either the lib / ffi.C or in the wrapper (based on M.mode)
 		... string values represent ffi.cdef's
 		... function values are executed.  these are useful for subsequent invocations / generating dependent types before ffi.cdef'ing our own type.
@@ -43,7 +43,7 @@ args:
 
 creates a wrapper for the library based on `require 'ffi.libwrapper'.mode`
 - if it is 'immediate' then all enums are immediately loaded into the library (this can only be assigned / used if M.mode is set to 'immediate' before require'ing the ffi.req header name.
-- if it is 'defer' then enums are only assigned upon request, and assigned to ffi.C 
+- if it is 'defer' then enums are only assigned upon request, and assigned to ffi.C
 - if it is 'defer-lua' then " " " assigned to the wrapper table
 --]]
 function M.libwrapper(args)
@@ -51,7 +51,7 @@ function M.libwrapper(args)
 	local lib = asserttype(assertindex(args, 'lib'), 'userdata')
 
 	if M.mode == 'immediate' then
-		-- don't wrap 
+		-- don't wrap
 		-- just define all into lib
 		-- this can incur 'table overflow'
 		-- but should be fast since the returned object is lib / ffi.C
@@ -64,7 +64,7 @@ function M.libwrapper(args)
 			elseif type(v) == 'string' then
 				ffi.cdef(v)
 			elseif type(v) == 'function' then
-				v()
+				wrapper[k] = v()
 			else
 				error("expected defs type to be number or string")
 			end
@@ -74,15 +74,15 @@ function M.libwrapper(args)
 	or M.mode == 'defer-lua'
 	then
 		-- do wrap -- and incur slowdowns
-		local wrapper 
+		local wrapper
 		wrapper = setmetatable({}, {
 			__index = function(t,k)
 				-- ok this will guarantee to be slow.  thanks luajit for breaking the lua standard and throwing an error instead of returning nil.
 				local v = op.safeindex(lib, k)
-				
+
 				if v ~= nil then return v end
 
-				local v = defs[k] 
+				local v = defs[k]
 				if v ~= nil then
 --DEBUG(ffi.libwrapper): print('libwrapper loading', k)
 					-- define in lib / ffi.C , which might be faster, but can also incur 'table overflow'
@@ -98,10 +98,10 @@ function M.libwrapper(args)
 						ffi.cdef(v)
 						-- it should be there by now ...
 						return op.safeindex(lib, k)
-					elseif type(v) == 'string' then
-						v()
-						-- it should be there by now ...
-						return op.safeindex(lib, k)
+					elseif type(v) == 'function' then
+						local result = v()
+						wrapper[k] = result
+						return result
 					else
 						error("expected defs type to be number or string")
 					end
