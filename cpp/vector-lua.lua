@@ -109,7 +109,7 @@ function vector:reserve(newcap)
 	-- so self.capacity < newcap
 	local newv = self:alloc(self.type, newcap)
 	assert(self.size <= self.capacity)
-	ffi.copy(newv, self.v, ffi.sizeof(self.type) * self.size)
+	if self.v then ffi.copy(newv, self.v, ffi.sizeof(self.type) * self.size) end
 	self.v = newv
 	self.capacity = newcap
 end
