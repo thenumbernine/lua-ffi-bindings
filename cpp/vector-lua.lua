@@ -62,7 +62,7 @@ function vector:init(ctype, arg)
 				-- TODO don't use capacity, just use ffi.sizeof ?
 				error("capacity is misaligned")
 			end
-			return self.v[k]
+			return rawget(self, 'v')[k]
 		end
 		function mt:__newindex(k, v)
 			-- see if we are writing a field
