@@ -1,7 +1,6 @@
 # Common Headers Ported to LuaJIT FFI.
 
 [![Donate via Stripe](https://img.shields.io/badge/Donate-Stripe-green.svg)](https://buy.stripe.com/00gbJZ0OdcNs9zi288)<br>
-[![Donate via Bitcoin](https://img.shields.io/badge/Donate-Bitcoin-green.svg)](bitcoin:37fsp7qQKU8XoHZGRQvVzQVP8FrEJ73cSJ)<br>
 
 
 This repo contains luajit-C bindings for lots of common C files and some 3rd party libraries.
