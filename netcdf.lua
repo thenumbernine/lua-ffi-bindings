@@ -249,7 +249,6 @@ enum { NC_ECONSTRAINT = -75 };
 /* #define DIM_WITHOUT_VARIABLE "This is a netCDF dimension but not a netCDF variable." ### string, not number "\"This is a netCDF dimension but not a netCDF variable.\"" */
 enum { NC_HAVE_NEW_CHUNKING_API = 1 };
 enum { MSC_EXTRA = 1 };
-enum { EXTERNL = 0 };
 extern const char * nc_inq_libvers(void);
 extern const char * nc_strerror(int ncerr);
 typedef struct NC_Dispatch NC_Dispatch;

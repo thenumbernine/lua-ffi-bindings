@@ -1,11 +1,8 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN /usr/include/SDL2/SDL.h */
-/* commented out enum { SDL_h_ = 1 }; */
 /* ++ BEGIN /usr/include/SDL2/SDL_main.h */
-/* commented out enum { SDL_main_h_ = 1 }; */
 /* +++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
-/* commented out enum { SDL_stdinc_h_ = 1 }; */
 /* ++++ BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
 ]] require 'ffi.req' 'c.sys.types' ffi.cdef[[
 /* ++++ END   /usr/include/x86_64-linux-gnu/sys/types.h */
@@ -226,11 +223,11 @@ extern __attribute__ ((visibility("default"))) int SDL_strncmp(const char *str1,
 extern __attribute__ ((visibility("default"))) int SDL_strcasecmp(const char *str1, const char *str2);
 extern __attribute__ ((visibility("default"))) int SDL_strncasecmp(const char *str1, const char *str2, size_t len);
 extern __attribute__ ((visibility("default"))) int SDL_sscanf(const char *text, const char *fmt, ...) __attribute__ (( format( __scanf__, 2, 2+1 )));
-extern __attribute__ ((visibility("default"))) int SDL_vsscanf(const char *text, const char *fmt, va_list ap);
+extern __attribute__ ((visibility("default"))) int SDL_vsscanf(const char *text, const char *fmt, va_list ap) __attribute__(( format( __scanf__, 2, 0 )));
 extern __attribute__ ((visibility("default"))) int SDL_snprintf( char *text, size_t maxlen, const char *fmt, ... ) __attribute__ (( format( __printf__, 3, 3+1 )));
-extern __attribute__ ((visibility("default"))) int SDL_vsnprintf( char *text, size_t maxlen, const char *fmt, va_list ap);
+extern __attribute__ ((visibility("default"))) int SDL_vsnprintf( char *text, size_t maxlen, const char *fmt, va_list ap) __attribute__(( format( __printf__, 3, 0 )));
 extern __attribute__ ((visibility("default"))) int SDL_asprintf(char **strp, const char *fmt, ...) __attribute__ (( format( __printf__, 2, 2+1 )));
-extern __attribute__ ((visibility("default"))) int SDL_vasprintf(char **strp, const char *fmt, va_list ap);
+extern __attribute__ ((visibility("default"))) int SDL_vasprintf(char **strp, const char *fmt, va_list ap) __attribute__(( format( __printf__, 2, 0 )));
 extern __attribute__ ((visibility("default"))) double SDL_acos(double x);
 extern __attribute__ ((visibility("default"))) float SDL_acosf(float x);
 extern __attribute__ ((visibility("default"))) double SDL_asin(double x);
@@ -308,7 +305,6 @@ extern __attribute__ ((visibility("default"))) void SDL_SetMainReady(void);
 /* ++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* ++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* ++ BEGIN /usr/include/SDL2/SDL_assert.h */
-/* commented out enum { SDL_assert_h_ = 1 }; */
 /* +++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* +++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* +++ BEGIN /usr/include/SDL2/begin_code.h */
@@ -336,7 +332,6 @@ extern __attribute__ ((visibility("default"))) void SDL_ResetAssertionReport(voi
 /* +++ END   /usr/include/SDL2/close_code.h */
 /* ++ END   /usr/include/SDL2/SDL_assert.h */
 /* ++ BEGIN /usr/include/SDL2/SDL_atomic.h */
-/* commented out enum { SDL_atomic_h_ = 1 }; */
 /* +++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* +++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* +++ BEGIN /usr/include/SDL2/SDL_platform.h */
@@ -362,11 +357,9 @@ extern __attribute__ ((visibility("default"))) void* SDL_AtomicGetPtr(void **a);
 /* +++ END   /usr/include/SDL2/close_code.h */
 /* ++ END   /usr/include/SDL2/SDL_atomic.h */
 /* ++ BEGIN /usr/include/SDL2/SDL_audio.h */
-/* commented out enum { SDL_audio_h_ = 1 }; */
 /* +++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* +++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* +++ BEGIN /usr/include/SDL2/SDL_error.h */
-/* commented out enum { SDL_error_h_ = 1 }; */
 /* ++++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* ++++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* ++++ BEGIN /usr/include/SDL2/begin_code.h */
@@ -382,7 +375,6 @@ extern __attribute__ ((visibility("default"))) int SDL_Error(SDL_errorcode code)
 /* ++++ END   /usr/include/SDL2/close_code.h */
 /* +++ END   /usr/include/SDL2/SDL_error.h */
 /* +++ BEGIN /usr/include/SDL2/SDL_endian.h */
-/* commented out enum { SDL_endian_h_ = 1 }; */
 /* ++++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* ++++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* ++++ BEGIN /usr/include/endian.h */
@@ -394,7 +386,6 @@ extern __attribute__ ((visibility("default"))) int SDL_Error(SDL_errorcode code)
 /* ++++ END   /usr/include/SDL2/close_code.h */
 /* +++ END   /usr/include/SDL2/SDL_endian.h */
 /* +++ BEGIN /usr/include/SDL2/SDL_mutex.h */
-/* commented out enum { SDL_mutex_h_ = 1 }; */
 /* ++++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* ++++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* ++++ BEGIN /usr/include/SDL2/SDL_error.h */
@@ -433,7 +424,6 @@ extern __attribute__ ((visibility("default"))) int SDL_CondWaitTimeout(SDL_cond 
 /* ++++ END   /usr/include/SDL2/close_code.h */
 /* +++ END   /usr/include/SDL2/SDL_mutex.h */
 /* +++ BEGIN /usr/include/SDL2/SDL_thread.h */
-/* commented out enum { SDL_thread_h_ = 1 }; */
 /* ++++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* ++++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* ++++ BEGIN /usr/include/SDL2/SDL_error.h */
@@ -467,7 +457,6 @@ extern __attribute__ ((visibility("default"))) void SDL_TLSCleanup(void);
 /* ++++ END   /usr/include/SDL2/close_code.h */
 /* +++ END   /usr/include/SDL2/SDL_thread.h */
 /* +++ BEGIN /usr/include/SDL2/SDL_rwops.h */
-/* commented out enum { SDL_rwops_h_ = 1 }; */
 /* ++++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* ++++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* ++++ BEGIN /usr/include/SDL2/SDL_error.h */
@@ -536,6 +525,24 @@ enum { SDL_AUDIO_MASK_BITSIZE = 255 };
 enum { SDL_AUDIO_MASK_DATATYPE = 256 };
 enum { SDL_AUDIO_MASK_ENDIAN = 4096 };
 enum { SDL_AUDIO_MASK_SIGNED = 32768 };
+enum { AUDIO_U8 = 8 };
+enum { AUDIO_S8 = 32776 };
+enum { AUDIO_U16LSB = 16 };
+enum { AUDIO_S16LSB = 32784 };
+enum { AUDIO_U16MSB = 4112 };
+enum { AUDIO_S16MSB = 36880 };
+enum { AUDIO_U16 = 16 };
+enum { AUDIO_S16 = 32784 };
+enum { AUDIO_S32LSB = 32800 };
+enum { AUDIO_S32MSB = 36896 };
+enum { AUDIO_S32 = 32800 };
+enum { AUDIO_F32LSB = 33056 };
+enum { AUDIO_F32MSB = 37152 };
+enum { AUDIO_F32 = 33056 };
+enum { AUDIO_U16SYS = 16 };
+enum { AUDIO_S16SYS = 32784 };
+enum { AUDIO_S32SYS = 32800 };
+enum { AUDIO_F32SYS = 33056 };
 enum { SDL_AUDIO_ALLOW_FREQUENCY_CHANGE = 1 };
 enum { SDL_AUDIO_ALLOW_FORMAT_CHANGE = 2 };
 enum { SDL_AUDIO_ALLOW_CHANNELS_CHANGE = 4 };
@@ -617,7 +624,6 @@ extern __attribute__ ((visibility("default"))) void SDL_CloseAudioDevice(SDL_Aud
 /* +++ END   /usr/include/SDL2/close_code.h */
 /* ++ END   /usr/include/SDL2/SDL_audio.h */
 /* ++ BEGIN /usr/include/SDL2/SDL_clipboard.h */
-/* commented out enum { SDL_clipboard_h_ = 1 }; */
 /* +++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* +++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* +++ BEGIN /usr/include/SDL2/begin_code.h */
@@ -633,7 +639,6 @@ extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasPrimarySelectionT
 /* +++ END   /usr/include/SDL2/close_code.h */
 /* ++ END   /usr/include/SDL2/SDL_clipboard.h */
 /* ++ BEGIN /usr/include/SDL2/SDL_cpuinfo.h */
-/* commented out enum { SDL_cpuinfo_h_ = 1 }; */
 /* +++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* +++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/immintrin.h */
@@ -673,17 +678,14 @@ extern __attribute__ ((visibility("default"))) void SDL_SIMDFree(void *ptr);
 /* ++ BEGIN /usr/include/SDL2/SDL_error.h */
 /* ++ END   /usr/include/SDL2/SDL_error.h */
 /* ++ BEGIN /usr/include/SDL2/SDL_events.h */
-/* commented out enum { SDL_events_h_ = 1 }; */
 /* +++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* +++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* +++ BEGIN /usr/include/SDL2/SDL_error.h */
 /* +++ END   /usr/include/SDL2/SDL_error.h */
 /* +++ BEGIN /usr/include/SDL2/SDL_video.h */
-/* commented out enum { SDL_video_h_ = 1 }; */
 /* ++++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* ++++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* ++++ BEGIN /usr/include/SDL2/SDL_pixels.h */
-/* commented out enum { SDL_pixels_h_ = 1 }; */
 /* +++++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* +++++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* +++++ BEGIN /usr/include/SDL2/SDL_endian.h */
@@ -693,104 +695,69 @@ extern __attribute__ ((visibility("default"))) void SDL_SIMDFree(void *ptr);
 /* +++++ END   /usr/include/SDL2/begin_code.h */
 enum { SDL_ALPHA_OPAQUE = 255 };
 enum { SDL_ALPHA_TRANSPARENT = 0 };
-typedef enum { SDL_PIXELTYPE_UNKNOWN, SDL_PIXELTYPE_INDEX1, SDL_PIXELTYPE_INDEX4, SDL_PIXELTYPE_INDEX8, SDL_PIXELTYPE_PACKED8, SDL_PIXELTYPE_PACKED16, SDL_PIXELTYPE_PACKED32, SDL_PIXELTYPE_ARRAYU8, SDL_PIXELTYPE_ARRAYU16, SDL_PIXELTYPE_ARRAYU32, SDL_PIXELTYPE_ARRAYF16, SDL_PIXELTYPE_ARRAYF32 } SDL_PixelType;
+typedef enum { SDL_PIXELTYPE_UNKNOWN, SDL_PIXELTYPE_INDEX1, SDL_PIXELTYPE_INDEX4, SDL_PIXELTYPE_INDEX8, SDL_PIXELTYPE_PACKED8, SDL_PIXELTYPE_PACKED16, SDL_PIXELTYPE_PACKED32, SDL_PIXELTYPE_ARRAYU8, SDL_PIXELTYPE_ARRAYU16, SDL_PIXELTYPE_ARRAYU32, SDL_PIXELTYPE_ARRAYF16, SDL_PIXELTYPE_ARRAYF32, SDL_PIXELTYPE_INDEX2 } SDL_PixelType;
 typedef enum { SDL_BITMAPORDER_NONE, SDL_BITMAPORDER_4321, SDL_BITMAPORDER_1234 } SDL_BitmapOrder;
 typedef enum { SDL_PACKEDORDER_NONE, SDL_PACKEDORDER_XRGB, SDL_PACKEDORDER_RGBX, SDL_PACKEDORDER_ARGB, SDL_PACKEDORDER_RGBA, SDL_PACKEDORDER_XBGR, SDL_PACKEDORDER_BGRX, SDL_PACKEDORDER_ABGR, SDL_PACKEDORDER_BGRA } SDL_PackedOrder;
 typedef enum { SDL_ARRAYORDER_NONE, SDL_ARRAYORDER_RGB, SDL_ARRAYORDER_RGBA, SDL_ARRAYORDER_ARGB, SDL_ARRAYORDER_BGR, SDL_ARRAYORDER_BGRA, SDL_ARRAYORDER_ABGR } SDL_ArrayOrder;
 typedef enum { SDL_PACKEDLAYOUT_NONE, SDL_PACKEDLAYOUT_332, SDL_PACKEDLAYOUT_4444, SDL_PACKEDLAYOUT_1555, SDL_PACKEDLAYOUT_5551, SDL_PACKEDLAYOUT_565, SDL_PACKEDLAYOUT_8888, SDL_PACKEDLAYOUT_2101010, SDL_PACKEDLAYOUT_1010102 } SDL_PackedLayout;
 typedef enum {
-	SDL_PIXELFORMAT_UNKNOWN, SDL_PIXELFORMAT_INDEX1LSB =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_INDEX1, SDL_BITMAPORDER_4321, 0, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_INDEX1, SDL_BITMAPORDER_4321, 0, ### TO ### 1, 0), */
-	((1 << 28) | ((SDL_PIXELTYPE_INDEX1) << 24) | (( SDL_BITMAPORDER_4321) << 20) | (( 0) << 16) | (( 1) << 8) | (( 0) << 0)) , SDL_PIXELFORMAT_INDEX1MSB =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_INDEX1, SDL_BITMAPORDER_1234, 0, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_INDEX1, SDL_BITMAPORDER_1234, 0, ### TO ### 1, 0), */
-	((1 << 28) | ((SDL_PIXELTYPE_INDEX1) << 24) | (( SDL_BITMAPORDER_1234) << 20) | (( 0) << 16) | (( 1) << 8) | (( 0) << 0)) , SDL_PIXELFORMAT_INDEX4LSB =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_INDEX4, SDL_BITMAPORDER_4321, 0, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_INDEX4, SDL_BITMAPORDER_4321, 0, ### TO ### 4, 0), */
-	((1 << 28) | ((SDL_PIXELTYPE_INDEX4) << 24) | (( SDL_BITMAPORDER_4321) << 20) | (( 0) << 16) | (( 4) << 8) | (( 0) << 0)) , SDL_PIXELFORMAT_INDEX4MSB =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_INDEX4, SDL_BITMAPORDER_1234, 0, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_INDEX4, SDL_BITMAPORDER_1234, 0, ### TO ### 4, 0), */
-	((1 << 28) | ((SDL_PIXELTYPE_INDEX4) << 24) | (( SDL_BITMAPORDER_1234) << 20) | (( 0) << 16) | (( 4) << 8) | (( 0) << 0)) , SDL_PIXELFORMAT_INDEX8 = ((1 << 28) | ((SDL_PIXELTYPE_INDEX8) << 24) | (( 0) << 20) | (( 0) << 16) | (( 8) << 8) | (( 1) << 0)) , SDL_PIXELFORMAT_RGB332 =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED8, SDL_PACKEDORDER_XRGB, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED8, SDL_PACKEDORDER_XRGB, ### TO ### SDL_PACKEDLAYOUT_332, 8, 1), */
-	((1 << 28) | ((SDL_PIXELTYPE_PACKED8) << 24) | (( SDL_PACKEDORDER_XRGB) << 20) | (( SDL_PACKEDLAYOUT_332) << 16) | (( 8) << 8) | (( 1) << 0)) , SDL_PIXELFORMAT_XRGB4444 =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_XRGB, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_XRGB, ### TO ### SDL_PACKEDLAYOUT_4444, 12, 2), */
-	((1 << 28) | ((SDL_PIXELTYPE_PACKED16) << 24) | (( SDL_PACKEDORDER_XRGB) << 20) | (( SDL_PACKEDLAYOUT_4444) << 16) | (( 12) << 8) | (( 2) << 0)) , SDL_PIXELFORMAT_RGB444 = SDL_PIXELFORMAT_XRGB4444, SDL_PIXELFORMAT_XBGR4444 =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_XBGR, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_XBGR, ### TO ### SDL_PACKEDLAYOUT_4444, 12, 2), */
-	((1 << 28) | ((SDL_PIXELTYPE_PACKED16) << 24) | (( SDL_PACKEDORDER_XBGR) << 20) | (( SDL_PACKEDLAYOUT_4444) << 16) | (( 12) << 8) | (( 2) << 0)) , SDL_PIXELFORMAT_BGR444 = SDL_PIXELFORMAT_XBGR4444, SDL_PIXELFORMAT_XRGB1555 =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_XRGB, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_XRGB, ### TO ### SDL_PACKEDLAYOUT_1555, 15, 2), */
-	((1 << 28) | ((SDL_PIXELTYPE_PACKED16) << 24) | (( SDL_PACKEDORDER_XRGB) << 20) | (( SDL_PACKEDLAYOUT_1555) << 16) | (( 15) << 8) | (( 2) << 0)) , SDL_PIXELFORMAT_RGB555 = SDL_PIXELFORMAT_XRGB1555, SDL_PIXELFORMAT_XBGR1555 =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_XBGR, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_XBGR, ### TO ### SDL_PACKEDLAYOUT_1555, 15, 2), */
-	((1 << 28) | ((SDL_PIXELTYPE_PACKED16) << 24) | (( SDL_PACKEDORDER_XBGR) << 20) | (( SDL_PACKEDLAYOUT_1555) << 16) | (( 15) << 8) | (( 2) << 0)) , SDL_PIXELFORMAT_BGR555 = SDL_PIXELFORMAT_XBGR1555, SDL_PIXELFORMAT_ARGB4444 =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_ARGB, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_ARGB, ### TO ### SDL_PACKEDLAYOUT_4444, 16, 2), */
-	((1 << 28) | ((SDL_PIXELTYPE_PACKED16) << 24) | (( SDL_PACKEDORDER_ARGB) << 20) | (( SDL_PACKEDLAYOUT_4444) << 16) | (( 16) << 8) | (( 2) << 0)) , SDL_PIXELFORMAT_RGBA4444 =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_RGBA, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_RGBA, ### TO ### SDL_PACKEDLAYOUT_4444, 16, 2), */
-	((1 << 28) | ((SDL_PIXELTYPE_PACKED16) << 24) | (( SDL_PACKEDORDER_RGBA) << 20) | (( SDL_PACKEDLAYOUT_4444) << 16) | (( 16) << 8) | (( 2) << 0)) , SDL_PIXELFORMAT_ABGR4444 =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_ABGR, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_ABGR, ### TO ### SDL_PACKEDLAYOUT_4444, 16, 2), */
-	((1 << 28) | ((SDL_PIXELTYPE_PACKED16) << 24) | (( SDL_PACKEDORDER_ABGR) << 20) | (( SDL_PACKEDLAYOUT_4444) << 16) | (( 16) << 8) | (( 2) << 0)) , SDL_PIXELFORMAT_BGRA4444 =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_BGRA, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_BGRA, ### TO ### SDL_PACKEDLAYOUT_4444, 16, 2), */
-	((1 << 28) | ((SDL_PIXELTYPE_PACKED16) << 24) | (( SDL_PACKEDORDER_BGRA) << 20) | (( SDL_PACKEDLAYOUT_4444) << 16) | (( 16) << 8) | (( 2) << 0)) , SDL_PIXELFORMAT_ARGB1555 =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_ARGB, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_ARGB, ### TO ### SDL_PACKEDLAYOUT_1555, 16, 2), */
-	((1 << 28) | ((SDL_PIXELTYPE_PACKED16) << 24) | (( SDL_PACKEDORDER_ARGB) << 20) | (( SDL_PACKEDLAYOUT_1555) << 16) | (( 16) << 8) | (( 2) << 0)) , SDL_PIXELFORMAT_RGBA5551 =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_RGBA, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_RGBA, ### TO ### SDL_PACKEDLAYOUT_5551, 16, 2), */
-	((1 << 28) | ((SDL_PIXELTYPE_PACKED16) << 24) | (( SDL_PACKEDORDER_RGBA) << 20) | (( SDL_PACKEDLAYOUT_5551) << 16) | (( 16) << 8) | (( 2) << 0)) , SDL_PIXELFORMAT_ABGR1555 =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_ABGR, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_ABGR, ### TO ### SDL_PACKEDLAYOUT_1555, 16, 2), */
-	((1 << 28) | ((SDL_PIXELTYPE_PACKED16) << 24) | (( SDL_PACKEDORDER_ABGR) << 20) | (( SDL_PACKEDLAYOUT_1555) << 16) | (( 16) << 8) | (( 2) << 0)) , SDL_PIXELFORMAT_BGRA5551 =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_BGRA, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_BGRA, ### TO ### SDL_PACKEDLAYOUT_5551, 16, 2), */
-	((1 << 28) | ((SDL_PIXELTYPE_PACKED16) << 24) | (( SDL_PACKEDORDER_BGRA) << 20) | (( SDL_PACKEDLAYOUT_5551) << 16) | (( 16) << 8) | (( 2) << 0)) , SDL_PIXELFORMAT_RGB565 =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_XRGB, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_XRGB, ### TO ### SDL_PACKEDLAYOUT_565, 16, 2), */
-	((1 << 28) | ((SDL_PIXELTYPE_PACKED16) << 24) | (( SDL_PACKEDORDER_XRGB) << 20) | (( SDL_PACKEDLAYOUT_565) << 16) | (( 16) << 8) | (( 2) << 0)) , SDL_PIXELFORMAT_BGR565 =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_XBGR, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED16, SDL_PACKEDORDER_XBGR, ### TO ### SDL_PACKEDLAYOUT_565, 16, 2), */
-	((1 << 28) | ((SDL_PIXELTYPE_PACKED16) << 24) | (( SDL_PACKEDORDER_XBGR) << 20) | (( SDL_PACKEDLAYOUT_565) << 16) | (( 16) << 8) | (( 2) << 0)) , SDL_PIXELFORMAT_RGB24 =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_ARRAYU8, SDL_ARRAYORDER_RGB, 0, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_ARRAYU8, SDL_ARRAYORDER_RGB, 0, ### TO ### 24, 3), */
-	((1 << 28) | ((SDL_PIXELTYPE_ARRAYU8) << 24) | (( SDL_ARRAYORDER_RGB) << 20) | (( 0) << 16) | (( 24) << 8) | (( 3) << 0)) , SDL_PIXELFORMAT_BGR24 =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_ARRAYU8, SDL_ARRAYORDER_BGR, 0, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_ARRAYU8, SDL_ARRAYORDER_BGR, 0, ### TO ### 24, 3), */
-	((1 << 28) | ((SDL_PIXELTYPE_ARRAYU8) << 24) | (( SDL_ARRAYORDER_BGR) << 20) | (( 0) << 16) | (( 24) << 8) | (( 3) << 0)) , SDL_PIXELFORMAT_XRGB8888 =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_XRGB, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_XRGB, ### TO ### SDL_PACKEDLAYOUT_8888, 24, 4), */
-	((1 << 28) | ((SDL_PIXELTYPE_PACKED32) << 24) | (( SDL_PACKEDORDER_XRGB) << 20) | (( SDL_PACKEDLAYOUT_8888) << 16) | (( 24) << 8) | (( 4) << 0)) , SDL_PIXELFORMAT_RGB888 = SDL_PIXELFORMAT_XRGB8888, SDL_PIXELFORMAT_RGBX8888 =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_RGBX, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_RGBX, ### TO ### SDL_PACKEDLAYOUT_8888, 24, 4), */
-	((1 << 28) | ((SDL_PIXELTYPE_PACKED32) << 24) | (( SDL_PACKEDORDER_RGBX) << 20) | (( SDL_PACKEDLAYOUT_8888) << 16) | (( 24) << 8) | (( 4) << 0)) , SDL_PIXELFORMAT_XBGR8888 =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_XBGR, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_XBGR, ### TO ### SDL_PACKEDLAYOUT_8888, 24, 4), */
-	((1 << 28) | ((SDL_PIXELTYPE_PACKED32) << 24) | (( SDL_PACKEDORDER_XBGR) << 20) | (( SDL_PACKEDLAYOUT_8888) << 16) | (( 24) << 8) | (( 4) << 0)) , SDL_PIXELFORMAT_BGR888 = SDL_PIXELFORMAT_XBGR8888, SDL_PIXELFORMAT_BGRX8888 =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_BGRX, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_BGRX, ### TO ### SDL_PACKEDLAYOUT_8888, 24, 4), */
-	((1 << 28) | ((SDL_PIXELTYPE_PACKED32) << 24) | (( SDL_PACKEDORDER_BGRX) << 20) | (( SDL_PACKEDLAYOUT_8888) << 16) | (( 24) << 8) | (( 4) << 0)) , SDL_PIXELFORMAT_ARGB8888 =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_ARGB, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_ARGB, ### TO ### SDL_PACKEDLAYOUT_8888, 32, 4), */
-	((1 << 28) | ((SDL_PIXELTYPE_PACKED32) << 24) | (( SDL_PACKEDORDER_ARGB) << 20) | (( SDL_PACKEDLAYOUT_8888) << 16) | (( 32) << 8) | (( 4) << 0)) , SDL_PIXELFORMAT_RGBA8888 =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_RGBA, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_RGBA, ### TO ### SDL_PACKEDLAYOUT_8888, 32, 4), */
-	((1 << 28) | ((SDL_PIXELTYPE_PACKED32) << 24) | (( SDL_PACKEDORDER_RGBA) << 20) | (( SDL_PACKEDLAYOUT_8888) << 16) | (( 32) << 8) | (( 4) << 0)) , SDL_PIXELFORMAT_ABGR8888 =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_ABGR, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_ABGR, ### TO ### SDL_PACKEDLAYOUT_8888, 32, 4), */
-	((1 << 28) | ((SDL_PIXELTYPE_PACKED32) << 24) | (( SDL_PACKEDORDER_ABGR) << 20) | (( SDL_PACKEDLAYOUT_8888) << 16) | (( 32) << 8) | (( 4) << 0)) , SDL_PIXELFORMAT_BGRA8888 =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_BGRA, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_BGRA, ### TO ### SDL_PACKEDLAYOUT_8888, 32, 4), */
-	((1 << 28) | ((SDL_PIXELTYPE_PACKED32) << 24) | (( SDL_PACKEDORDER_BGRA) << 20) | (( SDL_PACKEDLAYOUT_8888) << 16) | (( 32) << 8) | (( 4) << 0)) , SDL_PIXELFORMAT_ARGB2101010 =
-/* ### INCOMPLETE ARG MACRO ### SDL_DEFINE_PIXELFORMAT ### IN LINE ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_ARGB, */
-/* ### PREPENDING ### SDL_DEFINE_PIXELFORMAT(SDL_PIXELTYPE_PACKED32, SDL_PACKEDORDER_ARGB, ### TO ### SDL_PACKEDLAYOUT_2101010, 32, 4), */
-	((1 << 28) | ((SDL_PIXELTYPE_PACKED32) << 24) | (( SDL_PACKEDORDER_ARGB) << 20) | (( SDL_PACKEDLAYOUT_2101010) << 16) | (( 32) << 8) | (( 4) << 0)) , SDL_PIXELFORMAT_RGBA32 = SDL_PIXELFORMAT_ABGR8888, SDL_PIXELFORMAT_ARGB32 = SDL_PIXELFORMAT_BGRA8888, SDL_PIXELFORMAT_BGRA32 = SDL_PIXELFORMAT_ARGB8888, SDL_PIXELFORMAT_ABGR32 = SDL_PIXELFORMAT_RGBA8888, SDL_PIXELFORMAT_YV12 = (( ((Uint32)( ((Uint8)( ('Y'))) )) << 0) | ( ((Uint32)( ((Uint8)( ( 'V'))) )) << 8) | ( ((Uint32)( ((Uint8)( ( '1'))) )) << 16) | ( ((Uint32)( ((Uint8)( ( '2'))) )) << 24)) , SDL_PIXELFORMAT_IYUV = (( ((Uint32)( ((Uint8)( ('I'))) )) << 0) | ( ((Uint32)( ((Uint8)( ( 'Y'))) )) << 8) | ( ((Uint32)( ((Uint8)( ( 'U'))) )) << 16) | ( ((Uint32)( ((Uint8)( ( 'V'))) )) << 24)) , SDL_PIXELFORMAT_YUY2 = (( ((Uint32)( ((Uint8)( ('Y'))) )) << 0) | ( ((Uint32)( ((Uint8)( ( 'U'))) )) << 8) | ( ((Uint32)( ((Uint8)( ( 'Y'))) )) << 16) | ( ((Uint32)( ((Uint8)( ( '2'))) )) << 24)) , SDL_PIXELFORMAT_UYVY = (( ((Uint32)( ((Uint8)( ('U'))) )) << 0) | ( ((Uint32)( ((Uint8)( ( 'Y'))) )) << 8) | ( ((Uint32)( ((Uint8)( ( 'V'))) )) << 16) | ( ((Uint32)( ((Uint8)( ( 'Y'))) )) << 24)) , SDL_PIXELFORMAT_YVYU = (( ((Uint32)( ((Uint8)( ('Y'))) )) << 0) | ( ((Uint32)( ((Uint8)( ( 'V'))) )) << 8) | ( ((Uint32)( ((Uint8)( ( 'Y'))) )) << 16) | ( ((Uint32)( ((Uint8)( ( 'U'))) )) << 24)) , SDL_PIXELFORMAT_NV12 = (( ((Uint32)( ((Uint8)( ('N'))) )) << 0) | ( ((Uint32)( ((Uint8)( ( 'V'))) )) << 8) | ( ((Uint32)( ((Uint8)( ( '1'))) )) << 16) | ( ((Uint32)( ((Uint8)( ( '2'))) )) << 24)) , SDL_PIXELFORMAT_NV21 = (( ((Uint32)( ((Uint8)( ('N'))) )) << 0) | ( ((Uint32)( ((Uint8)( ( 'V'))) )) << 8) | ( ((Uint32)( ((Uint8)( ( '2'))) )) << 16) | ( ((Uint32)( ((Uint8)( ( '1'))) )) << 24)) , SDL_PIXELFORMAT_EXTERNAL_OES = (( ((Uint32)( ((Uint8)( ('O'))) )) << 0) | ( ((Uint32)( ((Uint8)( ( 'E'))) )) << 8) | ( ((Uint32)( ((Uint8)( ( 'S'))) )) << 16) | ( ((Uint32)( ((Uint8)( ( ' '))) )) << 24)) } SDL_PixelFormatEnum;
-	typedef struct SDL_Color {
+	SDL_PIXELFORMAT_UNKNOWN,
+	SDL_PIXELFORMAT_INDEX1LSB = ((1 << 28) | ((SDL_PIXELTYPE_INDEX1) << 24) | (( SDL_BITMAPORDER_4321) << 20) | (( 0) << 16) | (( 1) << 8) | (( 0) << 0)) ,
+	SDL_PIXELFORMAT_INDEX1MSB = ((1 << 28) | ((SDL_PIXELTYPE_INDEX1) << 24) | (( SDL_BITMAPORDER_1234) << 20) | (( 0) << 16) | (( 1) << 8) | (( 0) << 0)) ,
+	SDL_PIXELFORMAT_INDEX2LSB = ((1 << 28) | ((SDL_PIXELTYPE_INDEX2) << 24) | (( SDL_BITMAPORDER_4321) << 20) | (( 0) << 16) | (( 2) << 8) | (( 0) << 0)) ,
+	SDL_PIXELFORMAT_INDEX2MSB = ((1 << 28) | ((SDL_PIXELTYPE_INDEX2) << 24) | (( SDL_BITMAPORDER_1234) << 20) | (( 0) << 16) | (( 2) << 8) | (( 0) << 0)) ,
+	SDL_PIXELFORMAT_INDEX4LSB = ((1 << 28) | ((SDL_PIXELTYPE_INDEX4) << 24) | (( SDL_BITMAPORDER_4321) << 20) | (( 0) << 16) | (( 4) << 8) | (( 0) << 0)) ,
+	SDL_PIXELFORMAT_INDEX4MSB = ((1 << 28) | ((SDL_PIXELTYPE_INDEX4) << 24) | (( SDL_BITMAPORDER_1234) << 20) | (( 0) << 16) | (( 4) << 8) | (( 0) << 0)) ,
+	SDL_PIXELFORMAT_INDEX8 = ((1 << 28) | ((SDL_PIXELTYPE_INDEX8) << 24) | (( 0) << 20) | (( 0) << 16) | (( 8) << 8) | (( 1) << 0)) ,
+	SDL_PIXELFORMAT_RGB332 = ((1 << 28) | ((SDL_PIXELTYPE_PACKED8) << 24) | (( SDL_PACKEDORDER_XRGB) << 20) | (( SDL_PACKEDLAYOUT_332) << 16) | (( 8) << 8) | (( 1) << 0)) ,
+	SDL_PIXELFORMAT_XRGB4444 = ((1 << 28) | ((SDL_PIXELTYPE_PACKED16) << 24) | (( SDL_PACKEDORDER_XRGB) << 20) | (( SDL_PACKEDLAYOUT_4444) << 16) | (( 12) << 8) | (( 2) << 0)) ,
+	SDL_PIXELFORMAT_RGB444 = SDL_PIXELFORMAT_XRGB4444,
+	SDL_PIXELFORMAT_XBGR4444 = ((1 << 28) | ((SDL_PIXELTYPE_PACKED16) << 24) | (( SDL_PACKEDORDER_XBGR) << 20) | (( SDL_PACKEDLAYOUT_4444) << 16) | (( 12) << 8) | (( 2) << 0)) ,
+	SDL_PIXELFORMAT_BGR444 = SDL_PIXELFORMAT_XBGR4444,
+	SDL_PIXELFORMAT_XRGB1555 = ((1 << 28) | ((SDL_PIXELTYPE_PACKED16) << 24) | (( SDL_PACKEDORDER_XRGB) << 20) | (( SDL_PACKEDLAYOUT_1555) << 16) | (( 15) << 8) | (( 2) << 0)) ,
+	SDL_PIXELFORMAT_RGB555 = SDL_PIXELFORMAT_XRGB1555,
+	SDL_PIXELFORMAT_XBGR1555 = ((1 << 28) | ((SDL_PIXELTYPE_PACKED16) << 24) | (( SDL_PACKEDORDER_XBGR) << 20) | (( SDL_PACKEDLAYOUT_1555) << 16) | (( 15) << 8) | (( 2) << 0)) ,
+	SDL_PIXELFORMAT_BGR555 = SDL_PIXELFORMAT_XBGR1555,
+	SDL_PIXELFORMAT_ARGB4444 = ((1 << 28) | ((SDL_PIXELTYPE_PACKED16) << 24) | (( SDL_PACKEDORDER_ARGB) << 20) | (( SDL_PACKEDLAYOUT_4444) << 16) | (( 16) << 8) | (( 2) << 0)) ,
+	SDL_PIXELFORMAT_RGBA4444 = ((1 << 28) | ((SDL_PIXELTYPE_PACKED16) << 24) | (( SDL_PACKEDORDER_RGBA) << 20) | (( SDL_PACKEDLAYOUT_4444) << 16) | (( 16) << 8) | (( 2) << 0)) ,
+	SDL_PIXELFORMAT_ABGR4444 = ((1 << 28) | ((SDL_PIXELTYPE_PACKED16) << 24) | (( SDL_PACKEDORDER_ABGR) << 20) | (( SDL_PACKEDLAYOUT_4444) << 16) | (( 16) << 8) | (( 2) << 0)) ,
+	SDL_PIXELFORMAT_BGRA4444 = ((1 << 28) | ((SDL_PIXELTYPE_PACKED16) << 24) | (( SDL_PACKEDORDER_BGRA) << 20) | (( SDL_PACKEDLAYOUT_4444) << 16) | (( 16) << 8) | (( 2) << 0)) ,
+	SDL_PIXELFORMAT_ARGB1555 = ((1 << 28) | ((SDL_PIXELTYPE_PACKED16) << 24) | (( SDL_PACKEDORDER_ARGB) << 20) | (( SDL_PACKEDLAYOUT_1555) << 16) | (( 16) << 8) | (( 2) << 0)) ,
+	SDL_PIXELFORMAT_RGBA5551 = ((1 << 28) | ((SDL_PIXELTYPE_PACKED16) << 24) | (( SDL_PACKEDORDER_RGBA) << 20) | (( SDL_PACKEDLAYOUT_5551) << 16) | (( 16) << 8) | (( 2) << 0)) ,
+	SDL_PIXELFORMAT_ABGR1555 = ((1 << 28) | ((SDL_PIXELTYPE_PACKED16) << 24) | (( SDL_PACKEDORDER_ABGR) << 20) | (( SDL_PACKEDLAYOUT_1555) << 16) | (( 16) << 8) | (( 2) << 0)) ,
+	SDL_PIXELFORMAT_BGRA5551 = ((1 << 28) | ((SDL_PIXELTYPE_PACKED16) << 24) | (( SDL_PACKEDORDER_BGRA) << 20) | (( SDL_PACKEDLAYOUT_5551) << 16) | (( 16) << 8) | (( 2) << 0)) ,
+	SDL_PIXELFORMAT_RGB565 = ((1 << 28) | ((SDL_PIXELTYPE_PACKED16) << 24) | (( SDL_PACKEDORDER_XRGB) << 20) | (( SDL_PACKEDLAYOUT_565) << 16) | (( 16) << 8) | (( 2) << 0)) ,
+	SDL_PIXELFORMAT_BGR565 = ((1 << 28) | ((SDL_PIXELTYPE_PACKED16) << 24) | (( SDL_PACKEDORDER_XBGR) << 20) | (( SDL_PACKEDLAYOUT_565) << 16) | (( 16) << 8) | (( 2) << 0)) ,
+	SDL_PIXELFORMAT_RGB24 = ((1 << 28) | ((SDL_PIXELTYPE_ARRAYU8) << 24) | (( SDL_ARRAYORDER_RGB) << 20) | (( 0) << 16) | (( 24) << 8) | (( 3) << 0)) ,
+	SDL_PIXELFORMAT_BGR24 = ((1 << 28) | ((SDL_PIXELTYPE_ARRAYU8) << 24) | (( SDL_ARRAYORDER_BGR) << 20) | (( 0) << 16) | (( 24) << 8) | (( 3) << 0)) ,
+	SDL_PIXELFORMAT_XRGB8888 = ((1 << 28) | ((SDL_PIXELTYPE_PACKED32) << 24) | (( SDL_PACKEDORDER_XRGB) << 20) | (( SDL_PACKEDLAYOUT_8888) << 16) | (( 24) << 8) | (( 4) << 0)) ,
+	SDL_PIXELFORMAT_RGB888 = SDL_PIXELFORMAT_XRGB8888,
+	SDL_PIXELFORMAT_RGBX8888 = ((1 << 28) | ((SDL_PIXELTYPE_PACKED32) << 24) | (( SDL_PACKEDORDER_RGBX) << 20) | (( SDL_PACKEDLAYOUT_8888) << 16) | (( 24) << 8) | (( 4) << 0)) ,
+	SDL_PIXELFORMAT_XBGR8888 = ((1 << 28) | ((SDL_PIXELTYPE_PACKED32) << 24) | (( SDL_PACKEDORDER_XBGR) << 20) | (( SDL_PACKEDLAYOUT_8888) << 16) | (( 24) << 8) | (( 4) << 0)) ,
+	SDL_PIXELFORMAT_BGR888 = SDL_PIXELFORMAT_XBGR8888,
+	SDL_PIXELFORMAT_BGRX8888 = ((1 << 28) | ((SDL_PIXELTYPE_PACKED32) << 24) | (( SDL_PACKEDORDER_BGRX) << 20) | (( SDL_PACKEDLAYOUT_8888) << 16) | (( 24) << 8) | (( 4) << 0)) ,
+	SDL_PIXELFORMAT_ARGB8888 = ((1 << 28) | ((SDL_PIXELTYPE_PACKED32) << 24) | (( SDL_PACKEDORDER_ARGB) << 20) | (( SDL_PACKEDLAYOUT_8888) << 16) | (( 32) << 8) | (( 4) << 0)) ,
+	SDL_PIXELFORMAT_RGBA8888 = ((1 << 28) | ((SDL_PIXELTYPE_PACKED32) << 24) | (( SDL_PACKEDORDER_RGBA) << 20) | (( SDL_PACKEDLAYOUT_8888) << 16) | (( 32) << 8) | (( 4) << 0)) ,
+	SDL_PIXELFORMAT_ABGR8888 = ((1 << 28) | ((SDL_PIXELTYPE_PACKED32) << 24) | (( SDL_PACKEDORDER_ABGR) << 20) | (( SDL_PACKEDLAYOUT_8888) << 16) | (( 32) << 8) | (( 4) << 0)) ,
+	SDL_PIXELFORMAT_BGRA8888 = ((1 << 28) | ((SDL_PIXELTYPE_PACKED32) << 24) | (( SDL_PACKEDORDER_BGRA) << 20) | (( SDL_PACKEDLAYOUT_8888) << 16) | (( 32) << 8) | (( 4) << 0)) ,
+	SDL_PIXELFORMAT_ARGB2101010 = ((1 << 28) | ((SDL_PIXELTYPE_PACKED32) << 24) | (( SDL_PACKEDORDER_ARGB) << 20) | (( SDL_PACKEDLAYOUT_2101010) << 16) | (( 32) << 8) | (( 4) << 0)) ,
+	SDL_PIXELFORMAT_RGBA32 = SDL_PIXELFORMAT_ABGR8888,
+	SDL_PIXELFORMAT_ARGB32 = SDL_PIXELFORMAT_BGRA8888,
+	SDL_PIXELFORMAT_BGRA32 = SDL_PIXELFORMAT_ARGB8888,
+	SDL_PIXELFORMAT_ABGR32 = SDL_PIXELFORMAT_RGBA8888,
+	SDL_PIXELFORMAT_RGBX32 = SDL_PIXELFORMAT_XBGR8888,
+	SDL_PIXELFORMAT_XRGB32 = SDL_PIXELFORMAT_BGRX8888,
+	SDL_PIXELFORMAT_BGRX32 = SDL_PIXELFORMAT_XRGB8888,
+	SDL_PIXELFORMAT_XBGR32 = SDL_PIXELFORMAT_RGBX8888,
+	SDL_PIXELFORMAT_YV12 = (( ((Uint32)( ((Uint8)( ('Y'))) )) << 0) | ( ((Uint32)( ((Uint8)( ( 'V'))) )) << 8) | ( ((Uint32)( ((Uint8)( ( '1'))) )) << 16) | ( ((Uint32)( ((Uint8)( ( '2'))) )) << 24)) ,
+	SDL_PIXELFORMAT_IYUV = (( ((Uint32)( ((Uint8)( ('I'))) )) << 0) | ( ((Uint32)( ((Uint8)( ( 'Y'))) )) << 8) | ( ((Uint32)( ((Uint8)( ( 'U'))) )) << 16) | ( ((Uint32)( ((Uint8)( ( 'V'))) )) << 24)) ,
+	SDL_PIXELFORMAT_YUY2 = (( ((Uint32)( ((Uint8)( ('Y'))) )) << 0) | ( ((Uint32)( ((Uint8)( ( 'U'))) )) << 8) | ( ((Uint32)( ((Uint8)( ( 'Y'))) )) << 16) | ( ((Uint32)( ((Uint8)( ( '2'))) )) << 24)) ,
+	SDL_PIXELFORMAT_UYVY = (( ((Uint32)( ((Uint8)( ('U'))) )) << 0) | ( ((Uint32)( ((Uint8)( ( 'Y'))) )) << 8) | ( ((Uint32)( ((Uint8)( ( 'V'))) )) << 16) | ( ((Uint32)( ((Uint8)( ( 'Y'))) )) << 24)) ,
+	SDL_PIXELFORMAT_YVYU = (( ((Uint32)( ((Uint8)( ('Y'))) )) << 0) | ( ((Uint32)( ((Uint8)( ( 'V'))) )) << 8) | ( ((Uint32)( ((Uint8)( ( 'Y'))) )) << 16) | ( ((Uint32)( ((Uint8)( ( 'U'))) )) << 24)) ,
+	SDL_PIXELFORMAT_NV12 = (( ((Uint32)( ((Uint8)( ('N'))) )) << 0) | ( ((Uint32)( ((Uint8)( ( 'V'))) )) << 8) | ( ((Uint32)( ((Uint8)( ( '1'))) )) << 16) | ( ((Uint32)( ((Uint8)( ( '2'))) )) << 24)) ,
+	SDL_PIXELFORMAT_NV21 = (( ((Uint32)( ((Uint8)( ('N'))) )) << 0) | ( ((Uint32)( ((Uint8)( ( 'V'))) )) << 8) | ( ((Uint32)( ((Uint8)( ( '2'))) )) << 16) | ( ((Uint32)( ((Uint8)( ( '1'))) )) << 24)) ,
+	SDL_PIXELFORMAT_EXTERNAL_OES = (( ((Uint32)( ((Uint8)( ('O'))) )) << 0) | ( ((Uint32)( ((Uint8)( ( 'E'))) )) << 8) | ( ((Uint32)( ((Uint8)( ( 'S'))) )) << 16) | ( ((Uint32)( ((Uint8)( ( ' '))) )) << 24)) } SDL_PixelFormatEnum;
+typedef struct SDL_Color {
 	Uint8 r;
 	Uint8 g;
 	Uint8 b;
@@ -841,7 +808,6 @@ extern __attribute__ ((visibility("default"))) void SDL_CalculateGammaRamp(float
 /* +++++ END   /usr/include/SDL2/close_code.h */
 /* ++++ END   /usr/include/SDL2/SDL_pixels.h */
 /* ++++ BEGIN /usr/include/SDL2/SDL_rect.h */
-/* commented out enum { SDL_rect_h_ = 1 }; */
 /* +++++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* +++++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* +++++ BEGIN /usr/include/SDL2/SDL_error.h */
@@ -899,7 +865,6 @@ extern __attribute__ ((visibility("default"))) SDL_bool SDL_IntersectFRectAndLin
 /* +++++ END   /usr/include/SDL2/close_code.h */
 /* ++++ END   /usr/include/SDL2/SDL_rect.h */
 /* ++++ BEGIN /usr/include/SDL2/SDL_surface.h */
-/* commented out enum { SDL_surface_h_ = 1 }; */
 /* +++++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* +++++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* +++++ BEGIN /usr/include/SDL2/SDL_pixels.h */
@@ -907,7 +872,6 @@ extern __attribute__ ((visibility("default"))) SDL_bool SDL_IntersectFRectAndLin
 /* +++++ BEGIN /usr/include/SDL2/SDL_rect.h */
 /* +++++ END   /usr/include/SDL2/SDL_rect.h */
 /* +++++ BEGIN /usr/include/SDL2/SDL_blendmode.h */
-/* commented out enum { SDL_blendmode_h_ = 1 }; */
 /* ++++++ BEGIN /usr/include/SDL2/begin_code.h */
 /* manually commented out: enum { SDL_begin_code_h = 1 }; */
 /* ++++++ END   /usr/include/SDL2/begin_code.h */
@@ -1115,17 +1079,14 @@ extern __attribute__ ((visibility("default"))) void SDL_GL_DeleteContext(SDL_GLC
 /* ++++ END   /usr/include/SDL2/close_code.h */
 /* +++ END   /usr/include/SDL2/SDL_video.h */
 /* +++ BEGIN /usr/include/SDL2/SDL_keyboard.h */
-/* commented out enum { SDL_keyboard_h_ = 1 }; */
 /* ++++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* ++++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* ++++ BEGIN /usr/include/SDL2/SDL_error.h */
 /* ++++ END   /usr/include/SDL2/SDL_error.h */
 /* ++++ BEGIN /usr/include/SDL2/SDL_keycode.h */
-/* commented out enum { SDL_keycode_h_ = 1 }; */
 /* +++++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* +++++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* +++++ BEGIN /usr/include/SDL2/SDL_scancode.h */
-/* commented out enum { SDL_scancode_h_ = 1 }; */
 /* ++++++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* ++++++ END   /usr/include/SDL2/SDL_stdinc.h */
 typedef enum { SDL_SCANCODE_UNKNOWN = 0, SDL_SCANCODE_A = 4, SDL_SCANCODE_B = 5, SDL_SCANCODE_C = 6, SDL_SCANCODE_D = 7, SDL_SCANCODE_E = 8, SDL_SCANCODE_F = 9, SDL_SCANCODE_G = 10, SDL_SCANCODE_H = 11, SDL_SCANCODE_I = 12, SDL_SCANCODE_J = 13, SDL_SCANCODE_K = 14, SDL_SCANCODE_L = 15, SDL_SCANCODE_M = 16, SDL_SCANCODE_N = 17, SDL_SCANCODE_O = 18, SDL_SCANCODE_P = 19, SDL_SCANCODE_Q = 20, SDL_SCANCODE_R = 21, SDL_SCANCODE_S = 22, SDL_SCANCODE_T = 23, SDL_SCANCODE_U = 24, SDL_SCANCODE_V = 25, SDL_SCANCODE_W = 26, SDL_SCANCODE_X = 27, SDL_SCANCODE_Y = 28, SDL_SCANCODE_Z = 29, SDL_SCANCODE_1 = 30, SDL_SCANCODE_2 = 31, SDL_SCANCODE_3 = 32, SDL_SCANCODE_4 = 33, SDL_SCANCODE_5 = 34, SDL_SCANCODE_6 = 35, SDL_SCANCODE_7 = 36, SDL_SCANCODE_8 = 37, SDL_SCANCODE_9 = 38, SDL_SCANCODE_0 = 39, SDL_SCANCODE_RETURN = 40, SDL_SCANCODE_ESCAPE = 41, SDL_SCANCODE_BACKSPACE = 42, SDL_SCANCODE_TAB = 43, SDL_SCANCODE_SPACE = 44, SDL_SCANCODE_MINUS = 45, SDL_SCANCODE_EQUALS = 46, SDL_SCANCODE_LEFTBRACKET = 47, SDL_SCANCODE_RIGHTBRACKET = 48, SDL_SCANCODE_BACKSLASH = 49, SDL_SCANCODE_NONUSHASH = 50, SDL_SCANCODE_SEMICOLON = 51, SDL_SCANCODE_APOSTROPHE = 52, SDL_SCANCODE_GRAVE = 53, SDL_SCANCODE_COMMA = 54, SDL_SCANCODE_PERIOD = 55, SDL_SCANCODE_SLASH = 56, SDL_SCANCODE_CAPSLOCK = 57, SDL_SCANCODE_F1 = 58, SDL_SCANCODE_F2 = 59, SDL_SCANCODE_F3 = 60, SDL_SCANCODE_F4 = 61, SDL_SCANCODE_F5 = 62, SDL_SCANCODE_F6 = 63, SDL_SCANCODE_F7 = 64, SDL_SCANCODE_F8 = 65, SDL_SCANCODE_F9 = 66, SDL_SCANCODE_F10 = 67, SDL_SCANCODE_F11 = 68, SDL_SCANCODE_F12 = 69, SDL_SCANCODE_PRINTSCREEN = 70, SDL_SCANCODE_SCROLLLOCK = 71, SDL_SCANCODE_PAUSE = 72, SDL_SCANCODE_INSERT = 73, SDL_SCANCODE_HOME = 74, SDL_SCANCODE_PAGEUP = 75, SDL_SCANCODE_DELETE = 76, SDL_SCANCODE_END = 77, SDL_SCANCODE_PAGEDOWN = 78, SDL_SCANCODE_RIGHT = 79, SDL_SCANCODE_LEFT = 80, SDL_SCANCODE_DOWN = 81, SDL_SCANCODE_UP = 82, SDL_SCANCODE_NUMLOCKCLEAR = 83, SDL_SCANCODE_KP_DIVIDE = 84, SDL_SCANCODE_KP_MULTIPLY = 85, SDL_SCANCODE_KP_MINUS = 86, SDL_SCANCODE_KP_PLUS = 87, SDL_SCANCODE_KP_ENTER = 88, SDL_SCANCODE_KP_1 = 89, SDL_SCANCODE_KP_2 = 90, SDL_SCANCODE_KP_3 = 91, SDL_SCANCODE_KP_4 = 92, SDL_SCANCODE_KP_5 = 93, SDL_SCANCODE_KP_6 = 94, SDL_SCANCODE_KP_7 = 95, SDL_SCANCODE_KP_8 = 96, SDL_SCANCODE_KP_9 = 97, SDL_SCANCODE_KP_0 = 98, SDL_SCANCODE_KP_PERIOD = 99, SDL_SCANCODE_NONUSBACKSLASH = 100, SDL_SCANCODE_APPLICATION = 101, SDL_SCANCODE_POWER = 102, SDL_SCANCODE_KP_EQUALS = 103, SDL_SCANCODE_F13 = 104, SDL_SCANCODE_F14 = 105, SDL_SCANCODE_F15 = 106, SDL_SCANCODE_F16 = 107, SDL_SCANCODE_F17 = 108, SDL_SCANCODE_F18 = 109, SDL_SCANCODE_F19 = 110, SDL_SCANCODE_F20 = 111, SDL_SCANCODE_F21 = 112, SDL_SCANCODE_F22 = 113, SDL_SCANCODE_F23 = 114, SDL_SCANCODE_F24 = 115, SDL_SCANCODE_EXECUTE = 116, SDL_SCANCODE_HELP = 117, SDL_SCANCODE_MENU = 118, SDL_SCANCODE_SELECT = 119, SDL_SCANCODE_STOP = 120, SDL_SCANCODE_AGAIN = 121, SDL_SCANCODE_UNDO = 122, SDL_SCANCODE_CUT = 123, SDL_SCANCODE_COPY = 124, SDL_SCANCODE_PASTE = 125, SDL_SCANCODE_FIND = 126, SDL_SCANCODE_MUTE = 127, SDL_SCANCODE_VOLUMEUP = 128, SDL_SCANCODE_VOLUMEDOWN = 129, SDL_SCANCODE_KP_COMMA = 133, SDL_SCANCODE_KP_EQUALSAS400 = 134, SDL_SCANCODE_INTERNATIONAL1 = 135, SDL_SCANCODE_INTERNATIONAL2 = 136, SDL_SCANCODE_INTERNATIONAL3 = 137, SDL_SCANCODE_INTERNATIONAL4 = 138, SDL_SCANCODE_INTERNATIONAL5 = 139, SDL_SCANCODE_INTERNATIONAL6 = 140, SDL_SCANCODE_INTERNATIONAL7 = 141, SDL_SCANCODE_INTERNATIONAL8 = 142, SDL_SCANCODE_INTERNATIONAL9 = 143, SDL_SCANCODE_LANG1 = 144, SDL_SCANCODE_LANG2 = 145, SDL_SCANCODE_LANG3 = 146, SDL_SCANCODE_LANG4 = 147, SDL_SCANCODE_LANG5 = 148, SDL_SCANCODE_LANG6 = 149, SDL_SCANCODE_LANG7 = 150, SDL_SCANCODE_LANG8 = 151, SDL_SCANCODE_LANG9 = 152, SDL_SCANCODE_ALTERASE = 153, SDL_SCANCODE_SYSREQ = 154, SDL_SCANCODE_CANCEL = 155, SDL_SCANCODE_CLEAR = 156, SDL_SCANCODE_PRIOR = 157, SDL_SCANCODE_RETURN2 = 158, SDL_SCANCODE_SEPARATOR = 159, SDL_SCANCODE_OUT = 160, SDL_SCANCODE_OPER = 161, SDL_SCANCODE_CLEARAGAIN = 162, SDL_SCANCODE_CRSEL = 163, SDL_SCANCODE_EXSEL = 164, SDL_SCANCODE_KP_00 = 176, SDL_SCANCODE_KP_000 = 177, SDL_SCANCODE_THOUSANDSSEPARATOR = 178, SDL_SCANCODE_DECIMALSEPARATOR = 179, SDL_SCANCODE_CURRENCYUNIT = 180, SDL_SCANCODE_CURRENCYSUBUNIT = 181, SDL_SCANCODE_KP_LEFTPAREN = 182, SDL_SCANCODE_KP_RIGHTPAREN = 183, SDL_SCANCODE_KP_LEFTBRACE = 184, SDL_SCANCODE_KP_RIGHTBRACE = 185, SDL_SCANCODE_KP_TAB = 186, SDL_SCANCODE_KP_BACKSPACE = 187, SDL_SCANCODE_KP_A = 188, SDL_SCANCODE_KP_B = 189, SDL_SCANCODE_KP_C = 190, SDL_SCANCODE_KP_D = 191, SDL_SCANCODE_KP_E = 192, SDL_SCANCODE_KP_F = 193, SDL_SCANCODE_KP_XOR = 194, SDL_SCANCODE_KP_POWER = 195, SDL_SCANCODE_KP_PERCENT = 196, SDL_SCANCODE_KP_LESS = 197, SDL_SCANCODE_KP_GREATER = 198, SDL_SCANCODE_KP_AMPERSAND = 199, SDL_SCANCODE_KP_DBLAMPERSAND = 200, SDL_SCANCODE_KP_VERTICALBAR = 201, SDL_SCANCODE_KP_DBLVERTICALBAR = 202, SDL_SCANCODE_KP_COLON = 203, SDL_SCANCODE_KP_HASH = 204, SDL_SCANCODE_KP_SPACE = 205, SDL_SCANCODE_KP_AT = 206, SDL_SCANCODE_KP_EXCLAM = 207, SDL_SCANCODE_KP_MEMSTORE = 208, SDL_SCANCODE_KP_MEMRECALL = 209, SDL_SCANCODE_KP_MEMCLEAR = 210, SDL_SCANCODE_KP_MEMADD = 211, SDL_SCANCODE_KP_MEMSUBTRACT = 212, SDL_SCANCODE_KP_MEMMULTIPLY = 213, SDL_SCANCODE_KP_MEMDIVIDE = 214, SDL_SCANCODE_KP_PLUSMINUS = 215, SDL_SCANCODE_KP_CLEAR = 216, SDL_SCANCODE_KP_CLEARENTRY = 217, SDL_SCANCODE_KP_BINARY = 218, SDL_SCANCODE_KP_OCTAL = 219, SDL_SCANCODE_KP_DECIMAL = 220, SDL_SCANCODE_KP_HEXADECIMAL = 221, SDL_SCANCODE_LCTRL = 224, SDL_SCANCODE_LSHIFT = 225, SDL_SCANCODE_LALT = 226, SDL_SCANCODE_LGUI = 227, SDL_SCANCODE_RCTRL = 228, SDL_SCANCODE_RSHIFT = 229, SDL_SCANCODE_RALT = 230, SDL_SCANCODE_RGUI = 231, SDL_SCANCODE_MODE = 257, SDL_SCANCODE_AUDIONEXT = 258, SDL_SCANCODE_AUDIOPREV = 259, SDL_SCANCODE_AUDIOSTOP = 260, SDL_SCANCODE_AUDIOPLAY = 261, SDL_SCANCODE_AUDIOMUTE = 262, SDL_SCANCODE_MEDIASELECT = 263, SDL_SCANCODE_WWW = 264, SDL_SCANCODE_MAIL = 265, SDL_SCANCODE_CALCULATOR = 266, SDL_SCANCODE_COMPUTER = 267, SDL_SCANCODE_AC_SEARCH = 268, SDL_SCANCODE_AC_HOME = 269, SDL_SCANCODE_AC_BACK = 270, SDL_SCANCODE_AC_FORWARD = 271, SDL_SCANCODE_AC_STOP = 272, SDL_SCANCODE_AC_REFRESH = 273, SDL_SCANCODE_AC_BOOKMARKS = 274, SDL_SCANCODE_BRIGHTNESSDOWN = 275, SDL_SCANCODE_BRIGHTNESSUP = 276, SDL_SCANCODE_DISPLAYSWITCH = 277, SDL_SCANCODE_KBDILLUMTOGGLE = 278, SDL_SCANCODE_KBDILLUMDOWN = 279, SDL_SCANCODE_KBDILLUMUP = 280, SDL_SCANCODE_EJECT = 281, SDL_SCANCODE_SLEEP = 282, SDL_SCANCODE_APP1 = 283, SDL_SCANCODE_APP2 = 284, SDL_SCANCODE_AUDIOREWIND = 285, SDL_SCANCODE_AUDIOFASTFORWARD = 286, SDL_SCANCODE_SOFTLEFT = 287, SDL_SCANCODE_SOFTRIGHT = 288, SDL_SCANCODE_CALL = 289, SDL_SCANCODE_ENDCALL = 290, SDL_NUM_SCANCODES = 512 } SDL_Scancode;
@@ -1169,7 +1130,6 @@ extern __attribute__ ((visibility("default"))) SDL_bool SDL_IsScreenKeyboardShow
 /* ++++ END   /usr/include/SDL2/close_code.h */
 /* +++ END   /usr/include/SDL2/SDL_keyboard.h */
 /* +++ BEGIN /usr/include/SDL2/SDL_mouse.h */
-/* commented out enum { SDL_mouse_h_ = 1 }; */
 /* ++++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* ++++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* ++++ BEGIN /usr/include/SDL2/SDL_error.h */
@@ -1213,13 +1173,11 @@ enum { SDL_BUTTON_X2MASK = 16 };
 /* ++++ END   /usr/include/SDL2/close_code.h */
 /* +++ END   /usr/include/SDL2/SDL_mouse.h */
 /* +++ BEGIN /usr/include/SDL2/SDL_joystick.h */
-/* commented out enum { SDL_joystick_h_ = 1 }; */
 /* ++++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* ++++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* ++++ BEGIN /usr/include/SDL2/SDL_error.h */
 /* ++++ END   /usr/include/SDL2/SDL_error.h */
 /* ++++ BEGIN /usr/include/SDL2/SDL_guid.h */
-/* commented out enum { SDL_guid_h_ = 1 }; */
 /* +++++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* +++++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* +++++ BEGIN /usr/include/SDL2/SDL_error.h */
@@ -1341,7 +1299,6 @@ extern __attribute__ ((visibility("default"))) SDL_JoystickPowerLevel SDL_Joysti
 /* ++++ END   /usr/include/SDL2/close_code.h */
 /* +++ END   /usr/include/SDL2/SDL_joystick.h */
 /* +++ BEGIN /usr/include/SDL2/SDL_gamecontroller.h */
-/* commented out enum { SDL_gamecontroller_h_ = 1 }; */
 /* ++++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* ++++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* ++++ BEGIN /usr/include/SDL2/SDL_error.h */
@@ -1349,7 +1306,6 @@ extern __attribute__ ((visibility("default"))) SDL_JoystickPowerLevel SDL_Joysti
 /* ++++ BEGIN /usr/include/SDL2/SDL_rwops.h */
 /* ++++ END   /usr/include/SDL2/SDL_rwops.h */
 /* ++++ BEGIN /usr/include/SDL2/SDL_sensor.h */
-/* commented out enum { SDL_sensor_h_ = 1 }; */
 /* +++++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* +++++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* +++++ BEGIN /usr/include/SDL2/SDL_error.h */
@@ -1389,7 +1345,7 @@ extern __attribute__ ((visibility("default"))) void SDL_SensorUpdate(void);
 /* ++++ END   /usr/include/SDL2/begin_code.h */
 struct _SDL_GameController;
 typedef struct _SDL_GameController SDL_GameController;
-typedef enum { SDL_CONTROLLER_TYPE_UNKNOWN = 0, SDL_CONTROLLER_TYPE_XBOX360, SDL_CONTROLLER_TYPE_XBOXONE, SDL_CONTROLLER_TYPE_PS3, SDL_CONTROLLER_TYPE_PS4, SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_PRO, SDL_CONTROLLER_TYPE_VIRTUAL, SDL_CONTROLLER_TYPE_PS5, SDL_CONTROLLER_TYPE_AMAZON_LUNA, SDL_CONTROLLER_TYPE_GOOGLE_STADIA, SDL_CONTROLLER_TYPE_NVIDIA_SHIELD, SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_LEFT, SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_RIGHT, SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_PAIR } SDL_GameControllerType;
+typedef enum { SDL_CONTROLLER_TYPE_UNKNOWN = 0, SDL_CONTROLLER_TYPE_XBOX360, SDL_CONTROLLER_TYPE_XBOXONE, SDL_CONTROLLER_TYPE_PS3, SDL_CONTROLLER_TYPE_PS4, SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_PRO, SDL_CONTROLLER_TYPE_VIRTUAL, SDL_CONTROLLER_TYPE_PS5, SDL_CONTROLLER_TYPE_AMAZON_LUNA, SDL_CONTROLLER_TYPE_GOOGLE_STADIA, SDL_CONTROLLER_TYPE_NVIDIA_SHIELD, SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_LEFT, SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_RIGHT, SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_PAIR, SDL_CONTROLLER_TYPE_MAX } SDL_GameControllerType;
 typedef enum { SDL_CONTROLLER_BINDTYPE_NONE = 0, SDL_CONTROLLER_BINDTYPE_BUTTON, SDL_CONTROLLER_BINDTYPE_AXIS, SDL_CONTROLLER_BINDTYPE_HAT } SDL_GameControllerBindType;
 typedef struct SDL_GameControllerButtonBind {
 	SDL_GameControllerBindType bindType;
@@ -1426,6 +1382,7 @@ extern __attribute__ ((visibility("default"))) Uint16 SDL_GameControllerGetProdu
 extern __attribute__ ((visibility("default"))) Uint16 SDL_GameControllerGetProductVersion(SDL_GameController *gamecontroller);
 extern __attribute__ ((visibility("default"))) Uint16 SDL_GameControllerGetFirmwareVersion(SDL_GameController *gamecontroller);
 extern __attribute__ ((visibility("default"))) const char * SDL_GameControllerGetSerial(SDL_GameController *gamecontroller);
+extern __attribute__ ((visibility("default"))) Uint64 SDL_GameControllerGetSteamHandle(SDL_GameController *gamecontroller);
 extern __attribute__ ((visibility("default"))) SDL_bool SDL_GameControllerGetAttached(SDL_GameController *gamecontroller);
 extern __attribute__ ((visibility("default"))) SDL_Joystick * SDL_GameControllerGetJoystick(SDL_GameController *gamecontroller);
 extern __attribute__ ((visibility("default"))) int SDL_GameControllerEventState(int state);
@@ -1465,14 +1422,12 @@ extern __attribute__ ((visibility("default"))) const char* SDL_GameControllerGet
 /* ++++ END   /usr/include/SDL2/close_code.h */
 /* +++ END   /usr/include/SDL2/SDL_gamecontroller.h */
 /* +++ BEGIN /usr/include/SDL2/SDL_quit.h */
-/* commented out enum { SDL_quit_h_ = 1 }; */
 /* ++++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* ++++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* ++++ BEGIN /usr/include/SDL2/SDL_error.h */
 /* ++++ END   /usr/include/SDL2/SDL_error.h */
 /* +++ END   /usr/include/SDL2/SDL_quit.h */
 /* +++ BEGIN /usr/include/SDL2/SDL_gesture.h */
-/* commented out enum { SDL_gesture_h_ = 1 }; */
 /* ++++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* ++++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* ++++ BEGIN /usr/include/SDL2/SDL_error.h */
@@ -1480,7 +1435,6 @@ extern __attribute__ ((visibility("default"))) const char* SDL_GameControllerGet
 /* ++++ BEGIN /usr/include/SDL2/SDL_video.h */
 /* ++++ END   /usr/include/SDL2/SDL_video.h */
 /* ++++ BEGIN /usr/include/SDL2/SDL_touch.h */
-/* commented out enum { SDL_touch_h_ = 1 }; */
 /* +++++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* +++++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* +++++ BEGIN /usr/include/SDL2/SDL_error.h */
@@ -1528,7 +1482,7 @@ extern __attribute__ ((visibility("default"))) int SDL_LoadDollarTemplates(SDL_T
 /* +++ END   /usr/include/SDL2/begin_code.h */
 enum { SDL_RELEASED = 0 };
 enum { SDL_PRESSED = 1 };
-typedef enum { SDL_FIRSTEVENT = 0, SDL_QUIT = 0x100, SDL_APP_TERMINATING, SDL_APP_LOWMEMORY, SDL_APP_WILLENTERBACKGROUND, SDL_APP_DIDENTERBACKGROUND, SDL_APP_WILLENTERFOREGROUND, SDL_APP_DIDENTERFOREGROUND, SDL_LOCALECHANGED, SDL_DISPLAYEVENT = 0x150, SDL_WINDOWEVENT = 0x200, SDL_SYSWMEVENT, SDL_KEYDOWN = 0x300, SDL_KEYUP, SDL_TEXTEDITING, SDL_TEXTINPUT, SDL_KEYMAPCHANGED, SDL_TEXTEDITING_EXT, SDL_MOUSEMOTION = 0x400, SDL_MOUSEBUTTONDOWN, SDL_MOUSEBUTTONUP, SDL_MOUSEWHEEL, SDL_JOYAXISMOTION = 0x600, SDL_JOYBALLMOTION, SDL_JOYHATMOTION, SDL_JOYBUTTONDOWN, SDL_JOYBUTTONUP, SDL_JOYDEVICEADDED, SDL_JOYDEVICEREMOVED, SDL_JOYBATTERYUPDATED, SDL_CONTROLLERAXISMOTION = 0x650, SDL_CONTROLLERBUTTONDOWN, SDL_CONTROLLERBUTTONUP, SDL_CONTROLLERDEVICEADDED, SDL_CONTROLLERDEVICEREMOVED, SDL_CONTROLLERDEVICEREMAPPED, SDL_CONTROLLERTOUCHPADDOWN, SDL_CONTROLLERTOUCHPADMOTION, SDL_CONTROLLERTOUCHPADUP, SDL_CONTROLLERSENSORUPDATE, SDL_FINGERDOWN = 0x700, SDL_FINGERUP, SDL_FINGERMOTION, SDL_DOLLARGESTURE = 0x800, SDL_DOLLARRECORD, SDL_MULTIGESTURE, SDL_CLIPBOARDUPDATE = 0x900, SDL_DROPFILE = 0x1000, SDL_DROPTEXT, SDL_DROPBEGIN, SDL_DROPCOMPLETE, SDL_AUDIODEVICEADDED = 0x1100, SDL_AUDIODEVICEREMOVED, SDL_SENSORUPDATE = 0x1200, SDL_RENDER_TARGETS_RESET = 0x2000, SDL_RENDER_DEVICE_RESET, SDL_POLLSENTINEL = 0x7F00, SDL_USEREVENT = 0x8000, SDL_LASTEVENT = 0xFFFF } SDL_EventType;
+typedef enum { SDL_FIRSTEVENT = 0, SDL_QUIT = 0x100, SDL_APP_TERMINATING, SDL_APP_LOWMEMORY, SDL_APP_WILLENTERBACKGROUND, SDL_APP_DIDENTERBACKGROUND, SDL_APP_WILLENTERFOREGROUND, SDL_APP_DIDENTERFOREGROUND, SDL_LOCALECHANGED, SDL_DISPLAYEVENT = 0x150, SDL_WINDOWEVENT = 0x200, SDL_SYSWMEVENT, SDL_KEYDOWN = 0x300, SDL_KEYUP, SDL_TEXTEDITING, SDL_TEXTINPUT, SDL_KEYMAPCHANGED, SDL_TEXTEDITING_EXT, SDL_MOUSEMOTION = 0x400, SDL_MOUSEBUTTONDOWN, SDL_MOUSEBUTTONUP, SDL_MOUSEWHEEL, SDL_JOYAXISMOTION = 0x600, SDL_JOYBALLMOTION, SDL_JOYHATMOTION, SDL_JOYBUTTONDOWN, SDL_JOYBUTTONUP, SDL_JOYDEVICEADDED, SDL_JOYDEVICEREMOVED, SDL_JOYBATTERYUPDATED, SDL_CONTROLLERAXISMOTION = 0x650, SDL_CONTROLLERBUTTONDOWN, SDL_CONTROLLERBUTTONUP, SDL_CONTROLLERDEVICEADDED, SDL_CONTROLLERDEVICEREMOVED, SDL_CONTROLLERDEVICEREMAPPED, SDL_CONTROLLERTOUCHPADDOWN, SDL_CONTROLLERTOUCHPADMOTION, SDL_CONTROLLERTOUCHPADUP, SDL_CONTROLLERSENSORUPDATE, SDL_CONTROLLERUPDATECOMPLETE_RESERVED_FOR_SDL3, SDL_CONTROLLERSTEAMHANDLEUPDATED, SDL_FINGERDOWN = 0x700, SDL_FINGERUP, SDL_FINGERMOTION, SDL_DOLLARGESTURE = 0x800, SDL_DOLLARRECORD, SDL_MULTIGESTURE, SDL_CLIPBOARDUPDATE = 0x900, SDL_DROPFILE = 0x1000, SDL_DROPTEXT, SDL_DROPBEGIN, SDL_DROPCOMPLETE, SDL_AUDIODEVICEADDED = 0x1100, SDL_AUDIODEVICEREMOVED, SDL_SENSORUPDATE = 0x1200, SDL_RENDER_TARGETS_RESET = 0x2000, SDL_RENDER_DEVICE_RESET, SDL_POLLSENTINEL = 0x7F00, SDL_USEREVENT = 0x8000, SDL_LASTEVENT = 0xFFFF } SDL_EventType;
 typedef struct SDL_CommonEvent {
 	Uint32 type;
 	Uint32 timestamp;
@@ -1777,10 +1731,6 @@ typedef struct SDL_QuitEvent {
 	Uint32 type;
 	Uint32 timestamp;
 } SDL_QuitEvent;
-typedef struct SDL_OSEvent {
-	Uint32 type;
-	Uint32 timestamp;
-} SDL_OSEvent;
 typedef struct SDL_UserEvent {
 	Uint32 type;
 	Uint32 timestamp;
@@ -1858,7 +1808,6 @@ extern __attribute__ ((visibility("default"))) Uint32 SDL_RegisterEvents(int num
 /* +++ END   /usr/include/SDL2/close_code.h */
 /* ++ END   /usr/include/SDL2/SDL_events.h */
 /* ++ BEGIN /usr/include/SDL2/SDL_filesystem.h */
-/* commented out enum { SDL_filesystem_h_ = 1 }; */
 /* +++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* +++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* +++ BEGIN /usr/include/SDL2/begin_code.h */
@@ -1874,7 +1823,6 @@ extern __attribute__ ((visibility("default"))) char * SDL_GetPrefPath(const char
 /* ++ BEGIN /usr/include/SDL2/SDL_guid.h */
 /* ++ END   /usr/include/SDL2/SDL_guid.h */
 /* ++ BEGIN /usr/include/SDL2/SDL_haptic.h */
-/* commented out enum { SDL_haptic_h_ = 1 }; */
 /* +++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* +++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* +++ BEGIN /usr/include/SDL2/SDL_error.h */
@@ -2033,7 +1981,6 @@ extern __attribute__ ((visibility("default"))) int SDL_HapticRumbleStop(SDL_Hapt
 /* +++ END   /usr/include/SDL2/close_code.h */
 /* ++ END   /usr/include/SDL2/SDL_haptic.h */
 /* ++ BEGIN /usr/include/SDL2/SDL_hidapi.h */
-/* commented out enum { SDL_hidapi_h_ = 1 }; */
 /* +++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* +++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* +++ BEGIN /usr/include/SDL2/begin_code.h */
@@ -2080,7 +2027,6 @@ extern __attribute__ ((visibility("default"))) void SDL_hid_ble_scan(SDL_bool ac
 /* +++ END   /usr/include/SDL2/close_code.h */
 /* ++ END   /usr/include/SDL2/SDL_hidapi.h */
 /* ++ BEGIN /usr/include/SDL2/SDL_hints.h */
-/* commented out enum { SDL_hints_h_ = 1 }; */
 /* +++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* +++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* +++ BEGIN /usr/include/SDL2/begin_code.h */
@@ -2127,6 +2073,14 @@ extern __attribute__ ((visibility("default"))) void SDL_hid_ble_scan(SDL_bool ac
 /* #define SDL_HINT_IME_SUPPORT_EXTENDED_TEXT "SDL_IME_SUPPORT_EXTENDED_TEXT" ### string, not number "\"SDL_IME_SUPPORT_EXTENDED_TEXT\"" */
 /* #define SDL_HINT_IOS_HIDE_HOME_INDICATOR "SDL_IOS_HIDE_HOME_INDICATOR" ### string, not number "\"SDL_IOS_HIDE_HOME_INDICATOR\"" */
 /* #define SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS "SDL_JOYSTICK_ALLOW_BACKGROUND_EVENTS" ### string, not number "\"SDL_JOYSTICK_ALLOW_BACKGROUND_EVENTS\"" */
+/* #define SDL_HINT_JOYSTICK_ARCADESTICK_DEVICES "SDL_JOYSTICK_ARCADESTICK_DEVICES" ### string, not number "\"SDL_JOYSTICK_ARCADESTICK_DEVICES\"" */
+/* #define SDL_HINT_JOYSTICK_ARCADESTICK_DEVICES_EXCLUDED "SDL_JOYSTICK_ARCADESTICK_DEVICES_EXCLUDED" ### string, not number "\"SDL_JOYSTICK_ARCADESTICK_DEVICES_EXCLUDED\"" */
+/* #define SDL_HINT_JOYSTICK_BLACKLIST_DEVICES "SDL_JOYSTICK_BLACKLIST_DEVICES" ### string, not number "\"SDL_JOYSTICK_BLACKLIST_DEVICES\"" */
+/* #define SDL_HINT_JOYSTICK_BLACKLIST_DEVICES_EXCLUDED "SDL_JOYSTICK_BLACKLIST_DEVICES_EXCLUDED" ### string, not number "\"SDL_JOYSTICK_BLACKLIST_DEVICES_EXCLUDED\"" */
+/* #define SDL_HINT_JOYSTICK_FLIGHTSTICK_DEVICES "SDL_JOYSTICK_FLIGHTSTICK_DEVICES" ### string, not number "\"SDL_JOYSTICK_FLIGHTSTICK_DEVICES\"" */
+/* #define SDL_HINT_JOYSTICK_FLIGHTSTICK_DEVICES_EXCLUDED "SDL_JOYSTICK_FLIGHTSTICK_DEVICES_EXCLUDED" ### string, not number "\"SDL_JOYSTICK_FLIGHTSTICK_DEVICES_EXCLUDED\"" */
+/* #define SDL_HINT_JOYSTICK_GAMECUBE_DEVICES "SDL_JOYSTICK_GAMECUBE_DEVICES" ### string, not number "\"SDL_JOYSTICK_GAMECUBE_DEVICES\"" */
+/* #define SDL_HINT_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED "SDL_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED" ### string, not number "\"SDL_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED\"" */
 /* #define SDL_HINT_JOYSTICK_HIDAPI "SDL_JOYSTICK_HIDAPI" ### string, not number "\"SDL_JOYSTICK_HIDAPI\"" */
 /* #define SDL_HINT_JOYSTICK_HIDAPI_GAMECUBE "SDL_JOYSTICK_HIDAPI_GAMECUBE" ### string, not number "\"SDL_JOYSTICK_HIDAPI_GAMECUBE\"" */
 /* #define SDL_HINT_JOYSTICK_GAMECUBE_RUMBLE_BRAKE "SDL_JOYSTICK_GAMECUBE_RUMBLE_BRAKE" ### string, not number "\"SDL_JOYSTICK_GAMECUBE_RUMBLE_BRAKE\"" */
@@ -2144,6 +2098,7 @@ extern __attribute__ ((visibility("default"))) void SDL_hid_ble_scan(SDL_bool ac
 /* #define SDL_HINT_JOYSTICK_HIDAPI_PS5_RUMBLE "SDL_JOYSTICK_HIDAPI_PS5_RUMBLE" ### string, not number "\"SDL_JOYSTICK_HIDAPI_PS5_RUMBLE\"" */
 /* #define SDL_HINT_JOYSTICK_HIDAPI_STADIA "SDL_JOYSTICK_HIDAPI_STADIA" ### string, not number "\"SDL_JOYSTICK_HIDAPI_STADIA\"" */
 /* #define SDL_HINT_JOYSTICK_HIDAPI_STEAM "SDL_JOYSTICK_HIDAPI_STEAM" ### string, not number "\"SDL_JOYSTICK_HIDAPI_STEAM\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_STEAMDECK "SDL_JOYSTICK_HIDAPI_STEAMDECK" ### string, not number "\"SDL_JOYSTICK_HIDAPI_STEAMDECK\"" */
 /* #define SDL_HINT_JOYSTICK_HIDAPI_SWITCH "SDL_JOYSTICK_HIDAPI_SWITCH" ### string, not number "\"SDL_JOYSTICK_HIDAPI_SWITCH\"" */
 /* #define SDL_HINT_JOYSTICK_HIDAPI_SWITCH_HOME_LED "SDL_JOYSTICK_HIDAPI_SWITCH_HOME_LED" ### string, not number "\"SDL_JOYSTICK_HIDAPI_SWITCH_HOME_LED\"" */
 /* #define SDL_HINT_JOYSTICK_HIDAPI_JOYCON_HOME_LED "SDL_JOYSTICK_HIDAPI_JOYCON_HOME_LED" ### string, not number "\"SDL_JOYSTICK_HIDAPI_JOYCON_HOME_LED\"" */
@@ -2156,17 +2111,25 @@ extern __attribute__ ((visibility("default"))) void SDL_hid_ble_scan(SDL_bool ac
 /* #define SDL_HINT_JOYSTICK_HIDAPI_XBOX_360_WIRELESS   "SDL_JOYSTICK_HIDAPI_XBOX_360_WIRELESS" ### string, not number "\"SDL_JOYSTICK_HIDAPI_XBOX_360_WIRELESS\"" */
 /* #define SDL_HINT_JOYSTICK_HIDAPI_XBOX_ONE   "SDL_JOYSTICK_HIDAPI_XBOX_ONE" ### string, not number "\"SDL_JOYSTICK_HIDAPI_XBOX_ONE\"" */
 /* #define SDL_HINT_JOYSTICK_HIDAPI_XBOX_ONE_HOME_LED "SDL_JOYSTICK_HIDAPI_XBOX_ONE_HOME_LED" ### string, not number "\"SDL_JOYSTICK_HIDAPI_XBOX_ONE_HOME_LED\"" */
+/* #define SDL_HINT_JOYSTICK_IOKIT "SDL_JOYSTICK_IOKIT" ### string, not number "\"SDL_JOYSTICK_IOKIT\"" */
+/* #define SDL_HINT_JOYSTICK_MFI "SDL_JOYSTICK_MFI" ### string, not number "\"SDL_JOYSTICK_MFI\"" */
 /* #define SDL_HINT_JOYSTICK_RAWINPUT "SDL_JOYSTICK_RAWINPUT" ### string, not number "\"SDL_JOYSTICK_RAWINPUT\"" */
 /* #define SDL_HINT_JOYSTICK_RAWINPUT_CORRELATE_XINPUT   "SDL_JOYSTICK_RAWINPUT_CORRELATE_XINPUT" ### string, not number "\"SDL_JOYSTICK_RAWINPUT_CORRELATE_XINPUT\"" */
 /* #define SDL_HINT_JOYSTICK_ROG_CHAKRAM "SDL_JOYSTICK_ROG_CHAKRAM" ### string, not number "\"SDL_JOYSTICK_ROG_CHAKRAM\"" */
 /* #define SDL_HINT_JOYSTICK_THREAD "SDL_JOYSTICK_THREAD" ### string, not number "\"SDL_JOYSTICK_THREAD\"" */
+/* #define SDL_HINT_JOYSTICK_THROTTLE_DEVICES "SDL_JOYSTICK_THROTTLE_DEVICES" ### string, not number "\"SDL_JOYSTICK_THROTTLE_DEVICES\"" */
+/* #define SDL_HINT_JOYSTICK_THROTTLE_DEVICES_EXCLUDED "SDL_JOYSTICK_THROTTLE_DEVICES_EXCLUDED" ### string, not number "\"SDL_JOYSTICK_THROTTLE_DEVICES_EXCLUDED\"" */
 /* #define SDL_HINT_JOYSTICK_WGI "SDL_JOYSTICK_WGI" ### string, not number "\"SDL_JOYSTICK_WGI\"" */
+/* #define SDL_HINT_JOYSTICK_WHEEL_DEVICES "SDL_JOYSTICK_WHEEL_DEVICES" ### string, not number "\"SDL_JOYSTICK_WHEEL_DEVICES\"" */
+/* #define SDL_HINT_JOYSTICK_WHEEL_DEVICES_EXCLUDED "SDL_JOYSTICK_WHEEL_DEVICES_EXCLUDED" ### string, not number "\"SDL_JOYSTICK_WHEEL_DEVICES_EXCLUDED\"" */
+/* #define SDL_HINT_JOYSTICK_ZERO_CENTERED_DEVICES "SDL_JOYSTICK_ZERO_CENTERED_DEVICES" ### string, not number "\"SDL_JOYSTICK_ZERO_CENTERED_DEVICES\"" */
 /* #define SDL_HINT_KMSDRM_REQUIRE_DRM_MASTER      "SDL_KMSDRM_REQUIRE_DRM_MASTER" ### string, not number "\"SDL_KMSDRM_REQUIRE_DRM_MASTER\"" */
 /* #define SDL_HINT_JOYSTICK_DEVICE "SDL_JOYSTICK_DEVICE" ### string, not number "\"SDL_JOYSTICK_DEVICE\"" */
 /* #define SDL_HINT_LINUX_DIGITAL_HATS "SDL_LINUX_DIGITAL_HATS" ### string, not number "\"SDL_LINUX_DIGITAL_HATS\"" */
 /* #define SDL_HINT_LINUX_HAT_DEADZONES "SDL_LINUX_HAT_DEADZONES" ### string, not number "\"SDL_LINUX_HAT_DEADZONES\"" */
 /* #define SDL_HINT_LINUX_JOYSTICK_CLASSIC "SDL_LINUX_JOYSTICK_CLASSIC" ### string, not number "\"SDL_LINUX_JOYSTICK_CLASSIC\"" */
 /* #define SDL_HINT_LINUX_JOYSTICK_DEADZONES "SDL_LINUX_JOYSTICK_DEADZONES" ### string, not number "\"SDL_LINUX_JOYSTICK_DEADZONES\"" */
+/* #define SDL_HINT_LOGGING   "SDL_LOGGING" ### string, not number "\"SDL_LOGGING\"" */
 /* #define SDL_HINT_MAC_BACKGROUND_APP    "SDL_MAC_BACKGROUND_APP" ### string, not number "\"SDL_MAC_BACKGROUND_APP\"" */
 /* #define SDL_HINT_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK "SDL_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK" ### string, not number "\"SDL_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK\"" */
 /* #define SDL_HINT_MAC_OPENGL_ASYNC_DISPATCH "SDL_MAC_OPENGL_ASYNC_DISPATCH" ### string, not number "\"SDL_MAC_OPENGL_ASYNC_DISPATCH\"" */
@@ -2199,6 +2162,8 @@ extern __attribute__ ((visibility("default"))) void SDL_hid_ble_scan(SDL_bool ac
 /* #define SDL_HINT_RENDER_SCALE_QUALITY       "SDL_RENDER_SCALE_QUALITY" ### string, not number "\"SDL_RENDER_SCALE_QUALITY\"" */
 /* #define SDL_HINT_RENDER_VSYNC               "SDL_RENDER_VSYNC" ### string, not number "\"SDL_RENDER_VSYNC\"" */
 /* #define SDL_HINT_RENDER_METAL_PREFER_LOW_POWER_DEVICE "SDL_RENDER_METAL_PREFER_LOW_POWER_DEVICE" ### string, not number "\"SDL_RENDER_METAL_PREFER_LOW_POWER_DEVICE\"" */
+/* #define SDL_HINT_ROG_GAMEPAD_MICE "SDL_ROG_GAMEPAD_MICE" ### string, not number "\"SDL_ROG_GAMEPAD_MICE\"" */
+/* #define SDL_HINT_ROG_GAMEPAD_MICE_EXCLUDED "SDL_ROG_GAMEPAD_MICE_EXCLUDED" ### string, not number "\"SDL_ROG_GAMEPAD_MICE_EXCLUDED\"" */
 /* #define SDL_HINT_PS2_DYNAMIC_VSYNC    "SDL_PS2_DYNAMIC_VSYNC" ### string, not number "\"SDL_PS2_DYNAMIC_VSYNC\"" */
 /* #define SDL_HINT_RETURN_KEY_HIDES_IME "SDL_RETURN_KEY_HIDES_IME" ### string, not number "\"SDL_RETURN_KEY_HIDES_IME\"" */
 /* #define SDL_HINT_RPI_VIDEO_LAYER           "SDL_RPI_VIDEO_LAYER" ### string, not number "\"SDL_RPI_VIDEO_LAYER\"" */
@@ -2262,6 +2227,7 @@ extern __attribute__ ((visibility("default"))) void SDL_hid_ble_scan(SDL_bool ac
 /* #define SDL_HINT_AUDIODRIVER "SDL_AUDIODRIVER" ### string, not number "\"SDL_AUDIODRIVER\"" */
 /* #define SDL_HINT_KMSDRM_DEVICE_INDEX "SDL_KMSDRM_DEVICE_INDEX" ### string, not number "\"SDL_KMSDRM_DEVICE_INDEX\"" */
 /* #define SDL_HINT_TRACKPAD_IS_TOUCH_ONLY "SDL_TRACKPAD_IS_TOUCH_ONLY" ### string, not number "\"SDL_TRACKPAD_IS_TOUCH_ONLY\"" */
+/* #define SDL_HINT_SHUTDOWN_DBUS_ON_QUIT "SDL_SHUTDOWN_DBUS_ON_QUIT" ### string, not number "\"SDL_SHUTDOWN_DBUS_ON_QUIT\"" */
 typedef enum { SDL_HINT_DEFAULT, SDL_HINT_NORMAL, SDL_HINT_OVERRIDE } SDL_HintPriority;
 extern __attribute__ ((visibility("default"))) SDL_bool SDL_SetHintWithPriority(const char *name, const char *value, SDL_HintPriority priority);
 extern __attribute__ ((visibility("default"))) SDL_bool SDL_SetHint(const char *name, const char *value);
@@ -2279,7 +2245,6 @@ extern __attribute__ ((visibility("default"))) void SDL_ClearHints(void);
 /* ++ BEGIN /usr/include/SDL2/SDL_joystick.h */
 /* ++ END   /usr/include/SDL2/SDL_joystick.h */
 /* ++ BEGIN /usr/include/SDL2/SDL_loadso.h */
-/* commented out enum { SDL_loadso_h_ = 1 }; */
 /* +++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* +++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* +++ BEGIN /usr/include/SDL2/SDL_error.h */
@@ -2294,7 +2259,6 @@ extern __attribute__ ((visibility("default"))) void SDL_UnloadObject(void *handl
 /* +++ END   /usr/include/SDL2/close_code.h */
 /* ++ END   /usr/include/SDL2/SDL_loadso.h */
 /* ++ BEGIN /usr/include/SDL2/SDL_log.h */
-/* commented out enum { SDL_log_h_ = 1 }; */
 /* +++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* +++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* +++ BEGIN /usr/include/SDL2/begin_code.h */
@@ -2315,7 +2279,7 @@ extern __attribute__ ((visibility("default"))) void SDL_LogWarn(int category, co
 extern __attribute__ ((visibility("default"))) void SDL_LogError(int category, const char *fmt, ...) __attribute__ (( format( __printf__, 2, 2+1 )));
 extern __attribute__ ((visibility("default"))) void SDL_LogCritical(int category, const char *fmt, ...) __attribute__ (( format( __printf__, 2, 2+1 )));
 extern __attribute__ ((visibility("default"))) void SDL_LogMessage(int category, SDL_LogPriority priority, const char *fmt, ...) __attribute__ (( format( __printf__, 3, 3+1 )));
-extern __attribute__ ((visibility("default"))) void SDL_LogMessageV(int category, SDL_LogPriority priority, const char *fmt, va_list ap);
+extern __attribute__ ((visibility("default"))) void SDL_LogMessageV(int category, SDL_LogPriority priority, const char *fmt, va_list ap) __attribute__(( format( __printf__, 3, 0 )));
 typedef void ( *SDL_LogOutputFunction)(void *userdata, int category, SDL_LogPriority priority, const char *message);
 extern __attribute__ ((visibility("default"))) void SDL_LogGetOutputFunction(SDL_LogOutputFunction *callback, void **userdata);
 extern __attribute__ ((visibility("default"))) void SDL_LogSetOutputFunction(SDL_LogOutputFunction callback, void *userdata);
@@ -2323,7 +2287,6 @@ extern __attribute__ ((visibility("default"))) void SDL_LogSetOutputFunction(SDL
 /* +++ END   /usr/include/SDL2/close_code.h */
 /* ++ END   /usr/include/SDL2/SDL_log.h */
 /* ++ BEGIN /usr/include/SDL2/SDL_messagebox.h */
-/* commented out enum { SDL_messagebox_h_ = 1 }; */
 /* +++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* +++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* +++ BEGIN /usr/include/SDL2/SDL_video.h */
@@ -2360,7 +2323,6 @@ extern __attribute__ ((visibility("default"))) int SDL_ShowSimpleMessageBox(Uint
 /* +++ END   /usr/include/SDL2/close_code.h */
 /* ++ END   /usr/include/SDL2/SDL_messagebox.h */
 /* ++ BEGIN /usr/include/SDL2/SDL_metal.h */
-/* commented out enum { SDL_metal_h_ = 1 }; */
 /* +++ BEGIN /usr/include/SDL2/SDL_video.h */
 /* +++ END   /usr/include/SDL2/SDL_video.h */
 /* +++ BEGIN /usr/include/SDL2/begin_code.h */
@@ -2377,7 +2339,6 @@ extern __attribute__ ((visibility("default"))) void SDL_Metal_GetDrawableSize(SD
 /* ++ BEGIN /usr/include/SDL2/SDL_mutex.h */
 /* ++ END   /usr/include/SDL2/SDL_mutex.h */
 /* ++ BEGIN /usr/include/SDL2/SDL_power.h */
-/* commented out enum { SDL_power_h_ = 1 }; */
 /* +++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* +++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* +++ BEGIN /usr/include/SDL2/begin_code.h */
@@ -2389,7 +2350,6 @@ extern __attribute__ ((visibility("default"))) SDL_PowerState SDL_GetPowerInfo(i
 /* +++ END   /usr/include/SDL2/close_code.h */
 /* ++ END   /usr/include/SDL2/SDL_power.h */
 /* ++ BEGIN /usr/include/SDL2/SDL_render.h */
-/* commented out enum { SDL_render_h_ = 1 }; */
 /* +++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* +++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* +++ BEGIN /usr/include/SDL2/SDL_rect.h */
@@ -2510,7 +2470,6 @@ extern __attribute__ ((visibility("default"))) int SDL_RenderSetVSync(SDL_Render
 /* ++ BEGIN /usr/include/SDL2/SDL_sensor.h */
 /* ++ END   /usr/include/SDL2/SDL_sensor.h */
 /* ++ BEGIN /usr/include/SDL2/SDL_shape.h */
-/* commented out enum { SDL_shape_h_ = 1 }; */
 /* +++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* +++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* +++ BEGIN /usr/include/SDL2/SDL_pixels.h */
@@ -2544,7 +2503,6 @@ extern __attribute__ ((visibility("default"))) int SDL_GetShapedWindowMode(SDL_W
 /* +++ END   /usr/include/SDL2/close_code.h */
 /* ++ END   /usr/include/SDL2/SDL_shape.h */
 /* ++ BEGIN /usr/include/SDL2/SDL_system.h */
-/* commented out enum { SDL_system_h_ = 1 }; */
 /* +++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* +++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* +++ BEGIN /usr/include/SDL2/SDL_keyboard.h */
@@ -2571,7 +2529,6 @@ extern __attribute__ ((visibility("default"))) void SDL_OnApplicationDidBecomeAc
 /* ++ BEGIN /usr/include/SDL2/SDL_thread.h */
 /* ++ END   /usr/include/SDL2/SDL_thread.h */
 /* ++ BEGIN /usr/include/SDL2/SDL_timer.h */
-/* commented out enum { SDL_timer_h_ = 1 }; */
 /* +++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* +++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* +++ BEGIN /usr/include/SDL2/SDL_error.h */
@@ -2592,7 +2549,6 @@ extern __attribute__ ((visibility("default"))) SDL_bool SDL_RemoveTimer(SDL_Time
 /* +++ END   /usr/include/SDL2/close_code.h */
 /* ++ END   /usr/include/SDL2/SDL_timer.h */
 /* ++ BEGIN /usr/include/SDL2/SDL_version.h */
-/* commented out enum { SDL_version_h_ = 1 }; */
 /* +++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* +++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* +++ BEGIN /usr/include/SDL2/begin_code.h */
@@ -2604,9 +2560,9 @@ typedef struct SDL_version {
 	Uint8 patch;
 } SDL_version;
 enum { SDL_MAJOR_VERSION = 2 };
-enum { SDL_MINOR_VERSION = 28 };
-enum { SDL_PATCHLEVEL = 3 };
-enum { SDL_COMPILEDVERSION = 4803 };
+enum { SDL_MINOR_VERSION = 30 };
+enum { SDL_PATCHLEVEL = 0 };
+enum { SDL_COMPILEDVERSION = 5000 };
 extern __attribute__ ((visibility("default"))) void SDL_GetVersion(SDL_version * ver);
 extern __attribute__ ((visibility("default"))) const char * SDL_GetRevision(void);
 extern __attribute__((deprecated)) __attribute__ ((visibility("default"))) int SDL_GetRevisionNumber(void);
@@ -2632,7 +2588,6 @@ extern __attribute__ ((visibility("default"))) SDL_Locale * SDL_GetPreferredLoca
 /* +++ END   /usr/include/SDL2/close_code.h */
 /* ++ END   /usr/include/SDL2/SDL_locale.h */
 /* ++ BEGIN /usr/include/SDL2/SDL_misc.h */
-/* commented out enum { SDL_misc_h_ = 1 }; */
 /* +++ BEGIN /usr/include/SDL2/SDL_stdinc.h */
 /* +++ END   /usr/include/SDL2/SDL_stdinc.h */
 /* +++ BEGIN /usr/include/SDL2/begin_code.h */

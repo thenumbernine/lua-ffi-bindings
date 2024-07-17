@@ -69,19 +69,6 @@ enum { PA_SAMPLE_S32RE = 0 };
 enum { PA_SAMPLE_S24RE = 0 };
 enum { PA_SAMPLE_S24_32RE = 0 };
 enum { PA_SAMPLE_FLOAT32 = 0 };
-
-
-
-
-
-
-
-
-
-
-
-
-
 typedef struct pa_sample_spec {
 	pa_sample_format_t format;
 	uint32_t rate;
@@ -113,62 +100,17 @@ int pa_sample_format_is_be(pa_sample_format_t f) __attribute__ ((pure));
 /* ++++ END   /usr/include/pulse/version.h */
 typedef enum pa_context_state { PA_CONTEXT_UNCONNECTED, PA_CONTEXT_CONNECTING, PA_CONTEXT_AUTHORIZING, PA_CONTEXT_SETTING_NAME, PA_CONTEXT_READY, PA_CONTEXT_FAILED, PA_CONTEXT_TERMINATED } pa_context_state_t;
  
-
-
-
-
-
-
-
 typedef enum pa_stream_state { PA_STREAM_UNCONNECTED, PA_STREAM_CREATING, PA_STREAM_READY, PA_STREAM_FAILED, PA_STREAM_TERMINATED } pa_stream_state_t;
  
-
-
-
-
-
 typedef enum pa_operation_state { PA_OPERATION_RUNNING, PA_OPERATION_DONE, PA_OPERATION_CANCELLED } pa_operation_state_t;
-
-
 enum { PA_OPERATION_CANCELED = 0 };
-
 enum { PA_INVALID_INDEX = -1 };
 typedef enum pa_context_flags { PA_CONTEXT_NOFLAGS = 0x0000U, PA_CONTEXT_NOAUTOSPAWN = 0x0001U, PA_CONTEXT_NOFAIL = 0x0002U } pa_context_flags_t;
-
-
 typedef enum pa_direction { PA_DIRECTION_OUTPUT = 0x0001U, PA_DIRECTION_INPUT = 0x0002U } pa_direction_t;
-
-
 typedef enum pa_device_type { PA_DEVICE_TYPE_SINK, PA_DEVICE_TYPE_SOURCE } pa_device_type_t;
-
-
 typedef enum pa_stream_direction { PA_STREAM_NODIRECTION, PA_STREAM_PLAYBACK, PA_STREAM_RECORD, PA_STREAM_UPLOAD } pa_stream_direction_t;
-
-
-
-
 typedef enum pa_stream_flags { PA_STREAM_NOFLAGS = 0x0000U, PA_STREAM_START_CORKED = 0x0001U, PA_STREAM_INTERPOLATE_TIMING = 0x0002U, PA_STREAM_NOT_MONOTONIC = 0x0004U, PA_STREAM_AUTO_TIMING_UPDATE = 0x0008U, PA_STREAM_NO_REMAP_CHANNELS = 0x0010U, PA_STREAM_NO_REMIX_CHANNELS = 0x0020U, PA_STREAM_FIX_FORMAT = 0x0040U, PA_STREAM_FIX_RATE = 0x0080U, PA_STREAM_FIX_CHANNELS = 0x0100, PA_STREAM_DONT_MOVE = 0x0200U, PA_STREAM_VARIABLE_RATE = 0x0400U, PA_STREAM_PEAK_DETECT = 0x0800U, PA_STREAM_START_MUTED = 0x1000U, PA_STREAM_ADJUST_LATENCY = 0x2000U, PA_STREAM_EARLY_REQUESTS = 0x4000U, PA_STREAM_DONT_INHIBIT_AUTO_SUSPEND = 0x8000U, PA_STREAM_START_UNMUTED = 0x10000U, PA_STREAM_FAIL_ON_SUSPEND = 0x20000U, PA_STREAM_RELATIVE_VOLUME = 0x40000U, PA_STREAM_PASSTHROUGH = 0x80000U } pa_stream_flags_t;
 enum { PA_STREAM_NOT_MONOTONOUS = 0 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 typedef struct pa_buffer_attr {
 	uint32_t maxlength;
 	uint32_t tlength;
@@ -177,61 +119,8 @@ typedef struct pa_buffer_attr {
 	uint32_t fragsize;
 } pa_buffer_attr;
 typedef enum pa_error_code { PA_OK = 0, PA_ERR_ACCESS, PA_ERR_COMMAND, PA_ERR_INVALID, PA_ERR_EXIST, PA_ERR_NOENTITY, PA_ERR_CONNECTIONREFUSED, PA_ERR_PROTOCOL, PA_ERR_TIMEOUT, PA_ERR_AUTHKEY, PA_ERR_INTERNAL, PA_ERR_CONNECTIONTERMINATED, PA_ERR_KILLED, PA_ERR_INVALIDSERVER, PA_ERR_MODINITFAILED, PA_ERR_BADSTATE, PA_ERR_NODATA, PA_ERR_VERSION, PA_ERR_TOOLARGE, PA_ERR_NOTSUPPORTED, PA_ERR_UNKNOWN, PA_ERR_NOEXTENSION, PA_ERR_OBSOLETE, PA_ERR_NOTIMPLEMENTED, PA_ERR_FORKED, PA_ERR_IO, PA_ERR_BUSY, PA_ERR_MAX } pa_error_code_t;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 typedef enum pa_subscription_mask { PA_SUBSCRIPTION_MASK_NULL = 0x0000U, PA_SUBSCRIPTION_MASK_SINK = 0x0001U, PA_SUBSCRIPTION_MASK_SOURCE = 0x0002U, PA_SUBSCRIPTION_MASK_SINK_INPUT = 0x0004U, PA_SUBSCRIPTION_MASK_SOURCE_OUTPUT = 0x0008U, PA_SUBSCRIPTION_MASK_MODULE = 0x0010U, PA_SUBSCRIPTION_MASK_CLIENT = 0x0020U, PA_SUBSCRIPTION_MASK_SAMPLE_CACHE = 0x0040U, PA_SUBSCRIPTION_MASK_SERVER = 0x0080U, PA_SUBSCRIPTION_MASK_AUTOLOAD = 0x0100U, PA_SUBSCRIPTION_MASK_CARD = 0x0200U, PA_SUBSCRIPTION_MASK_ALL = 0x02ffU } pa_subscription_mask_t;
 typedef enum pa_subscription_event_type { PA_SUBSCRIPTION_EVENT_SINK = 0x0000U, PA_SUBSCRIPTION_EVENT_SOURCE = 0x0001U, PA_SUBSCRIPTION_EVENT_SINK_INPUT = 0x0002U, PA_SUBSCRIPTION_EVENT_SOURCE_OUTPUT = 0x0003U, PA_SUBSCRIPTION_EVENT_MODULE = 0x0004U, PA_SUBSCRIPTION_EVENT_CLIENT = 0x0005U, PA_SUBSCRIPTION_EVENT_SAMPLE_CACHE = 0x0006U, PA_SUBSCRIPTION_EVENT_SERVER = 0x0007U, PA_SUBSCRIPTION_EVENT_AUTOLOAD = 0x0008U, PA_SUBSCRIPTION_EVENT_CARD = 0x0009U, PA_SUBSCRIPTION_EVENT_FACILITY_MASK = 0x000FU, PA_SUBSCRIPTION_EVENT_NEW = 0x0000U, PA_SUBSCRIPTION_EVENT_CHANGE = 0x0010U, PA_SUBSCRIPTION_EVENT_REMOVE = 0x0020U, PA_SUBSCRIPTION_EVENT_TYPE_MASK = 0x0030U } pa_subscription_event_type_t;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 typedef struct pa_timing_info {
 	struct timeval timestamp;
 	int synchronized_clocks;
@@ -253,53 +142,17 @@ typedef struct pa_spawn_api {
 	void (*atfork)(void);
 } pa_spawn_api;
 typedef enum pa_seek_mode { PA_SEEK_RELATIVE = 0, PA_SEEK_ABSOLUTE = 1, PA_SEEK_RELATIVE_ON_READ = 2, PA_SEEK_RELATIVE_END = 3 } pa_seek_mode_t;
-
-
-
-
 typedef enum pa_sink_flags { PA_SINK_NOFLAGS = 0x0000U, PA_SINK_HW_VOLUME_CTRL = 0x0001U, PA_SINK_LATENCY = 0x0002U, PA_SINK_HARDWARE = 0x0004U, PA_SINK_NETWORK = 0x0008U, PA_SINK_HW_MUTE_CTRL = 0x0010U, PA_SINK_DECIBEL_VOLUME = 0x0020U, PA_SINK_FLAT_VOLUME = 0x0040U, PA_SINK_DYNAMIC_LATENCY = 0x0080U, PA_SINK_SET_FORMATS = 0x0100U, } pa_sink_flags_t;
-
-
-
-
-
-
-
-
-
 typedef enum pa_sink_state { PA_SINK_INVALID_STATE = -1, PA_SINK_RUNNING = 0, PA_SINK_IDLE = 1, PA_SINK_SUSPENDED = 2, PA_SINK_INIT = -2, PA_SINK_UNLINKED = -3 } pa_sink_state_t;
-  
-
-
-
-
-
-
+ 
 typedef enum pa_source_flags { PA_SOURCE_NOFLAGS = 0x0000U, PA_SOURCE_HW_VOLUME_CTRL = 0x0001U, PA_SOURCE_LATENCY = 0x0002U, PA_SOURCE_HARDWARE = 0x0004U, PA_SOURCE_NETWORK = 0x0008U, PA_SOURCE_HW_MUTE_CTRL = 0x0010U, PA_SOURCE_DECIBEL_VOLUME = 0x0020U, PA_SOURCE_DYNAMIC_LATENCY = 0x0040U, PA_SOURCE_FLAT_VOLUME = 0x0080U, } pa_source_flags_t;
-
-
-
-
-
-
-
-
 typedef enum pa_source_state { PA_SOURCE_INVALID_STATE = -1, PA_SOURCE_RUNNING = 0, PA_SOURCE_IDLE = 1, PA_SOURCE_SUSPENDED = 2, PA_SOURCE_INIT = -2, PA_SOURCE_UNLINKED = -3 } pa_source_state_t;
-  
-
-
-
-
-
-
+ 
 typedef void (*pa_free_cb_t)(void *p);
 /* #define PA_STREAM_EVENT_REQUEST_CORK "request-cork" ### string, not number "\"request-cork\"" */
 /* #define PA_STREAM_EVENT_REQUEST_UNCORK "request-uncork" ### string, not number "\"request-uncork\"" */
 /* #define PA_STREAM_EVENT_FORMAT_LOST "format-lost" ### string, not number "\"format-lost\"" */
 typedef enum pa_port_available { PA_PORT_AVAILABLE_UNKNOWN = 0, PA_PORT_AVAILABLE_NO = 1, PA_PORT_AVAILABLE_YES = 2, } pa_port_available_t;
-
-
-
 typedef enum pa_device_port_type { PA_DEVICE_PORT_TYPE_UNKNOWN = 0, PA_DEVICE_PORT_TYPE_AUX = 1, PA_DEVICE_PORT_TYPE_SPEAKER = 2, PA_DEVICE_PORT_TYPE_HEADPHONES = 3, PA_DEVICE_PORT_TYPE_LINE = 4, PA_DEVICE_PORT_TYPE_MIC = 5, PA_DEVICE_PORT_TYPE_HEADSET = 6, PA_DEVICE_PORT_TYPE_HANDSET = 7, PA_DEVICE_PORT_TYPE_EARPIECE = 8, PA_DEVICE_PORT_TYPE_SPDIF = 9, PA_DEVICE_PORT_TYPE_HDMI = 10, PA_DEVICE_PORT_TYPE_TV = 11, PA_DEVICE_PORT_TYPE_RADIO = 12, PA_DEVICE_PORT_TYPE_VIDEO = 13, PA_DEVICE_PORT_TYPE_USB = 14, PA_DEVICE_PORT_TYPE_BLUETOOTH = 15, PA_DEVICE_PORT_TYPE_PORTABLE = 16, PA_DEVICE_PORT_TYPE_HANDSFREE = 17, PA_DEVICE_PORT_TYPE_CAR = 18, PA_DEVICE_PORT_TYPE_HIFI = 19, PA_DEVICE_PORT_TYPE_PHONE = 20, PA_DEVICE_PORT_TYPE_NETWORK = 21, PA_DEVICE_PORT_TYPE_ANALOG = 22, } pa_device_port_type_t;
 /* +++ END   /usr/include/pulse/def.h */
 int pa_direction_valid(pa_direction_t direction) __attribute__ ((const));
@@ -451,9 +304,6 @@ int pa_proplist_set(pa_proplist *p, const char *key, const void *data, size_t nb
 const char *pa_proplist_gets(const pa_proplist *p, const char *key);
 int pa_proplist_get(const pa_proplist *p, const char *key, const void **data, size_t *nbytes);
 typedef enum pa_update_mode { PA_UPDATE_SET , PA_UPDATE_MERGE , PA_UPDATE_REPLACE } pa_update_mode_t;
-
-
-
 void pa_proplist_update(pa_proplist *p, pa_update_mode_t mode, const pa_proplist *other);
 int pa_proplist_unset(pa_proplist *p, const char *key);
 int pa_proplist_unset_many(pa_proplist *p, const char * const keys[]);
@@ -481,72 +331,8 @@ enum { foochannelmaphfoo = 1 };
 /* ++++ BEGIN /usr/include/pulse/version.h */
 /* ++++ END   /usr/include/pulse/version.h */
 typedef enum pa_channel_position { PA_CHANNEL_POSITION_INVALID = -1, PA_CHANNEL_POSITION_MONO = 0, PA_CHANNEL_POSITION_FRONT_LEFT, PA_CHANNEL_POSITION_FRONT_RIGHT, PA_CHANNEL_POSITION_FRONT_CENTER, PA_CHANNEL_POSITION_LEFT = PA_CHANNEL_POSITION_FRONT_LEFT, PA_CHANNEL_POSITION_RIGHT = PA_CHANNEL_POSITION_FRONT_RIGHT, PA_CHANNEL_POSITION_CENTER = PA_CHANNEL_POSITION_FRONT_CENTER, PA_CHANNEL_POSITION_REAR_CENTER, PA_CHANNEL_POSITION_REAR_LEFT, PA_CHANNEL_POSITION_REAR_RIGHT, PA_CHANNEL_POSITION_LFE, PA_CHANNEL_POSITION_SUBWOOFER = PA_CHANNEL_POSITION_LFE, PA_CHANNEL_POSITION_FRONT_LEFT_OF_CENTER, PA_CHANNEL_POSITION_FRONT_RIGHT_OF_CENTER, PA_CHANNEL_POSITION_SIDE_LEFT, PA_CHANNEL_POSITION_SIDE_RIGHT, PA_CHANNEL_POSITION_AUX0, PA_CHANNEL_POSITION_AUX1, PA_CHANNEL_POSITION_AUX2, PA_CHANNEL_POSITION_AUX3, PA_CHANNEL_POSITION_AUX4, PA_CHANNEL_POSITION_AUX5, PA_CHANNEL_POSITION_AUX6, PA_CHANNEL_POSITION_AUX7, PA_CHANNEL_POSITION_AUX8, PA_CHANNEL_POSITION_AUX9, PA_CHANNEL_POSITION_AUX10, PA_CHANNEL_POSITION_AUX11, PA_CHANNEL_POSITION_AUX12, PA_CHANNEL_POSITION_AUX13, PA_CHANNEL_POSITION_AUX14, PA_CHANNEL_POSITION_AUX15, PA_CHANNEL_POSITION_AUX16, PA_CHANNEL_POSITION_AUX17, PA_CHANNEL_POSITION_AUX18, PA_CHANNEL_POSITION_AUX19, PA_CHANNEL_POSITION_AUX20, PA_CHANNEL_POSITION_AUX21, PA_CHANNEL_POSITION_AUX22, PA_CHANNEL_POSITION_AUX23, PA_CHANNEL_POSITION_AUX24, PA_CHANNEL_POSITION_AUX25, PA_CHANNEL_POSITION_AUX26, PA_CHANNEL_POSITION_AUX27, PA_CHANNEL_POSITION_AUX28, PA_CHANNEL_POSITION_AUX29, PA_CHANNEL_POSITION_AUX30, PA_CHANNEL_POSITION_AUX31, PA_CHANNEL_POSITION_TOP_CENTER, PA_CHANNEL_POSITION_TOP_FRONT_LEFT, PA_CHANNEL_POSITION_TOP_FRONT_RIGHT, PA_CHANNEL_POSITION_TOP_FRONT_CENTER, PA_CHANNEL_POSITION_TOP_REAR_LEFT, PA_CHANNEL_POSITION_TOP_REAR_RIGHT, PA_CHANNEL_POSITION_TOP_REAR_CENTER, PA_CHANNEL_POSITION_MAX } pa_channel_position_t;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 typedef uint64_t pa_channel_position_mask_t;
 typedef enum pa_channel_map_def { PA_CHANNEL_MAP_AIFF, PA_CHANNEL_MAP_ALSA, PA_CHANNEL_MAP_AUX, PA_CHANNEL_MAP_WAVEEX, PA_CHANNEL_MAP_OSS, PA_CHANNEL_MAP_DEF_MAX, PA_CHANNEL_MAP_DEFAULT = PA_CHANNEL_MAP_AIFF } pa_channel_map_def_t;
-
-
-
-
-
-
-
 typedef struct pa_channel_map {
 	uint8_t channels;
 	pa_channel_position_t map[32U];
@@ -575,17 +361,6 @@ int pa_channel_map_has_position(const pa_channel_map *map, pa_channel_position_t
 pa_channel_position_mask_t pa_channel_map_mask(const pa_channel_map *map) __attribute__ ((pure));
 /* +++ END   /usr/include/pulse/channelmap.h */
 typedef enum pa_encoding { PA_ENCODING_ANY, PA_ENCODING_PCM, PA_ENCODING_AC3_IEC61937, PA_ENCODING_EAC3_IEC61937, PA_ENCODING_MPEG_IEC61937, PA_ENCODING_DTS_IEC61937, PA_ENCODING_MPEG2_AAC_IEC61937, PA_ENCODING_TRUEHD_IEC61937, PA_ENCODING_DTSHD_IEC61937, PA_ENCODING_MAX, PA_ENCODING_INVALID = -1, } pa_encoding_t;
-
-
-
-
-
-
-
-
-
-
-
 const char *pa_encoding_to_string(pa_encoding_t e) __attribute__ ((const));
 pa_encoding_t pa_encoding_from_string(const char *encoding);
 typedef struct pa_format_info {
@@ -604,12 +379,6 @@ pa_format_info* pa_format_info_from_string(const char *str);
 pa_format_info* pa_format_info_from_sample_spec(const pa_sample_spec *ss, const pa_channel_map *map);
 int pa_format_info_to_sample_spec(const pa_format_info *f, pa_sample_spec *ss, pa_channel_map *map);
 typedef enum pa_prop_type_t { PA_PROP_TYPE_INT, PA_PROP_TYPE_INT_RANGE, PA_PROP_TYPE_INT_ARRAY, PA_PROP_TYPE_STRING, PA_PROP_TYPE_STRING_ARRAY, PA_PROP_TYPE_INVALID = -1, } pa_prop_type_t;
-
-
-
-
-
-
 pa_prop_type_t pa_format_info_get_prop_type(const pa_format_info *f, const char *key);
 int pa_format_info_get_prop_int(const pa_format_info *f, const char *key, int *v);
 int pa_format_info_get_prop_int_range(const pa_format_info *f, const char *key, int *min, int *max);
@@ -1244,13 +1013,6 @@ void pa_xfree(void *p);
 char *pa_xstrdup(const char *s) __attribute__ ((malloc));
 char *pa_xstrndup(const char *s, size_t l) __attribute__ ((malloc));
 void* pa_xmemdup(const void *p, size_t l) __attribute__ ((malloc));
-static void* _pa_xnew_internal(size_t n, size_t k) __attribute__ ((malloc));
- static void* _pa_xnew0_internal(size_t n, size_t k) __attribute__ ((malloc));
- static void* _pa_xnewdup_internal(const void *p, size_t n, size_t k) __attribute__ ((malloc));
-static inline void* _pa_xnewdup_internal(const void *p, size_t n, size_t k) { ((void) sizeof ((n < 0x7fffffff/k) ? 1 : 0), __extension__ ({ if (n < 0x7fffffff/k) ; else __assert_fail (#n < 0x7fffffff/k, __FILE__, __LINE__, __extension__ __PRETTY_FUNCTION__); }));
-return pa_xmemdup(p, n*k);
-} static void* _pa_xrenew_internal(void *p, size_t n, size_t k) __attribute__ ((malloc));
-
 /* ++ END   /usr/include/pulse/xmalloc.h */
 /* ++ BEGIN /usr/include/pulse/utf8.h */
 enum { fooutf8hfoo = 1 };

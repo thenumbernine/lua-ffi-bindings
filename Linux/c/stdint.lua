@@ -26,6 +26,10 @@ typedef __uint16_t uint16_t;
 typedef __uint32_t uint32_t;
 typedef __uint64_t uint64_t;
 /* +++ END   /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h */
+/* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/stdint-least.h */
+/* ++++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
+]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
+/* ++++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
 typedef __int_least8_t int_least8_t;
 typedef __int_least16_t int_least16_t;
 typedef __int_least32_t int_least32_t;
@@ -34,6 +38,7 @@ typedef __uint_least8_t uint_least8_t;
 typedef __uint_least16_t uint_least16_t;
 typedef __uint_least32_t uint_least32_t;
 typedef __uint_least64_t uint_least64_t;
+/* +++ END   /usr/include/x86_64-linux-gnu/bits/stdint-least.h */
 typedef signed char int_fast8_t;
 typedef long int int_fast16_t;
 typedef long int int_fast32_t;
@@ -42,8 +47,7 @@ typedef unsigned char uint_fast8_t;
 typedef unsigned long int uint_fast16_t;
 typedef unsigned long int uint_fast32_t;
 typedef unsigned long int uint_fast64_t;
-typedef long int intptr_t;
-typedef unsigned long int uintptr_t;
+]] require 'ffi.req' 'c.bits.types.intptr_t' ffi.cdef[[typedef unsigned long int uintptr_t;
 typedef __intmax_t intmax_t;
 typedef __uintmax_t uintmax_t;
 enum { INT8_MIN = -128 };

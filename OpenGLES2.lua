@@ -5,8 +5,6 @@ ffi.cdef[[
 /* +++ BEGIN /usr/include/KHR/khrplatform.h */
 ]] require 'ffi.req' 'KHR.khrplatform' ffi.cdef[[
 /* +++ END   /usr/include/KHR/khrplatform.h */
-/* #define GL_APICALL  KHRONOS_APICALL ### string, not number "KHRONOS_APICALL" */
-/* #define GL_APIENTRY KHRONOS_APIENTRY ### string, not number "KHRONOS_APIENTRY" */
 /* ++ END   /usr/include/GLES2/gl2platform.h */
 /* #define GL_APIENTRYP GL_APIENTRY* ### string, not number "GL_APIENTRY*" */
 enum { GL_GLES_PROTOTYPES = 1 };

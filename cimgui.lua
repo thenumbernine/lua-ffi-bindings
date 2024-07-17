@@ -3443,6 +3443,7 @@ extern __attribute__((__visibility__("default"))) void igDebugLocateItemResolveW
 extern __attribute__((__visibility__("default"))) void igDebugBreakClearData(void);
 extern __attribute__((__visibility__("default"))) _Bool igDebugBreakButton(const char* label,const char* description_of_location);
 extern __attribute__((__visibility__("default"))) void igDebugBreakButtonTooltip(_Bool keyboard_only,const char* description_of_location);
+extern __attribute__((__visibility__("default"))) void igShowFontAtlas(ImFontAtlas* atlas);
 extern __attribute__((__visibility__("default"))) void igDebugHookIdInfo(ImGuiID id,ImGuiDataType data_type,const void* data_id,const void* data_id_end);
 extern __attribute__((__visibility__("default"))) void igDebugNodeColumns(ImGuiOldColumns* columns);
 extern __attribute__((__visibility__("default"))) void igDebugNodeDockNode(ImGuiDockNode* node,const char* label);
@@ -3466,7 +3467,6 @@ extern __attribute__((__visibility__("default"))) void igDebugRenderViewportThum
 ]]
 ffi.cdef[[
 extern __attribute__((__visibility__("default"))) const ImFontBuilderIO* igImFontAtlasGetBuilderForStbTruetype(void);
-extern __attribute__((__visibility__("default"))) void igShowFontAtlas(ImFontAtlas* atlas);
 extern __attribute__((__visibility__("default"))) void igImFontAtlasUpdateConfigDataPointers(ImFontAtlas* atlas);
 extern __attribute__((__visibility__("default"))) void igImFontAtlasBuildInit(ImFontAtlas* atlas);
 extern __attribute__((__visibility__("default"))) void igImFontAtlasBuildSetupFont(ImFontAtlas* atlas,ImFont* font,ImFontConfig* font_config,float ascent,float descent);
@@ -3496,7 +3496,7 @@ _Bool ImGui_ImplSDL2_InitForOther(SDL_Window* window);
 void ImGui_ImplSDL2_Shutdown();
 void ImGui_ImplSDL2_NewFrame();
 _Bool ImGui_ImplSDL2_ProcessEvent(const SDL_Event* event);
-typedef enum ImGui_ImplSDL2_GamepadMode { ImGui_ImplSDL2_GamepadMode_AutoFirst, ImGui_ImplSDL2_GamepadMode_AutoAll, ImGui_ImplSDL2_GamepadMode_Manual } ImGui_ImplSDL2_GamepadMode;
+typedef enum { ImGui_ImplSDL2_GamepadMode_AutoFirst, ImGui_ImplSDL2_GamepadMode_AutoAll, ImGui_ImplSDL2_GamepadMode_Manual } ImGui_ImplSDL2_GamepadMode;
 void ImGui_ImplSDL2_SetGamepadMode(ImGui_ImplSDL2_GamepadMode mode, struct _SDL_GameController** manual_gamepads_array, int manual_gamepads_count);
 /* + END   /usr/local/include/imgui-1.90.5dock/imgui_impl_sdl2.h */
 /* + BEGIN /usr/local/include/imgui-1.90.5dock/imgui_impl_opengl3.h */

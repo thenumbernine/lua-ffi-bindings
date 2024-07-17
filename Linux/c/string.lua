@@ -46,10 +46,6 @@ extern void *mempcpy (void * __dest, const void * __src, size_t __n) __attribute
 extern size_t strlen (const char *__s) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
 extern size_t strnlen (const char *__string, size_t __maxlen) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
 extern char *strerror (int __errnum) __attribute__ ((__nothrow__ , __leaf__));
-/* ### INCOMPLETE ARG MACRO ### __REDIRECT_NTH ### IN LINE ### extern int __REDIRECT_NTH (strerror_r, */
-/* ### PREPENDING ### extern int __REDIRECT_NTH (strerror_r, ### TO ### (int __errnum, char *__buf, size_t __buflen), */
-/* ### INCOMPLETE ARG MACRO ### __REDIRECT_NTH ### IN LINE ### extern int __REDIRECT_NTH (strerror_r, (int __errnum, char *__buf, size_t __buflen), */
-/* ### PREPENDING ### extern int __REDIRECT_NTH (strerror_r, (int __errnum, char *__buf, size_t __buflen), ### TO ### __xpg_strerror_r) __nonnull ((2)) */
 extern int strerror_r (int __errnum, char *__buf, size_t __buflen) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2))) __attribute__ ((__access__ (__write_only__, 2, 3)));
 extern char *strerror_l (int __errnum, locale_t __l) __attribute__ ((__nothrow__ , __leaf__));
 /* ++ BEGIN /usr/include/strings.h */

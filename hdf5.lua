@@ -128,10 +128,10 @@ enum { H5_LLONG_TO_LDOUBLE_CORRECT = 1 };
 /* #define H5_PACKAGE "hdf5" ### string, not number "\"hdf5\"" */
 /* #define H5_PACKAGE_BUGREPORT "help@hdfgroup.org" ### string, not number "\"help@hdfgroup.org\"" */
 /* #define H5_PACKAGE_NAME "HDF5" ### string, not number "\"HDF5\"" */
-/* #define H5_PACKAGE_STRING "HDF5 1.10.8" ### string, not number "\"HDF5 1.10.8\"" */
+/* #define H5_PACKAGE_STRING "HDF5 1.10.10" ### string, not number "\"HDF5 1.10.10\"" */
 /* #define H5_PACKAGE_TARNAME "hdf5" ### string, not number "\"hdf5\"" */
 /* #define H5_PACKAGE_URL "" ### string, not number "\"\"" */
-/* #define H5_PACKAGE_VERSION "1.10.8" ### string, not number "\"1.10.8\"" */
+/* #define H5_PACKAGE_VERSION "1.10.10" ### string, not number "\"1.10.10\"" */
 enum { H5_PAC_C_MAX_REAL_PRECISION = 33 };
 enum { H5_PAC_FC_MAX_REAL_PRECISION = 33 };
 /* #define H5_PRINTF_LL_WIDTH "ll" ### string, not number "\"ll\"" */
@@ -179,10 +179,10 @@ enum { H5_SIZEOF___FLOAT128 = 16 };
 enum { H5_SIZEOF___INT64 = 0 };
 enum { H5_STDC_HEADERS = 1 };
 enum { H5_SYSTEM_SCOPE_THREADS = 1 };
-enum { H5_TIME_WITH_SYS_TIME = 1 };
+enum { H5_TEST_EXPRESS_LEVEL_DEFAULT = 3 };
 enum { H5_USE_18_API_DEFAULT = 1 };
 enum { H5_USE_FILE_LOCKING = 1 };
-/* #define H5_VERSION "1.10.8" ### string, not number "\"1.10.8\"" */
+/* #define H5_VERSION "1.10.10" ### string, not number "\"1.10.10\"" */
 enum { H5_WANT_DATA_ACCURACY = 1 };
 enum { H5_WANT_DCONV_EXCEPTION = 1 };
 /* +++ END   /usr/include/hdf5/serial/H5pubconf.h */
@@ -288,9 +288,9 @@ enum { HDF5_HL_F90CSTUBDLLVAR = 0 };
 /* +++ END   /usr/include/hdf5/serial/H5api_adpt.h */
 enum { H5_VERS_MAJOR = 1 };
 enum { H5_VERS_MINOR = 10 };
-enum { H5_VERS_RELEASE = 8 };
+enum { H5_VERS_RELEASE = 10 };
 /* #define H5_VERS_SUBRELEASE "" ### string, not number "\"\"" */
-/* #define H5_VERS_INFO "HDF5 library version: 1.10.8" ### string, not number "\"HDF5 library version: 1.10.8\"" */
+/* #define H5_VERS_INFO "HDF5 library version: 1.10.10" ### string, not number "\"HDF5 library version: 1.10.10\"" */
 typedef int herr_t;
 /* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h */
 ]] require 'ffi.req' 'c.stdbool' ffi.cdef[[
@@ -415,7 +415,7 @@ typedef struct H5T_cdata_t {
 	H5T_cmd_t command;
 	H5T_bkg_t need_bkg;
 	hbool_t recalc;
-	void * priv;
+	void *priv;
 } H5T_cdata_t;
 typedef enum H5T_pers_t { H5T_PERS_DONTCARE = -1, H5T_PERS_HARD = 0, H5T_PERS_SOFT = 1 } H5T_pers_t;
 typedef enum H5T_direction_t { H5T_DIR_DEFAULT = 0, H5T_DIR_ASCEND = 1, H5T_DIR_DESCEND = 2 } H5T_direction_t;
@@ -423,7 +423,7 @@ typedef enum H5T_conv_except_t { H5T_CONV_EXCEPT_RANGE_HI = 0, H5T_CONV_EXCEPT_R
 typedef enum H5T_conv_ret_t { H5T_CONV_ABORT = -1, H5T_CONV_UNHANDLED = 0, H5T_CONV_HANDLED = 1 } H5T_conv_ret_t;
 typedef struct {
 	size_t len;
-	void * p;
+	void *p;
 } hvl_t;
 /* #define H5T_VARIABLE ((size_t)(-1)) ### string, not number "((size_t)(-1))" */
 enum { H5T_OPAQUE_TAG_MAX = 256 };
@@ -710,7 +710,6 @@ herr_t H5Tunregister(H5T_pers_t pers, const char *name, hid_t src_id, hid_t dst_
 H5T_conv_t H5Tfind(hid_t src_id, hid_t dst_id, H5T_cdata_t **pcdata);
 htri_t H5Tcompiler_conv(hid_t src_id, hid_t dst_id);
 herr_t H5Tconvert(hid_t src_id, hid_t dst_id, size_t nelmts, void *buf, void *background, hid_t plist_id);
-herr_t H5Treclaim(hid_t type_id, hid_t space_id, hid_t plist_id, void *buf);
 herr_t H5Tcommit1(hid_t loc_id, const char *name, hid_t type_id);
 hid_t H5Topen1(hid_t loc_id, const char *name);
 hid_t H5Tarray_create1(hid_t base_id, int ndims, const hsize_t dim[], const int perm[]);
@@ -743,7 +742,7 @@ typedef ssize_t (*H5L_query_func_t)(const char *link_name, const void *lnkdata, 
 typedef struct {
 	int version;
 	H5L_type_t id;
-	const char * comment;
+	const char *comment;
 	H5L_create_func_t create_func;
 	H5L_move_func_t move_func;
 	H5L_copy_func_t copy_func;
@@ -754,7 +753,7 @@ typedef struct {
 typedef struct {
 	int version;
 	H5L_type_t id;
-	const char * comment;
+	const char *comment;
 	H5L_create_func_t create_func;
 	H5L_move_func_t move_func;
 	H5L_copy_func_t copy_func;
@@ -1014,6 +1013,7 @@ typedef herr_t (*H5D_append_cb_t)(hid_t dataset_id, hsize_t *cur_dims, void *op_
 typedef herr_t (*H5D_operator_t)(void *elem, hid_t type_id, unsigned ndim, const hsize_t *point, void *operator_data);
 typedef herr_t (*H5D_scatter_func_t)(const void **src_buf , size_t *src_buf_bytes_used , void *op_data);
 typedef herr_t (*H5D_gather_func_t)(const void *dst_buf, size_t dst_buf_bytes_used, void *op_data);
+typedef int (*H5D_chunk_iter_op_t)(const hsize_t *offset, unsigned filter_mask, haddr_t addr, hsize_t size, void *op_data);
 hid_t H5Dcreate2(hid_t loc_id, const char *name, hid_t type_id, hid_t space_id, hid_t lcpl_id, hid_t dcpl_id, hid_t dapl_id);
 hid_t H5Dcreate_anon(hid_t loc_id, hid_t type_id, hid_t space_id, hid_t dcpl_id, hid_t dapl_id);
 hid_t H5Dopen2(hid_t loc_id, const char *name, hid_t dapl_id);
@@ -1026,6 +1026,7 @@ hsize_t H5Dget_storage_size(hid_t dset_id);
 herr_t H5Dget_chunk_storage_size(hid_t dset_id, const hsize_t *offset, hsize_t *chunk_bytes);
 herr_t H5Dget_num_chunks(hid_t dset_id, hid_t fspace_id, hsize_t *nchunks);
 herr_t H5Dget_chunk_info_by_coord(hid_t dset_id, const hsize_t *offset, unsigned *filter_mask, haddr_t *addr, hsize_t *size);
+herr_t H5Dchunk_iter(hid_t dset_id, hid_t dxpl_id, H5D_chunk_iter_op_t cb, void *op_data);
 herr_t H5Dget_chunk_info(hid_t dset_id, hid_t fspace_id, hsize_t chk_idx, hsize_t *offset, unsigned *filter_mask, haddr_t *addr, hsize_t *size);
 haddr_t H5Dget_offset(hid_t dset_id);
 herr_t H5Dread(hid_t dset_id, hid_t mem_type_id, hid_t mem_space_id, hid_t file_space_id, hid_t dxpl_id, void *buf );
@@ -1626,7 +1627,7 @@ enum { H5FD_FEAT_PAGED_AGGR = 16384 };
 enum { H5FD_FEAT_DEFAULT_VFD_COMPATIBLE = 32768 };
 typedef struct H5FD_t H5FD_t;
 typedef struct H5FD_class_t {
-	const char * name;
+	const char *name;
 	haddr_t maxaddr;
 	H5F_close_degree_t fc_degree;
 	herr_t (*terminate)(void);
@@ -1905,7 +1906,7 @@ typedef enum H5Z_cb_return_t { H5Z_CB_ERROR = -1, H5Z_CB_FAIL = 0, H5Z_CB_CONT =
 typedef H5Z_cb_return_t (*H5Z_filter_func_t)(H5Z_filter_t filter, void *buf, size_t buf_size, void *op_data);
 typedef struct H5Z_cb_t {
 	H5Z_filter_func_t func;
-	void * op_data;
+	void *op_data;
 } H5Z_cb_t;
 typedef htri_t (*H5Z_can_apply_func_t)(hid_t dcpl_id, hid_t type_id, hid_t space_id);
 typedef herr_t (*H5Z_set_local_func_t)(hid_t dcpl_id, hid_t type_id, hid_t space_id);
@@ -1915,7 +1916,7 @@ typedef struct H5Z_class2_t {
 	H5Z_filter_t id;
 	unsigned encoder_present;
 	unsigned decoder_present;
-	const char * name;
+	const char *name;
 	H5Z_can_apply_func_t can_apply;
 	H5Z_set_local_func_t set_local;
 	H5Z_func_t filter;
@@ -1926,7 +1927,7 @@ htri_t H5Zfilter_avail(H5Z_filter_t id);
 herr_t H5Zget_filter_info(H5Z_filter_t filter, unsigned int *filter_config_flags);
 typedef struct H5Z_class1_t {
 	H5Z_filter_t id;
-	const char * name;
+	const char *name;
 	H5Z_can_apply_func_t can_apply;
 	H5Z_set_local_func_t set_local;
 	H5Z_func_t filter;

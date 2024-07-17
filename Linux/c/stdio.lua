@@ -136,14 +136,14 @@ extern FILE *fdopen (int __fd, const char *__modes) __attribute__ ((__nothrow__ 
 extern FILE *fopencookie (void * __magic_cookie, const char * __modes, cookie_io_functions_t __io_funcs) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__malloc__ (fclose, 1)));
 extern FILE *fmemopen (void *__s, size_t __len, const char *__modes) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__malloc__ (fclose, 1)));
 extern FILE *open_memstream (char **__bufloc, size_t *__sizeloc) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__malloc__ (fclose, 1)));
-extern void setbuf (FILE * __stream, char * __buf) __attribute__ ((__nothrow__ , __leaf__));
-extern int setvbuf (FILE * __stream, char * __buf, int __modes, size_t __n) __attribute__ ((__nothrow__ , __leaf__));
-extern void setbuffer (FILE * __stream, char * __buf, size_t __size) __attribute__ ((__nothrow__ , __leaf__));
-extern void setlinebuf (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
-extern int fprintf (FILE * __stream, const char * __format, ...);
+extern void setbuf (FILE * __stream, char * __buf) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+extern int setvbuf (FILE * __stream, char * __buf, int __modes, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+extern void setbuffer (FILE * __stream, char * __buf, size_t __size) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+extern void setlinebuf (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+extern int fprintf (FILE * __stream, const char * __format, ...) __attribute__ ((__nonnull__ (1)));
 extern int printf (const char * __format, ...);
 extern int sprintf (char * __s, const char * __format, ...) __attribute__ ((__nothrow__));
-extern int vfprintf (FILE * __s, const char * __format, __gnuc_va_list __arg);
+extern int vfprintf (FILE * __s, const char * __format, __gnuc_va_list __arg) __attribute__ ((__nonnull__ (1)));
 extern int vprintf (const char * __format, __gnuc_va_list __arg);
 extern int vsprintf (char * __s, const char * __format, __gnuc_va_list __arg) __attribute__ ((__nothrow__));
 extern int snprintf (char * __s, size_t __maxlen, const char * __format, ...) __attribute__ ((__nothrow__)) __attribute__ ((__format__ (__printf__, 3, 4)));
@@ -153,92 +153,68 @@ extern int __asprintf (char ** __ptr, const char * __fmt, ...) __attribute__ ((_
 extern int asprintf (char ** __ptr, const char * __fmt, ...) __attribute__ ((__nothrow__)) __attribute__ ((__format__ (__printf__, 2, 3)));
 extern int vdprintf (int __fd, const char * __fmt, __gnuc_va_list __arg) __attribute__ ((__format__ (__printf__, 2, 0)));
 extern int dprintf (int __fd, const char * __fmt, ...) __attribute__ ((__format__ (__printf__, 2, 3)));
-extern int fscanf (FILE * __stream, const char * __format, ...);
+extern int fscanf (FILE * __stream, const char * __format, ...) __attribute__ ((__nonnull__ (1)));
 extern int scanf (const char * __format, ...);
 extern int sscanf (const char * __s, const char * __format, ...) __attribute__ ((__nothrow__ , __leaf__));
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/floatn.h */
 ]] require 'ffi.req' 'c.bits.floatn' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/floatn.h */
-/* ### INCOMPLETE ARG MACRO ### __REDIRECT ### IN LINE ### extern int __REDIRECT (fscanf, (FILE * __stream, */
-/* ### PREPENDING ### extern int __REDIRECT (fscanf, (FILE * __stream, ### TO ### const char *__restrict __format, ...), */
-/* ### INCOMPLETE ARG MACRO ### __REDIRECT ### IN LINE ### extern int __REDIRECT (fscanf, (FILE * __stream, const char * __format, ...), */
-/* ### PREPENDING ### extern int __REDIRECT (fscanf, (FILE * __stream, const char * __format, ...), ### TO ### __isoc99_fscanf) __wur; */
-extern int fscanf (FILE * __stream, const char * __format, ...);
-/* ### INCOMPLETE ARG MACRO ### __REDIRECT ### IN LINE ### extern int __REDIRECT (scanf, (const char * __format, ...), */
-/* ### PREPENDING ### extern int __REDIRECT (scanf, (const char * __format, ...), ### TO ### __isoc99_scanf) __wur; */
+extern int fscanf (FILE * __stream, const char * __format, ...) __attribute__ ((__nonnull__ (1)));
 extern int scanf (const char * __format, ...);
-/* ### INCOMPLETE ARG MACRO ### __REDIRECT_NTH ### IN LINE ### extern int __REDIRECT_NTH (sscanf, (const char * __s, */
-/* ### PREPENDING ### extern int __REDIRECT_NTH (sscanf, (const char * __s, ### TO ### const char *__restrict __format, ...), */
-/* ### INCOMPLETE ARG MACRO ### __REDIRECT_NTH ### IN LINE ### extern int __REDIRECT_NTH (sscanf, (const char * __s, const char * __format, ...), */
-/* ### PREPENDING ### extern int __REDIRECT_NTH (sscanf, (const char * __s, const char * __format, ...), ### TO ### __isoc99_sscanf); */
 extern int sscanf (const char * __s, const char * __format, ...) __attribute__ ((__nothrow__ , __leaf__));
-extern int vfscanf (FILE * __s, const char * __format, __gnuc_va_list __arg) __attribute__ ((__format__ (__scanf__, 2, 0)));
+extern int vfscanf (FILE * __s, const char * __format, __gnuc_va_list __arg) __attribute__ ((__format__ (__scanf__, 2, 0))) __attribute__ ((__nonnull__ (1)));
 extern int vscanf (const char * __format, __gnuc_va_list __arg) __attribute__ ((__format__ (__scanf__, 1, 0)));
 extern int vsscanf (const char * __s, const char * __format, __gnuc_va_list __arg) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__format__ (__scanf__, 2, 0)));
-/* ### INCOMPLETE ARG MACRO ### __REDIRECT ### IN LINE ### extern int __REDIRECT (vfscanf, */
-/* ### PREPENDING ### extern int __REDIRECT (vfscanf, ### TO ### (FILE *__restrict __s, */
-/* ### INCOMPLETE ARG MACRO ### __REDIRECT ### IN LINE ### extern int __REDIRECT (vfscanf, (FILE * __s, */
-/* ### PREPENDING ### extern int __REDIRECT (vfscanf, (FILE * __s, ### TO ### const char *__restrict __format, __gnuc_va_list __arg), */
-/* ### INCOMPLETE ARG MACRO ### __REDIRECT ### IN LINE ### extern int __REDIRECT (vfscanf, (FILE * __s, const char * __format, __gnuc_va_list __arg), */
-/* ### PREPENDING ### extern int __REDIRECT (vfscanf, (FILE * __s, const char * __format, __gnuc_va_list __arg), ### TO ### __isoc99_vfscanf) */
-extern int vfscanf (FILE * __s, const char * __format, __gnuc_va_list __arg) __attribute__ ((__format__ (__scanf__, 2, 0)));
-/* ### INCOMPLETE ARG MACRO ### __REDIRECT ### IN LINE ### extern int __REDIRECT (vscanf, (const char * __format, */
-/* ### PREPENDING ### extern int __REDIRECT (vscanf, (const char * __format, ### TO ### __gnuc_va_list __arg), __isoc99_vscanf) */
+extern int vfscanf (FILE * __s, const char * __format, __gnuc_va_list __arg) __attribute__ ((__format__ (__scanf__, 2, 0))) __attribute__ ((__nonnull__ (1)));
 extern int vscanf (const char * __format, __gnuc_va_list __arg) __attribute__ ((__format__ (__scanf__, 1, 0)));
-/* ### INCOMPLETE ARG MACRO ### __REDIRECT_NTH ### IN LINE ### extern int __REDIRECT_NTH (vsscanf, */
-/* ### PREPENDING ### extern int __REDIRECT_NTH (vsscanf, ### TO ### (const char *__restrict __s, */
-/* ### INCOMPLETE ARG MACRO ### __REDIRECT_NTH ### IN LINE ### extern int __REDIRECT_NTH (vsscanf, (const char * __s, */
-/* ### PREPENDING ### extern int __REDIRECT_NTH (vsscanf, (const char * __s, ### TO ### const char *__restrict __format, */
-/* ### INCOMPLETE ARG MACRO ### __REDIRECT_NTH ### IN LINE ### extern int __REDIRECT_NTH (vsscanf, (const char * __s, const char * __format, */
-/* ### PREPENDING ### extern int __REDIRECT_NTH (vsscanf, (const char * __s, const char * __format, ### TO ### __gnuc_va_list __arg), __isoc99_vsscanf) */
 extern int vsscanf (const char * __s, const char * __format, __gnuc_va_list __arg) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__format__ (__scanf__, 2, 0)));
-extern int fgetc (FILE *__stream);
-extern int getc (FILE *__stream);
+extern int fgetc (FILE *__stream) __attribute__ ((__nonnull__ (1)));
+extern int getc (FILE *__stream) __attribute__ ((__nonnull__ (1)));
 extern int getchar (void);
-extern int getc_unlocked (FILE *__stream);
+extern int getc_unlocked (FILE *__stream) __attribute__ ((__nonnull__ (1)));
 extern int getchar_unlocked (void);
-extern int fgetc_unlocked (FILE *__stream);
-extern int fputc (int __c, FILE *__stream);
-extern int putc (int __c, FILE *__stream);
+extern int fgetc_unlocked (FILE *__stream) __attribute__ ((__nonnull__ (1)));
+extern int fputc (int __c, FILE *__stream) __attribute__ ((__nonnull__ (2)));
+extern int putc (int __c, FILE *__stream) __attribute__ ((__nonnull__ (2)));
 extern int putchar (int __c);
-extern int fputc_unlocked (int __c, FILE *__stream);
-extern int putc_unlocked (int __c, FILE *__stream);
+extern int fputc_unlocked (int __c, FILE *__stream) __attribute__ ((__nonnull__ (2)));
+extern int putc_unlocked (int __c, FILE *__stream) __attribute__ ((__nonnull__ (2)));
 extern int putchar_unlocked (int __c);
-extern int getw (FILE *__stream);
-extern int putw (int __w, FILE *__stream);
-extern char *fgets (char * __s, int __n, FILE * __stream) __attribute__ ((__access__ (__write_only__, 1, 2)));
-extern __ssize_t __getdelim (char ** __lineptr, size_t * __n, int __delimiter, FILE * __stream);
-extern __ssize_t getdelim (char ** __lineptr, size_t * __n, int __delimiter, FILE * __stream);
-extern __ssize_t getline (char ** __lineptr, size_t * __n, FILE * __stream);
-extern int fputs (const char * __s, FILE * __stream);
+extern int getw (FILE *__stream) __attribute__ ((__nonnull__ (1)));
+extern int putw (int __w, FILE *__stream) __attribute__ ((__nonnull__ (2)));
+extern char *fgets (char * __s, int __n, FILE * __stream) __attribute__ ((__access__ (__write_only__, 1, 2))) __attribute__ ((__nonnull__ (3)));
+extern __ssize_t __getdelim (char ** __lineptr, size_t * __n, int __delimiter, FILE * __stream) __attribute__ ((__nonnull__ (4)));
+extern __ssize_t getdelim (char ** __lineptr, size_t * __n, int __delimiter, FILE * __stream) __attribute__ ((__nonnull__ (4)));
+extern __ssize_t getline (char ** __lineptr, size_t * __n, FILE * __stream) __attribute__ ((__nonnull__ (3)));
+extern int fputs (const char * __s, FILE * __stream) __attribute__ ((__nonnull__ (2)));
 extern int puts (const char *__s);
-extern int ungetc (int __c, FILE *__stream);
-extern size_t fread (void * __ptr, size_t __size, size_t __n, FILE * __stream);
-extern size_t fwrite (const void * __ptr, size_t __size, size_t __n, FILE * __s);
-extern size_t fread_unlocked (void * __ptr, size_t __size, size_t __n, FILE * __stream);
-extern size_t fwrite_unlocked (const void * __ptr, size_t __size, size_t __n, FILE * __stream);
-extern int fseek (FILE *__stream, long int __off, int __whence);
-extern long int ftell (FILE *__stream);
-extern void rewind (FILE *__stream);
-extern int fseeko (FILE *__stream, __off_t __off, int __whence);
-extern __off_t ftello (FILE *__stream);
-extern int fgetpos (FILE * __stream, fpos_t * __pos);
-extern int fsetpos (FILE *__stream, const fpos_t *__pos);
-extern void clearerr (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
-extern int feof (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
-extern int ferror (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
-extern void clearerr_unlocked (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
-extern int feof_unlocked (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
-extern int ferror_unlocked (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
+extern int ungetc (int __c, FILE *__stream) __attribute__ ((__nonnull__ (2)));
+extern size_t fread (void * __ptr, size_t __size, size_t __n, FILE * __stream) __attribute__ ((__nonnull__ (4)));
+extern size_t fwrite (const void * __ptr, size_t __size, size_t __n, FILE * __s) __attribute__ ((__nonnull__ (4)));
+extern size_t fread_unlocked (void * __ptr, size_t __size, size_t __n, FILE * __stream) __attribute__ ((__nonnull__ (4)));
+extern size_t fwrite_unlocked (const void * __ptr, size_t __size, size_t __n, FILE * __stream) __attribute__ ((__nonnull__ (4)));
+extern int fseek (FILE *__stream, long int __off, int __whence) __attribute__ ((__nonnull__ (1)));
+extern long int ftell (FILE *__stream) __attribute__ ((__nonnull__ (1)));
+extern void rewind (FILE *__stream) __attribute__ ((__nonnull__ (1)));
+extern int fseeko (FILE *__stream, __off_t __off, int __whence) __attribute__ ((__nonnull__ (1)));
+extern __off_t ftello (FILE *__stream) __attribute__ ((__nonnull__ (1)));
+extern int fgetpos (FILE * __stream, fpos_t * __pos) __attribute__ ((__nonnull__ (1)));
+extern int fsetpos (FILE *__stream, const fpos_t *__pos) __attribute__ ((__nonnull__ (1)));
+extern void clearerr (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+extern int feof (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+extern int ferror (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+extern void clearerr_unlocked (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+extern int feof_unlocked (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+extern int ferror_unlocked (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 extern void perror (const char *__s) __attribute__ ((__cold__));
-extern int fileno (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
-extern int fileno_unlocked (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
-extern int pclose (FILE *__stream);
+extern int fileno (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+extern int fileno_unlocked (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+extern int pclose (FILE *__stream) __attribute__ ((__nonnull__ (1)));
 extern FILE *popen (const char *__command, const char *__modes) __attribute__ ((__malloc__)) __attribute__ ((__malloc__ (pclose, 1)));
 extern char *ctermid (char *__s) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__access__ (__write_only__, 1)));
-extern void flockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
-extern int ftrylockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
-extern void funlockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
+extern void flockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+extern int ftrylockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+extern void funlockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 extern int __uflow (FILE *);
 extern int __overflow (FILE *, int);
 /* + END   /usr/include/stdio.h */

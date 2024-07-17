@@ -3,15 +3,15 @@ ffi.cdef[[
 /* + BEGIN /usr/include/gif_lib.h */
 enum { GIFLIB_MAJOR = 5 };
 enum { GIFLIB_MINOR = 2 };
-enum { GIFLIB_RELEASE = 1 };
+enum { GIFLIB_RELEASE = 2 };
 enum { GIF_ERROR = 0 };
 enum { GIF_OK = 1 };
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
-]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
 /* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h */
 ]] require 'ffi.req' 'c.stdbool' ffi.cdef[[
 /* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+]] require 'ffi.req' 'c.stddef' ffi.cdef[[
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
 /* #define GIF_STAMP "GIFVER" ### string, not number "\"GIFVER\"" */
 /* #define GIF_STAMP_LEN sizeof(GIF_STAMP) - 1 ### string, not number "sizeof(GIF_STAMP) - 1" */
 enum { GIF_VERSION_POS = 3 };
@@ -68,8 +68,8 @@ typedef struct GifFileType {
 	void *Private;
 } GifFileType;
 typedef enum { UNDEFINED_RECORD_TYPE, SCREEN_DESC_RECORD_TYPE, IMAGE_DESC_RECORD_TYPE, EXTENSION_RECORD_TYPE, TERMINATE_RECORD_TYPE } GifRecordType;
-typedef int (*InputFunc) (GifFileType *, GifByteType *, int);
-typedef int (*OutputFunc) (GifFileType *, const GifByteType *, int);
+typedef int (*InputFunc)(GifFileType *, GifByteType *, int);
+typedef int (*OutputFunc)(GifFileType *, const GifByteType *, int);
 typedef struct GraphicsControlBlock {
 	int DisposalMode;
 	enum { DISPOSAL_UNSPECIFIED = 0 };
@@ -84,7 +84,7 @@ typedef struct GraphicsControlBlock {
 GifFileType *EGifOpenFileName(const char *GifFileName, const _Bool GifTestExistence, int *Error);
 GifFileType *EGifOpenFileHandle(const int GifFileHandle, int *Error);
 GifFileType *EGifOpen(void *userPtr, OutputFunc writeFunc, int *Error);
-int EGifSpew(GifFileType * GifFile);
+int EGifSpew(GifFileType *GifFile);
 const char *EGifGetGifVersion(GifFileType *GifFile);
 int EGifCloseFile(GifFileType *GifFile, int *ErrorCode);
 enum { E_GIF_SUCCEEDED = 0 };
@@ -112,9 +112,9 @@ int EGifPutCode(GifFileType *GifFile, int GifCodeSize, const GifByteType *GifCod
 int EGifPutCodeNext(GifFileType *GifFile, const GifByteType *GifCodeBlock);
 GifFileType *DGifOpenFileName(const char *GifFileName, int *Error);
 GifFileType *DGifOpenFileHandle(int GifFileHandle, int *Error);
-int DGifSlurp(GifFileType * GifFile);
+int DGifSlurp(GifFileType *GifFile);
 GifFileType *DGifOpen(void *userPtr, InputFunc readFunc, int *Error);
-int DGifCloseFile(GifFileType * GifFile, int *ErrorCode);
+int DGifCloseFile(GifFileType *GifFile, int *ErrorCode);
 enum { D_GIF_SUCCEEDED = 0 };
 enum { D_GIF_ERR_OPEN_FAILED = 101 };
 enum { D_GIF_ERR_READ_FAILED = 102 };
@@ -141,13 +141,13 @@ int DGifGetCode(GifFileType *GifFile, int *GifCodeSize, GifByteType **GifCodeBlo
 int DGifGetCodeNext(GifFileType *GifFile, GifByteType **GifCodeBlock);
 int DGifGetLZCodes(GifFileType *GifFile, int *GifCode);
 const char *DGifGetGifVersion(GifFileType *GifFile);
-int GifQuantizeBuffer(unsigned int Width, unsigned int Height, int *ColorMapSize, GifByteType * RedInput, GifByteType * GreenInput, GifByteType * BlueInput, GifByteType * OutputBuffer, GifColorType * OutputColorMap);
+int GifQuantizeBuffer(unsigned int Width, unsigned int Height, int *ColorMapSize, const GifByteType *RedInput, const GifByteType *GreenInput, const GifByteType *BlueInput, GifByteType *OutputBuffer, GifColorType *OutputColorMap);
 extern const char *GifErrorString(int ErrorCode);
 extern ColorMapObject *GifMakeMapObject(int ColorCount, const GifColorType *ColorMap);
 extern void GifFreeMapObject(ColorMapObject *Object);
 extern ColorMapObject *GifUnionColorMap(const ColorMapObject *ColorIn1, const ColorMapObject *ColorIn2, GifPixelType ColorTransIn2[]);
 extern int GifBitSize(int n);
-extern void GifApplyTranslation(SavedImage *Image, GifPixelType Translation[]);
+extern void GifApplyTranslation(SavedImage *Image, const GifPixelType Translation[]);
 extern int GifAddExtensionBlock(int *ExtensionBlock_Count, ExtensionBlock **ExtensionBlocks, int Function, unsigned int Len, unsigned char ExtData[]);
 extern void GifFreeExtensions(int *ExtensionBlock_Count, ExtensionBlock **ExtensionBlocks);
 extern SavedImage *GifMakeSavedImage(GifFileType *GifFile, const SavedImage *CopyFrom);

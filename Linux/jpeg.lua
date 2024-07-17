@@ -321,7 +321,7 @@ local wrapper
 wrapper = require 'ffi.libwrapper'{
 	lib = require 'ffi.load' 'jpeg',
 	defs = {
-		
+
 		-- enums
 
 		JPEGLIB_H = 1,

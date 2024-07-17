@@ -3,7 +3,7 @@ local ffi = require 'ffi'
 -- comments
 
 --[[
-/* #define CFITSIO_VERSION 4.2.0 ### string, not number "4.2.0" */
+/* #define CFITSIO_VERSION 4.3.1 ### string, not number "4.3.1" */
 /* #define LONGLONG_MAX LLONG_MAX ### string, not number "9.2233720368548e+18" */
 /* #define LONGLONG_MIN LLONG_MIN ### string, not number "-9.2233720368548e+18" */
 /* #define FLOATNULLVALUE -9.11912E-36F ### string, not number "-9.11912E-36F" */
@@ -165,9 +165,9 @@ wrapper = require 'ffi.libwrapper'{
 
 		-- enums
 
+		CFITSIO_MICRO = 1,
+		CFITSIO_MINOR = 3,
 		CFITSIO_MAJOR = 4,
-		CFITSIO_MINOR = 2,
-		CFITSIO_MICRO = 0,
 		CFITSIO_SONAME = 10,
 		NIOBUF = 40,
 		IOBUFLEN = 2880,
@@ -562,8 +562,10 @@ wrapper = require 'ffi.libwrapper'{
 		ffgky = [[int ffgky(fitsfile *fptr, int datatype, const char *keyname, void *value, char *comm, int *status);]],
 		ffgkys = [[int ffgkys(fitsfile *fptr, const char *keyname, char *value, char *comm, int *status);]],
 		ffgksl = [[int ffgksl(fitsfile *fptr, const char *keyname, int *length, int *status);]],
+		ffgkcsl = [[int ffgkcsl(fitsfile *fptr, const char *keyname, int *length, int *comlength, int *status);]],
 		ffgkls = [[int ffgkls(fitsfile *fptr, const char *keyname, char **value, char *comm, int *status);]],
 		ffgsky = [[int ffgsky(fitsfile *fptr, const char *keyname, int firstchar, int maxchar, char *value, int *valuelen, char *comm, int *status);]],
+		ffgskyc = [[int ffgskyc(fitsfile *fptr, const char *keyname, int firstchar, int maxchar, int maxcomchar, char *value, int *valuelen, char *comm, int *comlen, int *status);]],
 		fffree = [[int fffree(void *value, int *status);]],
 		fffkls = [[int fffkls(char *value, int *status);]],
 		ffgkyl = [[int ffgkyl(fitsfile *fptr, const char *keyname, int *value, char *comm, int *status);]],
@@ -1089,11 +1091,12 @@ wrapper = require 'ffi.libwrapper'{
 
 		-- since macro functions are the weak point of my binding code generator,
 		-- here's the fitsio longnam.h file contents manually:
-		
+
 		fits_parse_input_url = function() return wrapper.ffiurl end,
 		fits_parse_input_filename = function() return wrapper.ffifile end,
 		fits_parse_rootname = function() return wrapper.ffrtnm end,
 		fits_file_exists = function() return wrapper.ffexist end,
+		fits_parse_output_url = function() return wrapper.ffourl end,
 		fits_parse_extspec = function() return wrapper.ffexts end,
 		fits_parse_extnum = function() return wrapper.ffextn end,
 		fits_parse_binspec = function() return wrapper.ffbins end,
@@ -1215,8 +1218,10 @@ wrapper = require 'ffi.libwrapper'{
 		fits_read_key_dblcmp = function() return wrapper.ffgkym end,
 		fits_read_key_triple = function() return wrapper.ffgkyt end,
 		fits_get_key_strlen = function() return wrapper.ffgksl end,
+		fits_get_key_com_strlen = function() return wrapper.ffgksl end,
 		fits_read_key_longstr = function() return wrapper.ffgkls end,
 		fits_read_string_key = function() return wrapper.ffgsky end,
+		fits_read_string_key_com = function() return wrapper.ffgskyc end,
 		fits_free_memory = function() return wrapper.fffree end,
 		fits_read_tdim = function() return wrapper.ffgtdm end,
 		fits_read_tdimll = function() return wrapper.ffgtdmll end,
@@ -1438,6 +1443,7 @@ wrapper = require 'ffi.libwrapper'{
 		fits_read_subsetnull_flt = function() return wrapper.ffgsfe end,
 		fits_read_subsetnull_dbl = function() return wrapper.ffgsfd end,
 		ffcpimg = function() return wrapper.fits_copy_image_section end,
+		fits_compress_img = function() return wrapper.fits_comp_img end,
 		fits_decompress_img = function() return wrapper.fits_decomp_img end,
 		fits_read_col = function() return wrapper.ffgcv end,
 		fits_read_cols = function() return wrapper.ffgcvn end,

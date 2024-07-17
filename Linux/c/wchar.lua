@@ -101,34 +101,14 @@ extern int vswprintf (wchar_t * __s, size_t __n, const wchar_t * __format, __gnu
 extern int fwscanf (__FILE * __stream, const wchar_t * __format, ...);
 extern int wscanf (const wchar_t * __format, ...);
 extern int swscanf (const wchar_t * __s, const wchar_t * __format, ...) __attribute__ ((__nothrow__ , __leaf__));
-/* ### INCOMPLETE ARG MACRO ### __REDIRECT ### IN LINE ### extern int __REDIRECT (fwscanf, (__FILE * __stream, */
-/* ### PREPENDING ### extern int __REDIRECT (fwscanf, (__FILE * __stream, ### TO ### const wchar_t *__restrict __format, ...), */
-/* ### INCOMPLETE ARG MACRO ### __REDIRECT ### IN LINE ### extern int __REDIRECT (fwscanf, (__FILE * __stream, const wchar_t * __format, ...), */
-/* ### PREPENDING ### extern int __REDIRECT (fwscanf, (__FILE * __stream, const wchar_t * __format, ...), ### TO ### __isoc99_fwscanf) */
 extern int fwscanf (__FILE * __stream, const wchar_t * __format, ...);
-/* ### INCOMPLETE ARG MACRO ### __REDIRECT ### IN LINE ### extern int __REDIRECT (wscanf, (const wchar_t * __format, ...), */
-/* ### PREPENDING ### extern int __REDIRECT (wscanf, (const wchar_t * __format, ...), ### TO ### __isoc99_wscanf) */
 extern int wscanf (const wchar_t * __format, ...);
-/* ### INCOMPLETE ARG MACRO ### __REDIRECT_NTH ### IN LINE ### extern int __REDIRECT_NTH (swscanf, (const wchar_t * __s, */
-/* ### PREPENDING ### extern int __REDIRECT_NTH (swscanf, (const wchar_t * __s, ### TO ### const wchar_t *__restrict __format, */
-/* ### INCOMPLETE ARG MACRO ### __REDIRECT_NTH ### IN LINE ### extern int __REDIRECT_NTH (swscanf, (const wchar_t * __s, const wchar_t * __format, */
-/* ### PREPENDING ### extern int __REDIRECT_NTH (swscanf, (const wchar_t * __s, const wchar_t * __format, ### TO ### ...), __isoc99_swscanf) */
 extern int swscanf (const wchar_t * __s, const wchar_t * __format, ...) __attribute__ ((__nothrow__ , __leaf__));
 extern int vfwscanf (__FILE * __s, const wchar_t * __format, __gnuc_va_list __arg);
 extern int vwscanf (const wchar_t * __format, __gnuc_va_list __arg);
 extern int vswscanf (const wchar_t * __s, const wchar_t * __format, __gnuc_va_list __arg) __attribute__ ((__nothrow__ , __leaf__));
-/* ### INCOMPLETE ARG MACRO ### __REDIRECT ### IN LINE ### extern int __REDIRECT (vfwscanf, (__FILE * __s, */
-/* ### PREPENDING ### extern int __REDIRECT (vfwscanf, (__FILE * __s, ### TO ### const wchar_t *__restrict __format, */
-/* ### INCOMPLETE ARG MACRO ### __REDIRECT ### IN LINE ### extern int __REDIRECT (vfwscanf, (__FILE * __s, const wchar_t * __format, */
-/* ### PREPENDING ### extern int __REDIRECT (vfwscanf, (__FILE * __s, const wchar_t * __format, ### TO ### __gnuc_va_list __arg), __isoc99_vfwscanf) */
 extern int vfwscanf (__FILE * __s, const wchar_t * __format, __gnuc_va_list __arg);
-/* ### INCOMPLETE ARG MACRO ### __REDIRECT ### IN LINE ### extern int __REDIRECT (vwscanf, (const wchar_t * __format, */
-/* ### PREPENDING ### extern int __REDIRECT (vwscanf, (const wchar_t * __format, ### TO ### __gnuc_va_list __arg), __isoc99_vwscanf) */
 extern int vwscanf (const wchar_t * __format, __gnuc_va_list __arg);
-/* ### INCOMPLETE ARG MACRO ### __REDIRECT_NTH ### IN LINE ### extern int __REDIRECT_NTH (vswscanf, (const wchar_t * __s, */
-/* ### PREPENDING ### extern int __REDIRECT_NTH (vswscanf, (const wchar_t * __s, ### TO ### const wchar_t *__restrict __format, */
-/* ### INCOMPLETE ARG MACRO ### __REDIRECT_NTH ### IN LINE ### extern int __REDIRECT_NTH (vswscanf, (const wchar_t * __s, const wchar_t * __format, */
-/* ### PREPENDING ### extern int __REDIRECT_NTH (vswscanf, (const wchar_t * __s, const wchar_t * __format, ### TO ### __gnuc_va_list __arg), __isoc99_vswscanf) */
 extern int vswscanf (const wchar_t * __s, const wchar_t * __format, __gnuc_va_list __arg) __attribute__ ((__nothrow__ , __leaf__));
 extern wint_t fgetwc (__FILE *__stream);
 extern wint_t getwc (__FILE *__stream);

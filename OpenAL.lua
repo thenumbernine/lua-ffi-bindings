@@ -6,7 +6,6 @@ enum { AL_API = 0 };
 enum { AL_APIENTRY = 1 };
 enum { OPENAL = 1 };
 enum { ALAPI = 0 };
-/* #define ALAPIENTRY                               AL_APIENTRY ### string, not number "AL_APIENTRY" */
 enum { AL_INVALID = -1 };
 enum { AL_ILLEGAL_ENUM = 0 };
 enum { AL_ILLEGAL_COMMAND = 0 };
@@ -242,7 +241,6 @@ enum { AL_ALC_H = 1 };
 enum { ALC_API = 0 };
 enum { ALC_APIENTRY = 1 };
 enum { ALCAPI = 0 };
-/* #define ALCAPIENTRY                              ALC_APIENTRY ### string, not number "ALC_APIENTRY" */
 enum { ALC_INVALID = 0 };
 enum { ALC_VERSION_0_1 = 1 };
 typedef struct ALCdevice ALCdevice;

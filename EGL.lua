@@ -5,8 +5,6 @@ ffi.cdef[[
 /* +++ BEGIN /usr/include/KHR/khrplatform.h */
 ]] require 'ffi.req' 'KHR.khrplatform' ffi.cdef[[
 /* +++ END   /usr/include/KHR/khrplatform.h */
-/* #define EGLAPI KHRONOS_APICALL ### string, not number "KHRONOS_APICALL" */
-/* #define EGLAPIENTRY  KHRONOS_APIENTRY ### string, not number "KHRONOS_APIENTRY" */
 /* #define EGLAPIENTRYP EGLAPIENTRY* ### string, not number "EGLAPIENTRY*" */
 typedef void *EGLNativeDisplayType;
 typedef khronos_uintptr_t EGLNativePixmapType;

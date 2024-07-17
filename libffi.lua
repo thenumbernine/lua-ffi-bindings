@@ -57,7 +57,7 @@ typedef struct _ffi_type {
 	struct _ffi_type **elements;
 } ffi_type;
 enum { FFI_API = 1 };
-enum { FFI_EXTERN = 0 };
+/* # define FFI_EXTERN extern FFI_API ### string, not number "extern FFI_API" */
 enum { ffi_type_uchar = 0 };
 enum { ffi_type_schar = 0 };
 enum { ffi_type_ushort = 0 };

@@ -3,7 +3,6 @@ ffi.cdef[[
 /* + BEGIN /usr/include/GL/gl.h */
 /* #  define GLAPI __attribute__((visibility("default"))) ### string, not number "__attribute__((visibility(\"default\")))" */
 enum { GLAPIENTRY = 1 };
-/* #define APIENTRY GLAPIENTRY ### string, not number "GLAPIENTRY" */
 /* #define APIENTRYP APIENTRY * ### string, not number "APIENTRY *" */
 /* #define GLAPIENTRYP GLAPIENTRY * ### string, not number "GLAPIENTRY *" */
 enum { GL_VERSION_1_1 = 1 };
