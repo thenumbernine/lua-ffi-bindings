@@ -3,6 +3,7 @@ std::vector class, written in LuaJIT, but written to be memory-compatible with c
 TODO maybe move that to its own repo, like std-ffi.vector ?
 --]]
 local ffi = require 'ffi'
+local range = require 'ext.range'
 local struct = require 'struct'
 require 'ffi.req' 'c.stdlib'	-- malloc, free
 
