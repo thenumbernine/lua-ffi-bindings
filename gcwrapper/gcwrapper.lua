@@ -41,7 +41,7 @@ local function GCWrapper(args)
 
 	-- luajit ffi, you can't assign integral types to nil
 	-- so far this seems safe alternative to c++ prim ctor's "= {}"
-	local clearValue = ffi.cast(ctype, nil)
+	local clearValue = ffi.new(ctype)
 
 	ffi.cdef([[
 struct ]]..gctype..[[ {
