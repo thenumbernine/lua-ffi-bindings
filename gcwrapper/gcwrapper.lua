@@ -5,7 +5,7 @@ and the ffi struct only has C data (no lua refs)
 and the cl.hpp GCWrapper dtor is custom per-parent-class
 so this needs to be a behavior
 
-TODO 
+TODO
 ... why don't I just use the Lua __gc metamethod of tables?
 why even use luajit's ctype metamethod?
 because vanilla Lua's __gc metamethod is not as reliable?
@@ -50,11 +50,11 @@ struct ]]..gctype..[[ {
 };
 typedef struct ]]..gctype..' '..gctype..[[;
 ]])
-	
+
 	local function performRelease(gc)
 --print("releasing "..tostring(gc).." from refcount "..gc.refcount.." to "..(gc.refcount-1))
 		gc.refcount = gc.refcount - 1
-	
+
 		local notcleared = gc.ptr[0] ~= clearValue
 
 		-- alright here I have two choices:
@@ -96,7 +96,14 @@ typedef struct ]]..gctype..' '..gctype..[[;
 		but will be passed into cl routines for initialization later ...
 		in their case, how does memory management pan out?
 		--]]
+
+		--[[
 		id = ffi.cast(ctype, id)
+		--]]
+		-- [[ another case where 'new' beats' cast'
+		-- this used to be 'cast', but if you cast a struct to itself then ffi just fails
+		id = ffi.new(ctype, id)
+		--]]
 
 		-- release-upon-gc/dtor
 		self.gc = gcType()
