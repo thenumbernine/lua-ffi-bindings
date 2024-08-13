@@ -48,6 +48,9 @@ return setmetatable({
 	png = {
 		Windows = 'libpng16',
 	},
+	z = {
+		Windows = 'zlib',
+	},
 }, {
 	__call = function(self, reqname)
 		assert(type(reqname) == 'string', "expected string")
