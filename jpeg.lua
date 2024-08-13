@@ -11,16 +11,27 @@ local ffi = require 'ffi'
 
 require 'ffi.req' 'c.stdio'	-- for FILE, even though jpeglib.h itself never includes <stdio.h> ... hmm ...
 
+if ffi.os == 'Windows' then
+	ffi.cdef[[
+typedef unsigned char boolean;
+typedef short INT16;
+typedef signed int INT32;
+]]
+else
+	ffi.cdef[[
+typedef short INT16;
+typedef long INT32;
+typedef int boolean;
+]]
+end
+
 ffi.cdef[[
 typedef unsigned char JSAMPLE;
 typedef short JCOEF;
 typedef unsigned char JOCTET;
 typedef unsigned char UINT8;
 typedef unsigned short UINT16;
-typedef short INT16;
-typedef long INT32;
 typedef unsigned int JDIMENSION;
-typedef int boolean;
 typedef JSAMPLE *JSAMPROW;
 typedef JSAMPROW *JSAMPARRAY;
 typedef JSAMPARRAY *JSAMPIMAGE;
