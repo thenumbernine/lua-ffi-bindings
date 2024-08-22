@@ -10,3 +10,5 @@ So here I'm going to redirect to OpenGL_3.lua, built from OSX's OpenGL framework
 Feel free to change it via `require 'gl.setup' 'OpenGL_2_1'`, but that'd be very OSX-specific if you did that.
 --]]
 return require 'ffi.OSX.OpenGL_3'
+--return require 'ffi.OSX.OpenGL_2_1'
+--return require 'ffi.Linux.OpenGL'
