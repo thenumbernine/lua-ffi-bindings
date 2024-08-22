@@ -3085,5 +3085,7 @@ extern void glUniformMatrix4x2fv (GLint location, GLsizei count, GLboolean trans
 extern void glUniformMatrix3x4fv (GLint location, GLsizei count, GLboolean transpose, const GLfloat *value);
 extern void glUniformMatrix4x3fv (GLint location, GLsizei count, GLboolean transpose, const GLfloat *value);
 /* + END   ./OpenGL/gl.h */
+/* + BEGIN ./OpenGL/glext.h */
+/* + END   ./OpenGL/glext.h */
 ]]
 return require 'ffi.load' 'GL'
