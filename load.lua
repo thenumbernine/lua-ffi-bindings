@@ -43,6 +43,10 @@ return setmetatable({
 		OSX = '/System/Library/Frameworks/OpenGL.framework/OpenGL',
 	},
 
+	OpenCL = {
+		OSX = '/System/Library/Frameworks/OpenCL.framework/OpenCL',
+	},
+
 	-- can ffi.load"serial/hdf5" work? hmm...
 	hdf5 = {Linux = '/usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5.so'},
 	jpeg = {
