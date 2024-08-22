@@ -28,10 +28,24 @@ return setmetatable({
 	},
 	GL = {
 		Windows = 'OpenGL32',
+		-- how to dlopen tbd files?
+		--OSX = '/Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/System/Library/Frameworks/OpenGL.framework/OpenGL.tbd',
+		--OSX = '/Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.tbd',
+		OSX = '/System/Library/Frameworks/CoreImage.framework/Versions/A/Frameworks/libWrapGL.dylib',
 	},
 	GLU = {
 		Windows = 'GLU32',
+		--OSX = '/Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGLU.tbd',
 	},
+	
+	-- hmm, GLES library names are funny
+	-- GLES1, GLES/gl.h uses GLESv1_CM.so
+	-- GLES2, GLES2/gl2.h uses GLESv2.so
+	-- GLES3, GLES3/gl3.h uses ... GLESv2.so as well
+	GLESv2 = {
+		OSX = '/System/Library/Frameworks/CoreImage.framework/Versions/A/Frameworks/libWrapGLES.dylib',
+	},
+
 	-- can ffi.load"serial/hdf5" work? hmm...
 	hdf5 = {Linux = '/usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5.so'},
 	jpeg = {

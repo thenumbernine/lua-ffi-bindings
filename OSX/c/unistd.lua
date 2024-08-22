@@ -33,9 +33,11 @@ struct accessx_descriptor {
 enum { ACCESSX_MAX_DESCRIPTORS = 100 };
 enum { ACCESSX_MAX_TABLESIZE = 16384 };
 /* +++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h */
+]] require 'ffi.req' 'c.machine._types' ffi.cdef[[
 /* +++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h */
 /* +++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h */
 /* ++++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h */
+]] require 'ffi.req' 'c.machine._types' ffi.cdef[[
 /* ++++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h */
 typedef __darwin_size_t size_t;
 /* +++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h */
@@ -106,6 +108,7 @@ int getattrlistat(int, const char *, void *, void *, size_t, unsigned long);
 int setattrlistat(int, const char *, void *, void *, size_t, uint32_t);
 ssize_t freadlink(int, char * restrict, size_t);
 /* +++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h */
+]] require 'ffi.req' 'c.machine._types' ffi.cdef[[
 /* +++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h */
 /* +++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h */
 /* +++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h */

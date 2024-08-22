@@ -16,6 +16,7 @@ ffi.cdef[[
 /* ++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_null.h */
 /* ++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h */
 /* +++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h */
+]] require 'ffi.req' 'c.machine._types' ffi.cdef[[
 /* +++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h */
 typedef __darwin_size_t size_t;
 /* ++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h */
@@ -74,21 +75,24 @@ typedef __darwin_mbstate_t mbstate_t;
 /* ++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_mbstate_t.h */
 /* ++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_ct_rune_t.h */
 /* +++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h */
+]] require 'ffi.req' 'c.machine._types' ffi.cdef[[
 /* +++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h */
 typedef __darwin_ct_rune_t ct_rune_t;
 /* ++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_ct_rune_t.h */
 /* ++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_rune_t.h */
 /* +++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h */
+]] require 'ffi.req' 'c.machine._types' ffi.cdef[[
 /* +++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h */
 typedef __darwin_rune_t rune_t;
 /* ++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_rune_t.h */
 /* ++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_wchar_t.h */
 /* +++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h */
+]] require 'ffi.req' 'c.machine._types' ffi.cdef[[
 /* +++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h */
 typedef __darwin_wchar_t wchar_t;
 /* ++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_wchar_t.h */
-enum { WCHAR_MIN = -2147483648 };
-enum { WCHAR_MAX = 2147483647 };
+/* manually commented out: enum { WCHAR_MIN = -2147483648 }; */
+/* manually commented out: enum { WCHAR_MAX = 2147483647 }; */
 /* ++ BEGIN /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stdarg.h */
 ]] require 'ffi.req' 'c.stdarg' ffi.cdef[[
 /* ++ END   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stdarg.h */
@@ -107,6 +111,7 @@ enum { WCHAR_MAX = 2147483647 };
 /* ++++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types.h */
 /* ++++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_wint_t.h */
 /* +++++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h */
+]] require 'ffi.req' 'c.machine._types' ffi.cdef[[
 /* +++++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h */
 typedef __darwin_wint_t wint_t;
 /* ++++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_wint_t.h */
