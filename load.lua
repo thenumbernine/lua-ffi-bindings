@@ -28,14 +28,11 @@ return setmetatable({
 	},
 	GL = {
 		Windows = 'OpenGL32',
-		-- how to dlopen tbd files?
-		--OSX = '/Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/System/Library/Frameworks/OpenGL.framework/OpenGL.tbd',
-		--OSX = '/Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.tbd',
-		OSX = '/System/Library/Frameworks/CoreImage.framework/Versions/A/Frameworks/libWrapGL.dylib',
+		OSX = '/System/Library/Frameworks/OpenGL.framework/OpenGL',
 	},
 	GLU = {
 		Windows = 'GLU32',
-		--OSX = '/Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGLU.tbd',
+		OSX = '/System/Library/Frameworks/OpenGL.framework/OpenGL',
 	},
 	
 	-- hmm, GLES library names are funny
@@ -43,8 +40,7 @@ return setmetatable({
 	-- GLES2, GLES2/gl2.h uses GLESv2.so
 	-- GLES3, GLES3/gl3.h uses ... GLESv2.so as well
 	GLESv2 = {
-		--OSX = '/System/Library/Frameworks/CoreImage.framework/Versions/A/Frameworks/libWrapGLES.dylib'	-- incompatible platform:
-		OSX = '/System/Library/Frameworks/CoreImage.framework/Versions/A/Frameworks/libWrapGL.dylib',	-- this will work except that the glsl versions are messed up (since glsl and glsl-es use different version numbers) ... smh
+		OSX = '/System/Library/Frameworks/OpenGL.framework/OpenGL',
 	},
 
 	-- can ffi.load"serial/hdf5" work? hmm...
