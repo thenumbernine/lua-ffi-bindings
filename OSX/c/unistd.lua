@@ -14,13 +14,7 @@ enum { X_OK = 1 };
 enum { W_OK = 2 };
 enum { R_OK = 4 };
 /* +++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_seek_set.h */
-/* ++++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h */
-/* ++++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h */
-enum { SEEK_SET = 0 };
-enum { SEEK_CUR = 1 };
-enum { SEEK_END = 2 };
-enum { SEEK_HOLE = 3 };
-enum { SEEK_DATA = 4 };
+]] require 'ffi.req' 'c.sys._types._seek_set' ffi.cdef[[
 /* +++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_seek_set.h */
 enum { L_SET = 0 };
 enum { L_INCR = 1 };
