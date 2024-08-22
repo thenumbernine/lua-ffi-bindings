@@ -43,7 +43,8 @@ return setmetatable({
 	-- GLES2, GLES2/gl2.h uses GLESv2.so
 	-- GLES3, GLES3/gl3.h uses ... GLESv2.so as well
 	GLESv2 = {
-		OSX = '/System/Library/Frameworks/CoreImage.framework/Versions/A/Frameworks/libWrapGLES.dylib',
+		--OSX = '/System/Library/Frameworks/CoreImage.framework/Versions/A/Frameworks/libWrapGLES.dylib'	-- incompatible platform:
+		OSX = '/System/Library/Frameworks/CoreImage.framework/Versions/A/Frameworks/libWrapGL.dylib',	-- this will work except that the glsl versions are messed up (since glsl and glsl-es use different version numbers) ... smh
 	},
 
 	-- can ffi.load"serial/hdf5" work? hmm...
