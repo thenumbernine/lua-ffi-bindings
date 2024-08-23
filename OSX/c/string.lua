@@ -31,7 +31,7 @@ int strcmp(const char *__s1, const char *__s2);
 int strcoll(const char *__s1, const char *__s2);
 char *strcpy(char *__dst, const char *__src);
 size_t strcspn(const char *__s, const char *__charset);
-char *strerror(int __errnum);
+char *strerror(int __errnum) __asm("strerror");
 size_t strlen(const char *__s);
 char *strncat(char *__s1, const char *__s2, size_t __n);
 int strncmp(const char *__s1, const char *__s2, size_t __n);

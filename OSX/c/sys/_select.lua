@@ -13,6 +13,6 @@ ffi.cdef[[
 /* ++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_timeval.h */
 ]] require 'ffi.req' 'c.sys._types._timeval' ffi.cdef[[
 /* ++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_timeval.h */
-int select(int, fd_set * restrict, fd_set * restrict, fd_set * restrict, struct timeval * restrict);
+int select(int, fd_set * restrict, fd_set * restrict, fd_set * restrict, struct timeval * restrict) __asm("select$1050");
 /* + END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_select.h */
 ]]

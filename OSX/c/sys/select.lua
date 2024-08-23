@@ -76,7 +76,7 @@ typedef __darwin_sigset_t sigset_t;
 /* ++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_fd_zero.h */
 /* ++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_fd_copy.h */
 /* ++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_fd_copy.h */
-int pselect(int, fd_set * restrict, fd_set * restrict, fd_set * restrict, const struct timespec * restrict, const sigset_t * restrict);
+int pselect(int, fd_set * restrict, fd_set * restrict, fd_set * restrict, const struct timespec * restrict, const sigset_t * restrict) __asm("pselect$1050");
 /* ++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_select.h */
 ]] require 'ffi.req' 'c.sys._select' ffi.cdef[[
 /* ++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_select.h */

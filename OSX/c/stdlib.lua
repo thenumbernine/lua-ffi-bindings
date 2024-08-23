@@ -378,11 +378,11 @@ enum { IOPOL_VFS_NOCACHE_WRITE_FS_BLKSIZE_DEFAULT = 0 };
 enum { IOPOL_VFS_NOCACHE_WRITE_FS_BLKSIZE_ON = 1 };
 int getpriority(int, id_t);
 int getiopolicy_np(int, int);
-int getrlimit(int, struct rlimit *);
+int getrlimit(int, struct rlimit *) __asm("getrlimit");
 int getrusage(int, struct rusage *);
 int setpriority(int, id_t, int);
 int setiopolicy_np(int, int, int);
-int setrlimit(int, const struct rlimit *);
+int setrlimit(int, const struct rlimit *) __asm("setrlimit");
 /* +++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/resource.h */
 enum { WNOHANG = 1 };
 enum { WUNTRACED = 2 };
@@ -426,9 +426,9 @@ struct {
 /* #define w_retcode       w_T.w_Retcode ### string, not number "w_T.w_Retcode" */
 /* #define w_stopval       w_S.w_Stopval ### string, not number "w_S.w_Stopval" */
 /* #define w_stopsig       w_S.w_Stopsig ### string, not number "w_S.w_Stopsig" */
-pid_t wait(int *);
-pid_t waitpid(pid_t, int *, int);
-int waitid(idtype_t, id_t, siginfo_t *, int);
+pid_t wait(int *) __asm("wait");
+pid_t waitpid(pid_t, int *, int) __asm("waitpid");
+int waitid(idtype_t, id_t, siginfo_t *, int) __asm("waitid");
 pid_t wait3(int *, int, struct rusage *);
 pid_t wait4(pid_t, int *, int, struct rusage *);
 /* ++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/wait.h */
@@ -550,14 +550,14 @@ int mbtowc(wchar_t * restrict, const char * restrict, size_t);
 void qsort(void *__base, size_t __nel, size_t __width, int (* __compar)(const void *, const void *));
 int rand(void);
 void srand(unsigned);
-double strtod(const char *, char **);
-float strtof(const char *, char **);
+double strtod(const char *, char **) __asm("strtod");
+float strtof(const char *, char **) __asm("strtof");
 long strtol(const char *__str, char **__endptr, int __base);
 long double strtold(const char *, char **);
 long long strtoll(const char *__str, char **__endptr, int __base);
 unsigned long strtoul(const char *__str, char **__endptr, int __base);
 unsigned long long strtoull(const char *__str, char **__endptr, int __base);
-int system(const char *);
+int system(const char *) __asm("system");
 size_t wcstombs(char * restrict, const wchar_t * restrict, size_t);
 int wctomb(char *, wchar_t);
 void _Exit(int) __attribute__((__noreturn__));
@@ -581,18 +581,18 @@ long nrand48(unsigned short[3]);
 int posix_openpt(int);
 char *ptsname(int);
 int ptsname_r(int fildes, char *buffer, size_t buflen);
-int putenv(char *);
+int putenv(char *) __asm("putenv");
 long random(void);
 int rand_r(unsigned *);
-char *realpath(const char * restrict, char * restrict);
+char *realpath(const char * restrict, char * restrict) __asm("realpath$DARWIN_EXTSN");
 unsigned short *seed48(unsigned short[3]);
-int setenv(const char * __name, const char * __value, int __overwrite);
-void setkey(const char *);
+int setenv(const char * __name, const char * __value, int __overwrite) __asm("setenv");
+void setkey(const char *) __asm("setkey");
 char *setstate(const char *);
 void srand48(long);
 void srandom(unsigned);
 int unlockpt(int);
-int unsetenv(const char *);
+int unsetenv(const char *) __asm("unsetenv");
 /* ++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h */
 /* ++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h */
 /* ++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_dev_t.h */
@@ -622,7 +622,7 @@ int cgetnum(char *, const char *, long *);
 int cgetset(const char *);
 int cgetstr(char *, const char *, char **);
 int cgetustr(char *, const char *, char **);
-int daemon(int, int);
+int daemon(int, int) __asm("daemon$1050");
 char *devname(dev_t, mode_t);
 char *devname_r(dev_t, mode_t, char *buf, int len);
 char *getbsize(int *, long *);

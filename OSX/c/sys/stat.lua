@@ -115,46 +115,8 @@ struct ostat {
 	__uint32_t st_flags;
 	__uint32_t st_gen;
 };
-struct stat {
-	dev_t st_dev;
-	mode_t st_mode;
-	nlink_t st_nlink;
-	__darwin_ino64_t st_ino;
-	uid_t st_uid;
-	gid_t st_gid;
-	dev_t st_rdev;
-	struct timespec st_atimespec;
-	struct timespec st_mtimespec;
-	struct timespec st_ctimespec;
-	struct timespec st_birthtimespec;
-	off_t st_size;
-	blkcnt_t st_blocks;
-	blksize_t st_blksize;
-	__uint32_t st_flags;
-	__uint32_t st_gen;
-	__int32_t st_lspare;
-	__int64_t st_qspare[2];
-};
-struct stat64 {
-	dev_t st_dev;
-	mode_t st_mode;
-	nlink_t st_nlink;
-	__darwin_ino64_t st_ino;
-	uid_t st_uid;
-	gid_t st_gid;
-	dev_t st_rdev;
-	struct timespec st_atimespec;
-	struct timespec st_mtimespec;
-	struct timespec st_ctimespec;
-	struct timespec st_birthtimespec;
-	off_t st_size;
-	blkcnt_t st_blocks;
-	blksize_t st_blksize;
-	__uint32_t st_flags;
-	__uint32_t st_gen;
-	__int32_t st_lspare;
-	__int64_t st_qspare[2];
-};
+struct stat { dev_t st_dev; mode_t st_mode; nlink_t st_nlink; __darwin_ino64_t st_ino; uid_t st_uid; gid_t st_gid; dev_t st_rdev; struct timespec st_atimespec; struct timespec st_mtimespec; struct timespec st_ctimespec; struct timespec st_birthtimespec; off_t st_size; blkcnt_t st_blocks; blksize_t st_blksize; __uint32_t st_flags; __uint32_t st_gen; __int32_t st_lspare; __int64_t st_qspare[2]; };
+struct stat64 { dev_t st_dev; mode_t st_mode; nlink_t st_nlink; __darwin_ino64_t st_ino; uid_t st_uid; gid_t st_gid; dev_t st_rdev; struct timespec st_atimespec; struct timespec st_mtimespec; struct timespec st_ctimespec; struct timespec st_birthtimespec; off_t st_size; blkcnt_t st_blocks; blksize_t st_blksize; __uint32_t st_flags; __uint32_t st_gen; __int32_t st_lspare; __int64_t st_qspare[2]; };
 /* #define st_atime st_atimespec.tv_sec ### string, not number "st_atimespec.tv_sec" */
 /* #define st_mtime st_mtimespec.tv_sec ### string, not number "st_mtimespec.tv_sec" */
 /* #define st_ctime st_ctimespec.tv_sec ### string, not number "st_ctimespec.tv_sec" */
@@ -219,17 +181,17 @@ enum { EF_IS_PURGEABLE = 8 };
 enum { EF_IS_SPARSE = 16 };
 enum { EF_IS_SYNTHETIC = 32 };
 enum { EF_SHARES_ALL_BLOCKS = 64 };
-int chmod(const char *, mode_t);
-int fchmod(int, mode_t);
-int fstat(int, struct stat *);
-int lstat(const char *, struct stat *);
+int chmod(const char *, mode_t) __asm("chmod");
+int fchmod(int, mode_t) __asm("fchmod");
+int fstat(int, struct stat *) __asm("fstat$INODE64");
+int lstat(const char *, struct stat *) __asm("lstat$INODE64");
 int mkdir(const char *, mode_t);
 int mkfifo(const char *, mode_t);
-int stat(const char *, struct stat *);
+int stat(const char *, struct stat *) __asm("stat$INODE64");
 int mknod(const char *, mode_t, dev_t);
 mode_t umask(mode_t);
 int fchmodat(int, const char *, mode_t, int);
-int fstatat(int, const char *, struct stat *, int);
+int fstatat(int, const char *, struct stat *, int) __asm("fstatat$INODE64");
 int mkdirat(int, const char *, mode_t);
 int mkfifoat(int, const char *, mode_t);
 int mknodat(int, const char *, mode_t, dev_t);
@@ -245,13 +207,13 @@ int chflags(const char *, __uint32_t);
 int chmodx_np(const char *, filesec_t);
 int fchflags(int, __uint32_t);
 int fchmodx_np(int, filesec_t);
-int fstatx_np(int, struct stat *, filesec_t);
+int fstatx_np(int, struct stat *, filesec_t) __asm("fstatx_np$INODE64");
 int lchflags(const char *, __uint32_t);
 int lchmod(const char *, mode_t);
-int lstatx_np(const char *, struct stat *, filesec_t);
+int lstatx_np(const char *, struct stat *, filesec_t) __asm("lstatx_np$INODE64");
 int mkdirx_np(const char *, filesec_t);
 int mkfifox_np(const char *, filesec_t);
-int statx_np(const char *, struct stat *, filesec_t);
+int statx_np(const char *, struct stat *, filesec_t) __asm("statx_np$INODE64");
 int umaskx_np(filesec_t);
 int fstatx64_np(int, struct stat64 *, filesec_t);
 int lstatx64_np(const char *, struct stat64 *, filesec_t);
@@ -261,35 +223,9 @@ int lstat64(const char *, struct stat64 *);
 int stat64(const char *, struct stat64 *);
 /* + END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h */
 ]]
---[=[ welp looks like apple redirects linking of these symbols under pretty much all conditions ...
-ffi.cdef[[
-int _stat(const char *, struct stat *);
-int _fstat(int, struct stat *);
-int _lstat(const char *, struct stat *);
-]]
---]=]
 local lib = ffi.C
 local statlib = setmetatable({
-	--[[ original idk ... this is coming back saying that cwd is a file
 	struct_stat = 'struct stat',
-	--]]
-	--[[ working around the _asm bullshit if I can
-	-- while this stat struct does match, to whatever degree,
-	-- the stat function does not (courtesy of the __DARWIN_INODE64(stat) attribute)
-	stat = lib._stat,
-	fstat = lib._fstat,
-	lstat = lib._lstat,
-	struct_stat = 'struct stat',
-	--]]
-	--[[ what is ostat used for? it looks closer to Linux/c/sys/stat.lua
-	struct_stat = 'struct ostat',
-	--]]
-	-- [[ 64 bit ?
-	stat = lib.stat64,
-	fstat = lib.fstat64,
-	lstat = lib.lstat64,
-	struct_stat = 'struct stat64',
-	--]]
 }, {
 	__index = lib,
 })

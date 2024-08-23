@@ -171,7 +171,7 @@ int access(const char *, int);
 unsigned int alarm(unsigned int);
 int chdir(const char *);
 int chown(const char *, uid_t, gid_t);
-int close(int);
+int close(int) __asm("close");
 int dup(int);
 int dup2(int, int);
 int execl(const char * __path, const char * __arg0, ...);
@@ -196,24 +196,24 @@ int isatty(int);
 int link(const char *, const char *);
 off_t lseek(int, off_t, int);
 long pathconf(const char *, int);
-int pause(void);
+int pause(void) __asm("pause");
 int pipe(int [2]);
-ssize_t read(int, void *, size_t);
+ssize_t read(int, void *, size_t) __asm("read");
 int rmdir(const char *);
 int setgid(gid_t);
 int setpgid(pid_t, pid_t);
 pid_t setsid(void);
 int setuid(uid_t);
-unsigned int sleep(unsigned int);
+unsigned int sleep(unsigned int) __asm("sleep");
 long sysconf(int);
 pid_t tcgetpgrp(int);
 int tcsetpgrp(int, pid_t);
 char *ttyname(int);
-int ttyname_r(int, char *, size_t);
+int ttyname_r(int, char *, size_t) __asm("ttyname_r");
 int unlink(const char *);
-ssize_t write(int __fd, const void * __buf, size_t __nbyte);
-size_t confstr(int, char *, size_t);
-int getopt(int, char * const [], const char *);
+ssize_t write(int __fd, const void * __buf, size_t __nbyte) __asm("write");
+size_t confstr(int, char *, size_t) __asm("confstr");
+int getopt(int, char * const [], const char *) __asm("getopt");
 extern char *optarg;
 extern int optind, opterr, optopt;
 /* ++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_ctermid.h */
@@ -228,7 +228,7 @@ enum { F_TEST = 3 };
 __attribute__((__deprecated__)) void *brk(const void *);
 int chroot(const char *);
 char *crypt(const char *, const char *);
-void encrypt(char *, int);
+void encrypt(char *, int) __asm("encrypt");
 int fchdir(int);
 long gethostid(void);
 pid_t getpgid(pid_t);
@@ -237,22 +237,22 @@ int getdtablesize(void);
 int getpagesize(void) __attribute__((__const__));
 char *getpass(const char *);
 char *getwd(char *);
-int lchown(const char *, uid_t, gid_t);
-int lockf(int, int, off_t);
-int nice(int);
-ssize_t pread(int __fd, void * __buf, size_t __nbyte, off_t __offset);
-ssize_t pwrite(int __fd, const void * __buf, size_t __nbyte, off_t __offset);
+int lchown(const char *, uid_t, gid_t) __asm("lchown");
+int lockf(int, int, off_t) __asm("lockf");
+int nice(int) __asm("nice");
+ssize_t pread(int __fd, void * __buf, size_t __nbyte, off_t __offset) __asm("pread");
+ssize_t pwrite(int __fd, const void * __buf, size_t __nbyte, off_t __offset) __asm("pwrite");
 __attribute__((__deprecated__)) void *sbrk(int);
-pid_t setpgrp(void);
-int setregid(gid_t, gid_t);
-int setreuid(uid_t, uid_t);
+pid_t setpgrp(void) __asm("setpgrp");
+int setregid(gid_t, gid_t) __asm("setregid");
+int setreuid(uid_t, uid_t) __asm("setreuid");
 void swab(const void * restrict, void * restrict, ssize_t);
 void sync(void);
 int truncate(const char *, off_t);
 useconds_t ualarm(useconds_t, useconds_t);
-int usleep(useconds_t);
+int usleep(useconds_t) __asm("usleep");
 __attribute__((__deprecated__)) pid_t vfork(void);
-int fsync(int);
+int fsync(int) __asm("fsync");
 int ftruncate(int, off_t);
 int getlogin_r(char *, size_t);
 int fchown(int, uid_t, gid_t);
@@ -338,9 +338,9 @@ int setdomainname(const char *, int);
 int setgroups(int, const gid_t *);
 void sethostid(long);
 int sethostname(const char *, int);
-void setkey(const char *);
+void setkey(const char *) __asm("setkey");
 int setlogin(const char *);
-void *setmode(const char *);
+void *setmode(const char *) __asm("setmode");
 int setrgid(gid_t);
 int setruid(uid_t);
 int setsgroups_np(int, const uuid_t);
@@ -357,8 +357,8 @@ extern char *suboptarg;
 int getsubopt(char **, char * const *, char **);
 int fgetattrlist(int,void*,void*,size_t,unsigned int);
 int fsetattrlist(int,void*,void*,size_t,unsigned int);
-int getattrlist(const char*,void*,void*,size_t,unsigned int);
-int setattrlist(const char*,void*,void*,size_t,unsigned int);
+int getattrlist(const char*,void*,void*,size_t,unsigned int) __asm("getattrlist");
+int setattrlist(const char*,void*,void*,size_t,unsigned int) __asm("setattrlist");
 int exchangedata(const char*,const char*,unsigned int);
 int getdirentriesattr(int,void*,void*,size_t,unsigned int*,unsigned int*,unsigned int*,unsigned int);
 struct fssearchblock;
@@ -373,11 +373,4 @@ int sync_volume_np(const char *, int);
 extern int optreset;
 /* + END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h */
 ]]
-local lib = ffi.C
-return setmetatable({
-	--[[ ordinary = no dif
-	-- but here we are working around the _asm bs of osx
-	--]]
-}, {
-	__index = lib,
-})
+return ffi.C

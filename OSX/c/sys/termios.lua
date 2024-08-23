@@ -167,7 +167,7 @@ int cfsetispeed(struct termios *, speed_t);
 int cfsetospeed(struct termios *, speed_t);
 int tcgetattr(int, struct termios *);
 int tcsetattr(int, int, const struct termios *);
-int tcdrain(int);
+int tcdrain(int) __asm("tcdrain");
 int tcflow(int, int);
 int tcflush(int, int);
 int tcsendbreak(int, int);

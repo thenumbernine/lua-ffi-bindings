@@ -16,14 +16,7 @@ typedef __darwin_ino_t ino_t;
 /* +++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_ino_t.h */
 /* #pragma pack(4) */
 /* #pragma pack() */
-struct dirent {
-	__uint64_t d_ino;
-	__uint64_t d_seekoff;
-	__uint16_t d_reclen;
-	__uint16_t d_namlen;
-	__uint8_t d_type;
-	char d_name[1024];
-};
+struct dirent { __uint64_t d_ino; __uint64_t d_seekoff; __uint16_t d_reclen; __uint16_t d_namlen; __uint8_t d_type; char d_name[1024]; };
 enum { d_fileno = 0 };
 enum { MAXNAMLEN = 255 };
 enum { DT_UNKNOWN = 0 };
@@ -61,37 +54,18 @@ enum { DIRBLKSIZ = 1024 };
 enum { DTF_HIDEW = 1 };
 enum { DTF_NODUP = 2 };
 enum { DTF_REWIND = 4 };
-int closedir(DIR *);
-DIR *opendir(const char *);
-struct dirent *readdir(DIR *);
-int readdir_r(DIR *, struct dirent *, struct dirent **);
-void rewinddir(DIR *);
-void seekdir(DIR *, long);
-long telldir(DIR *);
-DIR *fdopendir(int);
-int alphasort(const struct dirent **, const struct dirent **);
+int closedir(DIR *) __asm("closedir");
+DIR *opendir(const char *) __asm("opendir$INODE64");
+struct dirent *readdir(DIR *) __asm("readdir$INODE64");
+int readdir_r(DIR *, struct dirent *, struct dirent **) __asm("readdir_r$INODE64");
+void rewinddir(DIR *) __asm("rewinddir$INODE64");
+void seekdir(DIR *, long) __asm("seekdir$INODE64");
+long telldir(DIR *) __asm("telldir$INODE64");
+DIR *fdopendir(int) __asm("fdopendir$INODE64");
+int alphasort(const struct dirent **, const struct dirent **) __asm("alphasort$INODE64");
 int dirfd(DIR *dirp);
-int scandir(const char *, struct dirent ***, int (*)(const struct dirent *), int (*)(const struct dirent **, const struct dirent **));
-int getdirentries(int, char *, int, long *);
-DIR *__opendir2(const char *, int);
+int scandir(const char *, struct dirent ***, int (*)(const struct dirent *), int (*)(const struct dirent **, const struct dirent **)) __asm("scandir$INODE64");
+int getdirentries(int, char *, int, long *) __asm("getdirentries_is_not_available_when_64_bit_inodes_are_in_effect");
+DIR *__opendir2(const char *, int) __asm("__opendir2$INODE64");
 /* + END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/dirent.h */
 ]]
--- get around name mangling
-ffi.cdef[[
-int _closedir(DIR *);
-DIR *_opendir_ino64(const char *);
-struct dirent *_readdir_ino64(DIR *);
-]]
-local lib = ffi.C
-return setmetatable({
-	--[[ ordinary = no dif
-	-- but here we are working around the _asm bs of osx
-	--]]
-	-- [[
-	opendir = lib._opendir_ino64,
-	closedir = lib._closedir,
-	readdir = lib._readdir_ino64,
-	--]]
-}, {
-	__index = lib,
-})

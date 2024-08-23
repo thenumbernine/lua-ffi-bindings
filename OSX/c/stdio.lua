@@ -146,17 +146,17 @@ int fflush(FILE *);
 int fgetc(FILE *);
 int fgetpos(FILE * restrict, fpos_t *);
 char *fgets(char * restrict, int, FILE *);
-FILE *fopen(const char * restrict __filename, const char * restrict __mode);
+FILE *fopen(const char * restrict __filename, const char * restrict __mode) __asm("fopen");
 int fprintf(FILE * restrict, const char * restrict, ...) __attribute__((__format__ (__printf__, 2, 3)));
 int fputc(int, FILE *);
-int fputs(const char * restrict, FILE * restrict);
+int fputs(const char * restrict, FILE * restrict) __asm("fputs");
 size_t fread(void * restrict __ptr, size_t __size, size_t __nitems, FILE * restrict __stream);
-FILE *freopen(const char * restrict, const char * restrict, FILE * restrict);
+FILE *freopen(const char * restrict, const char * restrict, FILE * restrict) __asm("freopen");
 int fscanf(FILE * restrict, const char * restrict, ...) __attribute__((__format__ (__scanf__, 2, 3)));
 int fseek(FILE *, long, int);
 int fsetpos(FILE *, const fpos_t *);
 long ftell(FILE *);
-size_t fwrite(const void * restrict __ptr, size_t __size, size_t __nitems, FILE * restrict __stream);
+size_t fwrite(const void * restrict __ptr, size_t __size, size_t __nitems, FILE * restrict __stream) __asm("fwrite");
 int getc(FILE *);
 int getchar(void);
 __attribute__((__deprecated__)) char *gets(char *);
@@ -185,10 +185,10 @@ enum { L_ctermid = 1024 };
 /* +++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h */
 char *ctermid(char *);
 /* ++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_ctermid.h */
-FILE *fdopen(int, const char *);
+FILE *fdopen(int, const char *) __asm("fdopen");
 int fileno(FILE *);
 int pclose(FILE *);
-FILE *popen(const char *, const char *);
+FILE *popen(const char *, const char *) __asm("popen");
 int __srget(FILE *);
 int __svfscanf(FILE *, const char *, va_list) __attribute__((__format__ (__scanf__, 2, 0)));
 int __swbuf(int, FILE *);
@@ -204,7 +204,7 @@ int putc_unlocked(int, FILE *);
 int putchar_unlocked(int);
 int getw(FILE *);
 int putw(int, FILE *);
-__attribute__((__deprecated__)) char *tempnam(const char *__dir, const char *__prefix);
+__attribute__((__deprecated__)) char *tempnam(const char *__dir, const char *__prefix) __asm("tempnam");
 /* ++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_off_t.h */
 /* +++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types.h */
 /* +++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types.h */
