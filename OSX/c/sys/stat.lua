@@ -261,17 +261,32 @@ int lstat64(const char *, struct stat64 *);
 int stat64(const char *, struct stat64 *);
 /* + END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h */
 ]]
+--[=[ welp looks like apple redirects linking of these symbols under pretty much all conditions ...
+ffi.cdef[[
+int _stat(const char *, struct stat *);
+int _fstat(int, struct stat *);
+int _lstat(const char *, struct stat *);
+]]
+--]=]
 local lib = ffi.C
 local statlib = setmetatable({
-	-- [[ original idk ... this is coming back saying that cwd is a file
+	--[[ original idk ... this is coming back saying that cwd is a file
+	struct_stat = 'struct stat',
+	--]]
+	--[[ working around the _asm bullshit if I can
+	-- while this stat struct does match, to whatever degree,
+	-- the stat function does not (courtesy of the __DARWIN_INODE64(stat) attribute)
+	stat = lib._stat,
+	fstat = lib._fstat,
+	lstat = lib._lstat,
 	struct_stat = 'struct stat',
 	--]]
 	--[[ what is ostat used for? it looks closer to Linux/c/sys/stat.lua
 	struct_stat = 'struct ostat',
 	--]]
-	--[[ 64 bit ?
-	fstat = lib.fstat64,
+	-- [[ 64 bit ?
 	stat = lib.stat64,
+	fstat = lib.fstat64,
 	lstat = lib.lstat64,
 	struct_stat = 'struct stat64',
 	--]]

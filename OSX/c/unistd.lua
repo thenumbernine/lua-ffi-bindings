@@ -373,4 +373,11 @@ int sync_volume_np(const char *, int);
 extern int optreset;
 /* + END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h */
 ]]
-return ffi.C
+local lib = ffi.C
+return setmetatable({
+	--[[ ordinary = no dif
+	-- but here we are working around the _asm bs of osx
+	--]]
+}, {
+	__index = lib,
+})
