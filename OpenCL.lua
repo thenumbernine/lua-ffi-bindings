@@ -2272,4 +2272,8 @@ enum { CL_UNSIGNED_INT_RAW12_EXT = 4324 };
 /* ++ END   /usr/include/CL/cl_ext.h */
 /* + END   /usr/include/CL/opencl.h */
 ]]
+-- special for apple, in its cl_gl_ext.h file ... maybe put this in OSX/OpenCL.lua ? but then that'd need to include the rest of this anyways so ...
+ffi.cdef[[
+enum { CL_CONTEXT_PROPERTY_USE_CGL_SHAREGROUP_APPLE = 0x10000000 };
+]]
 return require 'ffi.load' 'OpenCL'
