@@ -59,6 +59,7 @@ return setmetatable({
 	},
 	openal = {
 		Windows = 'OpenAL32',
+		OSX = '/System/Library/Frameworks/OpenAL.framework/OpenAL',
 	},
 	png = {
 		Windows = 'libpng16',
