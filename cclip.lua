@@ -7,6 +7,7 @@ ffi.cdef[[
 enum { CLIP_ENABLE_IMAGE = 1 };
 typedef size_t ClipFormat;
 typedef void ClipLock;
+typedef void ClipImage;
 typedef struct ClipImageSpec {
 	unsigned long width;
 	unsigned long height;
@@ -21,11 +22,6 @@ typedef struct ClipImageSpec {
 	unsigned long blue_shift;
 	unsigned long alpha_shift;
 } ClipImageSpec;
-typedef struct ClipImage {
-	bool m_own_data;
-	char * m_data;
-	ClipImageSpec m_spec;
-} ClipImage;
 ClipLock * clip_lock_new();
 ClipLock * clip_lock_new_p(void * native_window_handle);
 void clip_lock_free(ClipLock * lock);
