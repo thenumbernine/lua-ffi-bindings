@@ -45,3 +45,4 @@ void clip_set_x11_wait_timeout(int msecs);
 int clip_get_x11_wait_timeout();
 /* + END   /usr/local/include/cclip.h */
 ]]
+return require 'ffi.load' 'clip'
