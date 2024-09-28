@@ -165,8 +165,7 @@ typedef struct {
 } TIFFFieldInfo;
 ]]
 
-local wrapper
-wrapper = require 'ffi.libwrapper'{
+return require 'ffi.libwrapper'{
 	lib = require 'ffi.load' 'tiff',
 	defs = {
 
