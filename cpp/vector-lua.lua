@@ -109,7 +109,7 @@ function vector:reserve(newcap)
 	-- so self.capacity < newcap
 	local newv = self:alloc(self.type, newcap)
 	assert(self.size <= self.capacity)
-	if self.v then ffi.copy(newv, self.v, ffi.sizeof(self.type) * self.size) end
+	if self.v then ffi.copy(newv, self.v, self:getNumBytes()) end
 	self.v = newv
 	self.capacity = newcap
 end
@@ -240,6 +240,7 @@ function vector:empty()
 	return self.size == 0
 end
 
+-- hmm idk if this should be default
 function vector:__tostring()
 	local s = '['
 	local sep = ''
@@ -248,6 +249,15 @@ function vector:__tostring()
 		sep = ', '
 	end
 	return s .. ']'
+end
+
+-- TODO rename .size to .length and then :getSize() where 'length' refers to # elements and 'size' refers to #bytes
+function vector:getNumBytes()
+	return ffi.sizeof(self.type) * self.size
+end
+
+function vector:dataToStr()
+	return ffi.string(self.v, self:getNumBytes())
 end
 
 --[[
