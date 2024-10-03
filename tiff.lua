@@ -22,7 +22,9 @@ require 'ffi.req' 'c.stddef'
 require 'ffi.req' 'c.stdint'
 require 'ffi.req' 'c.stdarg'
 require 'ffi.req' 'c.stdio'
-require 'ffi.req' 'c.inttypes'
+if ffi.os ~= 'Windows' then
+	require 'ffi.req' 'c.inttypes'
+end
 
 ffi.cdef[[
 typedef int uint16_vap;
