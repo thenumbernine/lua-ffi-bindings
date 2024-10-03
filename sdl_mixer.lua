@@ -15,11 +15,11 @@ typedef int32_t Sint32;
 typedef Uint16 SDL_AudioFormat;
 
 enum {
+/*
 	SDL_AUDIO_MASK_BITSIZE       = (0xFF),
 	SDL_AUDIO_MASK_DATATYPE      = (1<<8),
 	SDL_AUDIO_MASK_ENDIAN        = (1<<12),
 	SDL_AUDIO_MASK_SIGNED        = (1<<15),
-/*
 #define SDL_AUDIO_BITSIZE(x)         (x & SDL_AUDIO_MASK_BITSIZE)
 #define SDL_AUDIO_ISFLOAT(x)         (x & SDL_AUDIO_MASK_DATATYPE)
 #define SDL_AUDIO_ISBIGENDIAN(x)     (x & SDL_AUDIO_MASK_ENDIAN)
