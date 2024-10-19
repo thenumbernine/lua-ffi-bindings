@@ -19,8 +19,7 @@ I could make it optional per-application,
 where choosing 'defer' incurs perf penalties (but allows more symbols to be loaded)
 whlie choosing 'immediate' loads everything-per-header with no __index overloading, for faster access, but risks more 'table overflow's
 --]]
-local assertindex = require 'ext.assert'.index
-local asserttype = require 'ext.assert'.type
+local assert = require 'ext.assert'
 local op = require 'ext.op'
 local ffi = require 'ffi'
 
@@ -47,8 +46,8 @@ creates a wrapper for the library based on `require 'ffi.libwrapper'.mode`
 - if it is 'defer-lua' then " " " assigned to the wrapper table
 --]]
 function M.libwrapper(args)
-	local defs = asserttype(assertindex(args, 'defs'), 'table')
-	local lib = asserttype(assertindex(args, 'lib'), 'userdata')
+	local defs = assert.type(assert.index(args, 'defs'), 'table')
+	local lib = assert.type(assert.index(args, 'lib'), 'userdata')
 
 	if M.mode == 'immediate' then
 		-- don't wrap
