@@ -247,20 +247,53 @@ wrapper = require 'ffi.libwrapper'{
 		end,
 
 		-- safe-call wrapper:
-		pcall = function(fn, ...)
-			local f = assert(wrapper[fn])
-			local result = f(...)
-			if result == wrapper.Z_OK then return true end
-			local errs = require 'ext.table'{
-				'Z_ERRNO',
-				'Z_STREAM_ERROR',
-				'Z_DATA_ERROR',
-				'Z_MEM_ERROR',
-				'Z_BUF_ERROR',
-				'Z_VERSION_ERROR',
-			}:mapi(function(v) return v, assert(wrapper[v]) end):setmetatable(nil)
-			local name = errs[result]
-			return false, fn.." failed with error "..result..(name and (' ('..name..')') or '')
+		pcall = function()
+			return function(fn, ...)
+				local f = assert(wrapper[fn])
+				local result = f(...)
+				if result == wrapper.Z_OK then return true end
+				local errs = require 'ext.table'{
+					'Z_ERRNO',
+					'Z_STREAM_ERROR',
+					'Z_DATA_ERROR',
+					'Z_MEM_ERROR',
+					'Z_BUF_ERROR',
+					'Z_VERSION_ERROR',
+				}:mapi(function(v) return v, assert(wrapper[v]) end):setmetatable(nil)
+				local name = errs[result]
+				return false, fn.." failed with error "..result..(name and (' ('..name..')') or ''), result
+			end
+		end,
+
+		compressLua = function()
+			return function(src)
+				local srcLen = #src
+				local dstLen = ffi.new('uLongf[1]', wrapper.compressBound(srcLen))
+				local dst = ffi.new('Bytef[?]', dstLen[0])
+				assert(wrapper.pcall('compress', dst, dstLen, src, srcLen))
+				return ffi.string(dst, dstLen[0])
+			end
+		end,
+
+		uncompressLua = function()
+			return function(src)
+				local srcLen = #src
+				local dstLen = ffi.new'uLongf[1]'
+				dstLen[0] = math.max(0x100, srcLen)	-- there's no good way in the zlib api to tell how big this will need to be
+				local res, msg, err
+				repeat
+					local dst = ffi.new('Bytef[?]', dstLen[0])
+					res, msg, err = wrapper.pcall('uncompress', dst, dstLen, src, srcLen)
+					if res then
+						return ffi.string(dst, dstLen[0])
+					end
+					if err ~= wrapper.Z_MEM_ERROR then
+						error(msg)
+					end
+					-- try again with more memory
+					dstLen[0] = dstLen[0] + bit.rshift(dstLen[0], 1)
+				until false
+			end
 		end,
 	},
 }
