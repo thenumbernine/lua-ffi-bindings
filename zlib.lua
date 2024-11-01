@@ -1,4 +1,5 @@
 local ffi = require 'ffi'
+local assert = require 'ext.assert'
 
 -- comments
 
@@ -265,34 +266,53 @@ wrapper = require 'ffi.libwrapper'{
 			end
 		end,
 
+		--[[
+		zlib doesn't provide any mechanism for determining the required size of an uncompressed buffer.
+		First I thought I'd try-and-fail and look for Z_MEM_ERROR's ... but sometimes you also get other errors like Z_BUF_ERROR.
+		A solution would be to save the decompressed length alongside the buffer.
+		From there I could require the caller to save it themselves.  But nah.
+		Or - what I will do - to keep this a one-stop-shop function -
+		I will write the decompressed length to the first 8 bytes.
+		So for C compatability with the resulting data, just skip the first 8 bytes.
+		--]]
 		compressLua = function()
 			return function(src)
-				local srcLen = #src
-				local dstLen = ffi.new('uLongf[1]', wrapper.compressBound(srcLen))
+				assert.type(src, 'string')
+				local srcLen = ffi.new'uLongf[1]'
+				srcLen[0] = #src
+				local dstLen = ffi.new('uLongf[1]', wrapper.compressBound(srcLen[0]))
 				local dst = ffi.new('Bytef[?]', dstLen[0])
-				assert(wrapper.pcall('compress', dst, dstLen, src, srcLen))
-				return ffi.string(dst, dstLen[0])
+				assert(wrapper.pcall('compress', dst, dstLen, src, srcLen[0]))
+
+				local srcLenP = ffi.cast('uint8_t*', srcLen)
+				assert.eq(ffi.sizeof'uLongf', 8)
+				local dstAndLen = ''
+				for i=0,7 do
+					dstAndLen=dstAndLen..string.char(srcLenP[i])
+				end
+				dstAndLen=dstAndLen..ffi.string(dst, dstLen[0])
+				return dstAndLen
 			end
 		end,
 
 		uncompressLua = function()
-			return function(src)
-				local srcLen = #src
+			return function(srcAndLen)
+				assert.type(srcAndLen, 'string')
+				-- there's no good way in the zlib api to tell how big this will need to be
+				-- so I'm saving it as the first 8 bytes of the data
+				assert.eq(ffi.sizeof'uLongf', 8)
+				local dstLenP = ffi.cast('uint8_t*', srcAndLen)
+				local src = dstLenP + 8
+				local srcLen = #srcAndLen - 8
 				local dstLen = ffi.new'uLongf[1]'
-				dstLen[0] = math.max(0x100, srcLen)	-- there's no good way in the zlib api to tell how big this will need to be
-				local res, msg, err
-				repeat
-					local dst = ffi.new('Bytef[?]', dstLen[0])
-					res, msg, err = wrapper.pcall('uncompress', dst, dstLen, src, srcLen)
-					if res then
-						return ffi.string(dst, dstLen[0])
-					end
-					if err ~= wrapper.Z_MEM_ERROR then
-						error(msg)
-					end
-					-- try again with more memory
-					dstLen[0] = dstLen[0] + bit.rshift(dstLen[0], 1)
-				until false
+				dstLen[0] = 0
+				for i=7,0,-1 do
+					dstLen[0] = bit.bor(bit.lshift(dstLen[0], 8), dstLenP[i])
+				end
+
+				local dst = ffi.new('Bytef[?]', dstLen[0])
+				assert(wrapper.pcall('uncompress', dst, dstLen, src, srcLen))
+				return ffi.string(dst, dstLen[0])
 			end
 		end,
 	},
