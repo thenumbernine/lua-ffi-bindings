@@ -193,14 +193,7 @@ enum { F_ALLOCATEALL = 4 };
 enum { F_ALLOCATEPERSIST = 8 };
 enum { F_PEOFPOSMODE = 3 };
 enum { F_VOLPOSMODE = 4 };
-/*
-	"attempt to redefine 'flock' at line 7" ...
-	but why?
-	`struct stat` and `stat()` also have matching names ...
-	??? why can't `struct flock` and `flock()` have matching names ???
-*/
-/* struct flock { */
-struct _flock {
+struct flock {
 	off_t l_start;
 	off_t l_len;
 	pid_t l_pid;
@@ -211,7 +204,7 @@ struct _flock {
 ]] require 'ffi.req' 'c.sys._types._timespec' ffi.cdef[[
 /* +++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_timespec.h */
 struct flocktimeout {
-	struct _flock fl;
+	struct flock fl;
 	struct timespec timeout;
 };
 struct radvisory {
