@@ -85,7 +85,6 @@ enum { MAP_UNIX03 = 262144 };
 enum { MAP_TPRO = 524288 };
 enum { MCL_CURRENT = 1 };
 enum { MCL_FUTURE = 2 };
-/* #define MAP_FAILED      ((void *)-1) ### string, not number "((void *)-1)" */
 enum { MS_ASYNC = 1 };
 enum { MS_INVALIDATE = 2 };
 enum { MS_SYNC = 16 };
@@ -132,4 +131,9 @@ int mincore(const void *, size_t, char *);
 int minherit(void *, size_t, int);
 /* + END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/mman.h */
 ]]
-return ffi.C
+return setmetatable({
+	-- /* #define MAP_FAILED      ((void *)-1) ### string, not number "((void *)-1)" */
+	MAP_FAILED = ffi.cast('void*', -1),
+}, {
+	__index = ffi.C,
+})
