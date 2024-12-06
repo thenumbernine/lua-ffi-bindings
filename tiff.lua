@@ -3,7 +3,9 @@ local ffi = require 'ffi'
 -- comments
 
 --[[
-/* #define TIFFLIB_VERSION_STR "LIBTIFF, Version 4.5.1\nCopyright (c) 1988-1996 Sam Leffler\nCopyright (c) 1991-1996 Silicon Graphics, Inc." ### string, not number "\"LIBTIFF, Version 4.5.1\\nCopyright (c) 1988-1996 Sam Leffler\\nCopyright (c) 1991-1996 Silicon Graphics, Inc.\"" */
+/* #define TIFF_GCC_DEPRECATED __attribute__((deprecated)) ### string, not number "__attribute__((deprecated))" */
+/* #define TIFFLIB_VERSION_STR "LIBTIFF, Version 4.7.0\nCopyright (c) 1988-1996 Sam Leffler\nCopyright (c) 1991-1996 Silicon Graphics, Inc." ### string, not number "\"LIBTIFF, Version 4.7.0\\nCopyright (c) 1988-1996 Sam Leffler\\nCopyright (c) 1991-1996 Silicon Graphics, Inc.\"" */
+/* #define TIFFLIB_VERSION_STR_MAJ_MIN_MIC "4.7.0" ### string, not number "\"4.7.0\"" */
 /* #define TIFF_TMSIZE_T_MAX (tmsize_t)(SIZE_MAX >> 1) ### string, not number "(tmsize_t)(SIZE_MAX >> 1)" */
 /* #define D65_X0 (95.0470F) ### string, not number "(95.0470F)" */
 /* #define D65_Y0 (100.0F) ### string, not number "(100.0F)" */
@@ -173,15 +175,18 @@ return require 'ffi.libwrapper'{
 
 		-- enums
 
-		JPEG_SUPPORT = ffi.os == 'Linux' and 1 or nil,
+		JPEG_SUPPORT = ffi.os ~= 'Windows' and 1 or nil,
+		OJPEG_SUPPORT = ffi.os ~= 'Windows' and 1 or nil,
+		PIXARLOG_SUPPORT = ffi.os ~= 'Windows' and 1 or nil,
+		ZIP_SUPPORT = ffi.os ~= 'Windows' and 1 or nil,
 		JBIG_SUPPORT = ffi.os == 'Linux' and 1 or nil,
 		LERC_SUPPORT = ffi.os == 'Linux' and 1 or nil,
-		OJPEG_SUPPORT = ffi.os == 'Linux' and 1 or nil,
-		PIXARLOG_SUPPORT = ffi.os == 'Linux' and 1 or nil,
-		ZIP_SUPPORT = ffi.os == 'Linux' and 1 or nil,
 		LIBDEFLATE_SUPPORT = ffi.os == 'Linux' and 1 or nil,
 		TIFFTAG_WEBP_LOSSLESS_EXACT = 65571,
 		AVOID_WIN32_FILEIO = ffi.os == 'Windows' and 1 or nil,
+		TIFFLIB_VERSION = 20240911,
+		TIFFLIB_MINOR_VERSION = 7,
+		TIFFLIB_MICRO_VERSION = 0,
 		TIFF_SSIZE_T = 0,
 		HAVE_IEEEFP = 1,
 		HOST_FILLORDER = 0,
@@ -831,10 +836,7 @@ return require 'ffi.libwrapper'{
 		GPSTAG_DATESTAMP = 29,
 		GPSTAG_DIFFERENTIAL = 30,
 		GPSTAG_GPSHPOSITIONINGERROR = 31,
-		TIFFLIB_VERSION = 20230609,
 		TIFFLIB_MAJOR_VERSION = 4,
-		TIFFLIB_MINOR_VERSION = 5,
-		TIFFLIB_MICRO_VERSION = 1,
 		TIFFPRINT_NONE = 0,
 		TIFFPRINT_STRIPS = 1,
 		TIFFPRINT_CURVES = 2,
@@ -861,10 +863,10 @@ return require 'ffi.libwrapper'{
 		_TIFFmalloc = [[void *_TIFFmalloc(tmsize_t s);]],
 		_TIFFcalloc = [[void *_TIFFcalloc(tmsize_t nmemb, tmsize_t siz);]],
 		_TIFFrealloc = [[void *_TIFFrealloc(void *p, tmsize_t s);]],
+		_TIFFfree = [[void _TIFFfree(void *p);]],
 		_TIFFmemset = [[void _TIFFmemset(void *p, int v, tmsize_t c);]],
 		_TIFFmemcpy = [[void _TIFFmemcpy(void *d, const void *s, tmsize_t c);]],
 		_TIFFmemcmp = [[int _TIFFmemcmp(const void *p1, const void *p2, tmsize_t c);]],
-		_TIFFfree = [[void _TIFFfree(void *p);]],
 		TIFFGetTagListCount = [[int TIFFGetTagListCount(TIFF *);]],
 		TIFFGetTagListEntry = [[uint32_t TIFFGetTagListEntry(TIFF *, int tag_index);]],
 		TIFFFindField = [[const TIFFField *TIFFFindField(TIFF *, uint32_t, TIFFDataType);]],
@@ -987,6 +989,7 @@ return require 'ffi.libwrapper'{
 		TIFFOpenOptionsAlloc = [[TIFFOpenOptions *TIFFOpenOptionsAlloc();]],
 		TIFFOpenOptionsFree = [[void TIFFOpenOptionsFree(TIFFOpenOptions *);]],
 		TIFFOpenOptionsSetMaxSingleMemAlloc = [[void TIFFOpenOptionsSetMaxSingleMemAlloc(TIFFOpenOptions *opts, tmsize_t max_single_mem_alloc);]],
+		TIFFOpenOptionsSetMaxCumulatedMemAlloc = [[void TIFFOpenOptionsSetMaxCumulatedMemAlloc(TIFFOpenOptions *opts, tmsize_t max_cumulated_mem_alloc);]],
 		TIFFOpenOptionsSetErrorHandlerExtR = [[void TIFFOpenOptionsSetErrorHandlerExtR(TIFFOpenOptions *opts, TIFFErrorHandlerExtR handler, void *errorhandler_user_data);]],
 		TIFFOpenOptionsSetWarningHandlerExtR = [[void TIFFOpenOptionsSetWarningHandlerExtR(TIFFOpenOptions *opts, TIFFErrorHandlerExtR handler, void *warnhandler_user_data);]],
 		TIFFOpen = [[TIFF *TIFFOpen(const char *, const char *);]],
@@ -1048,7 +1051,7 @@ return require 'ffi.libwrapper'{
 		TIFFYCbCrToRGBInit = [[int TIFFYCbCrToRGBInit(TIFFYCbCrToRGB *, float *, float *);]],
 		TIFFYCbCrtoRGB = [[void TIFFYCbCrtoRGB(TIFFYCbCrToRGB *, uint32_t, int32_t, int32_t, uint32_t *, uint32_t *, uint32_t *);]],
 		TIFFMergeFieldInfo = [[int TIFFMergeFieldInfo(TIFF *, const TIFFFieldInfo[], uint32_t);]],
-		
+
 		-- Windows-only ...
 		TIFFOpenW = [[TIFF *TIFFOpenW(const wchar_t *, const char *);]],
 		TIFFOpenWExt = [[TIFF *TIFFOpenWExt(const wchar_t *, const char *, TIFFOpenOptions *opts);]],

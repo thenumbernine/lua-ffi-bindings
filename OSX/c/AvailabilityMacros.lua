@@ -1,9 +1,9 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* + BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityMacros.h */
-/* ++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h */
+/* + BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityMacros.h */
+/* ++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h */
 ]] require 'ffi.req' 'c.AvailabilityVersions' ffi.cdef[[
-/* ++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h */
+/* ++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h */
 enum { MAC_OS_X_VERSION_MIN_REQUIRED = 140000 };
 enum { MAC_OS_X_VERSION_MAX_ALLOWED = 140000 };
 /* #define WEAK_IMPORT_ATTRIBUTE __attribute__((weak_import)) ### string, not number "__attribute__((weak_import))" */
@@ -280,5 +280,5 @@ enum { DEPRECATED_IN_MAC_OS_X_VERSION_10_11_AND_LATER = 0 };
 enum { DEPRECATED_IN_MAC_OS_X_VERSION_10_12_AND_LATER = 0 };
 enum { DEPRECATED_IN_MAC_OS_X_VERSION_10_13_AND_LATER = 0 };
 enum { DEPRECATED_IN_MAC_OS_X_VERSION_10_14_4_AND_LATER = 0 };
-/* + END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityMacros.h */
+/* + END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityMacros.h */
 ]]

@@ -1,6 +1,6 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* + BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h */
+/* + BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h */
 enum { MAC_OS_X_VERSION_10_0 = 1000 };
 enum { MAC_OS_X_VERSION_10_1 = 1010 };
 enum { MAC_OS_X_VERSION_10_2 = 1020 };
@@ -62,5 +62,8 @@ enum { MAC_OS_VERSION_14_1 = 140100 };
 enum { MAC_OS_VERSION_14_2 = 140200 };
 enum { MAC_OS_VERSION_14_3 = 140300 };
 enum { MAC_OS_VERSION_14_4 = 140400 };
-/* + END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h */
+enum { MAC_OS_VERSION_14_5 = 140500 };
+enum { MAC_OS_VERSION_15_0 = 150000 };
+enum { MAC_OS_VERSION_15_1 = 150100 };
+/* + END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h */
 ]]

@@ -1,8 +1,8 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* + BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/complex.h */
+/* + BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/complex.h */
 enum { __COMPLEX_H__ = 1 };
-/* ++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h */
+/* ++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h */
 enum { _CDEFS_H_ = 1 };
 /* manually commented out: enum { __BEGIN_DECLS = 1 }; */
 /* manually commented out: enum { __END_DECLS = 1 }; */
@@ -32,6 +32,8 @@ enum { _Null_unspecified = 1 };
 enum { __disable_tail_calls = 1 };
 enum { __not_tail_called = 1 };
 enum { __result_use_check = 1 };
+enum { __swift_nonisolated = 1 };
+enum { __swift_nonisolated_unsafe = 1 };
 /* #define __abortlike __dead2 __cold __not_tail_called ### string, not number "__dead2 __cold __not_tail_called" */
 enum { __header_inline = 0 };
 /* # define __header_always_inline    __header_inline __attribute__ ((__always_inline__)) ### string, not number "__header_inline __attribute__ ((__always_inline__))" */
@@ -53,9 +55,9 @@ enum { __DARWIN_SUF_UNIX03 = 1 };
 /* #      define __DARWIN_SUF_1050         "$1050" ### string, not number "\"$1050\"" */
 enum { __DARWIN_SUF_NON_CANCELABLE = 1 };
 /* #define __DARWIN_SUF_EXTSN              "$DARWIN_EXTSN" ### string, not number "\"$DARWIN_EXTSN\"" */
-/* +++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_symbol_aliasing.h */
-/* +++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_symbol_aliasing.h */
-/* +++ BEGIN /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_posix_availability.h */
+/* +++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_symbol_aliasing.h */
+/* +++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_symbol_aliasing.h */
+/* +++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_posix_availability.h */
 enum { ___POSIX_C_DEPRECATED_STARTING_198808L = 1 };
 enum { ___POSIX_C_DEPRECATED_STARTING_199009L = 1 };
 enum { ___POSIX_C_DEPRECATED_STARTING_199209L = 1 };
@@ -63,7 +65,7 @@ enum { ___POSIX_C_DEPRECATED_STARTING_199309L = 1 };
 enum { ___POSIX_C_DEPRECATED_STARTING_199506L = 1 };
 enum { ___POSIX_C_DEPRECATED_STARTING_200112L = 1 };
 enum { ___POSIX_C_DEPRECATED_STARTING_200809L = 1 };
-/* +++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_posix_availability.h */
+/* +++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_posix_availability.h */
 enum { __DARWIN_C_ANSI = 4096 };
 enum { __DARWIN_C_FULL = 900000 };
 enum { __DARWIN_C_LEVEL = 900000 };
@@ -90,7 +92,9 @@ enum { __enum_options = 1 };
 enum { __kernel_ptr_semantics = 1 };
 enum { __kernel_data_semantics = 1 };
 enum { __kernel_dual_semantics = 1 };
-/* ++ END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h */
+enum { __xnu_data_size = 1 };
+enum { __xnu_returns_data_pointer = 1 };
+/* ++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h */
 /* manually commented out: enum { complex = 0 }; */
 /* #define _Complex_I (__extension__ 1.0iF) ### string, not number "(__extension__ 1.0iF)" */
 /* #define I _Complex_I ### string, not number "_Complex_I" */
@@ -160,5 +164,5 @@ extern long double _Complex cprojl(long double _Complex);
 extern float crealf(float _Complex);
 extern double creal(double _Complex);
 extern long double creall(long double _Complex);
-/* + END   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/complex.h */
+/* + END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/complex.h */
 ]]

@@ -1,12 +1,12 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* + BEGIN ./KHR/khrplatform.h */
+/* + BEGIN /usr/local/include/KHR/khrplatform.h */
 enum { KHRONOS_APICALL = 1 };
 enum { KHRONOS_APIENTRY = 1 };
 enum { KHRONOS_APIATTRIBUTES = 1 };
-/* ++ BEGIN /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stdint.h */
+/* ++ BEGIN /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stdint.h */
 ]] require 'ffi.req' 'c.stdint' ffi.cdef[[
-/* ++ END   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stdint.h */
+/* ++ END   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stdint.h */
 typedef int32_t khronos_int32_t;
 typedef uint32_t khronos_uint32_t;
 typedef int64_t khronos_int64_t;
@@ -26,5 +26,5 @@ typedef khronos_uint64_t khronos_utime_nanoseconds_t;
 typedef khronos_int64_t khronos_stime_nanoseconds_t;
 enum { KHRONOS_MAX_ENUM = 2147483647 };
 typedef enum { KHRONOS_FALSE = 0, KHRONOS_TRUE = 1, KHRONOS_BOOLEAN_ENUM_FORCE_SIZE = 0x7FFFFFFF } khronos_boolean_enum_t;
-/* + END   ./KHR/khrplatform.h */
+/* + END   /usr/local/include/KHR/khrplatform.h */
 ]]

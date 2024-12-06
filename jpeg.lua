@@ -3,7 +3,7 @@ local ffi = require 'ffi'
 -- comments
 
 --[[
-/* #define LIBJPEG_TURBO_VERSION  2.1.5 ### string, not number "2.1.5" */
+/* #define LIBJPEG_TURBO_VERSION  3.0.4 ### string, not number "3.0.4" */
 /* #define jpeg_common_fields    struct jpeg_error_mgr *err;       struct jpeg_memory_mgr *mem;      struct jpeg_progress_mgr *progress;     void *client_data;                boolean is_decompressor;          int global_state ### string, not number "struct jpeg_error_mgr *err;       struct jpeg_memory_mgr *mem;      struct jpeg_progress_mgr *progress;     void *client_data;                boolean is_decompressor;          int global_state" */
 --]]
 
@@ -11,15 +11,14 @@ local ffi = require 'ffi'
 
 require 'ffi.req' 'c.stdio'	-- for FILE, even though jpeglib.h itself never includes <stdio.h> ... hmm ...
 
+-- TODO does this discrepency still exist in Windows' LibJPEG Turbo 3.0.4 ?
 if ffi.os == 'Windows' then
 	ffi.cdef[[
 typedef unsigned char boolean;
-typedef short INT16;
 typedef signed int INT32;
 ]]
 else
 	ffi.cdef[[
-typedef short INT16;
 typedef long INT32;
 typedef int boolean;
 ]]
@@ -27,14 +26,23 @@ end
 
 ffi.cdef[[
 typedef unsigned char JSAMPLE;
+typedef short J12SAMPLE;
+typedef unsigned short J16SAMPLE;
 typedef short JCOEF;
 typedef unsigned char JOCTET;
 typedef unsigned char UINT8;
 typedef unsigned short UINT16;
+typedef short INT16;
 typedef unsigned int JDIMENSION;
 typedef JSAMPLE *JSAMPROW;
 typedef JSAMPROW *JSAMPARRAY;
 typedef JSAMPARRAY *JSAMPIMAGE;
+typedef J12SAMPLE *J12SAMPROW;
+typedef J12SAMPROW *J12SAMPARRAY;
+typedef J12SAMPARRAY *J12SAMPIMAGE;
+typedef J16SAMPLE *J16SAMPROW;
+typedef J16SAMPROW *J16SAMPARRAY;
+typedef J16SAMPARRAY *J16SAMPIMAGE;
 typedef JCOEF JBLOCK[64];
 typedef JBLOCK *JBLOCKROW;
 typedef JBLOCKROW *JBLOCKARRAY;
@@ -337,14 +345,19 @@ wrapper = require 'ffi.libwrapper'{
 
 		JPEGLIB_H = 1,
 		JPEG_LIB_VERSION = 80,
-		LIBJPEG_TURBO_VERSION_NUMBER = 2001005,
+		LIBJPEG_TURBO_VERSION_NUMBER = 3000004,
 		C_ARITH_CODING_SUPPORTED = 1,
 		D_ARITH_CODING_SUPPORTED = 1,
+		MEM_SRCDST_SUPPORTED = 1,
 		WITH_SIMD = 1,
 		BITS_IN_JSAMPLE = 8,
 		MAX_COMPONENTS = 10,
 		MAXJSAMPLE = 255,
 		CENTERJSAMPLE = 128,
+		MAXJ12SAMPLE = 4095,
+		CENTERJ12SAMPLE = 2048,
+		MAXJ16SAMPLE = 65535,
+		CENTERJ16SAMPLE = 32768,
 		JPEG_MAX_DIMENSION = 65500,
 		FAR = 1,
 		FALSE = 0,
@@ -398,15 +411,19 @@ wrapper = require 'ffi.libwrapper'{
 		jpeg_default_qtables = [[void jpeg_default_qtables(j_compress_ptr cinfo, boolean force_baseline);]],
 		jpeg_add_quant_table = [[void jpeg_add_quant_table(j_compress_ptr cinfo, int which_tbl, const unsigned int *basic_table, int scale_factor, boolean force_baseline);]],
 		jpeg_quality_scaling = [[int jpeg_quality_scaling(int quality);]],
+		jpeg_enable_lossless = [[void jpeg_enable_lossless(j_compress_ptr cinfo, int predictor_selection_value, int point_transform);]],
 		jpeg_simple_progression = [[void jpeg_simple_progression(j_compress_ptr cinfo);]],
 		jpeg_suppress_tables = [[void jpeg_suppress_tables(j_compress_ptr cinfo, boolean suppress);]],
 		jpeg_alloc_quant_table = [[JQUANT_TBL * jpeg_alloc_quant_table(j_common_ptr cinfo);]],
 		jpeg_alloc_huff_table = [[JHUFF_TBL * jpeg_alloc_huff_table(j_common_ptr cinfo);]],
 		jpeg_start_compress = [[void jpeg_start_compress(j_compress_ptr cinfo, boolean write_all_tables);]],
 		jpeg_write_scanlines = [[JDIMENSION jpeg_write_scanlines(j_compress_ptr cinfo, JSAMPARRAY scanlines, JDIMENSION num_lines);]],
+		jpeg12_write_scanlines = [[JDIMENSION jpeg12_write_scanlines(j_compress_ptr cinfo, J12SAMPARRAY scanlines, JDIMENSION num_lines);]],
+		jpeg16_write_scanlines = [[JDIMENSION jpeg16_write_scanlines(j_compress_ptr cinfo, J16SAMPARRAY scanlines, JDIMENSION num_lines);]],
 		jpeg_finish_compress = [[void jpeg_finish_compress(j_compress_ptr cinfo);]],
 		jpeg_calc_jpeg_dimensions = [[void jpeg_calc_jpeg_dimensions(j_compress_ptr cinfo);]],
 		jpeg_write_raw_data = [[JDIMENSION jpeg_write_raw_data(j_compress_ptr cinfo, JSAMPIMAGE data, JDIMENSION num_lines);]],
+		jpeg12_write_raw_data = [[JDIMENSION jpeg12_write_raw_data(j_compress_ptr cinfo, J12SAMPIMAGE data, JDIMENSION num_lines);]],
 		jpeg_write_marker = [[void jpeg_write_marker(j_compress_ptr cinfo, int marker, const JOCTET *dataptr, unsigned int datalen);]],
 		jpeg_write_m_header = [[void jpeg_write_m_header(j_compress_ptr cinfo, int marker, unsigned int datalen);]],
 		jpeg_write_m_byte = [[void jpeg_write_m_byte(j_compress_ptr cinfo, int val);]],
@@ -415,10 +432,15 @@ wrapper = require 'ffi.libwrapper'{
 		jpeg_read_header = [[int jpeg_read_header(j_decompress_ptr cinfo, boolean require_image);]],
 		jpeg_start_decompress = [[boolean jpeg_start_decompress(j_decompress_ptr cinfo);]],
 		jpeg_read_scanlines = [[JDIMENSION jpeg_read_scanlines(j_decompress_ptr cinfo, JSAMPARRAY scanlines, JDIMENSION max_lines);]],
+		jpeg12_read_scanlines = [[JDIMENSION jpeg12_read_scanlines(j_decompress_ptr cinfo, J12SAMPARRAY scanlines, JDIMENSION max_lines);]],
+		jpeg16_read_scanlines = [[JDIMENSION jpeg16_read_scanlines(j_decompress_ptr cinfo, J16SAMPARRAY scanlines, JDIMENSION max_lines);]],
 		jpeg_skip_scanlines = [[JDIMENSION jpeg_skip_scanlines(j_decompress_ptr cinfo, JDIMENSION num_lines);]],
+		jpeg12_skip_scanlines = [[JDIMENSION jpeg12_skip_scanlines(j_decompress_ptr cinfo, JDIMENSION num_lines);]],
 		jpeg_crop_scanline = [[void jpeg_crop_scanline(j_decompress_ptr cinfo, JDIMENSION *xoffset, JDIMENSION *width);]],
+		jpeg12_crop_scanline = [[void jpeg12_crop_scanline(j_decompress_ptr cinfo, JDIMENSION *xoffset, JDIMENSION *width);]],
 		jpeg_finish_decompress = [[boolean jpeg_finish_decompress(j_decompress_ptr cinfo);]],
 		jpeg_read_raw_data = [[JDIMENSION jpeg_read_raw_data(j_decompress_ptr cinfo, JSAMPIMAGE data, JDIMENSION max_lines);]],
+		jpeg12_read_raw_data = [[JDIMENSION jpeg12_read_raw_data(j_decompress_ptr cinfo, J12SAMPIMAGE data, JDIMENSION max_lines);]],
 		jpeg_has_multiple_scans = [[boolean jpeg_has_multiple_scans(j_decompress_ptr cinfo);]],
 		jpeg_start_output = [[boolean jpeg_start_output(j_decompress_ptr cinfo, int scan_number);]],
 		jpeg_finish_output = [[boolean jpeg_finish_output(j_decompress_ptr cinfo);]],
