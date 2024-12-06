@@ -307,3 +307,4 @@ int filesec_unset_property(filesec_t, filesec_property_t);
 /* ++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/fcntl.h */
 /* + END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/fcntl.h */
 ]]
+return ffi.C

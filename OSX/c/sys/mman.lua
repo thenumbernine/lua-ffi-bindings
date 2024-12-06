@@ -132,3 +132,4 @@ int mincore(const void *, size_t, char *);
 int minherit(void *, size_t, int);
 /* + END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/mman.h */
 ]]
+return ffi.C
