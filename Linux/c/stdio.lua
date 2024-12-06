@@ -4,12 +4,12 @@ ffi.cdef[[
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 ]] require 'ffi.req' 'c.bits.libc-header-start' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stdarg.h */
 ]] require 'ffi.req' 'c.stdarg' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stdarg.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
@@ -79,9 +79,9 @@ struct _IO_FILE {
 	struct _IO_wide_data *_wide_data;
 	struct _IO_FILE *_freeres_list;
 	void *_freeres_buf;
-	size_t __pad5;
+	struct _IO_FILE **_prevchain;
 	int _mode;
-	char _unused2[15 * sizeof (int) - 4 * sizeof (void *) - sizeof (size_t)];
+	char _unused2[15 * sizeof (int) - 5 * sizeof (void *)];
 };
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h */

@@ -4,9 +4,9 @@ ffi.cdef[[
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 ]] require 'ffi.req' 'c.bits.libc-header-start' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/waitflags.h */
 enum { WNOHANG = 1 };
 enum { WUNTRACED = 2 };
@@ -113,9 +113,9 @@ extern void *reallocarray (void *__ptr, size_t __nmemb, size_t __size) __attribu
 /* +++ BEGIN /usr/include/features.h */
 ]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* +++ END   /usr/include/features.h */
-/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 extern void *alloca (size_t __size) __attribute__ ((__nothrow__ , __leaf__));
 /* ++ END   /usr/include/alloca.h */
 extern void *valloc (size_t __size) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__alloc_size__ (1)));

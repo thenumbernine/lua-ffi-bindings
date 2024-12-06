@@ -37,9 +37,9 @@ extern int dirfd (DIR *__dirp) __attribute__ ((__nothrow__ , __leaf__)) __attrib
 ]] require 'ffi.req' 'c.bits.posix1_lim' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/posix1_lim.h */
 enum { MAXNAMLEN = 255 };
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 extern int scandir (const char * __dir, struct dirent *** __namelist, int (*__selector) (const struct dirent *), int (*__cmp) (const struct dirent **, const struct dirent **)) __attribute__ ((__nonnull__ (1, 2)));
 extern int alphasort (const struct dirent **__e1, const struct dirent **__e2) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
 extern __ssize_t getdirentries (int __fd, char * __buf, size_t __nbytes, __off_t * __basep) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2, 4)));

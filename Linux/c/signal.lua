@@ -403,13 +403,13 @@ struct _xstate {
 };
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/sigcontext.h */
 extern int sigreturn (struct sigcontext *__scp) __attribute__ ((__nothrow__ , __leaf__));
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/stack_t.h */
-/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 typedef struct {
 	void *ss_sp;
 	int ss_flags;

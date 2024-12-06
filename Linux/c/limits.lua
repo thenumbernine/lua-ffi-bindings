@@ -1,7 +1,7 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* + BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/syslimits.h */
+/* + BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/limits.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/syslimits.h */
 /* +++ BEGIN /usr/include/limits.h */
 /* ++++ BEGIN /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 ]] require 'ffi.req' 'c.bits.libc-header-start' ffi.cdef[[
@@ -25,7 +25,7 @@ enum { CHARCLASS_NAME_MAX = 2048 };
 enum { RE_DUP_MAX = 32767 };
 /* ++++ END   /usr/include/x86_64-linux-gnu/bits/posix2_lim.h */
 /* +++ END   /usr/include/limits.h */
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/syslimits.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/syslimits.h */
 enum { CHAR_BIT = 8 };
 enum { SCHAR_MIN = -1 };
 enum { SCHAR_MAX = 127 };
@@ -44,5 +44,5 @@ enum { LONG_MIN = -1 };
 /* # define LLONG_MIN (-LLONG_MAX - 1LL) ### string, not number "-9.2233720368548e+18" */
 /* # define LLONG_MAX __LONG_LONG_MAX__ ### string, not number "9.2233720368548e+18" */
 /* # define ULLONG_MAX (LLONG_MAX * 2ULL + 1ULL) ### string, not number "(LLONG_MAX * 2ULL + 1ULL)" */
-/* + END   /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h */
+/* + END   /usr/lib/gcc/x86_64-linux-gnu/14/include/limits.h */
 ]]

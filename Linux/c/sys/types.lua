@@ -40,9 +40,9 @@ typedef __key_t key_t;
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/types/timer_t.h */
 ]] require 'ffi.req' 'c.bits.types.timer_t' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types/timer_t.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 typedef unsigned long int ulong;
 typedef unsigned short int ushort;
 typedef unsigned int uint;

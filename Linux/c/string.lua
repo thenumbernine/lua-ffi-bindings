@@ -4,9 +4,9 @@ ffi.cdef[[
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 ]] require 'ffi.req' 'c.bits.libc-header-start' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 extern void *memcpy (void * __dest, const void * __src, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 extern void *memmove (void *__dest, const void *__src, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 extern void *memccpy (void * __dest, const void * __src, int __c, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2))) __attribute__ ((__access__ (__write_only__, 1, 4)));
@@ -52,9 +52,9 @@ extern char *strerror_l (int __errnum, locale_t __l) __attribute__ ((__nothrow__
 /* +++ BEGIN /usr/include/features.h */
 ]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* +++ END   /usr/include/features.h */
-/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 extern int bcmp (const void *__s1, const void *__s2, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
 extern void bcopy (const void *__src, void *__dest, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 extern void bzero (void *__s, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));

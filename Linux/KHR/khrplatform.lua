@@ -4,9 +4,9 @@ ffi.cdef[[
 enum { KHRONOS_APICALL = 1 };
 enum { KHRONOS_APIENTRY = 1 };
 enum { KHRONOS_APIATTRIBUTES = 1 };
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stdint.h */
 ]] require 'ffi.req' 'c.stdint' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stdint.h */
 typedef int32_t khronos_int32_t;
 typedef uint32_t khronos_uint32_t;
 typedef int64_t khronos_int64_t;

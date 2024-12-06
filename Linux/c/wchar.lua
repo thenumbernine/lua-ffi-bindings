@@ -7,12 +7,12 @@ ffi.cdef[[
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/floatn.h */
 ]] require 'ffi.req' 'c.bits.floatn' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/floatn.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stdarg.h */
 ]] require 'ffi.req' 'c.stdarg' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stdarg.h */
 typedef __gnuc_va_list va_list;
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/wchar.h */
 ]] require 'ffi.req' 'c.bits.wchar' ffi.cdef[[

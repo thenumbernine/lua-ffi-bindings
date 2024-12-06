@@ -4,9 +4,9 @@ ffi.cdef[[
 /* ++ BEGIN /usr/include/features.h */
 ]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* ++ END   /usr/include/features.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/time.h */
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
@@ -78,7 +78,7 @@ struct sigevent;
 enum { TIME_UTC = 1 };
 extern clock_t clock (void) __attribute__ ((__nothrow__ , __leaf__));
 extern time_t time (time_t *__timer) __attribute__ ((__nothrow__ , __leaf__));
-extern double difftime (time_t __time1, time_t __time0) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+extern double difftime (time_t __time1, time_t __time0);
 extern time_t mktime (struct tm *__tp) __attribute__ ((__nothrow__ , __leaf__));
 extern size_t strftime (char * __s, size_t __maxsize, const char * __format, const struct tm * __tp) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 3, 4)));
 extern size_t strftime_l (char * __s, size_t __maxsize, const char * __format, const struct tm * __tp, locale_t __loc) __attribute__ ((__nothrow__ , __leaf__));

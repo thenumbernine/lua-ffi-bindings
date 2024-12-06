@@ -18,9 +18,9 @@ enum { STDERR_FILENO = 2 };
 ]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.req' 'c.bits.types.ssize_t' ffi.cdef[[
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 ]] require 'ffi.req' 'c.bits.types.gid_t' ffi.cdef[[
 ]] require 'ffi.req' 'c.bits.types.uid_t' ffi.cdef[[
 ]] require 'ffi.req' 'c.bits.types.off_t' ffi.cdef[[

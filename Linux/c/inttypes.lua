@@ -4,9 +4,9 @@ ffi.cdef[[
 /* ++ BEGIN /usr/include/features.h */
 ]] require 'ffi.req' 'c.features' ffi.cdef[[
 /* ++ END   /usr/include/features.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stdint.h */
 ]] require 'ffi.req' 'c.stdint' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stdint.h */
 typedef int __gwchar_t;
 /* # define PRId8		"d" ### string, not number "\"d\"" */
 /* # define PRId16		"d" ### string, not number "\"d\"" */

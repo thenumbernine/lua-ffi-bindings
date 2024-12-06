@@ -3,15 +3,15 @@ ffi.cdef[[
 /* WARNING: redefining SIGIO from 0 to 29 (originally SIGPOLL) */
 /* WARNING: redefining SIGCLD from 0 to 17 (originally SIGCHLD) */
 /* + BEGIN /usr/include/x86_64-linux-gnu/sys/param.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
 ]] require 'ffi.req' 'c.sys.types' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/sys/types.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/limits.h */
 ]] require 'ffi.req' 'c.limits' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/limits.h */
 /* ++ BEGIN /usr/include/endian.h */
 /* ++ END   /usr/include/endian.h */
 /* ++ BEGIN /usr/include/signal.h */

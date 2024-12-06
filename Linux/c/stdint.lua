@@ -1,6 +1,6 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* + BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
+/* + BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stdint.h */
 /* ++ BEGIN /usr/include/stdint.h */
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 ]] require 'ffi.req' 'c.bits.libc-header-start' ffi.cdef[[
@@ -100,5 +100,5 @@ enum { SIG_ATOMIC_MAX = 2147483647 };
 ]] require 'ffi.req' 'c.wchar' ffi.cdef[[/* # define WINT_MIN		(0u) ### string, not number "(0u)" */
 /* # define WINT_MAX		(4294967295u) ### string, not number "(4294967295u)" */
 /* ++ END   /usr/include/stdint.h */
-/* + END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
+/* + END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stdint.h */
 ]]
