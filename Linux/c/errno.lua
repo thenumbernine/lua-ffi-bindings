@@ -1,161 +1,167 @@
 local ffi = require 'ffi'
-ffi.cdef[[
-/* + BEGIN /usr/include/errno.h */
-/* ++ BEGIN /usr/include/features.h */
-]] require 'ffi.req' 'c.features' ffi.cdef[[
-/* ++ END   /usr/include/features.h */
-/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/errno.h */
-/* +++ BEGIN /usr/include/linux/errno.h */
-/* ++++ BEGIN /usr/include/x86_64-linux-gnu/asm/errno.h */
-/* +++++ BEGIN /usr/include/asm-generic/errno.h */
-/* ++++++ BEGIN /usr/include/asm-generic/errno-base.h */
-enum { EPERM = 1 };
-enum { ENOENT = 2 };
-enum { ESRCH = 3 };
-enum { EINTR = 4 };
-enum { EIO = 5 };
-enum { ENXIO = 6 };
-enum { E2BIG = 7 };
-enum { ENOEXEC = 8 };
-enum { EBADF = 9 };
-enum { ECHILD = 10 };
-enum { EAGAIN = 11 };
-enum { ENOMEM = 12 };
-enum { EACCES = 13 };
-enum { EFAULT = 14 };
-enum { ENOTBLK = 15 };
-enum { EBUSY = 16 };
-enum { EEXIST = 17 };
-enum { EXDEV = 18 };
-enum { ENODEV = 19 };
-enum { ENOTDIR = 20 };
-enum { EISDIR = 21 };
-enum { EINVAL = 22 };
-enum { ENFILE = 23 };
-enum { EMFILE = 24 };
-enum { ENOTTY = 25 };
-enum { ETXTBSY = 26 };
-enum { EFBIG = 27 };
-enum { ENOSPC = 28 };
-enum { ESPIPE = 29 };
-enum { EROFS = 30 };
-enum { EMLINK = 31 };
-enum { EPIPE = 32 };
-enum { EDOM = 33 };
-enum { ERANGE = 34 };
-/* ++++++ END   /usr/include/asm-generic/errno-base.h */
-enum { EDEADLK = 35 };
-enum { ENAMETOOLONG = 36 };
-enum { ENOLCK = 37 };
-enum { ENOSYS = 38 };
-enum { ENOTEMPTY = 39 };
-enum { ELOOP = 40 };
-enum { EWOULDBLOCK = 11 };
-enum { ENOMSG = 42 };
-enum { EIDRM = 43 };
-enum { ECHRNG = 44 };
-enum { EL2NSYNC = 45 };
-enum { EL3HLT = 46 };
-enum { EL3RST = 47 };
-enum { ELNRNG = 48 };
-enum { EUNATCH = 49 };
-enum { ENOCSI = 50 };
-enum { EL2HLT = 51 };
-enum { EBADE = 52 };
-enum { EBADR = 53 };
-enum { EXFULL = 54 };
-enum { ENOANO = 55 };
-enum { EBADRQC = 56 };
-enum { EBADSLT = 57 };
-enum { EDEADLOCK = 35 };
-enum { EBFONT = 59 };
-enum { ENOSTR = 60 };
-enum { ENODATA = 61 };
-enum { ETIME = 62 };
-enum { ENOSR = 63 };
-enum { ENONET = 64 };
-enum { ENOPKG = 65 };
-enum { EREMOTE = 66 };
-enum { ENOLINK = 67 };
-enum { EADV = 68 };
-enum { ESRMNT = 69 };
-enum { ECOMM = 70 };
-enum { EPROTO = 71 };
-enum { EMULTIHOP = 72 };
-enum { EDOTDOT = 73 };
-enum { EBADMSG = 74 };
-enum { EOVERFLOW = 75 };
-enum { ENOTUNIQ = 76 };
-enum { EBADFD = 77 };
-enum { EREMCHG = 78 };
-enum { ELIBACC = 79 };
-enum { ELIBBAD = 80 };
-enum { ELIBSCN = 81 };
-enum { ELIBMAX = 82 };
-enum { ELIBEXEC = 83 };
-enum { EILSEQ = 84 };
-enum { ERESTART = 85 };
-enum { ESTRPIPE = 86 };
-enum { EUSERS = 87 };
-enum { ENOTSOCK = 88 };
-enum { EDESTADDRREQ = 89 };
-enum { EMSGSIZE = 90 };
-enum { EPROTOTYPE = 91 };
-enum { ENOPROTOOPT = 92 };
-enum { EPROTONOSUPPORT = 93 };
-enum { ESOCKTNOSUPPORT = 94 };
-enum { EOPNOTSUPP = 95 };
-enum { EPFNOSUPPORT = 96 };
-enum { EAFNOSUPPORT = 97 };
-enum { EADDRINUSE = 98 };
-enum { EADDRNOTAVAIL = 99 };
-enum { ENETDOWN = 100 };
-enum { ENETUNREACH = 101 };
-enum { ENETRESET = 102 };
-enum { ECONNABORTED = 103 };
-enum { ECONNRESET = 104 };
-enum { ENOBUFS = 105 };
-enum { EISCONN = 106 };
-enum { ENOTCONN = 107 };
-enum { ESHUTDOWN = 108 };
-enum { ETOOMANYREFS = 109 };
-enum { ETIMEDOUT = 110 };
-enum { ECONNREFUSED = 111 };
-enum { EHOSTDOWN = 112 };
-enum { EHOSTUNREACH = 113 };
-enum { EALREADY = 114 };
-enum { EINPROGRESS = 115 };
-enum { ESTALE = 116 };
-enum { EUCLEAN = 117 };
-enum { ENOTNAM = 118 };
-enum { ENAVAIL = 119 };
-enum { EISNAM = 120 };
-enum { EREMOTEIO = 121 };
-enum { EDQUOT = 122 };
-enum { ENOMEDIUM = 123 };
-enum { EMEDIUMTYPE = 124 };
-enum { ECANCELED = 125 };
-enum { ENOKEY = 126 };
-enum { EKEYEXPIRED = 127 };
-enum { EKEYREVOKED = 128 };
-enum { EKEYREJECTED = 129 };
-enum { EOWNERDEAD = 130 };
-enum { ENOTRECOVERABLE = 131 };
-enum { ERFKILL = 132 };
-enum { EHWPOISON = 133 };
-/* +++++ END   /usr/include/asm-generic/errno.h */
-/* ++++ END   /usr/include/x86_64-linux-gnu/asm/errno.h */
-/* +++ END   /usr/include/linux/errno.h */
-enum { ENOTSUP = 95 };
-/* ++ END   /usr/include/x86_64-linux-gnu/bits/errno.h */
-extern int *__errno_location (void) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
-/* # define errno (*__errno_location ()) ### string, not number "(*__errno_location ())" */
-/* + END   /usr/include/errno.h */
-]]
-return setmetatable({
-	errno = function()
-		return ffi.C.__errno_location()[0]
-	end,
-}, {
-	__index = ffi.C,
-})
+require 'ffi.req' 'c.string'	-- strerror
+
+-- comments
+
+-- typedefs
+
+require 'ffi.req' 'c.features'
+
+local wrapper
+wrapper = require 'ffi.libwrapper'{
+	defs = {
+
+		-- enums
+
+		EPERM = 1,
+		ENOENT = 2,
+		ESRCH = 3,
+		EINTR = 4,
+		EIO = 5,
+		ENXIO = 6,
+		E2BIG = 7,
+		ENOEXEC = 8,
+		EBADF = 9,
+		ECHILD = 10,
+		EAGAIN = 11,
+		ENOMEM = 12,
+		EACCES = 13,
+		EFAULT = 14,
+		ENOTBLK = 15,
+		EBUSY = 16,
+		EEXIST = 17,
+		EXDEV = 18,
+		ENODEV = 19,
+		ENOTDIR = 20,
+		EISDIR = 21,
+		EINVAL = 22,
+		ENFILE = 23,
+		EMFILE = 24,
+		ENOTTY = 25,
+		ETXTBSY = 26,
+		EFBIG = 27,
+		ENOSPC = 28,
+		ESPIPE = 29,
+		EROFS = 30,
+		EMLINK = 31,
+		EPIPE = 32,
+		EDOM = 33,
+		ERANGE = 34,
+		EDEADLK = 35,
+		ENAMETOOLONG = 36,
+		ENOLCK = 37,
+		ENOSYS = 38,
+		ENOTEMPTY = 39,
+		ELOOP = 40,
+		EWOULDBLOCK = 11,
+		ENOMSG = 42,
+		EIDRM = 43,
+		ECHRNG = 44,
+		EL2NSYNC = 45,
+		EL3HLT = 46,
+		EL3RST = 47,
+		ELNRNG = 48,
+		EUNATCH = 49,
+		ENOCSI = 50,
+		EL2HLT = 51,
+		EBADE = 52,
+		EBADR = 53,
+		EXFULL = 54,
+		ENOANO = 55,
+		EBADRQC = 56,
+		EBADSLT = 57,
+		EDEADLOCK = 35,
+		EBFONT = 59,
+		ENOSTR = 60,
+		ENODATA = 61,
+		ETIME = 62,
+		ENOSR = 63,
+		ENONET = 64,
+		ENOPKG = 65,
+		EREMOTE = 66,
+		ENOLINK = 67,
+		EADV = 68,
+		ESRMNT = 69,
+		ECOMM = 70,
+		EPROTO = 71,
+		EMULTIHOP = 72,
+		EDOTDOT = 73,
+		EBADMSG = 74,
+		EOVERFLOW = 75,
+		ENOTUNIQ = 76,
+		EBADFD = 77,
+		EREMCHG = 78,
+		ELIBACC = 79,
+		ELIBBAD = 80,
+		ELIBSCN = 81,
+		ELIBMAX = 82,
+		ELIBEXEC = 83,
+		EILSEQ = 84,
+		ERESTART = 85,
+		ESTRPIPE = 86,
+		EUSERS = 87,
+		ENOTSOCK = 88,
+		EDESTADDRREQ = 89,
+		EMSGSIZE = 90,
+		EPROTOTYPE = 91,
+		ENOPROTOOPT = 92,
+		EPROTONOSUPPORT = 93,
+		ESOCKTNOSUPPORT = 94,
+		EOPNOTSUPP = 95,
+		EPFNOSUPPORT = 96,
+		EAFNOSUPPORT = 97,
+		EADDRINUSE = 98,
+		EADDRNOTAVAIL = 99,
+		ENETDOWN = 100,
+		ENETUNREACH = 101,
+		ENETRESET = 102,
+		ECONNABORTED = 103,
+		ECONNRESET = 104,
+		ENOBUFS = 105,
+		EISCONN = 106,
+		ENOTCONN = 107,
+		ESHUTDOWN = 108,
+		ETOOMANYREFS = 109,
+		ETIMEDOUT = 110,
+		ECONNREFUSED = 111,
+		EHOSTDOWN = 112,
+		EHOSTUNREACH = 113,
+		EALREADY = 114,
+		EINPROGRESS = 115,
+		ESTALE = 116,
+		EUCLEAN = 117,
+		ENOTNAM = 118,
+		ENAVAIL = 119,
+		EISNAM = 120,
+		EREMOTEIO = 121,
+		EDQUOT = 122,
+		ENOMEDIUM = 123,
+		EMEDIUMTYPE = 124,
+		ECANCELED = 125,
+		ENOKEY = 126,
+		EKEYEXPIRED = 127,
+		EKEYREVOKED = 128,
+		EKEYREJECTED = 129,
+		EOWNERDEAD = 130,
+		ENOTRECOVERABLE = 131,
+		ERFKILL = 132,
+		EHWPOISON = 133,
+		ENOTSUP = 95,
+
+		-- functions
+
+		__errno_location = [[int *__errno_location () __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));]],
+
+		errno = function()
+			return function()
+				return wrapper.__errno_location()[0]
+			end,
+		end,
+		str = function()
+			local sp = ffi.C.strerror(wrapper.errno())
+			if sp == nil then return '(null)' end
+			return ffi.string(sp)
+		end,
+	},
+}
+return wrapper

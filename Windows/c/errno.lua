@@ -1,99 +1,123 @@
 local ffi = require 'ffi'
-ffi.cdef[[
-/* + BEGIN C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/ucrt/errno.h */
-/* ++ BEGIN C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/ucrt/corecrt.h */
-]] require 'ffi.req' 'c.corecrt' ffi.cdef[[
-/* ++ END   C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/ucrt/corecrt.h */
-/* #pragma warning(push) */
-/* #pragma warning(disable: _UCRT_DISABLED_WARNINGS) */
-int* __cdecl _errno(void);
+require 'ffi.req' 'c.string'	-- strerror
+
+-- comments
+
+--[[
 /* #define errno (*_errno()) ### string, not number "(*_errno())" */
-errno_t __cdecl _set_errno( int _Value);
-errno_t __cdecl _get_errno( int* _Value);
-unsigned long* __cdecl __doserrno(void);
-errno_t __cdecl _set_doserrno( unsigned long _Value);
-errno_t __cdecl _get_doserrno( unsigned long * _Value);
-enum { EPERM = 1 };
-enum { ENOENT = 2 };
-enum { ESRCH = 3 };
-enum { EINTR = 4 };
-enum { EIO = 5 };
-enum { ENXIO = 6 };
-enum { E2BIG = 7 };
-enum { ENOEXEC = 8 };
-enum { EBADF = 9 };
-enum { ECHILD = 10 };
-enum { EAGAIN = 11 };
-enum { ENOMEM = 12 };
-enum { EACCES = 13 };
-enum { EFAULT = 14 };
-enum { EBUSY = 16 };
-enum { EEXIST = 17 };
-enum { EXDEV = 18 };
-enum { ENODEV = 19 };
-enum { ENOTDIR = 20 };
-enum { EISDIR = 21 };
-enum { ENFILE = 23 };
-enum { EMFILE = 24 };
-enum { ENOTTY = 25 };
-enum { EFBIG = 27 };
-enum { ENOSPC = 28 };
-enum { ESPIPE = 29 };
-enum { EROFS = 30 };
-enum { EMLINK = 31 };
-enum { EPIPE = 32 };
-enum { EDOM = 33 };
-enum { EDEADLK = 36 };
-enum { ENAMETOOLONG = 38 };
-enum { ENOLCK = 39 };
-enum { ENOSYS = 40 };
-enum { ENOTEMPTY = 41 };
-enum { EINVAL = 22 };
-enum { ERANGE = 34 };
-enum { EILSEQ = 42 };
-enum { STRUNCATE = 80 };
-enum { EDEADLOCK = 36 };
-enum { EADDRINUSE = 100 };
-enum { EADDRNOTAVAIL = 101 };
-enum { EAFNOSUPPORT = 102 };
-enum { EALREADY = 103 };
-enum { EBADMSG = 104 };
-enum { ECANCELED = 105 };
-enum { ECONNABORTED = 106 };
-enum { ECONNREFUSED = 107 };
-enum { ECONNRESET = 108 };
-enum { EDESTADDRREQ = 109 };
-enum { EHOSTUNREACH = 110 };
-enum { EIDRM = 111 };
-enum { EINPROGRESS = 112 };
-enum { EISCONN = 113 };
-enum { ELOOP = 114 };
-enum { EMSGSIZE = 115 };
-enum { ENETDOWN = 116 };
-enum { ENETRESET = 117 };
-enum { ENETUNREACH = 118 };
-enum { ENOBUFS = 119 };
-enum { ENODATA = 120 };
-enum { ENOLINK = 121 };
-enum { ENOMSG = 122 };
-enum { ENOPROTOOPT = 123 };
-enum { ENOSR = 124 };
-enum { ENOSTR = 125 };
-enum { ENOTCONN = 126 };
-enum { ENOTRECOVERABLE = 127 };
-enum { ENOTSOCK = 128 };
-enum { ENOTSUP = 129 };
-enum { EOPNOTSUPP = 130 };
-enum { EOTHER = 131 };
-enum { EOVERFLOW = 132 };
-enum { EOWNERDEAD = 133 };
-enum { EPROTO = 134 };
-enum { EPROTONOSUPPORT = 135 };
-enum { EPROTOTYPE = 136 };
-enum { ETIME = 137 };
-enum { ETIMEDOUT = 138 };
-enum { ETXTBSY = 139 };
-enum { EWOULDBLOCK = 140 };
-/* #pragma warning(pop)  */
-/* + END   C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/ucrt/errno.h */
-]]
+--]]
+
+-- typedefs
+
+require 'ffi.req' 'c.corecrt'
+
+local wrapper
+wrapper = require 'ffi.libwrapper'{
+	defs = {
+
+		-- enums
+
+		EPERM = 1,
+		ENOENT = 2,
+		ESRCH = 3,
+		EINTR = 4,
+		EIO = 5,
+		ENXIO = 6,
+		E2BIG = 7,
+		ENOEXEC = 8,
+		EBADF = 9,
+		ECHILD = 10,
+		EAGAIN = 11,
+		ENOMEM = 12,
+		EACCES = 13,
+		EFAULT = 14,
+		EBUSY = 16,
+		EEXIST = 17,
+		EXDEV = 18,
+		ENODEV = 19,
+		ENOTDIR = 20,
+		EISDIR = 21,
+		ENFILE = 23,
+		EMFILE = 24,
+		ENOTTY = 25,
+		EFBIG = 27,
+		ENOSPC = 28,
+		ESPIPE = 29,
+		EROFS = 30,
+		EMLINK = 31,
+		EPIPE = 32,
+		EDOM = 33,
+		EDEADLK = 36,
+		ENAMETOOLONG = 38,
+		ENOLCK = 39,
+		ENOSYS = 40,
+		ENOTEMPTY = 41,
+		EINVAL = 22,
+		ERANGE = 34,
+		EILSEQ = 42,
+		STRUNCATE = 80,
+		EDEADLOCK = 36,
+		EADDRINUSE = 100,
+		EADDRNOTAVAIL = 101,
+		EAFNOSUPPORT = 102,
+		EALREADY = 103,
+		EBADMSG = 104,
+		ECANCELED = 105,
+		ECONNABORTED = 106,
+		ECONNREFUSED = 107,
+		ECONNRESET = 108,
+		EDESTADDRREQ = 109,
+		EHOSTUNREACH = 110,
+		EIDRM = 111,
+		EINPROGRESS = 112,
+		EISCONN = 113,
+		ELOOP = 114,
+		EMSGSIZE = 115,
+		ENETDOWN = 116,
+		ENETRESET = 117,
+		ENETUNREACH = 118,
+		ENOBUFS = 119,
+		ENODATA = 120,
+		ENOLINK = 121,
+		ENOMSG = 122,
+		ENOPROTOOPT = 123,
+		ENOSR = 124,
+		ENOSTR = 125,
+		ENOTCONN = 126,
+		ENOTRECOVERABLE = 127,
+		ENOTSOCK = 128,
+		ENOTSUP = 129,
+		EOPNOTSUPP = 130,
+		EOTHER = 131,
+		EOVERFLOW = 132,
+		EOWNERDEAD = 133,
+		EPROTO = 134,
+		EPROTONOSUPPORT = 135,
+		EPROTOTYPE = 136,
+		ETIME = 137,
+		ETIMEDOUT = 138,
+		ETXTBSY = 139,
+		EWOULDBLOCK = 140,
+
+		-- functions
+
+		_errno = [[int* __cdecl _errno();]],
+		_set_errno = [[errno_t __cdecl _set_errno( int _Value);]],
+		_get_errno = [[errno_t __cdecl _get_errno( int* _Value);]],
+		__doserrno = [[unsigned long* __cdecl __doserrno();]],
+		_set_doserrno = [[errno_t __cdecl _set_doserrno( unsigned long _Value);]],
+		_get_doserrno = [[errno_t __cdecl _get_doserrno( unsigned long * _Value);]],
+
+		errno = function()
+			return function()
+				return wrapper._errno()[0]
+			end,
+		end,
+		str = function()
+			local sp = ffi.C.strerror(wrapper.errno())
+			if sp == nil then return '(null)' end
+			return ffi.string(sp)
+		end,
+	},
+}
+return wrapper
