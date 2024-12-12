@@ -16,7 +16,14 @@ typedef __darwin_ino_t ino_t;
 /* +++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_ino_t.h */
 /* #pragma pack(4) */
 /* #pragma pack() */
-struct dirent { __uint64_t d_ino; __uint64_t d_seekoff; __uint16_t d_reclen; __uint16_t d_namlen; __uint8_t d_type; char d_name[1024]; };
+struct dirent {
+	__uint64_t d_ino;
+	__uint64_t d_seekoff;
+	__uint16_t d_reclen;
+	__uint16_t d_namlen;
+	__uint8_t d_type;
+	char d_name[1024];
+};
 enum { d_fileno = 0 };
 enum { MAXNAMLEN = 255 };
 enum { DT_UNKNOWN = 0 };
