@@ -38,7 +38,7 @@ args:
 		... function values are executed.  these are useful for subsequent invocations / generating dependent types before ffi.cdef'ing our own type.
 			(TODO JUST USE THE MODULE SYSTEM.  THE DAG AND ffi.cdef CALLS ARE ALREADY THERE.)
 
-	lib = `require 'ffi.load' (libraryName)`
+	lib = `require 'ffi.load' (libraryName)`  optional, if omitted this defaults to `ffi.C`.
 
 creates a wrapper for the library based on `require 'ffi.libwrapper'.mode`
 - if it is 'immediate' then all enums are immediately loaded into the library (this can only be assigned / used if M.mode is set to 'immediate' before require'ing the ffi.req header name.
@@ -46,8 +46,16 @@ creates a wrapper for the library based on `require 'ffi.libwrapper'.mode`
 - if it is 'defer-lua' then " " " assigned to the wrapper table
 --]]
 function M.libwrapper(args)
+	-- TODO this is run in require() at file-scope, so if it errors then you might get a "loop or previous error when requiring" error ...
+	-- Should I just be stderr'ing the errors?
+	-- Should I be fixing `require` to do that for all require'd files?
+
 	local defs = assert.type(assert.index(args, 'defs'), 'table')
-	local lib = assert.type(assert.index(args, 'lib'), 'userdata')
+
+	local lib = ffi.C
+	if args.lib ~= nil then
+		lib = assert.type(assert.index(args, 'lib'), 'userdata')
+	end
 
 	if M.mode == 'immediate' then
 		-- don't wrap
