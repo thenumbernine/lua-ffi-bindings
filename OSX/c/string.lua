@@ -110,7 +110,7 @@ typedef u_int64_t syscall_arg_t;
 typedef __darwin_size_t rsize_t;
 /* +++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_rsize_t.h */
 /* +++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_errno_t.h */
-]] require 'ffi.req' 'c._types._errno_t' ffi.cdef[[
+]] require 'ffi.req' 'c.sys._types._errno_t' ffi.cdef[[
 /* +++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_errno_t.h */
 errno_t memset_s(void *__s, rsize_t __smax, int __c, rsize_t __n);
 /* +++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_ssize_t.h */

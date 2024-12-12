@@ -12,7 +12,7 @@ local ffi = require 'ffi'
 
 -- typedefs
 
-require 'ffi.req' 'c._types._errno_t'
+require 'ffi.req' 'c.sys._types._errno_t'
 
 local wrapper
 wrapper = require 'ffi.libwrapper'{
