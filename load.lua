@@ -41,6 +41,8 @@ return setmetatable({
 	-- GLES3, GLES3/gl3.h uses ... GLESv2.so as well
 	GLESv2 = {
 		OSX = '/System/Library/Frameworks/OpenGL.framework/OpenGL',
+		--OSX = '/usr/local/lib/libGLESv2.dylib',	-- mesa
+		--OSX = '/System/Library/Frameworks/CoreImage.framework/Versions/A/Frameworks/libWrapGLES.dylib',	-- dlopen says incompatible platforms
 	},
 
 	OpenCL = {
