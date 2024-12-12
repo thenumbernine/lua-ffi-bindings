@@ -230,7 +230,7 @@ typedef __darwin_suseconds_t suseconds_t;
 typedef __darwin_size_t rsize_t;
 /* ++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_rsize_t.h */
 /* ++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_errno_t.h */
-typedef int errno_t;
+]] require 'ffi.req' 'c._types._errno_t' ffi.cdef[[
 /* ++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_errno_t.h */
 /* ++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_fd_def.h */
 ]] require 'ffi.req' 'c.sys._types._fd_def' ffi.cdef[[
