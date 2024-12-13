@@ -139,8 +139,8 @@ wrapper = require 'ffi.libwrapper'{
 			end
 		end,
 		str = function()
+			require 'ffi.req' 'c.string'	-- strerror
 			return function()
-				require 'ffi.req' 'c.string'	-- strerror
 				local sp = ffi.C.strerror(wrapper.errno())
 				if sp == nil then return '(null)' end
 				return ffi.string(sp)
