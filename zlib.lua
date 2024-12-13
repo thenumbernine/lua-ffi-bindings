@@ -320,6 +320,6 @@ wrapper = require 'ffi.libwrapper'{
 
 -- wrapper defs only handles functions and enums so here's where the other fields go:
 
-wrapper.ZLIB_VERSION = "1.2.11"
+wrapper.ZLIB_VERSION = "1.3"
 
 return wrapper
