@@ -1,5 +1,4 @@
 local ffi = require 'ffi'
-require 'ffi.req' 'c.string'	-- strerror
 
 -- comments
 
@@ -114,6 +113,7 @@ wrapper = require 'ffi.libwrapper'{
 			end
 		end,
 		str = function()
+			require 'ffi.req' 'c.string'	-- strerror
 			return function()
 				local sp = ffi.C.strerror(wrapper.errno())
 				if sp == nil then return '(null)' end
