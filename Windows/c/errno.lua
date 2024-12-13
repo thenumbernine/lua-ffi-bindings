@@ -111,7 +111,7 @@ wrapper = require 'ffi.libwrapper'{
 		errno = function()
 			return function()
 				return wrapper._errno()[0]
-			end,
+			end
 		end,
 		str = function()
 			return function()

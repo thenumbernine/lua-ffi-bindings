@@ -155,7 +155,7 @@ wrapper = require 'ffi.libwrapper'{
 		errno = function()
 			return function()
 				return wrapper.__errno_location()[0]
-			end,
+			end
 		end,
 		str = function()
 			return function()
