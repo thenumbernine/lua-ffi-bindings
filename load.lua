@@ -64,7 +64,7 @@ return setmetatable({
 		OSX = '/System/Library/Frameworks/OpenAL.framework/OpenAL',
 	},
 	z = {
-		Windows = 'zlib',
+		Windows = 'zlib1',
 	},
 }, {
 	__call = function(self, reqname)
