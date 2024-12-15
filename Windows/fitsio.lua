@@ -164,8 +164,8 @@ wrapper = require 'ffi.libwrapper'{
 
 		-- enums
 
-		CFITSIO_MAJOR = 3,
 		CFITSIO_MINOR = 49,
+		CFITSIO_MAJOR = 3,
 		CFITSIO_SONAME = 9,
 		NIOBUF = 40,
 		IOBUFLEN = 2880,
@@ -1083,7 +1083,7 @@ wrapper = require 'ffi.libwrapper'{
 
 		-- since macro functions are the weak point of my binding code generator,
 		-- here's the fitsio longnam.h file contents manually:
-		
+
 		fits_parse_input_url = function() return wrapper.ffiurl end,
 		fits_parse_input_filename = function() return wrapper.ffifile end,
 		fits_parse_rootname = function() return wrapper.ffrtnm end,

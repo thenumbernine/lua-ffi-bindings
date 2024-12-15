@@ -13,8 +13,8 @@ local ffi = require 'ffi'
 -- typedefs
 
 require 'ffi.req' 'c.stdio'
-require 'ffi.req' 'c.sys.types'
 require 'ffi.req' 'c.stdlib'
+require 'ffi.req' 'c.sys.types'
 require 'ffi.req' 'c.limits'
 
 ffi.cdef[[
