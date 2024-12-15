@@ -1,19 +1,465 @@
 local ffi = require 'ffi'
-ffi.cdef[[
-/* + BEGIN /usr/local/include/SDL2/SDL.h */
+
+-- comments
+
+--[[
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* #    define SDL_DEPRECATED __attribute__((deprecated)) ### string, not number "__attribute__((deprecated))" */
+/* #    define SDL_UNUSED __attribute__((unused)) ### string, not number "__attribute__((unused))" */
+/* #   define DECLSPEC __attribute__ ((visibility("default"))) ### string, not number "__attribute__ ((visibility(\"default\")))" */
+/* #define SDL_FORCE_INLINE __attribute__((always_inline)) static __inline__ ### string, not number "__attribute__((always_inline)) static __inline__" */
+/* #define SDL_NORETURN __attribute__((noreturn)) ### string, not number "__attribute__((noreturn))" */
+/* #define SDL_FALLTHROUGH do {} while (0) ### string, not number "do {} while (0)" */
+/* #define FLT_ROUNDS (__builtin_flt_rounds()) ### string, not number "(__builtin_flt_rounds())" */
+/* #define FLT_MAX __FLT_MAX__ ### string, not number "__FLT_MAX__" */
+/* #define DBL_MAX __DBL_MAX__ ### string, not number "__DBL_MAX__" */
+/* #define LDBL_MAX __LDBL_MAX__ ### string, not number "__LDBL_MAX__" */
+/* #define FLT_EPSILON __FLT_EPSILON__ ### string, not number "__FLT_EPSILON__" */
+/* #define DBL_EPSILON __DBL_EPSILON__ ### string, not number "__DBL_EPSILON__" */
+/* #define LDBL_EPSILON __LDBL_EPSILON__ ### string, not number "__LDBL_EPSILON__" */
+/* #define FLT_MIN __FLT_MIN__ ### string, not number "__FLT_MIN__" */
+/* #define DBL_MIN __DBL_MIN__ ### string, not number "__DBL_MIN__" */
+/* #define LDBL_MIN __LDBL_MIN__ ### string, not number "__LDBL_MIN__" */
+/* #    define FLT_TRUE_MIN __FLT_DENORM_MIN__ ### string, not number "__FLT_DENORM_MIN__" */
+/* #    define DBL_TRUE_MIN __DBL_DENORM_MIN__ ### string, not number "__DBL_DENORM_MIN__" */
+/* #    define LDBL_TRUE_MIN __LDBL_DENORM_MIN__ ### string, not number "__LDBL_DENORM_MIN__" */
+/* redefining matching value: #define FLT_EVAL_METHOD __FLT_EVAL_METHOD__ */
+/* #define FLT_ROUNDS (__builtin_flt_rounds()) ### string, not number "(__builtin_flt_rounds())" */
+/* redefining matching value: #define FLT_RADIX __FLT_RADIX__ */
+/* redefining matching value: #define FLT_MANT_DIG __FLT_MANT_DIG__ */
+/* redefining matching value: #define DBL_MANT_DIG __DBL_MANT_DIG__ */
+/* redefining matching value: #define LDBL_MANT_DIG __LDBL_MANT_DIG__ */
+/* redefining matching value: #  define DECIMAL_DIG __DECIMAL_DIG__ */
+/* redefining matching value: #define FLT_DIG __FLT_DIG__ */
+/* redefining matching value: #define DBL_DIG __DBL_DIG__ */
+/* redefining matching value: #define LDBL_DIG __LDBL_DIG__ */
+/* redefining matching value: #define FLT_MIN_EXP __FLT_MIN_EXP__ */
+/* redefining matching value: #define DBL_MIN_EXP __DBL_MIN_EXP__ */
+/* redefining matching value: #define LDBL_MIN_EXP __LDBL_MIN_EXP__ */
+/* redefining matching value: #define FLT_MIN_10_EXP __FLT_MIN_10_EXP__ */
+/* redefining matching value: #define DBL_MIN_10_EXP __DBL_MIN_10_EXP__ */
+/* redefining matching value: #define LDBL_MIN_10_EXP __LDBL_MIN_10_EXP__ */
+/* redefining matching value: #define FLT_MAX_EXP __FLT_MAX_EXP__ */
+/* redefining matching value: #define DBL_MAX_EXP __DBL_MAX_EXP__ */
+/* redefining matching value: #define LDBL_MAX_EXP __LDBL_MAX_EXP__ */
+/* redefining matching value: #define FLT_MAX_10_EXP __FLT_MAX_10_EXP__ */
+/* redefining matching value: #define DBL_MAX_10_EXP __DBL_MAX_10_EXP__ */
+/* redefining matching value: #define LDBL_MAX_10_EXP __LDBL_MAX_10_EXP__ */
+/* #define FLT_MAX __FLT_MAX__ ### string, not number "__FLT_MAX__" */
+/* #define DBL_MAX __DBL_MAX__ ### string, not number "__DBL_MAX__" */
+/* #define LDBL_MAX __LDBL_MAX__ ### string, not number "__LDBL_MAX__" */
+/* #define FLT_EPSILON __FLT_EPSILON__ ### string, not number "__FLT_EPSILON__" */
+/* #define DBL_EPSILON __DBL_EPSILON__ ### string, not number "__DBL_EPSILON__" */
+/* #define LDBL_EPSILON __LDBL_EPSILON__ ### string, not number "__LDBL_EPSILON__" */
+/* #define FLT_MIN __FLT_MIN__ ### string, not number "__FLT_MIN__" */
+/* #define DBL_MIN __DBL_MIN__ ### string, not number "__DBL_MIN__" */
+/* #define LDBL_MIN __LDBL_MIN__ ### string, not number "__LDBL_MIN__" */
+/* #  define FLT_TRUE_MIN __FLT_DENORM_MIN__ ### string, not number "__FLT_DENORM_MIN__" */
+/* #  define DBL_TRUE_MIN __DBL_DENORM_MIN__ ### string, not number "__DBL_DENORM_MIN__" */
+/* #  define LDBL_TRUE_MIN __LDBL_DENORM_MIN__ ### string, not number "__LDBL_DENORM_MIN__" */
+/* redefining matching value: #  define FLT_DECIMAL_DIG __FLT_DECIMAL_DIG__ */
+/* redefining matching value: #  define DBL_DECIMAL_DIG __DBL_DECIMAL_DIG__ */
+/* redefining matching value: #  define LDBL_DECIMAL_DIG __LDBL_DECIMAL_DIG__ */
+/* redefining matching value: #  define FLT_HAS_SUBNORM __FLT_HAS_DENORM__ */
+/* redefining matching value: #  define DBL_HAS_SUBNORM __DBL_HAS_DENORM__ */
+/* redefining matching value: #  define LDBL_HAS_SUBNORM __LDBL_HAS_DENORM__ */
+/* # define SDL_SIZE_MAX SIZE_MAX ### string, not number "1.844674407371e+19" */
+/* #define SDL_MAX_SINT8   ((Sint8)0x7F) ### string, not number "((Sint8)0x7F)" */
+/* #define SDL_MIN_SINT8   ((Sint8)(~0x7F)) ### string, not number "((Sint8)(~0x7F))" */
+/* #define SDL_MAX_UINT8   ((Uint8)0xFF) ### string, not number "((Uint8)0xFF)" */
+/* #define SDL_MIN_UINT8   ((Uint8)0x00) ### string, not number "((Uint8)0x00)" */
+/* #define SDL_MAX_SINT16  ((Sint16)0x7FFF) ### string, not number "((Sint16)0x7FFF)" */
+/* #define SDL_MIN_SINT16  ((Sint16)(~0x7FFF)) ### string, not number "((Sint16)(~0x7FFF))" */
+/* #define SDL_MAX_UINT16  ((Uint16)0xFFFF) ### string, not number "((Uint16)0xFFFF)" */
+/* #define SDL_MIN_UINT16  ((Uint16)0x0000) ### string, not number "((Uint16)0x0000)" */
+/* #define SDL_MAX_SINT32  ((Sint32)0x7FFFFFFF) ### string, not number "((Sint32)0x7FFFFFFF)" */
+/* #define SDL_MIN_SINT32  ((Sint32)(~0x7FFFFFFF)) ### string, not number "((Sint32)(~0x7FFFFFFF))" */
+/* #define SDL_MAX_UINT32  ((Uint32)0xFFFFFFFFu) ### string, not number "((Uint32)0xFFFFFFFFu)" */
+/* #define SDL_MIN_UINT32  ((Uint32)0x00000000) ### string, not number "((Uint32)0x00000000)" */
+/* #define SDL_MAX_SINT64  ((Sint64)0x7FFFFFFFFFFFFFFFll) ### string, not number "((Sint64)0x7FFFFFFFFFFFFFFFll)" */
+/* #define SDL_MIN_SINT64  ((Sint64)(~0x7FFFFFFFFFFFFFFFll)) ### string, not number "((Sint64)(~0x7FFFFFFFFFFFFFFFll))" */
+/* #define SDL_MAX_UINT64  ((Uint64)0xFFFFFFFFFFFFFFFFull) ### string, not number "((Uint64)0xFFFFFFFFFFFFFFFFull)" */
+/* #define SDL_MIN_UINT64  ((Uint64)(0x0000000000000000ull)) ### string, not number "((Uint64)(0x0000000000000000ull))" */
+/* #define SDL_FLT_EPSILON FLT_EPSILON ### string, not number "FLT_EPSILON" */
+/* #define SDL_PRIs64 "lld" ### string, not number "\"lld\"" */
+/* #define SDL_PRIu64 PRIu64 ### string, not number "PRIu64" */
+/* #define SDL_PRIx64 PRIx64 ### string, not number "PRIx64" */
+/* #define SDL_PRIX64 PRIX64 ### string, not number "PRIX64" */
+/* #define SDL_PRIs32 PRId32 ### string, not number "PRId32" */
+/* #define SDL_PRIu32 PRIu32 ### string, not number "PRIu32" */
+/* #define SDL_PRIx32 PRIx32 ### string, not number "PRIx32" */
+/* #define SDL_PRIX32 PRIX32 ### string, not number "PRIX32" */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* #define SDL_SCOPED_CAPABILITY    SDL_THREAD_ANNOTATION_ATTRIBUTE__(scoped_lockable) ### string, not number "SDL_THREAD_ANNOTATION_ATTRIBUTE__(scoped_lockable)" */
+/* #define SDL_NO_THREAD_SAFETY_ANALYSIS    SDL_THREAD_ANNOTATION_ATTRIBUTE__(no_thread_safety_analysis) ### string, not number "SDL_THREAD_ANNOTATION_ATTRIBUTE__(no_thread_safety_analysis)" */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* #define SDL_MUTEX_MAXWAIT   (~(Uint32)0) ### string, not number "(~(Uint32)0)" */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* #define SDL_AUDIOCVT_PACKED __attribute__((packed)) ### string, not number "__attribute__((packed))" */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* #define SDL_WINDOWPOS_UNDEFINED         SDL_WINDOWPOS_UNDEFINED_DISPLAY(0) ### string, not number "SDL_WINDOWPOS_UNDEFINED_DISPLAY(0)" */
+/* #define SDL_WINDOWPOS_CENTERED         SDL_WINDOWPOS_CENTERED_DISPLAY(0) ### string, not number "SDL_WINDOWPOS_CENTERED_DISPLAY(0)" */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* #define SDL_IPHONE_MAX_GFORCE 5.0 ### string, number, replaceline "5.0" */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* #define SDL_STANDARD_GRAVITY    9.80665f ### string, not number "9.80665f" */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* #define SDL_HAPTIC_CONSTANT   (1u<<0) ### string, not number "(1u<<0)" */
+/* #define SDL_HAPTIC_SINE       (1u<<1) ### string, not number "(1u<<1)" */
+/* #define SDL_HAPTIC_LEFTRIGHT     (1u<<2) ### string, not number "(1u<<2)" */
+/* #define SDL_HAPTIC_TRIANGLE   (1u<<3) ### string, not number "(1u<<3)" */
+/* #define SDL_HAPTIC_SAWTOOTHUP (1u<<4) ### string, not number "(1u<<4)" */
+/* #define SDL_HAPTIC_SAWTOOTHDOWN (1u<<5) ### string, not number "(1u<<5)" */
+/* #define SDL_HAPTIC_RAMP       (1u<<6) ### string, not number "(1u<<6)" */
+/* #define SDL_HAPTIC_SPRING     (1u<<7) ### string, not number "(1u<<7)" */
+/* #define SDL_HAPTIC_DAMPER     (1u<<8) ### string, not number "(1u<<8)" */
+/* #define SDL_HAPTIC_INERTIA    (1u<<9) ### string, not number "(1u<<9)" */
+/* #define SDL_HAPTIC_FRICTION   (1u<<10) ### string, not number "(1u<<10)" */
+/* #define SDL_HAPTIC_CUSTOM     (1u<<11) ### string, not number "(1u<<11)" */
+/* #define SDL_HAPTIC_GAIN       (1u<<12) ### string, not number "(1u<<12)" */
+/* #define SDL_HAPTIC_AUTOCENTER (1u<<13) ### string, not number "(1u<<13)" */
+/* #define SDL_HAPTIC_STATUS     (1u<<14) ### string, not number "(1u<<14)" */
+/* #define SDL_HAPTIC_PAUSE      (1u<<15) ### string, not number "(1u<<15)" */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* #define SDL_HINT_ACCELEROMETER_AS_JOYSTICK "SDL_ACCELEROMETER_AS_JOYSTICK" ### string, not number "\"SDL_ACCELEROMETER_AS_JOYSTICK\"" */
+/* #define SDL_HINT_ALLOW_ALT_TAB_WHILE_GRABBED "SDL_ALLOW_ALT_TAB_WHILE_GRABBED" ### string, not number "\"SDL_ALLOW_ALT_TAB_WHILE_GRABBED\"" */
+/* #define SDL_HINT_ALLOW_TOPMOST "SDL_ALLOW_TOPMOST" ### string, not number "\"SDL_ALLOW_TOPMOST\"" */
+/* #define SDL_HINT_ANDROID_APK_EXPANSION_MAIN_FILE_VERSION "SDL_ANDROID_APK_EXPANSION_MAIN_FILE_VERSION" ### string, not number "\"SDL_ANDROID_APK_EXPANSION_MAIN_FILE_VERSION\"" */
+/* #define SDL_HINT_ANDROID_APK_EXPANSION_PATCH_FILE_VERSION "SDL_ANDROID_APK_EXPANSION_PATCH_FILE_VERSION" ### string, not number "\"SDL_ANDROID_APK_EXPANSION_PATCH_FILE_VERSION\"" */
+/* #define SDL_HINT_ANDROID_BLOCK_ON_PAUSE "SDL_ANDROID_BLOCK_ON_PAUSE" ### string, not number "\"SDL_ANDROID_BLOCK_ON_PAUSE\"" */
+/* #define SDL_HINT_ANDROID_BLOCK_ON_PAUSE_PAUSEAUDIO "SDL_ANDROID_BLOCK_ON_PAUSE_PAUSEAUDIO" ### string, not number "\"SDL_ANDROID_BLOCK_ON_PAUSE_PAUSEAUDIO\"" */
+/* #define SDL_HINT_ANDROID_TRAP_BACK_BUTTON "SDL_ANDROID_TRAP_BACK_BUTTON" ### string, not number "\"SDL_ANDROID_TRAP_BACK_BUTTON\"" */
+/* #define SDL_HINT_APP_NAME "SDL_APP_NAME" ### string, not number "\"SDL_APP_NAME\"" */
+/* #define SDL_HINT_APPLE_TV_CONTROLLER_UI_EVENTS "SDL_APPLE_TV_CONTROLLER_UI_EVENTS" ### string, not number "\"SDL_APPLE_TV_CONTROLLER_UI_EVENTS\"" */
+/* #define SDL_HINT_APPLE_TV_REMOTE_ALLOW_ROTATION "SDL_APPLE_TV_REMOTE_ALLOW_ROTATION" ### string, not number "\"SDL_APPLE_TV_REMOTE_ALLOW_ROTATION\"" */
+/* #define SDL_HINT_AUDIO_CATEGORY   "SDL_AUDIO_CATEGORY" ### string, not number "\"SDL_AUDIO_CATEGORY\"" */
+/* #define SDL_HINT_AUDIO_DEVICE_APP_NAME "SDL_AUDIO_DEVICE_APP_NAME" ### string, not number "\"SDL_AUDIO_DEVICE_APP_NAME\"" */
+/* #define SDL_HINT_AUDIO_DEVICE_STREAM_NAME "SDL_AUDIO_DEVICE_STREAM_NAME" ### string, not number "\"SDL_AUDIO_DEVICE_STREAM_NAME\"" */
+/* #define SDL_HINT_AUDIO_DEVICE_STREAM_ROLE "SDL_AUDIO_DEVICE_STREAM_ROLE" ### string, not number "\"SDL_AUDIO_DEVICE_STREAM_ROLE\"" */
+/* #define SDL_HINT_AUDIO_RESAMPLING_MODE   "SDL_AUDIO_RESAMPLING_MODE" ### string, not number "\"SDL_AUDIO_RESAMPLING_MODE\"" */
+/* #define SDL_HINT_AUTO_UPDATE_JOYSTICKS  "SDL_AUTO_UPDATE_JOYSTICKS" ### string, not number "\"SDL_AUTO_UPDATE_JOYSTICKS\"" */
+/* #define SDL_HINT_AUTO_UPDATE_SENSORS    "SDL_AUTO_UPDATE_SENSORS" ### string, not number "\"SDL_AUTO_UPDATE_SENSORS\"" */
+/* #define SDL_HINT_BMP_SAVE_LEGACY_FORMAT "SDL_BMP_SAVE_LEGACY_FORMAT" ### string, not number "\"SDL_BMP_SAVE_LEGACY_FORMAT\"" */
+/* #define SDL_HINT_DISPLAY_USABLE_BOUNDS "SDL_DISPLAY_USABLE_BOUNDS" ### string, not number "\"SDL_DISPLAY_USABLE_BOUNDS\"" */
+/* #define SDL_HINT_EMSCRIPTEN_ASYNCIFY   "SDL_EMSCRIPTEN_ASYNCIFY" ### string, not number "\"SDL_EMSCRIPTEN_ASYNCIFY\"" */
+/* #define SDL_HINT_EMSCRIPTEN_KEYBOARD_ELEMENT   "SDL_EMSCRIPTEN_KEYBOARD_ELEMENT" ### string, not number "\"SDL_EMSCRIPTEN_KEYBOARD_ELEMENT\"" */
+/* #define SDL_HINT_ENABLE_SCREEN_KEYBOARD "SDL_ENABLE_SCREEN_KEYBOARD" ### string, not number "\"SDL_ENABLE_SCREEN_KEYBOARD\"" */
+/* #define SDL_HINT_ENABLE_STEAM_CONTROLLERS "SDL_ENABLE_STEAM_CONTROLLERS" ### string, not number "\"SDL_ENABLE_STEAM_CONTROLLERS\"" */
+/* #define SDL_HINT_EVENT_LOGGING   "SDL_EVENT_LOGGING" ### string, not number "\"SDL_EVENT_LOGGING\"" */
+/* #define SDL_HINT_FORCE_RAISEWINDOW    "SDL_HINT_FORCE_RAISEWINDOW" ### string, not number "\"SDL_HINT_FORCE_RAISEWINDOW\"" */
+/* #define SDL_HINT_FRAMEBUFFER_ACCELERATION   "SDL_FRAMEBUFFER_ACCELERATION" ### string, not number "\"SDL_FRAMEBUFFER_ACCELERATION\"" */
+/* #define SDL_HINT_GAMECONTROLLERCONFIG "SDL_GAMECONTROLLERCONFIG" ### string, not number "\"SDL_GAMECONTROLLERCONFIG\"" */
+/* #define SDL_HINT_GAMECONTROLLERCONFIG_FILE "SDL_GAMECONTROLLERCONFIG_FILE" ### string, not number "\"SDL_GAMECONTROLLERCONFIG_FILE\"" */
+/* #define SDL_HINT_GAMECONTROLLERTYPE "SDL_GAMECONTROLLERTYPE" ### string, not number "\"SDL_GAMECONTROLLERTYPE\"" */
+/* #define SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES "SDL_GAMECONTROLLER_IGNORE_DEVICES" ### string, not number "\"SDL_GAMECONTROLLER_IGNORE_DEVICES\"" */
+/* #define SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT "SDL_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT" ### string, not number "\"SDL_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT\"" */
+/* #define SDL_HINT_GAMECONTROLLER_USE_BUTTON_LABELS "SDL_GAMECONTROLLER_USE_BUTTON_LABELS" ### string, not number "\"SDL_GAMECONTROLLER_USE_BUTTON_LABELS\"" */
+/* #define SDL_HINT_GRAB_KEYBOARD              "SDL_GRAB_KEYBOARD" ### string, not number "\"SDL_GRAB_KEYBOARD\"" */
+/* #define SDL_HINT_HIDAPI_IGNORE_DEVICES "SDL_HIDAPI_IGNORE_DEVICES" ### string, not number "\"SDL_HIDAPI_IGNORE_DEVICES\"" */
+/* #define SDL_HINT_IDLE_TIMER_DISABLED "SDL_IOS_IDLE_TIMER_DISABLED" ### string, not number "\"SDL_IOS_IDLE_TIMER_DISABLED\"" */
+/* #define SDL_HINT_IME_INTERNAL_EDITING "SDL_IME_INTERNAL_EDITING" ### string, not number "\"SDL_IME_INTERNAL_EDITING\"" */
+/* #define SDL_HINT_IME_SHOW_UI "SDL_IME_SHOW_UI" ### string, not number "\"SDL_IME_SHOW_UI\"" */
+/* #define SDL_HINT_IME_SUPPORT_EXTENDED_TEXT "SDL_IME_SUPPORT_EXTENDED_TEXT" ### string, not number "\"SDL_IME_SUPPORT_EXTENDED_TEXT\"" */
+/* #define SDL_HINT_IOS_HIDE_HOME_INDICATOR "SDL_IOS_HIDE_HOME_INDICATOR" ### string, not number "\"SDL_IOS_HIDE_HOME_INDICATOR\"" */
+/* #define SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS "SDL_JOYSTICK_ALLOW_BACKGROUND_EVENTS" ### string, not number "\"SDL_JOYSTICK_ALLOW_BACKGROUND_EVENTS\"" */
+/* #define SDL_HINT_JOYSTICK_ARCADESTICK_DEVICES "SDL_JOYSTICK_ARCADESTICK_DEVICES" ### string, not number "\"SDL_JOYSTICK_ARCADESTICK_DEVICES\"" */
+/* #define SDL_HINT_JOYSTICK_ARCADESTICK_DEVICES_EXCLUDED "SDL_JOYSTICK_ARCADESTICK_DEVICES_EXCLUDED" ### string, not number "\"SDL_JOYSTICK_ARCADESTICK_DEVICES_EXCLUDED\"" */
+/* #define SDL_HINT_JOYSTICK_BLACKLIST_DEVICES "SDL_JOYSTICK_BLACKLIST_DEVICES" ### string, not number "\"SDL_JOYSTICK_BLACKLIST_DEVICES\"" */
+/* #define SDL_HINT_JOYSTICK_BLACKLIST_DEVICES_EXCLUDED "SDL_JOYSTICK_BLACKLIST_DEVICES_EXCLUDED" ### string, not number "\"SDL_JOYSTICK_BLACKLIST_DEVICES_EXCLUDED\"" */
+/* #define SDL_HINT_JOYSTICK_FLIGHTSTICK_DEVICES "SDL_JOYSTICK_FLIGHTSTICK_DEVICES" ### string, not number "\"SDL_JOYSTICK_FLIGHTSTICK_DEVICES\"" */
+/* #define SDL_HINT_JOYSTICK_FLIGHTSTICK_DEVICES_EXCLUDED "SDL_JOYSTICK_FLIGHTSTICK_DEVICES_EXCLUDED" ### string, not number "\"SDL_JOYSTICK_FLIGHTSTICK_DEVICES_EXCLUDED\"" */
+/* #define SDL_HINT_JOYSTICK_GAMECUBE_DEVICES "SDL_JOYSTICK_GAMECUBE_DEVICES" ### string, not number "\"SDL_JOYSTICK_GAMECUBE_DEVICES\"" */
+/* #define SDL_HINT_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED "SDL_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED" ### string, not number "\"SDL_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI "SDL_JOYSTICK_HIDAPI" ### string, not number "\"SDL_JOYSTICK_HIDAPI\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_GAMECUBE "SDL_JOYSTICK_HIDAPI_GAMECUBE" ### string, not number "\"SDL_JOYSTICK_HIDAPI_GAMECUBE\"" */
+/* #define SDL_HINT_JOYSTICK_GAMECUBE_RUMBLE_BRAKE "SDL_JOYSTICK_GAMECUBE_RUMBLE_BRAKE" ### string, not number "\"SDL_JOYSTICK_GAMECUBE_RUMBLE_BRAKE\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_JOY_CONS "SDL_JOYSTICK_HIDAPI_JOY_CONS" ### string, not number "\"SDL_JOYSTICK_HIDAPI_JOY_CONS\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_COMBINE_JOY_CONS "SDL_JOYSTICK_HIDAPI_COMBINE_JOY_CONS" ### string, not number "\"SDL_JOYSTICK_HIDAPI_COMBINE_JOY_CONS\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_VERTICAL_JOY_CONS "SDL_JOYSTICK_HIDAPI_VERTICAL_JOY_CONS" ### string, not number "\"SDL_JOYSTICK_HIDAPI_VERTICAL_JOY_CONS\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_LUNA "SDL_JOYSTICK_HIDAPI_LUNA" ### string, not number "\"SDL_JOYSTICK_HIDAPI_LUNA\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_NINTENDO_CLASSIC "SDL_JOYSTICK_HIDAPI_NINTENDO_CLASSIC" ### string, not number "\"SDL_JOYSTICK_HIDAPI_NINTENDO_CLASSIC\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_SHIELD "SDL_JOYSTICK_HIDAPI_SHIELD" ### string, not number "\"SDL_JOYSTICK_HIDAPI_SHIELD\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_PS3 "SDL_JOYSTICK_HIDAPI_PS3" ### string, not number "\"SDL_JOYSTICK_HIDAPI_PS3\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_PS4 "SDL_JOYSTICK_HIDAPI_PS4" ### string, not number "\"SDL_JOYSTICK_HIDAPI_PS4\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_PS4_RUMBLE "SDL_JOYSTICK_HIDAPI_PS4_RUMBLE" ### string, not number "\"SDL_JOYSTICK_HIDAPI_PS4_RUMBLE\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_PS5 "SDL_JOYSTICK_HIDAPI_PS5" ### string, not number "\"SDL_JOYSTICK_HIDAPI_PS5\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_PS5_PLAYER_LED "SDL_JOYSTICK_HIDAPI_PS5_PLAYER_LED" ### string, not number "\"SDL_JOYSTICK_HIDAPI_PS5_PLAYER_LED\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_PS5_RUMBLE "SDL_JOYSTICK_HIDAPI_PS5_RUMBLE" ### string, not number "\"SDL_JOYSTICK_HIDAPI_PS5_RUMBLE\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_STADIA "SDL_JOYSTICK_HIDAPI_STADIA" ### string, not number "\"SDL_JOYSTICK_HIDAPI_STADIA\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_STEAM "SDL_JOYSTICK_HIDAPI_STEAM" ### string, not number "\"SDL_JOYSTICK_HIDAPI_STEAM\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_STEAMDECK "SDL_JOYSTICK_HIDAPI_STEAMDECK" ### string, not number "\"SDL_JOYSTICK_HIDAPI_STEAMDECK\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_SWITCH "SDL_JOYSTICK_HIDAPI_SWITCH" ### string, not number "\"SDL_JOYSTICK_HIDAPI_SWITCH\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_SWITCH_HOME_LED "SDL_JOYSTICK_HIDAPI_SWITCH_HOME_LED" ### string, not number "\"SDL_JOYSTICK_HIDAPI_SWITCH_HOME_LED\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_JOYCON_HOME_LED "SDL_JOYSTICK_HIDAPI_JOYCON_HOME_LED" ### string, not number "\"SDL_JOYSTICK_HIDAPI_JOYCON_HOME_LED\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_SWITCH_PLAYER_LED "SDL_JOYSTICK_HIDAPI_SWITCH_PLAYER_LED" ### string, not number "\"SDL_JOYSTICK_HIDAPI_SWITCH_PLAYER_LED\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_WII "SDL_JOYSTICK_HIDAPI_WII" ### string, not number "\"SDL_JOYSTICK_HIDAPI_WII\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_WII_PLAYER_LED "SDL_JOYSTICK_HIDAPI_WII_PLAYER_LED" ### string, not number "\"SDL_JOYSTICK_HIDAPI_WII_PLAYER_LED\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_XBOX   "SDL_JOYSTICK_HIDAPI_XBOX" ### string, not number "\"SDL_JOYSTICK_HIDAPI_XBOX\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_XBOX_360   "SDL_JOYSTICK_HIDAPI_XBOX_360" ### string, not number "\"SDL_JOYSTICK_HIDAPI_XBOX_360\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_XBOX_360_PLAYER_LED "SDL_JOYSTICK_HIDAPI_XBOX_360_PLAYER_LED" ### string, not number "\"SDL_JOYSTICK_HIDAPI_XBOX_360_PLAYER_LED\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_XBOX_360_WIRELESS   "SDL_JOYSTICK_HIDAPI_XBOX_360_WIRELESS" ### string, not number "\"SDL_JOYSTICK_HIDAPI_XBOX_360_WIRELESS\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_XBOX_ONE   "SDL_JOYSTICK_HIDAPI_XBOX_ONE" ### string, not number "\"SDL_JOYSTICK_HIDAPI_XBOX_ONE\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_XBOX_ONE_HOME_LED "SDL_JOYSTICK_HIDAPI_XBOX_ONE_HOME_LED" ### string, not number "\"SDL_JOYSTICK_HIDAPI_XBOX_ONE_HOME_LED\"" */
+/* #define SDL_HINT_JOYSTICK_IOKIT "SDL_JOYSTICK_IOKIT" ### string, not number "\"SDL_JOYSTICK_IOKIT\"" */
+/* #define SDL_HINT_JOYSTICK_MFI "SDL_JOYSTICK_MFI" ### string, not number "\"SDL_JOYSTICK_MFI\"" */
+/* #define SDL_HINT_JOYSTICK_RAWINPUT "SDL_JOYSTICK_RAWINPUT" ### string, not number "\"SDL_JOYSTICK_RAWINPUT\"" */
+/* #define SDL_HINT_JOYSTICK_RAWINPUT_CORRELATE_XINPUT   "SDL_JOYSTICK_RAWINPUT_CORRELATE_XINPUT" ### string, not number "\"SDL_JOYSTICK_RAWINPUT_CORRELATE_XINPUT\"" */
+/* #define SDL_HINT_JOYSTICK_ROG_CHAKRAM "SDL_JOYSTICK_ROG_CHAKRAM" ### string, not number "\"SDL_JOYSTICK_ROG_CHAKRAM\"" */
+/* #define SDL_HINT_JOYSTICK_THREAD "SDL_JOYSTICK_THREAD" ### string, not number "\"SDL_JOYSTICK_THREAD\"" */
+/* #define SDL_HINT_JOYSTICK_THROTTLE_DEVICES "SDL_JOYSTICK_THROTTLE_DEVICES" ### string, not number "\"SDL_JOYSTICK_THROTTLE_DEVICES\"" */
+/* #define SDL_HINT_JOYSTICK_THROTTLE_DEVICES_EXCLUDED "SDL_JOYSTICK_THROTTLE_DEVICES_EXCLUDED" ### string, not number "\"SDL_JOYSTICK_THROTTLE_DEVICES_EXCLUDED\"" */
+/* #define SDL_HINT_JOYSTICK_WGI "SDL_JOYSTICK_WGI" ### string, not number "\"SDL_JOYSTICK_WGI\"" */
+/* #define SDL_HINT_JOYSTICK_WHEEL_DEVICES "SDL_JOYSTICK_WHEEL_DEVICES" ### string, not number "\"SDL_JOYSTICK_WHEEL_DEVICES\"" */
+/* #define SDL_HINT_JOYSTICK_WHEEL_DEVICES_EXCLUDED "SDL_JOYSTICK_WHEEL_DEVICES_EXCLUDED" ### string, not number "\"SDL_JOYSTICK_WHEEL_DEVICES_EXCLUDED\"" */
+/* #define SDL_HINT_JOYSTICK_ZERO_CENTERED_DEVICES "SDL_JOYSTICK_ZERO_CENTERED_DEVICES" ### string, not number "\"SDL_JOYSTICK_ZERO_CENTERED_DEVICES\"" */
+/* #define SDL_HINT_KMSDRM_REQUIRE_DRM_MASTER      "SDL_KMSDRM_REQUIRE_DRM_MASTER" ### string, not number "\"SDL_KMSDRM_REQUIRE_DRM_MASTER\"" */
+/* #define SDL_HINT_JOYSTICK_DEVICE "SDL_JOYSTICK_DEVICE" ### string, not number "\"SDL_JOYSTICK_DEVICE\"" */
+/* #define SDL_HINT_LINUX_DIGITAL_HATS "SDL_LINUX_DIGITAL_HATS" ### string, not number "\"SDL_LINUX_DIGITAL_HATS\"" */
+/* #define SDL_HINT_LINUX_HAT_DEADZONES "SDL_LINUX_HAT_DEADZONES" ### string, not number "\"SDL_LINUX_HAT_DEADZONES\"" */
+/* #define SDL_HINT_LINUX_JOYSTICK_CLASSIC "SDL_LINUX_JOYSTICK_CLASSIC" ### string, not number "\"SDL_LINUX_JOYSTICK_CLASSIC\"" */
+/* #define SDL_HINT_LINUX_JOYSTICK_DEADZONES "SDL_LINUX_JOYSTICK_DEADZONES" ### string, not number "\"SDL_LINUX_JOYSTICK_DEADZONES\"" */
+/* #define SDL_HINT_LOGGING   "SDL_LOGGING" ### string, not number "\"SDL_LOGGING\"" */
+/* #define SDL_HINT_MAC_BACKGROUND_APP    "SDL_MAC_BACKGROUND_APP" ### string, not number "\"SDL_MAC_BACKGROUND_APP\"" */
+/* #define SDL_HINT_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK "SDL_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK" ### string, not number "\"SDL_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK\"" */
+/* #define SDL_HINT_MAC_OPENGL_ASYNC_DISPATCH "SDL_MAC_OPENGL_ASYNC_DISPATCH" ### string, not number "\"SDL_MAC_OPENGL_ASYNC_DISPATCH\"" */
+/* #define SDL_HINT_MOUSE_DOUBLE_CLICK_RADIUS    "SDL_MOUSE_DOUBLE_CLICK_RADIUS" ### string, not number "\"SDL_MOUSE_DOUBLE_CLICK_RADIUS\"" */
+/* #define SDL_HINT_MOUSE_DOUBLE_CLICK_TIME    "SDL_MOUSE_DOUBLE_CLICK_TIME" ### string, not number "\"SDL_MOUSE_DOUBLE_CLICK_TIME\"" */
+/* #define SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH "SDL_MOUSE_FOCUS_CLICKTHROUGH" ### string, not number "\"SDL_MOUSE_FOCUS_CLICKTHROUGH\"" */
+/* #define SDL_HINT_MOUSE_NORMAL_SPEED_SCALE    "SDL_MOUSE_NORMAL_SPEED_SCALE" ### string, not number "\"SDL_MOUSE_NORMAL_SPEED_SCALE\"" */
+/* #define SDL_HINT_MOUSE_RELATIVE_MODE_CENTER    "SDL_MOUSE_RELATIVE_MODE_CENTER" ### string, not number "\"SDL_MOUSE_RELATIVE_MODE_CENTER\"" */
+/* #define SDL_HINT_MOUSE_RELATIVE_MODE_WARP    "SDL_MOUSE_RELATIVE_MODE_WARP" ### string, not number "\"SDL_MOUSE_RELATIVE_MODE_WARP\"" */
+/* #define SDL_HINT_MOUSE_RELATIVE_SCALING "SDL_MOUSE_RELATIVE_SCALING" ### string, not number "\"SDL_MOUSE_RELATIVE_SCALING\"" */
+/* #define SDL_HINT_MOUSE_RELATIVE_SPEED_SCALE    "SDL_MOUSE_RELATIVE_SPEED_SCALE" ### string, not number "\"SDL_MOUSE_RELATIVE_SPEED_SCALE\"" */
+/* #define SDL_HINT_MOUSE_RELATIVE_SYSTEM_SCALE    "SDL_MOUSE_RELATIVE_SYSTEM_SCALE" ### string, not number "\"SDL_MOUSE_RELATIVE_SYSTEM_SCALE\"" */
+/* #define SDL_HINT_MOUSE_RELATIVE_WARP_MOTION  "SDL_MOUSE_RELATIVE_WARP_MOTION" ### string, not number "\"SDL_MOUSE_RELATIVE_WARP_MOTION\"" */
+/* #define SDL_HINT_MOUSE_RELATIVE_CURSOR_VISIBLE  "SDL_MOUSE_RELATIVE_CURSOR_VISIBLE" ### string, not number "\"SDL_MOUSE_RELATIVE_CURSOR_VISIBLE\"" */
+/* #define SDL_HINT_MOUSE_TOUCH_EVENTS    "SDL_MOUSE_TOUCH_EVENTS" ### string, not number "\"SDL_MOUSE_TOUCH_EVENTS\"" */
+/* #define SDL_HINT_MOUSE_AUTO_CAPTURE    "SDL_MOUSE_AUTO_CAPTURE" ### string, not number "\"SDL_MOUSE_AUTO_CAPTURE\"" */
+/* #define SDL_HINT_NO_SIGNAL_HANDLERS   "SDL_NO_SIGNAL_HANDLERS" ### string, not number "\"SDL_NO_SIGNAL_HANDLERS\"" */
+/* #define SDL_HINT_OPENGL_ES_DRIVER   "SDL_OPENGL_ES_DRIVER" ### string, not number "\"SDL_OPENGL_ES_DRIVER\"" */
+/* #define SDL_HINT_ORIENTATIONS "SDL_IOS_ORIENTATIONS" ### string, not number "\"SDL_IOS_ORIENTATIONS\"" */
+/* #define SDL_HINT_POLL_SENTINEL "SDL_POLL_SENTINEL" ### string, not number "\"SDL_POLL_SENTINEL\"" */
+/* #define SDL_HINT_PREFERRED_LOCALES "SDL_PREFERRED_LOCALES" ### string, not number "\"SDL_PREFERRED_LOCALES\"" */
+/* #define SDL_HINT_QTWAYLAND_CONTENT_ORIENTATION "SDL_QTWAYLAND_CONTENT_ORIENTATION" ### string, not number "\"SDL_QTWAYLAND_CONTENT_ORIENTATION\"" */
+/* #define SDL_HINT_QTWAYLAND_WINDOW_FLAGS "SDL_QTWAYLAND_WINDOW_FLAGS" ### string, not number "\"SDL_QTWAYLAND_WINDOW_FLAGS\"" */
+/* #define SDL_HINT_RENDER_BATCHING  "SDL_RENDER_BATCHING" ### string, not number "\"SDL_RENDER_BATCHING\"" */
+/* #define SDL_HINT_RENDER_LINE_METHOD "SDL_RENDER_LINE_METHOD" ### string, not number "\"SDL_RENDER_LINE_METHOD\"" */
+/* #define SDL_HINT_RENDER_DIRECT3D11_DEBUG    "SDL_RENDER_DIRECT3D11_DEBUG" ### string, not number "\"SDL_RENDER_DIRECT3D11_DEBUG\"" */
+/* #define SDL_HINT_RENDER_DIRECT3D_THREADSAFE "SDL_RENDER_DIRECT3D_THREADSAFE" ### string, not number "\"SDL_RENDER_DIRECT3D_THREADSAFE\"" */
+/* #define SDL_HINT_RENDER_DRIVER              "SDL_RENDER_DRIVER" ### string, not number "\"SDL_RENDER_DRIVER\"" */
+/* #define SDL_HINT_RENDER_LOGICAL_SIZE_MODE       "SDL_RENDER_LOGICAL_SIZE_MODE" ### string, not number "\"SDL_RENDER_LOGICAL_SIZE_MODE\"" */
+/* #define SDL_HINT_RENDER_OPENGL_SHADERS      "SDL_RENDER_OPENGL_SHADERS" ### string, not number "\"SDL_RENDER_OPENGL_SHADERS\"" */
+/* #define SDL_HINT_RENDER_SCALE_QUALITY       "SDL_RENDER_SCALE_QUALITY" ### string, not number "\"SDL_RENDER_SCALE_QUALITY\"" */
+/* #define SDL_HINT_RENDER_VSYNC               "SDL_RENDER_VSYNC" ### string, not number "\"SDL_RENDER_VSYNC\"" */
+/* #define SDL_HINT_RENDER_METAL_PREFER_LOW_POWER_DEVICE "SDL_RENDER_METAL_PREFER_LOW_POWER_DEVICE" ### string, not number "\"SDL_RENDER_METAL_PREFER_LOW_POWER_DEVICE\"" */
+/* #define SDL_HINT_ROG_GAMEPAD_MICE "SDL_ROG_GAMEPAD_MICE" ### string, not number "\"SDL_ROG_GAMEPAD_MICE\"" */
+/* #define SDL_HINT_ROG_GAMEPAD_MICE_EXCLUDED "SDL_ROG_GAMEPAD_MICE_EXCLUDED" ### string, not number "\"SDL_ROG_GAMEPAD_MICE_EXCLUDED\"" */
+/* #define SDL_HINT_PS2_DYNAMIC_VSYNC    "SDL_PS2_DYNAMIC_VSYNC" ### string, not number "\"SDL_PS2_DYNAMIC_VSYNC\"" */
+/* #define SDL_HINT_RETURN_KEY_HIDES_IME "SDL_RETURN_KEY_HIDES_IME" ### string, not number "\"SDL_RETURN_KEY_HIDES_IME\"" */
+/* #define SDL_HINT_RPI_VIDEO_LAYER           "SDL_RPI_VIDEO_LAYER" ### string, not number "\"SDL_RPI_VIDEO_LAYER\"" */
+/* #define SDL_HINT_SCREENSAVER_INHIBIT_ACTIVITY_NAME "SDL_SCREENSAVER_INHIBIT_ACTIVITY_NAME" ### string, not number "\"SDL_SCREENSAVER_INHIBIT_ACTIVITY_NAME\"" */
+/* #define SDL_HINT_THREAD_FORCE_REALTIME_TIME_CRITICAL "SDL_THREAD_FORCE_REALTIME_TIME_CRITICAL" ### string, not number "\"SDL_THREAD_FORCE_REALTIME_TIME_CRITICAL\"" */
+/* #define SDL_HINT_THREAD_PRIORITY_POLICY         "SDL_THREAD_PRIORITY_POLICY" ### string, not number "\"SDL_THREAD_PRIORITY_POLICY\"" */
+/* #define SDL_HINT_THREAD_STACK_SIZE              "SDL_THREAD_STACK_SIZE" ### string, not number "\"SDL_THREAD_STACK_SIZE\"" */
+/* #define SDL_HINT_TIMER_RESOLUTION "SDL_TIMER_RESOLUTION" ### string, not number "\"SDL_TIMER_RESOLUTION\"" */
+/* #define SDL_HINT_TOUCH_MOUSE_EVENTS    "SDL_TOUCH_MOUSE_EVENTS" ### string, not number "\"SDL_TOUCH_MOUSE_EVENTS\"" */
+/* #define SDL_HINT_VITA_TOUCH_MOUSE_DEVICE    "SDL_HINT_VITA_TOUCH_MOUSE_DEVICE" ### string, not number "\"SDL_HINT_VITA_TOUCH_MOUSE_DEVICE\"" */
+/* #define SDL_HINT_TV_REMOTE_AS_JOYSTICK "SDL_TV_REMOTE_AS_JOYSTICK" ### string, not number "\"SDL_TV_REMOTE_AS_JOYSTICK\"" */
+/* #define SDL_HINT_VIDEO_ALLOW_SCREENSAVER    "SDL_VIDEO_ALLOW_SCREENSAVER" ### string, not number "\"SDL_VIDEO_ALLOW_SCREENSAVER\"" */
+/* #define SDL_HINT_VIDEO_DOUBLE_BUFFER      "SDL_VIDEO_DOUBLE_BUFFER" ### string, not number "\"SDL_VIDEO_DOUBLE_BUFFER\"" */
+/* #define SDL_HINT_VIDEO_EGL_ALLOW_TRANSPARENCY "SDL_VIDEO_EGL_ALLOW_TRANSPARENCY" ### string, not number "\"SDL_VIDEO_EGL_ALLOW_TRANSPARENCY\"" */
+/* #define SDL_HINT_VIDEO_EXTERNAL_CONTEXT    "SDL_VIDEO_EXTERNAL_CONTEXT" ### string, not number "\"SDL_VIDEO_EXTERNAL_CONTEXT\"" */
+/* #define SDL_HINT_VIDEO_HIGHDPI_DISABLED "SDL_VIDEO_HIGHDPI_DISABLED" ### string, not number "\"SDL_VIDEO_HIGHDPI_DISABLED\"" */
+/* #define SDL_HINT_VIDEO_MAC_FULLSCREEN_SPACES    "SDL_VIDEO_MAC_FULLSCREEN_SPACES" ### string, not number "\"SDL_VIDEO_MAC_FULLSCREEN_SPACES\"" */
+/* #define SDL_HINT_VIDEO_MINIMIZE_ON_FOCUS_LOSS   "SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS" ### string, not number "\"SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS\"" */
+/* #define SDL_HINT_VIDEO_WAYLAND_ALLOW_LIBDECOR "SDL_VIDEO_WAYLAND_ALLOW_LIBDECOR" ### string, not number "\"SDL_VIDEO_WAYLAND_ALLOW_LIBDECOR\"" */
+/* #define SDL_HINT_VIDEO_WAYLAND_PREFER_LIBDECOR "SDL_VIDEO_WAYLAND_PREFER_LIBDECOR" ### string, not number "\"SDL_VIDEO_WAYLAND_PREFER_LIBDECOR\"" */
+/* #define SDL_HINT_VIDEO_WAYLAND_MODE_EMULATION "SDL_VIDEO_WAYLAND_MODE_EMULATION" ### string, not number "\"SDL_VIDEO_WAYLAND_MODE_EMULATION\"" */
+/* #define SDL_HINT_VIDEO_WAYLAND_EMULATE_MOUSE_WARP "SDL_VIDEO_WAYLAND_EMULATE_MOUSE_WARP" ### string, not number "\"SDL_VIDEO_WAYLAND_EMULATE_MOUSE_WARP\"" */
+/* #define SDL_HINT_VIDEO_WINDOW_SHARE_PIXEL_FORMAT    "SDL_VIDEO_WINDOW_SHARE_PIXEL_FORMAT" ### string, not number "\"SDL_VIDEO_WINDOW_SHARE_PIXEL_FORMAT\"" */
+/* #define SDL_HINT_VIDEO_FOREIGN_WINDOW_OPENGL "SDL_VIDEO_FOREIGN_WINDOW_OPENGL" ### string, not number "\"SDL_VIDEO_FOREIGN_WINDOW_OPENGL\"" */
+/* #define SDL_HINT_VIDEO_FOREIGN_WINDOW_VULKAN "SDL_VIDEO_FOREIGN_WINDOW_VULKAN" ### string, not number "\"SDL_VIDEO_FOREIGN_WINDOW_VULKAN\"" */
+/* #define SDL_HINT_VIDEO_WIN_D3DCOMPILER              "SDL_VIDEO_WIN_D3DCOMPILER" ### string, not number "\"SDL_VIDEO_WIN_D3DCOMPILER\"" */
+/* #define SDL_HINT_VIDEO_X11_FORCE_EGL "SDL_VIDEO_X11_FORCE_EGL" ### string, not number "\"SDL_VIDEO_X11_FORCE_EGL\"" */
+/* #define SDL_HINT_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR "SDL_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR" ### string, not number "\"SDL_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR\"" */
+/* #define SDL_HINT_VIDEO_X11_NET_WM_PING      "SDL_VIDEO_X11_NET_WM_PING" ### string, not number "\"SDL_VIDEO_X11_NET_WM_PING\"" */
+/* #define SDL_HINT_VIDEO_X11_WINDOW_VISUALID      "SDL_VIDEO_X11_WINDOW_VISUALID" ### string, not number "\"SDL_VIDEO_X11_WINDOW_VISUALID\"" */
+/* #define SDL_HINT_VIDEO_X11_XINERAMA         "SDL_VIDEO_X11_XINERAMA" ### string, not number "\"SDL_VIDEO_X11_XINERAMA\"" */
+/* #define SDL_HINT_VIDEO_X11_XRANDR           "SDL_VIDEO_X11_XRANDR" ### string, not number "\"SDL_VIDEO_X11_XRANDR\"" */
+/* #define SDL_HINT_VIDEO_X11_XVIDMODE         "SDL_VIDEO_X11_XVIDMODE" ### string, not number "\"SDL_VIDEO_X11_XVIDMODE\"" */
+/* #define SDL_HINT_WAVE_FACT_CHUNK   "SDL_WAVE_FACT_CHUNK" ### string, not number "\"SDL_WAVE_FACT_CHUNK\"" */
+/* #define SDL_HINT_WAVE_RIFF_CHUNK_SIZE   "SDL_WAVE_RIFF_CHUNK_SIZE" ### string, not number "\"SDL_WAVE_RIFF_CHUNK_SIZE\"" */
+/* #define SDL_HINT_WAVE_TRUNCATION   "SDL_WAVE_TRUNCATION" ### string, not number "\"SDL_WAVE_TRUNCATION\"" */
+/* #define SDL_HINT_WINDOWS_DISABLE_THREAD_NAMING "SDL_WINDOWS_DISABLE_THREAD_NAMING" ### string, not number "\"SDL_WINDOWS_DISABLE_THREAD_NAMING\"" */
+/* #define SDL_HINT_WINDOWS_ENABLE_MENU_MNEMONICS "SDL_WINDOWS_ENABLE_MENU_MNEMONICS" ### string, not number "\"SDL_WINDOWS_ENABLE_MENU_MNEMONICS\"" */
+/* #define SDL_HINT_WINDOWS_ENABLE_MESSAGELOOP "SDL_WINDOWS_ENABLE_MESSAGELOOP" ### string, not number "\"SDL_WINDOWS_ENABLE_MESSAGELOOP\"" */
+/* #define SDL_HINT_WINDOWS_FORCE_MUTEX_CRITICAL_SECTIONS "SDL_WINDOWS_FORCE_MUTEX_CRITICAL_SECTIONS" ### string, not number "\"SDL_WINDOWS_FORCE_MUTEX_CRITICAL_SECTIONS\"" */
+/* #define SDL_HINT_WINDOWS_FORCE_SEMAPHORE_KERNEL "SDL_WINDOWS_FORCE_SEMAPHORE_KERNEL" ### string, not number "\"SDL_WINDOWS_FORCE_SEMAPHORE_KERNEL\"" */
+/* #define SDL_HINT_WINDOWS_INTRESOURCE_ICON       "SDL_WINDOWS_INTRESOURCE_ICON" ### string, not number "\"SDL_WINDOWS_INTRESOURCE_ICON\"" */
+/* #define SDL_HINT_WINDOWS_INTRESOURCE_ICON_SMALL "SDL_WINDOWS_INTRESOURCE_ICON_SMALL" ### string, not number "\"SDL_WINDOWS_INTRESOURCE_ICON_SMALL\"" */
+/* #define SDL_HINT_WINDOWS_NO_CLOSE_ON_ALT_F4 "SDL_WINDOWS_NO_CLOSE_ON_ALT_F4" ### string, not number "\"SDL_WINDOWS_NO_CLOSE_ON_ALT_F4\"" */
+/* #define SDL_HINT_WINDOWS_USE_D3D9EX "SDL_WINDOWS_USE_D3D9EX" ### string, not number "\"SDL_WINDOWS_USE_D3D9EX\"" */
+/* #define SDL_HINT_WINDOWS_DPI_AWARENESS "SDL_WINDOWS_DPI_AWARENESS" ### string, not number "\"SDL_WINDOWS_DPI_AWARENESS\"" */
+/* #define SDL_HINT_WINDOWS_DPI_SCALING "SDL_WINDOWS_DPI_SCALING" ### string, not number "\"SDL_WINDOWS_DPI_SCALING\"" */
+/* #define SDL_HINT_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN    "SDL_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN" ### string, not number "\"SDL_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN\"" */
+/* #define SDL_HINT_WINDOW_NO_ACTIVATION_WHEN_SHOWN    "SDL_WINDOW_NO_ACTIVATION_WHEN_SHOWN" ### string, not number "\"SDL_WINDOW_NO_ACTIVATION_WHEN_SHOWN\"" */
+/* #define SDL_HINT_WINRT_HANDLE_BACK_BUTTON "SDL_WINRT_HANDLE_BACK_BUTTON" ### string, not number "\"SDL_WINRT_HANDLE_BACK_BUTTON\"" */
+/* #define SDL_HINT_WINRT_PRIVACY_POLICY_LABEL "SDL_WINRT_PRIVACY_POLICY_LABEL" ### string, not number "\"SDL_WINRT_PRIVACY_POLICY_LABEL\"" */
+/* #define SDL_HINT_WINRT_PRIVACY_POLICY_URL "SDL_WINRT_PRIVACY_POLICY_URL" ### string, not number "\"SDL_WINRT_PRIVACY_POLICY_URL\"" */
+/* #define SDL_HINT_X11_FORCE_OVERRIDE_REDIRECT "SDL_X11_FORCE_OVERRIDE_REDIRECT" ### string, not number "\"SDL_X11_FORCE_OVERRIDE_REDIRECT\"" */
+/* #define SDL_HINT_XINPUT_ENABLED "SDL_XINPUT_ENABLED" ### string, not number "\"SDL_XINPUT_ENABLED\"" */
+/* #define SDL_HINT_DIRECTINPUT_ENABLED "SDL_DIRECTINPUT_ENABLED" ### string, not number "\"SDL_DIRECTINPUT_ENABLED\"" */
+/* #define SDL_HINT_XINPUT_USE_OLD_JOYSTICK_MAPPING "SDL_XINPUT_USE_OLD_JOYSTICK_MAPPING" ### string, not number "\"SDL_XINPUT_USE_OLD_JOYSTICK_MAPPING\"" */
+/* #define SDL_HINT_AUDIO_INCLUDE_MONITORS "SDL_AUDIO_INCLUDE_MONITORS" ### string, not number "\"SDL_AUDIO_INCLUDE_MONITORS\"" */
+/* #define SDL_HINT_X11_WINDOW_TYPE "SDL_X11_WINDOW_TYPE" ### string, not number "\"SDL_X11_WINDOW_TYPE\"" */
+/* #define SDL_HINT_QUIT_ON_LAST_WINDOW_CLOSE "SDL_QUIT_ON_LAST_WINDOW_CLOSE" ### string, not number "\"SDL_QUIT_ON_LAST_WINDOW_CLOSE\"" */
+/* #define SDL_HINT_VIDEODRIVER "SDL_VIDEODRIVER" ### string, not number "\"SDL_VIDEODRIVER\"" */
+/* #define SDL_HINT_AUDIODRIVER "SDL_AUDIODRIVER" ### string, not number "\"SDL_AUDIODRIVER\"" */
+/* #define SDL_HINT_KMSDRM_DEVICE_INDEX "SDL_KMSDRM_DEVICE_INDEX" ### string, not number "\"SDL_KMSDRM_DEVICE_INDEX\"" */
+/* #define SDL_HINT_TRACKPAD_IS_TOUCH_ONLY "SDL_TRACKPAD_IS_TOUCH_ONLY" ### string, not number "\"SDL_TRACKPAD_IS_TOUCH_ONLY\"" */
+/* #define SDL_HINT_SHUTDOWN_DBUS_ON_QUIT "SDL_SHUTDOWN_DBUS_ON_QUIT" ### string, not number "\"SDL_SHUTDOWN_DBUS_ON_QUIT\"" */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* #define SDL_INIT_EVERYTHING (                  SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS |                  SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC | SDL_INIT_GAMECONTROLLER | SDL_INIT_SENSOR              ) ### string, not number "(                  SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS |                  SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC | SDL_INIT_GAMECONTROLLER | SDL_INIT_SENSOR              )" */
+--]]
+
+--[[
+these are enums that don't appear in the Linux verison, and should be commented out anyways:
+
 enum { SDL_h_ = 1 };
-/* ++ BEGIN /usr/local/include/SDL2/SDL_main.h */
 enum { SDL_main_h_ = 1 };
-/* +++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
 enum { SDL_stdinc_h_ = 1 };
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_config.h */
 enum { SDL_config_h_ = 1 };
-/* +++++ BEGIN /usr/local/include/SDL2/SDL_platform.h */
 enum { SDL_platform_h_ = 1 };
-/* ++++++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityMacros.h */
-]] require 'ffi.req' 'c.AvailabilityMacros' ffi.cdef[[
-/* ++++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityMacros.h */
-/* ++++++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/TargetConditionals.h */
+enum { SDL_assert_h_ = 1 };
+enum { SDL_atomic_h_ = 1 };
+enum { SDL_audio_h_ = 1 };
+enum { SDL_error_h_ = 1 };
+enum { SDL_endian_h_ = 1 };
+enum { SDL_mutex_h_ = 1 };
+enum { SDL_thread_h_ = 1 };
+enum { SDL_rwops_h_ = 1 };
+enum { SDL_clipboard_h_ = 1 };
+enum { SDL_cpuinfo_h_ = 1 };
+enum { SDL_events_h_ = 1 };
+enum { SDL_video_h_ = 1 };
+enum { SDL_pixels_h_ = 1 };
+enum { SDL_rect_h_ = 1 };
+enum { SDL_surface_h_ = 1 };
+enum { SDL_blendmode_h_ = 1 };
+enum { SDL_keyboard_h_ = 1 };
+enum { SDL_keycode_h_ = 1 };
+enum { SDL_scancode_h_ = 1 };
+enum { SDL_mouse_h_ = 1 };
+enum { SDL_joystick_h_ = 1 };
+enum { SDL_guid_h_ = 1 };
+enum { SDL_gamecontroller_h_ = 1 };
+enum { SDL_sensor_h_ = 1 };
+enum { SDL_quit_h_ = 1 };
+enum { SDL_gesture_h_ = 1 };
+enum { SDL_touch_h_ = 1 };
+enum { SDL_filesystem_h_ = 1 };
+enum { SDL_haptic_h_ = 1 };
+enum { SDL_hidapi_h_ = 1 };
+enum { SDL_hints_h_ = 1 };
+enum { SDL_loadso_h_ = 1 };
+enum { SDL_log_h_ = 1 };
+enum { SDL_messagebox_h_ = 1 };
+enum { SDL_metal_h_ = 1 };
+enum { SDL_power_h_ = 1 };
+enum { SDL_render_h_ = 1 };
+enum { SDL_shape_h_ = 1 };
+enum { SDL_system_h_ = 1 };
+enum { SDL_timer_h_ = 1 };
+enum { SDL_version_h_ = 1 };
+enum { SDL_misc_h_ = 1 };
+
+enum { SDLCALL = 1 };
+enum { SDL_INLINE = 0 };
+enum { SDL_HAS_FALLTHROUGH = 0 };
+enum { SDL_AUDIO_DRIVER_COREAUDIO = 1 };
+enum { SDL_AUDIO_DRIVER_DISK = 1 };
+enum { SDL_AUDIO_DRIVER_DUMMY = 1 };
+enum { SDL_JOYSTICK_IOKIT = 1 };
+enum { SDL_JOYSTICK_MFI = 1 };
+enum { SDL_JOYSTICK_HIDAPI = 1 };
+enum { SDL_JOYSTICK_VIRTUAL = 1 };
+enum { SDL_HAPTIC_IOKIT = 1 };
+enum { SDL_SENSOR_DUMMY = 1 };
+enum { SDL_LOADSO_DLOPEN = 1 };
+enum { SDL_THREAD_PTHREAD = 1 };
+enum { SDL_THREAD_PTHREAD_RECURSIVE_MUTEX = 1 };
+enum { SDL_TIMER_UNIX = 1 };
+enum { SDL_VIDEO_DRIVER_COCOA = 1 };
+enum { SDL_VIDEO_DRIVER_DUMMY = 1 };
+enum { SDL_VIDEO_DRIVER_OFFSCREEN = 1 };
+enum { SDL_VIDEO_RENDER_OGL = 1 };
+enum { SDL_VIDEO_RENDER_OGL_ES2 = 1 };
+enum { SDL_VIDEO_RENDER_METAL = 1 };
+enum { SDL_VIDEO_OPENGL = 1 };
+enum { SDL_VIDEO_OPENGL_ES2 = 1 };
+enum { SDL_VIDEO_OPENGL_CGL = 1 };
+enum { SDL_VIDEO_OPENGL_EGL = 1 };
+enum { SDL_VIDEO_VULKAN = 1 };
+enum { SDL_VIDEO_METAL = 1 };
+enum { SDL_POWER_MACOSX = 1 };
+enum { SDL_FILESYSTEM_COCOA = 1 };
+enum { SDL_PRINTF_FORMAT_STRING = 1 };
+enum { SDL_SCANF_FORMAT_STRING = 1 };
+enum { SDLMAIN_DECLSPEC = 1 };
+enum { SDL_FUNCTION = 0 };
+enum { SDL_FILE = 0 };
+enum { SDL_LINE = 0 };
+enum { SDL_NULL_WHILE_LOOP_CONDITION = 0 };
+enum { SDL_assert_state = 0 };
+enum { SDL_assert_data = 0 };
+enum { SDL_LIL_ENDIAN = 1234 };
+enum { SDL_BIG_ENDIAN = 4321 };
+enum { SDL_BYTEORDER = 1234 };
+enum { SDL_FLOATWORDORDER = 1234 };
+enum { SDL_MUTEX_TIMEDOUT = 1 };
+enum { SDL_RWOPS_UNKNOWN = 0 };
+enum { SDL_RWOPS_WINFILE = 1 };
+enum { SDL_RWOPS_STDFILE = 2 };
+enum { SDL_RWOPS_JNIFILE = 3 };
+enum { SDL_RWOPS_MEMORY = 4 };
+enum { SDL_RWOPS_MEMORY_RO = 5 };
+enum { SDL_Colour = 0 };
+enum { SDL_BlitSurface = 0 };
+enum { SDL_BlitScaled = 0 };
 enum { DYNAMIC_TARGETS_ENABLED = 0 };
 enum { TARGET_OS_MAC = 1 };
 enum { TARGET_OS_OSX = 1 };
@@ -21,8 +467,6 @@ enum { TARGET_OS_IPHONE = 0 };
 enum { TARGET_OS_IOS = 0 };
 enum { TARGET_OS_WATCH = 0 };
 enum { TARGET_OS_TV = 0 };
-enum { TARGET_OS_MACCATALYST = 0 };
-/* redefining matching value: #define TARGET_OS_MACCATALYST            0 */
 enum { TARGET_OS_UIKITFORMAC = 0 };
 enum { TARGET_OS_SIMULATOR = 0 };
 enum { TARGET_OS_EMBEDDED = 0 };
@@ -51,23 +495,6 @@ enum { TARGET_CPU_ALPHA = 0 };
 enum { TARGET_ABI_USES_IOS_VALUES = 0 };
 enum { TARGET_IPHONE_SIMULATOR = 0 };
 enum { TARGET_OS_NANO = 0 };
-/* ++++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/TargetConditionals.h */
-/* ++++++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* #    define SDL_DEPRECATED __attribute__((deprecated)) ### string, not number "__attribute__((deprecated))" */
-/* #    define SDL_UNUSED __attribute__((unused)) ### string, not number "__attribute__((unused))" */
-/* #   define DECLSPEC __attribute__ ((visibility("default"))) ### string, not number "__attribute__ ((visibility(\"default\")))" */
-enum { SDLCALL = 1 };
-enum { SDL_INLINE = 0 };
-/* #define SDL_FORCE_INLINE __attribute__((always_inline)) static __inline__ ### string, not number "__attribute__((always_inline)) static __inline__" */
-/* #define SDL_NORETURN __attribute__((noreturn)) ### string, not number "__attribute__((noreturn))" */
-enum { SDL_HAS_FALLTHROUGH = 0 };
-/* #define SDL_FALLTHROUGH do {} while (0) ### string, not number "do {} while (0)" */
-/* ++++++ END   /usr/local/include/SDL2/begin_code.h */
-extern __attribute__ ((visibility("default"))) const char * SDL_GetPlatform (void);
-/* ++++++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* ++++++ END   /usr/local/include/SDL2/close_code.h */
-/* +++++ END   /usr/local/include/SDL2/SDL_platform.h */
 enum { SIZEOF_VOIDP = 8 };
 enum { HAVE_GCC_ATOMICS = 1 };
 enum { HAVE_LIBC = 1 };
@@ -196,77 +623,8 @@ enum { HAVE_POLL = 1 };
 enum { HAVE__EXIT = 1 };
 enum { HAVE_O_CLOEXEC = 1 };
 enum { HAVE_IMMINTRIN_H = 1 };
-enum { SDL_AUDIO_DRIVER_COREAUDIO = 1 };
-enum { SDL_AUDIO_DRIVER_DISK = 1 };
-enum { SDL_AUDIO_DRIVER_DUMMY = 1 };
-enum { SDL_JOYSTICK_IOKIT = 1 };
-enum { SDL_JOYSTICK_MFI = 1 };
-enum { SDL_JOYSTICK_HIDAPI = 1 };
-enum { SDL_JOYSTICK_VIRTUAL = 1 };
-enum { SDL_HAPTIC_IOKIT = 1 };
-enum { SDL_SENSOR_DUMMY = 1 };
-enum { SDL_LOADSO_DLOPEN = 1 };
-enum { SDL_THREAD_PTHREAD = 1 };
-enum { SDL_THREAD_PTHREAD_RECURSIVE_MUTEX = 1 };
-enum { SDL_TIMER_UNIX = 1 };
-enum { SDL_VIDEO_DRIVER_COCOA = 1 };
-enum { SDL_VIDEO_DRIVER_DUMMY = 1 };
-enum { SDL_VIDEO_DRIVER_OFFSCREEN = 1 };
-enum { SDL_VIDEO_RENDER_OGL = 1 };
-enum { SDL_VIDEO_RENDER_OGL_ES2 = 1 };
-enum { SDL_VIDEO_RENDER_METAL = 1 };
-enum { SDL_VIDEO_OPENGL = 1 };
-enum { SDL_VIDEO_OPENGL_ES2 = 1 };
-enum { SDL_VIDEO_OPENGL_CGL = 1 };
-enum { SDL_VIDEO_OPENGL_EGL = 1 };
-enum { SDL_VIDEO_VULKAN = 1 };
-enum { SDL_VIDEO_METAL = 1 };
-enum { SDL_POWER_MACOSX = 1 };
-enum { SDL_FILESYSTEM_COCOA = 1 };
 enum { DYNAPI_NEEDS_DLOPEN = 1 };
-/* ++++ END   /usr/local/include/SDL2/SDL_config.h */
-/* ++++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/types.h */
-]] require 'ffi.req' 'c.sys.types' ffi.cdef[[
-/* ++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/types.h */
-/* ++++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/stdio.h */
-]] require 'ffi.req' 'c.stdio' ffi.cdef[[
-/* ++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/stdio.h */
-/* ++++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/stdlib.h */
-]] require 'ffi.req' 'c.stdlib' ffi.cdef[[
-/* ++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/stdlib.h */
-/* ++++ BEGIN /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stddef.h */
-]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* ++++ END   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stddef.h */
-/* ++++ BEGIN /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stdarg.h */
-]] require 'ffi.req' 'c.stdarg' ffi.cdef[[
-/* ++++ END   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stdarg.h */
-/* ++++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/string.h */
-]] require 'ffi.req' 'c.string' ffi.cdef[[
-/* ++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/string.h */
-/* ++++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/strings.h */
-/* +++++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_strings.h */
-/* +++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_strings.h */
-/* +++++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/string.h */
-]] require 'ffi.req' 'c.string' ffi.cdef[[
-/* +++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/string.h */
-/* ++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/strings.h */
-/* ++++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/wchar.h */
-]] require 'ffi.req' 'c.wchar' ffi.cdef[[
-/* ++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/wchar.h */
-/* ++++ BEGIN /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/inttypes.h */
-]] require 'ffi.req' 'c.inttypes' ffi.cdef[[
-/* ++++ END   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/inttypes.h */
-/* ++++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/ctype.h */
-/* +++++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_ctype.h */
-/* +++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_ctype.h */
-/* ++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/ctype.h */
-/* ++++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/math.h */
-]] require 'ffi.req' 'c.math' ffi.cdef[[
-/* ++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/math.h */
-/* ++++ BEGIN /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/float.h */
-/* +++++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/float.h */
 enum { FLT_EVAL_METHOD = 0 };
-/* #define FLT_ROUNDS (__builtin_flt_rounds()) ### string, not number "(__builtin_flt_rounds())" */
 enum { FLT_RADIX = 2 };
 enum { FLT_MANT_DIG = 24 };
 enum { DBL_MANT_DIG = 53 };
@@ -286,279 +644,53 @@ enum { LDBL_MAX_EXP = 16384 };
 enum { FLT_MAX_10_EXP = 38 };
 enum { DBL_MAX_10_EXP = 308 };
 enum { LDBL_MAX_10_EXP = 4932 };
-/* #define FLT_MAX __FLT_MAX__ ### string, not number "__FLT_MAX__" */
-/* #define DBL_MAX __DBL_MAX__ ### string, not number "__DBL_MAX__" */
-/* #define LDBL_MAX __LDBL_MAX__ ### string, not number "__LDBL_MAX__" */
-/* #define FLT_EPSILON __FLT_EPSILON__ ### string, not number "__FLT_EPSILON__" */
-/* #define DBL_EPSILON __DBL_EPSILON__ ### string, not number "__DBL_EPSILON__" */
-/* #define LDBL_EPSILON __LDBL_EPSILON__ ### string, not number "__LDBL_EPSILON__" */
-/* #define FLT_MIN __FLT_MIN__ ### string, not number "__FLT_MIN__" */
-/* #define DBL_MIN __DBL_MIN__ ### string, not number "__DBL_MIN__" */
-/* #define LDBL_MIN __LDBL_MIN__ ### string, not number "__LDBL_MIN__" */
 enum { DECIMAL_DIG = 21 };
 enum { FLT_HAS_SUBNORM = 1 };
 enum { DBL_HAS_SUBNORM = 1 };
 enum { LDBL_HAS_SUBNORM = 1 };
-/* #    define FLT_TRUE_MIN __FLT_DENORM_MIN__ ### string, not number "__FLT_DENORM_MIN__" */
-/* #    define DBL_TRUE_MIN __DBL_DENORM_MIN__ ### string, not number "__DBL_DENORM_MIN__" */
-/* #    define LDBL_TRUE_MIN __LDBL_DENORM_MIN__ ### string, not number "__LDBL_DENORM_MIN__" */
 enum { FLT_DECIMAL_DIG = 9 };
 enum { DBL_DECIMAL_DIG = 17 };
 enum { LDBL_DECIMAL_DIG = 21 };
-/* +++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/float.h */
-/* redefining matching value: #define FLT_EVAL_METHOD __FLT_EVAL_METHOD__ */
-/* #define FLT_ROUNDS (__builtin_flt_rounds()) ### string, not number "(__builtin_flt_rounds())" */
-/* redefining matching value: #define FLT_RADIX __FLT_RADIX__ */
-/* redefining matching value: #define FLT_MANT_DIG __FLT_MANT_DIG__ */
-/* redefining matching value: #define DBL_MANT_DIG __DBL_MANT_DIG__ */
-/* redefining matching value: #define LDBL_MANT_DIG __LDBL_MANT_DIG__ */
-/* redefining matching value: #  define DECIMAL_DIG __DECIMAL_DIG__ */
-/* redefining matching value: #define FLT_DIG __FLT_DIG__ */
-/* redefining matching value: #define DBL_DIG __DBL_DIG__ */
-/* redefining matching value: #define LDBL_DIG __LDBL_DIG__ */
-/* redefining matching value: #define FLT_MIN_EXP __FLT_MIN_EXP__ */
-/* redefining matching value: #define DBL_MIN_EXP __DBL_MIN_EXP__ */
-/* redefining matching value: #define LDBL_MIN_EXP __LDBL_MIN_EXP__ */
-/* redefining matching value: #define FLT_MIN_10_EXP __FLT_MIN_10_EXP__ */
-/* redefining matching value: #define DBL_MIN_10_EXP __DBL_MIN_10_EXP__ */
-/* redefining matching value: #define LDBL_MIN_10_EXP __LDBL_MIN_10_EXP__ */
-/* redefining matching value: #define FLT_MAX_EXP __FLT_MAX_EXP__ */
-/* redefining matching value: #define DBL_MAX_EXP __DBL_MAX_EXP__ */
-/* redefining matching value: #define LDBL_MAX_EXP __LDBL_MAX_EXP__ */
-/* redefining matching value: #define FLT_MAX_10_EXP __FLT_MAX_10_EXP__ */
-/* redefining matching value: #define DBL_MAX_10_EXP __DBL_MAX_10_EXP__ */
-/* redefining matching value: #define LDBL_MAX_10_EXP __LDBL_MAX_10_EXP__ */
-/* #define FLT_MAX __FLT_MAX__ ### string, not number "__FLT_MAX__" */
-/* #define DBL_MAX __DBL_MAX__ ### string, not number "__DBL_MAX__" */
-/* #define LDBL_MAX __LDBL_MAX__ ### string, not number "__LDBL_MAX__" */
-/* #define FLT_EPSILON __FLT_EPSILON__ ### string, not number "__FLT_EPSILON__" */
-/* #define DBL_EPSILON __DBL_EPSILON__ ### string, not number "__DBL_EPSILON__" */
-/* #define LDBL_EPSILON __LDBL_EPSILON__ ### string, not number "__LDBL_EPSILON__" */
-/* #define FLT_MIN __FLT_MIN__ ### string, not number "__FLT_MIN__" */
-/* #define DBL_MIN __DBL_MIN__ ### string, not number "__DBL_MIN__" */
-/* #define LDBL_MIN __LDBL_MIN__ ### string, not number "__LDBL_MIN__" */
-/* #  define FLT_TRUE_MIN __FLT_DENORM_MIN__ ### string, not number "__FLT_DENORM_MIN__" */
-/* #  define DBL_TRUE_MIN __DBL_DENORM_MIN__ ### string, not number "__DBL_DENORM_MIN__" */
-/* #  define LDBL_TRUE_MIN __LDBL_DENORM_MIN__ ### string, not number "__LDBL_DENORM_MIN__" */
-/* redefining matching value: #  define FLT_DECIMAL_DIG __FLT_DECIMAL_DIG__ */
-/* redefining matching value: #  define DBL_DECIMAL_DIG __DBL_DECIMAL_DIG__ */
-/* redefining matching value: #  define LDBL_DECIMAL_DIG __LDBL_DECIMAL_DIG__ */
-/* redefining matching value: #  define FLT_HAS_SUBNORM __FLT_HAS_DENORM__ */
-/* redefining matching value: #  define DBL_HAS_SUBNORM __DBL_HAS_DENORM__ */
-/* redefining matching value: #  define LDBL_HAS_SUBNORM __LDBL_HAS_DENORM__ */
-/* ++++ END   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/float.h */
-/* # define SDL_SIZE_MAX SIZE_MAX ### string, not number "1.844674407371e+19" */
+enum { HAS_BUILTIN_BSWAP16 = 0 };
+enum { HAS_BUILTIN_BSWAP32 = 0 };
+enum { HAS_BUILTIN_BSWAP64 = 0 };
+enum { HAS_BROKEN_BSWAP = 0 };
+enum { RW_SEEK_SET = 0 };
+enum { RW_SEEK_CUR = 1 };
+enum { RW_SEEK_END = 2 };
+--]]
+
+-- typedefs
+
+require 'ffi.req' 'c.AvailabilityMacros'
+require 'ffi.req' 'c.sys.types'
+require 'ffi.req' 'c.stdio'
+require 'ffi.req' 'c.stdlib'
+require 'ffi.req' 'c.stddef'
+require 'ffi.req' 'c.stdarg'
+require 'ffi.req' 'c.string'
+require 'ffi.req' 'c.string'
+require 'ffi.req' 'c.wchar'
+require 'ffi.req' 'c.inttypes'
+require 'ffi.req' 'c.math'
+
+ffi.cdef[[
 typedef enum { SDL_FALSE = 0, SDL_TRUE = 1 } SDL_bool;
-/* #define SDL_MAX_SINT8   ((Sint8)0x7F) ### string, not number "((Sint8)0x7F)" */
-/* #define SDL_MIN_SINT8   ((Sint8)(~0x7F)) ### string, not number "((Sint8)(~0x7F))" */
 typedef int8_t Sint8;
-/* #define SDL_MAX_UINT8   ((Uint8)0xFF) ### string, not number "((Uint8)0xFF)" */
-/* #define SDL_MIN_UINT8   ((Uint8)0x00) ### string, not number "((Uint8)0x00)" */
 typedef uint8_t Uint8;
-/* #define SDL_MAX_SINT16  ((Sint16)0x7FFF) ### string, not number "((Sint16)0x7FFF)" */
-/* #define SDL_MIN_SINT16  ((Sint16)(~0x7FFF)) ### string, not number "((Sint16)(~0x7FFF))" */
 typedef int16_t Sint16;
-/* #define SDL_MAX_UINT16  ((Uint16)0xFFFF) ### string, not number "((Uint16)0xFFFF)" */
-/* #define SDL_MIN_UINT16  ((Uint16)0x0000) ### string, not number "((Uint16)0x0000)" */
 typedef uint16_t Uint16;
-/* #define SDL_MAX_SINT32  ((Sint32)0x7FFFFFFF) ### string, not number "((Sint32)0x7FFFFFFF)" */
-/* #define SDL_MIN_SINT32  ((Sint32)(~0x7FFFFFFF)) ### string, not number "((Sint32)(~0x7FFFFFFF))" */
 typedef int32_t Sint32;
-/* #define SDL_MAX_UINT32  ((Uint32)0xFFFFFFFFu) ### string, not number "((Uint32)0xFFFFFFFFu)" */
-/* #define SDL_MIN_UINT32  ((Uint32)0x00000000) ### string, not number "((Uint32)0x00000000)" */
 typedef uint32_t Uint32;
-/* #define SDL_MAX_SINT64  ((Sint64)0x7FFFFFFFFFFFFFFFll) ### string, not number "((Sint64)0x7FFFFFFFFFFFFFFFll)" */
-/* #define SDL_MIN_SINT64  ((Sint64)(~0x7FFFFFFFFFFFFFFFll)) ### string, not number "((Sint64)(~0x7FFFFFFFFFFFFFFFll))" */
 typedef int64_t Sint64;
-/* #define SDL_MAX_UINT64  ((Uint64)0xFFFFFFFFFFFFFFFFull) ### string, not number "((Uint64)0xFFFFFFFFFFFFFFFFull)" */
-/* #define SDL_MIN_UINT64  ((Uint64)(0x0000000000000000ull)) ### string, not number "((Uint64)(0x0000000000000000ull))" */
 typedef uint64_t Uint64;
-/* #define SDL_FLT_EPSILON FLT_EPSILON ### string, not number "FLT_EPSILON" */
-/* #define SDL_PRIs64 "lld" ### string, not number "\"lld\"" */
-/* #define SDL_PRIu64 PRIu64 ### string, not number "PRIu64" */
-/* #define SDL_PRIx64 PRIx64 ### string, not number "PRIx64" */
-/* #define SDL_PRIX64 PRIX64 ### string, not number "PRIX64" */
-/* #define SDL_PRIs32 PRId32 ### string, not number "PRId32" */
-/* #define SDL_PRIu32 PRIu32 ### string, not number "PRIu32" */
-/* #define SDL_PRIx32 PRIx32 ### string, not number "PRIx32" */
-/* #define SDL_PRIX32 PRIX32 ### string, not number "PRIX32" */
-enum { SDL_PRINTF_FORMAT_STRING = 1 };
-enum { SDL_SCANF_FORMAT_STRING = 1 };
-;
-;
-;
-;
-;
-;
-;
-;
 typedef enum { DUMMY_ENUM_VALUE } SDL_DUMMY_ENUM;
-;
-/* ++++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* ++++ END   /usr/local/include/SDL2/begin_code.h */
-extern __attribute__ ((visibility("default"))) void * SDL_malloc(size_t size);
-extern __attribute__ ((visibility("default"))) void * SDL_calloc(size_t nmemb, size_t size);
-extern __attribute__ ((visibility("default"))) void * SDL_realloc(void *mem, size_t size);
-extern __attribute__ ((visibility("default"))) void SDL_free(void *mem);
 typedef void *( *SDL_malloc_func)(size_t size);
 typedef void *( *SDL_calloc_func)(size_t nmemb, size_t size);
 typedef void *( *SDL_realloc_func)(void *mem, size_t size);
 typedef void ( *SDL_free_func)(void *mem);
-extern __attribute__ ((visibility("default"))) void SDL_GetOriginalMemoryFunctions(SDL_malloc_func *malloc_func, SDL_calloc_func *calloc_func, SDL_realloc_func *realloc_func, SDL_free_func *free_func);
-extern __attribute__ ((visibility("default"))) void SDL_GetMemoryFunctions(SDL_malloc_func *malloc_func, SDL_calloc_func *calloc_func, SDL_realloc_func *realloc_func, SDL_free_func *free_func);
-extern __attribute__ ((visibility("default"))) int SDL_SetMemoryFunctions(SDL_malloc_func malloc_func, SDL_calloc_func calloc_func, SDL_realloc_func realloc_func, SDL_free_func free_func);
-extern __attribute__ ((visibility("default"))) int SDL_GetNumAllocations(void);
-extern __attribute__ ((visibility("default"))) char * SDL_getenv(const char *name);
-extern __attribute__ ((visibility("default"))) int SDL_setenv(const char *name, const char *value, int overwrite);
-extern __attribute__ ((visibility("default"))) void SDL_qsort(void *base, size_t nmemb, size_t size, int ( *compare) (const void *, const void *));
-extern __attribute__ ((visibility("default"))) void * SDL_bsearch(const void *key, const void *base, size_t nmemb, size_t size, int ( *compare) (const void *, const void *));
-extern __attribute__ ((visibility("default"))) int SDL_abs(int x);
-extern __attribute__ ((visibility("default"))) int SDL_isalpha(int x);
-extern __attribute__ ((visibility("default"))) int SDL_isalnum(int x);
-extern __attribute__ ((visibility("default"))) int SDL_isblank(int x);
-extern __attribute__ ((visibility("default"))) int SDL_iscntrl(int x);
-extern __attribute__ ((visibility("default"))) int SDL_isdigit(int x);
-extern __attribute__ ((visibility("default"))) int SDL_isxdigit(int x);
-extern __attribute__ ((visibility("default"))) int SDL_ispunct(int x);
-extern __attribute__ ((visibility("default"))) int SDL_isspace(int x);
-extern __attribute__ ((visibility("default"))) int SDL_isupper(int x);
-extern __attribute__ ((visibility("default"))) int SDL_islower(int x);
-extern __attribute__ ((visibility("default"))) int SDL_isprint(int x);
-extern __attribute__ ((visibility("default"))) int SDL_isgraph(int x);
-extern __attribute__ ((visibility("default"))) int SDL_toupper(int x);
-extern __attribute__ ((visibility("default"))) int SDL_tolower(int x);
-extern __attribute__ ((visibility("default"))) Uint16 SDL_crc16(Uint16 crc, const void *data, size_t len);
-extern __attribute__ ((visibility("default"))) Uint32 SDL_crc32(Uint32 crc, const void *data, size_t len);
-extern __attribute__ ((visibility("default"))) void * SDL_memset( void *dst, int c, size_t len);
-extern __attribute__ ((visibility("default"))) void * SDL_memcpy( void *dst, const void *src, size_t len);
-extern __attribute__ ((visibility("default"))) void * SDL_memmove( void *dst, const void *src, size_t len);
-extern __attribute__ ((visibility("default"))) int SDL_memcmp(const void *s1, const void *s2, size_t len);
-extern __attribute__ ((visibility("default"))) size_t SDL_wcslen(const wchar_t *wstr);
-extern __attribute__ ((visibility("default"))) size_t SDL_wcslcpy( wchar_t *dst, const wchar_t *src, size_t maxlen);
-extern __attribute__ ((visibility("default"))) size_t SDL_wcslcat( wchar_t *dst, const wchar_t *src, size_t maxlen);
-extern __attribute__ ((visibility("default"))) wchar_t * SDL_wcsdup(const wchar_t *wstr);
-extern __attribute__ ((visibility("default"))) wchar_t * SDL_wcsstr(const wchar_t *haystack, const wchar_t *needle);
-extern __attribute__ ((visibility("default"))) int SDL_wcscmp(const wchar_t *str1, const wchar_t *str2);
-extern __attribute__ ((visibility("default"))) int SDL_wcsncmp(const wchar_t *str1, const wchar_t *str2, size_t maxlen);
-extern __attribute__ ((visibility("default"))) int SDL_wcscasecmp(const wchar_t *str1, const wchar_t *str2);
-extern __attribute__ ((visibility("default"))) int SDL_wcsncasecmp(const wchar_t *str1, const wchar_t *str2, size_t len);
-extern __attribute__ ((visibility("default"))) size_t SDL_strlen(const char *str);
-extern __attribute__ ((visibility("default"))) size_t SDL_strlcpy( char *dst, const char *src, size_t maxlen);
-extern __attribute__ ((visibility("default"))) size_t SDL_utf8strlcpy( char *dst, const char *src, size_t dst_bytes);
-extern __attribute__ ((visibility("default"))) size_t SDL_strlcat( char *dst, const char *src, size_t maxlen);
-extern __attribute__ ((visibility("default"))) char * SDL_strdup(const char *str);
-extern __attribute__ ((visibility("default"))) char * SDL_strrev(char *str);
-extern __attribute__ ((visibility("default"))) char * SDL_strupr(char *str);
-extern __attribute__ ((visibility("default"))) char * SDL_strlwr(char *str);
-extern __attribute__ ((visibility("default"))) char * SDL_strchr(const char *str, int c);
-extern __attribute__ ((visibility("default"))) char * SDL_strrchr(const char *str, int c);
-extern __attribute__ ((visibility("default"))) char * SDL_strstr(const char *haystack, const char *needle);
-extern __attribute__ ((visibility("default"))) char * SDL_strcasestr(const char *haystack, const char *needle);
-extern __attribute__ ((visibility("default"))) char * SDL_strtokr(char *s1, const char *s2, char **saveptr);
-extern __attribute__ ((visibility("default"))) size_t SDL_utf8strlen(const char *str);
-extern __attribute__ ((visibility("default"))) size_t SDL_utf8strnlen(const char *str, size_t bytes);
-extern __attribute__ ((visibility("default"))) char * SDL_itoa(int value, char *str, int radix);
-extern __attribute__ ((visibility("default"))) char * SDL_uitoa(unsigned int value, char *str, int radix);
-extern __attribute__ ((visibility("default"))) char * SDL_ltoa(long value, char *str, int radix);
-extern __attribute__ ((visibility("default"))) char * SDL_ultoa(unsigned long value, char *str, int radix);
-extern __attribute__ ((visibility("default"))) char * SDL_lltoa(Sint64 value, char *str, int radix);
-extern __attribute__ ((visibility("default"))) char * SDL_ulltoa(Uint64 value, char *str, int radix);
-extern __attribute__ ((visibility("default"))) int SDL_atoi(const char *str);
-extern __attribute__ ((visibility("default"))) double SDL_atof(const char *str);
-extern __attribute__ ((visibility("default"))) long SDL_strtol(const char *str, char **endp, int base);
-extern __attribute__ ((visibility("default"))) unsigned long SDL_strtoul(const char *str, char **endp, int base);
-extern __attribute__ ((visibility("default"))) Sint64 SDL_strtoll(const char *str, char **endp, int base);
-extern __attribute__ ((visibility("default"))) Uint64 SDL_strtoull(const char *str, char **endp, int base);
-extern __attribute__ ((visibility("default"))) double SDL_strtod(const char *str, char **endp);
-extern __attribute__ ((visibility("default"))) int SDL_strcmp(const char *str1, const char *str2);
-extern __attribute__ ((visibility("default"))) int SDL_strncmp(const char *str1, const char *str2, size_t maxlen);
-extern __attribute__ ((visibility("default"))) int SDL_strcasecmp(const char *str1, const char *str2);
-extern __attribute__ ((visibility("default"))) int SDL_strncasecmp(const char *str1, const char *str2, size_t len);
-extern __attribute__ ((visibility("default"))) int SDL_sscanf(const char *text, const char *fmt, ...) __attribute__ (( format( __scanf__, 2, 2+1 )));
-extern __attribute__ ((visibility("default"))) int SDL_vsscanf(const char *text, const char *fmt, va_list ap) __attribute__(( format( __scanf__, 2, 0 )));
-extern __attribute__ ((visibility("default"))) int SDL_snprintf( char *text, size_t maxlen, const char *fmt, ... ) __attribute__ (( format( __printf__, 3, 3+1 )));
-extern __attribute__ ((visibility("default"))) int SDL_vsnprintf( char *text, size_t maxlen, const char *fmt, va_list ap) __attribute__(( format( __printf__, 3, 0 )));
-extern __attribute__ ((visibility("default"))) int SDL_asprintf(char **strp, const char *fmt, ...) __attribute__ (( format( __printf__, 2, 2+1 )));
-extern __attribute__ ((visibility("default"))) int SDL_vasprintf(char **strp, const char *fmt, va_list ap) __attribute__(( format( __printf__, 2, 0 )));
-extern __attribute__ ((visibility("default"))) double SDL_acos(double x);
-extern __attribute__ ((visibility("default"))) float SDL_acosf(float x);
-extern __attribute__ ((visibility("default"))) double SDL_asin(double x);
-extern __attribute__ ((visibility("default"))) float SDL_asinf(float x);
-extern __attribute__ ((visibility("default"))) double SDL_atan(double x);
-extern __attribute__ ((visibility("default"))) float SDL_atanf(float x);
-extern __attribute__ ((visibility("default"))) double SDL_atan2(double y, double x);
-extern __attribute__ ((visibility("default"))) float SDL_atan2f(float y, float x);
-extern __attribute__ ((visibility("default"))) double SDL_ceil(double x);
-extern __attribute__ ((visibility("default"))) float SDL_ceilf(float x);
-extern __attribute__ ((visibility("default"))) double SDL_copysign(double x, double y);
-extern __attribute__ ((visibility("default"))) float SDL_copysignf(float x, float y);
-extern __attribute__ ((visibility("default"))) double SDL_cos(double x);
-extern __attribute__ ((visibility("default"))) float SDL_cosf(float x);
-extern __attribute__ ((visibility("default"))) double SDL_exp(double x);
-extern __attribute__ ((visibility("default"))) float SDL_expf(float x);
-extern __attribute__ ((visibility("default"))) double SDL_fabs(double x);
-extern __attribute__ ((visibility("default"))) float SDL_fabsf(float x);
-extern __attribute__ ((visibility("default"))) double SDL_floor(double x);
-extern __attribute__ ((visibility("default"))) float SDL_floorf(float x);
-extern __attribute__ ((visibility("default"))) double SDL_trunc(double x);
-extern __attribute__ ((visibility("default"))) float SDL_truncf(float x);
-extern __attribute__ ((visibility("default"))) double SDL_fmod(double x, double y);
-extern __attribute__ ((visibility("default"))) float SDL_fmodf(float x, float y);
-extern __attribute__ ((visibility("default"))) double SDL_log(double x);
-extern __attribute__ ((visibility("default"))) float SDL_logf(float x);
-extern __attribute__ ((visibility("default"))) double SDL_log10(double x);
-extern __attribute__ ((visibility("default"))) float SDL_log10f(float x);
-extern __attribute__ ((visibility("default"))) double SDL_pow(double x, double y);
-extern __attribute__ ((visibility("default"))) float SDL_powf(float x, float y);
-extern __attribute__ ((visibility("default"))) double SDL_round(double x);
-extern __attribute__ ((visibility("default"))) float SDL_roundf(float x);
-extern __attribute__ ((visibility("default"))) long SDL_lround(double x);
-extern __attribute__ ((visibility("default"))) long SDL_lroundf(float x);
-extern __attribute__ ((visibility("default"))) double SDL_scalbn(double x, int n);
-extern __attribute__ ((visibility("default"))) float SDL_scalbnf(float x, int n);
-extern __attribute__ ((visibility("default"))) double SDL_sin(double x);
-extern __attribute__ ((visibility("default"))) float SDL_sinf(float x);
-extern __attribute__ ((visibility("default"))) double SDL_sqrt(double x);
-extern __attribute__ ((visibility("default"))) float SDL_sqrtf(float x);
-extern __attribute__ ((visibility("default"))) double SDL_tan(double x);
-extern __attribute__ ((visibility("default"))) float SDL_tanf(float x);
-enum { SDL_ICONV_ERROR = -1 };
-enum { SDL_ICONV_E2BIG = -2 };
-enum { SDL_ICONV_EILSEQ = -3 };
-enum { SDL_ICONV_EINVAL = -4 };
 typedef struct _SDL_iconv_t *SDL_iconv_t;
-extern __attribute__ ((visibility("default"))) SDL_iconv_t SDL_iconv_open(const char *tocode, const char *fromcode);
-extern __attribute__ ((visibility("default"))) int SDL_iconv_close(SDL_iconv_t cd);
-extern __attribute__ ((visibility("default"))) size_t SDL_iconv(SDL_iconv_t cd, const char **inbuf, size_t * inbytesleft, char **outbuf, size_t * outbytesleft);
-extern __attribute__ ((visibility("default"))) char * SDL_iconv_string(const char *tocode, const char *fromcode, const char *inbuf, size_t inbytesleft);
-/* ++++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* ++++ END   /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-enum { SDLMAIN_DECLSPEC = 1 };
-/* +++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++ END   /usr/local/include/SDL2/begin_code.h */
 typedef int (*SDL_main_func)(int argc, char *argv[]);
-extern int SDL_main(int argc, char *argv[]);
-extern __attribute__ ((visibility("default"))) void SDL_SetMainReady(void);
-/* +++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/close_code.h */
-/* ++ END   /usr/local/include/SDL2/SDL_main.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* ++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_assert.h */
-enum { SDL_assert_h_ = 1 };
-/* +++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++ END   /usr/local/include/SDL2/begin_code.h */
-enum { SDL_ASSERT_LEVEL = 2 };
-enum { SDL_FUNCTION = 0 };
-enum { SDL_FILE = 0 };
-enum { SDL_LINE = 0 };
-enum { SDL_NULL_WHILE_LOOP_CONDITION = 0 };
 typedef enum { SDL_ASSERTION_RETRY, SDL_ASSERTION_BREAK, SDL_ASSERTION_ABORT, SDL_ASSERTION_IGNORE, SDL_ASSERTION_ALWAYS_IGNORE } SDL_AssertState;
 typedef struct SDL_AssertData {
 	int always_ignore;
@@ -569,171 +701,22 @@ typedef struct SDL_AssertData {
 	const char *function;
 	const struct SDL_AssertData *next;
 } SDL_AssertData;
-extern __attribute__ ((visibility("default"))) SDL_AssertState SDL_ReportAssertion(SDL_AssertData *, const char *, const char *, int);
 typedef SDL_AssertState ( *SDL_AssertionHandler)( const SDL_AssertData* data, void* userdata);
-extern __attribute__ ((visibility("default"))) void SDL_SetAssertionHandler( SDL_AssertionHandler handler, void *userdata);
-extern __attribute__ ((visibility("default"))) SDL_AssertionHandler SDL_GetDefaultAssertionHandler(void);
-extern __attribute__ ((visibility("default"))) SDL_AssertionHandler SDL_GetAssertionHandler(void **puserdata);
-extern __attribute__ ((visibility("default"))) const SDL_AssertData * SDL_GetAssertionReport(void);
-extern __attribute__ ((visibility("default"))) void SDL_ResetAssertionReport(void);
-enum { SDL_assert_state = 0 };
-enum { SDL_assert_data = 0 };
-/* +++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/close_code.h */
-/* ++ END   /usr/local/include/SDL2/SDL_assert.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_atomic.h */
-enum { SDL_atomic_h_ = 1 };
-/* +++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_platform.h */
-/* +++ END   /usr/local/include/SDL2/SDL_platform.h */
-/* +++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++ END   /usr/local/include/SDL2/begin_code.h */
 typedef int SDL_SpinLock;
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_AtomicTryLock(SDL_SpinLock *lock);
-extern __attribute__ ((visibility("default"))) void SDL_AtomicLock(SDL_SpinLock *lock);
-extern __attribute__ ((visibility("default"))) void SDL_AtomicUnlock(SDL_SpinLock *lock);
-extern __attribute__ ((visibility("default"))) void SDL_MemoryBarrierReleaseFunction(void);
-extern __attribute__ ((visibility("default"))) void SDL_MemoryBarrierAcquireFunction(void);
 typedef struct { int value; } SDL_atomic_t;
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_AtomicCAS(SDL_atomic_t *a, int oldval, int newval);
-extern __attribute__ ((visibility("default"))) int SDL_AtomicSet(SDL_atomic_t *a, int v);
-extern __attribute__ ((visibility("default"))) int SDL_AtomicGet(SDL_atomic_t *a);
-extern __attribute__ ((visibility("default"))) int SDL_AtomicAdd(SDL_atomic_t *a, int v);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_AtomicCASPtr(void **a, void *oldval, void *newval);
-extern __attribute__ ((visibility("default"))) void* SDL_AtomicSetPtr(void **a, void* v);
-extern __attribute__ ((visibility("default"))) void* SDL_AtomicGetPtr(void **a);
-/* +++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/close_code.h */
-/* ++ END   /usr/local/include/SDL2/SDL_atomic.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_audio.h */
-enum { SDL_audio_h_ = 1 };
-/* +++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_error.h */
-enum { SDL_error_h_ = 1 };
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* ++++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* ++++ END   /usr/local/include/SDL2/begin_code.h */
-extern __attribute__ ((visibility("default"))) int SDL_SetError( const char *fmt, ...) __attribute__ (( format( __printf__, 1, 1+1 )));
-extern __attribute__ ((visibility("default"))) const char * SDL_GetError(void);
-extern __attribute__ ((visibility("default"))) char * SDL_GetErrorMsg(char *errstr, int maxlen);
-extern __attribute__ ((visibility("default"))) void SDL_ClearError(void);
 typedef enum { SDL_ENOMEM, SDL_EFREAD, SDL_EFWRITE, SDL_EFSEEK, SDL_UNSUPPORTED, SDL_LASTERROR } SDL_errorcode;
-extern __attribute__ ((visibility("default"))) int SDL_Error(SDL_errorcode code);
-/* ++++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* ++++ END   /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/SDL_error.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_endian.h */
-enum { SDL_endian_h_ = 1 };
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-enum { SDL_LIL_ENDIAN = 1234 };
-enum { SDL_BIG_ENDIAN = 4321 };
-enum { SDL_BYTEORDER = 1234 };
-enum { SDL_FLOATWORDORDER = 1234 };
-/* ++++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* ++++ END   /usr/local/include/SDL2/begin_code.h */
-enum { HAS_BUILTIN_BSWAP16 = 0 };
-enum { HAS_BUILTIN_BSWAP32 = 0 };
-enum { HAS_BUILTIN_BSWAP64 = 0 };
-enum { HAS_BROKEN_BSWAP = 0 };
-/* ++++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* ++++ END   /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/SDL_endian.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_mutex.h */
-enum { SDL_mutex_h_ = 1 };
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_error.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_error.h */
-/* #define SDL_SCOPED_CAPABILITY    SDL_THREAD_ANNOTATION_ATTRIBUTE__(scoped_lockable) ### string, not number "SDL_THREAD_ANNOTATION_ATTRIBUTE__(scoped_lockable)" */
-/* #define SDL_NO_THREAD_SAFETY_ANALYSIS    SDL_THREAD_ANNOTATION_ATTRIBUTE__(no_thread_safety_analysis) ### string, not number "SDL_THREAD_ANNOTATION_ATTRIBUTE__(no_thread_safety_analysis)" */
-/* ++++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* ++++ END   /usr/local/include/SDL2/begin_code.h */
-enum { SDL_MUTEX_TIMEDOUT = 1 };
-/* #define SDL_MUTEX_MAXWAIT   (~(Uint32)0) ### string, not number "(~(Uint32)0)" */
 struct SDL_mutex;
 typedef struct SDL_mutex SDL_mutex;
-extern __attribute__ ((visibility("default"))) SDL_mutex * SDL_CreateMutex(void);
-extern __attribute__ ((visibility("default"))) int SDL_LockMutex(SDL_mutex * mutex);
-extern __attribute__ ((visibility("default"))) int SDL_TryLockMutex(SDL_mutex * mutex);
-extern __attribute__ ((visibility("default"))) int SDL_UnlockMutex(SDL_mutex * mutex);
-extern __attribute__ ((visibility("default"))) void SDL_DestroyMutex(SDL_mutex * mutex);
 struct SDL_semaphore;
 typedef struct SDL_semaphore SDL_sem;
-extern __attribute__ ((visibility("default"))) SDL_sem * SDL_CreateSemaphore(Uint32 initial_value);
-extern __attribute__ ((visibility("default"))) void SDL_DestroySemaphore(SDL_sem * sem);
-extern __attribute__ ((visibility("default"))) int SDL_SemWait(SDL_sem * sem);
-extern __attribute__ ((visibility("default"))) int SDL_SemTryWait(SDL_sem * sem);
-extern __attribute__ ((visibility("default"))) int SDL_SemWaitTimeout(SDL_sem *sem, Uint32 timeout);
-extern __attribute__ ((visibility("default"))) int SDL_SemPost(SDL_sem * sem);
-extern __attribute__ ((visibility("default"))) Uint32 SDL_SemValue(SDL_sem * sem);
 struct SDL_cond;
 typedef struct SDL_cond SDL_cond;
-extern __attribute__ ((visibility("default"))) SDL_cond * SDL_CreateCond(void);
-extern __attribute__ ((visibility("default"))) void SDL_DestroyCond(SDL_cond * cond);
-extern __attribute__ ((visibility("default"))) int SDL_CondSignal(SDL_cond * cond);
-extern __attribute__ ((visibility("default"))) int SDL_CondBroadcast(SDL_cond * cond);
-extern __attribute__ ((visibility("default"))) int SDL_CondWait(SDL_cond * cond, SDL_mutex * mutex);
-extern __attribute__ ((visibility("default"))) int SDL_CondWaitTimeout(SDL_cond * cond, SDL_mutex * mutex, Uint32 ms);
-/* ++++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* ++++ END   /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/SDL_mutex.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_thread.h */
-enum { SDL_thread_h_ = 1 };
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_error.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_error.h */
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_atomic.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_atomic.h */
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_mutex.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_mutex.h */
-/* ++++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* ++++ END   /usr/local/include/SDL2/begin_code.h */
 struct SDL_Thread;
 typedef struct SDL_Thread SDL_Thread;
 typedef unsigned long SDL_threadID;
 typedef unsigned int SDL_TLSID;
 typedef enum { SDL_THREAD_PRIORITY_LOW, SDL_THREAD_PRIORITY_NORMAL, SDL_THREAD_PRIORITY_HIGH, SDL_THREAD_PRIORITY_TIME_CRITICAL } SDL_ThreadPriority;
 typedef int ( * SDL_ThreadFunction) (void *data);
-extern __attribute__ ((visibility("default"))) SDL_Thread * SDL_CreateThread(SDL_ThreadFunction fn, const char *name, void *data);
-extern __attribute__ ((visibility("default"))) SDL_Thread * SDL_CreateThreadWithStackSize(SDL_ThreadFunction fn, const char *name, const size_t stacksize, void *data);
-extern __attribute__ ((visibility("default"))) const char * SDL_GetThreadName(SDL_Thread *thread);
-extern __attribute__ ((visibility("default"))) SDL_threadID SDL_ThreadID(void);
-extern __attribute__ ((visibility("default"))) SDL_threadID SDL_GetThreadID(SDL_Thread * thread);
-extern __attribute__ ((visibility("default"))) int SDL_SetThreadPriority(SDL_ThreadPriority priority);
-extern __attribute__ ((visibility("default"))) void SDL_WaitThread(SDL_Thread * thread, int *status);
-extern __attribute__ ((visibility("default"))) void SDL_DetachThread(SDL_Thread * thread);
-extern __attribute__ ((visibility("default"))) SDL_TLSID SDL_TLSCreate(void);
-extern __attribute__ ((visibility("default"))) void * SDL_TLSGet(SDL_TLSID id);
-extern __attribute__ ((visibility("default"))) int SDL_TLSSet(SDL_TLSID id, const void *value, void ( *destructor)(void*));
-extern __attribute__ ((visibility("default"))) void SDL_TLSCleanup(void);
-/* ++++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* ++++ END   /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/SDL_thread.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_rwops.h */
-enum { SDL_rwops_h_ = 1 };
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_error.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_error.h */
-/* ++++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* ++++ END   /usr/local/include/SDL2/begin_code.h */
-enum { SDL_RWOPS_UNKNOWN = 0 };
-enum { SDL_RWOPS_WINFILE = 1 };
-enum { SDL_RWOPS_STDFILE = 2 };
-enum { SDL_RWOPS_JNIFILE = 3 };
-enum { SDL_RWOPS_MEMORY = 4 };
-enum { SDL_RWOPS_MEMORY_RO = 5 };
 typedef struct SDL_RWops {
 	Sint64 ( * size) (struct SDL_RWops * context);
 	Sint64 ( * seek) (struct SDL_RWops * context, Sint64 offset, int whence);
@@ -756,71 +739,7 @@ struct {
 } unknown;
 } hidden;
 } SDL_RWops;
-extern __attribute__ ((visibility("default"))) SDL_RWops * SDL_RWFromFile(const char *file, const char *mode);
-extern __attribute__ ((visibility("default"))) SDL_RWops * SDL_RWFromFP(FILE * fp, SDL_bool autoclose);
-extern __attribute__ ((visibility("default"))) SDL_RWops * SDL_RWFromMem(void *mem, int size);
-extern __attribute__ ((visibility("default"))) SDL_RWops * SDL_RWFromConstMem(const void *mem, int size);
-extern __attribute__ ((visibility("default"))) SDL_RWops * SDL_AllocRW(void);
-extern __attribute__ ((visibility("default"))) void SDL_FreeRW(SDL_RWops * area);
-enum { RW_SEEK_SET = 0 };
-enum { RW_SEEK_CUR = 1 };
-enum { RW_SEEK_END = 2 };
-extern __attribute__ ((visibility("default"))) Sint64 SDL_RWsize(SDL_RWops *context);
-extern __attribute__ ((visibility("default"))) Sint64 SDL_RWseek(SDL_RWops *context, Sint64 offset, int whence);
-extern __attribute__ ((visibility("default"))) Sint64 SDL_RWtell(SDL_RWops *context);
-extern __attribute__ ((visibility("default"))) size_t SDL_RWread(SDL_RWops *context, void *ptr, size_t size, size_t maxnum);
-extern __attribute__ ((visibility("default"))) size_t SDL_RWwrite(SDL_RWops *context, const void *ptr, size_t size, size_t num);
-extern __attribute__ ((visibility("default"))) int SDL_RWclose(SDL_RWops *context);
-extern __attribute__ ((visibility("default"))) void * SDL_LoadFile_RW(SDL_RWops *src, size_t *datasize, int freesrc);
-extern __attribute__ ((visibility("default"))) void * SDL_LoadFile(const char *file, size_t *datasize);
-extern __attribute__ ((visibility("default"))) Uint8 SDL_ReadU8(SDL_RWops * src);
-extern __attribute__ ((visibility("default"))) Uint16 SDL_ReadLE16(SDL_RWops * src);
-extern __attribute__ ((visibility("default"))) Uint16 SDL_ReadBE16(SDL_RWops * src);
-extern __attribute__ ((visibility("default"))) Uint32 SDL_ReadLE32(SDL_RWops * src);
-extern __attribute__ ((visibility("default"))) Uint32 SDL_ReadBE32(SDL_RWops * src);
-extern __attribute__ ((visibility("default"))) Uint64 SDL_ReadLE64(SDL_RWops * src);
-extern __attribute__ ((visibility("default"))) Uint64 SDL_ReadBE64(SDL_RWops * src);
-extern __attribute__ ((visibility("default"))) size_t SDL_WriteU8(SDL_RWops * dst, Uint8 value);
-extern __attribute__ ((visibility("default"))) size_t SDL_WriteLE16(SDL_RWops * dst, Uint16 value);
-extern __attribute__ ((visibility("default"))) size_t SDL_WriteBE16(SDL_RWops * dst, Uint16 value);
-extern __attribute__ ((visibility("default"))) size_t SDL_WriteLE32(SDL_RWops * dst, Uint32 value);
-extern __attribute__ ((visibility("default"))) size_t SDL_WriteBE32(SDL_RWops * dst, Uint32 value);
-extern __attribute__ ((visibility("default"))) size_t SDL_WriteLE64(SDL_RWops * dst, Uint64 value);
-extern __attribute__ ((visibility("default"))) size_t SDL_WriteBE64(SDL_RWops * dst, Uint64 value);
-/* ++++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* ++++ END   /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/SDL_rwops.h */
-/* +++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++ END   /usr/local/include/SDL2/begin_code.h */
 typedef Uint16 SDL_AudioFormat;
-enum { SDL_AUDIO_MASK_BITSIZE = 255 };
-enum { SDL_AUDIO_MASK_DATATYPE = 256 };
-enum { SDL_AUDIO_MASK_ENDIAN = 4096 };
-enum { SDL_AUDIO_MASK_SIGNED = 32768 };
-enum { AUDIO_U8 = 8 };
-enum { AUDIO_S8 = 32776 };
-enum { AUDIO_U16LSB = 16 };
-enum { AUDIO_S16LSB = 32784 };
-enum { AUDIO_U16MSB = 4112 };
-enum { AUDIO_S16MSB = 36880 };
-enum { AUDIO_U16 = 16 };
-enum { AUDIO_S16 = 32784 };
-enum { AUDIO_S32LSB = 32800 };
-enum { AUDIO_S32MSB = 36896 };
-enum { AUDIO_S32 = 32800 };
-enum { AUDIO_F32LSB = 33056 };
-enum { AUDIO_F32MSB = 37152 };
-enum { AUDIO_F32 = 33056 };
-enum { AUDIO_U16SYS = 16 };
-enum { AUDIO_S16SYS = 32784 };
-enum { AUDIO_S32SYS = 32800 };
-enum { AUDIO_F32SYS = 33056 };
-enum { SDL_AUDIO_ALLOW_FREQUENCY_CHANGE = 1 };
-enum { SDL_AUDIO_ALLOW_FORMAT_CHANGE = 2 };
-enum { SDL_AUDIO_ALLOW_CHANNELS_CHANGE = 4 };
-enum { SDL_AUDIO_ALLOW_SAMPLES_CHANGE = 8 };
-enum { SDL_AUDIO_ALLOW_ANY_CHANGE = 15 };
 typedef void ( * SDL_AudioCallback) (void *userdata, Uint8 * stream, int len);
 typedef struct SDL_AudioSpec {
 	int freq;
@@ -835,8 +754,6 @@ typedef struct SDL_AudioSpec {
 } SDL_AudioSpec;
 struct SDL_AudioCVT;
 typedef void ( * SDL_AudioFilter) (struct SDL_AudioCVT * cvt, SDL_AudioFormat format);
-enum { SDL_AUDIOCVT_MAX_FILTERS = 9 };
-/* #define SDL_AUDIOCVT_PACKED __attribute__((packed)) ### string, not number "__attribute__((packed))" */
 typedef struct SDL_AudioCVT {
 	int needed;
 	SDL_AudioFormat src_format;
@@ -850,127 +767,10 @@ typedef struct SDL_AudioCVT {
 	SDL_AudioFilter filters[9 + 1];
 	int filter_index;
 } __attribute__((packed)) SDL_AudioCVT;
-extern __attribute__ ((visibility("default"))) int SDL_GetNumAudioDrivers(void);
-extern __attribute__ ((visibility("default"))) const char * SDL_GetAudioDriver(int index);
-extern __attribute__ ((visibility("default"))) int SDL_AudioInit(const char *driver_name);
-extern __attribute__ ((visibility("default"))) void SDL_AudioQuit(void);
-extern __attribute__ ((visibility("default"))) const char * SDL_GetCurrentAudioDriver(void);
-extern __attribute__ ((visibility("default"))) int SDL_OpenAudio(SDL_AudioSpec * desired, SDL_AudioSpec * obtained);
 typedef Uint32 SDL_AudioDeviceID;
-extern __attribute__ ((visibility("default"))) int SDL_GetNumAudioDevices(int iscapture);
-extern __attribute__ ((visibility("default"))) const char * SDL_GetAudioDeviceName(int index, int iscapture);
-extern __attribute__ ((visibility("default"))) int SDL_GetAudioDeviceSpec(int index, int iscapture, SDL_AudioSpec *spec);
-extern __attribute__ ((visibility("default"))) int SDL_GetDefaultAudioInfo(char **name, SDL_AudioSpec *spec, int iscapture);
-extern __attribute__ ((visibility("default"))) SDL_AudioDeviceID SDL_OpenAudioDevice( const char *device, int iscapture, const SDL_AudioSpec *desired, SDL_AudioSpec *obtained, int allowed_changes);
 typedef enum { SDL_AUDIO_STOPPED = 0, SDL_AUDIO_PLAYING, SDL_AUDIO_PAUSED } SDL_AudioStatus;
-extern __attribute__ ((visibility("default"))) SDL_AudioStatus SDL_GetAudioStatus(void);
-extern __attribute__ ((visibility("default"))) SDL_AudioStatus SDL_GetAudioDeviceStatus(SDL_AudioDeviceID dev);
-extern __attribute__ ((visibility("default"))) void SDL_PauseAudio(int pause_on);
-extern __attribute__ ((visibility("default"))) void SDL_PauseAudioDevice(SDL_AudioDeviceID dev, int pause_on);
-extern __attribute__ ((visibility("default"))) SDL_AudioSpec * SDL_LoadWAV_RW(SDL_RWops * src, int freesrc, SDL_AudioSpec * spec, Uint8 ** audio_buf, Uint32 * audio_len);
-extern __attribute__ ((visibility("default"))) void SDL_FreeWAV(Uint8 * audio_buf);
-extern __attribute__ ((visibility("default"))) int SDL_BuildAudioCVT(SDL_AudioCVT * cvt, SDL_AudioFormat src_format, Uint8 src_channels, int src_rate, SDL_AudioFormat dst_format, Uint8 dst_channels, int dst_rate);
-extern __attribute__ ((visibility("default"))) int SDL_ConvertAudio(SDL_AudioCVT * cvt);
 struct _SDL_AudioStream;
 typedef struct _SDL_AudioStream SDL_AudioStream;
-extern __attribute__ ((visibility("default"))) SDL_AudioStream * SDL_NewAudioStream(const SDL_AudioFormat src_format, const Uint8 src_channels, const int src_rate, const SDL_AudioFormat dst_format, const Uint8 dst_channels, const int dst_rate);
-extern __attribute__ ((visibility("default"))) int SDL_AudioStreamPut(SDL_AudioStream *stream, const void *buf, int len);
-extern __attribute__ ((visibility("default"))) int SDL_AudioStreamGet(SDL_AudioStream *stream, void *buf, int len);
-extern __attribute__ ((visibility("default"))) int SDL_AudioStreamAvailable(SDL_AudioStream *stream);
-extern __attribute__ ((visibility("default"))) int SDL_AudioStreamFlush(SDL_AudioStream *stream);
-extern __attribute__ ((visibility("default"))) void SDL_AudioStreamClear(SDL_AudioStream *stream);
-extern __attribute__ ((visibility("default"))) void SDL_FreeAudioStream(SDL_AudioStream *stream);
-enum { SDL_MIX_MAXVOLUME = 128 };
-extern __attribute__ ((visibility("default"))) void SDL_MixAudio(Uint8 * dst, const Uint8 * src, Uint32 len, int volume);
-extern __attribute__ ((visibility("default"))) void SDL_MixAudioFormat(Uint8 * dst, const Uint8 * src, SDL_AudioFormat format, Uint32 len, int volume);
-extern __attribute__ ((visibility("default"))) int SDL_QueueAudio(SDL_AudioDeviceID dev, const void *data, Uint32 len);
-extern __attribute__ ((visibility("default"))) Uint32 SDL_DequeueAudio(SDL_AudioDeviceID dev, void *data, Uint32 len);
-extern __attribute__ ((visibility("default"))) Uint32 SDL_GetQueuedAudioSize(SDL_AudioDeviceID dev);
-extern __attribute__ ((visibility("default"))) void SDL_ClearQueuedAudio(SDL_AudioDeviceID dev);
-extern __attribute__ ((visibility("default"))) void SDL_LockAudio(void);
-extern __attribute__ ((visibility("default"))) void SDL_LockAudioDevice(SDL_AudioDeviceID dev);
-extern __attribute__ ((visibility("default"))) void SDL_UnlockAudio(void);
-extern __attribute__ ((visibility("default"))) void SDL_UnlockAudioDevice(SDL_AudioDeviceID dev);
-extern __attribute__ ((visibility("default"))) void SDL_CloseAudio(void);
-extern __attribute__ ((visibility("default"))) void SDL_CloseAudioDevice(SDL_AudioDeviceID dev);
-/* +++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/close_code.h */
-/* ++ END   /usr/local/include/SDL2/SDL_audio.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_clipboard.h */
-enum { SDL_clipboard_h_ = 1 };
-/* +++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++ END   /usr/local/include/SDL2/begin_code.h */
-extern __attribute__ ((visibility("default"))) int SDL_SetClipboardText(const char *text);
-extern __attribute__ ((visibility("default"))) char * SDL_GetClipboardText(void);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasClipboardText(void);
-extern __attribute__ ((visibility("default"))) int SDL_SetPrimarySelectionText(const char *text);
-extern __attribute__ ((visibility("default"))) char * SDL_GetPrimarySelectionText(void);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasPrimarySelectionText(void);
-/* +++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/close_code.h */
-/* ++ END   /usr/local/include/SDL2/SDL_clipboard.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_cpuinfo.h */
-enum { SDL_cpuinfo_h_ = 1 };
-/* +++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++ END   /usr/local/include/SDL2/begin_code.h */
-enum { SDL_CACHELINE_SIZE = 128 };
-extern __attribute__ ((visibility("default"))) int SDL_GetCPUCount(void);
-extern __attribute__ ((visibility("default"))) int SDL_GetCPUCacheLineSize(void);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasRDTSC(void);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasAltiVec(void);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasMMX(void);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_Has3DNow(void);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasSSE(void);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasSSE2(void);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasSSE3(void);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasSSE41(void);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasSSE42(void);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasAVX(void);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasAVX2(void);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasAVX512F(void);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasARMSIMD(void);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasNEON(void);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasLSX(void);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasLASX(void);
-extern __attribute__ ((visibility("default"))) int SDL_GetSystemRAM(void);
-extern __attribute__ ((visibility("default"))) size_t SDL_SIMDGetAlignment(void);
-extern __attribute__ ((visibility("default"))) void * SDL_SIMDAlloc(const size_t len);
-extern __attribute__ ((visibility("default"))) void * SDL_SIMDRealloc(void *mem, const size_t len);
-extern __attribute__ ((visibility("default"))) void SDL_SIMDFree(void *ptr);
-/* +++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/close_code.h */
-/* ++ END   /usr/local/include/SDL2/SDL_cpuinfo.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_endian.h */
-/* ++ END   /usr/local/include/SDL2/SDL_endian.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_error.h */
-/* ++ END   /usr/local/include/SDL2/SDL_error.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_events.h */
-enum { SDL_events_h_ = 1 };
-/* +++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_error.h */
-/* +++ END   /usr/local/include/SDL2/SDL_error.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_video.h */
-enum { SDL_video_h_ = 1 };
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_pixels.h */
-enum { SDL_pixels_h_ = 1 };
-/* +++++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++++ BEGIN /usr/local/include/SDL2/SDL_endian.h */
-/* +++++ END   /usr/local/include/SDL2/SDL_endian.h */
-/* +++++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++++ END   /usr/local/include/SDL2/begin_code.h */
-enum { SDL_ALPHA_OPAQUE = 255 };
-enum { SDL_ALPHA_TRANSPARENT = 0 };
 typedef enum { SDL_PIXELTYPE_UNKNOWN, SDL_PIXELTYPE_INDEX1, SDL_PIXELTYPE_INDEX4, SDL_PIXELTYPE_INDEX8, SDL_PIXELTYPE_PACKED8, SDL_PIXELTYPE_PACKED16, SDL_PIXELTYPE_PACKED32, SDL_PIXELTYPE_ARRAYU8, SDL_PIXELTYPE_ARRAYU16, SDL_PIXELTYPE_ARRAYU32, SDL_PIXELTYPE_ARRAYF16, SDL_PIXELTYPE_ARRAYF32, SDL_PIXELTYPE_INDEX2 } SDL_PixelType;
 typedef enum { SDL_BITMAPORDER_NONE, SDL_BITMAPORDER_4321, SDL_BITMAPORDER_1234 } SDL_BitmapOrder;
 typedef enum { SDL_PACKEDORDER_NONE, SDL_PACKEDORDER_XRGB, SDL_PACKEDORDER_RGBX, SDL_PACKEDORDER_ARGB, SDL_PACKEDORDER_RGBA, SDL_PACKEDORDER_XBGR, SDL_PACKEDORDER_BGRX, SDL_PACKEDORDER_ABGR, SDL_PACKEDORDER_BGRA } SDL_PackedOrder;
@@ -1040,7 +840,6 @@ typedef struct SDL_Color {
 	Uint8 b;
 	Uint8 a;
 } SDL_Color;
-enum { SDL_Colour = 0 };
 typedef struct SDL_Palette {
 	int ncolors;
 	SDL_Color *colors;
@@ -1068,36 +867,6 @@ typedef struct SDL_PixelFormat {
 	int refcount;
 	struct SDL_PixelFormat *next;
 } SDL_PixelFormat;
-extern __attribute__ ((visibility("default"))) const char* SDL_GetPixelFormatName(Uint32 format);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_PixelFormatEnumToMasks(Uint32 format, int *bpp, Uint32 * Rmask, Uint32 * Gmask, Uint32 * Bmask, Uint32 * Amask);
-extern __attribute__ ((visibility("default"))) Uint32 SDL_MasksToPixelFormatEnum(int bpp, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask);
-extern __attribute__ ((visibility("default"))) SDL_PixelFormat * SDL_AllocFormat(Uint32 pixel_format);
-extern __attribute__ ((visibility("default"))) void SDL_FreeFormat(SDL_PixelFormat *format);
-extern __attribute__ ((visibility("default"))) SDL_Palette * SDL_AllocPalette(int ncolors);
-extern __attribute__ ((visibility("default"))) int SDL_SetPixelFormatPalette(SDL_PixelFormat * format, SDL_Palette *palette);
-extern __attribute__ ((visibility("default"))) int SDL_SetPaletteColors(SDL_Palette * palette, const SDL_Color * colors, int firstcolor, int ncolors);
-extern __attribute__ ((visibility("default"))) void SDL_FreePalette(SDL_Palette * palette);
-extern __attribute__ ((visibility("default"))) Uint32 SDL_MapRGB(const SDL_PixelFormat * format, Uint8 r, Uint8 g, Uint8 b);
-extern __attribute__ ((visibility("default"))) Uint32 SDL_MapRGBA(const SDL_PixelFormat * format, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
-extern __attribute__ ((visibility("default"))) void SDL_GetRGB(Uint32 pixel, const SDL_PixelFormat * format, Uint8 * r, Uint8 * g, Uint8 * b);
-extern __attribute__ ((visibility("default"))) void SDL_GetRGBA(Uint32 pixel, const SDL_PixelFormat * format, Uint8 * r, Uint8 * g, Uint8 * b, Uint8 * a);
-extern __attribute__ ((visibility("default"))) void SDL_CalculateGammaRamp(float gamma, Uint16 * ramp);
-/* +++++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++++ END   /usr/local/include/SDL2/close_code.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_pixels.h */
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_rect.h */
-enum { SDL_rect_h_ = 1 };
-/* +++++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++++ BEGIN /usr/local/include/SDL2/SDL_error.h */
-/* +++++ END   /usr/local/include/SDL2/SDL_error.h */
-/* +++++ BEGIN /usr/local/include/SDL2/SDL_pixels.h */
-/* +++++ END   /usr/local/include/SDL2/SDL_pixels.h */
-/* +++++ BEGIN /usr/local/include/SDL2/SDL_rwops.h */
-/* +++++ END   /usr/local/include/SDL2/SDL_rwops.h */
-/* +++++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++++ END   /usr/local/include/SDL2/begin_code.h */
 typedef struct SDL_Point {
 	int x;
 	int y;
@@ -1116,49 +885,9 @@ typedef struct SDL_FRect {
 	float w;
 	float h;
 } SDL_FRect;
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasIntersection(const SDL_Rect * A, const SDL_Rect * B);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_IntersectRect(const SDL_Rect * A, const SDL_Rect * B, SDL_Rect * result);
-extern __attribute__ ((visibility("default"))) void SDL_UnionRect(const SDL_Rect * A, const SDL_Rect * B, SDL_Rect * result);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_EnclosePoints(const SDL_Point * points, int count, const SDL_Rect * clip, SDL_Rect * result);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_IntersectRectAndLine(const SDL_Rect * rect, int *X1, int *Y1, int *X2, int *Y2);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasIntersectionF(const SDL_FRect * A, const SDL_FRect * B);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_IntersectFRect(const SDL_FRect * A, const SDL_FRect * B, SDL_FRect * result);
-extern __attribute__ ((visibility("default"))) void SDL_UnionFRect(const SDL_FRect * A, const SDL_FRect * B, SDL_FRect * result);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_EncloseFPoints(const SDL_FPoint * points, int count, const SDL_FRect * clip, SDL_FRect * result);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_IntersectFRectAndLine(const SDL_FRect * rect, float *X1, float *Y1, float *X2, float *Y2);
-/* +++++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++++ END   /usr/local/include/SDL2/close_code.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_rect.h */
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_surface.h */
-enum { SDL_surface_h_ = 1 };
-/* +++++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++++ BEGIN /usr/local/include/SDL2/SDL_pixels.h */
-/* +++++ END   /usr/local/include/SDL2/SDL_pixels.h */
-/* +++++ BEGIN /usr/local/include/SDL2/SDL_rect.h */
-/* +++++ END   /usr/local/include/SDL2/SDL_rect.h */
-/* +++++ BEGIN /usr/local/include/SDL2/SDL_blendmode.h */
-enum { SDL_blendmode_h_ = 1 };
-/* ++++++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* ++++++ END   /usr/local/include/SDL2/begin_code.h */
 typedef enum { SDL_BLENDMODE_NONE = 0x00000000, SDL_BLENDMODE_BLEND = 0x00000001, SDL_BLENDMODE_ADD = 0x00000002, SDL_BLENDMODE_MOD = 0x00000004, SDL_BLENDMODE_MUL = 0x00000008, SDL_BLENDMODE_INVALID = 0x7FFFFFFF } SDL_BlendMode;
 typedef enum { SDL_BLENDOPERATION_ADD = 0x1, SDL_BLENDOPERATION_SUBTRACT = 0x2, SDL_BLENDOPERATION_REV_SUBTRACT = 0x3, SDL_BLENDOPERATION_MINIMUM = 0x4, SDL_BLENDOPERATION_MAXIMUM = 0x5 } SDL_BlendOperation;
 typedef enum { SDL_BLENDFACTOR_ZERO = 0x1, SDL_BLENDFACTOR_ONE = 0x2, SDL_BLENDFACTOR_SRC_COLOR = 0x3, SDL_BLENDFACTOR_ONE_MINUS_SRC_COLOR = 0x4, SDL_BLENDFACTOR_SRC_ALPHA = 0x5, SDL_BLENDFACTOR_ONE_MINUS_SRC_ALPHA = 0x6, SDL_BLENDFACTOR_DST_COLOR = 0x7, SDL_BLENDFACTOR_ONE_MINUS_DST_COLOR = 0x8, SDL_BLENDFACTOR_DST_ALPHA = 0x9, SDL_BLENDFACTOR_ONE_MINUS_DST_ALPHA = 0xA } SDL_BlendFactor;
-extern __attribute__ ((visibility("default"))) SDL_BlendMode SDL_ComposeCustomBlendMode(SDL_BlendFactor srcColorFactor, SDL_BlendFactor dstColorFactor, SDL_BlendOperation colorOperation, SDL_BlendFactor srcAlphaFactor, SDL_BlendFactor dstAlphaFactor, SDL_BlendOperation alphaOperation);
-/* ++++++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* ++++++ END   /usr/local/include/SDL2/close_code.h */
-/* +++++ END   /usr/local/include/SDL2/SDL_blendmode.h */
-/* +++++ BEGIN /usr/local/include/SDL2/SDL_rwops.h */
-/* +++++ END   /usr/local/include/SDL2/SDL_rwops.h */
-/* +++++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++++ END   /usr/local/include/SDL2/begin_code.h */
-enum { SDL_SWSURFACE = 0 };
-enum { SDL_PREALLOC = 1 };
-enum { SDL_RLEACCEL = 2 };
-enum { SDL_DONTFREE = 4 };
-enum { SDL_SIMD_ALIGNED = 8 };
 typedef struct SDL_BlitMap SDL_BlitMap;
 typedef struct SDL_Surface {
 	Uint32 flags;
@@ -1175,53 +904,6 @@ typedef struct SDL_Surface {
 } SDL_Surface;
 typedef int ( *SDL_blit) (struct SDL_Surface * src, SDL_Rect * srcrect, struct SDL_Surface * dst, SDL_Rect * dstrect);
 typedef enum { SDL_YUV_CONVERSION_JPEG, SDL_YUV_CONVERSION_BT601, SDL_YUV_CONVERSION_BT709, SDL_YUV_CONVERSION_AUTOMATIC } SDL_YUV_CONVERSION_MODE;
-extern __attribute__ ((visibility("default"))) SDL_Surface * SDL_CreateRGBSurface (Uint32 flags, int width, int height, int depth, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask);
-extern __attribute__ ((visibility("default"))) SDL_Surface * SDL_CreateRGBSurfaceWithFormat (Uint32 flags, int width, int height, int depth, Uint32 format);
-extern __attribute__ ((visibility("default"))) SDL_Surface * SDL_CreateRGBSurfaceFrom(void *pixels, int width, int height, int depth, int pitch, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask);
-extern __attribute__ ((visibility("default"))) SDL_Surface * SDL_CreateRGBSurfaceWithFormatFrom (void *pixels, int width, int height, int depth, int pitch, Uint32 format);
-extern __attribute__ ((visibility("default"))) void SDL_FreeSurface(SDL_Surface * surface);
-extern __attribute__ ((visibility("default"))) int SDL_SetSurfacePalette(SDL_Surface * surface, SDL_Palette * palette);
-extern __attribute__ ((visibility("default"))) int SDL_LockSurface(SDL_Surface * surface);
-extern __attribute__ ((visibility("default"))) void SDL_UnlockSurface(SDL_Surface * surface);
-extern __attribute__ ((visibility("default"))) SDL_Surface * SDL_LoadBMP_RW(SDL_RWops * src, int freesrc);
-extern __attribute__ ((visibility("default"))) int SDL_SaveBMP_RW (SDL_Surface * surface, SDL_RWops * dst, int freedst);
-extern __attribute__ ((visibility("default"))) int SDL_SetSurfaceRLE(SDL_Surface * surface, int flag);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasSurfaceRLE(SDL_Surface * surface);
-extern __attribute__ ((visibility("default"))) int SDL_SetColorKey(SDL_Surface * surface, int flag, Uint32 key);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasColorKey(SDL_Surface * surface);
-extern __attribute__ ((visibility("default"))) int SDL_GetColorKey(SDL_Surface * surface, Uint32 * key);
-extern __attribute__ ((visibility("default"))) int SDL_SetSurfaceColorMod(SDL_Surface * surface, Uint8 r, Uint8 g, Uint8 b);
-extern __attribute__ ((visibility("default"))) int SDL_GetSurfaceColorMod(SDL_Surface * surface, Uint8 * r, Uint8 * g, Uint8 * b);
-extern __attribute__ ((visibility("default"))) int SDL_SetSurfaceAlphaMod(SDL_Surface * surface, Uint8 alpha);
-extern __attribute__ ((visibility("default"))) int SDL_GetSurfaceAlphaMod(SDL_Surface * surface, Uint8 * alpha);
-extern __attribute__ ((visibility("default"))) int SDL_SetSurfaceBlendMode(SDL_Surface * surface, SDL_BlendMode blendMode);
-extern __attribute__ ((visibility("default"))) int SDL_GetSurfaceBlendMode(SDL_Surface * surface, SDL_BlendMode *blendMode);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_SetClipRect(SDL_Surface * surface, const SDL_Rect * rect);
-extern __attribute__ ((visibility("default"))) void SDL_GetClipRect(SDL_Surface * surface, SDL_Rect * rect);
-extern __attribute__ ((visibility("default"))) SDL_Surface * SDL_DuplicateSurface(SDL_Surface * surface);
-extern __attribute__ ((visibility("default"))) SDL_Surface * SDL_ConvertSurface (SDL_Surface * src, const SDL_PixelFormat * fmt, Uint32 flags);
-extern __attribute__ ((visibility("default"))) SDL_Surface * SDL_ConvertSurfaceFormat (SDL_Surface * src, Uint32 pixel_format, Uint32 flags);
-extern __attribute__ ((visibility("default"))) int SDL_ConvertPixels(int width, int height, Uint32 src_format, const void * src, int src_pitch, Uint32 dst_format, void * dst, int dst_pitch);
-extern __attribute__ ((visibility("default"))) int SDL_PremultiplyAlpha(int width, int height, Uint32 src_format, const void * src, int src_pitch, Uint32 dst_format, void * dst, int dst_pitch);
-extern __attribute__ ((visibility("default"))) int SDL_FillRect (SDL_Surface * dst, const SDL_Rect * rect, Uint32 color);
-extern __attribute__ ((visibility("default"))) int SDL_FillRects (SDL_Surface * dst, const SDL_Rect * rects, int count, Uint32 color);
-enum { SDL_BlitSurface = 0 };
-extern __attribute__ ((visibility("default"))) int SDL_UpperBlit (SDL_Surface * src, const SDL_Rect * srcrect, SDL_Surface * dst, SDL_Rect * dstrect);
-extern __attribute__ ((visibility("default"))) int SDL_LowerBlit (SDL_Surface * src, SDL_Rect * srcrect, SDL_Surface * dst, SDL_Rect * dstrect);
-extern __attribute__ ((visibility("default"))) int SDL_SoftStretch(SDL_Surface * src, const SDL_Rect * srcrect, SDL_Surface * dst, const SDL_Rect * dstrect);
-extern __attribute__ ((visibility("default"))) int SDL_SoftStretchLinear(SDL_Surface * src, const SDL_Rect * srcrect, SDL_Surface * dst, const SDL_Rect * dstrect);
-enum { SDL_BlitScaled = 0 };
-extern __attribute__ ((visibility("default"))) int SDL_UpperBlitScaled (SDL_Surface * src, const SDL_Rect * srcrect, SDL_Surface * dst, SDL_Rect * dstrect);
-extern __attribute__ ((visibility("default"))) int SDL_LowerBlitScaled (SDL_Surface * src, SDL_Rect * srcrect, SDL_Surface * dst, SDL_Rect * dstrect);
-extern __attribute__ ((visibility("default"))) void SDL_SetYUVConversionMode(SDL_YUV_CONVERSION_MODE mode);
-extern __attribute__ ((visibility("default"))) SDL_YUV_CONVERSION_MODE SDL_GetYUVConversionMode(void);
-extern __attribute__ ((visibility("default"))) SDL_YUV_CONVERSION_MODE SDL_GetYUVConversionModeForResolution(int width, int height);
-/* +++++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++++ END   /usr/local/include/SDL2/close_code.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_surface.h */
-/* ++++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* ++++ END   /usr/local/include/SDL2/begin_code.h */
 typedef struct {
 	Uint32 format;
 	int w;
@@ -1231,10 +913,6 @@ typedef struct {
 } SDL_DisplayMode;
 typedef struct SDL_Window SDL_Window;
 typedef enum { SDL_WINDOW_FULLSCREEN = 0x00000001, SDL_WINDOW_OPENGL = 0x00000002, SDL_WINDOW_SHOWN = 0x00000004, SDL_WINDOW_HIDDEN = 0x00000008, SDL_WINDOW_BORDERLESS = 0x00000010, SDL_WINDOW_RESIZABLE = 0x00000020, SDL_WINDOW_MINIMIZED = 0x00000040, SDL_WINDOW_MAXIMIZED = 0x00000080, SDL_WINDOW_MOUSE_GRABBED = 0x00000100, SDL_WINDOW_INPUT_FOCUS = 0x00000200, SDL_WINDOW_MOUSE_FOCUS = 0x00000400, SDL_WINDOW_FULLSCREEN_DESKTOP = ( SDL_WINDOW_FULLSCREEN | 0x00001000 ), SDL_WINDOW_FOREIGN = 0x00000800, SDL_WINDOW_ALLOW_HIGHDPI = 0x00002000, SDL_WINDOW_MOUSE_CAPTURE = 0x00004000, SDL_WINDOW_ALWAYS_ON_TOP = 0x00008000, SDL_WINDOW_SKIP_TASKBAR = 0x00010000, SDL_WINDOW_UTILITY = 0x00020000, SDL_WINDOW_TOOLTIP = 0x00040000, SDL_WINDOW_POPUP_MENU = 0x00080000, SDL_WINDOW_KEYBOARD_GRABBED = 0x00100000, SDL_WINDOW_VULKAN = 0x10000000, SDL_WINDOW_METAL = 0x20000000, SDL_WINDOW_INPUT_GRABBED = SDL_WINDOW_MOUSE_GRABBED } SDL_WindowFlags;
-enum { SDL_WINDOWPOS_UNDEFINED_MASK = 0x1FFF0000u };
-/* #define SDL_WINDOWPOS_UNDEFINED         SDL_WINDOWPOS_UNDEFINED_DISPLAY(0) ### string, not number "SDL_WINDOWPOS_UNDEFINED_DISPLAY(0)" */
-enum { SDL_WINDOWPOS_CENTERED_MASK = 0x2FFF0000u };
-/* #define SDL_WINDOWPOS_CENTERED         SDL_WINDOWPOS_CENTERED_DISPLAY(0) ### string, not number "SDL_WINDOWPOS_CENTERED_DISPLAY(0)" */
 typedef enum { SDL_WINDOWEVENT_NONE, SDL_WINDOWEVENT_SHOWN, SDL_WINDOWEVENT_HIDDEN, SDL_WINDOWEVENT_EXPOSED, SDL_WINDOWEVENT_MOVED, SDL_WINDOWEVENT_RESIZED, SDL_WINDOWEVENT_SIZE_CHANGED, SDL_WINDOWEVENT_MINIMIZED, SDL_WINDOWEVENT_MAXIMIZED, SDL_WINDOWEVENT_RESTORED, SDL_WINDOWEVENT_ENTER, SDL_WINDOWEVENT_LEAVE, SDL_WINDOWEVENT_FOCUS_GAINED, SDL_WINDOWEVENT_FOCUS_LOST, SDL_WINDOWEVENT_CLOSE, SDL_WINDOWEVENT_TAKE_FOCUS, SDL_WINDOWEVENT_HIT_TEST, SDL_WINDOWEVENT_ICCPROF_CHANGED, SDL_WINDOWEVENT_DISPLAY_CHANGED } SDL_WindowEventID;
 typedef enum { SDL_DISPLAYEVENT_NONE, SDL_DISPLAYEVENT_ORIENTATION, SDL_DISPLAYEVENT_CONNECTED, SDL_DISPLAYEVENT_DISCONNECTED, SDL_DISPLAYEVENT_MOVED } SDL_DisplayEventID;
 typedef enum { SDL_ORIENTATION_UNKNOWN, SDL_ORIENTATION_LANDSCAPE, SDL_ORIENTATION_LANDSCAPE_FLIPPED, SDL_ORIENTATION_PORTRAIT, SDL_ORIENTATION_PORTRAIT_FLIPPED } SDL_DisplayOrientation;
@@ -1245,122 +923,8 @@ typedef enum { SDL_GL_CONTEXT_PROFILE_CORE = 0x0001, SDL_GL_CONTEXT_PROFILE_COMP
 typedef enum { SDL_GL_CONTEXT_DEBUG_FLAG = 0x0001, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG = 0x0002, SDL_GL_CONTEXT_ROBUST_ACCESS_FLAG = 0x0004, SDL_GL_CONTEXT_RESET_ISOLATION_FLAG = 0x0008 } SDL_GLcontextFlag;
 typedef enum { SDL_GL_CONTEXT_RELEASE_BEHAVIOR_NONE = 0x0000, SDL_GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH = 0x0001 } SDL_GLcontextReleaseFlag;
 typedef enum { SDL_GL_CONTEXT_RESET_NO_NOTIFICATION = 0x0000, SDL_GL_CONTEXT_RESET_LOSE_CONTEXT = 0x0001 } SDL_GLContextResetNotification;
-extern __attribute__ ((visibility("default"))) int SDL_GetNumVideoDrivers(void);
-extern __attribute__ ((visibility("default"))) const char * SDL_GetVideoDriver(int index);
-extern __attribute__ ((visibility("default"))) int SDL_VideoInit(const char *driver_name);
-extern __attribute__ ((visibility("default"))) void SDL_VideoQuit(void);
-extern __attribute__ ((visibility("default"))) const char * SDL_GetCurrentVideoDriver(void);
-extern __attribute__ ((visibility("default"))) int SDL_GetNumVideoDisplays(void);
-extern __attribute__ ((visibility("default"))) const char * SDL_GetDisplayName(int displayIndex);
-extern __attribute__ ((visibility("default"))) int SDL_GetDisplayBounds(int displayIndex, SDL_Rect * rect);
-extern __attribute__ ((visibility("default"))) int SDL_GetDisplayUsableBounds(int displayIndex, SDL_Rect * rect);
-extern __attribute__ ((visibility("default"))) int SDL_GetDisplayDPI(int displayIndex, float * ddpi, float * hdpi, float * vdpi);
-extern __attribute__ ((visibility("default"))) SDL_DisplayOrientation SDL_GetDisplayOrientation(int displayIndex);
-extern __attribute__ ((visibility("default"))) int SDL_GetNumDisplayModes(int displayIndex);
-extern __attribute__ ((visibility("default"))) int SDL_GetDisplayMode(int displayIndex, int modeIndex, SDL_DisplayMode * mode);
-extern __attribute__ ((visibility("default"))) int SDL_GetDesktopDisplayMode(int displayIndex, SDL_DisplayMode * mode);
-extern __attribute__ ((visibility("default"))) int SDL_GetCurrentDisplayMode(int displayIndex, SDL_DisplayMode * mode);
-extern __attribute__ ((visibility("default"))) SDL_DisplayMode * SDL_GetClosestDisplayMode(int displayIndex, const SDL_DisplayMode * mode, SDL_DisplayMode * closest);
-extern __attribute__ ((visibility("default"))) int SDL_GetPointDisplayIndex(const SDL_Point * point);
-extern __attribute__ ((visibility("default"))) int SDL_GetRectDisplayIndex(const SDL_Rect * rect);
-extern __attribute__ ((visibility("default"))) int SDL_GetWindowDisplayIndex(SDL_Window * window);
-extern __attribute__ ((visibility("default"))) int SDL_SetWindowDisplayMode(SDL_Window * window, const SDL_DisplayMode * mode);
-extern __attribute__ ((visibility("default"))) int SDL_GetWindowDisplayMode(SDL_Window * window, SDL_DisplayMode * mode);
-extern __attribute__ ((visibility("default"))) void* SDL_GetWindowICCProfile(SDL_Window * window, size_t* size);
-extern __attribute__ ((visibility("default"))) Uint32 SDL_GetWindowPixelFormat(SDL_Window * window);
-extern __attribute__ ((visibility("default"))) SDL_Window * SDL_CreateWindow(const char *title, int x, int y, int w, int h, Uint32 flags);
-extern __attribute__ ((visibility("default"))) SDL_Window * SDL_CreateWindowFrom(const void *data);
-extern __attribute__ ((visibility("default"))) Uint32 SDL_GetWindowID(SDL_Window * window);
-extern __attribute__ ((visibility("default"))) SDL_Window * SDL_GetWindowFromID(Uint32 id);
-extern __attribute__ ((visibility("default"))) Uint32 SDL_GetWindowFlags(SDL_Window * window);
-extern __attribute__ ((visibility("default"))) void SDL_SetWindowTitle(SDL_Window * window, const char *title);
-extern __attribute__ ((visibility("default"))) const char * SDL_GetWindowTitle(SDL_Window * window);
-extern __attribute__ ((visibility("default"))) void SDL_SetWindowIcon(SDL_Window * window, SDL_Surface * icon);
-extern __attribute__ ((visibility("default"))) void* SDL_SetWindowData(SDL_Window * window, const char *name, void *userdata);
-extern __attribute__ ((visibility("default"))) void * SDL_GetWindowData(SDL_Window * window, const char *name);
-extern __attribute__ ((visibility("default"))) void SDL_SetWindowPosition(SDL_Window * window, int x, int y);
-extern __attribute__ ((visibility("default"))) void SDL_GetWindowPosition(SDL_Window * window, int *x, int *y);
-extern __attribute__ ((visibility("default"))) void SDL_SetWindowSize(SDL_Window * window, int w, int h);
-extern __attribute__ ((visibility("default"))) void SDL_GetWindowSize(SDL_Window * window, int *w, int *h);
-extern __attribute__ ((visibility("default"))) int SDL_GetWindowBordersSize(SDL_Window * window, int *top, int *left, int *bottom, int *right);
-extern __attribute__ ((visibility("default"))) void SDL_GetWindowSizeInPixels(SDL_Window * window, int *w, int *h);
-extern __attribute__ ((visibility("default"))) void SDL_SetWindowMinimumSize(SDL_Window * window, int min_w, int min_h);
-extern __attribute__ ((visibility("default"))) void SDL_GetWindowMinimumSize(SDL_Window * window, int *w, int *h);
-extern __attribute__ ((visibility("default"))) void SDL_SetWindowMaximumSize(SDL_Window * window, int max_w, int max_h);
-extern __attribute__ ((visibility("default"))) void SDL_GetWindowMaximumSize(SDL_Window * window, int *w, int *h);
-extern __attribute__ ((visibility("default"))) void SDL_SetWindowBordered(SDL_Window * window, SDL_bool bordered);
-extern __attribute__ ((visibility("default"))) void SDL_SetWindowResizable(SDL_Window * window, SDL_bool resizable);
-extern __attribute__ ((visibility("default"))) void SDL_SetWindowAlwaysOnTop(SDL_Window * window, SDL_bool on_top);
-extern __attribute__ ((visibility("default"))) void SDL_ShowWindow(SDL_Window * window);
-extern __attribute__ ((visibility("default"))) void SDL_HideWindow(SDL_Window * window);
-extern __attribute__ ((visibility("default"))) void SDL_RaiseWindow(SDL_Window * window);
-extern __attribute__ ((visibility("default"))) void SDL_MaximizeWindow(SDL_Window * window);
-extern __attribute__ ((visibility("default"))) void SDL_MinimizeWindow(SDL_Window * window);
-extern __attribute__ ((visibility("default"))) void SDL_RestoreWindow(SDL_Window * window);
-extern __attribute__ ((visibility("default"))) int SDL_SetWindowFullscreen(SDL_Window * window, Uint32 flags);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasWindowSurface(SDL_Window *window);
-extern __attribute__ ((visibility("default"))) SDL_Surface * SDL_GetWindowSurface(SDL_Window * window);
-extern __attribute__ ((visibility("default"))) int SDL_UpdateWindowSurface(SDL_Window * window);
-extern __attribute__ ((visibility("default"))) int SDL_UpdateWindowSurfaceRects(SDL_Window * window, const SDL_Rect * rects, int numrects);
-extern __attribute__ ((visibility("default"))) int SDL_DestroyWindowSurface(SDL_Window *window);
-extern __attribute__ ((visibility("default"))) void SDL_SetWindowGrab(SDL_Window * window, SDL_bool grabbed);
-extern __attribute__ ((visibility("default"))) void SDL_SetWindowKeyboardGrab(SDL_Window * window, SDL_bool grabbed);
-extern __attribute__ ((visibility("default"))) void SDL_SetWindowMouseGrab(SDL_Window * window, SDL_bool grabbed);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_GetWindowGrab(SDL_Window * window);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_GetWindowKeyboardGrab(SDL_Window * window);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_GetWindowMouseGrab(SDL_Window * window);
-extern __attribute__ ((visibility("default"))) SDL_Window * SDL_GetGrabbedWindow(void);
-extern __attribute__ ((visibility("default"))) int SDL_SetWindowMouseRect(SDL_Window * window, const SDL_Rect * rect);
-extern __attribute__ ((visibility("default"))) const SDL_Rect * SDL_GetWindowMouseRect(SDL_Window * window);
-extern __attribute__ ((visibility("default"))) int SDL_SetWindowBrightness(SDL_Window * window, float brightness);
-extern __attribute__ ((visibility("default"))) float SDL_GetWindowBrightness(SDL_Window * window);
-extern __attribute__ ((visibility("default"))) int SDL_SetWindowOpacity(SDL_Window * window, float opacity);
-extern __attribute__ ((visibility("default"))) int SDL_GetWindowOpacity(SDL_Window * window, float * out_opacity);
-extern __attribute__ ((visibility("default"))) int SDL_SetWindowModalFor(SDL_Window * modal_window, SDL_Window * parent_window);
-extern __attribute__ ((visibility("default"))) int SDL_SetWindowInputFocus(SDL_Window * window);
-extern __attribute__ ((visibility("default"))) int SDL_SetWindowGammaRamp(SDL_Window * window, const Uint16 * red, const Uint16 * green, const Uint16 * blue);
-extern __attribute__ ((visibility("default"))) int SDL_GetWindowGammaRamp(SDL_Window * window, Uint16 * red, Uint16 * green, Uint16 * blue);
 typedef enum { SDL_HITTEST_NORMAL, SDL_HITTEST_DRAGGABLE, SDL_HITTEST_RESIZE_TOPLEFT, SDL_HITTEST_RESIZE_TOP, SDL_HITTEST_RESIZE_TOPRIGHT, SDL_HITTEST_RESIZE_RIGHT, SDL_HITTEST_RESIZE_BOTTOMRIGHT, SDL_HITTEST_RESIZE_BOTTOM, SDL_HITTEST_RESIZE_BOTTOMLEFT, SDL_HITTEST_RESIZE_LEFT } SDL_HitTestResult;
 typedef SDL_HitTestResult ( *SDL_HitTest)(SDL_Window *win, const SDL_Point *area, void *data);
-extern __attribute__ ((visibility("default"))) int SDL_SetWindowHitTest(SDL_Window * window, SDL_HitTest callback, void *callback_data);
-extern __attribute__ ((visibility("default"))) int SDL_FlashWindow(SDL_Window * window, SDL_FlashOperation operation);
-extern __attribute__ ((visibility("default"))) void SDL_DestroyWindow(SDL_Window * window);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_IsScreenSaverEnabled(void);
-extern __attribute__ ((visibility("default"))) void SDL_EnableScreenSaver(void);
-extern __attribute__ ((visibility("default"))) void SDL_DisableScreenSaver(void);
-extern __attribute__ ((visibility("default"))) int SDL_GL_LoadLibrary(const char *path);
-extern __attribute__ ((visibility("default"))) void * SDL_GL_GetProcAddress(const char *proc);
-extern __attribute__ ((visibility("default"))) void SDL_GL_UnloadLibrary(void);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_GL_ExtensionSupported(const char *extension);
-extern __attribute__ ((visibility("default"))) void SDL_GL_ResetAttributes(void);
-extern __attribute__ ((visibility("default"))) int SDL_GL_SetAttribute(SDL_GLattr attr, int value);
-extern __attribute__ ((visibility("default"))) int SDL_GL_GetAttribute(SDL_GLattr attr, int *value);
-extern __attribute__ ((visibility("default"))) SDL_GLContext SDL_GL_CreateContext(SDL_Window * window);
-extern __attribute__ ((visibility("default"))) int SDL_GL_MakeCurrent(SDL_Window * window, SDL_GLContext context);
-extern __attribute__ ((visibility("default"))) SDL_Window* SDL_GL_GetCurrentWindow(void);
-extern __attribute__ ((visibility("default"))) SDL_GLContext SDL_GL_GetCurrentContext(void);
-extern __attribute__ ((visibility("default"))) void SDL_GL_GetDrawableSize(SDL_Window * window, int *w, int *h);
-extern __attribute__ ((visibility("default"))) int SDL_GL_SetSwapInterval(int interval);
-extern __attribute__ ((visibility("default"))) int SDL_GL_GetSwapInterval(void);
-extern __attribute__ ((visibility("default"))) void SDL_GL_SwapWindow(SDL_Window * window);
-extern __attribute__ ((visibility("default"))) void SDL_GL_DeleteContext(SDL_GLContext context);
-/* ++++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* ++++ END   /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/SDL_video.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_keyboard.h */
-enum { SDL_keyboard_h_ = 1 };
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_error.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_error.h */
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_keycode.h */
-enum { SDL_keycode_h_ = 1 };
-/* +++++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++++ BEGIN /usr/local/include/SDL2/SDL_scancode.h */
-enum { SDL_scancode_h_ = 1 };
-/* ++++++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* ++++++ END   /usr/local/include/SDL2/SDL_stdinc.h */
 typedef enum {
 	SDL_SCANCODE_UNKNOWN = 0,
 	SDL_SCANCODE_A = 4,
@@ -1611,9 +1175,7 @@ typedef enum {
 	SDL_SCANCODE_ENDCALL = 290,
 	SDL_NUM_SCANCODES = 512
 } SDL_Scancode;
-/* +++++ END   /usr/local/include/SDL2/SDL_scancode.h */
 typedef Sint32 SDL_Keycode;
-enum { SDLK_SCANCODE_MASK = 1073741824 };
 typedef enum {
 	SDLK_UNKNOWN = 0,
 	SDLK_RETURN = '\r',
@@ -1880,135 +1442,24 @@ typedef enum {
 	KMOD_GUI = KMOD_LGUI | KMOD_RGUI,
 	KMOD_RESERVED = KMOD_SCROLL
 } SDL_Keymod;
-/* ++++ END   /usr/local/include/SDL2/SDL_keycode.h */
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_video.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_video.h */
-/* ++++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* ++++ END   /usr/local/include/SDL2/begin_code.h */
 typedef struct SDL_Keysym {
 	SDL_Scancode scancode;
 	SDL_Keycode sym;
 	Uint16 mod;
 	Uint32 unused;
 } SDL_Keysym;
-extern __attribute__ ((visibility("default"))) SDL_Window * SDL_GetKeyboardFocus(void);
-extern __attribute__ ((visibility("default"))) const Uint8 * SDL_GetKeyboardState(int *numkeys);
-extern __attribute__ ((visibility("default"))) void SDL_ResetKeyboard(void);
-extern __attribute__ ((visibility("default"))) SDL_Keymod SDL_GetModState(void);
-extern __attribute__ ((visibility("default"))) void SDL_SetModState(SDL_Keymod modstate);
-extern __attribute__ ((visibility("default"))) SDL_Keycode SDL_GetKeyFromScancode(SDL_Scancode scancode);
-extern __attribute__ ((visibility("default"))) SDL_Scancode SDL_GetScancodeFromKey(SDL_Keycode key);
-extern __attribute__ ((visibility("default"))) const char * SDL_GetScancodeName(SDL_Scancode scancode);
-extern __attribute__ ((visibility("default"))) SDL_Scancode SDL_GetScancodeFromName(const char *name);
-extern __attribute__ ((visibility("default"))) const char * SDL_GetKeyName(SDL_Keycode key);
-extern __attribute__ ((visibility("default"))) SDL_Keycode SDL_GetKeyFromName(const char *name);
-extern __attribute__ ((visibility("default"))) void SDL_StartTextInput(void);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_IsTextInputActive(void);
-extern __attribute__ ((visibility("default"))) void SDL_StopTextInput(void);
-extern __attribute__ ((visibility("default"))) void SDL_ClearComposition(void);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_IsTextInputShown(void);
-extern __attribute__ ((visibility("default"))) void SDL_SetTextInputRect(const SDL_Rect *rect);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasScreenKeyboardSupport(void);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_IsScreenKeyboardShown(SDL_Window *window);
-/* ++++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* ++++ END   /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/SDL_keyboard.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_mouse.h */
-enum { SDL_mouse_h_ = 1 };
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_error.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_error.h */
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_video.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_video.h */
-/* ++++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* ++++ END   /usr/local/include/SDL2/begin_code.h */
 typedef struct SDL_Cursor SDL_Cursor;
 typedef enum { SDL_SYSTEM_CURSOR_ARROW, SDL_SYSTEM_CURSOR_IBEAM, SDL_SYSTEM_CURSOR_WAIT, SDL_SYSTEM_CURSOR_CROSSHAIR, SDL_SYSTEM_CURSOR_WAITARROW, SDL_SYSTEM_CURSOR_SIZENWSE, SDL_SYSTEM_CURSOR_SIZENESW, SDL_SYSTEM_CURSOR_SIZEWE, SDL_SYSTEM_CURSOR_SIZENS, SDL_SYSTEM_CURSOR_SIZEALL, SDL_SYSTEM_CURSOR_NO, SDL_SYSTEM_CURSOR_HAND, SDL_NUM_SYSTEM_CURSORS } SDL_SystemCursor;
 typedef enum { SDL_MOUSEWHEEL_NORMAL, SDL_MOUSEWHEEL_FLIPPED } SDL_MouseWheelDirection;
-extern __attribute__ ((visibility("default"))) SDL_Window * SDL_GetMouseFocus(void);
-extern __attribute__ ((visibility("default"))) Uint32 SDL_GetMouseState(int *x, int *y);
-extern __attribute__ ((visibility("default"))) Uint32 SDL_GetGlobalMouseState(int *x, int *y);
-extern __attribute__ ((visibility("default"))) Uint32 SDL_GetRelativeMouseState(int *x, int *y);
-extern __attribute__ ((visibility("default"))) void SDL_WarpMouseInWindow(SDL_Window * window, int x, int y);
-extern __attribute__ ((visibility("default"))) int SDL_WarpMouseGlobal(int x, int y);
-extern __attribute__ ((visibility("default"))) int SDL_SetRelativeMouseMode(SDL_bool enabled);
-extern __attribute__ ((visibility("default"))) int SDL_CaptureMouse(SDL_bool enabled);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_GetRelativeMouseMode(void);
-extern __attribute__ ((visibility("default"))) SDL_Cursor * SDL_CreateCursor(const Uint8 * data, const Uint8 * mask, int w, int h, int hot_x, int hot_y);
-extern __attribute__ ((visibility("default"))) SDL_Cursor * SDL_CreateColorCursor(SDL_Surface *surface, int hot_x, int hot_y);
-extern __attribute__ ((visibility("default"))) SDL_Cursor * SDL_CreateSystemCursor(SDL_SystemCursor id);
-extern __attribute__ ((visibility("default"))) void SDL_SetCursor(SDL_Cursor * cursor);
-extern __attribute__ ((visibility("default"))) SDL_Cursor * SDL_GetCursor(void);
-extern __attribute__ ((visibility("default"))) SDL_Cursor * SDL_GetDefaultCursor(void);
-extern __attribute__ ((visibility("default"))) void SDL_FreeCursor(SDL_Cursor * cursor);
-extern __attribute__ ((visibility("default"))) int SDL_ShowCursor(int toggle);
-enum { SDL_BUTTON_LEFT = 1 };
-enum { SDL_BUTTON_MIDDLE = 2 };
-enum { SDL_BUTTON_RIGHT = 3 };
-enum { SDL_BUTTON_X1 = 4 };
-enum { SDL_BUTTON_X2 = 5 };
-enum { SDL_BUTTON_LMASK = 1 };
-enum { SDL_BUTTON_MMASK = 2 };
-enum { SDL_BUTTON_RMASK = 4 };
-enum { SDL_BUTTON_X1MASK = 8 };
-enum { SDL_BUTTON_X2MASK = 16 };
-/* ++++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* ++++ END   /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/SDL_mouse.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_joystick.h */
-enum { SDL_joystick_h_ = 1 };
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_error.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_error.h */
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_guid.h */
-enum { SDL_guid_h_ = 1 };
-/* +++++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++++ BEGIN /usr/local/include/SDL2/SDL_error.h */
-/* +++++ END   /usr/local/include/SDL2/SDL_error.h */
-/* +++++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++++ END   /usr/local/include/SDL2/begin_code.h */
 typedef struct {
 	Uint8 data[16];
 } SDL_GUID;
-extern __attribute__ ((visibility("default"))) void SDL_GUIDToString(SDL_GUID guid, char *pszGUID, int cbGUID);
-extern __attribute__ ((visibility("default"))) SDL_GUID SDL_GUIDFromString(const char *pchGUID);
-/* +++++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++++ END   /usr/local/include/SDL2/close_code.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_guid.h */
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_mutex.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_mutex.h */
-/* ++++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* ++++ END   /usr/local/include/SDL2/begin_code.h */
 struct _SDL_Joystick;
 typedef struct _SDL_Joystick SDL_Joystick;
 typedef SDL_GUID SDL_JoystickGUID;
 typedef Sint32 SDL_JoystickID;
 typedef enum { SDL_JOYSTICK_TYPE_UNKNOWN, SDL_JOYSTICK_TYPE_GAMECONTROLLER, SDL_JOYSTICK_TYPE_WHEEL, SDL_JOYSTICK_TYPE_ARCADE_STICK, SDL_JOYSTICK_TYPE_FLIGHT_STICK, SDL_JOYSTICK_TYPE_DANCE_PAD, SDL_JOYSTICK_TYPE_GUITAR, SDL_JOYSTICK_TYPE_DRUM_KIT, SDL_JOYSTICK_TYPE_ARCADE_PAD, SDL_JOYSTICK_TYPE_THROTTLE } SDL_JoystickType;
 typedef enum { SDL_JOYSTICK_POWER_UNKNOWN = -1, SDL_JOYSTICK_POWER_EMPTY, SDL_JOYSTICK_POWER_LOW, SDL_JOYSTICK_POWER_MEDIUM, SDL_JOYSTICK_POWER_FULL, SDL_JOYSTICK_POWER_WIRED, SDL_JOYSTICK_POWER_MAX } SDL_JoystickPowerLevel;
-/* #define SDL_IPHONE_MAX_GFORCE 5.0 ### string, number, replaceline "5.0" */
-extern __attribute__ ((visibility("default"))) void SDL_LockJoysticks(void);
-extern __attribute__ ((visibility("default"))) void SDL_UnlockJoysticks(void);
-extern __attribute__ ((visibility("default"))) int SDL_NumJoysticks(void);
-extern __attribute__ ((visibility("default"))) const char * SDL_JoystickNameForIndex(int device_index);
-extern __attribute__ ((visibility("default"))) const char * SDL_JoystickPathForIndex(int device_index);
-extern __attribute__ ((visibility("default"))) int SDL_JoystickGetDevicePlayerIndex(int device_index);
-extern __attribute__ ((visibility("default"))) SDL_JoystickGUID SDL_JoystickGetDeviceGUID(int device_index);
-extern __attribute__ ((visibility("default"))) Uint16 SDL_JoystickGetDeviceVendor(int device_index);
-extern __attribute__ ((visibility("default"))) Uint16 SDL_JoystickGetDeviceProduct(int device_index);
-extern __attribute__ ((visibility("default"))) Uint16 SDL_JoystickGetDeviceProductVersion(int device_index);
-extern __attribute__ ((visibility("default"))) SDL_JoystickType SDL_JoystickGetDeviceType(int device_index);
-extern __attribute__ ((visibility("default"))) SDL_JoystickID SDL_JoystickGetDeviceInstanceID(int device_index);
-extern __attribute__ ((visibility("default"))) SDL_Joystick * SDL_JoystickOpen(int device_index);
-extern __attribute__ ((visibility("default"))) SDL_Joystick * SDL_JoystickFromInstanceID(SDL_JoystickID instance_id);
-extern __attribute__ ((visibility("default"))) SDL_Joystick * SDL_JoystickFromPlayerIndex(int player_index);
-extern __attribute__ ((visibility("default"))) int SDL_JoystickAttachVirtual(SDL_JoystickType type, int naxes, int nbuttons, int nhats);
 typedef struct SDL_VirtualJoystickDesc {
 	Uint16 version;
 	Uint16 type;
@@ -2029,110 +1480,10 @@ typedef struct SDL_VirtualJoystickDesc {
 	int ( *SetLED)(void *userdata, Uint8 red, Uint8 green, Uint8 blue);
 	int ( *SendEffect)(void *userdata, const void *data, int size);
 } SDL_VirtualJoystickDesc;
-enum { SDL_VIRTUAL_JOYSTICK_DESC_VERSION = 1 };
-extern __attribute__ ((visibility("default"))) int SDL_JoystickAttachVirtualEx(const SDL_VirtualJoystickDesc *desc);
-extern __attribute__ ((visibility("default"))) int SDL_JoystickDetachVirtual(int device_index);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_JoystickIsVirtual(int device_index);
-extern __attribute__ ((visibility("default"))) int SDL_JoystickSetVirtualAxis(SDL_Joystick *joystick, int axis, Sint16 value);
-extern __attribute__ ((visibility("default"))) int SDL_JoystickSetVirtualButton(SDL_Joystick *joystick, int button, Uint8 value);
-extern __attribute__ ((visibility("default"))) int SDL_JoystickSetVirtualHat(SDL_Joystick *joystick, int hat, Uint8 value);
-extern __attribute__ ((visibility("default"))) const char * SDL_JoystickName(SDL_Joystick *joystick);
-extern __attribute__ ((visibility("default"))) const char * SDL_JoystickPath(SDL_Joystick *joystick);
-extern __attribute__ ((visibility("default"))) int SDL_JoystickGetPlayerIndex(SDL_Joystick *joystick);
-extern __attribute__ ((visibility("default"))) void SDL_JoystickSetPlayerIndex(SDL_Joystick *joystick, int player_index);
-extern __attribute__ ((visibility("default"))) SDL_JoystickGUID SDL_JoystickGetGUID(SDL_Joystick *joystick);
-extern __attribute__ ((visibility("default"))) Uint16 SDL_JoystickGetVendor(SDL_Joystick *joystick);
-extern __attribute__ ((visibility("default"))) Uint16 SDL_JoystickGetProduct(SDL_Joystick *joystick);
-extern __attribute__ ((visibility("default"))) Uint16 SDL_JoystickGetProductVersion(SDL_Joystick *joystick);
-extern __attribute__ ((visibility("default"))) Uint16 SDL_JoystickGetFirmwareVersion(SDL_Joystick *joystick);
-extern __attribute__ ((visibility("default"))) const char * SDL_JoystickGetSerial(SDL_Joystick *joystick);
-extern __attribute__ ((visibility("default"))) SDL_JoystickType SDL_JoystickGetType(SDL_Joystick *joystick);
-extern __attribute__ ((visibility("default"))) void SDL_JoystickGetGUIDString(SDL_JoystickGUID guid, char *pszGUID, int cbGUID);
-extern __attribute__ ((visibility("default"))) SDL_JoystickGUID SDL_JoystickGetGUIDFromString(const char *pchGUID);
-extern __attribute__ ((visibility("default"))) void SDL_GetJoystickGUIDInfo(SDL_JoystickGUID guid, Uint16 *vendor, Uint16 *product, Uint16 *version, Uint16 *crc16);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_JoystickGetAttached(SDL_Joystick *joystick);
-extern __attribute__ ((visibility("default"))) SDL_JoystickID SDL_JoystickInstanceID(SDL_Joystick *joystick);
-extern __attribute__ ((visibility("default"))) int SDL_JoystickNumAxes(SDL_Joystick *joystick);
-extern __attribute__ ((visibility("default"))) int SDL_JoystickNumBalls(SDL_Joystick *joystick);
-extern __attribute__ ((visibility("default"))) int SDL_JoystickNumHats(SDL_Joystick *joystick);
-extern __attribute__ ((visibility("default"))) int SDL_JoystickNumButtons(SDL_Joystick *joystick);
-extern __attribute__ ((visibility("default"))) void SDL_JoystickUpdate(void);
-extern __attribute__ ((visibility("default"))) int SDL_JoystickEventState(int state);
-enum { SDL_JOYSTICK_AXIS_MAX = 32767 };
-enum { SDL_JOYSTICK_AXIS_MIN = -32768 };
-extern __attribute__ ((visibility("default"))) Sint16 SDL_JoystickGetAxis(SDL_Joystick *joystick, int axis);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_JoystickGetAxisInitialState(SDL_Joystick *joystick, int axis, Sint16 *state);
-enum { SDL_HAT_CENTERED = 0 };
-enum { SDL_HAT_UP = 1 };
-enum { SDL_HAT_RIGHT = 2 };
-enum { SDL_HAT_DOWN = 4 };
-enum { SDL_HAT_LEFT = 8 };
-enum { SDL_HAT_RIGHTUP = 3 };
-enum { SDL_HAT_RIGHTDOWN = 6 };
-enum { SDL_HAT_LEFTUP = 9 };
-enum { SDL_HAT_LEFTDOWN = 12 };
-extern __attribute__ ((visibility("default"))) Uint8 SDL_JoystickGetHat(SDL_Joystick *joystick, int hat);
-extern __attribute__ ((visibility("default"))) int SDL_JoystickGetBall(SDL_Joystick *joystick, int ball, int *dx, int *dy);
-extern __attribute__ ((visibility("default"))) Uint8 SDL_JoystickGetButton(SDL_Joystick *joystick, int button);
-extern __attribute__ ((visibility("default"))) int SDL_JoystickRumble(SDL_Joystick *joystick, Uint16 low_frequency_rumble, Uint16 high_frequency_rumble, Uint32 duration_ms);
-extern __attribute__ ((visibility("default"))) int SDL_JoystickRumbleTriggers(SDL_Joystick *joystick, Uint16 left_rumble, Uint16 right_rumble, Uint32 duration_ms);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_JoystickHasLED(SDL_Joystick *joystick);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_JoystickHasRumble(SDL_Joystick *joystick);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_JoystickHasRumbleTriggers(SDL_Joystick *joystick);
-extern __attribute__ ((visibility("default"))) int SDL_JoystickSetLED(SDL_Joystick *joystick, Uint8 red, Uint8 green, Uint8 blue);
-extern __attribute__ ((visibility("default"))) int SDL_JoystickSendEffect(SDL_Joystick *joystick, const void *data, int size);
-extern __attribute__ ((visibility("default"))) void SDL_JoystickClose(SDL_Joystick *joystick);
-extern __attribute__ ((visibility("default"))) SDL_JoystickPowerLevel SDL_JoystickCurrentPowerLevel(SDL_Joystick *joystick);
-/* ++++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* ++++ END   /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/SDL_joystick.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_gamecontroller.h */
-enum { SDL_gamecontroller_h_ = 1 };
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_error.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_error.h */
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_rwops.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_rwops.h */
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_sensor.h */
-enum { SDL_sensor_h_ = 1 };
-/* +++++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++++ BEGIN /usr/local/include/SDL2/SDL_error.h */
-/* +++++ END   /usr/local/include/SDL2/SDL_error.h */
-/* +++++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++++ END   /usr/local/include/SDL2/begin_code.h */
 struct _SDL_Sensor;
 typedef struct _SDL_Sensor SDL_Sensor;
 typedef Sint32 SDL_SensorID;
 typedef enum { SDL_SENSOR_INVALID = -1, SDL_SENSOR_UNKNOWN, SDL_SENSOR_ACCEL, SDL_SENSOR_GYRO, SDL_SENSOR_ACCEL_L, SDL_SENSOR_GYRO_L, SDL_SENSOR_ACCEL_R, SDL_SENSOR_GYRO_R } SDL_SensorType;
-/* #define SDL_STANDARD_GRAVITY    9.80665f ### string, not number "9.80665f" */
-extern __attribute__ ((visibility("default"))) void SDL_LockSensors(void);
-extern __attribute__ ((visibility("default"))) void SDL_UnlockSensors(void);
-extern __attribute__ ((visibility("default"))) int SDL_NumSensors(void);
-extern __attribute__ ((visibility("default"))) const char * SDL_SensorGetDeviceName(int device_index);
-extern __attribute__ ((visibility("default"))) SDL_SensorType SDL_SensorGetDeviceType(int device_index);
-extern __attribute__ ((visibility("default"))) int SDL_SensorGetDeviceNonPortableType(int device_index);
-extern __attribute__ ((visibility("default"))) SDL_SensorID SDL_SensorGetDeviceInstanceID(int device_index);
-extern __attribute__ ((visibility("default"))) SDL_Sensor * SDL_SensorOpen(int device_index);
-extern __attribute__ ((visibility("default"))) SDL_Sensor * SDL_SensorFromInstanceID(SDL_SensorID instance_id);
-extern __attribute__ ((visibility("default"))) const char * SDL_SensorGetName(SDL_Sensor *sensor);
-extern __attribute__ ((visibility("default"))) SDL_SensorType SDL_SensorGetType(SDL_Sensor *sensor);
-extern __attribute__ ((visibility("default"))) int SDL_SensorGetNonPortableType(SDL_Sensor *sensor);
-extern __attribute__ ((visibility("default"))) SDL_SensorID SDL_SensorGetInstanceID(SDL_Sensor *sensor);
-extern __attribute__ ((visibility("default"))) int SDL_SensorGetData(SDL_Sensor *sensor, float *data, int num_values);
-extern __attribute__ ((visibility("default"))) int SDL_SensorGetDataWithTimestamp(SDL_Sensor *sensor, Uint64 *timestamp, float *data, int num_values);
-extern __attribute__ ((visibility("default"))) void SDL_SensorClose(SDL_Sensor *sensor);
-extern __attribute__ ((visibility("default"))) void SDL_SensorUpdate(void);
-/* +++++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++++ END   /usr/local/include/SDL2/close_code.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_sensor.h */
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_joystick.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_joystick.h */
-/* ++++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* ++++ END   /usr/local/include/SDL2/begin_code.h */
 struct _SDL_GameController;
 typedef struct _SDL_GameController SDL_GameController;
 typedef enum { SDL_CONTROLLER_TYPE_UNKNOWN = 0, SDL_CONTROLLER_TYPE_XBOX360, SDL_CONTROLLER_TYPE_XBOXONE, SDL_CONTROLLER_TYPE_PS3, SDL_CONTROLLER_TYPE_PS4, SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_PRO, SDL_CONTROLLER_TYPE_VIRTUAL, SDL_CONTROLLER_TYPE_PS5, SDL_CONTROLLER_TYPE_AMAZON_LUNA, SDL_CONTROLLER_TYPE_GOOGLE_STADIA, SDL_CONTROLLER_TYPE_NVIDIA_SHIELD, SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_LEFT, SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_RIGHT, SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_PAIR, SDL_CONTROLLER_TYPE_MAX } SDL_GameControllerType;
@@ -2148,95 +1499,8 @@ typedef struct SDL_GameControllerButtonBind {
 } hat;
 } value;
 } SDL_GameControllerButtonBind;
-extern __attribute__ ((visibility("default"))) int SDL_GameControllerAddMappingsFromRW(SDL_RWops * rw, int freerw);
-extern __attribute__ ((visibility("default"))) int SDL_GameControllerAddMapping(const char* mappingString);
-extern __attribute__ ((visibility("default"))) int SDL_GameControllerNumMappings(void);
-extern __attribute__ ((visibility("default"))) char * SDL_GameControllerMappingForIndex(int mapping_index);
-extern __attribute__ ((visibility("default"))) char * SDL_GameControllerMappingForGUID(SDL_JoystickGUID guid);
-extern __attribute__ ((visibility("default"))) char * SDL_GameControllerMapping(SDL_GameController *gamecontroller);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_IsGameController(int joystick_index);
-extern __attribute__ ((visibility("default"))) const char * SDL_GameControllerNameForIndex(int joystick_index);
-extern __attribute__ ((visibility("default"))) const char * SDL_GameControllerPathForIndex(int joystick_index);
-extern __attribute__ ((visibility("default"))) SDL_GameControllerType SDL_GameControllerTypeForIndex(int joystick_index);
-extern __attribute__ ((visibility("default"))) char * SDL_GameControllerMappingForDeviceIndex(int joystick_index);
-extern __attribute__ ((visibility("default"))) SDL_GameController * SDL_GameControllerOpen(int joystick_index);
-extern __attribute__ ((visibility("default"))) SDL_GameController * SDL_GameControllerFromInstanceID(SDL_JoystickID joyid);
-extern __attribute__ ((visibility("default"))) SDL_GameController * SDL_GameControllerFromPlayerIndex(int player_index);
-extern __attribute__ ((visibility("default"))) const char * SDL_GameControllerName(SDL_GameController *gamecontroller);
-extern __attribute__ ((visibility("default"))) const char * SDL_GameControllerPath(SDL_GameController *gamecontroller);
-extern __attribute__ ((visibility("default"))) SDL_GameControllerType SDL_GameControllerGetType(SDL_GameController *gamecontroller);
-extern __attribute__ ((visibility("default"))) int SDL_GameControllerGetPlayerIndex(SDL_GameController *gamecontroller);
-extern __attribute__ ((visibility("default"))) void SDL_GameControllerSetPlayerIndex(SDL_GameController *gamecontroller, int player_index);
-extern __attribute__ ((visibility("default"))) Uint16 SDL_GameControllerGetVendor(SDL_GameController *gamecontroller);
-extern __attribute__ ((visibility("default"))) Uint16 SDL_GameControllerGetProduct(SDL_GameController *gamecontroller);
-extern __attribute__ ((visibility("default"))) Uint16 SDL_GameControllerGetProductVersion(SDL_GameController *gamecontroller);
-extern __attribute__ ((visibility("default"))) Uint16 SDL_GameControllerGetFirmwareVersion(SDL_GameController *gamecontroller);
-extern __attribute__ ((visibility("default"))) const char * SDL_GameControllerGetSerial(SDL_GameController *gamecontroller);
-extern __attribute__ ((visibility("default"))) Uint64 SDL_GameControllerGetSteamHandle(SDL_GameController *gamecontroller);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_GameControllerGetAttached(SDL_GameController *gamecontroller);
-extern __attribute__ ((visibility("default"))) SDL_Joystick * SDL_GameControllerGetJoystick(SDL_GameController *gamecontroller);
-extern __attribute__ ((visibility("default"))) int SDL_GameControllerEventState(int state);
-extern __attribute__ ((visibility("default"))) void SDL_GameControllerUpdate(void);
 typedef enum { SDL_CONTROLLER_AXIS_INVALID = -1, SDL_CONTROLLER_AXIS_LEFTX, SDL_CONTROLLER_AXIS_LEFTY, SDL_CONTROLLER_AXIS_RIGHTX, SDL_CONTROLLER_AXIS_RIGHTY, SDL_CONTROLLER_AXIS_TRIGGERLEFT, SDL_CONTROLLER_AXIS_TRIGGERRIGHT, SDL_CONTROLLER_AXIS_MAX } SDL_GameControllerAxis;
-extern __attribute__ ((visibility("default"))) SDL_GameControllerAxis SDL_GameControllerGetAxisFromString(const char *str);
-extern __attribute__ ((visibility("default"))) const char* SDL_GameControllerGetStringForAxis(SDL_GameControllerAxis axis);
-extern __attribute__ ((visibility("default"))) SDL_GameControllerButtonBind SDL_GameControllerGetBindForAxis(SDL_GameController *gamecontroller, SDL_GameControllerAxis axis);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_GameControllerHasAxis(SDL_GameController *gamecontroller, SDL_GameControllerAxis axis);
-extern __attribute__ ((visibility("default"))) Sint16 SDL_GameControllerGetAxis(SDL_GameController *gamecontroller, SDL_GameControllerAxis axis);
 typedef enum { SDL_CONTROLLER_BUTTON_INVALID = -1, SDL_CONTROLLER_BUTTON_A, SDL_CONTROLLER_BUTTON_B, SDL_CONTROLLER_BUTTON_X, SDL_CONTROLLER_BUTTON_Y, SDL_CONTROLLER_BUTTON_BACK, SDL_CONTROLLER_BUTTON_GUIDE, SDL_CONTROLLER_BUTTON_START, SDL_CONTROLLER_BUTTON_LEFTSTICK, SDL_CONTROLLER_BUTTON_RIGHTSTICK, SDL_CONTROLLER_BUTTON_LEFTSHOULDER, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER, SDL_CONTROLLER_BUTTON_DPAD_UP, SDL_CONTROLLER_BUTTON_DPAD_DOWN, SDL_CONTROLLER_BUTTON_DPAD_LEFT, SDL_CONTROLLER_BUTTON_DPAD_RIGHT, SDL_CONTROLLER_BUTTON_MISC1, SDL_CONTROLLER_BUTTON_PADDLE1, SDL_CONTROLLER_BUTTON_PADDLE2, SDL_CONTROLLER_BUTTON_PADDLE3, SDL_CONTROLLER_BUTTON_PADDLE4, SDL_CONTROLLER_BUTTON_TOUCHPAD, SDL_CONTROLLER_BUTTON_MAX } SDL_GameControllerButton;
-extern __attribute__ ((visibility("default"))) SDL_GameControllerButton SDL_GameControllerGetButtonFromString(const char *str);
-extern __attribute__ ((visibility("default"))) const char* SDL_GameControllerGetStringForButton(SDL_GameControllerButton button);
-extern __attribute__ ((visibility("default"))) SDL_GameControllerButtonBind SDL_GameControllerGetBindForButton(SDL_GameController *gamecontroller, SDL_GameControllerButton button);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_GameControllerHasButton(SDL_GameController *gamecontroller, SDL_GameControllerButton button);
-extern __attribute__ ((visibility("default"))) Uint8 SDL_GameControllerGetButton(SDL_GameController *gamecontroller, SDL_GameControllerButton button);
-extern __attribute__ ((visibility("default"))) int SDL_GameControllerGetNumTouchpads(SDL_GameController *gamecontroller);
-extern __attribute__ ((visibility("default"))) int SDL_GameControllerGetNumTouchpadFingers(SDL_GameController *gamecontroller, int touchpad);
-extern __attribute__ ((visibility("default"))) int SDL_GameControllerGetTouchpadFinger(SDL_GameController *gamecontroller, int touchpad, int finger, Uint8 *state, float *x, float *y, float *pressure);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_GameControllerHasSensor(SDL_GameController *gamecontroller, SDL_SensorType type);
-extern __attribute__ ((visibility("default"))) int SDL_GameControllerSetSensorEnabled(SDL_GameController *gamecontroller, SDL_SensorType type, SDL_bool enabled);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_GameControllerIsSensorEnabled(SDL_GameController *gamecontroller, SDL_SensorType type);
-extern __attribute__ ((visibility("default"))) float SDL_GameControllerGetSensorDataRate(SDL_GameController *gamecontroller, SDL_SensorType type);
-extern __attribute__ ((visibility("default"))) int SDL_GameControllerGetSensorData(SDL_GameController *gamecontroller, SDL_SensorType type, float *data, int num_values);
-extern __attribute__ ((visibility("default"))) int SDL_GameControllerGetSensorDataWithTimestamp(SDL_GameController *gamecontroller, SDL_SensorType type, Uint64 *timestamp, float *data, int num_values);
-extern __attribute__ ((visibility("default"))) int SDL_GameControllerRumble(SDL_GameController *gamecontroller, Uint16 low_frequency_rumble, Uint16 high_frequency_rumble, Uint32 duration_ms);
-extern __attribute__ ((visibility("default"))) int SDL_GameControllerRumbleTriggers(SDL_GameController *gamecontroller, Uint16 left_rumble, Uint16 right_rumble, Uint32 duration_ms);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_GameControllerHasLED(SDL_GameController *gamecontroller);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_GameControllerHasRumble(SDL_GameController *gamecontroller);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_GameControllerHasRumbleTriggers(SDL_GameController *gamecontroller);
-extern __attribute__ ((visibility("default"))) int SDL_GameControllerSetLED(SDL_GameController *gamecontroller, Uint8 red, Uint8 green, Uint8 blue);
-extern __attribute__ ((visibility("default"))) int SDL_GameControllerSendEffect(SDL_GameController *gamecontroller, const void *data, int size);
-extern __attribute__ ((visibility("default"))) void SDL_GameControllerClose(SDL_GameController *gamecontroller);
-extern __attribute__ ((visibility("default"))) const char* SDL_GameControllerGetAppleSFSymbolsNameForButton(SDL_GameController *gamecontroller, SDL_GameControllerButton button);
-extern __attribute__ ((visibility("default"))) const char* SDL_GameControllerGetAppleSFSymbolsNameForAxis(SDL_GameController *gamecontroller, SDL_GameControllerAxis axis);
-/* ++++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* ++++ END   /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/SDL_gamecontroller.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_quit.h */
-enum { SDL_quit_h_ = 1 };
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_error.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_error.h */
-/* +++ END   /usr/local/include/SDL2/SDL_quit.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_gesture.h */
-enum { SDL_gesture_h_ = 1 };
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_error.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_error.h */
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_video.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_video.h */
-/* ++++ BEGIN /usr/local/include/SDL2/SDL_touch.h */
-enum { SDL_touch_h_ = 1 };
-/* +++++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++++ BEGIN /usr/local/include/SDL2/SDL_error.h */
-/* +++++ END   /usr/local/include/SDL2/SDL_error.h */
-/* +++++ BEGIN /usr/local/include/SDL2/SDL_video.h */
-/* +++++ END   /usr/local/include/SDL2/SDL_video.h */
-/* +++++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++++ END   /usr/local/include/SDL2/begin_code.h */
 typedef Sint64 SDL_TouchID;
 typedef Sint64 SDL_FingerID;
 typedef enum { SDL_TOUCH_DEVICE_INVALID = -1, SDL_TOUCH_DEVICE_DIRECT, SDL_TOUCH_DEVICE_INDIRECT_ABSOLUTE, SDL_TOUCH_DEVICE_INDIRECT_RELATIVE } SDL_TouchDeviceType;
@@ -2246,35 +1510,7 @@ typedef struct SDL_Finger {
 	float y;
 	float pressure;
 } SDL_Finger;
-enum { SDL_TOUCH_MOUSEID = -1 };
-enum { SDL_MOUSE_TOUCHID = -1 };
-extern __attribute__ ((visibility("default"))) int SDL_GetNumTouchDevices(void);
-extern __attribute__ ((visibility("default"))) SDL_TouchID SDL_GetTouchDevice(int index);
-extern __attribute__ ((visibility("default"))) const char* SDL_GetTouchName(int index);
-extern __attribute__ ((visibility("default"))) SDL_TouchDeviceType SDL_GetTouchDeviceType(SDL_TouchID touchID);
-extern __attribute__ ((visibility("default"))) int SDL_GetNumTouchFingers(SDL_TouchID touchID);
-extern __attribute__ ((visibility("default"))) SDL_Finger * SDL_GetTouchFinger(SDL_TouchID touchID, int index);
-/* +++++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++++ END   /usr/local/include/SDL2/close_code.h */
-/* ++++ END   /usr/local/include/SDL2/SDL_touch.h */
-/* ++++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* ++++ END   /usr/local/include/SDL2/begin_code.h */
 typedef Sint64 SDL_GestureID;
-extern __attribute__ ((visibility("default"))) int SDL_RecordGesture(SDL_TouchID touchId);
-extern __attribute__ ((visibility("default"))) int SDL_SaveAllDollarTemplates(SDL_RWops *dst);
-extern __attribute__ ((visibility("default"))) int SDL_SaveDollarTemplate(SDL_GestureID gestureId,SDL_RWops *dst);
-extern __attribute__ ((visibility("default"))) int SDL_LoadDollarTemplates(SDL_TouchID touchId, SDL_RWops *src);
-/* ++++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* ++++ END   /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/SDL_gesture.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_touch.h */
-/* +++ END   /usr/local/include/SDL2/SDL_touch.h */
-/* +++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++ END   /usr/local/include/SDL2/begin_code.h */
-enum { SDL_RELEASED = 0 };
-enum { SDL_PRESSED = 1 };
 typedef enum { SDL_FIRSTEVENT = 0, SDL_QUIT = 0x100, SDL_APP_TERMINATING, SDL_APP_LOWMEMORY, SDL_APP_WILLENTERBACKGROUND, SDL_APP_DIDENTERBACKGROUND, SDL_APP_WILLENTERFOREGROUND, SDL_APP_DIDENTERFOREGROUND, SDL_LOCALECHANGED, SDL_DISPLAYEVENT = 0x150, SDL_WINDOWEVENT = 0x200, SDL_SYSWMEVENT, SDL_KEYDOWN = 0x300, SDL_KEYUP, SDL_TEXTEDITING, SDL_TEXTINPUT, SDL_KEYMAPCHANGED, SDL_TEXTEDITING_EXT, SDL_MOUSEMOTION = 0x400, SDL_MOUSEBUTTONDOWN, SDL_MOUSEBUTTONUP, SDL_MOUSEWHEEL, SDL_JOYAXISMOTION = 0x600, SDL_JOYBALLMOTION, SDL_JOYHATMOTION, SDL_JOYBUTTONDOWN, SDL_JOYBUTTONUP, SDL_JOYDEVICEADDED, SDL_JOYDEVICEREMOVED, SDL_JOYBATTERYUPDATED, SDL_CONTROLLERAXISMOTION = 0x650, SDL_CONTROLLERBUTTONDOWN, SDL_CONTROLLERBUTTONUP, SDL_CONTROLLERDEVICEADDED, SDL_CONTROLLERDEVICEREMOVED, SDL_CONTROLLERDEVICEREMAPPED, SDL_CONTROLLERTOUCHPADDOWN, SDL_CONTROLLERTOUCHPADMOTION, SDL_CONTROLLERTOUCHPADUP, SDL_CONTROLLERSENSORUPDATE, SDL_CONTROLLERUPDATECOMPLETE_RESERVED_FOR_SDL3, SDL_CONTROLLERSTEAMHANDLEUPDATED, SDL_FINGERDOWN = 0x700, SDL_FINGERUP, SDL_FINGERMOTION, SDL_DOLLARGESTURE = 0x800, SDL_DOLLARRECORD, SDL_MULTIGESTURE, SDL_CLIPBOARDUPDATE = 0x900, SDL_DROPFILE = 0x1000, SDL_DROPTEXT, SDL_DROPBEGIN, SDL_DROPCOMPLETE, SDL_AUDIODEVICEADDED = 0x1100, SDL_AUDIODEVICEREMOVED, SDL_SENSORUPDATE = 0x1200, SDL_RENDER_TARGETS_RESET = 0x2000, SDL_RENDER_DEVICE_RESET, SDL_POLLSENTINEL = 0x7F00, SDL_USEREVENT = 0x8000, SDL_LASTEVENT = 0xFFFF } SDL_EventType;
 typedef struct SDL_CommonEvent {
 	Uint32 type;
@@ -2311,7 +1547,6 @@ typedef struct SDL_KeyboardEvent {
 	Uint8 padding3;
 	SDL_Keysym keysym;
 } SDL_KeyboardEvent;
-enum { SDL_TEXTEDITINGEVENT_TEXT_SIZE = 32 };
 typedef struct SDL_TextEditingEvent {
 	Uint32 type;
 	Uint32 timestamp;
@@ -2328,7 +1563,6 @@ typedef struct SDL_TextEditingExtEvent {
 	Sint32 start;
 	Sint32 length;
 } SDL_TextEditingExtEvent;
-enum { SDL_TEXTINPUTEVENT_TEXT_SIZE = 32 };
 typedef struct SDL_TextInputEvent {
 	Uint32 type;
 	Uint32 timestamp;
@@ -2574,82 +1808,10 @@ typedef union SDL_Event {
 	Uint8 padding[sizeof(void *) <= 8 ? 56 : sizeof(void *) == 16 ? 64 : 3 * sizeof(void *)];
 } SDL_Event;
 ;
-extern __attribute__ ((visibility("default"))) void SDL_PumpEvents(void);
 typedef enum { SDL_ADDEVENT, SDL_PEEKEVENT, SDL_GETEVENT } SDL_eventaction;
-extern __attribute__ ((visibility("default"))) int SDL_PeepEvents(SDL_Event * events, int numevents, SDL_eventaction action, Uint32 minType, Uint32 maxType);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasEvent(Uint32 type);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasEvents(Uint32 minType, Uint32 maxType);
-extern __attribute__ ((visibility("default"))) void SDL_FlushEvent(Uint32 type);
-extern __attribute__ ((visibility("default"))) void SDL_FlushEvents(Uint32 minType, Uint32 maxType);
-extern __attribute__ ((visibility("default"))) int SDL_PollEvent(SDL_Event * event);
-extern __attribute__ ((visibility("default"))) int SDL_WaitEvent(SDL_Event * event);
-extern __attribute__ ((visibility("default"))) int SDL_WaitEventTimeout(SDL_Event * event, int timeout);
-extern __attribute__ ((visibility("default"))) int SDL_PushEvent(SDL_Event * event);
 typedef int ( * SDL_EventFilter) (void *userdata, SDL_Event * event);
-extern __attribute__ ((visibility("default"))) void SDL_SetEventFilter(SDL_EventFilter filter, void *userdata);
-extern __attribute__ ((visibility("default"))) SDL_bool SDL_GetEventFilter(SDL_EventFilter * filter, void **userdata);
-extern __attribute__ ((visibility("default"))) void SDL_AddEventWatch(SDL_EventFilter filter, void *userdata);
-extern __attribute__ ((visibility("default"))) void SDL_DelEventWatch(SDL_EventFilter filter, void *userdata);
-extern __attribute__ ((visibility("default"))) void SDL_FilterEvents(SDL_EventFilter filter, void *userdata);
-enum { SDL_QUERY = -1 };
-enum { SDL_IGNORE = 0 };
-enum { SDL_DISABLE = 0 };
-enum { SDL_ENABLE = 1 };
-extern __attribute__ ((visibility("default"))) Uint8 SDL_EventState(Uint32 type, int state);
-extern __attribute__ ((visibility("default"))) Uint32 SDL_RegisterEvents(int numevents);
-/* +++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/close_code.h */
-/* ++ END   /usr/local/include/SDL2/SDL_events.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_filesystem.h */
-enum { SDL_filesystem_h_ = 1 };
-/* +++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++ END   /usr/local/include/SDL2/begin_code.h */
-extern __attribute__ ((visibility("default"))) char * SDL_GetBasePath(void);
-extern __attribute__ ((visibility("default"))) char * SDL_GetPrefPath(const char *org, const char *app);
-/* +++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/close_code.h */
-/* ++ END   /usr/local/include/SDL2/SDL_filesystem.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_gamecontroller.h */
-/* ++ END   /usr/local/include/SDL2/SDL_gamecontroller.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_guid.h */
-/* ++ END   /usr/local/include/SDL2/SDL_guid.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_haptic.h */
-enum { SDL_haptic_h_ = 1 };
-/* +++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_error.h */
-/* +++ END   /usr/local/include/SDL2/SDL_error.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_joystick.h */
-/* +++ END   /usr/local/include/SDL2/SDL_joystick.h */
-/* +++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++ END   /usr/local/include/SDL2/begin_code.h */
 struct _SDL_Haptic;
 typedef struct _SDL_Haptic SDL_Haptic;
-/* #define SDL_HAPTIC_CONSTANT   (1u<<0) ### string, not number "(1u<<0)" */
-/* #define SDL_HAPTIC_SINE       (1u<<1) ### string, not number "(1u<<1)" */
-/* #define SDL_HAPTIC_LEFTRIGHT     (1u<<2) ### string, not number "(1u<<2)" */
-/* #define SDL_HAPTIC_TRIANGLE   (1u<<3) ### string, not number "(1u<<3)" */
-/* #define SDL_HAPTIC_SAWTOOTHUP (1u<<4) ### string, not number "(1u<<4)" */
-/* #define SDL_HAPTIC_SAWTOOTHDOWN (1u<<5) ### string, not number "(1u<<5)" */
-/* #define SDL_HAPTIC_RAMP       (1u<<6) ### string, not number "(1u<<6)" */
-/* #define SDL_HAPTIC_SPRING     (1u<<7) ### string, not number "(1u<<7)" */
-/* #define SDL_HAPTIC_DAMPER     (1u<<8) ### string, not number "(1u<<8)" */
-/* #define SDL_HAPTIC_INERTIA    (1u<<9) ### string, not number "(1u<<9)" */
-/* #define SDL_HAPTIC_FRICTION   (1u<<10) ### string, not number "(1u<<10)" */
-/* #define SDL_HAPTIC_CUSTOM     (1u<<11) ### string, not number "(1u<<11)" */
-/* #define SDL_HAPTIC_GAIN       (1u<<12) ### string, not number "(1u<<12)" */
-/* #define SDL_HAPTIC_AUTOCENTER (1u<<13) ### string, not number "(1u<<13)" */
-/* #define SDL_HAPTIC_STATUS     (1u<<14) ### string, not number "(1u<<14)" */
-/* #define SDL_HAPTIC_PAUSE      (1u<<15) ### string, not number "(1u<<15)" */
-enum { SDL_HAPTIC_POLAR = 0 };
-enum { SDL_HAPTIC_CARTESIAN = 1 };
-enum { SDL_HAPTIC_SPHERICAL = 2 };
-enum { SDL_HAPTIC_STEERING_AXIS = 3 };
-enum { SDL_HAPTIC_INFINITY = 4294967295 };
 typedef struct SDL_HapticDirection {
 	Uint8 type;
 	Sint32 dir[3];
@@ -2742,6 +1904,847 @@ typedef union SDL_HapticEffect {
 	SDL_HapticLeftRight leftright;
 	SDL_HapticCustom custom;
 } SDL_HapticEffect;
+struct SDL_hid_device_;
+typedef struct SDL_hid_device_ SDL_hid_device;
+typedef struct SDL_hid_device_info {
+	char *path;
+	unsigned short vendor_id;
+	unsigned short product_id;
+	wchar_t *serial_number;
+	unsigned short release_number;
+	wchar_t *manufacturer_string;
+	wchar_t *product_string;
+	unsigned short usage_page;
+	unsigned short usage;
+	int interface_number;
+	int interface_class;
+	int interface_subclass;
+	int interface_protocol;
+	struct SDL_hid_device_info *next;
+} SDL_hid_device_info;
+typedef enum { SDL_HINT_DEFAULT, SDL_HINT_NORMAL, SDL_HINT_OVERRIDE } SDL_HintPriority;
+typedef void ( *SDL_HintCallback)(void *userdata, const char *name, const char *oldValue, const char *newValue);
+typedef enum { SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_CATEGORY_ERROR, SDL_LOG_CATEGORY_ASSERT, SDL_LOG_CATEGORY_SYSTEM, SDL_LOG_CATEGORY_AUDIO, SDL_LOG_CATEGORY_VIDEO, SDL_LOG_CATEGORY_RENDER, SDL_LOG_CATEGORY_INPUT, SDL_LOG_CATEGORY_TEST, SDL_LOG_CATEGORY_RESERVED1, SDL_LOG_CATEGORY_RESERVED2, SDL_LOG_CATEGORY_RESERVED3, SDL_LOG_CATEGORY_RESERVED4, SDL_LOG_CATEGORY_RESERVED5, SDL_LOG_CATEGORY_RESERVED6, SDL_LOG_CATEGORY_RESERVED7, SDL_LOG_CATEGORY_RESERVED8, SDL_LOG_CATEGORY_RESERVED9, SDL_LOG_CATEGORY_RESERVED10, SDL_LOG_CATEGORY_CUSTOM } SDL_LogCategory;
+typedef enum { SDL_LOG_PRIORITY_VERBOSE = 1, SDL_LOG_PRIORITY_DEBUG, SDL_LOG_PRIORITY_INFO, SDL_LOG_PRIORITY_WARN, SDL_LOG_PRIORITY_ERROR, SDL_LOG_PRIORITY_CRITICAL, SDL_NUM_LOG_PRIORITIES } SDL_LogPriority;
+typedef void ( *SDL_LogOutputFunction)(void *userdata, int category, SDL_LogPriority priority, const char *message);
+typedef enum { SDL_MESSAGEBOX_ERROR = 0x00000010, SDL_MESSAGEBOX_WARNING = 0x00000020, SDL_MESSAGEBOX_INFORMATION = 0x00000040, SDL_MESSAGEBOX_BUTTONS_LEFT_TO_RIGHT = 0x00000080, SDL_MESSAGEBOX_BUTTONS_RIGHT_TO_LEFT = 0x00000100 } SDL_MessageBoxFlags;
+typedef enum { SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT = 0x00000001, SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT = 0x00000002 } SDL_MessageBoxButtonFlags;
+typedef struct {
+	Uint32 flags;
+	int buttonid;
+	const char * text;
+} SDL_MessageBoxButtonData;
+typedef struct {
+	Uint8 r, g, b;
+} SDL_MessageBoxColor;
+typedef enum { SDL_MESSAGEBOX_COLOR_BACKGROUND, SDL_MESSAGEBOX_COLOR_TEXT, SDL_MESSAGEBOX_COLOR_BUTTON_BORDER, SDL_MESSAGEBOX_COLOR_BUTTON_BACKGROUND, SDL_MESSAGEBOX_COLOR_BUTTON_SELECTED, SDL_MESSAGEBOX_COLOR_MAX } SDL_MessageBoxColorType;
+typedef struct {
+	SDL_MessageBoxColor colors[SDL_MESSAGEBOX_COLOR_MAX];
+} SDL_MessageBoxColorScheme;
+typedef struct {
+	Uint32 flags;
+	SDL_Window *window;
+	const char *title;
+	const char *message;
+	int numbuttons;
+	const SDL_MessageBoxButtonData *buttons;
+	const SDL_MessageBoxColorScheme *colorScheme;
+} SDL_MessageBoxData;
+typedef void *SDL_MetalView;
+typedef enum { SDL_POWERSTATE_UNKNOWN, SDL_POWERSTATE_ON_BATTERY, SDL_POWERSTATE_NO_BATTERY, SDL_POWERSTATE_CHARGING, SDL_POWERSTATE_CHARGED } SDL_PowerState;
+typedef enum { SDL_RENDERER_SOFTWARE = 0x00000001, SDL_RENDERER_ACCELERATED = 0x00000002, SDL_RENDERER_PRESENTVSYNC = 0x00000004, SDL_RENDERER_TARGETTEXTURE = 0x00000008 } SDL_RendererFlags;
+typedef struct SDL_RendererInfo {
+	const char *name;
+	Uint32 flags;
+	Uint32 num_texture_formats;
+	Uint32 texture_formats[16];
+	int max_texture_width;
+	int max_texture_height;
+} SDL_RendererInfo;
+typedef struct SDL_Vertex {
+	SDL_FPoint position;
+	SDL_Color color;
+	SDL_FPoint tex_coord;
+} SDL_Vertex;
+typedef enum { SDL_ScaleModeNearest, SDL_ScaleModeLinear, SDL_ScaleModeBest } SDL_ScaleMode;
+typedef enum { SDL_TEXTUREACCESS_STATIC, SDL_TEXTUREACCESS_STREAMING, SDL_TEXTUREACCESS_TARGET } SDL_TextureAccess;
+typedef enum { SDL_TEXTUREMODULATE_NONE = 0x00000000, SDL_TEXTUREMODULATE_COLOR = 0x00000001, SDL_TEXTUREMODULATE_ALPHA = 0x00000002 } SDL_TextureModulate;
+typedef enum { SDL_FLIP_NONE = 0x00000000, SDL_FLIP_HORIZONTAL = 0x00000001, SDL_FLIP_VERTICAL = 0x00000002 } SDL_RendererFlip;
+struct SDL_Renderer;
+typedef struct SDL_Renderer SDL_Renderer;
+struct SDL_Texture;
+typedef struct SDL_Texture SDL_Texture;
+typedef enum { ShapeModeDefault, ShapeModeBinarizeAlpha, ShapeModeReverseBinarizeAlpha, ShapeModeColorKey } WindowShapeMode;
+typedef union {
+	Uint8 binarizationCutoff;
+	SDL_Color colorKey;
+} SDL_WindowShapeParams;
+typedef struct SDL_WindowShapeMode {
+	WindowShapeMode mode;
+	SDL_WindowShapeParams parameters;
+} SDL_WindowShapeMode;
+typedef Uint32 ( * SDL_TimerCallback) (Uint32 interval, void *param);
+typedef int SDL_TimerID;
+typedef struct SDL_version {
+	Uint8 major;
+	Uint8 minor;
+	Uint8 patch;
+} SDL_version;
+typedef struct SDL_Locale {
+	const char *language;
+	const char *country;
+} SDL_Locale;
+]]
+
+-- enums
+
+ffi.cdef[[
+enum { SDL_ICONV_ERROR = -1 };
+enum { SDL_ICONV_E2BIG = -2 };
+enum { SDL_ICONV_EILSEQ = -3 };
+enum { SDL_ICONV_EINVAL = -4 };
+enum { SDL_ASSERT_LEVEL = 2 };
+enum { SDL_AUDIO_MASK_BITSIZE = 255 };
+enum { SDL_AUDIO_MASK_DATATYPE = 256 };
+enum { SDL_AUDIO_MASK_ENDIAN = 4096 };
+enum { SDL_AUDIO_MASK_SIGNED = 32768 };
+enum { AUDIO_U8 = 8 };
+enum { AUDIO_S8 = 32776 };
+enum { AUDIO_U16LSB = 16 };
+enum { AUDIO_S16LSB = 32784 };
+enum { AUDIO_U16MSB = 4112 };
+enum { AUDIO_S16MSB = 36880 };
+enum { AUDIO_U16 = 16 };
+enum { AUDIO_S16 = 32784 };
+enum { AUDIO_S32LSB = 32800 };
+enum { AUDIO_S32MSB = 36896 };
+enum { AUDIO_S32 = 32800 };
+enum { AUDIO_F32LSB = 33056 };
+enum { AUDIO_F32MSB = 37152 };
+enum { AUDIO_F32 = 33056 };
+enum { AUDIO_U16SYS = 16 };
+enum { AUDIO_S16SYS = 32784 };
+enum { AUDIO_S32SYS = 32800 };
+enum { AUDIO_F32SYS = 33056 };
+enum { SDL_AUDIO_ALLOW_FREQUENCY_CHANGE = 1 };
+enum { SDL_AUDIO_ALLOW_FORMAT_CHANGE = 2 };
+enum { SDL_AUDIO_ALLOW_CHANNELS_CHANGE = 4 };
+enum { SDL_AUDIO_ALLOW_SAMPLES_CHANGE = 8 };
+enum { SDL_AUDIO_ALLOW_ANY_CHANGE = 15 };
+enum { SDL_AUDIOCVT_MAX_FILTERS = 9 };
+enum { SDL_MIX_MAXVOLUME = 128 };
+enum { SDL_CACHELINE_SIZE = 128 };
+enum { SDL_ALPHA_OPAQUE = 255 };
+enum { SDL_ALPHA_TRANSPARENT = 0 };
+enum { SDL_SWSURFACE = 0 };
+enum { SDL_PREALLOC = 1 };
+enum { SDL_RLEACCEL = 2 };
+enum { SDL_DONTFREE = 4 };
+enum { SDL_SIMD_ALIGNED = 8 };
+enum { SDL_WINDOWPOS_UNDEFINED_MASK = 0x1FFF0000u };
+enum { SDL_WINDOWPOS_CENTERED_MASK = 0x2FFF0000u };
+enum { SDLK_SCANCODE_MASK = 1073741824 };
+enum { SDL_BUTTON_LEFT = 1 };
+enum { SDL_BUTTON_MIDDLE = 2 };
+enum { SDL_BUTTON_RIGHT = 3 };
+enum { SDL_BUTTON_X1 = 4 };
+enum { SDL_BUTTON_X2 = 5 };
+enum { SDL_BUTTON_LMASK = 1 };
+enum { SDL_BUTTON_MMASK = 2 };
+enum { SDL_BUTTON_RMASK = 4 };
+enum { SDL_BUTTON_X1MASK = 8 };
+enum { SDL_BUTTON_X2MASK = 16 };
+enum { SDL_VIRTUAL_JOYSTICK_DESC_VERSION = 1 };
+enum { SDL_JOYSTICK_AXIS_MAX = 32767 };
+enum { SDL_JOYSTICK_AXIS_MIN = -32768 };
+enum { SDL_HAT_CENTERED = 0 };
+enum { SDL_HAT_UP = 1 };
+enum { SDL_HAT_RIGHT = 2 };
+enum { SDL_HAT_DOWN = 4 };
+enum { SDL_HAT_LEFT = 8 };
+enum { SDL_HAT_RIGHTUP = 3 };
+enum { SDL_HAT_RIGHTDOWN = 6 };
+enum { SDL_HAT_LEFTUP = 9 };
+enum { SDL_HAT_LEFTDOWN = 12 };
+enum { SDL_TOUCH_MOUSEID = -1 };
+enum { SDL_MOUSE_TOUCHID = -1 };
+enum { SDL_RELEASED = 0 };
+enum { SDL_PRESSED = 1 };
+enum { SDL_TEXTEDITINGEVENT_TEXT_SIZE = 32 };
+enum { SDL_TEXTINPUTEVENT_TEXT_SIZE = 32 };
+enum { SDL_QUERY = -1 };
+enum { SDL_IGNORE = 0 };
+enum { SDL_DISABLE = 0 };
+enum { SDL_ENABLE = 1 };
+enum { SDL_HAPTIC_POLAR = 0 };
+enum { SDL_HAPTIC_CARTESIAN = 1 };
+enum { SDL_HAPTIC_SPHERICAL = 2 };
+enum { SDL_HAPTIC_STEERING_AXIS = 3 };
+enum { SDL_HAPTIC_INFINITY = 4294967295 };
+enum { SDL_MAX_LOG_MESSAGE = 4096 };
+enum { SDL_NONSHAPEABLE_WINDOW = -1 };
+enum { SDL_INVALID_SHAPE_ARGUMENT = -2 };
+enum { SDL_WINDOW_LACKS_SHAPE = -3 };
+enum { SDL_MAJOR_VERSION = 2 };
+enum { SDL_MINOR_VERSION = 30 };
+enum { SDL_PATCHLEVEL = 9 };
+enum { SDL_COMPILEDVERSION = 5009 };
+enum { SDL_INIT_TIMER = 0x00000001u };
+enum { SDL_INIT_AUDIO = 0x00000010u };
+enum { SDL_INIT_VIDEO = 0x00000020u };
+enum { SDL_INIT_JOYSTICK = 0x00000200u };
+enum { SDL_INIT_HAPTIC = 0x00001000u };
+enum { SDL_INIT_GAMECONTROLLER = 0x00002000u };
+enum { SDL_INIT_EVENTS = 0x00004000u };
+enum { SDL_INIT_SENSOR = 0x00008000u };
+enum { SDL_INIT_NOPARACHUTE = 0x00100000u };
+
+/* these aren't being generated correctly so here they are: */
+enum { SDL_WINDOWPOS_UNDEFINED = 0x1FFF0000u };
+enum { SDL_WINDOWPOS_CENTERED = 0x2FFF0000u };
+]]
+
+-- functions
+
+ffi.cdef[[
+extern __attribute__ ((visibility("default"))) const char * SDL_GetPlatform (void);
+extern __attribute__ ((visibility("default"))) void * SDL_malloc(size_t size);
+extern __attribute__ ((visibility("default"))) void * SDL_calloc(size_t nmemb, size_t size);
+extern __attribute__ ((visibility("default"))) void * SDL_realloc(void *mem, size_t size);
+extern __attribute__ ((visibility("default"))) void SDL_free(void *mem);
+extern __attribute__ ((visibility("default"))) void SDL_GetOriginalMemoryFunctions(SDL_malloc_func *malloc_func, SDL_calloc_func *calloc_func, SDL_realloc_func *realloc_func, SDL_free_func *free_func);
+extern __attribute__ ((visibility("default"))) void SDL_GetMemoryFunctions(SDL_malloc_func *malloc_func, SDL_calloc_func *calloc_func, SDL_realloc_func *realloc_func, SDL_free_func *free_func);
+extern __attribute__ ((visibility("default"))) int SDL_SetMemoryFunctions(SDL_malloc_func malloc_func, SDL_calloc_func calloc_func, SDL_realloc_func realloc_func, SDL_free_func free_func);
+extern __attribute__ ((visibility("default"))) int SDL_GetNumAllocations(void);
+extern __attribute__ ((visibility("default"))) char * SDL_getenv(const char *name);
+extern __attribute__ ((visibility("default"))) int SDL_setenv(const char *name, const char *value, int overwrite);
+extern __attribute__ ((visibility("default"))) void SDL_qsort(void *base, size_t nmemb, size_t size, int ( *compare) (const void *, const void *));
+extern __attribute__ ((visibility("default"))) void * SDL_bsearch(const void *key, const void *base, size_t nmemb, size_t size, int ( *compare) (const void *, const void *));
+extern __attribute__ ((visibility("default"))) int SDL_abs(int x);
+extern __attribute__ ((visibility("default"))) int SDL_isalpha(int x);
+extern __attribute__ ((visibility("default"))) int SDL_isalnum(int x);
+extern __attribute__ ((visibility("default"))) int SDL_isblank(int x);
+extern __attribute__ ((visibility("default"))) int SDL_iscntrl(int x);
+extern __attribute__ ((visibility("default"))) int SDL_isdigit(int x);
+extern __attribute__ ((visibility("default"))) int SDL_isxdigit(int x);
+extern __attribute__ ((visibility("default"))) int SDL_ispunct(int x);
+extern __attribute__ ((visibility("default"))) int SDL_isspace(int x);
+extern __attribute__ ((visibility("default"))) int SDL_isupper(int x);
+extern __attribute__ ((visibility("default"))) int SDL_islower(int x);
+extern __attribute__ ((visibility("default"))) int SDL_isprint(int x);
+extern __attribute__ ((visibility("default"))) int SDL_isgraph(int x);
+extern __attribute__ ((visibility("default"))) int SDL_toupper(int x);
+extern __attribute__ ((visibility("default"))) int SDL_tolower(int x);
+extern __attribute__ ((visibility("default"))) Uint16 SDL_crc16(Uint16 crc, const void *data, size_t len);
+extern __attribute__ ((visibility("default"))) Uint32 SDL_crc32(Uint32 crc, const void *data, size_t len);
+extern __attribute__ ((visibility("default"))) void * SDL_memset( void *dst, int c, size_t len);
+extern __attribute__ ((visibility("default"))) void * SDL_memcpy( void *dst, const void *src, size_t len);
+extern __attribute__ ((visibility("default"))) void * SDL_memmove( void *dst, const void *src, size_t len);
+extern __attribute__ ((visibility("default"))) int SDL_memcmp(const void *s1, const void *s2, size_t len);
+extern __attribute__ ((visibility("default"))) size_t SDL_wcslen(const wchar_t *wstr);
+extern __attribute__ ((visibility("default"))) size_t SDL_wcslcpy( wchar_t *dst, const wchar_t *src, size_t maxlen);
+extern __attribute__ ((visibility("default"))) size_t SDL_wcslcat( wchar_t *dst, const wchar_t *src, size_t maxlen);
+extern __attribute__ ((visibility("default"))) wchar_t * SDL_wcsdup(const wchar_t *wstr);
+extern __attribute__ ((visibility("default"))) wchar_t * SDL_wcsstr(const wchar_t *haystack, const wchar_t *needle);
+extern __attribute__ ((visibility("default"))) int SDL_wcscmp(const wchar_t *str1, const wchar_t *str2);
+extern __attribute__ ((visibility("default"))) int SDL_wcsncmp(const wchar_t *str1, const wchar_t *str2, size_t maxlen);
+extern __attribute__ ((visibility("default"))) int SDL_wcscasecmp(const wchar_t *str1, const wchar_t *str2);
+extern __attribute__ ((visibility("default"))) int SDL_wcsncasecmp(const wchar_t *str1, const wchar_t *str2, size_t len);
+extern __attribute__ ((visibility("default"))) size_t SDL_strlen(const char *str);
+extern __attribute__ ((visibility("default"))) size_t SDL_strlcpy( char *dst, const char *src, size_t maxlen);
+extern __attribute__ ((visibility("default"))) size_t SDL_utf8strlcpy( char *dst, const char *src, size_t dst_bytes);
+extern __attribute__ ((visibility("default"))) size_t SDL_strlcat( char *dst, const char *src, size_t maxlen);
+extern __attribute__ ((visibility("default"))) char * SDL_strdup(const char *str);
+extern __attribute__ ((visibility("default"))) char * SDL_strrev(char *str);
+extern __attribute__ ((visibility("default"))) char * SDL_strupr(char *str);
+extern __attribute__ ((visibility("default"))) char * SDL_strlwr(char *str);
+extern __attribute__ ((visibility("default"))) char * SDL_strchr(const char *str, int c);
+extern __attribute__ ((visibility("default"))) char * SDL_strrchr(const char *str, int c);
+extern __attribute__ ((visibility("default"))) char * SDL_strstr(const char *haystack, const char *needle);
+extern __attribute__ ((visibility("default"))) char * SDL_strcasestr(const char *haystack, const char *needle);
+extern __attribute__ ((visibility("default"))) char * SDL_strtokr(char *s1, const char *s2, char **saveptr);
+extern __attribute__ ((visibility("default"))) size_t SDL_utf8strlen(const char *str);
+extern __attribute__ ((visibility("default"))) size_t SDL_utf8strnlen(const char *str, size_t bytes);
+extern __attribute__ ((visibility("default"))) char * SDL_itoa(int value, char *str, int radix);
+extern __attribute__ ((visibility("default"))) char * SDL_uitoa(unsigned int value, char *str, int radix);
+extern __attribute__ ((visibility("default"))) char * SDL_ltoa(long value, char *str, int radix);
+extern __attribute__ ((visibility("default"))) char * SDL_ultoa(unsigned long value, char *str, int radix);
+extern __attribute__ ((visibility("default"))) char * SDL_lltoa(Sint64 value, char *str, int radix);
+extern __attribute__ ((visibility("default"))) char * SDL_ulltoa(Uint64 value, char *str, int radix);
+extern __attribute__ ((visibility("default"))) int SDL_atoi(const char *str);
+extern __attribute__ ((visibility("default"))) double SDL_atof(const char *str);
+extern __attribute__ ((visibility("default"))) long SDL_strtol(const char *str, char **endp, int base);
+extern __attribute__ ((visibility("default"))) unsigned long SDL_strtoul(const char *str, char **endp, int base);
+extern __attribute__ ((visibility("default"))) Sint64 SDL_strtoll(const char *str, char **endp, int base);
+extern __attribute__ ((visibility("default"))) Uint64 SDL_strtoull(const char *str, char **endp, int base);
+extern __attribute__ ((visibility("default"))) double SDL_strtod(const char *str, char **endp);
+extern __attribute__ ((visibility("default"))) int SDL_strcmp(const char *str1, const char *str2);
+extern __attribute__ ((visibility("default"))) int SDL_strncmp(const char *str1, const char *str2, size_t maxlen);
+extern __attribute__ ((visibility("default"))) int SDL_strcasecmp(const char *str1, const char *str2);
+extern __attribute__ ((visibility("default"))) int SDL_strncasecmp(const char *str1, const char *str2, size_t len);
+extern __attribute__ ((visibility("default"))) int SDL_sscanf(const char *text, const char *fmt, ...) __attribute__ (( format( __scanf__, 2, 2+1 )));
+extern __attribute__ ((visibility("default"))) int SDL_vsscanf(const char *text, const char *fmt, va_list ap) __attribute__(( format( __scanf__, 2, 0 )));
+extern __attribute__ ((visibility("default"))) int SDL_snprintf( char *text, size_t maxlen, const char *fmt, ... ) __attribute__ (( format( __printf__, 3, 3+1 )));
+extern __attribute__ ((visibility("default"))) int SDL_vsnprintf( char *text, size_t maxlen, const char *fmt, va_list ap) __attribute__(( format( __printf__, 3, 0 )));
+extern __attribute__ ((visibility("default"))) int SDL_asprintf(char **strp, const char *fmt, ...) __attribute__ (( format( __printf__, 2, 2+1 )));
+extern __attribute__ ((visibility("default"))) int SDL_vasprintf(char **strp, const char *fmt, va_list ap) __attribute__(( format( __printf__, 2, 0 )));
+extern __attribute__ ((visibility("default"))) double SDL_acos(double x);
+extern __attribute__ ((visibility("default"))) float SDL_acosf(float x);
+extern __attribute__ ((visibility("default"))) double SDL_asin(double x);
+extern __attribute__ ((visibility("default"))) float SDL_asinf(float x);
+extern __attribute__ ((visibility("default"))) double SDL_atan(double x);
+extern __attribute__ ((visibility("default"))) float SDL_atanf(float x);
+extern __attribute__ ((visibility("default"))) double SDL_atan2(double y, double x);
+extern __attribute__ ((visibility("default"))) float SDL_atan2f(float y, float x);
+extern __attribute__ ((visibility("default"))) double SDL_ceil(double x);
+extern __attribute__ ((visibility("default"))) float SDL_ceilf(float x);
+extern __attribute__ ((visibility("default"))) double SDL_copysign(double x, double y);
+extern __attribute__ ((visibility("default"))) float SDL_copysignf(float x, float y);
+extern __attribute__ ((visibility("default"))) double SDL_cos(double x);
+extern __attribute__ ((visibility("default"))) float SDL_cosf(float x);
+extern __attribute__ ((visibility("default"))) double SDL_exp(double x);
+extern __attribute__ ((visibility("default"))) float SDL_expf(float x);
+extern __attribute__ ((visibility("default"))) double SDL_fabs(double x);
+extern __attribute__ ((visibility("default"))) float SDL_fabsf(float x);
+extern __attribute__ ((visibility("default"))) double SDL_floor(double x);
+extern __attribute__ ((visibility("default"))) float SDL_floorf(float x);
+extern __attribute__ ((visibility("default"))) double SDL_trunc(double x);
+extern __attribute__ ((visibility("default"))) float SDL_truncf(float x);
+extern __attribute__ ((visibility("default"))) double SDL_fmod(double x, double y);
+extern __attribute__ ((visibility("default"))) float SDL_fmodf(float x, float y);
+extern __attribute__ ((visibility("default"))) double SDL_log(double x);
+extern __attribute__ ((visibility("default"))) float SDL_logf(float x);
+extern __attribute__ ((visibility("default"))) double SDL_log10(double x);
+extern __attribute__ ((visibility("default"))) float SDL_log10f(float x);
+extern __attribute__ ((visibility("default"))) double SDL_pow(double x, double y);
+extern __attribute__ ((visibility("default"))) float SDL_powf(float x, float y);
+extern __attribute__ ((visibility("default"))) double SDL_round(double x);
+extern __attribute__ ((visibility("default"))) float SDL_roundf(float x);
+extern __attribute__ ((visibility("default"))) long SDL_lround(double x);
+extern __attribute__ ((visibility("default"))) long SDL_lroundf(float x);
+extern __attribute__ ((visibility("default"))) double SDL_scalbn(double x, int n);
+extern __attribute__ ((visibility("default"))) float SDL_scalbnf(float x, int n);
+extern __attribute__ ((visibility("default"))) double SDL_sin(double x);
+extern __attribute__ ((visibility("default"))) float SDL_sinf(float x);
+extern __attribute__ ((visibility("default"))) double SDL_sqrt(double x);
+extern __attribute__ ((visibility("default"))) float SDL_sqrtf(float x);
+extern __attribute__ ((visibility("default"))) double SDL_tan(double x);
+extern __attribute__ ((visibility("default"))) float SDL_tanf(float x);
+extern __attribute__ ((visibility("default"))) SDL_iconv_t SDL_iconv_open(const char *tocode, const char *fromcode);
+extern __attribute__ ((visibility("default"))) int SDL_iconv_close(SDL_iconv_t cd);
+extern __attribute__ ((visibility("default"))) size_t SDL_iconv(SDL_iconv_t cd, const char **inbuf, size_t * inbytesleft, char **outbuf, size_t * outbytesleft);
+extern __attribute__ ((visibility("default"))) char * SDL_iconv_string(const char *tocode, const char *fromcode, const char *inbuf, size_t inbytesleft);
+extern int SDL_main(int argc, char *argv[]);
+extern __attribute__ ((visibility("default"))) void SDL_SetMainReady(void);
+extern __attribute__ ((visibility("default"))) SDL_AssertState SDL_ReportAssertion(SDL_AssertData *, const char *, const char *, int);
+extern __attribute__ ((visibility("default"))) void SDL_SetAssertionHandler( SDL_AssertionHandler handler, void *userdata);
+extern __attribute__ ((visibility("default"))) SDL_AssertionHandler SDL_GetDefaultAssertionHandler(void);
+extern __attribute__ ((visibility("default"))) SDL_AssertionHandler SDL_GetAssertionHandler(void **puserdata);
+extern __attribute__ ((visibility("default"))) const SDL_AssertData * SDL_GetAssertionReport(void);
+extern __attribute__ ((visibility("default"))) void SDL_ResetAssertionReport(void);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_AtomicTryLock(SDL_SpinLock *lock);
+extern __attribute__ ((visibility("default"))) void SDL_AtomicLock(SDL_SpinLock *lock);
+extern __attribute__ ((visibility("default"))) void SDL_AtomicUnlock(SDL_SpinLock *lock);
+extern __attribute__ ((visibility("default"))) void SDL_MemoryBarrierReleaseFunction(void);
+extern __attribute__ ((visibility("default"))) void SDL_MemoryBarrierAcquireFunction(void);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_AtomicCAS(SDL_atomic_t *a, int oldval, int newval);
+extern __attribute__ ((visibility("default"))) int SDL_AtomicSet(SDL_atomic_t *a, int v);
+extern __attribute__ ((visibility("default"))) int SDL_AtomicGet(SDL_atomic_t *a);
+extern __attribute__ ((visibility("default"))) int SDL_AtomicAdd(SDL_atomic_t *a, int v);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_AtomicCASPtr(void **a, void *oldval, void *newval);
+extern __attribute__ ((visibility("default"))) void* SDL_AtomicSetPtr(void **a, void* v);
+extern __attribute__ ((visibility("default"))) void* SDL_AtomicGetPtr(void **a);
+extern __attribute__ ((visibility("default"))) int SDL_SetError( const char *fmt, ...) __attribute__ (( format( __printf__, 1, 1+1 )));
+extern __attribute__ ((visibility("default"))) const char * SDL_GetError(void);
+extern __attribute__ ((visibility("default"))) char * SDL_GetErrorMsg(char *errstr, int maxlen);
+extern __attribute__ ((visibility("default"))) void SDL_ClearError(void);
+extern __attribute__ ((visibility("default"))) int SDL_Error(SDL_errorcode code);
+extern __attribute__ ((visibility("default"))) SDL_mutex * SDL_CreateMutex(void);
+extern __attribute__ ((visibility("default"))) int SDL_LockMutex(SDL_mutex * mutex);
+extern __attribute__ ((visibility("default"))) int SDL_TryLockMutex(SDL_mutex * mutex);
+extern __attribute__ ((visibility("default"))) int SDL_UnlockMutex(SDL_mutex * mutex);
+extern __attribute__ ((visibility("default"))) void SDL_DestroyMutex(SDL_mutex * mutex);
+extern __attribute__ ((visibility("default"))) SDL_sem * SDL_CreateSemaphore(Uint32 initial_value);
+extern __attribute__ ((visibility("default"))) void SDL_DestroySemaphore(SDL_sem * sem);
+extern __attribute__ ((visibility("default"))) int SDL_SemWait(SDL_sem * sem);
+extern __attribute__ ((visibility("default"))) int SDL_SemTryWait(SDL_sem * sem);
+extern __attribute__ ((visibility("default"))) int SDL_SemWaitTimeout(SDL_sem *sem, Uint32 timeout);
+extern __attribute__ ((visibility("default"))) int SDL_SemPost(SDL_sem * sem);
+extern __attribute__ ((visibility("default"))) Uint32 SDL_SemValue(SDL_sem * sem);
+extern __attribute__ ((visibility("default"))) SDL_cond * SDL_CreateCond(void);
+extern __attribute__ ((visibility("default"))) void SDL_DestroyCond(SDL_cond * cond);
+extern __attribute__ ((visibility("default"))) int SDL_CondSignal(SDL_cond * cond);
+extern __attribute__ ((visibility("default"))) int SDL_CondBroadcast(SDL_cond * cond);
+extern __attribute__ ((visibility("default"))) int SDL_CondWait(SDL_cond * cond, SDL_mutex * mutex);
+extern __attribute__ ((visibility("default"))) int SDL_CondWaitTimeout(SDL_cond * cond, SDL_mutex * mutex, Uint32 ms);
+extern __attribute__ ((visibility("default"))) SDL_Thread * SDL_CreateThread(SDL_ThreadFunction fn, const char *name, void *data);
+extern __attribute__ ((visibility("default"))) SDL_Thread * SDL_CreateThreadWithStackSize(SDL_ThreadFunction fn, const char *name, const size_t stacksize, void *data);
+extern __attribute__ ((visibility("default"))) const char * SDL_GetThreadName(SDL_Thread *thread);
+extern __attribute__ ((visibility("default"))) SDL_threadID SDL_ThreadID(void);
+extern __attribute__ ((visibility("default"))) SDL_threadID SDL_GetThreadID(SDL_Thread * thread);
+extern __attribute__ ((visibility("default"))) int SDL_SetThreadPriority(SDL_ThreadPriority priority);
+extern __attribute__ ((visibility("default"))) void SDL_WaitThread(SDL_Thread * thread, int *status);
+extern __attribute__ ((visibility("default"))) void SDL_DetachThread(SDL_Thread * thread);
+extern __attribute__ ((visibility("default"))) SDL_TLSID SDL_TLSCreate(void);
+extern __attribute__ ((visibility("default"))) void * SDL_TLSGet(SDL_TLSID id);
+extern __attribute__ ((visibility("default"))) int SDL_TLSSet(SDL_TLSID id, const void *value, void ( *destructor)(void*));
+extern __attribute__ ((visibility("default"))) void SDL_TLSCleanup(void);
+extern __attribute__ ((visibility("default"))) SDL_RWops * SDL_RWFromFile(const char *file, const char *mode);
+extern __attribute__ ((visibility("default"))) SDL_RWops * SDL_RWFromFP(FILE * fp, SDL_bool autoclose);
+extern __attribute__ ((visibility("default"))) SDL_RWops * SDL_RWFromMem(void *mem, int size);
+extern __attribute__ ((visibility("default"))) SDL_RWops * SDL_RWFromConstMem(const void *mem, int size);
+extern __attribute__ ((visibility("default"))) SDL_RWops * SDL_AllocRW(void);
+extern __attribute__ ((visibility("default"))) void SDL_FreeRW(SDL_RWops * area);
+extern __attribute__ ((visibility("default"))) Sint64 SDL_RWsize(SDL_RWops *context);
+extern __attribute__ ((visibility("default"))) Sint64 SDL_RWseek(SDL_RWops *context, Sint64 offset, int whence);
+extern __attribute__ ((visibility("default"))) Sint64 SDL_RWtell(SDL_RWops *context);
+extern __attribute__ ((visibility("default"))) size_t SDL_RWread(SDL_RWops *context, void *ptr, size_t size, size_t maxnum);
+extern __attribute__ ((visibility("default"))) size_t SDL_RWwrite(SDL_RWops *context, const void *ptr, size_t size, size_t num);
+extern __attribute__ ((visibility("default"))) int SDL_RWclose(SDL_RWops *context);
+extern __attribute__ ((visibility("default"))) void * SDL_LoadFile_RW(SDL_RWops *src, size_t *datasize, int freesrc);
+extern __attribute__ ((visibility("default"))) void * SDL_LoadFile(const char *file, size_t *datasize);
+extern __attribute__ ((visibility("default"))) Uint8 SDL_ReadU8(SDL_RWops * src);
+extern __attribute__ ((visibility("default"))) Uint16 SDL_ReadLE16(SDL_RWops * src);
+extern __attribute__ ((visibility("default"))) Uint16 SDL_ReadBE16(SDL_RWops * src);
+extern __attribute__ ((visibility("default"))) Uint32 SDL_ReadLE32(SDL_RWops * src);
+extern __attribute__ ((visibility("default"))) Uint32 SDL_ReadBE32(SDL_RWops * src);
+extern __attribute__ ((visibility("default"))) Uint64 SDL_ReadLE64(SDL_RWops * src);
+extern __attribute__ ((visibility("default"))) Uint64 SDL_ReadBE64(SDL_RWops * src);
+extern __attribute__ ((visibility("default"))) size_t SDL_WriteU8(SDL_RWops * dst, Uint8 value);
+extern __attribute__ ((visibility("default"))) size_t SDL_WriteLE16(SDL_RWops * dst, Uint16 value);
+extern __attribute__ ((visibility("default"))) size_t SDL_WriteBE16(SDL_RWops * dst, Uint16 value);
+extern __attribute__ ((visibility("default"))) size_t SDL_WriteLE32(SDL_RWops * dst, Uint32 value);
+extern __attribute__ ((visibility("default"))) size_t SDL_WriteBE32(SDL_RWops * dst, Uint32 value);
+extern __attribute__ ((visibility("default"))) size_t SDL_WriteLE64(SDL_RWops * dst, Uint64 value);
+extern __attribute__ ((visibility("default"))) size_t SDL_WriteBE64(SDL_RWops * dst, Uint64 value);
+extern __attribute__ ((visibility("default"))) int SDL_GetNumAudioDrivers(void);
+extern __attribute__ ((visibility("default"))) const char * SDL_GetAudioDriver(int index);
+extern __attribute__ ((visibility("default"))) int SDL_AudioInit(const char *driver_name);
+extern __attribute__ ((visibility("default"))) void SDL_AudioQuit(void);
+extern __attribute__ ((visibility("default"))) const char * SDL_GetCurrentAudioDriver(void);
+extern __attribute__ ((visibility("default"))) int SDL_OpenAudio(SDL_AudioSpec * desired, SDL_AudioSpec * obtained);
+extern __attribute__ ((visibility("default"))) int SDL_GetNumAudioDevices(int iscapture);
+extern __attribute__ ((visibility("default"))) const char * SDL_GetAudioDeviceName(int index, int iscapture);
+extern __attribute__ ((visibility("default"))) int SDL_GetAudioDeviceSpec(int index, int iscapture, SDL_AudioSpec *spec);
+extern __attribute__ ((visibility("default"))) int SDL_GetDefaultAudioInfo(char **name, SDL_AudioSpec *spec, int iscapture);
+extern __attribute__ ((visibility("default"))) SDL_AudioDeviceID SDL_OpenAudioDevice( const char *device, int iscapture, const SDL_AudioSpec *desired, SDL_AudioSpec *obtained, int allowed_changes);
+extern __attribute__ ((visibility("default"))) SDL_AudioStatus SDL_GetAudioStatus(void);
+extern __attribute__ ((visibility("default"))) SDL_AudioStatus SDL_GetAudioDeviceStatus(SDL_AudioDeviceID dev);
+extern __attribute__ ((visibility("default"))) void SDL_PauseAudio(int pause_on);
+extern __attribute__ ((visibility("default"))) void SDL_PauseAudioDevice(SDL_AudioDeviceID dev, int pause_on);
+extern __attribute__ ((visibility("default"))) SDL_AudioSpec * SDL_LoadWAV_RW(SDL_RWops * src, int freesrc, SDL_AudioSpec * spec, Uint8 ** audio_buf, Uint32 * audio_len);
+extern __attribute__ ((visibility("default"))) void SDL_FreeWAV(Uint8 * audio_buf);
+extern __attribute__ ((visibility("default"))) int SDL_BuildAudioCVT(SDL_AudioCVT * cvt, SDL_AudioFormat src_format, Uint8 src_channels, int src_rate, SDL_AudioFormat dst_format, Uint8 dst_channels, int dst_rate);
+extern __attribute__ ((visibility("default"))) int SDL_ConvertAudio(SDL_AudioCVT * cvt);
+extern __attribute__ ((visibility("default"))) SDL_AudioStream * SDL_NewAudioStream(const SDL_AudioFormat src_format, const Uint8 src_channels, const int src_rate, const SDL_AudioFormat dst_format, const Uint8 dst_channels, const int dst_rate);
+extern __attribute__ ((visibility("default"))) int SDL_AudioStreamPut(SDL_AudioStream *stream, const void *buf, int len);
+extern __attribute__ ((visibility("default"))) int SDL_AudioStreamGet(SDL_AudioStream *stream, void *buf, int len);
+extern __attribute__ ((visibility("default"))) int SDL_AudioStreamAvailable(SDL_AudioStream *stream);
+extern __attribute__ ((visibility("default"))) int SDL_AudioStreamFlush(SDL_AudioStream *stream);
+extern __attribute__ ((visibility("default"))) void SDL_AudioStreamClear(SDL_AudioStream *stream);
+extern __attribute__ ((visibility("default"))) void SDL_FreeAudioStream(SDL_AudioStream *stream);
+extern __attribute__ ((visibility("default"))) void SDL_MixAudio(Uint8 * dst, const Uint8 * src, Uint32 len, int volume);
+extern __attribute__ ((visibility("default"))) void SDL_MixAudioFormat(Uint8 * dst, const Uint8 * src, SDL_AudioFormat format, Uint32 len, int volume);
+extern __attribute__ ((visibility("default"))) int SDL_QueueAudio(SDL_AudioDeviceID dev, const void *data, Uint32 len);
+extern __attribute__ ((visibility("default"))) Uint32 SDL_DequeueAudio(SDL_AudioDeviceID dev, void *data, Uint32 len);
+extern __attribute__ ((visibility("default"))) Uint32 SDL_GetQueuedAudioSize(SDL_AudioDeviceID dev);
+extern __attribute__ ((visibility("default"))) void SDL_ClearQueuedAudio(SDL_AudioDeviceID dev);
+extern __attribute__ ((visibility("default"))) void SDL_LockAudio(void);
+extern __attribute__ ((visibility("default"))) void SDL_LockAudioDevice(SDL_AudioDeviceID dev);
+extern __attribute__ ((visibility("default"))) void SDL_UnlockAudio(void);
+extern __attribute__ ((visibility("default"))) void SDL_UnlockAudioDevice(SDL_AudioDeviceID dev);
+extern __attribute__ ((visibility("default"))) void SDL_CloseAudio(void);
+extern __attribute__ ((visibility("default"))) void SDL_CloseAudioDevice(SDL_AudioDeviceID dev);
+extern __attribute__ ((visibility("default"))) int SDL_SetClipboardText(const char *text);
+extern __attribute__ ((visibility("default"))) char * SDL_GetClipboardText(void);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasClipboardText(void);
+extern __attribute__ ((visibility("default"))) int SDL_SetPrimarySelectionText(const char *text);
+extern __attribute__ ((visibility("default"))) char * SDL_GetPrimarySelectionText(void);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasPrimarySelectionText(void);
+extern __attribute__ ((visibility("default"))) int SDL_GetCPUCount(void);
+extern __attribute__ ((visibility("default"))) int SDL_GetCPUCacheLineSize(void);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasRDTSC(void);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasAltiVec(void);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasMMX(void);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_Has3DNow(void);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasSSE(void);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasSSE2(void);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasSSE3(void);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasSSE41(void);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasSSE42(void);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasAVX(void);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasAVX2(void);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasAVX512F(void);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasARMSIMD(void);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasNEON(void);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasLSX(void);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasLASX(void);
+extern __attribute__ ((visibility("default"))) int SDL_GetSystemRAM(void);
+extern __attribute__ ((visibility("default"))) size_t SDL_SIMDGetAlignment(void);
+extern __attribute__ ((visibility("default"))) void * SDL_SIMDAlloc(const size_t len);
+extern __attribute__ ((visibility("default"))) void * SDL_SIMDRealloc(void *mem, const size_t len);
+extern __attribute__ ((visibility("default"))) void SDL_SIMDFree(void *ptr);
+extern __attribute__ ((visibility("default"))) const char* SDL_GetPixelFormatName(Uint32 format);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_PixelFormatEnumToMasks(Uint32 format, int *bpp, Uint32 * Rmask, Uint32 * Gmask, Uint32 * Bmask, Uint32 * Amask);
+extern __attribute__ ((visibility("default"))) Uint32 SDL_MasksToPixelFormatEnum(int bpp, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask);
+extern __attribute__ ((visibility("default"))) SDL_PixelFormat * SDL_AllocFormat(Uint32 pixel_format);
+extern __attribute__ ((visibility("default"))) void SDL_FreeFormat(SDL_PixelFormat *format);
+extern __attribute__ ((visibility("default"))) SDL_Palette * SDL_AllocPalette(int ncolors);
+extern __attribute__ ((visibility("default"))) int SDL_SetPixelFormatPalette(SDL_PixelFormat * format, SDL_Palette *palette);
+extern __attribute__ ((visibility("default"))) int SDL_SetPaletteColors(SDL_Palette * palette, const SDL_Color * colors, int firstcolor, int ncolors);
+extern __attribute__ ((visibility("default"))) void SDL_FreePalette(SDL_Palette * palette);
+extern __attribute__ ((visibility("default"))) Uint32 SDL_MapRGB(const SDL_PixelFormat * format, Uint8 r, Uint8 g, Uint8 b);
+extern __attribute__ ((visibility("default"))) Uint32 SDL_MapRGBA(const SDL_PixelFormat * format, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+extern __attribute__ ((visibility("default"))) void SDL_GetRGB(Uint32 pixel, const SDL_PixelFormat * format, Uint8 * r, Uint8 * g, Uint8 * b);
+extern __attribute__ ((visibility("default"))) void SDL_GetRGBA(Uint32 pixel, const SDL_PixelFormat * format, Uint8 * r, Uint8 * g, Uint8 * b, Uint8 * a);
+extern __attribute__ ((visibility("default"))) void SDL_CalculateGammaRamp(float gamma, Uint16 * ramp);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasIntersection(const SDL_Rect * A, const SDL_Rect * B);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_IntersectRect(const SDL_Rect * A, const SDL_Rect * B, SDL_Rect * result);
+extern __attribute__ ((visibility("default"))) void SDL_UnionRect(const SDL_Rect * A, const SDL_Rect * B, SDL_Rect * result);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_EnclosePoints(const SDL_Point * points, int count, const SDL_Rect * clip, SDL_Rect * result);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_IntersectRectAndLine(const SDL_Rect * rect, int *X1, int *Y1, int *X2, int *Y2);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasIntersectionF(const SDL_FRect * A, const SDL_FRect * B);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_IntersectFRect(const SDL_FRect * A, const SDL_FRect * B, SDL_FRect * result);
+extern __attribute__ ((visibility("default"))) void SDL_UnionFRect(const SDL_FRect * A, const SDL_FRect * B, SDL_FRect * result);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_EncloseFPoints(const SDL_FPoint * points, int count, const SDL_FRect * clip, SDL_FRect * result);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_IntersectFRectAndLine(const SDL_FRect * rect, float *X1, float *Y1, float *X2, float *Y2);
+extern __attribute__ ((visibility("default"))) SDL_BlendMode SDL_ComposeCustomBlendMode(SDL_BlendFactor srcColorFactor, SDL_BlendFactor dstColorFactor, SDL_BlendOperation colorOperation, SDL_BlendFactor srcAlphaFactor, SDL_BlendFactor dstAlphaFactor, SDL_BlendOperation alphaOperation);
+extern __attribute__ ((visibility("default"))) SDL_Surface * SDL_CreateRGBSurface (Uint32 flags, int width, int height, int depth, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask);
+extern __attribute__ ((visibility("default"))) SDL_Surface * SDL_CreateRGBSurfaceWithFormat (Uint32 flags, int width, int height, int depth, Uint32 format);
+extern __attribute__ ((visibility("default"))) SDL_Surface * SDL_CreateRGBSurfaceFrom(void *pixels, int width, int height, int depth, int pitch, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask);
+extern __attribute__ ((visibility("default"))) SDL_Surface * SDL_CreateRGBSurfaceWithFormatFrom (void *pixels, int width, int height, int depth, int pitch, Uint32 format);
+extern __attribute__ ((visibility("default"))) void SDL_FreeSurface(SDL_Surface * surface);
+extern __attribute__ ((visibility("default"))) int SDL_SetSurfacePalette(SDL_Surface * surface, SDL_Palette * palette);
+extern __attribute__ ((visibility("default"))) int SDL_LockSurface(SDL_Surface * surface);
+extern __attribute__ ((visibility("default"))) void SDL_UnlockSurface(SDL_Surface * surface);
+extern __attribute__ ((visibility("default"))) SDL_Surface * SDL_LoadBMP_RW(SDL_RWops * src, int freesrc);
+extern __attribute__ ((visibility("default"))) int SDL_SaveBMP_RW (SDL_Surface * surface, SDL_RWops * dst, int freedst);
+extern __attribute__ ((visibility("default"))) int SDL_SetSurfaceRLE(SDL_Surface * surface, int flag);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasSurfaceRLE(SDL_Surface * surface);
+extern __attribute__ ((visibility("default"))) int SDL_SetColorKey(SDL_Surface * surface, int flag, Uint32 key);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasColorKey(SDL_Surface * surface);
+extern __attribute__ ((visibility("default"))) int SDL_GetColorKey(SDL_Surface * surface, Uint32 * key);
+extern __attribute__ ((visibility("default"))) int SDL_SetSurfaceColorMod(SDL_Surface * surface, Uint8 r, Uint8 g, Uint8 b);
+extern __attribute__ ((visibility("default"))) int SDL_GetSurfaceColorMod(SDL_Surface * surface, Uint8 * r, Uint8 * g, Uint8 * b);
+extern __attribute__ ((visibility("default"))) int SDL_SetSurfaceAlphaMod(SDL_Surface * surface, Uint8 alpha);
+extern __attribute__ ((visibility("default"))) int SDL_GetSurfaceAlphaMod(SDL_Surface * surface, Uint8 * alpha);
+extern __attribute__ ((visibility("default"))) int SDL_SetSurfaceBlendMode(SDL_Surface * surface, SDL_BlendMode blendMode);
+extern __attribute__ ((visibility("default"))) int SDL_GetSurfaceBlendMode(SDL_Surface * surface, SDL_BlendMode *blendMode);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_SetClipRect(SDL_Surface * surface, const SDL_Rect * rect);
+extern __attribute__ ((visibility("default"))) void SDL_GetClipRect(SDL_Surface * surface, SDL_Rect * rect);
+extern __attribute__ ((visibility("default"))) SDL_Surface * SDL_DuplicateSurface(SDL_Surface * surface);
+extern __attribute__ ((visibility("default"))) SDL_Surface * SDL_ConvertSurface (SDL_Surface * src, const SDL_PixelFormat * fmt, Uint32 flags);
+extern __attribute__ ((visibility("default"))) SDL_Surface * SDL_ConvertSurfaceFormat (SDL_Surface * src, Uint32 pixel_format, Uint32 flags);
+extern __attribute__ ((visibility("default"))) int SDL_ConvertPixels(int width, int height, Uint32 src_format, const void * src, int src_pitch, Uint32 dst_format, void * dst, int dst_pitch);
+extern __attribute__ ((visibility("default"))) int SDL_PremultiplyAlpha(int width, int height, Uint32 src_format, const void * src, int src_pitch, Uint32 dst_format, void * dst, int dst_pitch);
+extern __attribute__ ((visibility("default"))) int SDL_FillRect (SDL_Surface * dst, const SDL_Rect * rect, Uint32 color);
+extern __attribute__ ((visibility("default"))) int SDL_FillRects (SDL_Surface * dst, const SDL_Rect * rects, int count, Uint32 color);
+extern __attribute__ ((visibility("default"))) int SDL_UpperBlit (SDL_Surface * src, const SDL_Rect * srcrect, SDL_Surface * dst, SDL_Rect * dstrect);
+extern __attribute__ ((visibility("default"))) int SDL_LowerBlit (SDL_Surface * src, SDL_Rect * srcrect, SDL_Surface * dst, SDL_Rect * dstrect);
+extern __attribute__ ((visibility("default"))) int SDL_SoftStretch(SDL_Surface * src, const SDL_Rect * srcrect, SDL_Surface * dst, const SDL_Rect * dstrect);
+extern __attribute__ ((visibility("default"))) int SDL_SoftStretchLinear(SDL_Surface * src, const SDL_Rect * srcrect, SDL_Surface * dst, const SDL_Rect * dstrect);
+extern __attribute__ ((visibility("default"))) int SDL_UpperBlitScaled (SDL_Surface * src, const SDL_Rect * srcrect, SDL_Surface * dst, SDL_Rect * dstrect);
+extern __attribute__ ((visibility("default"))) int SDL_LowerBlitScaled (SDL_Surface * src, SDL_Rect * srcrect, SDL_Surface * dst, SDL_Rect * dstrect);
+extern __attribute__ ((visibility("default"))) void SDL_SetYUVConversionMode(SDL_YUV_CONVERSION_MODE mode);
+extern __attribute__ ((visibility("default"))) SDL_YUV_CONVERSION_MODE SDL_GetYUVConversionMode(void);
+extern __attribute__ ((visibility("default"))) SDL_YUV_CONVERSION_MODE SDL_GetYUVConversionModeForResolution(int width, int height);
+extern __attribute__ ((visibility("default"))) int SDL_GetNumVideoDrivers(void);
+extern __attribute__ ((visibility("default"))) const char * SDL_GetVideoDriver(int index);
+extern __attribute__ ((visibility("default"))) int SDL_VideoInit(const char *driver_name);
+extern __attribute__ ((visibility("default"))) void SDL_VideoQuit(void);
+extern __attribute__ ((visibility("default"))) const char * SDL_GetCurrentVideoDriver(void);
+extern __attribute__ ((visibility("default"))) int SDL_GetNumVideoDisplays(void);
+extern __attribute__ ((visibility("default"))) const char * SDL_GetDisplayName(int displayIndex);
+extern __attribute__ ((visibility("default"))) int SDL_GetDisplayBounds(int displayIndex, SDL_Rect * rect);
+extern __attribute__ ((visibility("default"))) int SDL_GetDisplayUsableBounds(int displayIndex, SDL_Rect * rect);
+extern __attribute__ ((visibility("default"))) int SDL_GetDisplayDPI(int displayIndex, float * ddpi, float * hdpi, float * vdpi);
+extern __attribute__ ((visibility("default"))) SDL_DisplayOrientation SDL_GetDisplayOrientation(int displayIndex);
+extern __attribute__ ((visibility("default"))) int SDL_GetNumDisplayModes(int displayIndex);
+extern __attribute__ ((visibility("default"))) int SDL_GetDisplayMode(int displayIndex, int modeIndex, SDL_DisplayMode * mode);
+extern __attribute__ ((visibility("default"))) int SDL_GetDesktopDisplayMode(int displayIndex, SDL_DisplayMode * mode);
+extern __attribute__ ((visibility("default"))) int SDL_GetCurrentDisplayMode(int displayIndex, SDL_DisplayMode * mode);
+extern __attribute__ ((visibility("default"))) SDL_DisplayMode * SDL_GetClosestDisplayMode(int displayIndex, const SDL_DisplayMode * mode, SDL_DisplayMode * closest);
+extern __attribute__ ((visibility("default"))) int SDL_GetPointDisplayIndex(const SDL_Point * point);
+extern __attribute__ ((visibility("default"))) int SDL_GetRectDisplayIndex(const SDL_Rect * rect);
+extern __attribute__ ((visibility("default"))) int SDL_GetWindowDisplayIndex(SDL_Window * window);
+extern __attribute__ ((visibility("default"))) int SDL_SetWindowDisplayMode(SDL_Window * window, const SDL_DisplayMode * mode);
+extern __attribute__ ((visibility("default"))) int SDL_GetWindowDisplayMode(SDL_Window * window, SDL_DisplayMode * mode);
+extern __attribute__ ((visibility("default"))) void* SDL_GetWindowICCProfile(SDL_Window * window, size_t* size);
+extern __attribute__ ((visibility("default"))) Uint32 SDL_GetWindowPixelFormat(SDL_Window * window);
+extern __attribute__ ((visibility("default"))) SDL_Window * SDL_CreateWindow(const char *title, int x, int y, int w, int h, Uint32 flags);
+extern __attribute__ ((visibility("default"))) SDL_Window * SDL_CreateWindowFrom(const void *data);
+extern __attribute__ ((visibility("default"))) Uint32 SDL_GetWindowID(SDL_Window * window);
+extern __attribute__ ((visibility("default"))) SDL_Window * SDL_GetWindowFromID(Uint32 id);
+extern __attribute__ ((visibility("default"))) Uint32 SDL_GetWindowFlags(SDL_Window * window);
+extern __attribute__ ((visibility("default"))) void SDL_SetWindowTitle(SDL_Window * window, const char *title);
+extern __attribute__ ((visibility("default"))) const char * SDL_GetWindowTitle(SDL_Window * window);
+extern __attribute__ ((visibility("default"))) void SDL_SetWindowIcon(SDL_Window * window, SDL_Surface * icon);
+extern __attribute__ ((visibility("default"))) void* SDL_SetWindowData(SDL_Window * window, const char *name, void *userdata);
+extern __attribute__ ((visibility("default"))) void * SDL_GetWindowData(SDL_Window * window, const char *name);
+extern __attribute__ ((visibility("default"))) void SDL_SetWindowPosition(SDL_Window * window, int x, int y);
+extern __attribute__ ((visibility("default"))) void SDL_GetWindowPosition(SDL_Window * window, int *x, int *y);
+extern __attribute__ ((visibility("default"))) void SDL_SetWindowSize(SDL_Window * window, int w, int h);
+extern __attribute__ ((visibility("default"))) void SDL_GetWindowSize(SDL_Window * window, int *w, int *h);
+extern __attribute__ ((visibility("default"))) int SDL_GetWindowBordersSize(SDL_Window * window, int *top, int *left, int *bottom, int *right);
+extern __attribute__ ((visibility("default"))) void SDL_GetWindowSizeInPixels(SDL_Window * window, int *w, int *h);
+extern __attribute__ ((visibility("default"))) void SDL_SetWindowMinimumSize(SDL_Window * window, int min_w, int min_h);
+extern __attribute__ ((visibility("default"))) void SDL_GetWindowMinimumSize(SDL_Window * window, int *w, int *h);
+extern __attribute__ ((visibility("default"))) void SDL_SetWindowMaximumSize(SDL_Window * window, int max_w, int max_h);
+extern __attribute__ ((visibility("default"))) void SDL_GetWindowMaximumSize(SDL_Window * window, int *w, int *h);
+extern __attribute__ ((visibility("default"))) void SDL_SetWindowBordered(SDL_Window * window, SDL_bool bordered);
+extern __attribute__ ((visibility("default"))) void SDL_SetWindowResizable(SDL_Window * window, SDL_bool resizable);
+extern __attribute__ ((visibility("default"))) void SDL_SetWindowAlwaysOnTop(SDL_Window * window, SDL_bool on_top);
+extern __attribute__ ((visibility("default"))) void SDL_ShowWindow(SDL_Window * window);
+extern __attribute__ ((visibility("default"))) void SDL_HideWindow(SDL_Window * window);
+extern __attribute__ ((visibility("default"))) void SDL_RaiseWindow(SDL_Window * window);
+extern __attribute__ ((visibility("default"))) void SDL_MaximizeWindow(SDL_Window * window);
+extern __attribute__ ((visibility("default"))) void SDL_MinimizeWindow(SDL_Window * window);
+extern __attribute__ ((visibility("default"))) void SDL_RestoreWindow(SDL_Window * window);
+extern __attribute__ ((visibility("default"))) int SDL_SetWindowFullscreen(SDL_Window * window, Uint32 flags);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasWindowSurface(SDL_Window *window);
+extern __attribute__ ((visibility("default"))) SDL_Surface * SDL_GetWindowSurface(SDL_Window * window);
+extern __attribute__ ((visibility("default"))) int SDL_UpdateWindowSurface(SDL_Window * window);
+extern __attribute__ ((visibility("default"))) int SDL_UpdateWindowSurfaceRects(SDL_Window * window, const SDL_Rect * rects, int numrects);
+extern __attribute__ ((visibility("default"))) int SDL_DestroyWindowSurface(SDL_Window *window);
+extern __attribute__ ((visibility("default"))) void SDL_SetWindowGrab(SDL_Window * window, SDL_bool grabbed);
+extern __attribute__ ((visibility("default"))) void SDL_SetWindowKeyboardGrab(SDL_Window * window, SDL_bool grabbed);
+extern __attribute__ ((visibility("default"))) void SDL_SetWindowMouseGrab(SDL_Window * window, SDL_bool grabbed);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_GetWindowGrab(SDL_Window * window);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_GetWindowKeyboardGrab(SDL_Window * window);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_GetWindowMouseGrab(SDL_Window * window);
+extern __attribute__ ((visibility("default"))) SDL_Window * SDL_GetGrabbedWindow(void);
+extern __attribute__ ((visibility("default"))) int SDL_SetWindowMouseRect(SDL_Window * window, const SDL_Rect * rect);
+extern __attribute__ ((visibility("default"))) const SDL_Rect * SDL_GetWindowMouseRect(SDL_Window * window);
+extern __attribute__ ((visibility("default"))) int SDL_SetWindowBrightness(SDL_Window * window, float brightness);
+extern __attribute__ ((visibility("default"))) float SDL_GetWindowBrightness(SDL_Window * window);
+extern __attribute__ ((visibility("default"))) int SDL_SetWindowOpacity(SDL_Window * window, float opacity);
+extern __attribute__ ((visibility("default"))) int SDL_GetWindowOpacity(SDL_Window * window, float * out_opacity);
+extern __attribute__ ((visibility("default"))) int SDL_SetWindowModalFor(SDL_Window * modal_window, SDL_Window * parent_window);
+extern __attribute__ ((visibility("default"))) int SDL_SetWindowInputFocus(SDL_Window * window);
+extern __attribute__ ((visibility("default"))) int SDL_SetWindowGammaRamp(SDL_Window * window, const Uint16 * red, const Uint16 * green, const Uint16 * blue);
+extern __attribute__ ((visibility("default"))) int SDL_GetWindowGammaRamp(SDL_Window * window, Uint16 * red, Uint16 * green, Uint16 * blue);
+extern __attribute__ ((visibility("default"))) int SDL_SetWindowHitTest(SDL_Window * window, SDL_HitTest callback, void *callback_data);
+extern __attribute__ ((visibility("default"))) int SDL_FlashWindow(SDL_Window * window, SDL_FlashOperation operation);
+extern __attribute__ ((visibility("default"))) void SDL_DestroyWindow(SDL_Window * window);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_IsScreenSaverEnabled(void);
+extern __attribute__ ((visibility("default"))) void SDL_EnableScreenSaver(void);
+extern __attribute__ ((visibility("default"))) void SDL_DisableScreenSaver(void);
+extern __attribute__ ((visibility("default"))) int SDL_GL_LoadLibrary(const char *path);
+extern __attribute__ ((visibility("default"))) void * SDL_GL_GetProcAddress(const char *proc);
+extern __attribute__ ((visibility("default"))) void SDL_GL_UnloadLibrary(void);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_GL_ExtensionSupported(const char *extension);
+extern __attribute__ ((visibility("default"))) void SDL_GL_ResetAttributes(void);
+extern __attribute__ ((visibility("default"))) int SDL_GL_SetAttribute(SDL_GLattr attr, int value);
+extern __attribute__ ((visibility("default"))) int SDL_GL_GetAttribute(SDL_GLattr attr, int *value);
+extern __attribute__ ((visibility("default"))) SDL_GLContext SDL_GL_CreateContext(SDL_Window * window);
+extern __attribute__ ((visibility("default"))) int SDL_GL_MakeCurrent(SDL_Window * window, SDL_GLContext context);
+extern __attribute__ ((visibility("default"))) SDL_Window* SDL_GL_GetCurrentWindow(void);
+extern __attribute__ ((visibility("default"))) SDL_GLContext SDL_GL_GetCurrentContext(void);
+extern __attribute__ ((visibility("default"))) void SDL_GL_GetDrawableSize(SDL_Window * window, int *w, int *h);
+extern __attribute__ ((visibility("default"))) int SDL_GL_SetSwapInterval(int interval);
+extern __attribute__ ((visibility("default"))) int SDL_GL_GetSwapInterval(void);
+extern __attribute__ ((visibility("default"))) void SDL_GL_SwapWindow(SDL_Window * window);
+extern __attribute__ ((visibility("default"))) void SDL_GL_DeleteContext(SDL_GLContext context);
+extern __attribute__ ((visibility("default"))) SDL_Window * SDL_GetKeyboardFocus(void);
+extern __attribute__ ((visibility("default"))) const Uint8 * SDL_GetKeyboardState(int *numkeys);
+extern __attribute__ ((visibility("default"))) void SDL_ResetKeyboard(void);
+extern __attribute__ ((visibility("default"))) SDL_Keymod SDL_GetModState(void);
+extern __attribute__ ((visibility("default"))) void SDL_SetModState(SDL_Keymod modstate);
+extern __attribute__ ((visibility("default"))) SDL_Keycode SDL_GetKeyFromScancode(SDL_Scancode scancode);
+extern __attribute__ ((visibility("default"))) SDL_Scancode SDL_GetScancodeFromKey(SDL_Keycode key);
+extern __attribute__ ((visibility("default"))) const char * SDL_GetScancodeName(SDL_Scancode scancode);
+extern __attribute__ ((visibility("default"))) SDL_Scancode SDL_GetScancodeFromName(const char *name);
+extern __attribute__ ((visibility("default"))) const char * SDL_GetKeyName(SDL_Keycode key);
+extern __attribute__ ((visibility("default"))) SDL_Keycode SDL_GetKeyFromName(const char *name);
+extern __attribute__ ((visibility("default"))) void SDL_StartTextInput(void);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_IsTextInputActive(void);
+extern __attribute__ ((visibility("default"))) void SDL_StopTextInput(void);
+extern __attribute__ ((visibility("default"))) void SDL_ClearComposition(void);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_IsTextInputShown(void);
+extern __attribute__ ((visibility("default"))) void SDL_SetTextInputRect(const SDL_Rect *rect);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasScreenKeyboardSupport(void);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_IsScreenKeyboardShown(SDL_Window *window);
+extern __attribute__ ((visibility("default"))) SDL_Window * SDL_GetMouseFocus(void);
+extern __attribute__ ((visibility("default"))) Uint32 SDL_GetMouseState(int *x, int *y);
+extern __attribute__ ((visibility("default"))) Uint32 SDL_GetGlobalMouseState(int *x, int *y);
+extern __attribute__ ((visibility("default"))) Uint32 SDL_GetRelativeMouseState(int *x, int *y);
+extern __attribute__ ((visibility("default"))) void SDL_WarpMouseInWindow(SDL_Window * window, int x, int y);
+extern __attribute__ ((visibility("default"))) int SDL_WarpMouseGlobal(int x, int y);
+extern __attribute__ ((visibility("default"))) int SDL_SetRelativeMouseMode(SDL_bool enabled);
+extern __attribute__ ((visibility("default"))) int SDL_CaptureMouse(SDL_bool enabled);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_GetRelativeMouseMode(void);
+extern __attribute__ ((visibility("default"))) SDL_Cursor * SDL_CreateCursor(const Uint8 * data, const Uint8 * mask, int w, int h, int hot_x, int hot_y);
+extern __attribute__ ((visibility("default"))) SDL_Cursor * SDL_CreateColorCursor(SDL_Surface *surface, int hot_x, int hot_y);
+extern __attribute__ ((visibility("default"))) SDL_Cursor * SDL_CreateSystemCursor(SDL_SystemCursor id);
+extern __attribute__ ((visibility("default"))) void SDL_SetCursor(SDL_Cursor * cursor);
+extern __attribute__ ((visibility("default"))) SDL_Cursor * SDL_GetCursor(void);
+extern __attribute__ ((visibility("default"))) SDL_Cursor * SDL_GetDefaultCursor(void);
+extern __attribute__ ((visibility("default"))) void SDL_FreeCursor(SDL_Cursor * cursor);
+extern __attribute__ ((visibility("default"))) int SDL_ShowCursor(int toggle);
+extern __attribute__ ((visibility("default"))) void SDL_GUIDToString(SDL_GUID guid, char *pszGUID, int cbGUID);
+extern __attribute__ ((visibility("default"))) SDL_GUID SDL_GUIDFromString(const char *pchGUID);
+extern __attribute__ ((visibility("default"))) void SDL_LockJoysticks(void);
+extern __attribute__ ((visibility("default"))) void SDL_UnlockJoysticks(void);
+extern __attribute__ ((visibility("default"))) int SDL_NumJoysticks(void);
+extern __attribute__ ((visibility("default"))) const char * SDL_JoystickNameForIndex(int device_index);
+extern __attribute__ ((visibility("default"))) const char * SDL_JoystickPathForIndex(int device_index);
+extern __attribute__ ((visibility("default"))) int SDL_JoystickGetDevicePlayerIndex(int device_index);
+extern __attribute__ ((visibility("default"))) SDL_JoystickGUID SDL_JoystickGetDeviceGUID(int device_index);
+extern __attribute__ ((visibility("default"))) Uint16 SDL_JoystickGetDeviceVendor(int device_index);
+extern __attribute__ ((visibility("default"))) Uint16 SDL_JoystickGetDeviceProduct(int device_index);
+extern __attribute__ ((visibility("default"))) Uint16 SDL_JoystickGetDeviceProductVersion(int device_index);
+extern __attribute__ ((visibility("default"))) SDL_JoystickType SDL_JoystickGetDeviceType(int device_index);
+extern __attribute__ ((visibility("default"))) SDL_JoystickID SDL_JoystickGetDeviceInstanceID(int device_index);
+extern __attribute__ ((visibility("default"))) SDL_Joystick * SDL_JoystickOpen(int device_index);
+extern __attribute__ ((visibility("default"))) SDL_Joystick * SDL_JoystickFromInstanceID(SDL_JoystickID instance_id);
+extern __attribute__ ((visibility("default"))) SDL_Joystick * SDL_JoystickFromPlayerIndex(int player_index);
+extern __attribute__ ((visibility("default"))) int SDL_JoystickAttachVirtual(SDL_JoystickType type, int naxes, int nbuttons, int nhats);
+extern __attribute__ ((visibility("default"))) int SDL_JoystickAttachVirtualEx(const SDL_VirtualJoystickDesc *desc);
+extern __attribute__ ((visibility("default"))) int SDL_JoystickDetachVirtual(int device_index);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_JoystickIsVirtual(int device_index);
+extern __attribute__ ((visibility("default"))) int SDL_JoystickSetVirtualAxis(SDL_Joystick *joystick, int axis, Sint16 value);
+extern __attribute__ ((visibility("default"))) int SDL_JoystickSetVirtualButton(SDL_Joystick *joystick, int button, Uint8 value);
+extern __attribute__ ((visibility("default"))) int SDL_JoystickSetVirtualHat(SDL_Joystick *joystick, int hat, Uint8 value);
+extern __attribute__ ((visibility("default"))) const char * SDL_JoystickName(SDL_Joystick *joystick);
+extern __attribute__ ((visibility("default"))) const char * SDL_JoystickPath(SDL_Joystick *joystick);
+extern __attribute__ ((visibility("default"))) int SDL_JoystickGetPlayerIndex(SDL_Joystick *joystick);
+extern __attribute__ ((visibility("default"))) void SDL_JoystickSetPlayerIndex(SDL_Joystick *joystick, int player_index);
+extern __attribute__ ((visibility("default"))) SDL_JoystickGUID SDL_JoystickGetGUID(SDL_Joystick *joystick);
+extern __attribute__ ((visibility("default"))) Uint16 SDL_JoystickGetVendor(SDL_Joystick *joystick);
+extern __attribute__ ((visibility("default"))) Uint16 SDL_JoystickGetProduct(SDL_Joystick *joystick);
+extern __attribute__ ((visibility("default"))) Uint16 SDL_JoystickGetProductVersion(SDL_Joystick *joystick);
+extern __attribute__ ((visibility("default"))) Uint16 SDL_JoystickGetFirmwareVersion(SDL_Joystick *joystick);
+extern __attribute__ ((visibility("default"))) const char * SDL_JoystickGetSerial(SDL_Joystick *joystick);
+extern __attribute__ ((visibility("default"))) SDL_JoystickType SDL_JoystickGetType(SDL_Joystick *joystick);
+extern __attribute__ ((visibility("default"))) void SDL_JoystickGetGUIDString(SDL_JoystickGUID guid, char *pszGUID, int cbGUID);
+extern __attribute__ ((visibility("default"))) SDL_JoystickGUID SDL_JoystickGetGUIDFromString(const char *pchGUID);
+extern __attribute__ ((visibility("default"))) void SDL_GetJoystickGUIDInfo(SDL_JoystickGUID guid, Uint16 *vendor, Uint16 *product, Uint16 *version, Uint16 *crc16);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_JoystickGetAttached(SDL_Joystick *joystick);
+extern __attribute__ ((visibility("default"))) SDL_JoystickID SDL_JoystickInstanceID(SDL_Joystick *joystick);
+extern __attribute__ ((visibility("default"))) int SDL_JoystickNumAxes(SDL_Joystick *joystick);
+extern __attribute__ ((visibility("default"))) int SDL_JoystickNumBalls(SDL_Joystick *joystick);
+extern __attribute__ ((visibility("default"))) int SDL_JoystickNumHats(SDL_Joystick *joystick);
+extern __attribute__ ((visibility("default"))) int SDL_JoystickNumButtons(SDL_Joystick *joystick);
+extern __attribute__ ((visibility("default"))) void SDL_JoystickUpdate(void);
+extern __attribute__ ((visibility("default"))) int SDL_JoystickEventState(int state);
+extern __attribute__ ((visibility("default"))) Sint16 SDL_JoystickGetAxis(SDL_Joystick *joystick, int axis);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_JoystickGetAxisInitialState(SDL_Joystick *joystick, int axis, Sint16 *state);
+extern __attribute__ ((visibility("default"))) Uint8 SDL_JoystickGetHat(SDL_Joystick *joystick, int hat);
+extern __attribute__ ((visibility("default"))) int SDL_JoystickGetBall(SDL_Joystick *joystick, int ball, int *dx, int *dy);
+extern __attribute__ ((visibility("default"))) Uint8 SDL_JoystickGetButton(SDL_Joystick *joystick, int button);
+extern __attribute__ ((visibility("default"))) int SDL_JoystickRumble(SDL_Joystick *joystick, Uint16 low_frequency_rumble, Uint16 high_frequency_rumble, Uint32 duration_ms);
+extern __attribute__ ((visibility("default"))) int SDL_JoystickRumbleTriggers(SDL_Joystick *joystick, Uint16 left_rumble, Uint16 right_rumble, Uint32 duration_ms);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_JoystickHasLED(SDL_Joystick *joystick);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_JoystickHasRumble(SDL_Joystick *joystick);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_JoystickHasRumbleTriggers(SDL_Joystick *joystick);
+extern __attribute__ ((visibility("default"))) int SDL_JoystickSetLED(SDL_Joystick *joystick, Uint8 red, Uint8 green, Uint8 blue);
+extern __attribute__ ((visibility("default"))) int SDL_JoystickSendEffect(SDL_Joystick *joystick, const void *data, int size);
+extern __attribute__ ((visibility("default"))) void SDL_JoystickClose(SDL_Joystick *joystick);
+extern __attribute__ ((visibility("default"))) SDL_JoystickPowerLevel SDL_JoystickCurrentPowerLevel(SDL_Joystick *joystick);
+extern __attribute__ ((visibility("default"))) void SDL_LockSensors(void);
+extern __attribute__ ((visibility("default"))) void SDL_UnlockSensors(void);
+extern __attribute__ ((visibility("default"))) int SDL_NumSensors(void);
+extern __attribute__ ((visibility("default"))) const char * SDL_SensorGetDeviceName(int device_index);
+extern __attribute__ ((visibility("default"))) SDL_SensorType SDL_SensorGetDeviceType(int device_index);
+extern __attribute__ ((visibility("default"))) int SDL_SensorGetDeviceNonPortableType(int device_index);
+extern __attribute__ ((visibility("default"))) SDL_SensorID SDL_SensorGetDeviceInstanceID(int device_index);
+extern __attribute__ ((visibility("default"))) SDL_Sensor * SDL_SensorOpen(int device_index);
+extern __attribute__ ((visibility("default"))) SDL_Sensor * SDL_SensorFromInstanceID(SDL_SensorID instance_id);
+extern __attribute__ ((visibility("default"))) const char * SDL_SensorGetName(SDL_Sensor *sensor);
+extern __attribute__ ((visibility("default"))) SDL_SensorType SDL_SensorGetType(SDL_Sensor *sensor);
+extern __attribute__ ((visibility("default"))) int SDL_SensorGetNonPortableType(SDL_Sensor *sensor);
+extern __attribute__ ((visibility("default"))) SDL_SensorID SDL_SensorGetInstanceID(SDL_Sensor *sensor);
+extern __attribute__ ((visibility("default"))) int SDL_SensorGetData(SDL_Sensor *sensor, float *data, int num_values);
+extern __attribute__ ((visibility("default"))) int SDL_SensorGetDataWithTimestamp(SDL_Sensor *sensor, Uint64 *timestamp, float *data, int num_values);
+extern __attribute__ ((visibility("default"))) void SDL_SensorClose(SDL_Sensor *sensor);
+extern __attribute__ ((visibility("default"))) void SDL_SensorUpdate(void);
+extern __attribute__ ((visibility("default"))) int SDL_GameControllerAddMappingsFromRW(SDL_RWops * rw, int freerw);
+extern __attribute__ ((visibility("default"))) int SDL_GameControllerAddMapping(const char* mappingString);
+extern __attribute__ ((visibility("default"))) int SDL_GameControllerNumMappings(void);
+extern __attribute__ ((visibility("default"))) char * SDL_GameControllerMappingForIndex(int mapping_index);
+extern __attribute__ ((visibility("default"))) char * SDL_GameControllerMappingForGUID(SDL_JoystickGUID guid);
+extern __attribute__ ((visibility("default"))) char * SDL_GameControllerMapping(SDL_GameController *gamecontroller);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_IsGameController(int joystick_index);
+extern __attribute__ ((visibility("default"))) const char * SDL_GameControllerNameForIndex(int joystick_index);
+extern __attribute__ ((visibility("default"))) const char * SDL_GameControllerPathForIndex(int joystick_index);
+extern __attribute__ ((visibility("default"))) SDL_GameControllerType SDL_GameControllerTypeForIndex(int joystick_index);
+extern __attribute__ ((visibility("default"))) char * SDL_GameControllerMappingForDeviceIndex(int joystick_index);
+extern __attribute__ ((visibility("default"))) SDL_GameController * SDL_GameControllerOpen(int joystick_index);
+extern __attribute__ ((visibility("default"))) SDL_GameController * SDL_GameControllerFromInstanceID(SDL_JoystickID joyid);
+extern __attribute__ ((visibility("default"))) SDL_GameController * SDL_GameControllerFromPlayerIndex(int player_index);
+extern __attribute__ ((visibility("default"))) const char * SDL_GameControllerName(SDL_GameController *gamecontroller);
+extern __attribute__ ((visibility("default"))) const char * SDL_GameControllerPath(SDL_GameController *gamecontroller);
+extern __attribute__ ((visibility("default"))) SDL_GameControllerType SDL_GameControllerGetType(SDL_GameController *gamecontroller);
+extern __attribute__ ((visibility("default"))) int SDL_GameControllerGetPlayerIndex(SDL_GameController *gamecontroller);
+extern __attribute__ ((visibility("default"))) void SDL_GameControllerSetPlayerIndex(SDL_GameController *gamecontroller, int player_index);
+extern __attribute__ ((visibility("default"))) Uint16 SDL_GameControllerGetVendor(SDL_GameController *gamecontroller);
+extern __attribute__ ((visibility("default"))) Uint16 SDL_GameControllerGetProduct(SDL_GameController *gamecontroller);
+extern __attribute__ ((visibility("default"))) Uint16 SDL_GameControllerGetProductVersion(SDL_GameController *gamecontroller);
+extern __attribute__ ((visibility("default"))) Uint16 SDL_GameControllerGetFirmwareVersion(SDL_GameController *gamecontroller);
+extern __attribute__ ((visibility("default"))) const char * SDL_GameControllerGetSerial(SDL_GameController *gamecontroller);
+extern __attribute__ ((visibility("default"))) Uint64 SDL_GameControllerGetSteamHandle(SDL_GameController *gamecontroller);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_GameControllerGetAttached(SDL_GameController *gamecontroller);
+extern __attribute__ ((visibility("default"))) SDL_Joystick * SDL_GameControllerGetJoystick(SDL_GameController *gamecontroller);
+extern __attribute__ ((visibility("default"))) int SDL_GameControllerEventState(int state);
+extern __attribute__ ((visibility("default"))) void SDL_GameControllerUpdate(void);
+extern __attribute__ ((visibility("default"))) SDL_GameControllerAxis SDL_GameControllerGetAxisFromString(const char *str);
+extern __attribute__ ((visibility("default"))) const char* SDL_GameControllerGetStringForAxis(SDL_GameControllerAxis axis);
+extern __attribute__ ((visibility("default"))) SDL_GameControllerButtonBind SDL_GameControllerGetBindForAxis(SDL_GameController *gamecontroller, SDL_GameControllerAxis axis);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_GameControllerHasAxis(SDL_GameController *gamecontroller, SDL_GameControllerAxis axis);
+extern __attribute__ ((visibility("default"))) Sint16 SDL_GameControllerGetAxis(SDL_GameController *gamecontroller, SDL_GameControllerAxis axis);
+extern __attribute__ ((visibility("default"))) SDL_GameControllerButton SDL_GameControllerGetButtonFromString(const char *str);
+extern __attribute__ ((visibility("default"))) const char* SDL_GameControllerGetStringForButton(SDL_GameControllerButton button);
+extern __attribute__ ((visibility("default"))) SDL_GameControllerButtonBind SDL_GameControllerGetBindForButton(SDL_GameController *gamecontroller, SDL_GameControllerButton button);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_GameControllerHasButton(SDL_GameController *gamecontroller, SDL_GameControllerButton button);
+extern __attribute__ ((visibility("default"))) Uint8 SDL_GameControllerGetButton(SDL_GameController *gamecontroller, SDL_GameControllerButton button);
+extern __attribute__ ((visibility("default"))) int SDL_GameControllerGetNumTouchpads(SDL_GameController *gamecontroller);
+extern __attribute__ ((visibility("default"))) int SDL_GameControllerGetNumTouchpadFingers(SDL_GameController *gamecontroller, int touchpad);
+extern __attribute__ ((visibility("default"))) int SDL_GameControllerGetTouchpadFinger(SDL_GameController *gamecontroller, int touchpad, int finger, Uint8 *state, float *x, float *y, float *pressure);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_GameControllerHasSensor(SDL_GameController *gamecontroller, SDL_SensorType type);
+extern __attribute__ ((visibility("default"))) int SDL_GameControllerSetSensorEnabled(SDL_GameController *gamecontroller, SDL_SensorType type, SDL_bool enabled);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_GameControllerIsSensorEnabled(SDL_GameController *gamecontroller, SDL_SensorType type);
+extern __attribute__ ((visibility("default"))) float SDL_GameControllerGetSensorDataRate(SDL_GameController *gamecontroller, SDL_SensorType type);
+extern __attribute__ ((visibility("default"))) int SDL_GameControllerGetSensorData(SDL_GameController *gamecontroller, SDL_SensorType type, float *data, int num_values);
+extern __attribute__ ((visibility("default"))) int SDL_GameControllerGetSensorDataWithTimestamp(SDL_GameController *gamecontroller, SDL_SensorType type, Uint64 *timestamp, float *data, int num_values);
+extern __attribute__ ((visibility("default"))) int SDL_GameControllerRumble(SDL_GameController *gamecontroller, Uint16 low_frequency_rumble, Uint16 high_frequency_rumble, Uint32 duration_ms);
+extern __attribute__ ((visibility("default"))) int SDL_GameControllerRumbleTriggers(SDL_GameController *gamecontroller, Uint16 left_rumble, Uint16 right_rumble, Uint32 duration_ms);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_GameControllerHasLED(SDL_GameController *gamecontroller);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_GameControllerHasRumble(SDL_GameController *gamecontroller);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_GameControllerHasRumbleTriggers(SDL_GameController *gamecontroller);
+extern __attribute__ ((visibility("default"))) int SDL_GameControllerSetLED(SDL_GameController *gamecontroller, Uint8 red, Uint8 green, Uint8 blue);
+extern __attribute__ ((visibility("default"))) int SDL_GameControllerSendEffect(SDL_GameController *gamecontroller, const void *data, int size);
+extern __attribute__ ((visibility("default"))) void SDL_GameControllerClose(SDL_GameController *gamecontroller);
+extern __attribute__ ((visibility("default"))) const char* SDL_GameControllerGetAppleSFSymbolsNameForButton(SDL_GameController *gamecontroller, SDL_GameControllerButton button);
+extern __attribute__ ((visibility("default"))) const char* SDL_GameControllerGetAppleSFSymbolsNameForAxis(SDL_GameController *gamecontroller, SDL_GameControllerAxis axis);
+extern __attribute__ ((visibility("default"))) int SDL_GetNumTouchDevices(void);
+extern __attribute__ ((visibility("default"))) SDL_TouchID SDL_GetTouchDevice(int index);
+extern __attribute__ ((visibility("default"))) const char* SDL_GetTouchName(int index);
+extern __attribute__ ((visibility("default"))) SDL_TouchDeviceType SDL_GetTouchDeviceType(SDL_TouchID touchID);
+extern __attribute__ ((visibility("default"))) int SDL_GetNumTouchFingers(SDL_TouchID touchID);
+extern __attribute__ ((visibility("default"))) SDL_Finger * SDL_GetTouchFinger(SDL_TouchID touchID, int index);
+extern __attribute__ ((visibility("default"))) int SDL_RecordGesture(SDL_TouchID touchId);
+extern __attribute__ ((visibility("default"))) int SDL_SaveAllDollarTemplates(SDL_RWops *dst);
+extern __attribute__ ((visibility("default"))) int SDL_SaveDollarTemplate(SDL_GestureID gestureId,SDL_RWops *dst);
+extern __attribute__ ((visibility("default"))) int SDL_LoadDollarTemplates(SDL_TouchID touchId, SDL_RWops *src);
+extern __attribute__ ((visibility("default"))) void SDL_PumpEvents(void);
+extern __attribute__ ((visibility("default"))) int SDL_PeepEvents(SDL_Event * events, int numevents, SDL_eventaction action, Uint32 minType, Uint32 maxType);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasEvent(Uint32 type);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_HasEvents(Uint32 minType, Uint32 maxType);
+extern __attribute__ ((visibility("default"))) void SDL_FlushEvent(Uint32 type);
+extern __attribute__ ((visibility("default"))) void SDL_FlushEvents(Uint32 minType, Uint32 maxType);
+extern __attribute__ ((visibility("default"))) int SDL_PollEvent(SDL_Event * event);
+extern __attribute__ ((visibility("default"))) int SDL_WaitEvent(SDL_Event * event);
+extern __attribute__ ((visibility("default"))) int SDL_WaitEventTimeout(SDL_Event * event, int timeout);
+extern __attribute__ ((visibility("default"))) int SDL_PushEvent(SDL_Event * event);
+extern __attribute__ ((visibility("default"))) void SDL_SetEventFilter(SDL_EventFilter filter, void *userdata);
+extern __attribute__ ((visibility("default"))) SDL_bool SDL_GetEventFilter(SDL_EventFilter * filter, void **userdata);
+extern __attribute__ ((visibility("default"))) void SDL_AddEventWatch(SDL_EventFilter filter, void *userdata);
+extern __attribute__ ((visibility("default"))) void SDL_DelEventWatch(SDL_EventFilter filter, void *userdata);
+extern __attribute__ ((visibility("default"))) void SDL_FilterEvents(SDL_EventFilter filter, void *userdata);
+extern __attribute__ ((visibility("default"))) Uint8 SDL_EventState(Uint32 type, int state);
+extern __attribute__ ((visibility("default"))) Uint32 SDL_RegisterEvents(int numevents);
+extern __attribute__ ((visibility("default"))) char * SDL_GetBasePath(void);
+extern __attribute__ ((visibility("default"))) char * SDL_GetPrefPath(const char *org, const char *app);
 extern __attribute__ ((visibility("default"))) int SDL_NumHaptics(void);
 extern __attribute__ ((visibility("default"))) const char * SDL_HapticName(int device_index);
 extern __attribute__ ((visibility("default"))) SDL_Haptic * SDL_HapticOpen(int device_index);
@@ -2772,34 +2775,6 @@ extern __attribute__ ((visibility("default"))) int SDL_HapticRumbleSupported(SDL
 extern __attribute__ ((visibility("default"))) int SDL_HapticRumbleInit(SDL_Haptic * haptic);
 extern __attribute__ ((visibility("default"))) int SDL_HapticRumblePlay(SDL_Haptic * haptic, float strength, Uint32 length );
 extern __attribute__ ((visibility("default"))) int SDL_HapticRumbleStop(SDL_Haptic * haptic);
-/* +++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/close_code.h */
-/* ++ END   /usr/local/include/SDL2/SDL_haptic.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_hidapi.h */
-enum { SDL_hidapi_h_ = 1 };
-/* +++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++ END   /usr/local/include/SDL2/begin_code.h */
-struct SDL_hid_device_;
-typedef struct SDL_hid_device_ SDL_hid_device;
-typedef struct SDL_hid_device_info {
-	char *path;
-	unsigned short vendor_id;
-	unsigned short product_id;
-	wchar_t *serial_number;
-	unsigned short release_number;
-	wchar_t *manufacturer_string;
-	wchar_t *product_string;
-	unsigned short usage_page;
-	unsigned short usage;
-	int interface_number;
-	int interface_class;
-	int interface_subclass;
-	int interface_protocol;
-	struct SDL_hid_device_info *next;
-} SDL_hid_device_info;
 extern __attribute__ ((visibility("default"))) int SDL_hid_init(void);
 extern __attribute__ ((visibility("default"))) int SDL_hid_exit(void);
 extern __attribute__ ((visibility("default"))) Uint32 SDL_hid_device_change_count(void);
@@ -2819,254 +2794,18 @@ extern __attribute__ ((visibility("default"))) int SDL_hid_get_product_string(SD
 extern __attribute__ ((visibility("default"))) int SDL_hid_get_serial_number_string(SDL_hid_device *dev, wchar_t *string, size_t maxlen);
 extern __attribute__ ((visibility("default"))) int SDL_hid_get_indexed_string(SDL_hid_device *dev, int string_index, wchar_t *string, size_t maxlen);
 extern __attribute__ ((visibility("default"))) void SDL_hid_ble_scan(SDL_bool active);
-/* +++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/close_code.h */
-/* ++ END   /usr/local/include/SDL2/SDL_hidapi.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_hints.h */
-enum { SDL_hints_h_ = 1 };
-/* +++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++ END   /usr/local/include/SDL2/begin_code.h */
-/* #define SDL_HINT_ACCELEROMETER_AS_JOYSTICK "SDL_ACCELEROMETER_AS_JOYSTICK" ### string, not number "\"SDL_ACCELEROMETER_AS_JOYSTICK\"" */
-/* #define SDL_HINT_ALLOW_ALT_TAB_WHILE_GRABBED "SDL_ALLOW_ALT_TAB_WHILE_GRABBED" ### string, not number "\"SDL_ALLOW_ALT_TAB_WHILE_GRABBED\"" */
-/* #define SDL_HINT_ALLOW_TOPMOST "SDL_ALLOW_TOPMOST" ### string, not number "\"SDL_ALLOW_TOPMOST\"" */
-/* #define SDL_HINT_ANDROID_APK_EXPANSION_MAIN_FILE_VERSION "SDL_ANDROID_APK_EXPANSION_MAIN_FILE_VERSION" ### string, not number "\"SDL_ANDROID_APK_EXPANSION_MAIN_FILE_VERSION\"" */
-/* #define SDL_HINT_ANDROID_APK_EXPANSION_PATCH_FILE_VERSION "SDL_ANDROID_APK_EXPANSION_PATCH_FILE_VERSION" ### string, not number "\"SDL_ANDROID_APK_EXPANSION_PATCH_FILE_VERSION\"" */
-/* #define SDL_HINT_ANDROID_BLOCK_ON_PAUSE "SDL_ANDROID_BLOCK_ON_PAUSE" ### string, not number "\"SDL_ANDROID_BLOCK_ON_PAUSE\"" */
-/* #define SDL_HINT_ANDROID_BLOCK_ON_PAUSE_PAUSEAUDIO "SDL_ANDROID_BLOCK_ON_PAUSE_PAUSEAUDIO" ### string, not number "\"SDL_ANDROID_BLOCK_ON_PAUSE_PAUSEAUDIO\"" */
-/* #define SDL_HINT_ANDROID_TRAP_BACK_BUTTON "SDL_ANDROID_TRAP_BACK_BUTTON" ### string, not number "\"SDL_ANDROID_TRAP_BACK_BUTTON\"" */
-/* #define SDL_HINT_APP_NAME "SDL_APP_NAME" ### string, not number "\"SDL_APP_NAME\"" */
-/* #define SDL_HINT_APPLE_TV_CONTROLLER_UI_EVENTS "SDL_APPLE_TV_CONTROLLER_UI_EVENTS" ### string, not number "\"SDL_APPLE_TV_CONTROLLER_UI_EVENTS\"" */
-/* #define SDL_HINT_APPLE_TV_REMOTE_ALLOW_ROTATION "SDL_APPLE_TV_REMOTE_ALLOW_ROTATION" ### string, not number "\"SDL_APPLE_TV_REMOTE_ALLOW_ROTATION\"" */
-/* #define SDL_HINT_AUDIO_CATEGORY   "SDL_AUDIO_CATEGORY" ### string, not number "\"SDL_AUDIO_CATEGORY\"" */
-/* #define SDL_HINT_AUDIO_DEVICE_APP_NAME "SDL_AUDIO_DEVICE_APP_NAME" ### string, not number "\"SDL_AUDIO_DEVICE_APP_NAME\"" */
-/* #define SDL_HINT_AUDIO_DEVICE_STREAM_NAME "SDL_AUDIO_DEVICE_STREAM_NAME" ### string, not number "\"SDL_AUDIO_DEVICE_STREAM_NAME\"" */
-/* #define SDL_HINT_AUDIO_DEVICE_STREAM_ROLE "SDL_AUDIO_DEVICE_STREAM_ROLE" ### string, not number "\"SDL_AUDIO_DEVICE_STREAM_ROLE\"" */
-/* #define SDL_HINT_AUDIO_RESAMPLING_MODE   "SDL_AUDIO_RESAMPLING_MODE" ### string, not number "\"SDL_AUDIO_RESAMPLING_MODE\"" */
-/* #define SDL_HINT_AUTO_UPDATE_JOYSTICKS  "SDL_AUTO_UPDATE_JOYSTICKS" ### string, not number "\"SDL_AUTO_UPDATE_JOYSTICKS\"" */
-/* #define SDL_HINT_AUTO_UPDATE_SENSORS    "SDL_AUTO_UPDATE_SENSORS" ### string, not number "\"SDL_AUTO_UPDATE_SENSORS\"" */
-/* #define SDL_HINT_BMP_SAVE_LEGACY_FORMAT "SDL_BMP_SAVE_LEGACY_FORMAT" ### string, not number "\"SDL_BMP_SAVE_LEGACY_FORMAT\"" */
-/* #define SDL_HINT_DISPLAY_USABLE_BOUNDS "SDL_DISPLAY_USABLE_BOUNDS" ### string, not number "\"SDL_DISPLAY_USABLE_BOUNDS\"" */
-/* #define SDL_HINT_EMSCRIPTEN_ASYNCIFY   "SDL_EMSCRIPTEN_ASYNCIFY" ### string, not number "\"SDL_EMSCRIPTEN_ASYNCIFY\"" */
-/* #define SDL_HINT_EMSCRIPTEN_KEYBOARD_ELEMENT   "SDL_EMSCRIPTEN_KEYBOARD_ELEMENT" ### string, not number "\"SDL_EMSCRIPTEN_KEYBOARD_ELEMENT\"" */
-/* #define SDL_HINT_ENABLE_SCREEN_KEYBOARD "SDL_ENABLE_SCREEN_KEYBOARD" ### string, not number "\"SDL_ENABLE_SCREEN_KEYBOARD\"" */
-/* #define SDL_HINT_ENABLE_STEAM_CONTROLLERS "SDL_ENABLE_STEAM_CONTROLLERS" ### string, not number "\"SDL_ENABLE_STEAM_CONTROLLERS\"" */
-/* #define SDL_HINT_EVENT_LOGGING   "SDL_EVENT_LOGGING" ### string, not number "\"SDL_EVENT_LOGGING\"" */
-/* #define SDL_HINT_FORCE_RAISEWINDOW    "SDL_HINT_FORCE_RAISEWINDOW" ### string, not number "\"SDL_HINT_FORCE_RAISEWINDOW\"" */
-/* #define SDL_HINT_FRAMEBUFFER_ACCELERATION   "SDL_FRAMEBUFFER_ACCELERATION" ### string, not number "\"SDL_FRAMEBUFFER_ACCELERATION\"" */
-/* #define SDL_HINT_GAMECONTROLLERCONFIG "SDL_GAMECONTROLLERCONFIG" ### string, not number "\"SDL_GAMECONTROLLERCONFIG\"" */
-/* #define SDL_HINT_GAMECONTROLLERCONFIG_FILE "SDL_GAMECONTROLLERCONFIG_FILE" ### string, not number "\"SDL_GAMECONTROLLERCONFIG_FILE\"" */
-/* #define SDL_HINT_GAMECONTROLLERTYPE "SDL_GAMECONTROLLERTYPE" ### string, not number "\"SDL_GAMECONTROLLERTYPE\"" */
-/* #define SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES "SDL_GAMECONTROLLER_IGNORE_DEVICES" ### string, not number "\"SDL_GAMECONTROLLER_IGNORE_DEVICES\"" */
-/* #define SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT "SDL_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT" ### string, not number "\"SDL_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT\"" */
-/* #define SDL_HINT_GAMECONTROLLER_USE_BUTTON_LABELS "SDL_GAMECONTROLLER_USE_BUTTON_LABELS" ### string, not number "\"SDL_GAMECONTROLLER_USE_BUTTON_LABELS\"" */
-/* #define SDL_HINT_GRAB_KEYBOARD              "SDL_GRAB_KEYBOARD" ### string, not number "\"SDL_GRAB_KEYBOARD\"" */
-/* #define SDL_HINT_HIDAPI_IGNORE_DEVICES "SDL_HIDAPI_IGNORE_DEVICES" ### string, not number "\"SDL_HIDAPI_IGNORE_DEVICES\"" */
-/* #define SDL_HINT_IDLE_TIMER_DISABLED "SDL_IOS_IDLE_TIMER_DISABLED" ### string, not number "\"SDL_IOS_IDLE_TIMER_DISABLED\"" */
-/* #define SDL_HINT_IME_INTERNAL_EDITING "SDL_IME_INTERNAL_EDITING" ### string, not number "\"SDL_IME_INTERNAL_EDITING\"" */
-/* #define SDL_HINT_IME_SHOW_UI "SDL_IME_SHOW_UI" ### string, not number "\"SDL_IME_SHOW_UI\"" */
-/* #define SDL_HINT_IME_SUPPORT_EXTENDED_TEXT "SDL_IME_SUPPORT_EXTENDED_TEXT" ### string, not number "\"SDL_IME_SUPPORT_EXTENDED_TEXT\"" */
-/* #define SDL_HINT_IOS_HIDE_HOME_INDICATOR "SDL_IOS_HIDE_HOME_INDICATOR" ### string, not number "\"SDL_IOS_HIDE_HOME_INDICATOR\"" */
-/* #define SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS "SDL_JOYSTICK_ALLOW_BACKGROUND_EVENTS" ### string, not number "\"SDL_JOYSTICK_ALLOW_BACKGROUND_EVENTS\"" */
-/* #define SDL_HINT_JOYSTICK_ARCADESTICK_DEVICES "SDL_JOYSTICK_ARCADESTICK_DEVICES" ### string, not number "\"SDL_JOYSTICK_ARCADESTICK_DEVICES\"" */
-/* #define SDL_HINT_JOYSTICK_ARCADESTICK_DEVICES_EXCLUDED "SDL_JOYSTICK_ARCADESTICK_DEVICES_EXCLUDED" ### string, not number "\"SDL_JOYSTICK_ARCADESTICK_DEVICES_EXCLUDED\"" */
-/* #define SDL_HINT_JOYSTICK_BLACKLIST_DEVICES "SDL_JOYSTICK_BLACKLIST_DEVICES" ### string, not number "\"SDL_JOYSTICK_BLACKLIST_DEVICES\"" */
-/* #define SDL_HINT_JOYSTICK_BLACKLIST_DEVICES_EXCLUDED "SDL_JOYSTICK_BLACKLIST_DEVICES_EXCLUDED" ### string, not number "\"SDL_JOYSTICK_BLACKLIST_DEVICES_EXCLUDED\"" */
-/* #define SDL_HINT_JOYSTICK_FLIGHTSTICK_DEVICES "SDL_JOYSTICK_FLIGHTSTICK_DEVICES" ### string, not number "\"SDL_JOYSTICK_FLIGHTSTICK_DEVICES\"" */
-/* #define SDL_HINT_JOYSTICK_FLIGHTSTICK_DEVICES_EXCLUDED "SDL_JOYSTICK_FLIGHTSTICK_DEVICES_EXCLUDED" ### string, not number "\"SDL_JOYSTICK_FLIGHTSTICK_DEVICES_EXCLUDED\"" */
-/* #define SDL_HINT_JOYSTICK_GAMECUBE_DEVICES "SDL_JOYSTICK_GAMECUBE_DEVICES" ### string, not number "\"SDL_JOYSTICK_GAMECUBE_DEVICES\"" */
-/* #define SDL_HINT_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED "SDL_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED" ### string, not number "\"SDL_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI "SDL_JOYSTICK_HIDAPI" ### string, not number "\"SDL_JOYSTICK_HIDAPI\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI_GAMECUBE "SDL_JOYSTICK_HIDAPI_GAMECUBE" ### string, not number "\"SDL_JOYSTICK_HIDAPI_GAMECUBE\"" */
-/* #define SDL_HINT_JOYSTICK_GAMECUBE_RUMBLE_BRAKE "SDL_JOYSTICK_GAMECUBE_RUMBLE_BRAKE" ### string, not number "\"SDL_JOYSTICK_GAMECUBE_RUMBLE_BRAKE\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI_JOY_CONS "SDL_JOYSTICK_HIDAPI_JOY_CONS" ### string, not number "\"SDL_JOYSTICK_HIDAPI_JOY_CONS\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI_COMBINE_JOY_CONS "SDL_JOYSTICK_HIDAPI_COMBINE_JOY_CONS" ### string, not number "\"SDL_JOYSTICK_HIDAPI_COMBINE_JOY_CONS\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI_VERTICAL_JOY_CONS "SDL_JOYSTICK_HIDAPI_VERTICAL_JOY_CONS" ### string, not number "\"SDL_JOYSTICK_HIDAPI_VERTICAL_JOY_CONS\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI_LUNA "SDL_JOYSTICK_HIDAPI_LUNA" ### string, not number "\"SDL_JOYSTICK_HIDAPI_LUNA\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI_NINTENDO_CLASSIC "SDL_JOYSTICK_HIDAPI_NINTENDO_CLASSIC" ### string, not number "\"SDL_JOYSTICK_HIDAPI_NINTENDO_CLASSIC\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI_SHIELD "SDL_JOYSTICK_HIDAPI_SHIELD" ### string, not number "\"SDL_JOYSTICK_HIDAPI_SHIELD\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI_PS3 "SDL_JOYSTICK_HIDAPI_PS3" ### string, not number "\"SDL_JOYSTICK_HIDAPI_PS3\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI_PS4 "SDL_JOYSTICK_HIDAPI_PS4" ### string, not number "\"SDL_JOYSTICK_HIDAPI_PS4\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI_PS4_RUMBLE "SDL_JOYSTICK_HIDAPI_PS4_RUMBLE" ### string, not number "\"SDL_JOYSTICK_HIDAPI_PS4_RUMBLE\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI_PS5 "SDL_JOYSTICK_HIDAPI_PS5" ### string, not number "\"SDL_JOYSTICK_HIDAPI_PS5\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI_PS5_PLAYER_LED "SDL_JOYSTICK_HIDAPI_PS5_PLAYER_LED" ### string, not number "\"SDL_JOYSTICK_HIDAPI_PS5_PLAYER_LED\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI_PS5_RUMBLE "SDL_JOYSTICK_HIDAPI_PS5_RUMBLE" ### string, not number "\"SDL_JOYSTICK_HIDAPI_PS5_RUMBLE\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI_STADIA "SDL_JOYSTICK_HIDAPI_STADIA" ### string, not number "\"SDL_JOYSTICK_HIDAPI_STADIA\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI_STEAM "SDL_JOYSTICK_HIDAPI_STEAM" ### string, not number "\"SDL_JOYSTICK_HIDAPI_STEAM\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI_STEAMDECK "SDL_JOYSTICK_HIDAPI_STEAMDECK" ### string, not number "\"SDL_JOYSTICK_HIDAPI_STEAMDECK\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI_SWITCH "SDL_JOYSTICK_HIDAPI_SWITCH" ### string, not number "\"SDL_JOYSTICK_HIDAPI_SWITCH\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI_SWITCH_HOME_LED "SDL_JOYSTICK_HIDAPI_SWITCH_HOME_LED" ### string, not number "\"SDL_JOYSTICK_HIDAPI_SWITCH_HOME_LED\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI_JOYCON_HOME_LED "SDL_JOYSTICK_HIDAPI_JOYCON_HOME_LED" ### string, not number "\"SDL_JOYSTICK_HIDAPI_JOYCON_HOME_LED\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI_SWITCH_PLAYER_LED "SDL_JOYSTICK_HIDAPI_SWITCH_PLAYER_LED" ### string, not number "\"SDL_JOYSTICK_HIDAPI_SWITCH_PLAYER_LED\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI_WII "SDL_JOYSTICK_HIDAPI_WII" ### string, not number "\"SDL_JOYSTICK_HIDAPI_WII\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI_WII_PLAYER_LED "SDL_JOYSTICK_HIDAPI_WII_PLAYER_LED" ### string, not number "\"SDL_JOYSTICK_HIDAPI_WII_PLAYER_LED\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI_XBOX   "SDL_JOYSTICK_HIDAPI_XBOX" ### string, not number "\"SDL_JOYSTICK_HIDAPI_XBOX\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI_XBOX_360   "SDL_JOYSTICK_HIDAPI_XBOX_360" ### string, not number "\"SDL_JOYSTICK_HIDAPI_XBOX_360\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI_XBOX_360_PLAYER_LED "SDL_JOYSTICK_HIDAPI_XBOX_360_PLAYER_LED" ### string, not number "\"SDL_JOYSTICK_HIDAPI_XBOX_360_PLAYER_LED\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI_XBOX_360_WIRELESS   "SDL_JOYSTICK_HIDAPI_XBOX_360_WIRELESS" ### string, not number "\"SDL_JOYSTICK_HIDAPI_XBOX_360_WIRELESS\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI_XBOX_ONE   "SDL_JOYSTICK_HIDAPI_XBOX_ONE" ### string, not number "\"SDL_JOYSTICK_HIDAPI_XBOX_ONE\"" */
-/* #define SDL_HINT_JOYSTICK_HIDAPI_XBOX_ONE_HOME_LED "SDL_JOYSTICK_HIDAPI_XBOX_ONE_HOME_LED" ### string, not number "\"SDL_JOYSTICK_HIDAPI_XBOX_ONE_HOME_LED\"" */
-/* #define SDL_HINT_JOYSTICK_IOKIT "SDL_JOYSTICK_IOKIT" ### string, not number "\"SDL_JOYSTICK_IOKIT\"" */
-/* #define SDL_HINT_JOYSTICK_MFI "SDL_JOYSTICK_MFI" ### string, not number "\"SDL_JOYSTICK_MFI\"" */
-/* #define SDL_HINT_JOYSTICK_RAWINPUT "SDL_JOYSTICK_RAWINPUT" ### string, not number "\"SDL_JOYSTICK_RAWINPUT\"" */
-/* #define SDL_HINT_JOYSTICK_RAWINPUT_CORRELATE_XINPUT   "SDL_JOYSTICK_RAWINPUT_CORRELATE_XINPUT" ### string, not number "\"SDL_JOYSTICK_RAWINPUT_CORRELATE_XINPUT\"" */
-/* #define SDL_HINT_JOYSTICK_ROG_CHAKRAM "SDL_JOYSTICK_ROG_CHAKRAM" ### string, not number "\"SDL_JOYSTICK_ROG_CHAKRAM\"" */
-/* #define SDL_HINT_JOYSTICK_THREAD "SDL_JOYSTICK_THREAD" ### string, not number "\"SDL_JOYSTICK_THREAD\"" */
-/* #define SDL_HINT_JOYSTICK_THROTTLE_DEVICES "SDL_JOYSTICK_THROTTLE_DEVICES" ### string, not number "\"SDL_JOYSTICK_THROTTLE_DEVICES\"" */
-/* #define SDL_HINT_JOYSTICK_THROTTLE_DEVICES_EXCLUDED "SDL_JOYSTICK_THROTTLE_DEVICES_EXCLUDED" ### string, not number "\"SDL_JOYSTICK_THROTTLE_DEVICES_EXCLUDED\"" */
-/* #define SDL_HINT_JOYSTICK_WGI "SDL_JOYSTICK_WGI" ### string, not number "\"SDL_JOYSTICK_WGI\"" */
-/* #define SDL_HINT_JOYSTICK_WHEEL_DEVICES "SDL_JOYSTICK_WHEEL_DEVICES" ### string, not number "\"SDL_JOYSTICK_WHEEL_DEVICES\"" */
-/* #define SDL_HINT_JOYSTICK_WHEEL_DEVICES_EXCLUDED "SDL_JOYSTICK_WHEEL_DEVICES_EXCLUDED" ### string, not number "\"SDL_JOYSTICK_WHEEL_DEVICES_EXCLUDED\"" */
-/* #define SDL_HINT_JOYSTICK_ZERO_CENTERED_DEVICES "SDL_JOYSTICK_ZERO_CENTERED_DEVICES" ### string, not number "\"SDL_JOYSTICK_ZERO_CENTERED_DEVICES\"" */
-/* #define SDL_HINT_KMSDRM_REQUIRE_DRM_MASTER      "SDL_KMSDRM_REQUIRE_DRM_MASTER" ### string, not number "\"SDL_KMSDRM_REQUIRE_DRM_MASTER\"" */
-/* #define SDL_HINT_JOYSTICK_DEVICE "SDL_JOYSTICK_DEVICE" ### string, not number "\"SDL_JOYSTICK_DEVICE\"" */
-/* #define SDL_HINT_LINUX_DIGITAL_HATS "SDL_LINUX_DIGITAL_HATS" ### string, not number "\"SDL_LINUX_DIGITAL_HATS\"" */
-/* #define SDL_HINT_LINUX_HAT_DEADZONES "SDL_LINUX_HAT_DEADZONES" ### string, not number "\"SDL_LINUX_HAT_DEADZONES\"" */
-/* #define SDL_HINT_LINUX_JOYSTICK_CLASSIC "SDL_LINUX_JOYSTICK_CLASSIC" ### string, not number "\"SDL_LINUX_JOYSTICK_CLASSIC\"" */
-/* #define SDL_HINT_LINUX_JOYSTICK_DEADZONES "SDL_LINUX_JOYSTICK_DEADZONES" ### string, not number "\"SDL_LINUX_JOYSTICK_DEADZONES\"" */
-/* #define SDL_HINT_LOGGING   "SDL_LOGGING" ### string, not number "\"SDL_LOGGING\"" */
-/* #define SDL_HINT_MAC_BACKGROUND_APP    "SDL_MAC_BACKGROUND_APP" ### string, not number "\"SDL_MAC_BACKGROUND_APP\"" */
-/* #define SDL_HINT_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK "SDL_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK" ### string, not number "\"SDL_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK\"" */
-/* #define SDL_HINT_MAC_OPENGL_ASYNC_DISPATCH "SDL_MAC_OPENGL_ASYNC_DISPATCH" ### string, not number "\"SDL_MAC_OPENGL_ASYNC_DISPATCH\"" */
-/* #define SDL_HINT_MOUSE_DOUBLE_CLICK_RADIUS    "SDL_MOUSE_DOUBLE_CLICK_RADIUS" ### string, not number "\"SDL_MOUSE_DOUBLE_CLICK_RADIUS\"" */
-/* #define SDL_HINT_MOUSE_DOUBLE_CLICK_TIME    "SDL_MOUSE_DOUBLE_CLICK_TIME" ### string, not number "\"SDL_MOUSE_DOUBLE_CLICK_TIME\"" */
-/* #define SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH "SDL_MOUSE_FOCUS_CLICKTHROUGH" ### string, not number "\"SDL_MOUSE_FOCUS_CLICKTHROUGH\"" */
-/* #define SDL_HINT_MOUSE_NORMAL_SPEED_SCALE    "SDL_MOUSE_NORMAL_SPEED_SCALE" ### string, not number "\"SDL_MOUSE_NORMAL_SPEED_SCALE\"" */
-/* #define SDL_HINT_MOUSE_RELATIVE_MODE_CENTER    "SDL_MOUSE_RELATIVE_MODE_CENTER" ### string, not number "\"SDL_MOUSE_RELATIVE_MODE_CENTER\"" */
-/* #define SDL_HINT_MOUSE_RELATIVE_MODE_WARP    "SDL_MOUSE_RELATIVE_MODE_WARP" ### string, not number "\"SDL_MOUSE_RELATIVE_MODE_WARP\"" */
-/* #define SDL_HINT_MOUSE_RELATIVE_SCALING "SDL_MOUSE_RELATIVE_SCALING" ### string, not number "\"SDL_MOUSE_RELATIVE_SCALING\"" */
-/* #define SDL_HINT_MOUSE_RELATIVE_SPEED_SCALE    "SDL_MOUSE_RELATIVE_SPEED_SCALE" ### string, not number "\"SDL_MOUSE_RELATIVE_SPEED_SCALE\"" */
-/* #define SDL_HINT_MOUSE_RELATIVE_SYSTEM_SCALE    "SDL_MOUSE_RELATIVE_SYSTEM_SCALE" ### string, not number "\"SDL_MOUSE_RELATIVE_SYSTEM_SCALE\"" */
-/* #define SDL_HINT_MOUSE_RELATIVE_WARP_MOTION  "SDL_MOUSE_RELATIVE_WARP_MOTION" ### string, not number "\"SDL_MOUSE_RELATIVE_WARP_MOTION\"" */
-/* #define SDL_HINT_MOUSE_RELATIVE_CURSOR_VISIBLE  "SDL_MOUSE_RELATIVE_CURSOR_VISIBLE" ### string, not number "\"SDL_MOUSE_RELATIVE_CURSOR_VISIBLE\"" */
-/* #define SDL_HINT_MOUSE_TOUCH_EVENTS    "SDL_MOUSE_TOUCH_EVENTS" ### string, not number "\"SDL_MOUSE_TOUCH_EVENTS\"" */
-/* #define SDL_HINT_MOUSE_AUTO_CAPTURE    "SDL_MOUSE_AUTO_CAPTURE" ### string, not number "\"SDL_MOUSE_AUTO_CAPTURE\"" */
-/* #define SDL_HINT_NO_SIGNAL_HANDLERS   "SDL_NO_SIGNAL_HANDLERS" ### string, not number "\"SDL_NO_SIGNAL_HANDLERS\"" */
-/* #define SDL_HINT_OPENGL_ES_DRIVER   "SDL_OPENGL_ES_DRIVER" ### string, not number "\"SDL_OPENGL_ES_DRIVER\"" */
-/* #define SDL_HINT_ORIENTATIONS "SDL_IOS_ORIENTATIONS" ### string, not number "\"SDL_IOS_ORIENTATIONS\"" */
-/* #define SDL_HINT_POLL_SENTINEL "SDL_POLL_SENTINEL" ### string, not number "\"SDL_POLL_SENTINEL\"" */
-/* #define SDL_HINT_PREFERRED_LOCALES "SDL_PREFERRED_LOCALES" ### string, not number "\"SDL_PREFERRED_LOCALES\"" */
-/* #define SDL_HINT_QTWAYLAND_CONTENT_ORIENTATION "SDL_QTWAYLAND_CONTENT_ORIENTATION" ### string, not number "\"SDL_QTWAYLAND_CONTENT_ORIENTATION\"" */
-/* #define SDL_HINT_QTWAYLAND_WINDOW_FLAGS "SDL_QTWAYLAND_WINDOW_FLAGS" ### string, not number "\"SDL_QTWAYLAND_WINDOW_FLAGS\"" */
-/* #define SDL_HINT_RENDER_BATCHING  "SDL_RENDER_BATCHING" ### string, not number "\"SDL_RENDER_BATCHING\"" */
-/* #define SDL_HINT_RENDER_LINE_METHOD "SDL_RENDER_LINE_METHOD" ### string, not number "\"SDL_RENDER_LINE_METHOD\"" */
-/* #define SDL_HINT_RENDER_DIRECT3D11_DEBUG    "SDL_RENDER_DIRECT3D11_DEBUG" ### string, not number "\"SDL_RENDER_DIRECT3D11_DEBUG\"" */
-/* #define SDL_HINT_RENDER_DIRECT3D_THREADSAFE "SDL_RENDER_DIRECT3D_THREADSAFE" ### string, not number "\"SDL_RENDER_DIRECT3D_THREADSAFE\"" */
-/* #define SDL_HINT_RENDER_DRIVER              "SDL_RENDER_DRIVER" ### string, not number "\"SDL_RENDER_DRIVER\"" */
-/* #define SDL_HINT_RENDER_LOGICAL_SIZE_MODE       "SDL_RENDER_LOGICAL_SIZE_MODE" ### string, not number "\"SDL_RENDER_LOGICAL_SIZE_MODE\"" */
-/* #define SDL_HINT_RENDER_OPENGL_SHADERS      "SDL_RENDER_OPENGL_SHADERS" ### string, not number "\"SDL_RENDER_OPENGL_SHADERS\"" */
-/* #define SDL_HINT_RENDER_SCALE_QUALITY       "SDL_RENDER_SCALE_QUALITY" ### string, not number "\"SDL_RENDER_SCALE_QUALITY\"" */
-/* #define SDL_HINT_RENDER_VSYNC               "SDL_RENDER_VSYNC" ### string, not number "\"SDL_RENDER_VSYNC\"" */
-/* #define SDL_HINT_RENDER_METAL_PREFER_LOW_POWER_DEVICE "SDL_RENDER_METAL_PREFER_LOW_POWER_DEVICE" ### string, not number "\"SDL_RENDER_METAL_PREFER_LOW_POWER_DEVICE\"" */
-/* #define SDL_HINT_ROG_GAMEPAD_MICE "SDL_ROG_GAMEPAD_MICE" ### string, not number "\"SDL_ROG_GAMEPAD_MICE\"" */
-/* #define SDL_HINT_ROG_GAMEPAD_MICE_EXCLUDED "SDL_ROG_GAMEPAD_MICE_EXCLUDED" ### string, not number "\"SDL_ROG_GAMEPAD_MICE_EXCLUDED\"" */
-/* #define SDL_HINT_PS2_DYNAMIC_VSYNC    "SDL_PS2_DYNAMIC_VSYNC" ### string, not number "\"SDL_PS2_DYNAMIC_VSYNC\"" */
-/* #define SDL_HINT_RETURN_KEY_HIDES_IME "SDL_RETURN_KEY_HIDES_IME" ### string, not number "\"SDL_RETURN_KEY_HIDES_IME\"" */
-/* #define SDL_HINT_RPI_VIDEO_LAYER           "SDL_RPI_VIDEO_LAYER" ### string, not number "\"SDL_RPI_VIDEO_LAYER\"" */
-/* #define SDL_HINT_SCREENSAVER_INHIBIT_ACTIVITY_NAME "SDL_SCREENSAVER_INHIBIT_ACTIVITY_NAME" ### string, not number "\"SDL_SCREENSAVER_INHIBIT_ACTIVITY_NAME\"" */
-/* #define SDL_HINT_THREAD_FORCE_REALTIME_TIME_CRITICAL "SDL_THREAD_FORCE_REALTIME_TIME_CRITICAL" ### string, not number "\"SDL_THREAD_FORCE_REALTIME_TIME_CRITICAL\"" */
-/* #define SDL_HINT_THREAD_PRIORITY_POLICY         "SDL_THREAD_PRIORITY_POLICY" ### string, not number "\"SDL_THREAD_PRIORITY_POLICY\"" */
-/* #define SDL_HINT_THREAD_STACK_SIZE              "SDL_THREAD_STACK_SIZE" ### string, not number "\"SDL_THREAD_STACK_SIZE\"" */
-/* #define SDL_HINT_TIMER_RESOLUTION "SDL_TIMER_RESOLUTION" ### string, not number "\"SDL_TIMER_RESOLUTION\"" */
-/* #define SDL_HINT_TOUCH_MOUSE_EVENTS    "SDL_TOUCH_MOUSE_EVENTS" ### string, not number "\"SDL_TOUCH_MOUSE_EVENTS\"" */
-/* #define SDL_HINT_VITA_TOUCH_MOUSE_DEVICE    "SDL_HINT_VITA_TOUCH_MOUSE_DEVICE" ### string, not number "\"SDL_HINT_VITA_TOUCH_MOUSE_DEVICE\"" */
-/* #define SDL_HINT_TV_REMOTE_AS_JOYSTICK "SDL_TV_REMOTE_AS_JOYSTICK" ### string, not number "\"SDL_TV_REMOTE_AS_JOYSTICK\"" */
-/* #define SDL_HINT_VIDEO_ALLOW_SCREENSAVER    "SDL_VIDEO_ALLOW_SCREENSAVER" ### string, not number "\"SDL_VIDEO_ALLOW_SCREENSAVER\"" */
-/* #define SDL_HINT_VIDEO_DOUBLE_BUFFER      "SDL_VIDEO_DOUBLE_BUFFER" ### string, not number "\"SDL_VIDEO_DOUBLE_BUFFER\"" */
-/* #define SDL_HINT_VIDEO_EGL_ALLOW_TRANSPARENCY "SDL_VIDEO_EGL_ALLOW_TRANSPARENCY" ### string, not number "\"SDL_VIDEO_EGL_ALLOW_TRANSPARENCY\"" */
-/* #define SDL_HINT_VIDEO_EXTERNAL_CONTEXT    "SDL_VIDEO_EXTERNAL_CONTEXT" ### string, not number "\"SDL_VIDEO_EXTERNAL_CONTEXT\"" */
-/* #define SDL_HINT_VIDEO_HIGHDPI_DISABLED "SDL_VIDEO_HIGHDPI_DISABLED" ### string, not number "\"SDL_VIDEO_HIGHDPI_DISABLED\"" */
-/* #define SDL_HINT_VIDEO_MAC_FULLSCREEN_SPACES    "SDL_VIDEO_MAC_FULLSCREEN_SPACES" ### string, not number "\"SDL_VIDEO_MAC_FULLSCREEN_SPACES\"" */
-/* #define SDL_HINT_VIDEO_MINIMIZE_ON_FOCUS_LOSS   "SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS" ### string, not number "\"SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS\"" */
-/* #define SDL_HINT_VIDEO_WAYLAND_ALLOW_LIBDECOR "SDL_VIDEO_WAYLAND_ALLOW_LIBDECOR" ### string, not number "\"SDL_VIDEO_WAYLAND_ALLOW_LIBDECOR\"" */
-/* #define SDL_HINT_VIDEO_WAYLAND_PREFER_LIBDECOR "SDL_VIDEO_WAYLAND_PREFER_LIBDECOR" ### string, not number "\"SDL_VIDEO_WAYLAND_PREFER_LIBDECOR\"" */
-/* #define SDL_HINT_VIDEO_WAYLAND_MODE_EMULATION "SDL_VIDEO_WAYLAND_MODE_EMULATION" ### string, not number "\"SDL_VIDEO_WAYLAND_MODE_EMULATION\"" */
-/* #define SDL_HINT_VIDEO_WAYLAND_EMULATE_MOUSE_WARP "SDL_VIDEO_WAYLAND_EMULATE_MOUSE_WARP" ### string, not number "\"SDL_VIDEO_WAYLAND_EMULATE_MOUSE_WARP\"" */
-/* #define SDL_HINT_VIDEO_WINDOW_SHARE_PIXEL_FORMAT    "SDL_VIDEO_WINDOW_SHARE_PIXEL_FORMAT" ### string, not number "\"SDL_VIDEO_WINDOW_SHARE_PIXEL_FORMAT\"" */
-/* #define SDL_HINT_VIDEO_FOREIGN_WINDOW_OPENGL "SDL_VIDEO_FOREIGN_WINDOW_OPENGL" ### string, not number "\"SDL_VIDEO_FOREIGN_WINDOW_OPENGL\"" */
-/* #define SDL_HINT_VIDEO_FOREIGN_WINDOW_VULKAN "SDL_VIDEO_FOREIGN_WINDOW_VULKAN" ### string, not number "\"SDL_VIDEO_FOREIGN_WINDOW_VULKAN\"" */
-/* #define SDL_HINT_VIDEO_WIN_D3DCOMPILER              "SDL_VIDEO_WIN_D3DCOMPILER" ### string, not number "\"SDL_VIDEO_WIN_D3DCOMPILER\"" */
-/* #define SDL_HINT_VIDEO_X11_FORCE_EGL "SDL_VIDEO_X11_FORCE_EGL" ### string, not number "\"SDL_VIDEO_X11_FORCE_EGL\"" */
-/* #define SDL_HINT_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR "SDL_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR" ### string, not number "\"SDL_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR\"" */
-/* #define SDL_HINT_VIDEO_X11_NET_WM_PING      "SDL_VIDEO_X11_NET_WM_PING" ### string, not number "\"SDL_VIDEO_X11_NET_WM_PING\"" */
-/* #define SDL_HINT_VIDEO_X11_WINDOW_VISUALID      "SDL_VIDEO_X11_WINDOW_VISUALID" ### string, not number "\"SDL_VIDEO_X11_WINDOW_VISUALID\"" */
-/* #define SDL_HINT_VIDEO_X11_XINERAMA         "SDL_VIDEO_X11_XINERAMA" ### string, not number "\"SDL_VIDEO_X11_XINERAMA\"" */
-/* #define SDL_HINT_VIDEO_X11_XRANDR           "SDL_VIDEO_X11_XRANDR" ### string, not number "\"SDL_VIDEO_X11_XRANDR\"" */
-/* #define SDL_HINT_VIDEO_X11_XVIDMODE         "SDL_VIDEO_X11_XVIDMODE" ### string, not number "\"SDL_VIDEO_X11_XVIDMODE\"" */
-/* #define SDL_HINT_WAVE_FACT_CHUNK   "SDL_WAVE_FACT_CHUNK" ### string, not number "\"SDL_WAVE_FACT_CHUNK\"" */
-/* #define SDL_HINT_WAVE_RIFF_CHUNK_SIZE   "SDL_WAVE_RIFF_CHUNK_SIZE" ### string, not number "\"SDL_WAVE_RIFF_CHUNK_SIZE\"" */
-/* #define SDL_HINT_WAVE_TRUNCATION   "SDL_WAVE_TRUNCATION" ### string, not number "\"SDL_WAVE_TRUNCATION\"" */
-/* #define SDL_HINT_WINDOWS_DISABLE_THREAD_NAMING "SDL_WINDOWS_DISABLE_THREAD_NAMING" ### string, not number "\"SDL_WINDOWS_DISABLE_THREAD_NAMING\"" */
-/* #define SDL_HINT_WINDOWS_ENABLE_MENU_MNEMONICS "SDL_WINDOWS_ENABLE_MENU_MNEMONICS" ### string, not number "\"SDL_WINDOWS_ENABLE_MENU_MNEMONICS\"" */
-/* #define SDL_HINT_WINDOWS_ENABLE_MESSAGELOOP "SDL_WINDOWS_ENABLE_MESSAGELOOP" ### string, not number "\"SDL_WINDOWS_ENABLE_MESSAGELOOP\"" */
-/* #define SDL_HINT_WINDOWS_FORCE_MUTEX_CRITICAL_SECTIONS "SDL_WINDOWS_FORCE_MUTEX_CRITICAL_SECTIONS" ### string, not number "\"SDL_WINDOWS_FORCE_MUTEX_CRITICAL_SECTIONS\"" */
-/* #define SDL_HINT_WINDOWS_FORCE_SEMAPHORE_KERNEL "SDL_WINDOWS_FORCE_SEMAPHORE_KERNEL" ### string, not number "\"SDL_WINDOWS_FORCE_SEMAPHORE_KERNEL\"" */
-/* #define SDL_HINT_WINDOWS_INTRESOURCE_ICON       "SDL_WINDOWS_INTRESOURCE_ICON" ### string, not number "\"SDL_WINDOWS_INTRESOURCE_ICON\"" */
-/* #define SDL_HINT_WINDOWS_INTRESOURCE_ICON_SMALL "SDL_WINDOWS_INTRESOURCE_ICON_SMALL" ### string, not number "\"SDL_WINDOWS_INTRESOURCE_ICON_SMALL\"" */
-/* #define SDL_HINT_WINDOWS_NO_CLOSE_ON_ALT_F4 "SDL_WINDOWS_NO_CLOSE_ON_ALT_F4" ### string, not number "\"SDL_WINDOWS_NO_CLOSE_ON_ALT_F4\"" */
-/* #define SDL_HINT_WINDOWS_USE_D3D9EX "SDL_WINDOWS_USE_D3D9EX" ### string, not number "\"SDL_WINDOWS_USE_D3D9EX\"" */
-/* #define SDL_HINT_WINDOWS_DPI_AWARENESS "SDL_WINDOWS_DPI_AWARENESS" ### string, not number "\"SDL_WINDOWS_DPI_AWARENESS\"" */
-/* #define SDL_HINT_WINDOWS_DPI_SCALING "SDL_WINDOWS_DPI_SCALING" ### string, not number "\"SDL_WINDOWS_DPI_SCALING\"" */
-/* #define SDL_HINT_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN    "SDL_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN" ### string, not number "\"SDL_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN\"" */
-/* #define SDL_HINT_WINDOW_NO_ACTIVATION_WHEN_SHOWN    "SDL_WINDOW_NO_ACTIVATION_WHEN_SHOWN" ### string, not number "\"SDL_WINDOW_NO_ACTIVATION_WHEN_SHOWN\"" */
-/* #define SDL_HINT_WINRT_HANDLE_BACK_BUTTON "SDL_WINRT_HANDLE_BACK_BUTTON" ### string, not number "\"SDL_WINRT_HANDLE_BACK_BUTTON\"" */
-/* #define SDL_HINT_WINRT_PRIVACY_POLICY_LABEL "SDL_WINRT_PRIVACY_POLICY_LABEL" ### string, not number "\"SDL_WINRT_PRIVACY_POLICY_LABEL\"" */
-/* #define SDL_HINT_WINRT_PRIVACY_POLICY_URL "SDL_WINRT_PRIVACY_POLICY_URL" ### string, not number "\"SDL_WINRT_PRIVACY_POLICY_URL\"" */
-/* #define SDL_HINT_X11_FORCE_OVERRIDE_REDIRECT "SDL_X11_FORCE_OVERRIDE_REDIRECT" ### string, not number "\"SDL_X11_FORCE_OVERRIDE_REDIRECT\"" */
-/* #define SDL_HINT_XINPUT_ENABLED "SDL_XINPUT_ENABLED" ### string, not number "\"SDL_XINPUT_ENABLED\"" */
-/* #define SDL_HINT_DIRECTINPUT_ENABLED "SDL_DIRECTINPUT_ENABLED" ### string, not number "\"SDL_DIRECTINPUT_ENABLED\"" */
-/* #define SDL_HINT_XINPUT_USE_OLD_JOYSTICK_MAPPING "SDL_XINPUT_USE_OLD_JOYSTICK_MAPPING" ### string, not number "\"SDL_XINPUT_USE_OLD_JOYSTICK_MAPPING\"" */
-/* #define SDL_HINT_AUDIO_INCLUDE_MONITORS "SDL_AUDIO_INCLUDE_MONITORS" ### string, not number "\"SDL_AUDIO_INCLUDE_MONITORS\"" */
-/* #define SDL_HINT_X11_WINDOW_TYPE "SDL_X11_WINDOW_TYPE" ### string, not number "\"SDL_X11_WINDOW_TYPE\"" */
-/* #define SDL_HINT_QUIT_ON_LAST_WINDOW_CLOSE "SDL_QUIT_ON_LAST_WINDOW_CLOSE" ### string, not number "\"SDL_QUIT_ON_LAST_WINDOW_CLOSE\"" */
-/* #define SDL_HINT_VIDEODRIVER "SDL_VIDEODRIVER" ### string, not number "\"SDL_VIDEODRIVER\"" */
-/* #define SDL_HINT_AUDIODRIVER "SDL_AUDIODRIVER" ### string, not number "\"SDL_AUDIODRIVER\"" */
-/* #define SDL_HINT_KMSDRM_DEVICE_INDEX "SDL_KMSDRM_DEVICE_INDEX" ### string, not number "\"SDL_KMSDRM_DEVICE_INDEX\"" */
-/* #define SDL_HINT_TRACKPAD_IS_TOUCH_ONLY "SDL_TRACKPAD_IS_TOUCH_ONLY" ### string, not number "\"SDL_TRACKPAD_IS_TOUCH_ONLY\"" */
-/* #define SDL_HINT_SHUTDOWN_DBUS_ON_QUIT "SDL_SHUTDOWN_DBUS_ON_QUIT" ### string, not number "\"SDL_SHUTDOWN_DBUS_ON_QUIT\"" */
-typedef enum { SDL_HINT_DEFAULT, SDL_HINT_NORMAL, SDL_HINT_OVERRIDE } SDL_HintPriority;
 extern __attribute__ ((visibility("default"))) SDL_bool SDL_SetHintWithPriority(const char *name, const char *value, SDL_HintPriority priority);
 extern __attribute__ ((visibility("default"))) SDL_bool SDL_SetHint(const char *name, const char *value);
 extern __attribute__ ((visibility("default"))) SDL_bool SDL_ResetHint(const char *name);
 extern __attribute__ ((visibility("default"))) void SDL_ResetHints(void);
 extern __attribute__ ((visibility("default"))) const char * SDL_GetHint(const char *name);
 extern __attribute__ ((visibility("default"))) SDL_bool SDL_GetHintBoolean(const char *name, SDL_bool default_value);
-typedef void ( *SDL_HintCallback)(void *userdata, const char *name, const char *oldValue, const char *newValue);
 extern __attribute__ ((visibility("default"))) void SDL_AddHintCallback(const char *name, SDL_HintCallback callback, void *userdata);
 extern __attribute__ ((visibility("default"))) void SDL_DelHintCallback(const char *name, SDL_HintCallback callback, void *userdata);
 extern __attribute__ ((visibility("default"))) void SDL_ClearHints(void);
-/* +++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/close_code.h */
-/* ++ END   /usr/local/include/SDL2/SDL_hints.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_joystick.h */
-/* ++ END   /usr/local/include/SDL2/SDL_joystick.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_loadso.h */
-enum { SDL_loadso_h_ = 1 };
-/* +++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_error.h */
-/* +++ END   /usr/local/include/SDL2/SDL_error.h */
-/* +++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++ END   /usr/local/include/SDL2/begin_code.h */
 extern __attribute__ ((visibility("default"))) void * SDL_LoadObject(const char *sofile);
 extern __attribute__ ((visibility("default"))) void * SDL_LoadFunction(void *handle, const char *name);
 extern __attribute__ ((visibility("default"))) void SDL_UnloadObject(void *handle);
-/* +++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/close_code.h */
-/* ++ END   /usr/local/include/SDL2/SDL_loadso.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_log.h */
-enum { SDL_log_h_ = 1 };
-/* +++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++ END   /usr/local/include/SDL2/begin_code.h */
-enum { SDL_MAX_LOG_MESSAGE = 4096 };
-typedef enum { SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_CATEGORY_ERROR, SDL_LOG_CATEGORY_ASSERT, SDL_LOG_CATEGORY_SYSTEM, SDL_LOG_CATEGORY_AUDIO, SDL_LOG_CATEGORY_VIDEO, SDL_LOG_CATEGORY_RENDER, SDL_LOG_CATEGORY_INPUT, SDL_LOG_CATEGORY_TEST, SDL_LOG_CATEGORY_RESERVED1, SDL_LOG_CATEGORY_RESERVED2, SDL_LOG_CATEGORY_RESERVED3, SDL_LOG_CATEGORY_RESERVED4, SDL_LOG_CATEGORY_RESERVED5, SDL_LOG_CATEGORY_RESERVED6, SDL_LOG_CATEGORY_RESERVED7, SDL_LOG_CATEGORY_RESERVED8, SDL_LOG_CATEGORY_RESERVED9, SDL_LOG_CATEGORY_RESERVED10, SDL_LOG_CATEGORY_CUSTOM } SDL_LogCategory;
-typedef enum { SDL_LOG_PRIORITY_VERBOSE = 1, SDL_LOG_PRIORITY_DEBUG, SDL_LOG_PRIORITY_INFO, SDL_LOG_PRIORITY_WARN, SDL_LOG_PRIORITY_ERROR, SDL_LOG_PRIORITY_CRITICAL, SDL_NUM_LOG_PRIORITIES } SDL_LogPriority;
 extern __attribute__ ((visibility("default"))) void SDL_LogSetAllPriority(SDL_LogPriority priority);
 extern __attribute__ ((visibility("default"))) void SDL_LogSetPriority(int category, SDL_LogPriority priority);
 extern __attribute__ ((visibility("default"))) SDL_LogPriority SDL_LogGetPriority(int category);
@@ -3080,111 +2819,15 @@ extern __attribute__ ((visibility("default"))) void SDL_LogError(int category, c
 extern __attribute__ ((visibility("default"))) void SDL_LogCritical(int category, const char *fmt, ...) __attribute__ (( format( __printf__, 2, 2+1 )));
 extern __attribute__ ((visibility("default"))) void SDL_LogMessage(int category, SDL_LogPriority priority, const char *fmt, ...) __attribute__ (( format( __printf__, 3, 3+1 )));
 extern __attribute__ ((visibility("default"))) void SDL_LogMessageV(int category, SDL_LogPriority priority, const char *fmt, va_list ap) __attribute__(( format( __printf__, 3, 0 )));
-typedef void ( *SDL_LogOutputFunction)(void *userdata, int category, SDL_LogPriority priority, const char *message);
 extern __attribute__ ((visibility("default"))) void SDL_LogGetOutputFunction(SDL_LogOutputFunction *callback, void **userdata);
 extern __attribute__ ((visibility("default"))) void SDL_LogSetOutputFunction(SDL_LogOutputFunction callback, void *userdata);
-/* +++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/close_code.h */
-/* ++ END   /usr/local/include/SDL2/SDL_log.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_messagebox.h */
-enum { SDL_messagebox_h_ = 1 };
-/* +++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_video.h */
-/* +++ END   /usr/local/include/SDL2/SDL_video.h */
-/* +++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++ END   /usr/local/include/SDL2/begin_code.h */
-typedef enum { SDL_MESSAGEBOX_ERROR = 0x00000010, SDL_MESSAGEBOX_WARNING = 0x00000020, SDL_MESSAGEBOX_INFORMATION = 0x00000040, SDL_MESSAGEBOX_BUTTONS_LEFT_TO_RIGHT = 0x00000080, SDL_MESSAGEBOX_BUTTONS_RIGHT_TO_LEFT = 0x00000100 } SDL_MessageBoxFlags;
-typedef enum { SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT = 0x00000001, SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT = 0x00000002 } SDL_MessageBoxButtonFlags;
-typedef struct {
-	Uint32 flags;
-	int buttonid;
-	const char * text;
-} SDL_MessageBoxButtonData;
-typedef struct {
-	Uint8 r, g, b;
-} SDL_MessageBoxColor;
-typedef enum { SDL_MESSAGEBOX_COLOR_BACKGROUND, SDL_MESSAGEBOX_COLOR_TEXT, SDL_MESSAGEBOX_COLOR_BUTTON_BORDER, SDL_MESSAGEBOX_COLOR_BUTTON_BACKGROUND, SDL_MESSAGEBOX_COLOR_BUTTON_SELECTED, SDL_MESSAGEBOX_COLOR_MAX } SDL_MessageBoxColorType;
-typedef struct {
-	SDL_MessageBoxColor colors[SDL_MESSAGEBOX_COLOR_MAX];
-} SDL_MessageBoxColorScheme;
-typedef struct {
-	Uint32 flags;
-	SDL_Window *window;
-	const char *title;
-	const char *message;
-	int numbuttons;
-	const SDL_MessageBoxButtonData *buttons;
-	const SDL_MessageBoxColorScheme *colorScheme;
-} SDL_MessageBoxData;
 extern __attribute__ ((visibility("default"))) int SDL_ShowMessageBox(const SDL_MessageBoxData *messageboxdata, int *buttonid);
 extern __attribute__ ((visibility("default"))) int SDL_ShowSimpleMessageBox(Uint32 flags, const char *title, const char *message, SDL_Window *window);
-/* +++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/close_code.h */
-/* ++ END   /usr/local/include/SDL2/SDL_messagebox.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_metal.h */
-enum { SDL_metal_h_ = 1 };
-/* +++ BEGIN /usr/local/include/SDL2/SDL_video.h */
-/* +++ END   /usr/local/include/SDL2/SDL_video.h */
-/* +++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++ END   /usr/local/include/SDL2/begin_code.h */
-typedef void *SDL_MetalView;
 extern __attribute__ ((visibility("default"))) SDL_MetalView SDL_Metal_CreateView(SDL_Window * window);
 extern __attribute__ ((visibility("default"))) void SDL_Metal_DestroyView(SDL_MetalView view);
 extern __attribute__ ((visibility("default"))) void * SDL_Metal_GetLayer(SDL_MetalView view);
 extern __attribute__ ((visibility("default"))) void SDL_Metal_GetDrawableSize(SDL_Window* window, int *w, int *h);
-/* +++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/close_code.h */
-/* ++ END   /usr/local/include/SDL2/SDL_metal.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_mutex.h */
-/* ++ END   /usr/local/include/SDL2/SDL_mutex.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_power.h */
-enum { SDL_power_h_ = 1 };
-/* +++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++ END   /usr/local/include/SDL2/begin_code.h */
-typedef enum { SDL_POWERSTATE_UNKNOWN, SDL_POWERSTATE_ON_BATTERY, SDL_POWERSTATE_NO_BATTERY, SDL_POWERSTATE_CHARGING, SDL_POWERSTATE_CHARGED } SDL_PowerState;
 extern __attribute__ ((visibility("default"))) SDL_PowerState SDL_GetPowerInfo(int *seconds, int *percent);
-/* +++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/close_code.h */
-/* ++ END   /usr/local/include/SDL2/SDL_power.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_render.h */
-enum { SDL_render_h_ = 1 };
-/* +++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_rect.h */
-/* +++ END   /usr/local/include/SDL2/SDL_rect.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_video.h */
-/* +++ END   /usr/local/include/SDL2/SDL_video.h */
-/* +++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++ END   /usr/local/include/SDL2/begin_code.h */
-typedef enum { SDL_RENDERER_SOFTWARE = 0x00000001, SDL_RENDERER_ACCELERATED = 0x00000002, SDL_RENDERER_PRESENTVSYNC = 0x00000004, SDL_RENDERER_TARGETTEXTURE = 0x00000008 } SDL_RendererFlags;
-typedef struct SDL_RendererInfo {
-	const char *name;
-	Uint32 flags;
-	Uint32 num_texture_formats;
-	Uint32 texture_formats[16];
-	int max_texture_width;
-	int max_texture_height;
-} SDL_RendererInfo;
-typedef struct SDL_Vertex {
-	SDL_FPoint position;
-	SDL_Color color;
-	SDL_FPoint tex_coord;
-} SDL_Vertex;
-typedef enum { SDL_ScaleModeNearest, SDL_ScaleModeLinear, SDL_ScaleModeBest } SDL_ScaleMode;
-typedef enum { SDL_TEXTUREACCESS_STATIC, SDL_TEXTUREACCESS_STREAMING, SDL_TEXTUREACCESS_TARGET } SDL_TextureAccess;
-typedef enum { SDL_TEXTUREMODULATE_NONE = 0x00000000, SDL_TEXTUREMODULATE_COLOR = 0x00000001, SDL_TEXTUREMODULATE_ALPHA = 0x00000002 } SDL_TextureModulate;
-typedef enum { SDL_FLIP_NONE = 0x00000000, SDL_FLIP_HORIZONTAL = 0x00000001, SDL_FLIP_VERTICAL = 0x00000002 } SDL_RendererFlip;
-struct SDL_Renderer;
-typedef struct SDL_Renderer SDL_Renderer;
-struct SDL_Texture;
-typedef struct SDL_Texture SDL_Texture;
 extern __attribute__ ((visibility("default"))) int SDL_GetNumRenderDrivers(void);
 extern __attribute__ ((visibility("default"))) int SDL_GetRenderDriverInfo(int index, SDL_RendererInfo * info);
 extern __attribute__ ((visibility("default"))) int SDL_CreateWindowAndRenderer( int width, int height, Uint32 window_flags, SDL_Window **window, SDL_Renderer **renderer);
@@ -3266,60 +2909,10 @@ extern __attribute__ ((visibility("default"))) int SDL_GL_UnbindTexture(SDL_Text
 extern __attribute__ ((visibility("default"))) void * SDL_RenderGetMetalLayer(SDL_Renderer * renderer);
 extern __attribute__ ((visibility("default"))) void * SDL_RenderGetMetalCommandEncoder(SDL_Renderer * renderer);
 extern __attribute__ ((visibility("default"))) int SDL_RenderSetVSync(SDL_Renderer* renderer, int vsync);
-/* +++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/close_code.h */
-/* ++ END   /usr/local/include/SDL2/SDL_render.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_rwops.h */
-/* ++ END   /usr/local/include/SDL2/SDL_rwops.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_sensor.h */
-/* ++ END   /usr/local/include/SDL2/SDL_sensor.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_shape.h */
-enum { SDL_shape_h_ = 1 };
-/* +++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_pixels.h */
-/* +++ END   /usr/local/include/SDL2/SDL_pixels.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_rect.h */
-/* +++ END   /usr/local/include/SDL2/SDL_rect.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_surface.h */
-/* +++ END   /usr/local/include/SDL2/SDL_surface.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_video.h */
-/* +++ END   /usr/local/include/SDL2/SDL_video.h */
-/* +++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++ END   /usr/local/include/SDL2/begin_code.h */
-enum { SDL_NONSHAPEABLE_WINDOW = -1 };
-enum { SDL_INVALID_SHAPE_ARGUMENT = -2 };
-enum { SDL_WINDOW_LACKS_SHAPE = -3 };
 extern __attribute__ ((visibility("default"))) SDL_Window * SDL_CreateShapedWindow(const char *title,unsigned int x,unsigned int y,unsigned int w,unsigned int h,Uint32 flags);
 extern __attribute__ ((visibility("default"))) SDL_bool SDL_IsShapedWindow(const SDL_Window *window);
-typedef enum { ShapeModeDefault, ShapeModeBinarizeAlpha, ShapeModeReverseBinarizeAlpha, ShapeModeColorKey } WindowShapeMode;
-typedef union {
-	Uint8 binarizationCutoff;
-	SDL_Color colorKey;
-} SDL_WindowShapeParams;
-typedef struct SDL_WindowShapeMode {
-	WindowShapeMode mode;
-	SDL_WindowShapeParams parameters;
-} SDL_WindowShapeMode;
 extern __attribute__ ((visibility("default"))) int SDL_SetWindowShape(SDL_Window *window,SDL_Surface *shape,SDL_WindowShapeMode *shape_mode);
 extern __attribute__ ((visibility("default"))) int SDL_GetShapedWindowMode(SDL_Window *window,SDL_WindowShapeMode *shape_mode);
-/* +++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/close_code.h */
-/* ++ END   /usr/local/include/SDL2/SDL_shape.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_system.h */
-enum { SDL_system_h_ = 1 };
-/* +++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_keyboard.h */
-/* +++ END   /usr/local/include/SDL2/SDL_keyboard.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_render.h */
-/* +++ END   /usr/local/include/SDL2/SDL_render.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_video.h */
-/* +++ END   /usr/local/include/SDL2/SDL_video.h */
-/* +++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++ END   /usr/local/include/SDL2/begin_code.h */
 extern __attribute__ ((visibility("default"))) SDL_bool SDL_IsTablet(void);
 extern __attribute__ ((visibility("default"))) void SDL_OnApplicationWillTerminate(void);
 extern __attribute__ ((visibility("default"))) void SDL_OnApplicationDidReceiveMemoryWarning(void);
@@ -3327,108 +2920,23 @@ extern __attribute__ ((visibility("default"))) void SDL_OnApplicationWillResignA
 extern __attribute__ ((visibility("default"))) void SDL_OnApplicationDidEnterBackground(void);
 extern __attribute__ ((visibility("default"))) void SDL_OnApplicationWillEnterForeground(void);
 extern __attribute__ ((visibility("default"))) void SDL_OnApplicationDidBecomeActive(void);
-/* +++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/close_code.h */
-/* ++ END   /usr/local/include/SDL2/SDL_system.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_thread.h */
-/* ++ END   /usr/local/include/SDL2/SDL_thread.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_timer.h */
-enum { SDL_timer_h_ = 1 };
-/* +++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_error.h */
-/* +++ END   /usr/local/include/SDL2/SDL_error.h */
-/* +++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++ END   /usr/local/include/SDL2/begin_code.h */
 extern __attribute__ ((visibility("default"))) Uint32 SDL_GetTicks(void);
 extern __attribute__ ((visibility("default"))) Uint64 SDL_GetTicks64(void);
 extern __attribute__ ((visibility("default"))) Uint64 SDL_GetPerformanceCounter(void);
 extern __attribute__ ((visibility("default"))) Uint64 SDL_GetPerformanceFrequency(void);
 extern __attribute__ ((visibility("default"))) void SDL_Delay(Uint32 ms);
-typedef Uint32 ( * SDL_TimerCallback) (Uint32 interval, void *param);
-typedef int SDL_TimerID;
 extern __attribute__ ((visibility("default"))) SDL_TimerID SDL_AddTimer(Uint32 interval, SDL_TimerCallback callback, void *param);
 extern __attribute__ ((visibility("default"))) SDL_bool SDL_RemoveTimer(SDL_TimerID id);
-/* +++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/close_code.h */
-/* ++ END   /usr/local/include/SDL2/SDL_timer.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_version.h */
-enum { SDL_version_h_ = 1 };
-/* +++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++ END   /usr/local/include/SDL2/begin_code.h */
-typedef struct SDL_version {
-	Uint8 major;
-	Uint8 minor;
-	Uint8 patch;
-} SDL_version;
-enum { SDL_MAJOR_VERSION = 2 };
-enum { SDL_MINOR_VERSION = 30 };
-enum { SDL_PATCHLEVEL = 9 };
-enum { SDL_COMPILEDVERSION = 5009 };
 extern __attribute__ ((visibility("default"))) void SDL_GetVersion(SDL_version * ver);
 extern __attribute__ ((visibility("default"))) const char * SDL_GetRevision(void);
 extern __attribute__((deprecated)) __attribute__ ((visibility("default"))) int SDL_GetRevisionNumber(void);
-/* +++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/close_code.h */
-/* ++ END   /usr/local/include/SDL2/SDL_version.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_video.h */
-/* ++ END   /usr/local/include/SDL2/SDL_video.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_locale.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ BEGIN /usr/local/include/SDL2/SDL_error.h */
-/* +++ END   /usr/local/include/SDL2/SDL_error.h */
-/* +++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++ END   /usr/local/include/SDL2/begin_code.h */
-typedef struct SDL_Locale {
-	const char *language;
-	const char *country;
-} SDL_Locale;
 extern __attribute__ ((visibility("default"))) SDL_Locale * SDL_GetPreferredLocales(void);
-/* +++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/close_code.h */
-/* ++ END   /usr/local/include/SDL2/SDL_locale.h */
-/* ++ BEGIN /usr/local/include/SDL2/SDL_misc.h */
-enum { SDL_misc_h_ = 1 };
-/* +++ BEGIN /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ END   /usr/local/include/SDL2/SDL_stdinc.h */
-/* +++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* +++ END   /usr/local/include/SDL2/begin_code.h */
 extern __attribute__ ((visibility("default"))) int SDL_OpenURL(const char *url);
-/* +++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* +++ END   /usr/local/include/SDL2/close_code.h */
-/* ++ END   /usr/local/include/SDL2/SDL_misc.h */
-/* ++ BEGIN /usr/local/include/SDL2/begin_code.h */
-/* manually commented out: enum { SDL_begin_code_h = 1 }; */
-/* ++ END   /usr/local/include/SDL2/begin_code.h */
-enum { SDL_INIT_TIMER = 0x00000001u };
-enum { SDL_INIT_AUDIO = 0x00000010u };
-enum { SDL_INIT_VIDEO = 0x00000020u };
-enum { SDL_INIT_JOYSTICK = 0x00000200u };
-enum { SDL_INIT_HAPTIC = 0x00001000u };
-enum { SDL_INIT_GAMECONTROLLER = 0x00002000u };
-enum { SDL_INIT_EVENTS = 0x00004000u };
-enum { SDL_INIT_SENSOR = 0x00008000u };
-enum { SDL_INIT_NOPARACHUTE = 0x00100000u };
-/* #define SDL_INIT_EVERYTHING (                  SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS |                  SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC | SDL_INIT_GAMECONTROLLER | SDL_INIT_SENSOR              ) ### string, not number "(                  SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS |                  SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC | SDL_INIT_GAMECONTROLLER | SDL_INIT_SENSOR              )" */
 extern __attribute__ ((visibility("default"))) int SDL_Init(Uint32 flags);
 extern __attribute__ ((visibility("default"))) int SDL_InitSubSystem(Uint32 flags);
 extern __attribute__ ((visibility("default"))) void SDL_QuitSubSystem(Uint32 flags);
 extern __attribute__ ((visibility("default"))) Uint32 SDL_WasInit(Uint32 flags);
 extern __attribute__ ((visibility("default"))) void SDL_Quit(void);
-/* ++ BEGIN /usr/local/include/SDL2/close_code.h */
-/* ++ END   /usr/local/include/SDL2/close_code.h */
-/* + END   /usr/local/include/SDL2/SDL.h */
 ]]
-ffi.cdef[[
-// these aren't being generated correctly so here they are:
-enum { SDL_WINDOWPOS_UNDEFINED = 0x1FFF0000u };
-enum { SDL_WINDOWPOS_CENTERED = 0x2FFF0000u };
-]]
+
 return require 'ffi.load' 'SDL2'

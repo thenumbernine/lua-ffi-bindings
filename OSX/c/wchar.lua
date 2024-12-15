@@ -184,97 +184,12 @@ extern _RuneLocale *_CurrentRuneLocale;
 unsigned long ___runetype(__darwin_ct_rune_t);
 __darwin_ct_rune_t ___tolower(__darwin_ct_rune_t);
 __darwin_ct_rune_t ___toupper(__darwin_ct_rune_t);
-inline int isascii(int _c) {
-	return ((_c & ~0x7F) == 0);
-} int __maskrune(__darwin_ct_rune_t, unsigned long);
-inline int __istype(__darwin_ct_rune_t _c, unsigned long _f) {
-	return (isascii(_c) ? !!(_DefaultRuneLocale.__runetype[_c] & _f) : !!__maskrune(_c, _f));
-} inline __darwin_ct_rune_t __isctype(__darwin_ct_rune_t _c, unsigned long _f) {
-	return (_c < 0 || _c >= (1 <<8 )) ? 0 : !!(_DefaultRuneLocale.__runetype[_c] & _f);
-} __darwin_ct_rune_t __toupper(__darwin_ct_rune_t);
+int __maskrune(__darwin_ct_rune_t, unsigned long);
+__darwin_ct_rune_t __toupper(__darwin_ct_rune_t);
 __darwin_ct_rune_t __tolower(__darwin_ct_rune_t);
-inline int __wcwidth(__darwin_ct_rune_t _c) {
-	unsigned int _x;
-	if (_c == 0) return (0);
-	_x = (unsigned int)__maskrune(_c, 0xe0000000L|0x00040000L);
-	if ((_x & 0xe0000000L) != 0) return ((_x & 0xe0000000L) >> 30);
-	return ((_x & 0x00040000L) != 0 ? 1 : -1);
-} inline int isalnum(int _c) {
-	return (__istype(_c, 0x00000100L|0x00000400L));
-} inline int isalpha(int _c) {
-	return (__istype(_c, 0x00000100L));
-} inline int isblank(int _c) {
-	return (__istype(_c, 0x00020000L));
-} inline int iscntrl(int _c) {
-	return (__istype(_c, 0x00000200L));
-} inline int isdigit(int _c) {
-	return (__isctype(_c, 0x00000400L));
-} inline int isgraph(int _c) {
-	return (__istype(_c, 0x00000800L));
-} inline int islower(int _c) {
-	return (__istype(_c, 0x00001000L));
-} inline int isprint(int _c) {
-	return (__istype(_c, 0x00040000L));
-} inline int ispunct(int _c) {
-	return (__istype(_c, 0x00002000L));
-} inline int isspace(int _c) {
-	return (__istype(_c, 0x00004000L));
-} inline int isupper(int _c) {
-	return (__istype(_c, 0x00008000L));
-} inline int isxdigit(int _c) {
-	return (__isctype(_c, 0x00010000L));
-} inline int toascii(int _c) {
-	return (_c & 0x7F);
-} inline int tolower(int _c) {
-	return (__tolower(_c));
-} inline int toupper(int _c) {
-	return (__toupper(_c));
-} inline int digittoint(int _c) {
-	return (__maskrune(_c, 0x0F));
-} inline int ishexnumber(int _c) {
-	return (__istype(_c, 0x00010000L));
-} inline int isideogram(int _c) {
-	return (__istype(_c, 0x00080000L));
-} inline int isnumber(int _c) {
-	return (__istype(_c, 0x00000400L));
-} inline int isphonogram(int _c) {
-	return (__istype(_c, 0x00200000L));
-} inline int isrune(int _c) {
-	return (__istype(_c, 0xFFFFFFF0L));
-} inline int isspecial(int _c) {
-	return (__istype(_c, 0x00100000L));
-}
 /* ++++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_ctype.h */
 /* +++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/ctype.h */
-inline int iswalnum(wint_t _wc) {
-	return (__istype(_wc, 0x00000100L|0x00000400L));
-} inline int iswalpha(wint_t _wc) {
-	return (__istype(_wc, 0x00000100L));
-} inline int iswcntrl(wint_t _wc) {
-	return (__istype(_wc, 0x00000200L));
-} inline int iswctype(wint_t _wc, wctype_t _charclass) {
-	return (__istype(_wc, _charclass));
-} inline int iswdigit(wint_t _wc) {
-	return (__isctype(_wc, 0x00000400L));
-} inline int iswgraph(wint_t _wc) {
-	return (__istype(_wc, 0x00000800L));
-} inline int iswlower(wint_t _wc) {
-	return (__istype(_wc, 0x00001000L));
-} inline int iswprint(wint_t _wc) {
-	return (__istype(_wc, 0x00040000L));
-} inline int iswpunct(wint_t _wc) {
-	return (__istype(_wc, 0x00002000L));
-} inline int iswspace(wint_t _wc) {
-	return (__istype(_wc, 0x00004000L));
-} inline int iswupper(wint_t _wc) {
-	return (__istype(_wc, 0x00008000L));
-} inline int iswxdigit(wint_t _wc) {
-	return (__isctype(_wc, 0x00010000L));
-} inline wint_t towlower(wint_t _wc) {
-	return (__tolower(_wc));
-} inline wint_t towupper(wint_t _wc) {
-	return (__toupper(_wc));
-} wctype_t wctype(const char *);
+wctype_t wctype(const char *);
 /* ++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/___wctype.h */
 /* +++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/__wctype.h */
 wint_t btowc(int);
