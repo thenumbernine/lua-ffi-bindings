@@ -6,12 +6,12 @@ enum { GIFLIB_MINOR = 2 };
 enum { GIFLIB_RELEASE = 2 };
 enum { GIF_ERROR = 0 };
 enum { GIF_OK = 1 };
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stdbool.h */
 ]] require 'ffi.req' 'c.stdbool' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stdbool.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 /* #define GIF_STAMP "GIFVER" ### string, not number "\"GIFVER\"" */
 /* #define GIF_STAMP_LEN sizeof(GIF_STAMP) - 1 ### string, not number "sizeof(GIF_STAMP) - 1" */
 enum { GIF_VERSION_POS = 3 };

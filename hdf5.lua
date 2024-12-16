@@ -250,21 +250,21 @@ enum { H5Z_class_t = 0 };
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
 ]] require 'ffi.req' 'c.sys.types' ffi.cdef[[
 /* +++ END   /usr/include/x86_64-linux-gnu/sys/types.h */
-/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/limits.h */
 ]] require 'ffi.req' 'c.limits' ffi.cdef[[
-/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h */
-/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/limits.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stdarg.h */
 ]] require 'ffi.req' 'c.stdarg' ffi.cdef[[
-/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h */
-/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stdarg.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stdint.h */
 ]] require 'ffi.req' 'c.stdint' ffi.cdef[[
-/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stdint.h */
 /* +++ BEGIN /usr/include/inttypes.h */
 ]] require 'ffi.req' 'c.inttypes' ffi.cdef[[
 /* +++ END   /usr/include/inttypes.h */
-/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 /* +++ BEGIN /usr/include/hdf5/serial/H5api_adpt.h */
 enum { H5API_ADPT_H = 1 };
 enum { H5_DLL = 1 };
@@ -292,9 +292,9 @@ enum { H5_VERS_RELEASE = 10 };
 /* #define H5_VERS_SUBRELEASE "" ### string, not number "\"\"" */
 /* #define H5_VERS_INFO "HDF5 library version: 1.10.10" ### string, not number "\"HDF5 library version: 1.10.10\"" */
 typedef int herr_t;
-/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stdbool.h */
 ]] require 'ffi.req' 'c.stdbool' ffi.cdef[[
-/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stdbool.h */
 typedef _Bool hbool_t;
 typedef int htri_t;
 typedef unsigned long long hsize_t;

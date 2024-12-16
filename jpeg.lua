@@ -460,19 +460,19 @@ wrapper = require 'ffi.libwrapper'{
 		jpeg_destroy = [[void jpeg_destroy(j_common_ptr cinfo);]],
 		jpeg_resync_to_restart = [[boolean jpeg_resync_to_restart(j_decompress_ptr cinfo, int desired);]],
 		jpeg_read_icc_profile = [[boolean jpeg_read_icc_profile(j_decompress_ptr cinfo, JOCTET **icc_data_ptr, unsigned int *icc_data_len);]],
-
-		-- these are #define's in jpeglib.h
-
-		jpeg_create_compress = function()
-			return function(cinfo)
-				return wrapper.jpeg_CreateCompress(cinfo, wrapper.JPEG_LIB_VERSION, ffi.sizeof'struct jpeg_compress_struct')
-			end
-		end,
-		jpeg_create_decompress = function()
-			return function(cinfo)
-				return wrapper.jpeg_CreateDecompress(cinfo, wrapper.JPEG_LIB_VERSION, ffi.sizeof'struct jpeg_decompress_struct')
-			end
-		end,
 	},
 }
+
+-- these are #define's in jpeglib.h
+
+wrapper.LIBJPEG_TURBO_VERSION = '3.0.4'
+
+function wrapper.jpeg_create_compress(cinfo)
+	return wrapper.jpeg_CreateCompress(cinfo, wrapper.JPEG_LIB_VERSION, ffi.sizeof'struct jpeg_compress_struct')
+end
+
+function wrapper.jpeg_create_decompress(cinfo)
+	return wrapper.jpeg_CreateDecompress(cinfo, wrapper.JPEG_LIB_VERSION, ffi.sizeof'struct jpeg_decompress_struct')
+end
+
 return wrapper

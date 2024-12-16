@@ -3,8 +3,13 @@ local ffi = require 'ffi'
 -- comments
 
 --[[
-/* #define PNG_LIBPNG_VER_STRING "1.6.43" ### string, not number "\"1.6.43\"" */
+/* #define PNG_LIBPNG_VER_STRING "1.6.44" ### string, not number "\"1.6.44\"" */
 /* #define PNG_HEADER_VERSION_STRING " libpng version " PNG_LIBPNG_VER_STRING "\n" ### string, not number "\" libpng version \" PNG_LIBPNG_VER_STRING \"\\n\"" */
+/* #      define PNG_USE_RESULT __attribute__((__warn_unused_result__)) ### string, not number "__attribute__((__warn_unused_result__))" */
+/* #      define PNG_NORETURN   __attribute__((__noreturn__)) ### string, not number "__attribute__((__noreturn__))" */
+/* #        define PNG_ALLOCATED  __attribute__((__malloc__)) ### string, not number "__attribute__((__malloc__))" */
+/* #        define PNG_DEPRECATED __attribute__((__deprecated__)) ### string, not number "__attribute__((__deprecated__))" */
+/* #          define PNG_PRIVATE              __attribute__((__deprecated__)) ### string, not number "__attribute__((__deprecated__))" */
 /* #define png_libpng_ver png_get_header_ver(NULL) ### string, not number "png_get_header_ver(NULL)" */
 /* #define PNG_UINT_31_MAX ((png_uint_32)0x7fffffffL) ### string, not number "((png_uint_32)0x7fffffffL)" */
 /* #define PNG_UINT_32_MAX ((png_uint_32)(-1)) ### string, not number "((png_uint_32)(-1))" */
@@ -63,7 +68,7 @@ typedef char * * png_charpp;
 typedef png_fixed_point * * png_fixed_point_pp;
 typedef double * * png_doublepp;
 typedef char * * * png_charppp;
-typedef char* png_libpng_version_1_6_43;
+typedef char* png_libpng_version_1_6_44;
 typedef struct png_struct_def png_struct;
 typedef const png_struct * png_const_structp;
 typedef png_struct * png_structp;
@@ -192,7 +197,8 @@ typedef struct {
 } png_image, *png_imagep;
 ]]
 
-return require 'ffi.libwrapper'{
+local wrapper
+wrapper = require 'ffi.libwrapper'{
 	lib = require 'ffi.load' 'png',
 	defs = {
 
@@ -204,7 +210,7 @@ return require 'ffi.libwrapper'{
 		PNG_LIBPNG_VER_DLLNUM = 16,
 		PNG_LIBPNG_VER_MAJOR = 1,
 		PNG_LIBPNG_VER_MINOR = 6,
-		PNG_LIBPNG_VER_RELEASE = 43,
+		PNG_LIBPNG_VER_RELEASE = 44,
 		PNG_LIBPNG_VER_BUILD = 0,
 		PNG_LIBPNG_BUILD_ALPHA = 1,
 		PNG_LIBPNG_BUILD_BETA = 2,
@@ -215,7 +221,7 @@ return require 'ffi.libwrapper'{
 		PNG_LIBPNG_BUILD_PRIVATE = 16,
 		PNG_LIBPNG_BUILD_SPECIAL = 32,
 		PNG_LIBPNG_BUILD_BASE_TYPE = 4,
-		PNG_LIBPNG_VER = 10643,
+		PNG_LIBPNG_VER = 10644,
 		PNGLCONF_H = 1,
 		PNG_16BIT_SUPPORTED = 1,
 		PNG_ALIGNED_MEMORY_SUPPORTED = 1,
@@ -403,7 +409,7 @@ return require 'ffi.libwrapper'{
 		PNG_USER_HEIGHT_MAX = 1000000,
 		PNG_USER_WIDTH_MAX = 1000000,
 		PNG_ZBUF_SIZE = 8192,
-		PNG_ZLIB_VERNUM = 4864,
+		PNG_ZLIB_VERNUM = 4880,
 		PNG_Z_DEFAULT_COMPRESSION = -1,
 		PNG_Z_DEFAULT_NOFILTER_STRATEGY = 0,
 		PNG_Z_DEFAULT_STRATEGY = 1,
@@ -412,9 +418,13 @@ return require 'ffi.libwrapper'{
 		PNGCONF_H = 1,
 		PNG_CONST = 0,
 		PNG_USE_READ_MACROS = 1,
+		PNGCAPI = 1,
+		PNGCBAPI = 0,
+		PNGAPI = 0,
 		PNG_IMPEXP = 1,
 		PNG_EMPTY = 1,
 		PNG_PEDANTIC_WARNINGS_SUPPORTED = 1,
+		PNG_RESTRICT = 0,
 		PNG_LIBPNG_BUILD_TYPE = 4,
 		PNG_TEXT_COMPRESSION_NONE_WR = -3,
 		PNG_TEXT_COMPRESSION_zTXt_WR = -2,
@@ -626,26 +636,26 @@ return require 'ffi.libwrapper'{
 		png_access_version_number = [[png_uint_32 png_access_version_number();]],
 		png_set_sig_bytes = [[void png_set_sig_bytes(png_structrp png_ptr, int num_bytes);]],
 		png_sig_cmp = [[int png_sig_cmp(png_const_bytep sig, size_t start, size_t num_to_check);]],
-		png_create_read_struct = [[png_structp png_create_read_struct(png_const_charp user_png_ver, png_voidp error_ptr, png_error_ptr error_fn, png_error_ptr warn_fn);]],
-		png_create_write_struct = [[png_structp png_create_write_struct(png_const_charp user_png_ver, png_voidp error_ptr, png_error_ptr error_fn, png_error_ptr warn_fn);]],
+		png_create_read_struct = [[__attribute__((__malloc__)) png_structp png_create_read_struct(png_const_charp user_png_ver, png_voidp error_ptr, png_error_ptr error_fn, png_error_ptr warn_fn);]],
+		png_create_write_struct = [[__attribute__((__malloc__)) png_structp png_create_write_struct(png_const_charp user_png_ver, png_voidp error_ptr, png_error_ptr error_fn, png_error_ptr warn_fn);]],
 		png_get_compression_buffer_size = [[size_t png_get_compression_buffer_size(png_const_structrp png_ptr);]],
 		png_set_compression_buffer_size = [[void png_set_compression_buffer_size(png_structrp png_ptr, size_t size);]],
 		png_set_longjmp_fn = [[jmp_buf* png_set_longjmp_fn(png_structrp png_ptr, png_longjmp_ptr longjmp_fn, size_t jmp_buf_size);]],
-		png_longjmp = [[void png_longjmp(png_const_structrp png_ptr, int val);]],
-		png_reset_zstream = [[int png_reset_zstream(png_structrp png_ptr);]],
-		png_create_read_struct_2 = [[png_structp png_create_read_struct_2(png_const_charp user_png_ver, png_voidp error_ptr, png_error_ptr error_fn, png_error_ptr warn_fn, png_voidp mem_ptr, png_malloc_ptr malloc_fn, png_free_ptr free_fn);]],
-		png_create_write_struct_2 = [[png_structp png_create_write_struct_2(png_const_charp user_png_ver, png_voidp error_ptr, png_error_ptr error_fn, png_error_ptr warn_fn, png_voidp mem_ptr, png_malloc_ptr malloc_fn, png_free_ptr free_fn);]],
+		png_longjmp = [[__attribute__((__noreturn__)) void png_longjmp(png_const_structrp png_ptr, int val);]],
+		png_reset_zstream = [[__attribute__((__deprecated__)) int png_reset_zstream(png_structrp png_ptr);]],
+		png_create_read_struct_2 = [[__attribute__((__malloc__)) png_structp png_create_read_struct_2(png_const_charp user_png_ver, png_voidp error_ptr, png_error_ptr error_fn, png_error_ptr warn_fn, png_voidp mem_ptr, png_malloc_ptr malloc_fn, png_free_ptr free_fn);]],
+		png_create_write_struct_2 = [[__attribute__((__malloc__)) png_structp png_create_write_struct_2(png_const_charp user_png_ver, png_voidp error_ptr, png_error_ptr error_fn, png_error_ptr warn_fn, png_voidp mem_ptr, png_malloc_ptr malloc_fn, png_free_ptr free_fn);]],
 		png_write_sig = [[void png_write_sig(png_structrp png_ptr);]],
 		png_write_chunk = [[void png_write_chunk(png_structrp png_ptr, png_const_bytep chunk_name, png_const_bytep data, size_t length);]],
 		png_write_chunk_start = [[void png_write_chunk_start(png_structrp png_ptr, png_const_bytep chunk_name, png_uint_32 length);]],
 		png_write_chunk_data = [[void png_write_chunk_data(png_structrp png_ptr, png_const_bytep data, size_t length);]],
 		png_write_chunk_end = [[void png_write_chunk_end(png_structrp png_ptr);]],
-		png_create_info_struct = [[png_infop png_create_info_struct(png_const_structrp png_ptr);]],
-		png_info_init_3 = [[void png_info_init_3(png_infopp info_ptr, size_t png_info_struct_size);]],
+		png_create_info_struct = [[__attribute__((__malloc__)) png_infop png_create_info_struct(png_const_structrp png_ptr);]],
+		png_info_init_3 = [[__attribute__((__deprecated__)) void png_info_init_3(png_infopp info_ptr, size_t png_info_struct_size);]],
 		png_write_info_before_PLTE = [[void png_write_info_before_PLTE(png_structrp png_ptr, png_const_inforp info_ptr);]],
 		png_write_info = [[void png_write_info(png_structrp png_ptr, png_const_inforp info_ptr);]],
 		png_read_info = [[void png_read_info(png_structrp png_ptr, png_inforp info_ptr);]],
-		png_convert_to_rfc1123 = [[png_const_charp png_convert_to_rfc1123(png_structrp png_ptr, png_const_timep ptime);]],
+		png_convert_to_rfc1123 = [[__attribute__((__deprecated__)) png_const_charp png_convert_to_rfc1123(png_structrp png_ptr, png_const_timep ptime);]],
 		png_convert_to_rfc1123_buffer = [[int png_convert_to_rfc1123_buffer(char out[29], png_const_timep ptime);]],
 		png_convert_from_struct_tm = [[void png_convert_from_struct_tm(png_timep ptime, const struct tm * ttime);]],
 		png_convert_from_time_t = [[void png_convert_from_time_t(png_timep ptime, time_t ttime);]],
@@ -733,16 +743,16 @@ return require 'ffi.libwrapper'{
 		png_process_data_pause = [[size_t png_process_data_pause(png_structrp, int save);]],
 		png_process_data_skip = [[png_uint_32 png_process_data_skip(png_structrp);]],
 		png_progressive_combine_row = [[void png_progressive_combine_row(png_const_structrp png_ptr, png_bytep old_row, png_const_bytep new_row);]],
-		png_malloc = [[png_voidp png_malloc(png_const_structrp png_ptr, png_alloc_size_t size);]],
-		png_calloc = [[png_voidp png_calloc(png_const_structrp png_ptr, png_alloc_size_t size);]],
-		png_malloc_warn = [[png_voidp png_malloc_warn(png_const_structrp png_ptr, png_alloc_size_t size);]],
+		png_malloc = [[__attribute__((__malloc__)) png_voidp png_malloc(png_const_structrp png_ptr, png_alloc_size_t size);]],
+		png_calloc = [[__attribute__((__malloc__)) png_voidp png_calloc(png_const_structrp png_ptr, png_alloc_size_t size);]],
+		png_malloc_warn = [[__attribute__((__malloc__)) png_voidp png_malloc_warn(png_const_structrp png_ptr, png_alloc_size_t size);]],
 		png_free = [[void png_free(png_const_structrp png_ptr, png_voidp ptr);]],
 		png_free_data = [[void png_free_data(png_const_structrp png_ptr, png_inforp info_ptr, png_uint_32 free_me, int num);]],
 		png_data_freer = [[void png_data_freer(png_const_structrp png_ptr, png_inforp info_ptr, int freer, png_uint_32 mask);]],
-		png_malloc_default = [[png_voidp png_malloc_default(png_const_structrp png_ptr, png_alloc_size_t size);]],
-		png_free_default = [[void png_free_default(png_const_structrp png_ptr, png_voidp ptr);]],
-		png_error = [[void png_error(png_const_structrp png_ptr, png_const_charp error_message);]],
-		png_chunk_error = [[void png_chunk_error(png_const_structrp png_ptr, png_const_charp error_message);]],
+		png_malloc_default = [[__attribute__((__malloc__)) __attribute__((__deprecated__)) png_voidp png_malloc_default(png_const_structrp png_ptr, png_alloc_size_t size);]],
+		png_free_default = [[__attribute__((__deprecated__)) void png_free_default(png_const_structrp png_ptr, png_voidp ptr);]],
+		png_error = [[__attribute__((__noreturn__)) void png_error(png_const_structrp png_ptr, png_const_charp error_message);]],
+		png_chunk_error = [[__attribute__((__noreturn__)) void png_chunk_error(png_const_structrp png_ptr, png_const_charp error_message);]],
 		png_warning = [[void png_warning(png_const_structrp png_ptr, png_const_charp warning_message);]],
 		png_chunk_warning = [[void png_chunk_warning(png_const_structrp png_ptr, png_const_charp warning_message);]],
 		png_benign_error = [[void png_benign_error(png_const_structrp png_ptr, png_const_charp warning_message);]],
@@ -871,3 +881,13 @@ return require 'ffi.libwrapper'{
 		png_set_option = [[int png_set_option(png_structrp png_ptr, int option, int onoff);]],
 	},
 }
+
+wrapper.PNG_LIBPNG_VER_STRING = '1.6.44'
+wrapper.PNG_HEADER_VERSION_STRING " libpng version "..wrapper.PNG_LIBPNG_VER_STRING..'\n'
+
+-- this is a value in C but a function in Lua
+function wrapper.png_libpng_ver() return wrapper.png_get_header_ver(nil) end
+
+wrapper.PNG_GAMMA_THRESHOLD = wrapper.PNG_GAMMA_THRESHOLD_FIXED * .00001
+
+return wrapper
