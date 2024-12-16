@@ -3,6 +3,28 @@ local ffi = require 'ffi'
 -- comments
 
 --[[
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* #    define SDL_DEPRECATED __attribute__((deprecated)) ### string, not number "__attribute__((deprecated))" */
+/* #    define SDL_UNUSED __attribute__((unused)) ### string, not number "__attribute__((unused))" */
+/* #   define DECLSPEC __attribute__ ((visibility("default"))) ### string, not number "__attribute__ ((visibility(\"default\")))" */
+/* #define SDL_FORCE_INLINE __attribute__((always_inline)) static __inline__ ### string, not number "__attribute__((always_inline)) static __inline__" */
+/* #define SDL_NORETURN __attribute__((noreturn)) ### string, not number "__attribute__((noreturn))" */
+/* #define SDL_FALLTHROUGH do {} while (0) ### string, not number "do {} while (0)" */
+/* #define SDL_AUDIO_DRIVER_PIPEWIRE_DYNAMIC "libpipewire-0.3.so.0" ### string, not number "\"libpipewire-0.3.so.0\"" */
+/* #define SDL_AUDIO_DRIVER_SNDIO_DYNAMIC "libsndio.so.7" ### string, not number "\"libsndio.so.7\"" */
+/* #define SDL_UDEV_DYNAMIC "libudev.so.1" ### string, not number "\"libudev.so.1\"" */
+/* #define FLT_MAX		__FLT_MAX__ ### string, not number "__FLT_MAX__" */
+/* #define DBL_MAX		__DBL_MAX__ ### string, not number "__DBL_MAX__" */
+/* #define LDBL_MAX	__LDBL_MAX__ ### string, not number "__LDBL_MAX__" */
+/* #define FLT_EPSILON	__FLT_EPSILON__ ### string, not number "__FLT_EPSILON__" */
+/* #define DBL_EPSILON	__DBL_EPSILON__ ### string, not number "__DBL_EPSILON__" */
+/* #define LDBL_EPSILON	__LDBL_EPSILON__ ### string, not number "__LDBL_EPSILON__" */
+/* #define FLT_MIN		__FLT_MIN__ ### string, not number "__FLT_MIN__" */
+/* #define DBL_MIN		__DBL_MIN__ ### string, not number "__DBL_MIN__" */
+/* #define LDBL_MIN	__LDBL_MIN__ ### string, not number "__LDBL_MIN__" */
+/* #define FLT_TRUE_MIN	__FLT_DENORM_MIN__ ### string, not number "__FLT_DENORM_MIN__" */
+/* #define DBL_TRUE_MIN	__DBL_DENORM_MIN__ ### string, not number "__DBL_DENORM_MIN__" */
+/* #define LDBL_TRUE_MIN	__LDBL_DENORM_MIN__ ### string, not number "__LDBL_DENORM_MIN__" */
 /* # define SDL_SIZE_MAX SIZE_MAX ### string, not number "1.844674407371e+19" */
 /* #define SDL_MAX_SINT8   ((Sint8)0x7F) ### string, not number "((Sint8)0x7F)" */
 /* #define SDL_MIN_SINT8   ((Sint8)(~0x7F)) ### string, not number "((Sint8)(~0x7F))" */
@@ -194,6 +216,7 @@ local ffi = require 'ffi'
 /* #define SDL_HINT_MOUSE_RELATIVE_SPEED_SCALE    "SDL_MOUSE_RELATIVE_SPEED_SCALE" ### string, not number "\"SDL_MOUSE_RELATIVE_SPEED_SCALE\"" */
 /* #define SDL_HINT_MOUSE_RELATIVE_SYSTEM_SCALE    "SDL_MOUSE_RELATIVE_SYSTEM_SCALE" ### string, not number "\"SDL_MOUSE_RELATIVE_SYSTEM_SCALE\"" */
 /* #define SDL_HINT_MOUSE_RELATIVE_WARP_MOTION  "SDL_MOUSE_RELATIVE_WARP_MOTION" ### string, not number "\"SDL_MOUSE_RELATIVE_WARP_MOTION\"" */
+/* #define SDL_HINT_MOUSE_RELATIVE_CURSOR_VISIBLE  "SDL_MOUSE_RELATIVE_CURSOR_VISIBLE" ### string, not number "\"SDL_MOUSE_RELATIVE_CURSOR_VISIBLE\"" */
 /* #define SDL_HINT_MOUSE_TOUCH_EVENTS    "SDL_MOUSE_TOUCH_EVENTS" ### string, not number "\"SDL_MOUSE_TOUCH_EVENTS\"" */
 /* #define SDL_HINT_MOUSE_AUTO_CAPTURE    "SDL_MOUSE_AUTO_CAPTURE" ### string, not number "\"SDL_MOUSE_AUTO_CAPTURE\"" */
 /* #define SDL_HINT_NO_SIGNAL_HANDLERS   "SDL_NO_SIGNAL_HANDLERS" ### string, not number "\"SDL_NO_SIGNAL_HANDLERS\"" */
@@ -295,6 +318,315 @@ local ffi = require 'ffi'
 /* #define SDL_INIT_EVERYTHING (                  SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS |                  SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC | SDL_INIT_GAMECONTROLLER | SDL_INIT_SENSOR              ) ### string, not number "(                  SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS |                  SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC | SDL_INIT_GAMECONTROLLER | SDL_INIT_SENSOR              )" */
 --]]
 
+--[[
+these are enums that don't appear in the Linux verison, and should be commented out anyways:
+
+enum { SDL_h_ = 1 };
+enum { SDL_main_h_ = 1 };
+enum { SDL_stdinc_h_ = 1 };
+enum { SDL_config_h_ = 1 };
+enum { SDL_platform_h_ = 1 };
+enum { SDL_assert_h_ = 1 };
+enum { SDL_atomic_h_ = 1 };
+enum { SDL_audio_h_ = 1 };
+enum { SDL_error_h_ = 1 };
+enum { SDL_endian_h_ = 1 };
+enum { SDL_mutex_h_ = 1 };
+enum { SDL_thread_h_ = 1 };
+enum { SDL_rwops_h_ = 1 };
+enum { SDL_clipboard_h_ = 1 };
+enum { SDL_cpuinfo_h_ = 1 };
+enum { SDL_events_h_ = 1 };
+enum { SDL_video_h_ = 1 };
+enum { SDL_pixels_h_ = 1 };
+enum { SDL_rect_h_ = 1 };
+enum { SDL_surface_h_ = 1 };
+enum { SDL_blendmode_h_ = 1 };
+enum { SDL_keyboard_h_ = 1 };
+enum { SDL_keycode_h_ = 1 };
+enum { SDL_scancode_h_ = 1 };
+enum { SDL_mouse_h_ = 1 };
+enum { SDL_joystick_h_ = 1 };
+enum { SDL_guid_h_ = 1 };
+enum { SDL_gamecontroller_h_ = 1 };
+enum { SDL_sensor_h_ = 1 };
+enum { SDL_quit_h_ = 1 };
+enum { SDL_gesture_h_ = 1 };
+enum { SDL_touch_h_ = 1 };
+enum { SDL_filesystem_h_ = 1 };
+enum { SDL_haptic_h_ = 1 };
+enum { SDL_hidapi_h_ = 1 };
+enum { SDL_hints_h_ = 1 };
+enum { SDL_loadso_h_ = 1 };
+enum { SDL_log_h_ = 1 };
+enum { SDL_messagebox_h_ = 1 };
+enum { SDL_metal_h_ = 1 };
+enum { SDL_power_h_ = 1 };
+enum { SDL_render_h_ = 1 };
+enum { SDL_shape_h_ = 1 };
+enum { SDL_system_h_ = 1 };
+enum { SDL_timer_h_ = 1 };
+enum { SDL_version_h_ = 1 };
+enum { SDL_misc_h_ = 1 };
+
+enum { SDLCALL = 1 };
+enum { SDL_INLINE = 0 };
+enum { SDL_HAS_FALLTHROUGH = 0 };
+enum { SDL_AUDIO_DRIVER_ALSA = 1 };
+enum { SDL_AUDIO_DRIVER_DISK = 1 };
+enum { SDL_AUDIO_DRIVER_DUMMY = 1 };
+enum { SDL_AUDIO_DRIVER_OSS = 1 };
+enum { SDL_AUDIO_DRIVER_PIPEWIRE = 1 };
+enum { SDL_AUDIO_DRIVER_PULSEAUDIO = 1 };
+enum { SDL_AUDIO_DRIVER_SNDIO = 1 };
+enum { SDL_INPUT_LINUXEV = 1 };
+enum { SDL_INPUT_LINUXKD = 1 };
+enum { SDL_JOYSTICK_LINUX = 1 };
+enum { SDL_JOYSTICK_HIDAPI = 1 };
+enum { SDL_JOYSTICK_VIRTUAL = 1 };
+enum { SDL_HAPTIC_LINUX = 1 };
+enum { SDL_SENSOR_DUMMY = 1 };
+enum { SDL_LOADSO_DLOPEN = 1 };
+enum { SDL_THREAD_PTHREAD = 1 };
+enum { SDL_THREAD_PTHREAD_RECURSIVE_MUTEX = 1 };
+enum { SDL_TIMER_UNIX = 1 };
+enum { SDL_VIDEO_DRIVER_DUMMY = 1 };
+enum { SDL_VIDEO_DRIVER_WAYLAND = 1 };
+enum { SDL_VIDEO_DRIVER_WAYLAND_QT_TOUCH = 1 };
+enum { SDL_VIDEO_DRIVER_X11 = 1 };
+enum { SDL_VIDEO_DRIVER_KMSDRM = 1 };
+enum { SDL_VIDEO_DRIVER_OFFSCREEN = 1 };
+enum { SDL_VIDEO_DRIVER_X11_XCURSOR = 1 };
+enum { SDL_VIDEO_DRIVER_X11_XDBE = 1 };
+enum { SDL_VIDEO_DRIVER_X11_XINPUT2 = 1 };
+enum { SDL_VIDEO_DRIVER_X11_XINPUT2_SUPPORTS_MULTITOUCH = 1 };
+enum { SDL_VIDEO_DRIVER_X11_XFIXES = 1 };
+enum { SDL_VIDEO_DRIVER_X11_XRANDR = 1 };
+enum { SDL_VIDEO_DRIVER_X11_XSCRNSAVER = 1 };
+enum { SDL_VIDEO_DRIVER_X11_XSHAPE = 1 };
+enum { SDL_VIDEO_DRIVER_X11_SUPPORTS_GENERIC_EVENTS = 1 };
+enum { SDL_VIDEO_DRIVER_X11_HAS_XKBKEYCODETOKEYSYM = 1 };
+enum { SDL_VIDEO_RENDER_OGL = 1 };
+enum { SDL_VIDEO_RENDER_OGL_ES2 = 1 };
+enum { SDL_VIDEO_OPENGL = 1 };
+enum { SDL_VIDEO_OPENGL_ES2 = 1 };
+enum { SDL_VIDEO_OPENGL_EGL = 1 };
+enum { SDL_VIDEO_OPENGL_GLX = 1 };
+enum { SDL_VIDEO_VULKAN = 1 };
+enum { SDL_POWER_LINUX = 1 };
+enum { SDL_FILESYSTEM_UNIX = 1 };
+enum { SDL_USE_IME = 1 };
+enum { SDL_HAVE_LIBDECOR_GET_MIN_MAX = 1 };
+enum { SDL_PRINTF_FORMAT_STRING = 1 };
+enum { SDL_SCANF_FORMAT_STRING = 1 };
+enum { SDLMAIN_DECLSPEC = 1 };
+enum { SDL_FUNCTION = 0 };
+enum { SDL_FILE = 0 };
+enum { SDL_LINE = 0 };
+enum { SDL_NULL_WHILE_LOOP_CONDITION = 0 };
+enum { SDL_assert_state = 0 };
+enum { SDL_assert_data = 0 };
+enum { SDL_LIL_ENDIAN = 1234 };
+enum { SDL_BIG_ENDIAN = 4321 };
+enum { SDL_BYTEORDER = 1234 };
+enum { SDL_FLOATWORDORDER = 1234 };
+enum { SDL_MUTEX_TIMEDOUT = 1 };
+enum { SDL_RWOPS_UNKNOWN = 0 };
+enum { SDL_RWOPS_WINFILE = 1 };
+enum { SDL_RWOPS_STDFILE = 2 };
+enum { SDL_RWOPS_JNIFILE = 3 };
+enum { SDL_RWOPS_MEMORY = 4 };
+enum { SDL_RWOPS_MEMORY_RO = 5 };
+enum { SDL_Colour = 0 };
+enum { SDL_BlitSurface = 0 };
+enum { SDL_BlitScaled = 0 };
+
+enum { SIZEOF_VOIDP = 8 };
+enum { HAVE_GCC_ATOMICS = 1 };
+enum { HAVE_LIBC = 1 };
+enum { STDC_HEADERS = 1 };
+enum { HAVE_ALLOCA_H = 1 };
+enum { HAVE_CTYPE_H = 1 };
+enum { HAVE_FLOAT_H = 1 };
+enum { HAVE_ICONV_H = 1 };
+enum { HAVE_INTTYPES_H = 1 };
+enum { HAVE_LIMITS_H = 1 };
+enum { HAVE_MALLOC_H = 1 };
+enum { HAVE_MATH_H = 1 };
+enum { HAVE_MEMORY_H = 1 };
+enum { HAVE_SIGNAL_H = 1 };
+enum { HAVE_STDARG_H = 1 };
+enum { HAVE_STDINT_H = 1 };
+enum { HAVE_STDIO_H = 1 };
+enum { HAVE_STDLIB_H = 1 };
+enum { HAVE_STRINGS_H = 1 };
+enum { HAVE_STRING_H = 1 };
+enum { HAVE_SYS_TYPES_H = 1 };
+enum { HAVE_WCHAR_H = 1 };
+enum { HAVE_LINUX_INPUT_H = 1 };
+enum { HAVE_DLOPEN = 1 };
+enum { HAVE_MALLOC = 1 };
+enum { HAVE_CALLOC = 1 };
+enum { HAVE_REALLOC = 1 };
+enum { HAVE_FREE = 1 };
+enum { HAVE_ALLOCA = 1 };
+enum { HAVE_GETENV = 1 };
+enum { HAVE_SETENV = 1 };
+enum { HAVE_PUTENV = 1 };
+enum { HAVE_UNSETENV = 1 };
+enum { HAVE_QSORT = 1 };
+enum { HAVE_BSEARCH = 1 };
+enum { HAVE_ABS = 1 };
+enum { HAVE_BCOPY = 1 };
+enum { HAVE_MEMSET = 1 };
+enum { HAVE_MEMCPY = 1 };
+enum { HAVE_MEMMOVE = 1 };
+enum { HAVE_MEMCMP = 1 };
+enum { HAVE_WCSLEN = 1 };
+enum { HAVE_WCSLCPY = 1 };
+enum { HAVE_WCSLCAT = 1 };
+enum { HAVE_WCSDUP = 1 };
+enum { HAVE_WCSSTR = 1 };
+enum { HAVE_WCSCMP = 1 };
+enum { HAVE_WCSNCMP = 1 };
+enum { HAVE_WCSCASECMP = 1 };
+enum { HAVE_WCSNCASECMP = 1 };
+enum { HAVE_STRLEN = 1 };
+enum { HAVE_STRLCPY = 1 };
+enum { HAVE_STRLCAT = 1 };
+enum { HAVE_INDEX = 1 };
+enum { HAVE_RINDEX = 1 };
+enum { HAVE_STRCHR = 1 };
+enum { HAVE_STRRCHR = 1 };
+enum { HAVE_STRSTR = 1 };
+enum { HAVE_STRTOK_R = 1 };
+enum { HAVE_STRTOL = 1 };
+enum { HAVE_STRTOUL = 1 };
+enum { HAVE_STRTOLL = 1 };
+enum { HAVE_STRTOULL = 1 };
+enum { HAVE_STRTOD = 1 };
+enum { HAVE_ATOI = 1 };
+enum { HAVE_ATOF = 1 };
+enum { HAVE_STRCMP = 1 };
+enum { HAVE_STRNCMP = 1 };
+enum { HAVE_STRCASECMP = 1 };
+enum { HAVE_STRNCASECMP = 1 };
+enum { HAVE_STRCASESTR = 1 };
+enum { HAVE_VSSCANF = 1 };
+enum { HAVE_VSNPRINTF = 1 };
+enum { HAVE_M_PI = 1 };
+enum { HAVE_ACOS = 1 };
+enum { HAVE_ACOSF = 1 };
+enum { HAVE_ASIN = 1 };
+enum { HAVE_ASINF = 1 };
+enum { HAVE_ATAN = 1 };
+enum { HAVE_ATANF = 1 };
+enum { HAVE_ATAN2 = 1 };
+enum { HAVE_ATAN2F = 1 };
+enum { HAVE_CEIL = 1 };
+enum { HAVE_CEILF = 1 };
+enum { HAVE_COPYSIGN = 1 };
+enum { HAVE_COPYSIGNF = 1 };
+enum { HAVE_COS = 1 };
+enum { HAVE_COSF = 1 };
+enum { HAVE_EXP = 1 };
+enum { HAVE_EXPF = 1 };
+enum { HAVE_FABS = 1 };
+enum { HAVE_FABSF = 1 };
+enum { HAVE_FLOOR = 1 };
+enum { HAVE_FLOORF = 1 };
+enum { HAVE_FMOD = 1 };
+enum { HAVE_FMODF = 1 };
+enum { HAVE_LOG = 1 };
+enum { HAVE_LOGF = 1 };
+enum { HAVE_LOG10 = 1 };
+enum { HAVE_LOG10F = 1 };
+enum { HAVE_LROUND = 1 };
+enum { HAVE_LROUNDF = 1 };
+enum { HAVE_POW = 1 };
+enum { HAVE_POWF = 1 };
+enum { HAVE_ROUND = 1 };
+enum { HAVE_ROUNDF = 1 };
+enum { HAVE_SCALBN = 1 };
+enum { HAVE_SCALBNF = 1 };
+enum { HAVE_SIN = 1 };
+enum { HAVE_SINF = 1 };
+enum { HAVE_SQRT = 1 };
+enum { HAVE_SQRTF = 1 };
+enum { HAVE_TAN = 1 };
+enum { HAVE_TANF = 1 };
+enum { HAVE_TRUNC = 1 };
+enum { HAVE_TRUNCF = 1 };
+enum { HAVE_FOPEN64 = 1 };
+enum { HAVE_FSEEKO = 1 };
+enum { HAVE_FSEEKO64 = 1 };
+enum { HAVE_SIGACTION = 1 };
+enum { HAVE_SA_SIGACTION = 1 };
+enum { HAVE_SETJMP = 1 };
+enum { HAVE_NANOSLEEP = 1 };
+enum { HAVE_SYSCONF = 1 };
+enum { HAVE_CLOCK_GETTIME = 1 };
+enum { HAVE_MPROTECT = 1 };
+enum { HAVE_ICONV = 1 };
+enum { HAVE_PTHREAD_SETNAME_NP = 1 };
+enum { HAVE_SEM_TIMEDWAIT = 1 };
+enum { HAVE_GETAUXVAL = 1 };
+enum { HAVE_POLL = 1 };
+enum { HAVE_MEMFD_CREATE = 1 };
+enum { HAVE_POSIX_FALLOCATE = 1 };
+enum { HAVE__EXIT = 1 };
+enum { HAVE_O_CLOEXEC = 1 };
+enum { HAVE_DBUS_DBUS_H = 1 };
+enum { HAVE_FCITX = 1 };
+enum { HAVE_SYS_INOTIFY_H = 1 };
+enum { HAVE_INOTIFY_INIT = 1 };
+enum { HAVE_INOTIFY_INIT1 = 1 };
+enum { HAVE_INOTIFY = 1 };
+enum { HAVE_IBUS_IBUS_H = 1 };
+enum { HAVE_IMMINTRIN_H = 1 };
+enum { HAVE_LIBUDEV_H = 1 };
+enum { HAVE_LIBSAMPLERATE_H = 1 };
+enum { HAVE_LIBDECOR_H = 1 };
+enum { DYNAPI_NEEDS_DLOPEN = 1 };
+enum { FLT_RADIX = 2 };
+enum { FLT_MANT_DIG = 24 };
+enum { DBL_MANT_DIG = 53 };
+enum { LDBL_MANT_DIG = 64 };
+enum { FLT_DIG = 6 };
+enum { DBL_DIG = 15 };
+enum { LDBL_DIG = 18 };
+enum { FLT_MIN_EXP = -125 };
+enum { DBL_MIN_EXP = -1021 };
+enum { LDBL_MIN_EXP = -16381 };
+enum { FLT_MIN_10_EXP = -37 };
+enum { DBL_MIN_10_EXP = -307 };
+enum { LDBL_MIN_10_EXP = -4931 };
+enum { FLT_MAX_EXP = 128 };
+enum { DBL_MAX_EXP = 1024 };
+enum { LDBL_MAX_EXP = 16384 };
+enum { FLT_MAX_10_EXP = 38 };
+enum { DBL_MAX_10_EXP = 308 };
+enum { LDBL_MAX_10_EXP = 4932 };
+enum { FLT_ROUNDS = 1 };
+enum { FLT_EVAL_METHOD = 0 };
+enum { DECIMAL_DIG = 21 };
+enum { FLT_DECIMAL_DIG = 9 };
+enum { DBL_DECIMAL_DIG = 17 };
+enum { LDBL_DECIMAL_DIG = 21 };
+enum { FLT_HAS_SUBNORM = 1 };
+enum { DBL_HAS_SUBNORM = 1 };
+enum { LDBL_HAS_SUBNORM = 1 };
+
+enum { HAS_BUILTIN_BSWAP16 = 1 };
+enum { HAS_BUILTIN_BSWAP32 = 1 };
+enum { HAS_BUILTIN_BSWAP64 = 1 };
+enum { HAS_BROKEN_BSWAP = 0 };
+enum { RW_SEEK_SET = 0 };
+enum { RW_SEEK_CUR = 1 };
+enum { RW_SEEK_END = 2 };
+
+--]]
+
 -- typedefs
 
 require 'ffi.req' 'c.sys.types'
@@ -318,6 +650,7 @@ typedef int32_t Sint32;
 typedef uint32_t Uint32;
 typedef int64_t Sint64;
 typedef uint64_t Uint64;
+typedef enum { DUMMY_ENUM_VALUE } SDL_DUMMY_ENUM;
 typedef void *(*SDL_malloc_func)(size_t size);
 typedef void *(*SDL_calloc_func)(size_t nmemb, size_t size);
 typedef void *(*SDL_realloc_func)(void *mem, size_t size);
@@ -1452,7 +1785,6 @@ typedef union SDL_Event {
 	SDL_DropEvent drop;
 	Uint8 padding[sizeof(void *) <= 8 ? 56 : sizeof(void *) == 16 ? 64 : 3 * sizeof(void *)];
 } SDL_Event;
-;
 typedef enum { SDL_ADDEVENT, SDL_PEEKEVENT, SDL_GETEVENT } SDL_eventaction;
 typedef int (* SDL_EventFilter) (void *userdata, SDL_Event * event);
 struct _SDL_Haptic;
@@ -1732,8 +2064,8 @@ enum { SDL_INVALID_SHAPE_ARGUMENT = -2 };
 enum { SDL_WINDOW_LACKS_SHAPE = -3 };
 enum { SDL_MAJOR_VERSION = 2 };
 enum { SDL_MINOR_VERSION = 30 };
-enum { SDL_PATCHLEVEL = 0 };
-enum { SDL_COMPILEDVERSION = 5000 };
+enum { SDL_PATCHLEVEL = 6 };
+enum { SDL_COMPILEDVERSION = 5006 };
 enum { SDL_INIT_TIMER = 0x00000001u };
 enum { SDL_INIT_AUDIO = 0x00000010u };
 enum { SDL_INIT_VIDEO = 0x00000020u };
@@ -1752,6 +2084,7 @@ enum { SDL_WINDOWPOS_CENTERED = 0x2FFF0000u };
 -- functions
 
 ffi.cdef[[
+extern const char * SDL_GetPlatform ();
 extern void * SDL_malloc(size_t size);
 extern void * SDL_calloc(size_t nmemb, size_t size);
 extern void * SDL_realloc(void *mem, size_t size);

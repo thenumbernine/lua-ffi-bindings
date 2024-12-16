@@ -120,6 +120,7 @@ typedef __pid_t pid_t;
 ]] require 'ffi.req' 'c.unistd' ffi.cdef[[
 
 ]] require 'ffi.req' 'c.bits.types.SEEK' ffi.cdef[[
+
 enum { AT_FDCWD = -100 };
 enum { AT_SYMLINK_NOFOLLOW = 256 };
 enum { AT_REMOVEDIR = 512 };
@@ -134,4 +135,3 @@ extern int posix_fadvise (int __fd, off_t __offset, off_t __len, int __advise) _
 extern int posix_fallocate (int __fd, off_t __offset, off_t __len);
 /* + END   /usr/include/fcntl.h */
 ]]
-return ffi.C

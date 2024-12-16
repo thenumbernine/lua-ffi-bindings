@@ -348,6 +348,7 @@ local ffi = require 'ffi'
 /* manually commented out: enum { SDL_begin_code_h = 1 }; */
 /* #pragma warning(disable: 4103) */
 /* #define SDL_INIT_EVERYTHING (                  SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS |                  SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC | SDL_INIT_GAMECONTROLLER | SDL_INIT_SENSOR              ) ### string, not number "(                  SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS |                  SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC | SDL_INIT_GAMECONTROLLER | SDL_INIT_SENSOR              )" */
+/* extern void __debugbreak(); */
 --]]
 
 --[[
@@ -693,7 +694,7 @@ typedef enum {
 	SDL_PIXELFORMAT_XRGB32 = SDL_PIXELFORMAT_BGRX8888,
 	SDL_PIXELFORMAT_BGRX32 = SDL_PIXELFORMAT_XRGB8888,
 	SDL_PIXELFORMAT_XBGR32 = SDL_PIXELFORMAT_RGBX8888,
-	SDL_PIXELFORMAT_YV12 = ((((Uint32)(((Uint8)(('Y'))))) << 0) | (((Uint32)(((Uint8)(('V'))) )) << 8) | (((Uint32)(((Uint8)(('1'))) )) << 16) | (((Uint32)(((Uint8)(('2'))) )) << 24)) ,
+	SDL_PIXELFORMAT_YV12 = ((((Uint32)(((Uint8)(('Y'))))) << 0) | (((Uint32)(((Uint8)(('V'))))) << 8) | (((Uint32)(((Uint8)(('1'))))) << 16) | (((Uint32)(((Uint8)(('2'))))) << 24)) ,
 	SDL_PIXELFORMAT_IYUV = ((((Uint32)(((Uint8)(('I'))))) << 0) | (((Uint32)(((Uint8)(('Y'))))) << 8) | (((Uint32)(((Uint8)(('U'))))) << 16) | (((Uint32)(((Uint8)(('V'))))) << 24)) ,
 	SDL_PIXELFORMAT_YUY2 = ((((Uint32)(((Uint8)(('Y'))))) << 0) | (((Uint32)(((Uint8)(('U'))))) << 8) | (((Uint32)(((Uint8)(('Y'))))) << 16) | (((Uint32)(((Uint8)(('2'))))) << 24)) ,
 	SDL_PIXELFORMAT_UYVY = ((((Uint32)(((Uint8)(('U'))))) << 0) | (((Uint32)(((Uint8)(('Y'))))) << 8) | (((Uint32)(((Uint8)(('V'))))) << 16) | (((Uint32)(((Uint8)(('Y'))))) << 24)) ,
@@ -2182,7 +2183,6 @@ extern int SDL_main(int argc, char *argv[]);
 extern void SDL_SetMainReady();
 extern int SDL_RegisterApp(const char *name, Uint32 style, void *hInst);
 extern void SDL_UnregisterApp();
-extern void __debugbreak();
 extern SDL_AssertState SDL_ReportAssertion(SDL_AssertData *, const char *, const char *, int);
 extern void SDL_SetAssertionHandler(SDL_AssertionHandler handler, void *userdata);
 extern SDL_AssertionHandler SDL_GetDefaultAssertionHandler();

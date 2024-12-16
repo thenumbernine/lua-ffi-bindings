@@ -1820,7 +1820,6 @@ typedef union SDL_Event {
 	SDL_DropEvent drop;
 	Uint8 padding[sizeof(void *) <= 8 ? 56 : sizeof(void *) == 16 ? 64 : 3 * sizeof(void *)];
 } SDL_Event;
-;
 typedef enum { SDL_ADDEVENT, SDL_PEEKEVENT, SDL_GETEVENT } SDL_eventaction;
 typedef int (* SDL_EventFilter) (void *userdata, SDL_Event * event);
 struct _SDL_Haptic;

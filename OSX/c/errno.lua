@@ -1,9 +1,5 @@
 local ffi = require 'ffi'
 
--- This causes a require loop ... TODO pick out the mutual components of the loop ...
--- Until then I'll just do the require in the function.
---require 'ffi.req' 'c.string'	-- strerror
-
 -- comments
 
 --[[
@@ -133,12 +129,9 @@ wrapper = require 'ffi.libwrapper'{
 
 		__error = [[int * __error();]],
 
-		errno = function()
-			return function()
-				return wrapper.__error()[0]
-			end
-		end,
 		str = function()
+			-- upon errno.str() load, require c.string
+			-- not before to prevent require loops
 			require 'ffi.req' 'c.string'	-- strerror
 			return function()
 				local sp = ffi.C.strerror(wrapper.errno())
@@ -148,4 +141,9 @@ wrapper = require 'ffi.libwrapper'{
 		end,
 	},
 }
+
+function wrapper.errno()
+	return wrapper.__error()[0]
+end
+
 return wrapper

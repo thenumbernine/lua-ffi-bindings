@@ -1,5 +1,6 @@
 local ffi = require 'ffi'
 ffi.cdef[[
+/* ++ BEGIN /usr/include/x86_64-linux-gnu/bits/stat.h */
 /* +++ BEGIN /usr/include/x86_64-linux-gnu/bits/struct_stat.h */
 struct stat {
 	__dev_t st_dev;
@@ -24,4 +25,5 @@ struct stat {
 /* +++ END   /usr/include/x86_64-linux-gnu/bits/struct_stat.h */
 enum { UTIME_NOW = 1073741823 };
 enum { UTIME_OMIT = 1073741822 };
+/* ++ END   /usr/include/x86_64-linux-gnu/bits/stat.h */
 ]]

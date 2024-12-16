@@ -5,7 +5,7 @@ local assert = require 'ext.assert'
 
 --[[
 /* #  define z_longlong long long ### string, not number "long long" */
-/* #define ZLIB_VERSION "1.3" ### string, not number "\"1.3\"" */
+/* #define ZLIB_VERSION "1.3.1" ### string, not number "\"1.3.1\"" */
 /* #define zlib_version zlibVersion() ### string, not number "zlibVersion()" */
 --]]
 
@@ -99,10 +99,10 @@ wrapper = require 'ffi.libwrapper'{
 		Z_HAVE_UNISTD_H = 1,
 		Z_HAVE_STDARG_H = 1,
 		Z_LFS64 = 1,
-		ZLIB_VERNUM = 4864,
+		ZLIB_VERNUM = 4880,
 		ZLIB_VER_MAJOR = 1,
 		ZLIB_VER_MINOR = 3,
-		ZLIB_VER_REVISION = 0,
+		ZLIB_VER_REVISION = 1,
 		ZLIB_VER_SUBREVISION = 0,
 		Z_NO_FLUSH = 0,
 		Z_PARTIAL_FLUSH = 1,
@@ -224,7 +224,7 @@ wrapper = require 'ffi.libwrapper'{
 
 -- macros
 
-wrapper.ZLIB_VERSION = "1.3"
+wrapper.ZLIB_VERSION = "1.3.1"
 
 function wrapper.zlib_version(...)
 	return wrapper.zlibVersion(...)

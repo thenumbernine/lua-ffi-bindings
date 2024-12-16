@@ -2,6 +2,10 @@ local ffi = require 'ffi'
 
 -- comments
 
+--[[
+/* # define errno (*__errno_location ()) ### string, not number "(*__errno_location ())" */
+--]]
+
 -- typedefs
 
 require 'ffi.req' 'c.features'
@@ -149,14 +153,11 @@ wrapper = require 'ffi.libwrapper'{
 
 		-- functions
 
-		__errno_location = [[int *__errno_location () __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));]],
+		__errno_location = [[int *__errno_location();]],
 
-		errno = function()
-			return function()
-				return wrapper.__errno_location()[0]
-			end
-		end,
 		str = function()
+			-- upon errno.str() load, require c.string
+			-- not before to prevent require loops
 			require 'ffi.req' 'c.string'	-- strerror
 			return function()
 				local sp = ffi.C.strerror(wrapper.errno())
@@ -166,4 +167,9 @@ wrapper = require 'ffi.libwrapper'{
 		end,
 	},
 }
+
+function wrapper.errno()
+	return wrapper.__errno_location()[0]
+end
+
 return wrapper
