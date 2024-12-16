@@ -3,7 +3,7 @@ local ffi = require 'ffi'
 -- comments
 
 --[[
-/* #define CFITSIO_VERSION 4.3.1 ### string, not number "4.3.1" */
+/* #define CFITSIO_VERSION 4.4.1 ### string, not number "4.4.1" */
 /* #define LONGLONG_MAX LLONG_MAX ### string, not number "9.2233720368548e+18" */
 /* #define LONGLONG_MIN LLONG_MIN ### string, not number "-9.2233720368548e+18" */
 /* #define FLOATNULLVALUE -9.11912E-36F ### string, not number "-9.11912E-36F" */
@@ -13,8 +13,8 @@ local ffi = require 'ffi'
 -- typedefs
 
 require 'ffi.req' 'c.stdio'
-require 'ffi.req' 'c.stdlib'
 require 'ffi.req' 'c.sys.types'
+require 'ffi.req' 'c.stdlib'
 require 'ffi.req' 'c.limits'
 
 ffi.cdef[[
@@ -166,9 +166,12 @@ wrapper = require 'ffi.libwrapper'{
 		-- enums
 
 		CFITSIO_MICRO = 1,
-		CFITSIO_MINOR = 3,
+		CFITSIO_MINOR = 4,
 		CFITSIO_MAJOR = 4,
 		CFITSIO_SONAME = 10,
+		CFITS_API = 1,
+		USE_LL_SUFFIX = 1,
+		LONGLONG_TYPE = 1,
 		NIOBUF = 40,
 		IOBUFLEN = 2880,
 		FLEN_FILENAME = 1025,
@@ -603,6 +606,7 @@ wrapper = require 'ffi.libwrapper'{
 		ffukls = [[int ffukls(fitsfile *fptr, const char *keyname, const char *value, const char *comm, int *status);]],
 		ffukyl = [[int ffukyl(fitsfile *fptr, const char *keyname, int value, const char *comm, int *status);]],
 		ffukyj = [[int ffukyj(fitsfile *fptr, const char *keyname, LONGLONG value, const char *comm, int *status);]],
+		ffukyuj = [[int ffukyuj(fitsfile *fptr, const char *keyname, ULONGLONG value, const char *comm, int *status);]],
 		ffukyf = [[int ffukyf(fitsfile *fptr, const char *keyname, float value, int decim, const char *comm, int *status);]],
 		ffukye = [[int ffukye(fitsfile *fptr, const char *keyname, float value, int decim, const char *comm, int *status);]],
 		ffukyg = [[int ffukyg(fitsfile *fptr, const char *keyname, double value, int decim, const char *comm, int *status);]],
@@ -620,6 +624,7 @@ wrapper = require 'ffi.libwrapper'{
 		ffmkls = [[int ffmkls(fitsfile *fptr, const char *keyname, const char *value, const char *comm,int *status);]],
 		ffmkyl = [[int ffmkyl(fitsfile *fptr, const char *keyname, int value, const char *comm, int *status);]],
 		ffmkyj = [[int ffmkyj(fitsfile *fptr, const char *keyname, LONGLONG value, const char *comm, int *status);]],
+		ffmkyuj = [[int ffmkyuj(fitsfile *fptr, const char *keyname, ULONGLONG value, const char *comm, int *status);]],
 		ffmkyf = [[int ffmkyf(fitsfile *fptr, const char *keyname, float value, int decim, const char *comm, int *status);]],
 		ffmkye = [[int ffmkye(fitsfile *fptr, const char *keyname, float value, int decim, const char *comm, int *status);]],
 		ffmkyg = [[int ffmkyg(fitsfile *fptr, const char *keyname, double value, int decim, const char *comm, int *status);]],
@@ -1248,6 +1253,7 @@ wrapper = require 'ffi.libwrapper'{
 		fits_update_key_longstr = function() return wrapper.ffukls end,
 		fits_update_key_log = function() return wrapper.ffukyl end,
 		fits_update_key_lng = function() return wrapper.ffukyj end,
+		fits_update_key_ulng = function() return wrapper.ffukyuj end,
 		fits_update_key_fixflt = function() return wrapper.ffukyf end,
 		fits_update_key_flt = function() return wrapper.ffukye end,
 		fits_update_key_fixdbl = function() return wrapper.ffukyg end,
@@ -1265,6 +1271,7 @@ wrapper = require 'ffi.libwrapper'{
 		fits_modify_key_longstr = function() return wrapper.ffmkls end,
 		fits_modify_key_log = function() return wrapper.ffmkyl end,
 		fits_modify_key_lng = function() return wrapper.ffmkyj end,
+		fits_modify_key_ulng = function() return wrapper.ffmkyuj end,
 		fits_modify_key_fixflt = function() return wrapper.ffmkyf end,
 		fits_modify_key_flt = function() return wrapper.ffmkye end,
 		fits_modify_key_fixdbl = function() return wrapper.ffmkyg end,
@@ -1662,7 +1669,7 @@ wrapper = require 'ffi.libwrapper'{
 		fits_show_download_progress = function() return wrapper.ffshdwn end,
 		fits_get_timeout = function() return wrapper.ffgtmo end,
 		fits_set_timeout = function() return wrapper.ffstmo end,
-		fits_open_file = function() return function(...) return wrapper.ffopentest(lib.CFITSIO_SONAME, ...) end end,
+		fits_open_file = function() return function(...) return wrapper.ffopentest(wrapper.CFITSIO_SONAME, ...) end end,
 	},
 }
 return wrapper

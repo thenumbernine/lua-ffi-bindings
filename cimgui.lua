@@ -1,20 +1,20 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* + BEGIN /usr/local/include/imgui-1.90.5dock/cimgui.h */
+/* + BEGIN /usr/local/include/cimgui.h */
 enum { CIMGUI_INCLUDED = 1 };
 /* ++ BEGIN /usr/include/stdio.h */
 ]] require 'ffi.req' 'c.stdio' ffi.cdef[[
 /* ++ END   /usr/include/stdio.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stdint.h */
 ]] require 'ffi.req' 'c.stdint' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stdint.h */
 /* #define API  __attribute__((__visibility__("default"))) ### string, not number "__attribute__((__visibility__(\"default\")))" */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stdarg.h */
 ]] require 'ffi.req' 'c.stdarg' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stdarg.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stdbool.h */
 ]] require 'ffi.req' 'c.stdbool' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stdbool.h */
 enum { EXTERN = 0 };
 /* #define CIMGUI_API EXTERN API ### string, not number "EXTERN API" */
 enum { CONST = 0 };
@@ -3484,8 +3484,8 @@ extern __attribute__((__visibility__("default"))) ImVector_ImWchar* ImVector_ImW
 extern __attribute__((__visibility__("default"))) void ImVector_ImWchar_destroy(ImVector_ImWchar* self);
 extern __attribute__((__visibility__("default"))) void ImVector_ImWchar_Init(ImVector_ImWchar* p);
 extern __attribute__((__visibility__("default"))) void ImVector_ImWchar_UnInit(ImVector_ImWchar* p);
-/* + END   /usr/local/include/imgui-1.90.5dock/cimgui.h */
-/* + BEGIN /usr/local/include/imgui-1.90.5dock/imgui_impl_sdl2.h */
+/* + END   /usr/local/include/cimgui.h */
+/* + BEGIN /usr/local/include/imgui_impl_sdl2.h */
 ]] require 'ffi.req' 'sdl' ffi.cdef[[
 _Bool ImGui_ImplSDL2_InitForOpenGL(SDL_Window* window, void* sdl_gl_context);
 _Bool ImGui_ImplSDL2_InitForVulkan(SDL_Window* window);
@@ -3498,8 +3498,8 @@ void ImGui_ImplSDL2_NewFrame();
 _Bool ImGui_ImplSDL2_ProcessEvent(const SDL_Event* event);
 typedef enum { ImGui_ImplSDL2_GamepadMode_AutoFirst, ImGui_ImplSDL2_GamepadMode_AutoAll, ImGui_ImplSDL2_GamepadMode_Manual } ImGui_ImplSDL2_GamepadMode;
 void ImGui_ImplSDL2_SetGamepadMode(ImGui_ImplSDL2_GamepadMode mode, struct _SDL_GameController** manual_gamepads_array, int manual_gamepads_count);
-/* + END   /usr/local/include/imgui-1.90.5dock/imgui_impl_sdl2.h */
-/* + BEGIN /usr/local/include/imgui-1.90.5dock/imgui_impl_opengl3.h */
+/* + END   /usr/local/include/imgui_impl_sdl2.h */
+/* + BEGIN /usr/local/include/imgui_impl_opengl3.h */
 _Bool ImGui_ImplOpenGL3_Init(const char* glsl_version);
 void ImGui_ImplOpenGL3_Shutdown();
 void ImGui_ImplOpenGL3_NewFrame();
@@ -3508,6 +3508,6 @@ _Bool ImGui_ImplOpenGL3_CreateFontsTexture();
 void ImGui_ImplOpenGL3_DestroyFontsTexture();
 _Bool ImGui_ImplOpenGL3_CreateDeviceObjects();
 void ImGui_ImplOpenGL3_DestroyDeviceObjects();
-/* + END   /usr/local/include/imgui-1.90.5dock/imgui_impl_opengl3.h */
+/* + END   /usr/local/include/imgui_impl_opengl3.h */
 ]]
 return require 'ffi.load' 'cimgui_sdl'
