@@ -12,10 +12,31 @@ local assert = require 'ext.assert'
 -- typedefs
 
 require 'ffi.req' 'c.stddef'
-require 'ffi.req' 'c.limits'
 require 'ffi.req' 'c.sys.types'
 require 'ffi.req' 'c.stdarg'
-require 'ffi.req' 'c.unistd'
+
+if ffi.os == 'Linux' then
+	require 'ffi.req' 'c.limits'
+	require 'ffi.req' 'c.unistd'
+	ffi.cdef[[
+typedef unsigned z_crc_t;
+]]
+elseif ffi.os == 'OSX' then
+	require 'ffi.req' 'c.unistd'
+	require 'ffi.req' 'c.Availability'
+	ffi.cdef[[
+typedef unsigned long z_crc_t;
+]]
+elseif ffi.os == 'Windows' then
+	require 'ffi.req' 'c.limits'
+	ffi.cdef[[
+typedef unsigned z_crc_t;
+]]
+	-- Windows zlib 1.2.11 struct gzFile_s uses __int64 instead of off_t so ...
+	assert.eq(ffi.sizeof'off_t', ffi.sizeof'__int64')
+	-- Windows uses long instead of off_t for gzseek, gztell, gzoffset, etc...
+	assert.eq(ffi.sizeof'off_t', ffi.sizeof'long')
+end
 
 ffi.cdef[[
 typedef long long z_longlong;
@@ -31,7 +52,6 @@ typedef uLong uLongf;
 typedef void const *voidpc;
 typedef void *voidpf;
 typedef void *voidp;
-typedef unsigned z_crc_t;
 typedef voidpf (*alloc_func)(voidpf opaque, uInt items, uInt size);
 typedef void (*free_func)(voidpf opaque, voidpf address);
 struct internal_state;
@@ -88,18 +108,18 @@ wrapper = require 'ffi.libwrapper'{
 		ZLIB_H = 1,
 		ZCONF_H = 1,
 		STDC = 1,
-		STDC99 = 1,
+		--STDC99 = 1 for non-Windows, undefined otherwise
 		z_const = 1,
 		MAX_MEM_LEVEL = 9,
 		MAX_WBITS = 15,
 		ZEXTERN = 0,
 		ZEXPORT = 1,
 		ZEXPORTVA = 1,
-		Z_U4 = 0,
-		Z_HAVE_UNISTD_H = 1,
-		Z_HAVE_STDARG_H = 1,
-		Z_LFS64 = 1,
-		ZLIB_VERNUM = 4880,
+		--Z_U4 = 0 for non-OSX, undefined otherwise
+		--Z_HAVE_UNISTD_H = 1 for non-Windows, undefined otherwise
+		--Z_HAVE_STDARG_H = 1 for non-Windows, undefined otherwise
+		--Z_LFS64 = 1 for Linux
+		ZLIB_VERNUM = 4880,	-- 4800 -- 4784
 		ZLIB_VER_MAJOR = 1,
 		ZLIB_VER_MINOR = 3,
 		ZLIB_VER_REVISION = 1,
@@ -218,6 +238,7 @@ wrapper = require 'ffi.libwrapper'{
 		inflateCodesUsed = [[unsigned long inflateCodesUsed(z_streamp);]],
 		inflateResetKeep = [[int inflateResetKeep(z_streamp);]],
 		deflateResetKeep = [[int deflateResetKeep(z_streamp);]],
+		gzopen_w = [[gzFile gzopen_w(const wchar_t *path, const char *mode);]],	-- Windows-only
 		gzvprintf = [[int gzvprintf(gzFile file, const char *format, va_list va);]],
 	},
 }
