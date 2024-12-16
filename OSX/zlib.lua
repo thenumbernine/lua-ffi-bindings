@@ -5,16 +5,17 @@ local assert = require 'ext.assert'
 
 --[[
 /* #  define z_longlong long long ### string, not number "long long" */
-/* #define ZLIB_VERSION "1.2.11" ### string, not number "\"1.2.11\"" */
+/* #define ZLIB_VERSION "1.2.12" ### string, not number "\"1.2.12\"" */
 /* #define zlib_version zlibVersion() ### string, not number "zlibVersion()" */
 --]]
 
 -- typedefs
 
 require 'ffi.req' 'c.stddef'
-require 'ffi.req' 'c.limits'
 require 'ffi.req' 'c.sys.types'
 require 'ffi.req' 'c.stdarg'
+require 'ffi.req' 'c.unistd'
+require 'ffi.req' 'c.Availability'
 
 ffi.cdef[[
 typedef long long z_longlong;
@@ -30,7 +31,7 @@ typedef uLong uLongf;
 typedef void const *voidpc;
 typedef void *voidpf;
 typedef void *voidp;
-typedef unsigned z_crc_t;
+typedef unsigned long z_crc_t;
 typedef voidpf (*alloc_func)(voidpf opaque, uInt items, uInt size);
 typedef void (*free_func)(voidpf opaque, voidpf address);
 struct internal_state;
@@ -73,7 +74,7 @@ typedef struct gzFile_s *gzFile;
 struct gzFile_s {
 	unsigned have;
 	unsigned char *next;
-	__int64 pos;
+	off_t pos;
 };
 ]]
 
@@ -87,17 +88,19 @@ wrapper = require 'ffi.libwrapper'{
 		ZLIB_H = 1,
 		ZCONF_H = 1,
 		STDC = 1,
+		STDC99 = 1,
 		z_const = 1,
 		MAX_MEM_LEVEL = 9,
 		MAX_WBITS = 15,
 		ZEXTERN = 0,
 		ZEXPORT = 1,
 		ZEXPORTVA = 1,
-		Z_U4 = 0,
-		ZLIB_VERNUM = 4784,
+		Z_HAVE_UNISTD_H = 1,
+		Z_HAVE_STDARG_H = 1,
+		ZLIB_VERNUM = 4800,
 		ZLIB_VER_MAJOR = 1,
 		ZLIB_VER_MINOR = 2,
-		ZLIB_VER_REVISION = 11,
+		ZLIB_VER_REVISION = 12,
 		ZLIB_VER_SUBREVISION = 0,
 		Z_NO_FLUSH = 0,
 		Z_PARTIAL_FLUSH = 1,
@@ -190,7 +193,8 @@ wrapper = require 'ffi.libwrapper'{
 		adler32 = [[uLong adler32(uLong adler, const Bytef *buf, uInt len);]],
 		adler32_z = [[uLong adler32_z(uLong adler, const Bytef *buf, z_size_t len);]],
 		crc32 = [[uLong crc32(uLong crc, const Bytef *buf, uInt len);]],
-		crc32_z = [[uLong crc32_z(uLong adler, const Bytef *buf, z_size_t len);]],
+		crc32_z = [[uLong crc32_z(uLong crc, const Bytef *buf, z_size_t len);]],
+		crc32_combine_op = [[uLong crc32_combine_op(uLong crc1, uLong crc2, uLong op);]],
 		deflateInit_ = [[int deflateInit_(z_streamp strm, int level, const char *version, int stream_size);]],
 		inflateInit_ = [[int inflateInit_(z_streamp strm, const char *version, int stream_size);]],
 		deflateInit2_ = [[int deflateInit2_(z_streamp strm, int level, int method, int windowBits, int memLevel, int strategy, const char *version, int stream_size);]],
@@ -203,6 +207,7 @@ wrapper = require 'ffi.libwrapper'{
 		gzoffset = [[long gzoffset(gzFile);]],
 		adler32_combine = [[uLong adler32_combine(uLong, uLong, long);]],
 		crc32_combine = [[uLong crc32_combine(uLong, uLong, long);]],
+		crc32_combine_gen = [[uLong crc32_combine_gen(long);]],
 		zError = [[const char * zError(int);]],
 		inflateSyncPoint = [[int inflateSyncPoint(z_streamp);]],
 		get_crc_table = [[const z_crc_t * get_crc_table();]],
@@ -211,14 +216,13 @@ wrapper = require 'ffi.libwrapper'{
 		inflateCodesUsed = [[unsigned long inflateCodesUsed(z_streamp);]],
 		inflateResetKeep = [[int inflateResetKeep(z_streamp);]],
 		deflateResetKeep = [[int deflateResetKeep(z_streamp);]],
-		gzopen_w = [[gzFile gzopen_w(const wchar_t *path, const char *mode);]],
 		gzvprintf = [[int gzvprintf(gzFile file, const char *format, va_list va);]],
 	},
 }
 
 -- macros
 
-wrapper.ZLIB_VERSION = "1.2.11"
+wrapper.ZLIB_VERSION = "1.2.12"
 
 function wrapper.zlib_version(...)
 	return wrapper.zlibVersion(...)

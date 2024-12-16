@@ -18,6 +18,7 @@ require 'ffi.req' 'c.stdarg'
 require 'ffi.req' 'c.unistd'
 
 ffi.cdef[[
+typedef long long z_longlong;
 typedef size_t z_size_t;
 typedef unsigned char Byte;
 typedef unsigned int uInt;
@@ -218,108 +219,98 @@ wrapper = require 'ffi.libwrapper'{
 		inflateResetKeep = [[int inflateResetKeep(z_streamp);]],
 		deflateResetKeep = [[int deflateResetKeep(z_streamp);]],
 		gzvprintf = [[int gzvprintf(gzFile file, const char *format, va_list va);]],
-
-		-- macros
-
-		deflateInit = function()
-			return function(strm)
-				return wrapper.deflateInit_(strm, wrapper.ZLIB_VERSION, ffi.sizeof'z_stream')
-			end
-		end,
-		inflateInit = function()
-			return function(strm)
-				return wrapper.inflateInit_(strm, wrapper.ZLIB_VERSION, ffi.sizeof'z_stream')
-			end
-		end,
-		deflateInit2 = function()
-			return function(strm, level, method, windowBits, memLevel, strategy)
-				return wrapper.deflateInit2_(strm, level, method, windowBits, memLevel, strategy, wrapper.ZLIB_VERSION, ffi.sizeof'z_stream')
-			end
-		end,
-		inflateInit2 = function()
-			return function(strm, windowBits)
-				return wrapper.inflateInit2_(strm, windowBits, wrapper.ZLIB_VERSION, ffi.sizeof'z_stream')
-			end
-		end,
-		inflateBackInit = function()
-			return function(strm, windowBits, window)
-				return wrapper.inflateBackInit_(strm, windowBits, window, wrapper.ZLIB_VERSION, ffi.sizeof'z_stream')
-			end
-		end,
-
-		-- safe-call wrapper:
-		pcall = function()
-			return function(fn, ...)
-				local f = assert(wrapper[fn])
-				local result = f(...)
-				if result == wrapper.Z_OK then return true end
-				local errs = require 'ext.table'{
-					'Z_ERRNO',
-					'Z_STREAM_ERROR',
-					'Z_DATA_ERROR',
-					'Z_MEM_ERROR',
-					'Z_BUF_ERROR',
-					'Z_VERSION_ERROR',
-				}:mapi(function(v) return v, assert(wrapper[v]) end):setmetatable(nil)
-				local name = errs[result]
-				return false, fn.." failed with error "..result..(name and (' ('..name..')') or ''), result
-			end
-		end,
-
-		--[[
-		zlib doesn't provide any mechanism for determining the required size of an uncompressed buffer.
-		First I thought I'd try-and-fail and look for Z_MEM_ERROR's ... but sometimes you also get other errors like Z_BUF_ERROR.
-		A solution would be to save the decompressed length alongside the buffer.
-		From there I could require the caller to save it themselves.  But nah.
-		Or - what I will do - to keep this a one-stop-shop function -
-		I will write the decompressed length to the first 8 bytes.
-		So for C compatability with the resulting data, just skip the first 8 bytes.
-		--]]
-		compressLua = function()
-			return function(src)
-				assert.type(src, 'string')
-				local srcLen = ffi.new'uLongf[1]'
-				srcLen[0] = #src
-				local dstLen = ffi.new('uLongf[1]', wrapper.compressBound(srcLen[0]))
-				local dst = ffi.new('Bytef[?]', dstLen[0])
-				assert(wrapper.pcall('compress', dst, dstLen, src, srcLen[0]))
-
-				local srcLenP = ffi.cast('uint8_t*', srcLen)
-				assert.eq(ffi.sizeof'uLongf', 8)
-				local dstAndLen = ''
-				for i=0,7 do
-					dstAndLen=dstAndLen..string.char(srcLenP[i])
-				end
-				dstAndLen=dstAndLen..ffi.string(dst, dstLen[0])
-				return dstAndLen
-			end
-		end,
-
-		uncompressLua = function()
-			return function(srcAndLen)
-				assert.type(srcAndLen, 'string')
-				-- there's no good way in the zlib api to tell how big this will need to be
-				-- so I'm saving it as the first 8 bytes of the data
-				assert.eq(ffi.sizeof'uLongf', 8)
-				local dstLenP = ffi.cast('uint8_t*', srcAndLen)
-				local src = dstLenP + 8
-				local srcLen = #srcAndLen - 8
-				local dstLen = ffi.new'uLongf[1]'
-				dstLen[0] = 0
-				for i=7,0,-1 do
-					dstLen[0] = bit.bor(bit.lshift(dstLen[0], 8), dstLenP[i])
-				end
-
-				local dst = ffi.new('Bytef[?]', dstLen[0])
-				assert(wrapper.pcall('uncompress', dst, dstLen, src, srcLen))
-				return ffi.string(dst, dstLen[0])
-			end
-		end,
 	},
 }
 
--- wrapper defs only handles functions and enums so here's where the other fields go:
+-- macros
 
 wrapper.ZLIB_VERSION = "1.3"
+
+function wrapper.zlib_version(...)
+	return wrapper.zlibVersion(...)
+end
+
+function wrapper.deflateInit(strm)
+	return wrapper.deflateInit_(strm, wrapper.ZLIB_VERSION, ffi.sizeof'z_stream')
+end
+
+function wrapper.inflateInit(strm)
+	return wrapper.inflateInit_(strm, wrapper.ZLIB_VERSION, ffi.sizeof'z_stream')
+end
+
+function wrapper.deflateInit2(strm, level, method, windowBits, memLevel, strategy)
+	return wrapper.deflateInit2_(strm, level, method, windowBits, memLevel, strategy, wrapper.ZLIB_VERSION, ffi.sizeof'z_stream')
+end
+
+function wrapper.inflateInit2(strm, windowBits)
+	return wrapper.inflateInit2_(strm, windowBits, wrapper.ZLIB_VERSION, ffi.sizeof'z_stream')
+end
+
+function wrapper.inflateBackInit(strm, windowBits, window)
+	return wrapper.inflateBackInit_(strm, windowBits, window, wrapper.ZLIB_VERSION, ffi.sizeof'z_stream')
+end
+
+-- safe-call wrapper:
+function wrapper.pcall(fn, ...)
+	local f = assert(wrapper[fn])
+	local result = f(...)
+	if result == wrapper.Z_OK then return true end
+	local errs = require 'ext.table'{
+		'Z_ERRNO',
+		'Z_STREAM_ERROR',
+		'Z_DATA_ERROR',
+		'Z_MEM_ERROR',
+		'Z_BUF_ERROR',
+		'Z_VERSION_ERROR',
+	}:mapi(function(v) return v, assert(wrapper[v]) end):setmetatable(nil)
+	local name = errs[result]
+	return false, fn.." failed with error "..result..(name and (' ('..name..')') or ''), result
+end
+
+--[[
+zlib doesn't provide any mechanism for determining the required size of an uncompressed buffer.
+First I thought I'd try-and-fail and look for Z_MEM_ERROR's ... but sometimes you also get other errors like Z_BUF_ERROR.
+A solution would be to save the decompressed length alongside the buffer.
+From there I could require the caller to save it themselves.  But nah.
+Or - what I will do - to keep this a one-stop-shop function -
+I will write the decompressed length to the first 8 bytes.
+So for C compatability with the resulting data, just skip the first 8 bytes.
+--]]
+function wrapper.compressLua(src)
+	assert.type(src, 'string')
+	local srcLen = ffi.new'uLongf[1]'
+	srcLen[0] = #src
+	local dstLen = ffi.new('uLongf[1]', wrapper.compressBound(srcLen[0]))
+	local dst = ffi.new('Bytef[?]', dstLen[0])
+	assert(wrapper.pcall('compress', dst, dstLen, src, srcLen[0]))
+
+	local srcLenP = ffi.cast('uint8_t*', srcLen)
+	assert.eq(ffi.sizeof'uLongf', 8)
+	local dstAndLen = ''
+	for i=0,7 do
+		dstAndLen=dstAndLen..string.char(srcLenP[i])
+	end
+	dstAndLen=dstAndLen..ffi.string(dst, dstLen[0])
+	return dstAndLen
+end
+
+function wrapper.uncompressLua(srcAndLen)
+	assert.type(srcAndLen, 'string')
+	-- there's no good way in the zlib api to tell how big this will need to be
+	-- so I'm saving it as the first 8 bytes of the data
+	assert.eq(ffi.sizeof'uLongf', 8)
+	local dstLenP = ffi.cast('uint8_t*', srcAndLen)
+	local src = dstLenP + 8
+	local srcLen = #srcAndLen - 8
+	local dstLen = ffi.new'uLongf[1]'
+	dstLen[0] = 0
+	for i=7,0,-1 do
+		dstLen[0] = bit.bor(bit.lshift(dstLen[0], 8), dstLenP[i])
+	end
+
+	local dst = ffi.new('Bytef[?]', dstLen[0])
+	assert(wrapper.pcall('uncompress', dst, dstLen, src, srcLen))
+	return ffi.string(dst, dstLen[0])
+end
 
 return wrapper
