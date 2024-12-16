@@ -883,7 +883,7 @@ wrapper = require 'ffi.libwrapper'{
 }
 
 wrapper.PNG_LIBPNG_VER_STRING = '1.6.44'
-wrapper.PNG_HEADER_VERSION_STRING " libpng version "..wrapper.PNG_LIBPNG_VER_STRING..'\n'
+wrapper.PNG_HEADER_VERSION_STRING = " libpng version "..wrapper.PNG_LIBPNG_VER_STRING..'\n'
 
 -- this is a value in C but a function in Lua
 function wrapper.png_libpng_ver() return wrapper.png_get_header_ver(nil) end
