@@ -169,7 +169,8 @@ typedef struct {
 } TIFFFieldInfo;
 ]]
 
-return require 'ffi.libwrapper'{
+local wrapper
+wrapper = require 'ffi.libwrapper'{
 	lib = require 'ffi.load' 'tiff',
 	defs = {
 
@@ -1057,3 +1058,17 @@ return require 'ffi.libwrapper'{
 		TIFFOpenWExt = [[TIFF *TIFFOpenWExt(const wchar_t *, const char *, TIFFOpenOptions *opts);]],
 	},
 }
+
+wrapper.TIFFLIB_VERSION_STR = "LIBTIFF, Version 4.7.0\nCopyright (c) 1988-1996 Sam Leffler\nCopyright (c) 1991-1996 Silicon Graphics, Inc." ### string, not number "\"LIBTIFF, Version 4.7.0\\nCopyright (c) 1988-1996 Sam Leffler\\nCopyright (c) 1991-1996 Silicon Graphics, Inc.\""
+wrapper.TIFFLIB_VERSION_STR_MAJ_MIN_MIC = "4.7.0"
+wrapper.D65_X0 = 95.0470
+wrapper.D65_Y0 = 100.0
+wrapper.D65_Z0 = 108.8827
+wrapper.D50_X0 = 96.4250
+wrapper.D50_Y0 = 100.0
+wrapper.D50_Z0 = 82.4680
+wrapper.U_NEU = 0.210526316
+wrapper.V_NEU = 0.473684211
+wrapper.UVSCALE = 410.
+
+return wrapper
