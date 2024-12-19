@@ -329,5 +329,8 @@ wrapper.EGL_UNKNOWN = ffi.cast('EGLint', -1)
 wrapper.EGL_DEFAULT_DISPLAY = ffi.cast('EGLNativeDisplayType', 0)
 wrapper.EGL_NO_SYNC = ffi.cast('EGLSync', 0)
 wrapper.EGL_NO_IMAGE = ffi.cast('EGLImage', 0)
+wrapper.EGL_FOREVER = 0xFFFFFFFFFFFFFFFFULL
+wrapper.EGL_NO_SYNC = ffi.cast('EGLSync', 0)
+wrapper.EGL_NO_IMAGE = ffi.cast('EGLImage', 0)
 
 return wrapper
