@@ -6,9 +6,23 @@ ffi.cdef[[
 ]] require 'ffi.req' 'KHR.khrplatform' ffi.cdef[[
 /* +++ END   /usr/include/KHR/khrplatform.h */
 /* #define EGLAPIENTRYP EGLAPIENTRY* ### string, not number "EGLAPIENTRY*" */
+]]
+
+-- I'm guessing this is a difference of OS's and not a difference of EGL versions because the header version says it is the same, but the Linux build did void* while the OSX build did int ...
+if ffi.os == 'OSX' then
+	ffi.cdef[[
+typedef int EGLNativeDisplayType;
+typedef void *EGLNativePixmapType;
+typedef void *EGLNativeWindowType;
+]]
+else
+	ffi.cdef[[
 typedef void *EGLNativeDisplayType;
 typedef khronos_uintptr_t EGLNativePixmapType;
 typedef khronos_uintptr_t EGLNativeWindowType;
+]]
+end
+ffi.cdef[[
 typedef EGLNativeDisplayType NativeDisplayType;
 typedef EGLNativePixmapType NativePixmapType;
 typedef EGLNativeWindowType NativeWindowType;
@@ -19,7 +33,6 @@ enum { EGL_VERSION_1_0 = 1 };
 typedef unsigned int EGLBoolean;
 typedef void *EGLDisplay;
 /* ++ BEGIN /usr/include/KHR/khrplatform.h */
-]] require 'ffi.req' 'KHR.khrplatform' ffi.cdef[[
 /* ++ END   /usr/include/KHR/khrplatform.h */
 /* ++ BEGIN /usr/include/EGL/eglplatform.h */
 /* ++ END   /usr/include/EGL/eglplatform.h */

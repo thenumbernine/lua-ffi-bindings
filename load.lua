@@ -28,11 +28,13 @@ return setmetatable({
 	},
 	GL = {
 		Windows = 'OpenGL32',
-		OSX = '/System/Library/Frameworks/OpenGL.framework/OpenGL',
+		--OSX = '/System/Library/Frameworks/OpenGL.framework/OpenGL',	-- builtin crap
+		OSX = '/usr/local/lib/libGL.dylib',	-- osx brew mesa
 	},
 	GLU = {
 		Windows = 'GLU32',
-		OSX = '/System/Library/Frameworks/OpenGL.framework/OpenGL',
+		--OSX = '/System/Library/Frameworks/OpenGL.framework/OpenGL',	-- builtin crap
+		OSX = '/usr/local/lib/libGLU.dylib',	-- osx brew mesa
 	},
 	
 	-- hmm, GLES library names are funny
@@ -40,9 +42,13 @@ return setmetatable({
 	-- GLES2, GLES2/gl2.h uses GLESv2.so
 	-- GLES3, GLES3/gl3.h uses ... GLESv2.so as well
 	GLESv2 = {
-		OSX = '/System/Library/Frameworks/OpenGL.framework/OpenGL',
-		--OSX = '/usr/local/lib/libGLESv2.dylib',	-- mesa
+		--OSX = '/System/Library/Frameworks/OpenGL.framework/OpenGL',	-- builtin crap
 		--OSX = '/System/Library/Frameworks/CoreImage.framework/Versions/A/Frameworks/libWrapGLES.dylib',	-- dlopen says incompatible platforms
+		OSX = '/usr/local/lib/libGLESv2.dylib',	-- osx brew mesa
+	},
+
+	EGL = {
+		OSX = '/usr/local/lib/libEGL.dylib',
 	},
 
 	OpenCL = {
