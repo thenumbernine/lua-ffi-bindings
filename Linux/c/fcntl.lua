@@ -135,3 +135,4 @@ extern int posix_fadvise (int __fd, off_t __offset, off_t __len, int __advise) _
 extern int posix_fallocate (int __fd, off_t __offset, off_t __len);
 /* + END   /usr/include/fcntl.h */
 ]]
+return ffi.C
