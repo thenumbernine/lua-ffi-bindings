@@ -1,9 +1,9 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* + BEGIN /usr/include/lapacke.h */
-/* ++ BEGIN /usr/include/lapack.h */
+/* + BEGIN /usr/local/Cellar/lapack/3.12.1/include/lapacke.h */
+/* ++ BEGIN /usr/local/Cellar/lapack/3.12.1/include/lapack.h */
 ]] require 'ffi.req' 'lapack' ffi.cdef[[
-/* ++ END   /usr/include/lapack.h */
+/* ++ END   /usr/local/Cellar/lapack/3.12.1/include/lapack.h */
 enum { LAPACK_ROW_MAJOR = 101 };
 enum { LAPACK_COL_MAJOR = 102 };
 enum { LAPACK_WORK_MEMORY_ERROR = -1010 };
@@ -1185,6 +1185,14 @@ int32_t LAPACKE_sgesdd_work( int matrix_layout, char jobz, int32_t m, int32_t n,
 int32_t LAPACKE_dgesdd_work( int matrix_layout, char jobz, int32_t m, int32_t n, double* a, int32_t lda, double* s, double* u, int32_t ldu, double* vt, int32_t ldvt, double* work, int32_t lwork, int32_t* iwork );
 int32_t LAPACKE_cgesdd_work( int matrix_layout, char jobz, int32_t m, int32_t n, float _Complex* a, int32_t lda, float* s, float _Complex* u, int32_t ldu, float _Complex* vt, int32_t ldvt, float _Complex* work, int32_t lwork, float* rwork, int32_t* iwork );
 int32_t LAPACKE_zgesdd_work( int matrix_layout, char jobz, int32_t m, int32_t n, double _Complex* a, int32_t lda, double* s, double _Complex* u, int32_t ldu, double _Complex* vt, int32_t ldvt, double _Complex* work, int32_t lwork, double* rwork, int32_t* iwork );
+int32_t LAPACKE_sgedmd_work( int matrix_layout, char jobs, char jobz, char jobr, char jobf, int32_t whtsvd, int32_t m, int32_t n, float* x, int32_t ldx, float* y, int32_t ldy, int32_t nrnk, float* tol, int32_t k, float* reig, float* imeig, float* z, int32_t ldz, float* res, float* b, int32_t ldb, float* w, int32_t ldw, float* s, int32_t lds, float* work, int32_t lwork, int32_t* iwork, int32_t liwork );
+int32_t LAPACKE_dgedmd_work( int matrix_layout, char jobs, char jobz, char jobr, char jobf, int32_t whtsvd, int32_t m, int32_t n, double* x, int32_t ldx, double* y, int32_t ldy, int32_t nrnk, double* tol, int32_t k, double* reig, double *imeig, double* z, int32_t ldz, double* res, double* b, int32_t ldb, double* w, int32_t ldw, double* s, int32_t lds, double* work, int32_t lwork, int32_t* iwork, int32_t liwork );
+int32_t LAPACKE_cgedmd_work( int matrix_layout, char jobs, char jobz, char jobr, char jobf, int32_t whtsvd, int32_t m, int32_t n, float _Complex* x, int32_t ldx, float _Complex* y, int32_t ldy, int32_t nrnk, float* tol, int32_t k, float _Complex* eigs, float _Complex* z, int32_t ldz, float* res, float _Complex* b, int32_t ldb, float _Complex* w, int32_t ldw, float _Complex* s, int32_t lds, float _Complex* zwork, int32_t lzwork, float* work, int32_t lwork, int32_t* iwork, int32_t liwork );
+int32_t LAPACKE_zgedmd_work( int matrix_layout, char jobs, char jobz, char jobr, char jobf, int32_t whtsvd, int32_t m, int32_t n, double _Complex* x, int32_t ldx, double _Complex* y, int32_t ldy, int32_t nrnk, double* tol, int32_t k, double _Complex* eigs, double _Complex* z, int32_t ldz, double* res, double _Complex* b, int32_t ldb, double _Complex* w, int32_t ldw, double _Complex* s, int32_t lds, double _Complex* zwork, int32_t lzwork, double* work, int32_t lwork, int32_t* iwork, int32_t liwork );
+int32_t LAPACKE_sgedmdq_work( int matrix_layout, char jobs, char jobz, char jobr, char jobq, char jobt, char jobf, int32_t whtsvd, int32_t m, int32_t n, float* f, int32_t ldf, float* x, int32_t ldx, float* y, int32_t ldy, int32_t nrnk, float* tol, int32_t k, float* reig, float *imeig, float* z, int32_t ldz, float* res, float* b, int32_t ldb, float* v, int32_t ldv, float* s, int32_t lds, float* work, int32_t lwork, int32_t* iwork, int32_t liwork );
+int32_t LAPACKE_dgedmdq_work( int matrix_layout, char jobs, char jobz, char jobr, char jobq, char jobt, char jobf, int32_t whtsvd, int32_t m, int32_t n, double* f, int32_t ldf, double* x, int32_t ldx, double* y, int32_t ldy, int32_t nrnk, double* tol, int32_t k, double* reig, double* imeig, double* z, int32_t ldz, double* res, double* b, int32_t ldb, double* v, int32_t ldv, double* s, int32_t lds, double* work, int32_t lwork, int32_t* iwork, int32_t liwork );
+int32_t LAPACKE_cgedmdq_work( int matrix_layout, char jobs, char jobz, char jobr, char jobq, char jobt, char jobf, int32_t whtsvd, int32_t m, int32_t n, float _Complex* f, int32_t ldf, float _Complex* x, int32_t ldx, float _Complex* y, int32_t ldy, int32_t nrnk, float* tol, int32_t k, float _Complex* eigs, float _Complex* z, int32_t ldz, float* res, float _Complex* b, int32_t ldb, float _Complex* v, int32_t ldv, float _Complex* s, int32_t lds, float _Complex* zwork, int32_t lzwork, float* work, int32_t lwork, int32_t* iwork, int32_t liwork);
+int32_t LAPACKE_zgedmdq_work( int matrix_layout, char jobs, char jobz, char jobr, char jobq, char jobt, char jobf, int32_t whtsvd, int32_t m, int32_t n, double _Complex* f, int32_t ldf, double _Complex* x, int32_t ldx, double _Complex* y, int32_t ldy, int32_t nrnk, double* tol, int32_t k, double _Complex* eigs, double _Complex* z, int32_t ldz, double* res, double _Complex* b, int32_t ldb, double _Complex* v, int32_t ldv, double _Complex* s, int32_t lds, double _Complex* zwork, int32_t lzwork, double* work, int32_t lwork, int32_t* iwork, int32_t liwork);
 int32_t LAPACKE_sgesv_work( int matrix_layout, int32_t n, int32_t nrhs, float* a, int32_t lda, int32_t* ipiv, float* b, int32_t ldb );
 int32_t LAPACKE_dgesv_work( int matrix_layout, int32_t n, int32_t nrhs, double* a, int32_t lda, int32_t* ipiv, double* b, int32_t ldb );
 int32_t LAPACKE_cgesv_work( int matrix_layout, int32_t n, int32_t nrhs, float _Complex* a, int32_t lda, int32_t* ipiv, float _Complex* b, int32_t ldb );
@@ -2506,8 +2514,16 @@ int32_t LAPACKE_chetrs_aa_2stage( int matrix_layout, char uplo, int32_t n, int32
 int32_t LAPACKE_chetrs_aa_2stage_work( int matrix_layout, char uplo, int32_t n, int32_t nrhs, float _Complex* a, int32_t lda, float _Complex* tb, int32_t ltb, int32_t* ipiv, int32_t* ipiv2, float _Complex* b, int32_t ldb );
 int32_t LAPACKE_zhetrs_aa_2stage( int matrix_layout, char uplo, int32_t n, int32_t nrhs, double _Complex* a, int32_t lda, double _Complex* tb, int32_t ltb, int32_t* ipiv, int32_t* ipiv2, double _Complex* b, int32_t ldb );
 int32_t LAPACKE_zhetrs_aa_2stage_work( int matrix_layout, char uplo, int32_t n, int32_t nrhs, double _Complex* a, int32_t lda, double _Complex* tb, int32_t ltb, int32_t* ipiv, int32_t* ipiv2, double _Complex* b, int32_t ldb );
+int32_t LAPACKE_sorhr_col( int matrix_layout, int32_t m, int32_t n, int32_t nb, float* a, int32_t lda, float* t, int32_t ldt, float* d );
+int32_t LAPACKE_sorhr_col_work( int matrix_layout, int32_t m, int32_t n, int32_t nb, float* a, int32_t lda, float* t, int32_t ldt, float* d );
+int32_t LAPACKE_dorhr_col( int matrix_layout, int32_t m, int32_t n, int32_t nb, double* a, int32_t lda, double* t, int32_t ldt, double* d );
+int32_t LAPACKE_dorhr_col_work( int matrix_layout, int32_t m, int32_t n, int32_t nb, double* a, int32_t lda, double* t, int32_t ldt, double* d );
+int32_t LAPACKE_cunhr_col( int matrix_layout, int32_t m, int32_t n, int32_t nb, float _Complex* a, int32_t lda, float _Complex* t, int32_t ldt, float _Complex* d );
+int32_t LAPACKE_cunhr_col_work( int matrix_layout, int32_t m, int32_t n, int32_t nb, float _Complex* a, int32_t lda, float _Complex* t, int32_t ldt, float _Complex* d );
+int32_t LAPACKE_zunhr_col( int matrix_layout, int32_t m, int32_t n, int32_t nb, double _Complex* a, int32_t lda, double _Complex* t, int32_t ldt, double _Complex* d );
+int32_t LAPACKE_zunhr_col_work( int matrix_layout, int32_t m, int32_t n, int32_t nb, double _Complex* a, int32_t lda, double _Complex* t, int32_t ldt, double _Complex* d );
 void LAPACKE_set_nancheck( int flag );
 int LAPACKE_get_nancheck( void );
-/* + END   /usr/include/lapacke.h */
+/* + END   /usr/local/Cellar/lapack/3.12.1/include/lapacke.h */
 ]]
 return require 'ffi.load' 'lapacke'

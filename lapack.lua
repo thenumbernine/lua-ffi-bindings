@@ -1,27 +1,28 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* + BEGIN /usr/include/lapack.h */
+/* + BEGIN /usr/local/Cellar/lapack/3.12.1/include/lapack.h */
 enum { LAPACK_H = 1 };
-/* ++ BEGIN /usr/include/lapacke_mangling.h */
+/* ++ BEGIN /usr/local/Cellar/lapack/3.12.1/include/lapacke_mangling.h */
 enum { LAPACK_HEADER_INCLUDED = 1 };
-/* ++ END   /usr/include/lapacke_mangling.h */
-/* ++ BEGIN /usr/include/stdlib.h */
+/* ++ END   /usr/local/Cellar/lapack/3.12.1/include/lapacke_mangling.h */
+/* ++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/stdlib.h */
 ]] require 'ffi.req' 'c.stdlib' ffi.cdef[[
-/* ++ END   /usr/include/stdlib.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h */
+/* ++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/stdlib.h */
+/* ++ BEGIN /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stdarg.h */
 ]] require 'ffi.req' 'c.stdarg' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h */
-/* ++ BEGIN /usr/include/inttypes.h */
+/* ++ END   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stdarg.h */
+/* ++ BEGIN /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/inttypes.h */
 ]] require 'ffi.req' 'c.inttypes' ffi.cdef[[
-/* ++ END   /usr/include/inttypes.h */
+/* ++ END   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/inttypes.h */
 enum { LAPACK_FORTRAN_STRLEN_END = 1 };
-/* ++ BEGIN /usr/include/complex.h */
+enum { FORTRAN_STRLEN = 0 };
+/* ++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/complex.h */
 ]] require 'ffi.req' 'c.complex' ffi.cdef[[
-/* ++ END   /usr/include/complex.h */
+/* ++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/complex.h */
 /* #define lapack_complex_float    float _Complex ### string, not number "float _Complex" */
-/* ++ BEGIN /usr/include/complex.h */
+/* ++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/complex.h */
 ]] require 'ffi.req' 'c.complex' ffi.cdef[[
-/* ++ END   /usr/include/complex.h */
+/* ++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/complex.h */
 /* #define lapack_complex_double   double _Complex ### string, not number "double _Complex" */
 typedef int32_t lapack_int;
 /* #define LAPACK_IFMT       PRId32 ### string, not number "PRId32" */
@@ -35,7 +36,7 @@ typedef int32_t (*LAPACK_C_SELECT1) ( const float _Complex* );
 typedef int32_t (*LAPACK_C_SELECT2) ( const float _Complex*, const float _Complex* );
 typedef int32_t (*LAPACK_Z_SELECT1) ( const double _Complex* );
 typedef int32_t (*LAPACK_Z_SELECT2) ( const double _Complex*, const double _Complex* );
-int32_t lsame_ ( const char* ca, const char* cb, int32_t lca, int32_t lcb , size_t, size_t );
+int32_t lsame_ ( const char* ca, const char* cb , size_t, size_t );
 void cbbcsd_ ( char const* jobu1, char const* jobu2, char const* jobv1t, char const* jobv2t, char const* trans, int32_t const* m, int32_t const* p, int32_t const* q, float* theta, float* phi, float _Complex* U1, int32_t const* ldu1, float _Complex* U2, int32_t const* ldu2, float _Complex* V1T, int32_t const* ldv1t, float _Complex* V2T, int32_t const* ldv2t, float* B11D, float* B11E, float* B12D, float* B12E, float* B21D, float* B21E, float* B22D, float* B22E, float* rwork, int32_t const* lrwork, int32_t* info , size_t, size_t, size_t, size_t, size_t );
 void dbbcsd_ ( char const* jobu1, char const* jobu2, char const* jobv1t, char const* jobv2t, char const* trans, int32_t const* m, int32_t const* p, int32_t const* q, double* theta, double* phi, double* U1, int32_t const* ldu1, double* U2, int32_t const* ldu2, double* V1T, int32_t const* ldv1t, double* V2T, int32_t const* ldv2t, double* B11D, double* B11E, double* B12D, double* B12E, double* b21d, double* b21e, double* b22d, double* b22e, double* work, int32_t const* lwork, int32_t* info , size_t, size_t, size_t, size_t, size_t );
 void sbbcsd_ ( char const* jobu1, char const* jobu2, char const* jobv1t, char const* jobv2t, char const* trans, int32_t const* m, int32_t const* p, int32_t const* q, float* theta, float* phi, float* U1, int32_t const* ldu1, float* U2, int32_t const* ldu2, float* V1T, int32_t const* ldv1t, float* V2T, int32_t const* ldv2t, float* B11D, float* B11E, float* B12D, float* B12E, float* B21D, float* B21E, float* B22D, float* B22E, float* work, int32_t const* lwork, int32_t* info , size_t, size_t, size_t, size_t, size_t );
@@ -192,8 +193,8 @@ void sgeqlf_ ( int32_t const* m, int32_t const* n, float* A, int32_t const* lda,
 void zgeqlf_ ( int32_t const* m, int32_t const* n, double _Complex* A, int32_t const* lda, double _Complex* tau, double _Complex* work, int32_t const* lwork, int32_t* info );
 void sgeqpf_ ( int32_t* m, int32_t* n, float* a, int32_t* lda, int32_t* jpvt, float* tau, float* work, int32_t *info );
 void dgeqpf_ ( int32_t* m, int32_t* n, double* a, int32_t* lda, int32_t* jpvt, double* tau, double* work, int32_t *info );
-void cgeqpf_ ( int32_t* m, lapack_int* n, float _Complex* a, int32_t* lda, int32_t* jpvt, float _Complex* tau, float _Complex* work, float* rwork, int32_t *info );
-void zgeqpf_ ( int32_t* m, lapack_int* n, double _Complex* a, int32_t* lda, int32_t* jpvt, double _Complex* tau, double _Complex* work, double* rwork, int32_t *info );
+void cgeqpf_ ( int32_t* m, int32_t* n, float _Complex* a, int32_t* lda, int32_t* jpvt, float _Complex* tau, float _Complex* work, float* rwork, int32_t *info );
+void zgeqpf_ ( int32_t* m, int32_t* n, double _Complex* a, int32_t* lda, int32_t* jpvt, double _Complex* tau, double _Complex* work, double* rwork, int32_t *info );
 void cgeqp3_ ( int32_t const* m, int32_t const* n, float _Complex* A, int32_t const* lda, int32_t* JPVT, float _Complex* tau, float _Complex* work, int32_t const* lwork, float* rwork, int32_t* info );
 void dgeqp3_ ( int32_t const* m, int32_t const* n, double* A, int32_t const* lda, int32_t* JPVT, double* tau, double* work, int32_t const* lwork, int32_t* info );
 void sgeqp3_ ( int32_t const* m, int32_t const* n, float* A, int32_t const* lda, int32_t* JPVT, float* tau, float* work, int32_t const* lwork, int32_t* info );
@@ -246,6 +247,14 @@ void cgesdd_ ( char const* jobz, int32_t const* m, int32_t const* n, float _Comp
 void dgesdd_ ( char const* jobz, int32_t const* m, int32_t const* n, double* A, int32_t const* lda, double* S, double* U, int32_t const* ldu, double* VT, int32_t const* ldvt, double* work, int32_t const* lwork, int32_t* iwork, int32_t* info , size_t );
 void sgesdd_ ( char const* jobz, int32_t const* m, int32_t const* n, float* A, int32_t const* lda, float* S, float* U, int32_t const* ldu, float* VT, int32_t const* ldvt, float* work, int32_t const* lwork, int32_t* iwork, int32_t* info , size_t );
 void zgesdd_ ( char const* jobz, int32_t const* m, int32_t const* n, double _Complex* A, int32_t const* lda, double* S, double _Complex* U, int32_t const* ldu, double _Complex* VT, int32_t const* ldvt, double _Complex* work, int32_t const* lwork, double* rwork, int32_t* iwork, int32_t* info , size_t );
+void cgedmd_ ( char const* jobs, char const* jobz, char const* jobr, char const* jobf, int32_t const* whtsvd, int32_t const* m, int32_t const* n, float _Complex* x, int32_t const* ldx, float _Complex* y, int32_t const* ldy, int32_t const* nrnk, const float* tol, int32_t* k, float _Complex* eigs, float _Complex* z, int32_t const* ldz, float* res, float _Complex* b, int32_t const* ldb, float _Complex* w, int32_t const* ldw, float _Complex* s, int32_t const* lds, float _Complex* zwork, int32_t const* lzwork, float* work, int32_t const* lwork, int32_t* iwork, int32_t const* liwork, int32_t* info , size_t, size_t, size_t, size_t );
+void dgedmd_ ( char const* jobs, char const* jobz, char const* jobr, char const* jobf, int32_t const* whtsvd, int32_t const* m, int32_t const* n, double* x, int32_t const* ldx, double* y, int32_t const* ldy, int32_t const* nrnk, const double* tol, int32_t* k, double* reig, double* imeig, double* z, int32_t const* ldz, double* res, double* b, int32_t const* ldb, double* w, int32_t const* ldw, double* s, int32_t const* lds, double* work, int32_t const* lwork, int32_t* iwork, int32_t const* liwork, int32_t* info , size_t, size_t, size_t, size_t );
+void sgedmd_ ( char const* jobs, char const* jobz, char const* jobr, char const* jobf, int32_t const* whtsvd, int32_t const* m, int32_t const* n, float* x, int32_t const* ldx, float* y, int32_t const* ldy, int32_t const* nrnk, const float* tol, int32_t* k, float* reig, float *imeig, float* z, int32_t const* ldz, float* res, float* b, int32_t const* ldb, float* w, int32_t const* ldw, float* s, int32_t const* lds, float* work, int32_t const* lwork, int32_t* iwork, int32_t const* liwork, int32_t* info , size_t, size_t, size_t, size_t );
+void zgedmd_ ( char const* jobs, char const* jobz, char const* jobr, char const* jobf, int32_t const* whtsvd, int32_t const* m, int32_t const* n, double _Complex* x, int32_t const* ldx, double _Complex* y, int32_t const* ldy, int32_t const* nrnk, const double* tol, int32_t *k, double _Complex* eigs, double _Complex* z, int32_t const* ldz, double* res, double _Complex* b, int32_t const* ldb, double _Complex* w, int32_t const* ldw, double _Complex* s, int32_t const* lds, double _Complex* zwork, int32_t const* lzwork, double* rwork, int32_t const* lrwork, int32_t* iwork, int32_t const* liwork, int32_t* info , size_t, size_t, size_t, size_t );
+void cgedmdq_ ( char const* jobs, char const* jobz, char const* jobr, char const* jobq, char const* jobt, char const* jobf, int32_t const* whtsvd, int32_t const* m, int32_t const* n, float _Complex* f, int32_t const* ldf, float _Complex* x, int32_t const* ldx, float _Complex* y, int32_t const* ldy, int32_t const* nrnk, float const* tol, int32_t const* k, float _Complex* eigs, float _Complex* z, int32_t const* ldz, float* res, float _Complex* b, int32_t const* ldb, float _Complex* v, int32_t const* ldv, float _Complex* s, int32_t const* lds, float _Complex* zwork, int32_t const* lzwork, float* work, int32_t const* lwork, int32_t* iwork, int32_t const* liwork, int32_t* info , size_t, size_t, size_t, size_t, size_t, size_t );
+void dgedmdq_ ( char const* jobs, char const* jobz, char const* jobr, char const* jobq, char const* jobt, char const* jobf, int32_t const* whtsvd, int32_t const* m, int32_t const* n, double* f, int32_t const* ldf, double* x, int32_t const* ldx, double* y, int32_t const* ldy, int32_t const* nrnk, double const* tol, int32_t* k, double* reig, double *imeig, double* z, int32_t const* ldz, double* res, double* b, int32_t const* ldb, double* v, int32_t const* ldv, double* s, int32_t const* lds, double* work, int32_t const* lwork, int32_t* iwork, int32_t const* liwork, int32_t* info , size_t, size_t, size_t, size_t, size_t, size_t );
+void sgedmdq_ ( char const* jobs, char const* jobz, char const* jobr, char const* jobq, char const* jobt, char const* jobf, int32_t const* whtsvd, int32_t const* m, int32_t const* n, float* f, int32_t const* ldf, float* x, int32_t const* ldx, float* y, int32_t const* ldy, int32_t const* nrnk, float const* tol, int32_t const* k, float* reig, float* imeig, float* z, int32_t const* ldz, float* res, float* b, int32_t const* ldb, float* v, int32_t const* ldv, float* s, int32_t const* lds, float* work, int32_t const* lwork, int32_t* iwork, int32_t const* liwork, int32_t* info , size_t, size_t, size_t, size_t, size_t, size_t );
+void zgedmdq_ ( char const* jobs, char const* jobz, char const* jobr, char const* jobq, char const* jobt, char const* jobf, int32_t const* whtsvd, int32_t const* m, int32_t const* n, double _Complex* f, int32_t const* ldf, double _Complex* x, int32_t const* ldx, double _Complex* y, int32_t const* ldy, int32_t const* nrnk, double const* tol, int32_t const* k, double _Complex* eigs, double _Complex* z, int32_t const* ldz, double* res, double _Complex* b, int32_t const* ldb, double _Complex* v, int32_t const* ldv, double _Complex* s, int32_t const* lds, double _Complex* zwork, int32_t const* lzwork, double* work, int32_t const* lwork, int32_t* iwork, int32_t const* liwork, int32_t* info , size_t, size_t, size_t, size_t, size_t, size_t );
 void cgesv_ ( int32_t const* n, int32_t const* nrhs, float _Complex* A, int32_t const* lda, int32_t* ipiv, float _Complex* B, int32_t const* ldb, int32_t* info );
 void dgesv_ ( int32_t const* n, int32_t const* nrhs, double* A, int32_t const* lda, int32_t* ipiv, double* B, int32_t const* ldb, int32_t* info );
 void sgesv_ ( int32_t const* n, int32_t const* nrhs, float* A, int32_t const* lda, int32_t* ipiv, float* B, int32_t const* ldb, int32_t* info );
@@ -727,6 +736,8 @@ void dorgtr_ ( char const* uplo, int32_t const* n, double* A, int32_t const* lda
 void sorgtr_ ( char const* uplo, int32_t const* n, float* A, int32_t const* lda, float const* tau, float* work, int32_t const* lwork, int32_t* info , size_t );
 void dorgtsqr_row_ ( int32_t const* m, int32_t const* n, int32_t const* mb, int32_t const* nb, double* A, int32_t const* lda, double const* T, int32_t const* ldt, double* work, int32_t const* lwork, int32_t* info );
 void sorgtsqr_row_ ( int32_t const* m, int32_t const* n, int32_t const* mb, int32_t const* nb, float* A, int32_t const* lda, float const* T, int32_t const* ldt, float* work, int32_t const* lwork, int32_t* info );
+void dorhr_col_ ( int32_t const* m, int32_t const* n, int32_t const* nb, double* A, int32_t const* lda, double* T, int32_t const* ldt, double* D, int32_t* info );
+void sorhr_col_ ( int32_t const* m, int32_t const* n, int32_t const* nb, float* A, int32_t const* lda, float* T, int32_t const* ldt, float* D, int32_t* info );
 void dormbr_ ( char const* vect, char const* side, char const* trans, int32_t const* m, int32_t const* n, int32_t const* k, double const* A, int32_t const* lda, double const* tau, double* C, int32_t const* ldc, double* work, int32_t const* lwork, int32_t* info , size_t, size_t, size_t );
 void sormbr_ ( char const* vect, char const* side, char const* trans, int32_t const* m, int32_t const* n, int32_t const* k, float const* A, int32_t const* lda, float const* tau, float* C, int32_t const* ldc, float* work, int32_t const* lwork, int32_t* info , size_t, size_t, size_t );
 void dormhr_ ( char const* side, char const* trans, int32_t const* m, int32_t const* n, int32_t const* ilo, int32_t const* ihi, double const* A, int32_t const* lda, double const* tau, double* C, int32_t const* ldc, double* work, int32_t const* lwork, int32_t* info , size_t, size_t );
@@ -1335,6 +1346,8 @@ void cungtr_ ( char const* uplo, int32_t const* n, float _Complex* A, int32_t co
 void zungtr_ ( char const* uplo, int32_t const* n, double _Complex* A, int32_t const* lda, double _Complex const* tau, double _Complex* work, int32_t const* lwork, int32_t* info , size_t );
 void cungtsqr_row_ ( int32_t const* m, int32_t const* n, int32_t const* mb, int32_t const* nb, float _Complex* A, int32_t const* lda, float _Complex const* T, int32_t const* ldt, float _Complex* work, int32_t const* lwork, int32_t* info );
 void zungtsqr_row_ ( int32_t const* m, int32_t const* n, int32_t const* mb, int32_t const* nb, double _Complex* A, int32_t const* lda, double _Complex const* T, int32_t const* ldt, double _Complex* work, int32_t const* lwork, int32_t* info );
+void cunhr_col_ ( int32_t const* m, int32_t const* n, int32_t const* nb, float _Complex* A, int32_t const* lda, float _Complex* T, int32_t const* ldt, float _Complex* D, int32_t* info );
+void zunhr_col_ ( int32_t const* m, int32_t const* n, int32_t const* nb, double _Complex* A, int32_t const* lda, double _Complex* T, int32_t const* ldt, double _Complex* D, int32_t* info );
 void cunmbr_ ( char const* vect, char const* side, char const* trans, int32_t const* m, int32_t const* n, int32_t const* k, float _Complex const* A, int32_t const* lda, float _Complex const* tau, float _Complex* C, int32_t const* ldc, float _Complex* work, int32_t const* lwork, int32_t* info , size_t, size_t, size_t );
 void zunmbr_ ( char const* vect, char const* side, char const* trans, int32_t const* m, int32_t const* n, int32_t const* k, double _Complex const* A, int32_t const* lda, double _Complex const* tau, double _Complex* C, int32_t const* ldc, double _Complex* work, int32_t const* lwork, int32_t* info , size_t, size_t, size_t );
 void cunmhr_ ( char const* side, char const* trans, int32_t const* m, int32_t const* n, int32_t const* ilo, int32_t const* ihi, float _Complex const* A, int32_t const* lda, float _Complex const* tau, float _Complex* C, int32_t const* ldc, float _Complex* work, int32_t const* lwork, int32_t* info , size_t, size_t );
@@ -1355,6 +1368,6 @@ void cupgtr_ ( char const* uplo, int32_t const* n, float _Complex const* AP, flo
 void zupgtr_ ( char const* uplo, int32_t const* n, double _Complex const* AP, double _Complex const* tau, double _Complex* Q, int32_t const* ldq, double _Complex* work, int32_t* info , size_t );
 void cupmtr_ ( char const* side, char const* uplo, char const* trans, int32_t const* m, int32_t const* n, float _Complex const* AP, float _Complex const* tau, float _Complex* C, int32_t const* ldc, float _Complex* work, int32_t* info , size_t, size_t, size_t );
 void zupmtr_ ( char const* side, char const* uplo, char const* trans, int32_t const* m, int32_t const* n, double _Complex const* AP, double _Complex const* tau, double _Complex* C, int32_t const* ldc, double _Complex* work, int32_t* info , size_t, size_t, size_t );
-/* + END   /usr/include/lapack.h */
+/* + END   /usr/local/Cellar/lapack/3.12.1/include/lapack.h */
 ]]
 return require 'ffi.load' 'lapack'
