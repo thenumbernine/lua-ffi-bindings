@@ -97,9 +97,8 @@ function vectorbase:resize(newsize)
 	local newcap = bit.lshift(bit.rshift(ffi.cast('size_t', newsize), 5) + 1, 5)
 --DEBUG: print('vectorbase.resize', newsize)
 --DEBUG: print('newcap', newcap)
---DEBUG: assert(newcap >= self:capacity())
 	self:reserve(newcap)
---DEBUG: assert(self:capacity() == newcap)
+--DEBUG: assert(self:capacity() >= newcap)
 	-- TODO ffi.fill with zero here?
 	self.finish = self.v + newsize
 --DEBUG: assert(self:size() >= newsize)
