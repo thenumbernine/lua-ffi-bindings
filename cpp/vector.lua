@@ -27,16 +27,16 @@ end
 vectorbase.__len = vectorbase.size
 
 function vectorbase:capacity()
---DEBUG: print'vectorbase.capacity()'
---DEBUG: print('ffi.typeof(self) = ', ffi.typeof(self))
---DEBUG: print('(void*)self = ', tostring(ffi.cast('void*', self)))
+--DEBUG(ffi.cpp.vector): print'vectorbase.capacity()'
+--DEBUG(ffi.cpp.vector): print('ffi.typeof(self) = ', ffi.typeof(self))
+--DEBUG(ffi.cpp.vector): print('(void*)self = ', tostring(ffi.cast('void*', self)))
 -- TODO how come printing pointers is crashing?
---DEBUG: -- print('self.start', tostring(self.start))
---DEBUG: -- print('self.start', ''..self.start)
---DEBUG: print('self.start', tostring(ffi.cast('void*', self.start)))
---DEBUG: print('self.endOfStorage', tostring(ffi.cast('void*', self.endOfStorage)))
---DEBUG: -- print('self.endOfStorage', tostring(self.endOfStorage))
---DEBUG: print('returning', tostring(self.endOfStorage - self.start))
+--DEBUG(ffi.cpp.vector): -- print('self.start', tostring(self.start))
+--DEBUG(ffi.cpp.vector): -- print('self.start', ''..self.start)
+--DEBUG(ffi.cpp.vector): print('self.start', tostring(ffi.cast('void*', self.start)))
+--DEBUG(ffi.cpp.vector): print('self.endOfStorage', tostring(ffi.cast('void*', self.endOfStorage)))
+--DEBUG(ffi.cpp.vector): -- print('self.endOfStorage', tostring(self.endOfStorage))
+--DEBUG(ffi.cpp.vector): print('returning', tostring(self.endOfStorage - self.start))
 	return self.endOfStorage - self.start
 end
 
@@ -70,17 +70,17 @@ function vectorbase:__ipairs()
 end
 
 function vectorbase:reserve(newcap)
---DEBUG: print('vectorbase.reserve', newcap)
+--DEBUG(ffi.cpp.vector): print('vectorbase.reserve', newcap)
 	local oldcap = self:capacity()
---DEBUG: print('oldcap', oldcap)
+--DEBUG(ffi.cpp.vector): print('oldcap', oldcap)
 	if newcap <= oldcap then
---DEBUG: print('newcap <= oldcap, returning')
+--DEBUG(ffi.cpp.vector): print('newcap <= oldcap, returning')
 		return
 	end
 	-- so self:capacity() < newcap
 	-- TODO realloc?
 	local bytes = ffi.sizeof(self.T) * newcap
---DEBUG: print('allocating '..tostring(bytes)..' bytes')
+--DEBUG(ffi.cpp.vector): print('allocating '..tostring(bytes)..' bytes')
 	local newv = ffi.C.malloc(bytes)
 	if newv == nil then error("malloc failed to allocate "..bytes) end
 	local size = self:size()
@@ -95,13 +95,13 @@ end
 function vectorbase:resize(newsize)
 	-- TODO increase by %age?  like 20% or so? with a min threshold of 32 / increments of 32?
 	local newcap = bit.lshift(bit.rshift(ffi.cast('size_t', newsize), 5) + 1, 5)
---DEBUG: print('vectorbase.resize', newsize)
---DEBUG: print('newcap', newcap)
+--DEBUG(ffi.cpp.vector): print('vectorbase.resize', newsize)
+--DEBUG(ffi.cpp.vector): print('newcap', newcap)
 	self:reserve(newcap)
---DEBUG: assert(self:capacity() >= newcap)
+--DEBUG(ffi.cpp.vector): assert(self:capacity() >= newcap)
 	-- TODO ffi.fill with zero here?
 	self.finish = self.v + newsize
---DEBUG: assert(self:size() >= newsize)
+--DEBUG(ffi.cpp.vector): assert(self:size() >= newsize)
 end
 
 function vectorbase:clear()
@@ -110,7 +110,7 @@ end
 
 function vectorbase:push_back(obj)
 	self:resize(self:size() + 1)
---DEBUG: assert(self:size() > 0)
+--DEBUG(ffi.cpp.vector): assert(self:size() > 0)
 	self.finish[-1] = obj
 end
 
@@ -155,8 +155,8 @@ function vectorbase:insert(...)
 	local n = select('#', ...)
 	if n == 3 then
 		local where, first, last = ...
---DEBUG: first = ffi.cast(self.Tptr, first)
---DEBUG: last = ffi.cast(self.Tptr, last)
+--DEBUG(ffi.cpp.vector): first = ffi.cast(self.Tptr, first)
+--DEBUG(ffi.cpp.vector): last = ffi.cast(self.Tptr, last)
 
 		local numToCopy = last - first
 		if numToCopy == 0 then return end
