@@ -587,3 +587,4 @@ __attribute__((visibility("default"))) extern void TF_SetHandleShapeAndType(TF_G
 __attribute__((visibility("default"))) extern void TF_AddWhileInputHack(TF_Graph* graph, TF_Output new_src, TF_Operation* dst, TF_Status* status);
 /* + END   /usr/local/include/tensorflow/c/c_api.h */
 ]]
+return require 'ffi.load' 'tensorflow'
