@@ -3,6 +3,7 @@ std::vector class, written in LuaJIT, but written to be memory-compatible with c
 TODO maybe move that to its own repo, like std-ffi.vector ?
 --]]
 local ffi = require 'ffi'
+local assert = require 'ext.assert'
 local range = require 'ext.range'
 local struct = require 'struct'
 require 'ffi.req' 'c.stdlib'	-- malloc, free
@@ -84,7 +85,7 @@ function vectorbase:reserve(newcap)
 	local newv = ffi.C.malloc(bytes)
 	if newv == nil then error("malloc failed to allocate "..bytes) end
 	local size = self:size()
-	assert(size <= oldcap)
+	assert.le(size, oldcap)
 	ffi.copy(newv, self.v, ffi.sizeof(self.T) * size)
 	if self.v ~= nil then ffi.C.free(self.v) end
 	self.v = newv
@@ -98,10 +99,10 @@ function vectorbase:resize(newsize)
 --DEBUG(ffi.cpp.vector): print('vectorbase.resize', newsize)
 --DEBUG(ffi.cpp.vector): print('newcap', newcap)
 	self:reserve(newcap)
---DEBUG(ffi.cpp.vector): assert(self:capacity() >= newcap)
+--DEBUG(ffi.cpp.vector): assert.ge(self:capacity(), newcap)
 	-- TODO ffi.fill with zero here?
 	self.finish = self.v + newsize
---DEBUG(ffi.cpp.vector): assert(self:size() >= newsize)
+--DEBUG(ffi.cpp.vector): assert.ge(self:size(), newsize)
 end
 
 function vectorbase:clear()
@@ -110,7 +111,7 @@ end
 
 function vectorbase:push_back(obj)
 	self:resize(self:size() + 1)
---DEBUG(ffi.cpp.vector): assert(self:size() > 0)
+--DEBUG(ffi.cpp.vector): assert.gt(self:size(), 0)
 	self.finish[-1] = obj
 end
 
@@ -126,7 +127,7 @@ end
 
 -- returns a ptr to the last element
 function vectorbase:back()
-	assert(self:size() > 0)
+	assert.gt(self:size(), 0)
 	return self.finish - 1
 end
 
@@ -160,10 +161,11 @@ function vectorbase:insert(...)
 
 		local numToCopy = last - first
 		if numToCopy == 0 then return end
-		assert(numToCopy > 0)
+		assert.gt(numToCopy, 0)
 
 		local offset = where - self.v
-		assert(offset >= 0 and offset <= self:size())
+		assert.le(0, offset)
+		assert.le(offset, self:size())
 
 		local origSize = self:size()
 		self:resize(self:size() + numToCopy)
@@ -174,7 +176,8 @@ function vectorbase:insert(...)
 	elseif n == 2 then
 		local where, value = ...
 		local offset = where - self.v
-		assert(0 <= offset and offset <= self:size())
+		assert.le(0, offset)
+		assert.le(offset, self:size())
 		self:resize(self:size() + 1)
 		for i=self:size()-1,offset+1,-1 do
 			self.v[i] = self.v[i-1]
@@ -190,8 +193,10 @@ last = ptr into v, exclusive
 function vectorbase:erase(first, last)
 	if first >= last then return end
 	local iend = self:iend()
-	assert(first >= self.v and first <= iend)
-	assert(last >= self.v and last <= iend)
+	assert.le(self.v, first)
+	assert.le(first, iend)
+	assert.le(self.v, last)
+	assert.le(last, iend)
 	local change = last - first
 	-- [[
 	while last < iend do
@@ -315,8 +320,8 @@ local function makeStdVector(T, name)
 			end,
 		}
 
-		assert(ffi.sizeof(name) == 24)
-		assert(ffi.sizeof(Tptr) == 8)
+		assert.eq(ffi.sizeof(name), 24)
+		assert.eq(ffi.sizeof(Tptr), 8)
 		ctype = assert(ffi.typeof(name))
 	end
 
