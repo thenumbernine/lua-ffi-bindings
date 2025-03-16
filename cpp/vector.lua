@@ -244,8 +244,6 @@ local function makeStdVector(T, name)
 	if not ctype then
 		local Tptr = T..' *'
 
-		-- stl vector in my gcc / linux is 24 bytes
-		-- template type of our vector ... 8 bytes mind you
 		struct{
 			name = name,
 			fields = {
@@ -320,8 +318,10 @@ local function makeStdVector(T, name)
 			end,
 		}
 
-		assert.eq(ffi.sizeof(name), 24)
-		assert.eq(ffi.sizeof(Tptr), 8)
+		-- stl vector in my gcc / linux is 24 bytes
+		-- template type of our vector ... 8 bytes mind you
+		assert.eq(ffi.sizeof(name), 3*ffi.sizeof'void*')	-- 24
+		assert.eq(ffi.sizeof(Tptr), ffi.sizeof'void*')		-- 8
 		ctype = assert(ffi.typeof(name))
 	end
 
