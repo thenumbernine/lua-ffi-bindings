@@ -86,11 +86,18 @@ function vectorbase:reserve(newcap)
 	if newv == nil then error("malloc failed to allocate "..bytes) end
 	local size = self:size()
 	assert.le(size, oldcap)
+--DEBUG(ffi.cpp.vector): print('copying old', tostring(ffi.cast('void*', self.v)), 'to new', tostring(ffi.cast('void*', newv)), '#bytes', ffi.sizeof(self.T) * size)
 	ffi.copy(newv, self.v, ffi.sizeof(self.T) * size)
-	if self.v ~= nil then ffi.C.free(self.v) end
+	if self.v ~= nil then
+--DEBUG(ffi.cpp.vector): print('freeing', tostring(ffi.cast('void*', self.v)))
+		ffi.C.free(self.v)
+	end
 	self.v = newv
+--DEBUG(ffi.cpp.vector): print('new v:', tostring(ffi.cast('void*', self.v)))
 	self.finish = self.v + size
+--DEBUG(ffi.cpp.vector): print('new finish:', tostring(ffi.cast('void*', self.finish)))
 	self.endOfStorage = self.v + newcap
+--DEBUG(ffi.cpp.vector): print('new endOfStorage:', tostring(ffi.cast('void*', self.endOfStorage)))
 end
 
 function vectorbase:resize(newsize)
