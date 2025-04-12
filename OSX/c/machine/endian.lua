@@ -56,13 +56,6 @@ typedef char __darwin_uuid_string_t[37];
 /* +++++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libkern/i386/_OSByteOrder.h */
 /* ++++++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h */
 /* ++++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h */
-static inline __uint16_t _OSSwapInt16( __uint16_t _data ) {
-	return (__uint16_t)((_data << 8) | (_data >> 8));
-} static inline __uint32_t _OSSwapInt32( __uint32_t _data ) {
-	return __builtin_bswap32(_data);
-} static inline __uint64_t _OSSwapInt64( __uint64_t _data ) {
-	return __builtin_bswap64(_data);
-}
 /* +++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libkern/i386/_OSByteOrder.h */
 /* ++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libkern/_OSByteOrder.h */
 /* +++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_endian.h */

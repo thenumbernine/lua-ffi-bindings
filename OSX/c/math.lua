@@ -32,58 +32,7 @@ extern int __math_errhandling(void);
 extern int __fpclassifyf(float);
 extern int __fpclassifyd(double);
 extern int __fpclassifyl(long double);
-inline __attribute__ ((__always_inline__)) int __inline_isfinitef(float);
-inline __attribute__ ((__always_inline__)) int __inline_isfinited(double);
-inline __attribute__ ((__always_inline__)) int __inline_isfinitel(long double);
-inline __attribute__ ((__always_inline__)) int __inline_isinff(float);
-inline __attribute__ ((__always_inline__)) int __inline_isinfd(double);
-inline __attribute__ ((__always_inline__)) int __inline_isinfl(long double);
-inline __attribute__ ((__always_inline__)) int __inline_isnanf(float);
-inline __attribute__ ((__always_inline__)) int __inline_isnand(double);
-inline __attribute__ ((__always_inline__)) int __inline_isnanl(long double);
-inline __attribute__ ((__always_inline__)) int __inline_isnormalf(float);
-inline __attribute__ ((__always_inline__)) int __inline_isnormald(double);
-inline __attribute__ ((__always_inline__)) int __inline_isnormall(long double);
-inline __attribute__ ((__always_inline__)) int __inline_signbitf(float);
-inline __attribute__ ((__always_inline__)) int __inline_signbitd(double);
-inline __attribute__ ((__always_inline__)) int __inline_signbitl(long double);
-inline __attribute__ ((__always_inline__)) int __inline_isfinitef(float __x) {
-	return __x == __x && __builtin_fabsf(__x) != __builtin_inff();
-} inline __attribute__ ((__always_inline__)) int __inline_isfinited(double __x) {
-	return __x == __x && __builtin_fabs(__x) != __builtin_inf();
-} inline __attribute__ ((__always_inline__)) int __inline_isfinitel(long double __x) {
-	return __x == __x && __builtin_fabsl(__x) != __builtin_infl();
-} inline __attribute__ ((__always_inline__)) int __inline_isinff(float __x) {
-	return __builtin_fabsf(__x) == __builtin_inff();
-} inline __attribute__ ((__always_inline__)) int __inline_isinfd(double __x) {
-	return __builtin_fabs(__x) == __builtin_inf();
-} inline __attribute__ ((__always_inline__)) int __inline_isinfl(long double __x) {
-	return __builtin_fabsl(__x) == __builtin_infl();
-} inline __attribute__ ((__always_inline__)) int __inline_isnanf(float __x) {
-	return __x != __x;
-} inline __attribute__ ((__always_inline__)) int __inline_isnand(double __x) {
-	return __x != __x;
-} inline __attribute__ ((__always_inline__)) int __inline_isnanl(long double __x) {
-	return __x != __x;
-} inline __attribute__ ((__always_inline__)) int __inline_signbitf(float __x) { union { float __f; unsigned int __u; } __u;
-__u.__f = __x;
-return (int)(__u.__u >> 31);
-} inline __attribute__ ((__always_inline__)) int __inline_signbitd(double __x) { union { double __f; unsigned long long __u; } __u;
-__u.__f = __x;
-return (int)(__u.__u >> 63);
-} inline __attribute__ ((__always_inline__)) int __inline_signbitl(long double __x) {
-	union { long double __ld;
-	struct{ unsigned long long __m; unsigned short __sexp; } __p;
-} __u;
-__u.__ld = __x;
-return (int)(__u.__p.__sexp >> 15);
-} inline __attribute__ ((__always_inline__)) int __inline_isnormalf(float __x) {
-	return __inline_isfinitef(__x) && __builtin_fabsf(__x) >= 1.17549435e-38F;
-} inline __attribute__ ((__always_inline__)) int __inline_isnormald(double __x) {
-	return __inline_isfinited(__x) && __builtin_fabs(__x) >= 2.2250738585072014e-308;
-} inline __attribute__ ((__always_inline__)) int __inline_isnormall(long double __x) {
-	return __inline_isfinitel(__x) && __builtin_fabsl(__x) >= 3.36210314311209350626e-4932L;
-} extern float acosf(float);
+extern float acosf(float);
 extern double acos(double);
 extern long double acosl(long double);
 extern float asinf(float);
@@ -260,35 +209,19 @@ extern long double __infl(void);
 extern float __nan(void);
 extern float __exp10f(float);
 extern double __exp10(double);
-inline __attribute__ ((__always_inline__)) void __sincosf(float __x, float *__sinp, float *__cosp);
-inline __attribute__ ((__always_inline__)) void __sincos(double __x, double *__sinp, double *__cosp);
 extern float __cospif(float);
 extern double __cospi(double);
 extern float __sinpif(float);
 extern double __sinpi(double);
 extern float __tanpif(float);
 extern double __tanpi(double);
-inline __attribute__ ((__always_inline__)) void __sincospif(float __x, float *__sinp, float *__cosp);
-inline __attribute__ ((__always_inline__)) void __sincospi(double __x, double *__sinp, double *__cosp);
 struct __float2 { float __sinval; float __cosval; };
 struct __double2 { double __sinval; double __cosval; };
 extern struct __float2 __sincosf_stret(float);
 extern struct __double2 __sincos_stret(double);
 extern struct __float2 __sincospif_stret(float);
 extern struct __double2 __sincospi_stret(double);
-inline __attribute__ ((__always_inline__)) void __sincosf(float __x, float *__sinp, float *__cosp) {
-	const struct __float2 __stret = __sincosf_stret(__x);
-	*__sinp = __stret.__sinval; *__cosp = __stret.__cosval;
-} inline __attribute__ ((__always_inline__)) void __sincos(double __x, double *__sinp, double *__cosp) {
-	const struct __double2 __stret = __sincos_stret(__x);
-	*__sinp = __stret.__sinval; *__cosp = __stret.__cosval;
-} inline __attribute__ ((__always_inline__)) void __sincospif(float __x, float *__sinp, float *__cosp) {
-	const struct __float2 __stret = __sincospif_stret(__x);
-	*__sinp = __stret.__sinval; *__cosp = __stret.__cosval;
-} inline __attribute__ ((__always_inline__)) void __sincospi(double __x, double *__sinp, double *__cosp) {
-	const struct __double2 __stret = __sincospi_stret(__x);
-	*__sinp = __stret.__sinval; *__cosp = __stret.__cosval;
-} extern double j0(double);
+extern double j0(double);
 extern double j1(double);
 extern double jn(int, double);
 extern double y0(double);

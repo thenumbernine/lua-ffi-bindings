@@ -7,8 +7,9 @@ so to fix this ...
 proly #3 ... here:
 --]]
 local ffi = require 'ffi'
+local assert = require 'ext.assert'
 return function(req)
-	assert(type(req) == 'string', 'expected string')
+	assert.type(req, 'string')
 	-- first search $os/$arch/$req
 	-- then search $os/$req
 	-- (then search $arch/$req?)

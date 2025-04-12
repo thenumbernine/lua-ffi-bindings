@@ -32,11 +32,11 @@ function vectorbase:capacity()
 --DEBUG(ffi.cpp.vector): print('ffi.typeof(self) = ', ffi.typeof(self))
 --DEBUG(ffi.cpp.vector): print('(void*)self = ', tostring(ffi.cast('void*', self)))
 -- TODO how come printing pointers is crashing?
---DEBUG(ffi.cpp.vector): -- print('self.start', tostring(self.start))
+--DEBUG(ffi.cpp.vector): print('self.start', tostring(self.start))
 --DEBUG(ffi.cpp.vector): -- print('self.start', ''..self.start)
---DEBUG(ffi.cpp.vector): print('self.start', tostring(ffi.cast('void*', self.start)))
---DEBUG(ffi.cpp.vector): print('self.endOfStorage', tostring(ffi.cast('void*', self.endOfStorage)))
---DEBUG(ffi.cpp.vector): -- print('self.endOfStorage', tostring(self.endOfStorage))
+--DEBUG(ffi.cpp.vector): -- print('self.start', tostring(ffi.cast('void*', self.start)))
+--DEBUG(ffi.cpp.vector): -- print('self.endOfStorage', tostring(ffi.cast('void*', self.endOfStorage)))
+--DEBUG(ffi.cpp.vector): print('self.endOfStorage', tostring(self.endOfStorage))
 --DEBUG(ffi.cpp.vector): print('returning', tostring(self.endOfStorage - self.start))
 	return self.endOfStorage - self.start
 end

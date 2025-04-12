@@ -51,8 +51,5 @@ void psignal(int, const char *);
 int sigblock(int);
 int sigsetmask(int);
 int sigvec(int, struct sigvec *, struct sigvec *);
-inline __attribute__ ((__always_inline__)) int __sigbits(int __signo) {
-	return __signo > 32 ? 0 : (1 << (__signo - 1));
-}
 /* + END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/signal.h */
 ]]

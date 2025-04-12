@@ -198,10 +198,7 @@ FILE *popen(const char *, const char *) __asm("popen");
 int __srget(FILE *);
 int __svfscanf(FILE *, const char *, va_list) __attribute__((__format__ (__scanf__, 2, 0)));
 int __swbuf(int, FILE *);
-inline __attribute__ ((__always_inline__)) int __sputc(int _c, FILE *_p) {
-	if (--_p->_w >= 0 || (_p->_w >= _p->_lbfsize && (char)_c != '\n')) return (*_p->_p++ = _c);
-	else return (__swbuf(_c, _p));
-} void flockfile(FILE *);
+void flockfile(FILE *);
 int ftrylockfile(FILE *);
 void funlockfile(FILE *);
 int getc_unlocked(FILE *);
