@@ -15,179 +15,9 @@ require 'ffi.req' 'c.stdbool'
 require 'ffi.req' 'sdl'
 
 ffi.cdef[[
-typedef struct ImDrawChannel ImDrawChannel;
-typedef struct ImDrawCmd ImDrawCmd;
-typedef struct ImDrawData ImDrawData;
-typedef struct ImDrawList ImDrawList;
-typedef struct ImDrawListSharedData ImDrawListSharedData;
-typedef struct ImDrawListSplitter ImDrawListSplitter;
-typedef struct ImDrawVert ImDrawVert;
-typedef struct ImFont ImFont;
-typedef struct ImFontAtlas ImFontAtlas;
-typedef struct ImFontBuilderIO ImFontBuilderIO;
-typedef struct ImFontConfig ImFontConfig;
-typedef struct ImFontGlyph ImFontGlyph;
-typedef struct ImFontGlyphRangesBuilder ImFontGlyphRangesBuilder;
-typedef struct ImColor ImColor;
-typedef struct ImGuiContext ImGuiContext;
-typedef struct ImGuiIO ImGuiIO;
-typedef struct ImGuiInputTextCallbackData ImGuiInputTextCallbackData;
-typedef struct ImGuiKeyData ImGuiKeyData;
-typedef struct ImGuiListClipper ImGuiListClipper;
-typedef struct ImGuiOnceUponAFrame ImGuiOnceUponAFrame;
-typedef struct ImGuiPayload ImGuiPayload;
-typedef struct ImGuiPlatformIO ImGuiPlatformIO;
-typedef struct ImGuiPlatformMonitor ImGuiPlatformMonitor;
-typedef struct ImGuiPlatformImeData ImGuiPlatformImeData;
-typedef struct ImGuiSizeCallbackData ImGuiSizeCallbackData;
-typedef struct ImGuiStorage ImGuiStorage;
-typedef struct ImGuiStyle ImGuiStyle;
-typedef struct ImGuiTableSortSpecs ImGuiTableSortSpecs;
-typedef struct ImGuiTableColumnSortSpecs ImGuiTableColumnSortSpecs;
-typedef struct ImGuiTextBuffer ImGuiTextBuffer;
-typedef struct ImGuiTextFilter ImGuiTextFilter;
-typedef struct ImGuiViewport ImGuiViewport;
-typedef struct ImGuiWindowClass ImGuiWindowClass;
-typedef struct ImBitVector ImBitVector;
-typedef struct ImRect ImRect;
-typedef struct ImDrawDataBuilder ImDrawDataBuilder;
-typedef struct ImGuiColorMod ImGuiColorMod;
-typedef struct ImGuiContextHook ImGuiContextHook;
-typedef struct ImGuiDataVarInfo ImGuiDataVarInfo;
-typedef struct ImGuiDataTypeInfo ImGuiDataTypeInfo;
-typedef struct ImGuiDockContext ImGuiDockContext;
-typedef struct ImGuiDockRequest ImGuiDockRequest;
-typedef struct ImGuiDockNode ImGuiDockNode;
-typedef struct ImGuiDockNodeSettings ImGuiDockNodeSettings;
-typedef struct ImGuiGroupData ImGuiGroupData;
-typedef struct ImGuiInputTextState ImGuiInputTextState;
-typedef struct ImGuiInputTextDeactivateData ImGuiInputTextDeactivateData;
-typedef struct ImGuiLastItemData ImGuiLastItemData;
-typedef struct ImGuiLocEntry ImGuiLocEntry;
-typedef struct ImGuiMenuColumns ImGuiMenuColumns;
-typedef struct ImGuiNavItemData ImGuiNavItemData;
-typedef struct ImGuiNavTreeNodeData ImGuiNavTreeNodeData;
-typedef struct ImGuiMetricsConfig ImGuiMetricsConfig;
-typedef struct ImGuiNextWindowData ImGuiNextWindowData;
-typedef struct ImGuiNextItemData ImGuiNextItemData;
-typedef struct ImGuiOldColumnData ImGuiOldColumnData;
-typedef struct ImGuiOldColumns ImGuiOldColumns;
-typedef struct ImGuiPopupData ImGuiPopupData;
-typedef struct ImGuiSettingsHandler ImGuiSettingsHandler;
-typedef struct ImGuiStackSizes ImGuiStackSizes;
-typedef struct ImGuiStyleMod ImGuiStyleMod;
-typedef struct ImGuiTabBar ImGuiTabBar;
-typedef struct ImGuiTabItem ImGuiTabItem;
-typedef struct ImGuiTable ImGuiTable;
-typedef struct ImGuiTableColumn ImGuiTableColumn;
-typedef struct ImGuiTableInstanceData ImGuiTableInstanceData;
-typedef struct ImGuiTableTempData ImGuiTableTempData;
-typedef struct ImGuiTableSettings ImGuiTableSettings;
-typedef struct ImGuiTableColumnsSettings ImGuiTableColumnsSettings;
-typedef struct ImGuiTypingSelectState ImGuiTypingSelectState;
-typedef struct ImGuiTypingSelectRequest ImGuiTypingSelectRequest;
-typedef struct ImGuiWindow ImGuiWindow;
-typedef struct ImGuiWindowTempData ImGuiWindowTempData;
-typedef struct ImGuiWindowSettings ImGuiWindowSettings;
-typedef struct ImVector {
-	int Size;
-	int Capacity;
-	char* Data;
-} ImVector;
-struct ImDrawChannel;
-struct ImDrawCmd;
-struct ImDrawData;
-struct ImDrawList;
-struct ImDrawListSharedData;
-struct ImDrawListSplitter;
-struct ImDrawVert;
-struct ImFont;
-struct ImFontAtlas;
-struct ImFontBuilderIO;
-struct ImFontConfig;
-struct ImFontGlyph;
-struct ImFontGlyphRangesBuilder;
-struct ImColor;
-struct ImGuiContext;
-struct ImGuiIO;
-struct ImGuiInputTextCallbackData;
-struct ImGuiKeyData;
-struct ImGuiListClipper;
-struct ImGuiOnceUponAFrame;
-struct ImGuiPayload;
-struct ImGuiPlatformIO;
-struct ImGuiPlatformMonitor;
-struct ImGuiPlatformImeData;
-struct ImGuiSizeCallbackData;
-struct ImGuiStorage;
-struct ImGuiStyle;
-struct ImGuiTableSortSpecs;
-struct ImGuiTableColumnSortSpecs;
-struct ImGuiTextBuffer;
-struct ImGuiTextFilter;
-struct ImGuiViewport;
-struct ImGuiWindowClass;
-typedef int ImGuiCol;
-typedef int ImGuiCond;
-typedef int ImGuiDataType;
-typedef int ImGuiDir;
-typedef int ImGuiMouseButton;
-typedef int ImGuiMouseCursor;
-typedef int ImGuiSortDirection;
-typedef int ImGuiStyleVar;
-typedef int ImGuiTableBgTarget;
-typedef int ImDrawFlags;
-typedef int ImDrawListFlags;
-typedef int ImFontAtlasFlags;
-typedef int ImGuiBackendFlags;
-typedef int ImGuiButtonFlags;
-typedef int ImGuiChildFlags;
-typedef int ImGuiColorEditFlags;
-typedef int ImGuiConfigFlags;
-typedef int ImGuiComboFlags;
-typedef int ImGuiDockNodeFlags;
-typedef int ImGuiDragDropFlags;
-typedef int ImGuiFocusedFlags;
-typedef int ImGuiHoveredFlags;
-typedef int ImGuiInputTextFlags;
-typedef int ImGuiKeyChord;
-typedef int ImGuiPopupFlags;
-typedef int ImGuiSelectableFlags;
-typedef int ImGuiSliderFlags;
-typedef int ImGuiTabBarFlags;
-typedef int ImGuiTabItemFlags;
-typedef int ImGuiTableFlags;
-typedef int ImGuiTableColumnFlags;
-typedef int ImGuiTableRowFlags;
-typedef int ImGuiTreeNodeFlags;
-typedef int ImGuiViewportFlags;
-typedef int ImGuiWindowFlags;
-typedef void* ImTextureID;
-typedef unsigned short ImDrawIdx;
-typedef unsigned int ImGuiID;
-typedef signed char ImS8;
-typedef unsigned char ImU8;
-typedef signed short ImS16;
-typedef unsigned short ImU16;
-typedef signed int ImS32;
-typedef unsigned int ImU32;
-typedef signed long long ImS64;
-typedef unsigned long long ImU64;
-typedef unsigned int ImWchar32;
-typedef unsigned short ImWchar16;
-typedef ImWchar16 ImWchar;
-typedef int (*ImGuiInputTextCallback)(ImGuiInputTextCallbackData* data);
-typedef void (*ImGuiSizeCallback)(ImGuiSizeCallbackData* data);
-typedef void* (*ImGuiMemAllocFunc)(size_t sz, void* user_data);
-typedef void (*ImGuiMemFreeFunc)(void* ptr, void* user_data);
-typedef struct ImVec2 ImVec2;
-struct ImVec2 {
-	float x, y;
-};
-typedef struct ImVec4 ImVec4;
-struct ImVec4 {
-	float x, y, z, w;
-};
+
+// typedefs that can become enums
+
 typedef enum {
 	ImGuiWindowFlags_None = 0,
 	ImGuiWindowFlags_NoTitleBar = 1 << 0,
@@ -861,6 +691,589 @@ typedef enum {
 	ImGuiTableBgTarget_RowBg1 = 2,
 	ImGuiTableBgTarget_CellBg = 3,
 } ImGuiTableBgTarget_;
+typedef enum {
+	ImDrawFlags_None = 0,
+	ImDrawFlags_Closed = 1 << 0,
+	ImDrawFlags_RoundCornersTopLeft = 1 << 4,
+	ImDrawFlags_RoundCornersTopRight = 1 << 5,
+	ImDrawFlags_RoundCornersBottomLeft = 1 << 6,
+	ImDrawFlags_RoundCornersBottomRight = 1 << 7,
+	ImDrawFlags_RoundCornersNone = 1 << 8,
+	ImDrawFlags_RoundCornersTop = ImDrawFlags_RoundCornersTopLeft | ImDrawFlags_RoundCornersTopRight,
+	ImDrawFlags_RoundCornersBottom = ImDrawFlags_RoundCornersBottomLeft | ImDrawFlags_RoundCornersBottomRight,
+	ImDrawFlags_RoundCornersLeft = ImDrawFlags_RoundCornersBottomLeft | ImDrawFlags_RoundCornersTopLeft,
+	ImDrawFlags_RoundCornersRight = ImDrawFlags_RoundCornersBottomRight | ImDrawFlags_RoundCornersTopRight,
+	ImDrawFlags_RoundCornersAll = ImDrawFlags_RoundCornersTopLeft | ImDrawFlags_RoundCornersTopRight | ImDrawFlags_RoundCornersBottomLeft | ImDrawFlags_RoundCornersBottomRight,
+	ImDrawFlags_RoundCornersDefault_ = ImDrawFlags_RoundCornersAll,
+	ImDrawFlags_RoundCornersMask_ = ImDrawFlags_RoundCornersAll | ImDrawFlags_RoundCornersNone,
+} ImDrawFlags_;
+typedef enum {
+	ImDrawListFlags_None = 0,
+	ImDrawListFlags_AntiAliasedLines = 1 << 0,
+	ImDrawListFlags_AntiAliasedLinesUseTex = 1 << 1,
+	ImDrawListFlags_AntiAliasedFill = 1 << 2,
+	ImDrawListFlags_AllowVtxOffset = 1 << 3,
+} ImDrawListFlags_;
+typedef enum {
+	ImFontAtlasFlags_None = 0,
+	ImFontAtlasFlags_NoPowerOfTwoHeight = 1 << 0,
+	ImFontAtlasFlags_NoMouseCursors = 1 << 1,
+	ImFontAtlasFlags_NoBakedLines = 1 << 2,
+} ImFontAtlasFlags_;
+typedef enum {
+	ImGuiViewportFlags_None = 0,
+	ImGuiViewportFlags_IsPlatformWindow = 1 << 0,
+	ImGuiViewportFlags_IsPlatformMonitor = 1 << 1,
+	ImGuiViewportFlags_OwnedByApp = 1 << 2,
+	ImGuiViewportFlags_NoDecoration = 1 << 3,
+	ImGuiViewportFlags_NoTaskBarIcon = 1 << 4,
+	ImGuiViewportFlags_NoFocusOnAppearing = 1 << 5,
+	ImGuiViewportFlags_NoFocusOnClick = 1 << 6,
+	ImGuiViewportFlags_NoInputs = 1 << 7,
+	ImGuiViewportFlags_NoRendererClear = 1 << 8,
+	ImGuiViewportFlags_NoAutoMerge = 1 << 9,
+	ImGuiViewportFlags_TopMost = 1 << 10,
+	ImGuiViewportFlags_CanHostOtherWindows = 1 << 11,
+	ImGuiViewportFlags_IsMinimized = 1 << 12,
+	ImGuiViewportFlags_IsFocused = 1 << 13,
+} ImGuiViewportFlags_;
+typedef enum {
+	ImGuiItemFlags_None = 0,
+	ImGuiItemFlags_NoTabStop = 1 << 0,
+	ImGuiItemFlags_ButtonRepeat = 1 << 1,
+	ImGuiItemFlags_Disabled = 1 << 2,
+	ImGuiItemFlags_NoNav = 1 << 3,
+	ImGuiItemFlags_NoNavDefaultFocus = 1 << 4,
+	ImGuiItemFlags_SelectableDontClosePopup = 1 << 5,
+	ImGuiItemFlags_MixedValue = 1 << 6,
+	ImGuiItemFlags_ReadOnly = 1 << 7,
+	ImGuiItemFlags_NoWindowHoverableCheck = 1 << 8,
+	ImGuiItemFlags_AllowOverlap = 1 << 9,
+	ImGuiItemFlags_Inputable = 1 << 10,
+	ImGuiItemFlags_HasSelectionUserData = 1 << 11,
+} ImGuiItemFlags_;
+typedef enum {
+	ImGuiItemStatusFlags_None = 0,
+	ImGuiItemStatusFlags_HoveredRect = 1 << 0,
+	ImGuiItemStatusFlags_HasDisplayRect = 1 << 1,
+	ImGuiItemStatusFlags_Edited = 1 << 2,
+	ImGuiItemStatusFlags_ToggledSelection = 1 << 3,
+	ImGuiItemStatusFlags_ToggledOpen = 1 << 4,
+	ImGuiItemStatusFlags_HasDeactivated = 1 << 5,
+	ImGuiItemStatusFlags_Deactivated = 1 << 6,
+	ImGuiItemStatusFlags_HoveredWindow = 1 << 7,
+	ImGuiItemStatusFlags_Visible = 1 << 8,
+	ImGuiItemStatusFlags_HasClipRect = 1 << 9,
+} ImGuiItemStatusFlags_;
+typedef enum {
+	ImGuiHoveredFlags_DelayMask_ = ImGuiHoveredFlags_DelayNone | ImGuiHoveredFlags_DelayShort | ImGuiHoveredFlags_DelayNormal | ImGuiHoveredFlags_NoSharedDelay,
+	ImGuiHoveredFlags_AllowedMaskForIsWindowHovered = ImGuiHoveredFlags_ChildWindows | ImGuiHoveredFlags_RootWindow | ImGuiHoveredFlags_AnyWindow | ImGuiHoveredFlags_NoPopupHierarchy | ImGuiHoveredFlags_DockHierarchy | ImGuiHoveredFlags_AllowWhenBlockedByPopup | ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_ForTooltip | ImGuiHoveredFlags_Stationary,
+	ImGuiHoveredFlags_AllowedMaskForIsItemHovered = ImGuiHoveredFlags_AllowWhenBlockedByPopup | ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenOverlapped | ImGuiHoveredFlags_AllowWhenDisabled | ImGuiHoveredFlags_NoNavOverride | ImGuiHoveredFlags_ForTooltip | ImGuiHoveredFlags_Stationary | ImGuiHoveredFlags_DelayMask_,
+} ImGuiHoveredFlagsPrivate_;
+typedef enum {
+	ImGuiInputTextFlags_Multiline = 1 << 26,
+	ImGuiInputTextFlags_NoMarkEdited = 1 << 27,
+	ImGuiInputTextFlags_MergedItem = 1 << 28,
+	ImGuiInputTextFlags_LocalizeDecimalPoint= 1 << 29,
+} ImGuiInputTextFlagsPrivate_;
+typedef enum {
+	ImGuiButtonFlags_PressedOnClick = 1 << 4,
+	ImGuiButtonFlags_PressedOnClickRelease = 1 << 5,
+	ImGuiButtonFlags_PressedOnClickReleaseAnywhere = 1 << 6,
+	ImGuiButtonFlags_PressedOnRelease = 1 << 7,
+	ImGuiButtonFlags_PressedOnDoubleClick = 1 << 8,
+	ImGuiButtonFlags_PressedOnDragDropHold = 1 << 9,
+	ImGuiButtonFlags_Repeat = 1 << 10,
+	ImGuiButtonFlags_FlattenChildren = 1 << 11,
+	ImGuiButtonFlags_AllowOverlap = 1 << 12,
+	ImGuiButtonFlags_DontClosePopups = 1 << 13,
+	ImGuiButtonFlags_AlignTextBaseLine = 1 << 15,
+	ImGuiButtonFlags_NoKeyModifiers = 1 << 16,
+	ImGuiButtonFlags_NoHoldingActiveId = 1 << 17,
+	ImGuiButtonFlags_NoNavFocus = 1 << 18,
+	ImGuiButtonFlags_NoHoveredOnFocus = 1 << 19,
+	ImGuiButtonFlags_NoSetKeyOwner = 1 << 20,
+	ImGuiButtonFlags_NoTestKeyOwner = 1 << 21,
+	ImGuiButtonFlags_PressedOnMask_ = ImGuiButtonFlags_PressedOnClick | ImGuiButtonFlags_PressedOnClickRelease | ImGuiButtonFlags_PressedOnClickReleaseAnywhere | ImGuiButtonFlags_PressedOnRelease | ImGuiButtonFlags_PressedOnDoubleClick | ImGuiButtonFlags_PressedOnDragDropHold,
+	ImGuiButtonFlags_PressedOnDefault_ = ImGuiButtonFlags_PressedOnClickRelease,
+} ImGuiButtonFlagsPrivate_;
+typedef enum {
+	ImGuiComboFlags_CustomPreview = 1 << 20,
+} ImGuiComboFlagsPrivate_;
+typedef enum {
+	ImGuiSliderFlags_Vertical = 1 << 20,
+	ImGuiSliderFlags_ReadOnly = 1 << 21,
+} ImGuiSliderFlagsPrivate_;
+typedef enum {
+	ImGuiSelectableFlags_NoHoldingActiveID = 1 << 20,
+	ImGuiSelectableFlags_SelectOnNav = 1 << 21,
+	ImGuiSelectableFlags_SelectOnClick = 1 << 22,
+	ImGuiSelectableFlags_SelectOnRelease = 1 << 23,
+	ImGuiSelectableFlags_SpanAvailWidth = 1 << 24,
+	ImGuiSelectableFlags_SetNavIdOnHover = 1 << 25,
+	ImGuiSelectableFlags_NoPadWithHalfSpacing = 1 << 26,
+	ImGuiSelectableFlags_NoSetKeyOwner = 1 << 27,
+} ImGuiSelectableFlagsPrivate_;
+typedef enum {
+	ImGuiTreeNodeFlags_ClipLabelForTrailingButton = 1 << 20,
+	ImGuiTreeNodeFlags_UpsideDownArrow = 1 << 21,
+} ImGuiTreeNodeFlagsPrivate_;
+typedef enum {
+	ImGuiSeparatorFlags_None = 0,
+	ImGuiSeparatorFlags_Horizontal = 1 << 0,
+	ImGuiSeparatorFlags_Vertical = 1 << 1,
+	ImGuiSeparatorFlags_SpanAllColumns = 1 << 2,
+} ImGuiSeparatorFlags_;
+typedef enum {
+	ImGuiFocusRequestFlags_None = 0,
+	ImGuiFocusRequestFlags_RestoreFocusedChild = 1 << 0,
+	ImGuiFocusRequestFlags_UnlessBelowModal = 1 << 1,
+} ImGuiFocusRequestFlags_;
+typedef enum {
+	ImGuiTextFlags_None = 0,
+	ImGuiTextFlags_NoWidthForLargeClippedText = 1 << 0,
+} ImGuiTextFlags_;
+typedef enum {
+	ImGuiTooltipFlags_None = 0,
+	ImGuiTooltipFlags_OverridePrevious = 1 << 1,
+} ImGuiTooltipFlags_;
+typedef enum {
+	ImGuiLayoutType_Horizontal = 0,
+	ImGuiLayoutType_Vertical = 1
+} ImGuiLayoutType_;
+typedef enum {
+	ImGuiLogType_None = 0,
+	ImGuiLogType_TTY,
+	ImGuiLogType_File,
+	ImGuiLogType_Buffer,
+	ImGuiLogType_Clipboard,
+} ImGuiLogType;
+typedef enum {
+	ImGuiAxis_None = -1,
+	ImGuiAxis_X = 0,
+	ImGuiAxis_Y = 1
+}ImGuiAxis;
+typedef enum {
+	ImGuiPlotType_Lines,
+	ImGuiPlotType_Histogram,
+} ImGuiPlotType;
+typedef enum {
+	ImGuiNextWindowDataFlags_None = 0,
+	ImGuiNextWindowDataFlags_HasPos = 1 << 0,
+	ImGuiNextWindowDataFlags_HasSize = 1 << 1,
+	ImGuiNextWindowDataFlags_HasContentSize = 1 << 2,
+	ImGuiNextWindowDataFlags_HasCollapsed = 1 << 3,
+	ImGuiNextWindowDataFlags_HasSizeConstraint = 1 << 4,
+	ImGuiNextWindowDataFlags_HasFocus = 1 << 5,
+	ImGuiNextWindowDataFlags_HasBgAlpha = 1 << 6,
+	ImGuiNextWindowDataFlags_HasScroll = 1 << 7,
+	ImGuiNextWindowDataFlags_HasChildFlags = 1 << 8,
+	ImGuiNextWindowDataFlags_HasViewport = 1 << 9,
+	ImGuiNextWindowDataFlags_HasDock = 1 << 10,
+	ImGuiNextWindowDataFlags_HasWindowClass = 1 << 11,
+} ImGuiNextWindowDataFlags_;
+typedef enum {
+	ImGuiNextItemDataFlags_None = 0,
+	ImGuiNextItemDataFlags_HasWidth = 1 << 0,
+	ImGuiNextItemDataFlags_HasOpen = 1 << 1,
+	ImGuiNextItemDataFlags_HasShortcut = 1 << 2,
+} ImGuiNextItemDataFlags_;
+typedef enum {
+	ImGuiDataType_String = ImGuiDataType_COUNT + 1,
+	ImGuiDataType_Pointer,
+	ImGuiDataType_ID,
+} ImGuiDataTypePrivate_;
+typedef enum {
+	ImGuiPopupPositionPolicy_Default,
+	ImGuiPopupPositionPolicy_ComboBox,
+	ImGuiPopupPositionPolicy_Tooltip,
+} ImGuiPopupPositionPolicy;
+typedef enum {
+	ImGuiInputEventType_None = 0,
+	ImGuiInputEventType_MousePos,
+	ImGuiInputEventType_MouseWheel,
+	ImGuiInputEventType_MouseButton,
+	ImGuiInputEventType_MouseViewport,
+	ImGuiInputEventType_Key,
+	ImGuiInputEventType_Text,
+	ImGuiInputEventType_Focus,
+	ImGuiInputEventType_COUNT
+} ImGuiInputEventType;
+typedef enum {
+	ImGuiInputSource_None = 0,
+	ImGuiInputSource_Mouse,
+	ImGuiInputSource_Keyboard,
+	ImGuiInputSource_Gamepad,
+	ImGuiInputSource_COUNT
+} ImGuiInputSource;
+typedef enum {
+	ImGuiInputFlags_None = 0,
+	ImGuiInputFlags_Repeat = 1 << 0,
+	ImGuiInputFlags_RepeatRateDefault = 1 << 1,
+	ImGuiInputFlags_RepeatRateNavMove = 1 << 2,
+	ImGuiInputFlags_RepeatRateNavTweak = 1 << 3,
+	ImGuiInputFlags_RepeatUntilRelease = 1 << 4,
+	ImGuiInputFlags_RepeatUntilKeyModsChange = 1 << 5,
+	ImGuiInputFlags_RepeatUntilKeyModsChangeFromNone = 1 << 6,
+	ImGuiInputFlags_RepeatUntilOtherKeyPress = 1 << 7,
+	ImGuiInputFlags_CondHovered = 1 << 8,
+	ImGuiInputFlags_CondActive = 1 << 9,
+	ImGuiInputFlags_CondDefault_ = ImGuiInputFlags_CondHovered | ImGuiInputFlags_CondActive,
+	ImGuiInputFlags_LockThisFrame = 1 << 10,
+	ImGuiInputFlags_LockUntilRelease = 1 << 11,
+	ImGuiInputFlags_RouteFocused = 1 << 12,
+	ImGuiInputFlags_RouteGlobalLow = 1 << 13,
+	ImGuiInputFlags_RouteGlobal = 1 << 14,
+	ImGuiInputFlags_RouteGlobalHigh = 1 << 15,
+	ImGuiInputFlags_RouteAlways = 1 << 16,
+	ImGuiInputFlags_RouteUnlessBgFocused= 1 << 17,
+	ImGuiInputFlags_RepeatRateMask_ = ImGuiInputFlags_RepeatRateDefault | ImGuiInputFlags_RepeatRateNavMove | ImGuiInputFlags_RepeatRateNavTweak,
+	ImGuiInputFlags_RepeatUntilMask_ = ImGuiInputFlags_RepeatUntilRelease | ImGuiInputFlags_RepeatUntilKeyModsChange | ImGuiInputFlags_RepeatUntilKeyModsChangeFromNone | ImGuiInputFlags_RepeatUntilOtherKeyPress,
+	ImGuiInputFlags_RepeatMask_ = ImGuiInputFlags_Repeat | ImGuiInputFlags_RepeatRateMask_ | ImGuiInputFlags_RepeatUntilMask_,
+	ImGuiInputFlags_CondMask_ = ImGuiInputFlags_CondHovered | ImGuiInputFlags_CondActive,
+	ImGuiInputFlags_RouteMask_ = ImGuiInputFlags_RouteFocused | ImGuiInputFlags_RouteGlobal | ImGuiInputFlags_RouteGlobalLow | ImGuiInputFlags_RouteGlobalHigh,
+	ImGuiInputFlags_SupportedByIsKeyPressed = ImGuiInputFlags_RepeatMask_,
+	ImGuiInputFlags_SupportedByIsMouseClicked = ImGuiInputFlags_Repeat,
+	ImGuiInputFlags_SupportedByShortcut = ImGuiInputFlags_RepeatMask_ | ImGuiInputFlags_RouteMask_ | ImGuiInputFlags_RouteAlways | ImGuiInputFlags_RouteUnlessBgFocused,
+	ImGuiInputFlags_SupportedBySetKeyOwner = ImGuiInputFlags_LockThisFrame | ImGuiInputFlags_LockUntilRelease,
+	ImGuiInputFlags_SupportedBySetItemKeyOwner = ImGuiInputFlags_SupportedBySetKeyOwner | ImGuiInputFlags_CondMask_,
+} ImGuiInputFlags_;
+typedef enum {
+	ImGuiActivateFlags_None = 0,
+	ImGuiActivateFlags_PreferInput = 1 << 0,
+	ImGuiActivateFlags_PreferTweak = 1 << 1,
+	ImGuiActivateFlags_TryToPreserveState = 1 << 2,
+	ImGuiActivateFlags_FromTabbing = 1 << 3,
+	ImGuiActivateFlags_FromShortcut = 1 << 4,
+} ImGuiActivateFlags_;
+typedef enum {
+	ImGuiScrollFlags_None = 0,
+	ImGuiScrollFlags_KeepVisibleEdgeX = 1 << 0,
+	ImGuiScrollFlags_KeepVisibleEdgeY = 1 << 1,
+	ImGuiScrollFlags_KeepVisibleCenterX = 1 << 2,
+	ImGuiScrollFlags_KeepVisibleCenterY = 1 << 3,
+	ImGuiScrollFlags_AlwaysCenterX = 1 << 4,
+	ImGuiScrollFlags_AlwaysCenterY = 1 << 5,
+	ImGuiScrollFlags_NoScrollParent = 1 << 6,
+	ImGuiScrollFlags_MaskX_ = ImGuiScrollFlags_KeepVisibleEdgeX | ImGuiScrollFlags_KeepVisibleCenterX | ImGuiScrollFlags_AlwaysCenterX,
+	ImGuiScrollFlags_MaskY_ = ImGuiScrollFlags_KeepVisibleEdgeY | ImGuiScrollFlags_KeepVisibleCenterY | ImGuiScrollFlags_AlwaysCenterY,
+} ImGuiScrollFlags_;
+typedef enum {
+	ImGuiNavHighlightFlags_None = 0,
+	ImGuiNavHighlightFlags_Compact = 1 << 1,
+	ImGuiNavHighlightFlags_AlwaysDraw = 1 << 2,
+	ImGuiNavHighlightFlags_NoRounding = 1 << 3,
+} ImGuiNavHighlightFlags_;
+typedef enum {
+	ImGuiNavMoveFlags_None = 0,
+	ImGuiNavMoveFlags_LoopX = 1 << 0,
+	ImGuiNavMoveFlags_LoopY = 1 << 1,
+	ImGuiNavMoveFlags_WrapX = 1 << 2,
+	ImGuiNavMoveFlags_WrapY = 1 << 3,
+	ImGuiNavMoveFlags_WrapMask_ = ImGuiNavMoveFlags_LoopX | ImGuiNavMoveFlags_LoopY | ImGuiNavMoveFlags_WrapX | ImGuiNavMoveFlags_WrapY,
+	ImGuiNavMoveFlags_AllowCurrentNavId = 1 << 4,
+	ImGuiNavMoveFlags_AlsoScoreVisibleSet = 1 << 5,
+	ImGuiNavMoveFlags_ScrollToEdgeY = 1 << 6,
+	ImGuiNavMoveFlags_Forwarded = 1 << 7,
+	ImGuiNavMoveFlags_DebugNoResult = 1 << 8,
+	ImGuiNavMoveFlags_FocusApi = 1 << 9,
+	ImGuiNavMoveFlags_IsTabbing = 1 << 10,
+	ImGuiNavMoveFlags_IsPageMove = 1 << 11,
+	ImGuiNavMoveFlags_Activate = 1 << 12,
+	ImGuiNavMoveFlags_NoSelect = 1 << 13,
+	ImGuiNavMoveFlags_NoSetNavHighlight = 1 << 14,
+	ImGuiNavMoveFlags_NoClearActiveId = 1 << 15,
+} ImGuiNavMoveFlags_;
+typedef enum {
+	ImGuiNavLayer_Main = 0,
+	ImGuiNavLayer_Menu = 1,
+	ImGuiNavLayer_COUNT
+} ImGuiNavLayer;
+typedef enum {
+	ImGuiTypingSelectFlags_None = 0,
+	ImGuiTypingSelectFlags_AllowBackspace = 1 << 0,
+	ImGuiTypingSelectFlags_AllowSingleCharMode = 1 << 1,
+} ImGuiTypingSelectFlags_;
+typedef enum {
+	ImGuiOldColumnFlags_None = 0,
+	ImGuiOldColumnFlags_NoBorder = 1 << 0,
+	ImGuiOldColumnFlags_NoResize = 1 << 1,
+	ImGuiOldColumnFlags_NoPreserveWidths = 1 << 2,
+	ImGuiOldColumnFlags_NoForceWithinWindow = 1 << 3,
+	ImGuiOldColumnFlags_GrowParentContentsSize = 1 << 4,
+} ImGuiOldColumnFlags_;
+typedef enum {
+	ImGuiDockNodeFlags_DockSpace = 1 << 10,
+	ImGuiDockNodeFlags_CentralNode = 1 << 11,
+	ImGuiDockNodeFlags_NoTabBar = 1 << 12,
+	ImGuiDockNodeFlags_HiddenTabBar = 1 << 13,
+	ImGuiDockNodeFlags_NoWindowMenuButton = 1 << 14,
+	ImGuiDockNodeFlags_NoCloseButton = 1 << 15,
+	ImGuiDockNodeFlags_NoResizeX = 1 << 16,
+	ImGuiDockNodeFlags_NoResizeY = 1 << 17,
+	ImGuiDockNodeFlags_DockedWindowsInFocusRoute= 1 << 18,
+	ImGuiDockNodeFlags_NoDockingSplitOther = 1 << 19,
+	ImGuiDockNodeFlags_NoDockingOverMe = 1 << 20,
+	ImGuiDockNodeFlags_NoDockingOverOther = 1 << 21,
+	ImGuiDockNodeFlags_NoDockingOverEmpty = 1 << 22,
+	ImGuiDockNodeFlags_NoDocking = ImGuiDockNodeFlags_NoDockingOverMe | ImGuiDockNodeFlags_NoDockingOverOther | ImGuiDockNodeFlags_NoDockingOverEmpty | ImGuiDockNodeFlags_NoDockingSplit | ImGuiDockNodeFlags_NoDockingSplitOther,
+	ImGuiDockNodeFlags_SharedFlagsInheritMask_ = ~0,
+	ImGuiDockNodeFlags_NoResizeFlagsMask_ = ImGuiDockNodeFlags_NoResize | ImGuiDockNodeFlags_NoResizeX | ImGuiDockNodeFlags_NoResizeY,
+	ImGuiDockNodeFlags_LocalFlagsTransferMask_ = ImGuiDockNodeFlags_NoDockingSplit | ImGuiDockNodeFlags_NoResizeFlagsMask_ | ImGuiDockNodeFlags_AutoHideTabBar | ImGuiDockNodeFlags_CentralNode | ImGuiDockNodeFlags_NoTabBar | ImGuiDockNodeFlags_HiddenTabBar | ImGuiDockNodeFlags_NoWindowMenuButton | ImGuiDockNodeFlags_NoCloseButton,
+	ImGuiDockNodeFlags_SavedFlagsMask_ = ImGuiDockNodeFlags_NoResizeFlagsMask_ | ImGuiDockNodeFlags_DockSpace | ImGuiDockNodeFlags_CentralNode | ImGuiDockNodeFlags_NoTabBar | ImGuiDockNodeFlags_HiddenTabBar | ImGuiDockNodeFlags_NoWindowMenuButton | ImGuiDockNodeFlags_NoCloseButton,
+} ImGuiDockNodeFlagsPrivate_;
+typedef enum {
+	ImGuiDataAuthority_Auto,
+	ImGuiDataAuthority_DockNode,
+	ImGuiDataAuthority_Window,
+} ImGuiDataAuthority_;
+typedef enum {
+	ImGuiDockNodeState_Unknown,
+	ImGuiDockNodeState_HostWindowHiddenBecauseSingleWindow,
+	ImGuiDockNodeState_HostWindowHiddenBecauseWindowsAreResizing,
+	ImGuiDockNodeState_HostWindowVisible,
+} ImGuiDockNodeState;
+typedef enum {
+	ImGuiWindowDockStyleCol_Text,
+	ImGuiWindowDockStyleCol_Tab,
+	ImGuiWindowDockStyleCol_TabHovered,
+	ImGuiWindowDockStyleCol_TabActive,
+	ImGuiWindowDockStyleCol_TabUnfocused,
+	ImGuiWindowDockStyleCol_TabUnfocusedActive,
+	ImGuiWindowDockStyleCol_COUNT
+} ImGuiWindowDockStyleCol;
+typedef enum {
+	ImGuiLocKey_VersionStr=0,
+	ImGuiLocKey_TableSizeOne=1,
+	ImGuiLocKey_TableSizeAllFit=2,
+	ImGuiLocKey_TableSizeAllDefault=3,
+	ImGuiLocKey_TableResetOrder=4,
+	ImGuiLocKey_WindowingMainMenuBar=5,
+	ImGuiLocKey_WindowingPopup=6,
+	ImGuiLocKey_WindowingUntitled=7,
+	ImGuiLocKey_DockingHideTabBar=8,
+	ImGuiLocKey_DockingHoldShiftToDock=9,
+	ImGuiLocKey_DockingDragToUndockOrMoveNode=10,
+	ImGuiLocKey_COUNT=11,
+} ImGuiLocKey;
+typedef enum {
+	ImGuiDebugLogFlags_None = 0,
+	ImGuiDebugLogFlags_EventActiveId = 1 << 0,
+	ImGuiDebugLogFlags_EventFocus = 1 << 1,
+	ImGuiDebugLogFlags_EventPopup = 1 << 2,
+	ImGuiDebugLogFlags_EventNav = 1 << 3,
+	ImGuiDebugLogFlags_EventClipper = 1 << 4,
+	ImGuiDebugLogFlags_EventSelection = 1 << 5,
+	ImGuiDebugLogFlags_EventIO = 1 << 6,
+	ImGuiDebugLogFlags_EventInputRouting = 1 << 7,
+	ImGuiDebugLogFlags_EventDocking = 1 << 8,
+	ImGuiDebugLogFlags_EventViewport = 1 << 9,
+	ImGuiDebugLogFlags_EventMask_ = ImGuiDebugLogFlags_EventActiveId | ImGuiDebugLogFlags_EventFocus | ImGuiDebugLogFlags_EventPopup | ImGuiDebugLogFlags_EventNav | ImGuiDebugLogFlags_EventClipper | ImGuiDebugLogFlags_EventSelection | ImGuiDebugLogFlags_EventIO | ImGuiDebugLogFlags_EventInputRouting | ImGuiDebugLogFlags_EventDocking | ImGuiDebugLogFlags_EventViewport,
+	ImGuiDebugLogFlags_OutputToTTY = 1 << 20,
+	ImGuiDebugLogFlags_OutputToTestEngine = 1 << 21,
+} ImGuiDebugLogFlags_;
+typedef enum {
+	ImGuiContextHookType_NewFramePre,
+	ImGuiContextHookType_NewFramePost,
+	ImGuiContextHookType_EndFramePre,
+	ImGuiContextHookType_EndFramePost,
+	ImGuiContextHookType_RenderPre,
+	ImGuiContextHookType_RenderPost,
+	ImGuiContextHookType_Shutdown,
+	ImGuiContextHookType_PendingRemoval_
+} ImGuiContextHookType;
+typedef enum {
+	ImGuiTabBarFlags_DockNode = 1 << 20,
+	ImGuiTabBarFlags_IsFocused = 1 << 21,
+	ImGuiTabBarFlags_SaveSettings = 1 << 22,
+} ImGuiTabBarFlagsPrivate_;
+typedef enum {
+	ImGuiTabItemFlags_SectionMask_ = ImGuiTabItemFlags_Leading | ImGuiTabItemFlags_Trailing,
+	ImGuiTabItemFlags_NoCloseButton = 1 << 20,
+	ImGuiTabItemFlags_Button = 1 << 21,
+	ImGuiTabItemFlags_Unsorted = 1 << 22,
+} ImGuiTabItemFlagsPrivate_;
+typedef enum {
+	ImGui_ImplSDL2_GamepadMode_AutoFirst,
+	ImGui_ImplSDL2_GamepadMode_AutoAll,
+	ImGui_ImplSDL2_GamepadMode_Manual
+} ImGui_ImplSDL2_GamepadMode;
+
+// typedefs
+
+typedef struct ImDrawChannel ImDrawChannel;
+typedef struct ImDrawCmd ImDrawCmd;
+typedef struct ImDrawData ImDrawData;
+typedef struct ImDrawList ImDrawList;
+typedef struct ImDrawListSharedData ImDrawListSharedData;
+typedef struct ImDrawListSplitter ImDrawListSplitter;
+typedef struct ImDrawVert ImDrawVert;
+typedef struct ImFont ImFont;
+typedef struct ImFontAtlas ImFontAtlas;
+typedef struct ImFontBuilderIO ImFontBuilderIO;
+typedef struct ImFontConfig ImFontConfig;
+typedef struct ImFontGlyph ImFontGlyph;
+typedef struct ImFontGlyphRangesBuilder ImFontGlyphRangesBuilder;
+typedef struct ImColor ImColor;
+typedef struct ImGuiContext ImGuiContext;
+typedef struct ImGuiIO ImGuiIO;
+typedef struct ImGuiInputTextCallbackData ImGuiInputTextCallbackData;
+typedef struct ImGuiKeyData ImGuiKeyData;
+typedef struct ImGuiListClipper ImGuiListClipper;
+typedef struct ImGuiOnceUponAFrame ImGuiOnceUponAFrame;
+typedef struct ImGuiPayload ImGuiPayload;
+typedef struct ImGuiPlatformIO ImGuiPlatformIO;
+typedef struct ImGuiPlatformMonitor ImGuiPlatformMonitor;
+typedef struct ImGuiPlatformImeData ImGuiPlatformImeData;
+typedef struct ImGuiSizeCallbackData ImGuiSizeCallbackData;
+typedef struct ImGuiStorage ImGuiStorage;
+typedef struct ImGuiStyle ImGuiStyle;
+typedef struct ImGuiTableSortSpecs ImGuiTableSortSpecs;
+typedef struct ImGuiTableColumnSortSpecs ImGuiTableColumnSortSpecs;
+typedef struct ImGuiTextBuffer ImGuiTextBuffer;
+typedef struct ImGuiTextFilter ImGuiTextFilter;
+typedef struct ImGuiViewport ImGuiViewport;
+typedef struct ImGuiWindowClass ImGuiWindowClass;
+typedef struct ImBitVector ImBitVector;
+typedef struct ImRect ImRect;
+typedef struct ImDrawDataBuilder ImDrawDataBuilder;
+typedef struct ImGuiColorMod ImGuiColorMod;
+typedef struct ImGuiContextHook ImGuiContextHook;
+typedef struct ImGuiDataVarInfo ImGuiDataVarInfo;
+typedef struct ImGuiDataTypeInfo ImGuiDataTypeInfo;
+typedef struct ImGuiDockContext ImGuiDockContext;
+typedef struct ImGuiDockRequest ImGuiDockRequest;
+typedef struct ImGuiDockNode ImGuiDockNode;
+typedef struct ImGuiDockNodeSettings ImGuiDockNodeSettings;
+typedef struct ImGuiGroupData ImGuiGroupData;
+typedef struct ImGuiInputTextState ImGuiInputTextState;
+typedef struct ImGuiInputTextDeactivateData ImGuiInputTextDeactivateData;
+typedef struct ImGuiLastItemData ImGuiLastItemData;
+typedef struct ImGuiLocEntry ImGuiLocEntry;
+typedef struct ImGuiMenuColumns ImGuiMenuColumns;
+typedef struct ImGuiNavItemData ImGuiNavItemData;
+typedef struct ImGuiNavTreeNodeData ImGuiNavTreeNodeData;
+typedef struct ImGuiMetricsConfig ImGuiMetricsConfig;
+typedef struct ImGuiNextWindowData ImGuiNextWindowData;
+typedef struct ImGuiNextItemData ImGuiNextItemData;
+typedef struct ImGuiOldColumnData ImGuiOldColumnData;
+typedef struct ImGuiOldColumns ImGuiOldColumns;
+typedef struct ImGuiPopupData ImGuiPopupData;
+typedef struct ImGuiSettingsHandler ImGuiSettingsHandler;
+typedef struct ImGuiStackSizes ImGuiStackSizes;
+typedef struct ImGuiStyleMod ImGuiStyleMod;
+typedef struct ImGuiTabBar ImGuiTabBar;
+typedef struct ImGuiTabItem ImGuiTabItem;
+typedef struct ImGuiTable ImGuiTable;
+typedef struct ImGuiTableColumn ImGuiTableColumn;
+typedef struct ImGuiTableInstanceData ImGuiTableInstanceData;
+typedef struct ImGuiTableTempData ImGuiTableTempData;
+typedef struct ImGuiTableSettings ImGuiTableSettings;
+typedef struct ImGuiTableColumnsSettings ImGuiTableColumnsSettings;
+typedef struct ImGuiTypingSelectState ImGuiTypingSelectState;
+typedef struct ImGuiTypingSelectRequest ImGuiTypingSelectRequest;
+typedef struct ImGuiWindow ImGuiWindow;
+typedef struct ImGuiWindowTempData ImGuiWindowTempData;
+typedef struct ImGuiWindowSettings ImGuiWindowSettings;
+typedef struct ImVector {
+	int Size;
+	int Capacity;
+	char* Data;
+} ImVector;
+struct ImDrawChannel;
+struct ImDrawCmd;
+struct ImDrawData;
+struct ImDrawList;
+struct ImDrawListSharedData;
+struct ImDrawListSplitter;
+struct ImDrawVert;
+struct ImFont;
+struct ImFontAtlas;
+struct ImFontBuilderIO;
+struct ImFontConfig;
+struct ImFontGlyph;
+struct ImFontGlyphRangesBuilder;
+struct ImColor;
+struct ImGuiContext;
+struct ImGuiIO;
+struct ImGuiInputTextCallbackData;
+struct ImGuiKeyData;
+struct ImGuiListClipper;
+struct ImGuiOnceUponAFrame;
+struct ImGuiPayload;
+struct ImGuiPlatformIO;
+struct ImGuiPlatformMonitor;
+struct ImGuiPlatformImeData;
+struct ImGuiSizeCallbackData;
+struct ImGuiStorage;
+struct ImGuiStyle;
+struct ImGuiTableSortSpecs;
+struct ImGuiTableColumnSortSpecs;
+struct ImGuiTextBuffer;
+struct ImGuiTextFilter;
+struct ImGuiViewport;
+struct ImGuiWindowClass;
+typedef int ImGuiCol;
+typedef int ImGuiCond;
+typedef int ImGuiDataType;
+typedef int ImGuiDir;
+typedef int ImGuiMouseButton;
+typedef int ImGuiMouseCursor;
+typedef int ImGuiSortDirection;
+typedef int ImGuiStyleVar;
+typedef int ImGuiTableBgTarget;
+typedef int ImDrawFlags;
+typedef int ImDrawListFlags;
+typedef int ImFontAtlasFlags;
+typedef int ImGuiBackendFlags;
+typedef int ImGuiButtonFlags;
+typedef int ImGuiChildFlags;
+typedef int ImGuiColorEditFlags;
+typedef int ImGuiConfigFlags;
+typedef int ImGuiComboFlags;
+typedef int ImGuiDockNodeFlags;
+typedef int ImGuiDragDropFlags;
+typedef int ImGuiFocusedFlags;
+typedef int ImGuiHoveredFlags;
+typedef int ImGuiInputTextFlags;
+typedef int ImGuiKeyChord;
+typedef int ImGuiPopupFlags;
+typedef int ImGuiSelectableFlags;
+typedef int ImGuiSliderFlags;
+typedef int ImGuiTabBarFlags;
+typedef int ImGuiTabItemFlags;
+typedef int ImGuiTableFlags;
+typedef int ImGuiTableColumnFlags;
+typedef int ImGuiTableRowFlags;
+typedef int ImGuiTreeNodeFlags;
+typedef int ImGuiViewportFlags;
+typedef int ImGuiWindowFlags;
+typedef void* ImTextureID;
+typedef unsigned short ImDrawIdx;
+typedef unsigned int ImGuiID;
+typedef signed char ImS8;
+typedef unsigned char ImU8;
+typedef signed short ImS16;
+typedef unsigned short ImU16;
+typedef signed int ImS32;
+typedef unsigned int ImU32;
+typedef signed long long ImS64;
+typedef unsigned long long ImU64;
+typedef unsigned int ImWchar32;
+typedef unsigned short ImWchar16;
+typedef ImWchar16 ImWchar;
+typedef int (*ImGuiInputTextCallback)(ImGuiInputTextCallbackData* data);
+typedef void (*ImGuiSizeCallback)(ImGuiSizeCallbackData* data);
+typedef void* (*ImGuiMemAllocFunc)(size_t sz, void* user_data);
+typedef void (*ImGuiMemFreeFunc)(void* ptr, void* user_data);
+typedef struct ImVec2 ImVec2;
+struct ImVec2 {
+	float x, y;
+};
+typedef struct ImVec4 ImVec4;
+struct ImVec4 {
+	float x, y, z, w;
+};
 struct ImGuiTableSortSpecs {
 	const ImGuiTableColumnSortSpecs* Specs;
 	int SpecsCount;
@@ -1145,29 +1558,6 @@ struct ImDrawListSplitter {
 	int _Count;
 	ImVector/*<ImDrawChannel>*/ _Channels;
 };
-typedef enum {
-	ImDrawFlags_None = 0,
-	ImDrawFlags_Closed = 1 << 0,
-	ImDrawFlags_RoundCornersTopLeft = 1 << 4,
-	ImDrawFlags_RoundCornersTopRight = 1 << 5,
-	ImDrawFlags_RoundCornersBottomLeft = 1 << 6,
-	ImDrawFlags_RoundCornersBottomRight = 1 << 7,
-	ImDrawFlags_RoundCornersNone = 1 << 8,
-	ImDrawFlags_RoundCornersTop = ImDrawFlags_RoundCornersTopLeft | ImDrawFlags_RoundCornersTopRight,
-	ImDrawFlags_RoundCornersBottom = ImDrawFlags_RoundCornersBottomLeft | ImDrawFlags_RoundCornersBottomRight,
-	ImDrawFlags_RoundCornersLeft = ImDrawFlags_RoundCornersBottomLeft | ImDrawFlags_RoundCornersTopLeft,
-	ImDrawFlags_RoundCornersRight = ImDrawFlags_RoundCornersBottomRight | ImDrawFlags_RoundCornersTopRight,
-	ImDrawFlags_RoundCornersAll = ImDrawFlags_RoundCornersTopLeft | ImDrawFlags_RoundCornersTopRight | ImDrawFlags_RoundCornersBottomLeft | ImDrawFlags_RoundCornersBottomRight,
-	ImDrawFlags_RoundCornersDefault_ = ImDrawFlags_RoundCornersAll,
-	ImDrawFlags_RoundCornersMask_ = ImDrawFlags_RoundCornersAll | ImDrawFlags_RoundCornersNone,
-} ImDrawFlags_;
-typedef enum {
-	ImDrawListFlags_None = 0,
-	ImDrawListFlags_AntiAliasedLines = 1 << 0,
-	ImDrawListFlags_AntiAliasedLinesUseTex = 1 << 1,
-	ImDrawListFlags_AntiAliasedFill = 1 << 2,
-	ImDrawListFlags_AllowVtxOffset = 1 << 3,
-} ImDrawListFlags_;
 struct ImDrawList {
 	ImVector/*<ImDrawCmd>*/ CmdBuffer;
 	ImVector/*<ImDrawIdx>*/ IdxBuffer;
@@ -1238,12 +1628,6 @@ struct ImFontAtlasCustomRect {
 	ImVec2 GlyphOffset;
 	ImFont* Font;
 };
-typedef enum {
-	ImFontAtlasFlags_None = 0,
-	ImFontAtlasFlags_NoPowerOfTwoHeight = 1 << 0,
-	ImFontAtlasFlags_NoMouseCursors = 1 << 1,
-	ImFontAtlasFlags_NoBakedLines = 1 << 2,
-} ImFontAtlasFlags_;
 struct ImFontAtlas {
 	ImFontAtlasFlags Flags;
 	ImTextureID TexID;
@@ -1289,23 +1673,6 @@ struct ImFont {
 	int MetricsTotalSurface;
 	ImU8 Used4kPagesMap[(0xFFFF +1)/4096/8];
 };
-typedef enum {
-	ImGuiViewportFlags_None = 0,
-	ImGuiViewportFlags_IsPlatformWindow = 1 << 0,
-	ImGuiViewportFlags_IsPlatformMonitor = 1 << 1,
-	ImGuiViewportFlags_OwnedByApp = 1 << 2,
-	ImGuiViewportFlags_NoDecoration = 1 << 3,
-	ImGuiViewportFlags_NoTaskBarIcon = 1 << 4,
-	ImGuiViewportFlags_NoFocusOnAppearing = 1 << 5,
-	ImGuiViewportFlags_NoFocusOnClick = 1 << 6,
-	ImGuiViewportFlags_NoInputs = 1 << 7,
-	ImGuiViewportFlags_NoRendererClear = 1 << 8,
-	ImGuiViewportFlags_NoAutoMerge = 1 << 9,
-	ImGuiViewportFlags_TopMost = 1 << 10,
-	ImGuiViewportFlags_CanHostOtherWindows = 1 << 11,
-	ImGuiViewportFlags_IsMinimized = 1 << 12,
-	ImGuiViewportFlags_IsFocused = 1 << 13,
-} ImGuiViewportFlags_;
 struct ImGuiViewport {
 	ImGuiID ID;
 	ImGuiViewportFlags Flags;
@@ -1503,126 +1870,6 @@ struct ImDrawDataBuilder {
 	ImVector/*<ImDrawListPtr>*/* Layers[2];
 	ImVector/*<ImDrawListPtr>*/ LayerData1;
 };
-typedef enum {
-	ImGuiItemFlags_None = 0,
-	ImGuiItemFlags_NoTabStop = 1 << 0,
-	ImGuiItemFlags_ButtonRepeat = 1 << 1,
-	ImGuiItemFlags_Disabled = 1 << 2,
-	ImGuiItemFlags_NoNav = 1 << 3,
-	ImGuiItemFlags_NoNavDefaultFocus = 1 << 4,
-	ImGuiItemFlags_SelectableDontClosePopup = 1 << 5,
-	ImGuiItemFlags_MixedValue = 1 << 6,
-	ImGuiItemFlags_ReadOnly = 1 << 7,
-	ImGuiItemFlags_NoWindowHoverableCheck = 1 << 8,
-	ImGuiItemFlags_AllowOverlap = 1 << 9,
-	ImGuiItemFlags_Inputable = 1 << 10,
-	ImGuiItemFlags_HasSelectionUserData = 1 << 11,
-} ImGuiItemFlags_;
-typedef enum {
-	ImGuiItemStatusFlags_None = 0,
-	ImGuiItemStatusFlags_HoveredRect = 1 << 0,
-	ImGuiItemStatusFlags_HasDisplayRect = 1 << 1,
-	ImGuiItemStatusFlags_Edited = 1 << 2,
-	ImGuiItemStatusFlags_ToggledSelection = 1 << 3,
-	ImGuiItemStatusFlags_ToggledOpen = 1 << 4,
-	ImGuiItemStatusFlags_HasDeactivated = 1 << 5,
-	ImGuiItemStatusFlags_Deactivated = 1 << 6,
-	ImGuiItemStatusFlags_HoveredWindow = 1 << 7,
-	ImGuiItemStatusFlags_Visible = 1 << 8,
-	ImGuiItemStatusFlags_HasClipRect = 1 << 9,
-} ImGuiItemStatusFlags_;
-typedef enum {
-	ImGuiHoveredFlags_DelayMask_ = ImGuiHoveredFlags_DelayNone | ImGuiHoveredFlags_DelayShort | ImGuiHoveredFlags_DelayNormal | ImGuiHoveredFlags_NoSharedDelay,
-	ImGuiHoveredFlags_AllowedMaskForIsWindowHovered = ImGuiHoveredFlags_ChildWindows | ImGuiHoveredFlags_RootWindow | ImGuiHoveredFlags_AnyWindow | ImGuiHoveredFlags_NoPopupHierarchy | ImGuiHoveredFlags_DockHierarchy | ImGuiHoveredFlags_AllowWhenBlockedByPopup | ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_ForTooltip | ImGuiHoveredFlags_Stationary,
-	ImGuiHoveredFlags_AllowedMaskForIsItemHovered = ImGuiHoveredFlags_AllowWhenBlockedByPopup | ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenOverlapped | ImGuiHoveredFlags_AllowWhenDisabled | ImGuiHoveredFlags_NoNavOverride | ImGuiHoveredFlags_ForTooltip | ImGuiHoveredFlags_Stationary | ImGuiHoveredFlags_DelayMask_,
-} ImGuiHoveredFlagsPrivate_;
-typedef enum {
-	ImGuiInputTextFlags_Multiline = 1 << 26,
-	ImGuiInputTextFlags_NoMarkEdited = 1 << 27,
-	ImGuiInputTextFlags_MergedItem = 1 << 28,
-	ImGuiInputTextFlags_LocalizeDecimalPoint= 1 << 29,
-} ImGuiInputTextFlagsPrivate_;
-typedef enum {
-	ImGuiButtonFlags_PressedOnClick = 1 << 4,
-	ImGuiButtonFlags_PressedOnClickRelease = 1 << 5,
-	ImGuiButtonFlags_PressedOnClickReleaseAnywhere = 1 << 6,
-	ImGuiButtonFlags_PressedOnRelease = 1 << 7,
-	ImGuiButtonFlags_PressedOnDoubleClick = 1 << 8,
-	ImGuiButtonFlags_PressedOnDragDropHold = 1 << 9,
-	ImGuiButtonFlags_Repeat = 1 << 10,
-	ImGuiButtonFlags_FlattenChildren = 1 << 11,
-	ImGuiButtonFlags_AllowOverlap = 1 << 12,
-	ImGuiButtonFlags_DontClosePopups = 1 << 13,
-	ImGuiButtonFlags_AlignTextBaseLine = 1 << 15,
-	ImGuiButtonFlags_NoKeyModifiers = 1 << 16,
-	ImGuiButtonFlags_NoHoldingActiveId = 1 << 17,
-	ImGuiButtonFlags_NoNavFocus = 1 << 18,
-	ImGuiButtonFlags_NoHoveredOnFocus = 1 << 19,
-	ImGuiButtonFlags_NoSetKeyOwner = 1 << 20,
-	ImGuiButtonFlags_NoTestKeyOwner = 1 << 21,
-	ImGuiButtonFlags_PressedOnMask_ = ImGuiButtonFlags_PressedOnClick | ImGuiButtonFlags_PressedOnClickRelease | ImGuiButtonFlags_PressedOnClickReleaseAnywhere | ImGuiButtonFlags_PressedOnRelease | ImGuiButtonFlags_PressedOnDoubleClick | ImGuiButtonFlags_PressedOnDragDropHold,
-	ImGuiButtonFlags_PressedOnDefault_ = ImGuiButtonFlags_PressedOnClickRelease,
-} ImGuiButtonFlagsPrivate_;
-typedef enum {
-	ImGuiComboFlags_CustomPreview = 1 << 20,
-} ImGuiComboFlagsPrivate_;
-typedef enum {
-	ImGuiSliderFlags_Vertical = 1 << 20,
-	ImGuiSliderFlags_ReadOnly = 1 << 21,
-} ImGuiSliderFlagsPrivate_;
-typedef enum {
-	ImGuiSelectableFlags_NoHoldingActiveID = 1 << 20,
-	ImGuiSelectableFlags_SelectOnNav = 1 << 21,
-	ImGuiSelectableFlags_SelectOnClick = 1 << 22,
-	ImGuiSelectableFlags_SelectOnRelease = 1 << 23,
-	ImGuiSelectableFlags_SpanAvailWidth = 1 << 24,
-	ImGuiSelectableFlags_SetNavIdOnHover = 1 << 25,
-	ImGuiSelectableFlags_NoPadWithHalfSpacing = 1 << 26,
-	ImGuiSelectableFlags_NoSetKeyOwner = 1 << 27,
-} ImGuiSelectableFlagsPrivate_;
-typedef enum {
-	ImGuiTreeNodeFlags_ClipLabelForTrailingButton = 1 << 20,
-	ImGuiTreeNodeFlags_UpsideDownArrow = 1 << 21,
-} ImGuiTreeNodeFlagsPrivate_;
-typedef enum {
-	ImGuiSeparatorFlags_None = 0,
-	ImGuiSeparatorFlags_Horizontal = 1 << 0,
-	ImGuiSeparatorFlags_Vertical = 1 << 1,
-	ImGuiSeparatorFlags_SpanAllColumns = 1 << 2,
-} ImGuiSeparatorFlags_;
-typedef enum {
-	ImGuiFocusRequestFlags_None = 0,
-	ImGuiFocusRequestFlags_RestoreFocusedChild = 1 << 0,
-	ImGuiFocusRequestFlags_UnlessBelowModal = 1 << 1,
-} ImGuiFocusRequestFlags_;
-typedef enum {
-	ImGuiTextFlags_None = 0,
-	ImGuiTextFlags_NoWidthForLargeClippedText = 1 << 0,
-} ImGuiTextFlags_;
-typedef enum {
-	ImGuiTooltipFlags_None = 0,
-	ImGuiTooltipFlags_OverridePrevious = 1 << 1,
-} ImGuiTooltipFlags_;
-typedef enum {
-	ImGuiLayoutType_Horizontal = 0,
-	ImGuiLayoutType_Vertical = 1
-} ImGuiLayoutType_;
-typedef enum {
-	ImGuiLogType_None = 0,
-	ImGuiLogType_TTY,
-	ImGuiLogType_File,
-	ImGuiLogType_Buffer,
-	ImGuiLogType_Clipboard,
-} ImGuiLogType;
-typedef enum {
-	ImGuiAxis_None = -1,
-	ImGuiAxis_X = 0,
-	ImGuiAxis_Y = 1
-}ImGuiAxis;
-typedef enum {
-	ImGuiPlotType_Lines,
-	ImGuiPlotType_Histogram,
-} ImGuiPlotType;
 struct ImGuiColorMod {
 	ImGuiCol Col;
 	ImVec4 BackupValue;
@@ -1693,21 +1940,6 @@ struct ImGuiInputTextState {
 	int ReloadSelectionStart;
 	int ReloadSelectionEnd;
 };
-typedef enum {
-	ImGuiNextWindowDataFlags_None = 0,
-	ImGuiNextWindowDataFlags_HasPos = 1 << 0,
-	ImGuiNextWindowDataFlags_HasSize = 1 << 1,
-	ImGuiNextWindowDataFlags_HasContentSize = 1 << 2,
-	ImGuiNextWindowDataFlags_HasCollapsed = 1 << 3,
-	ImGuiNextWindowDataFlags_HasSizeConstraint = 1 << 4,
-	ImGuiNextWindowDataFlags_HasFocus = 1 << 5,
-	ImGuiNextWindowDataFlags_HasBgAlpha = 1 << 6,
-	ImGuiNextWindowDataFlags_HasScroll = 1 << 7,
-	ImGuiNextWindowDataFlags_HasChildFlags = 1 << 8,
-	ImGuiNextWindowDataFlags_HasViewport = 1 << 9,
-	ImGuiNextWindowDataFlags_HasDock = 1 << 10,
-	ImGuiNextWindowDataFlags_HasWindowClass = 1 << 11,
-} ImGuiNextWindowDataFlags_;
 struct ImGuiNextWindowData {
 	ImGuiNextWindowDataFlags Flags;
 	ImGuiCond PosCond;
@@ -1732,12 +1964,6 @@ struct ImGuiNextWindowData {
 	ImVec2 MenuBarOffsetMinVal;
 };
 typedef ImS64 ImGuiSelectionUserData;
-typedef enum {
-	ImGuiNextItemDataFlags_None = 0,
-	ImGuiNextItemDataFlags_HasWidth = 1 << 0,
-	ImGuiNextItemDataFlags_HasOpen = 1 << 1,
-	ImGuiNextItemDataFlags_HasShortcut = 1 << 2,
-} ImGuiNextItemDataFlags_;
 struct ImGuiNextItemData {
 	ImGuiNextItemDataFlags Flags;
 	ImGuiItemFlags ItemFlags;
@@ -1804,16 +2030,6 @@ struct ImGuiDataTypeInfo {
 	const char* PrintFmt;
 	const char* ScanFmt;
 };
-typedef enum {
-	ImGuiDataType_String = ImGuiDataType_COUNT + 1,
-	ImGuiDataType_Pointer,
-	ImGuiDataType_ID,
-} ImGuiDataTypePrivate_;
-typedef enum {
-	ImGuiPopupPositionPolicy_Default,
-	ImGuiPopupPositionPolicy_ComboBox,
-	ImGuiPopupPositionPolicy_Tooltip,
-} ImGuiPopupPositionPolicy;
 struct ImGuiPopupData {
 	ImGuiID PopupId;
 	ImGuiWindow* Window;
@@ -1828,24 +2044,6 @@ typedef struct ImBitArray_ImGuiKey_NamedKey_COUNT__lessImGuiKey_NamedKey_BEGIN {
 	ImU32 Storage[(ImGuiKey_NamedKey_COUNT+31)>>5];
 } ImBitArray_ImGuiKey_NamedKey_COUNT__lessImGuiKey_NamedKey_BEGIN;
 typedef ImBitArray_ImGuiKey_NamedKey_COUNT__lessImGuiKey_NamedKey_BEGIN ImBitArrayForNamedKeys;
-typedef enum {
-	ImGuiInputEventType_None = 0,
-	ImGuiInputEventType_MousePos,
-	ImGuiInputEventType_MouseWheel,
-	ImGuiInputEventType_MouseButton,
-	ImGuiInputEventType_MouseViewport,
-	ImGuiInputEventType_Key,
-	ImGuiInputEventType_Text,
-	ImGuiInputEventType_Focus,
-	ImGuiInputEventType_COUNT
-} ImGuiInputEventType;
-typedef enum {
-	ImGuiInputSource_None = 0,
-	ImGuiInputSource_Mouse,
-	ImGuiInputSource_Keyboard,
-	ImGuiInputSource_Gamepad,
-	ImGuiInputSource_COUNT
-} ImGuiInputSource;
 typedef struct ImGuiInputEventMousePos ImGuiInputEventMousePos;
 struct ImGuiInputEventMousePos {
 	float PosX, PosY;
@@ -1919,38 +2117,6 @@ struct ImGuiKeyOwnerData {
 	_Bool LockThisFrame;
 	_Bool LockUntilRelease;
 };
-typedef enum {
-	ImGuiInputFlags_None = 0,
-	ImGuiInputFlags_Repeat = 1 << 0,
-	ImGuiInputFlags_RepeatRateDefault = 1 << 1,
-	ImGuiInputFlags_RepeatRateNavMove = 1 << 2,
-	ImGuiInputFlags_RepeatRateNavTweak = 1 << 3,
-	ImGuiInputFlags_RepeatUntilRelease = 1 << 4,
-	ImGuiInputFlags_RepeatUntilKeyModsChange = 1 << 5,
-	ImGuiInputFlags_RepeatUntilKeyModsChangeFromNone = 1 << 6,
-	ImGuiInputFlags_RepeatUntilOtherKeyPress = 1 << 7,
-	ImGuiInputFlags_CondHovered = 1 << 8,
-	ImGuiInputFlags_CondActive = 1 << 9,
-	ImGuiInputFlags_CondDefault_ = ImGuiInputFlags_CondHovered | ImGuiInputFlags_CondActive,
-	ImGuiInputFlags_LockThisFrame = 1 << 10,
-	ImGuiInputFlags_LockUntilRelease = 1 << 11,
-	ImGuiInputFlags_RouteFocused = 1 << 12,
-	ImGuiInputFlags_RouteGlobalLow = 1 << 13,
-	ImGuiInputFlags_RouteGlobal = 1 << 14,
-	ImGuiInputFlags_RouteGlobalHigh = 1 << 15,
-	ImGuiInputFlags_RouteAlways = 1 << 16,
-	ImGuiInputFlags_RouteUnlessBgFocused= 1 << 17,
-	ImGuiInputFlags_RepeatRateMask_ = ImGuiInputFlags_RepeatRateDefault | ImGuiInputFlags_RepeatRateNavMove | ImGuiInputFlags_RepeatRateNavTweak,
-	ImGuiInputFlags_RepeatUntilMask_ = ImGuiInputFlags_RepeatUntilRelease | ImGuiInputFlags_RepeatUntilKeyModsChange | ImGuiInputFlags_RepeatUntilKeyModsChangeFromNone | ImGuiInputFlags_RepeatUntilOtherKeyPress,
-	ImGuiInputFlags_RepeatMask_ = ImGuiInputFlags_Repeat | ImGuiInputFlags_RepeatRateMask_ | ImGuiInputFlags_RepeatUntilMask_,
-	ImGuiInputFlags_CondMask_ = ImGuiInputFlags_CondHovered | ImGuiInputFlags_CondActive,
-	ImGuiInputFlags_RouteMask_ = ImGuiInputFlags_RouteFocused | ImGuiInputFlags_RouteGlobal | ImGuiInputFlags_RouteGlobalLow | ImGuiInputFlags_RouteGlobalHigh,
-	ImGuiInputFlags_SupportedByIsKeyPressed = ImGuiInputFlags_RepeatMask_,
-	ImGuiInputFlags_SupportedByIsMouseClicked = ImGuiInputFlags_Repeat,
-	ImGuiInputFlags_SupportedByShortcut = ImGuiInputFlags_RepeatMask_ | ImGuiInputFlags_RouteMask_ | ImGuiInputFlags_RouteAlways | ImGuiInputFlags_RouteUnlessBgFocused,
-	ImGuiInputFlags_SupportedBySetKeyOwner = ImGuiInputFlags_LockThisFrame | ImGuiInputFlags_LockUntilRelease,
-	ImGuiInputFlags_SupportedBySetItemKeyOwner = ImGuiInputFlags_SupportedBySetKeyOwner | ImGuiInputFlags_CondMask_,
-} ImGuiInputFlags_;
 typedef struct ImGuiListClipperRange ImGuiListClipperRange;
 struct ImGuiListClipperRange {
 	int Min;
@@ -1967,57 +2133,6 @@ struct ImGuiListClipperData {
 	int ItemsFrozen;
 	ImVector/*<ImGuiListClipperRange>*/ Ranges;
 };
-typedef enum {
-	ImGuiActivateFlags_None = 0,
-	ImGuiActivateFlags_PreferInput = 1 << 0,
-	ImGuiActivateFlags_PreferTweak = 1 << 1,
-	ImGuiActivateFlags_TryToPreserveState = 1 << 2,
-	ImGuiActivateFlags_FromTabbing = 1 << 3,
-	ImGuiActivateFlags_FromShortcut = 1 << 4,
-} ImGuiActivateFlags_;
-typedef enum {
-	ImGuiScrollFlags_None = 0,
-	ImGuiScrollFlags_KeepVisibleEdgeX = 1 << 0,
-	ImGuiScrollFlags_KeepVisibleEdgeY = 1 << 1,
-	ImGuiScrollFlags_KeepVisibleCenterX = 1 << 2,
-	ImGuiScrollFlags_KeepVisibleCenterY = 1 << 3,
-	ImGuiScrollFlags_AlwaysCenterX = 1 << 4,
-	ImGuiScrollFlags_AlwaysCenterY = 1 << 5,
-	ImGuiScrollFlags_NoScrollParent = 1 << 6,
-	ImGuiScrollFlags_MaskX_ = ImGuiScrollFlags_KeepVisibleEdgeX | ImGuiScrollFlags_KeepVisibleCenterX | ImGuiScrollFlags_AlwaysCenterX,
-	ImGuiScrollFlags_MaskY_ = ImGuiScrollFlags_KeepVisibleEdgeY | ImGuiScrollFlags_KeepVisibleCenterY | ImGuiScrollFlags_AlwaysCenterY,
-} ImGuiScrollFlags_;
-typedef enum {
-	ImGuiNavHighlightFlags_None = 0,
-	ImGuiNavHighlightFlags_Compact = 1 << 1,
-	ImGuiNavHighlightFlags_AlwaysDraw = 1 << 2,
-	ImGuiNavHighlightFlags_NoRounding = 1 << 3,
-} ImGuiNavHighlightFlags_;
-typedef enum {
-	ImGuiNavMoveFlags_None = 0,
-	ImGuiNavMoveFlags_LoopX = 1 << 0,
-	ImGuiNavMoveFlags_LoopY = 1 << 1,
-	ImGuiNavMoveFlags_WrapX = 1 << 2,
-	ImGuiNavMoveFlags_WrapY = 1 << 3,
-	ImGuiNavMoveFlags_WrapMask_ = ImGuiNavMoveFlags_LoopX | ImGuiNavMoveFlags_LoopY | ImGuiNavMoveFlags_WrapX | ImGuiNavMoveFlags_WrapY,
-	ImGuiNavMoveFlags_AllowCurrentNavId = 1 << 4,
-	ImGuiNavMoveFlags_AlsoScoreVisibleSet = 1 << 5,
-	ImGuiNavMoveFlags_ScrollToEdgeY = 1 << 6,
-	ImGuiNavMoveFlags_Forwarded = 1 << 7,
-	ImGuiNavMoveFlags_DebugNoResult = 1 << 8,
-	ImGuiNavMoveFlags_FocusApi = 1 << 9,
-	ImGuiNavMoveFlags_IsTabbing = 1 << 10,
-	ImGuiNavMoveFlags_IsPageMove = 1 << 11,
-	ImGuiNavMoveFlags_Activate = 1 << 12,
-	ImGuiNavMoveFlags_NoSelect = 1 << 13,
-	ImGuiNavMoveFlags_NoSetNavHighlight = 1 << 14,
-	ImGuiNavMoveFlags_NoClearActiveId = 1 << 15,
-} ImGuiNavMoveFlags_;
-typedef enum {
-	ImGuiNavLayer_Main = 0,
-	ImGuiNavLayer_Menu = 1,
-	ImGuiNavLayer_COUNT
-} ImGuiNavLayer;
 struct ImGuiNavItemData {
 	ImGuiWindow* Window;
 	ImGuiID ID;
@@ -2034,11 +2149,6 @@ struct ImGuiFocusScopeData {
 	ImGuiID ID;
 	ImGuiID WindowID;
 };
-typedef enum {
-	ImGuiTypingSelectFlags_None = 0,
-	ImGuiTypingSelectFlags_AllowBackspace = 1 << 0,
-	ImGuiTypingSelectFlags_AllowSingleCharMode = 1 << 1,
-} ImGuiTypingSelectFlags_;
 struct ImGuiTypingSelectRequest {
 	ImGuiTypingSelectFlags Flags;
 	int SearchBufferLen;
@@ -2055,14 +2165,6 @@ struct ImGuiTypingSelectState {
 	float LastRequestTime;
 	_Bool SingleCharModeLock;
 };
-typedef enum {
-	ImGuiOldColumnFlags_None = 0,
-	ImGuiOldColumnFlags_NoBorder = 1 << 0,
-	ImGuiOldColumnFlags_NoResize = 1 << 1,
-	ImGuiOldColumnFlags_NoPreserveWidths = 1 << 2,
-	ImGuiOldColumnFlags_NoForceWithinWindow = 1 << 3,
-	ImGuiOldColumnFlags_GrowParentContentsSize = 1 << 4,
-} ImGuiOldColumnFlags_;
 struct ImGuiOldColumnData {
 	float OffsetNorm;
 	float OffsetNormBeforeResize;
@@ -2086,37 +2188,6 @@ struct ImGuiOldColumns {
 	ImVector/*<ImGuiOldColumnData>*/ Columns;
 	ImDrawListSplitter Splitter;
 };
-typedef enum {
-	ImGuiDockNodeFlags_DockSpace = 1 << 10,
-	ImGuiDockNodeFlags_CentralNode = 1 << 11,
-	ImGuiDockNodeFlags_NoTabBar = 1 << 12,
-	ImGuiDockNodeFlags_HiddenTabBar = 1 << 13,
-	ImGuiDockNodeFlags_NoWindowMenuButton = 1 << 14,
-	ImGuiDockNodeFlags_NoCloseButton = 1 << 15,
-	ImGuiDockNodeFlags_NoResizeX = 1 << 16,
-	ImGuiDockNodeFlags_NoResizeY = 1 << 17,
-	ImGuiDockNodeFlags_DockedWindowsInFocusRoute= 1 << 18,
-	ImGuiDockNodeFlags_NoDockingSplitOther = 1 << 19,
-	ImGuiDockNodeFlags_NoDockingOverMe = 1 << 20,
-	ImGuiDockNodeFlags_NoDockingOverOther = 1 << 21,
-	ImGuiDockNodeFlags_NoDockingOverEmpty = 1 << 22,
-	ImGuiDockNodeFlags_NoDocking = ImGuiDockNodeFlags_NoDockingOverMe | ImGuiDockNodeFlags_NoDockingOverOther | ImGuiDockNodeFlags_NoDockingOverEmpty | ImGuiDockNodeFlags_NoDockingSplit | ImGuiDockNodeFlags_NoDockingSplitOther,
-	ImGuiDockNodeFlags_SharedFlagsInheritMask_ = ~0,
-	ImGuiDockNodeFlags_NoResizeFlagsMask_ = ImGuiDockNodeFlags_NoResize | ImGuiDockNodeFlags_NoResizeX | ImGuiDockNodeFlags_NoResizeY,
-	ImGuiDockNodeFlags_LocalFlagsTransferMask_ = ImGuiDockNodeFlags_NoDockingSplit | ImGuiDockNodeFlags_NoResizeFlagsMask_ | ImGuiDockNodeFlags_AutoHideTabBar | ImGuiDockNodeFlags_CentralNode | ImGuiDockNodeFlags_NoTabBar | ImGuiDockNodeFlags_HiddenTabBar | ImGuiDockNodeFlags_NoWindowMenuButton | ImGuiDockNodeFlags_NoCloseButton,
-	ImGuiDockNodeFlags_SavedFlagsMask_ = ImGuiDockNodeFlags_NoResizeFlagsMask_ | ImGuiDockNodeFlags_DockSpace | ImGuiDockNodeFlags_CentralNode | ImGuiDockNodeFlags_NoTabBar | ImGuiDockNodeFlags_HiddenTabBar | ImGuiDockNodeFlags_NoWindowMenuButton | ImGuiDockNodeFlags_NoCloseButton,
-} ImGuiDockNodeFlagsPrivate_;
-typedef enum {
-	ImGuiDataAuthority_Auto,
-	ImGuiDataAuthority_DockNode,
-	ImGuiDataAuthority_Window,
-} ImGuiDataAuthority_;
-typedef enum {
-	ImGuiDockNodeState_Unknown,
-	ImGuiDockNodeState_HostWindowHiddenBecauseSingleWindow,
-	ImGuiDockNodeState_HostWindowHiddenBecauseWindowsAreResizing,
-	ImGuiDockNodeState_HostWindowVisible,
-} ImGuiDockNodeState;
 struct ImGuiDockNode {
 	ImGuiID ID;
 	ImGuiDockNodeFlags SharedFlags;
@@ -2161,15 +2232,6 @@ struct ImGuiDockNode {
 	_Bool WantHiddenTabBarUpdate :1;
 	_Bool WantHiddenTabBarToggle :1;
 };
-typedef enum {
-	ImGuiWindowDockStyleCol_Text,
-	ImGuiWindowDockStyleCol_Tab,
-	ImGuiWindowDockStyleCol_TabHovered,
-	ImGuiWindowDockStyleCol_TabActive,
-	ImGuiWindowDockStyleCol_TabUnfocused,
-	ImGuiWindowDockStyleCol_TabUnfocusedActive,
-	ImGuiWindowDockStyleCol_COUNT
-} ImGuiWindowDockStyleCol;
 typedef struct ImGuiWindowDockStyle ImGuiWindowDockStyle;
 struct ImGuiWindowDockStyle {
 	ImU32 Colors[ImGuiWindowDockStyleCol_COUNT];
@@ -2230,40 +2292,10 @@ struct ImGuiSettingsHandler {
 	void (*WriteAllFn)(ImGuiContext* ctx, ImGuiSettingsHandler* handler, ImGuiTextBuffer* out_buf);
 	void* UserData;
 };
-typedef enum {
-	ImGuiLocKey_VersionStr=0,
-	ImGuiLocKey_TableSizeOne=1,
-	ImGuiLocKey_TableSizeAllFit=2,
-	ImGuiLocKey_TableSizeAllDefault=3,
-	ImGuiLocKey_TableResetOrder=4,
-	ImGuiLocKey_WindowingMainMenuBar=5,
-	ImGuiLocKey_WindowingPopup=6,
-	ImGuiLocKey_WindowingUntitled=7,
-	ImGuiLocKey_DockingHideTabBar=8,
-	ImGuiLocKey_DockingHoldShiftToDock=9,
-	ImGuiLocKey_DockingDragToUndockOrMoveNode=10,
-	ImGuiLocKey_COUNT=11,
-} ImGuiLocKey;
 struct ImGuiLocEntry {
 	ImGuiLocKey Key;
 	const char* Text;
 };
-typedef enum {
-	ImGuiDebugLogFlags_None = 0,
-	ImGuiDebugLogFlags_EventActiveId = 1 << 0,
-	ImGuiDebugLogFlags_EventFocus = 1 << 1,
-	ImGuiDebugLogFlags_EventPopup = 1 << 2,
-	ImGuiDebugLogFlags_EventNav = 1 << 3,
-	ImGuiDebugLogFlags_EventClipper = 1 << 4,
-	ImGuiDebugLogFlags_EventSelection = 1 << 5,
-	ImGuiDebugLogFlags_EventIO = 1 << 6,
-	ImGuiDebugLogFlags_EventInputRouting = 1 << 7,
-	ImGuiDebugLogFlags_EventDocking = 1 << 8,
-	ImGuiDebugLogFlags_EventViewport = 1 << 9,
-	ImGuiDebugLogFlags_EventMask_ = ImGuiDebugLogFlags_EventActiveId | ImGuiDebugLogFlags_EventFocus | ImGuiDebugLogFlags_EventPopup | ImGuiDebugLogFlags_EventNav | ImGuiDebugLogFlags_EventClipper | ImGuiDebugLogFlags_EventSelection | ImGuiDebugLogFlags_EventIO | ImGuiDebugLogFlags_EventInputRouting | ImGuiDebugLogFlags_EventDocking | ImGuiDebugLogFlags_EventViewport,
-	ImGuiDebugLogFlags_OutputToTTY = 1 << 20,
-	ImGuiDebugLogFlags_OutputToTestEngine = 1 << 21,
-} ImGuiDebugLogFlags_;
 typedef struct ImGuiDebugAllocEntry ImGuiDebugAllocEntry;
 struct ImGuiDebugAllocEntry {
 	int FrameCount;
@@ -2311,16 +2343,6 @@ struct ImGuiIDStackTool {
 	float CopyToClipboardLastTime;
 };
 typedef void (*ImGuiContextHookCallback)(ImGuiContext* ctx, ImGuiContextHook* hook);
-typedef enum {
-	ImGuiContextHookType_NewFramePre,
-	ImGuiContextHookType_NewFramePost,
-	ImGuiContextHookType_EndFramePre,
-	ImGuiContextHookType_EndFramePost,
-	ImGuiContextHookType_RenderPre,
-	ImGuiContextHookType_RenderPost,
-	ImGuiContextHookType_Shutdown,
-	ImGuiContextHookType_PendingRemoval_
-} ImGuiContextHookType;
 struct ImGuiContextHook {
 	ImGuiID HookId;
 	ImGuiContextHookType Type;
@@ -2791,17 +2813,6 @@ struct ImGuiWindow {
 	ImGuiItemStatusFlags DockTabItemStatusFlags;
 	ImRect DockTabItemRect;
 };
-typedef enum {
-	ImGuiTabBarFlags_DockNode = 1 << 20,
-	ImGuiTabBarFlags_IsFocused = 1 << 21,
-	ImGuiTabBarFlags_SaveSettings = 1 << 22,
-} ImGuiTabBarFlagsPrivate_;
-typedef enum {
-	ImGuiTabItemFlags_SectionMask_ = ImGuiTabItemFlags_Leading | ImGuiTabItemFlags_Trailing,
-	ImGuiTabItemFlags_NoCloseButton = 1 << 20,
-	ImGuiTabItemFlags_Button = 1 << 21,
-	ImGuiTabItemFlags_Unsorted = 1 << 22,
-} ImGuiTabItemFlagsPrivate_;
 struct ImGuiTabItem {
 	ImGuiID ID;
 	ImGuiTabItemFlags Flags;
@@ -3073,11 +3084,6 @@ struct ImGuiTableSettings {
 struct ImFontBuilderIO {
 	_Bool (*FontBuilder_Build)(ImFontAtlas* atlas);
 };
-typedef enum {
-	ImGui_ImplSDL2_GamepadMode_AutoFirst,
-	ImGui_ImplSDL2_GamepadMode_AutoAll,
-	ImGui_ImplSDL2_GamepadMode_Manual
-} ImGui_ImplSDL2_GamepadMode;
 ]]
 
 local wrapper
