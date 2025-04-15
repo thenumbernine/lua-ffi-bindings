@@ -17,6 +17,8 @@ elseif ffi.os == 'OSX' then
 	require 'ffi.req' 'c.unistd'
 	require 'ffi.req' 'c.Availability'
 	ffi.cdef[[
+typedef long z_off_t;
+typedef off_t z_off64_t;
 typedef unsigned long z_crc_t;
 ]]
 elseif ffi.os == 'Windows' then
@@ -26,7 +28,7 @@ typedef unsigned z_crc_t;
 ]]
 end
 
-ffi.cdef([[
+ffi.cdef[[
 typedef long long z_longlong;
 typedef size_t z_size_t;
 typedef unsigned char Byte;
@@ -82,9 +84,9 @@ typedef struct gzFile_s *gzFile;
 struct gzFile_s {
 	unsigned have;
 	unsigned char *next;
-	]]..(ffi.os == 'Windows' and '__int64_t' or 'off_t')..[[ pos;
+	z_off64_t pos;
 };
-]])
+]]
 
 local wrapper
 wrapper = require 'ffi.libwrapper'{
@@ -95,7 +97,7 @@ wrapper = require 'ffi.libwrapper'{
 
 		ZLIB_H = 1,
 		ZCONF_H = 1,
-		--STDC = 1,
+		--STDC = 1
 		--STDC99 = 1 for non-Windows, undefined otherwise
 		--Z_HAVE_UNISTD_H = 1 for non-Windows, undefined otherwise
 		--Z_HAVE_STDARG_H = 1 for non-Windows, undefined otherwise
@@ -212,12 +214,12 @@ wrapper = require 'ffi.libwrapper'{
 		inflateBackInit_ = [[int inflateBackInit_(z_streamp strm, int windowBits, unsigned char *window, const char *version, int stream_size);]],
 		gzgetc_ = [[int gzgetc_(gzFile file);]],
 		gzopen = [[gzFile gzopen(const char *, const char *);]],
-		gzseek = [[long gzseek(gzFile, long, int);]],
-		gztell = [[long gztell(gzFile);]],
-		gzoffset = [[long gzoffset(gzFile);]],
-		adler32_combine = [[uLong adler32_combine(uLong, uLong, long);]],
-		crc32_combine = [[uLong crc32_combine(uLong, uLong, long);]],
-		crc32_combine_gen = [[uLong crc32_combine_gen(long);]],
+		gzseek = [[z_off_t gzseek(gzFile, z_off_t, int);]],
+		gztell = [[z_off_t gztell(gzFile);]],
+		gzoffset = [[z_off_t gzoffset(gzFile);]],
+		adler32_combine = [[uLong adler32_combine(uLong, uLong, z_off_t);]],
+		crc32_combine = [[uLong crc32_combine(uLong, uLong, z_off_t);]],
+		crc32_combine_gen = [[uLong crc32_combine_gen(z_off_t);]],
 		zError = [[const char * zError(int);]],
 		inflateSyncPoint = [[int inflateSyncPoint(z_streamp);]],
 		get_crc_table = [[const z_crc_t * get_crc_table();]],
@@ -230,6 +232,8 @@ wrapper = require 'ffi.libwrapper'{
 		gzvprintf = [[int gzvprintf(gzFile file, const char *format, va_list va);]],
 	},
 }
+
+-- macros
 
 wrapper.ZLIB_VERSION = "1.2.12"
 
