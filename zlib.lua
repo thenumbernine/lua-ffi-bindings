@@ -291,14 +291,16 @@ So for C compatability with the resulting data, just skip the first 8 bytes.
 --]]
 function wrapper.compressLua(src)
 	assert.type(src, 'string')
-	local srcLen = ffi.new'uLongf[1]'
+	local srcLen = ffi.new'uint64_t[1]'
 	srcLen[0] = #src
-	local dstLen = ffi.new('uLongf[1]', wrapper.compressBound(srcLen[0]))
+	if ffi.sizeof'uLongf' <= 4 and srcLen[0] >= 4294967296ULL then
+		error("overflow")
+	end
+	local dstLen = ffi.new('uLongf[1]', wrapper.compressBound(ffi.cast('uLongf', srcLen[0])))
 	local dst = ffi.new('Bytef[?]', dstLen[0])
-	assert(wrapper.pcall('compress', dst, dstLen, src, srcLen[0]))
+	assert(wrapper.pcall('compress', dst, dstLen, src, ffi.cast('uLongf', srcLen[0])))
 
 	local srcLenP = ffi.cast('uint8_t*', srcLen)
-	assert.eq(ffi.sizeof'uLongf', 8)
 	local dstAndLen = ''
 	for i=0,7 do
 		dstAndLen=dstAndLen..string.char(srcLenP[i])
@@ -311,18 +313,20 @@ function wrapper.uncompressLua(srcAndLen)
 	assert.type(srcAndLen, 'string')
 	-- there's no good way in the zlib api to tell how big this will need to be
 	-- so I'm saving it as the first 8 bytes of the data
-	assert.eq(ffi.sizeof'uLongf', 8)
 	local dstLenP = ffi.cast('uint8_t*', srcAndLen)
 	local src = dstLenP + 8
 	local srcLen = #srcAndLen - 8
-	local dstLen = ffi.new'uLongf[1]'
+	local dstLen = ffi.new'uint64_t[1]'
 	dstLen[0] = 0
 	for i=7,0,-1 do
 		dstLen[0] = bit.bor(bit.lshift(dstLen[0], 8), dstLenP[i])
 	end
+	if ffi.sizeof'uLongf' <= 4 and dstLen[0] >= 4294967296ULL then
+		error("overflow")
+	end
 
 	local dst = ffi.new('Bytef[?]', dstLen[0])
-	assert(wrapper.pcall('uncompress', dst, dstLen, src, srcLen))
+	assert(wrapper.pcall('uncompress', dst, ffi.cast('uLongf*', dstLen), src, srcLen))
 	return ffi.string(dst, dstLen[0])
 end
 
