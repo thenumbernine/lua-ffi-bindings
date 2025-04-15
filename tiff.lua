@@ -1059,7 +1059,7 @@ wrapper = require 'ffi.libwrapper'{
 	},
 }
 
-wrapper.TIFFLIB_VERSION_STR = "LIBTIFF, Version 4.7.0\nCopyright (c) 1988-1996 Sam Leffler\nCopyright (c) 1991-1996 Silicon Graphics, Inc." ### string, not number "\"LIBTIFF, Version 4.7.0\\nCopyright (c) 1988-1996 Sam Leffler\\nCopyright (c) 1991-1996 Silicon Graphics, Inc.\""
+wrapper.TIFFLIB_VERSION_STR = "LIBTIFF, Version 4.7.0\nCopyright (c) 1988-1996 Sam Leffler\nCopyright (c) 1991-1996 Silicon Graphics, Inc."
 wrapper.TIFFLIB_VERSION_STR_MAJ_MIN_MIC = "4.7.0"
 wrapper.D65_X0 = 95.0470
 wrapper.D65_Y0 = 100.0
