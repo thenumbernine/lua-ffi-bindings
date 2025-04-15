@@ -57,6 +57,7 @@ return setmetatable({
 
 	-- can ffi.load"serial/hdf5" work? hmm...
 	hdf5 = {Linux = '/usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5.so'},
+	png ={Windows = 'libpng16'},
 	jpeg = {
 		-- For Windows msvc turbojpeg 2.0.3 cmake wouldn't build, so i used 2.0.4 instead
 		-- I wonder if this is the reason for the few subtle differences
