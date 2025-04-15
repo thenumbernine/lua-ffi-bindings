@@ -1,5 +1,362 @@
 local ffi = require 'ffi'
 
+-- comments
+
+--[[
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* #    define SDL_DEPRECATED __attribute__((deprecated)) ### string, not number "__attribute__((deprecated))" */
+/* #    define SDL_UNUSED __attribute__((unused)) ### string, not number "__attribute__((unused))" */
+/* #   define DECLSPEC ### string, not number "__attribute__ ((visibility(\"default\")))" */
+/* #define SDL_FORCE_INLINE __attribute__((always_inline)) static __inline__ ### string, not number "__attribute__((always_inline)) static __inline__" */
+/* #define SDL_NORETURN __attribute__((noreturn)) ### string, not number "__attribute__((noreturn))" */
+/* #define SDL_FALLTHROUGH do {} while (0) ### string, not number "do {} while (0)" */
+/* #define FLT_ROUNDS (__builtin_flt_rounds()) ### string, not number "(__builtin_flt_rounds())" */
+/* #define FLT_MAX __FLT_MAX__ ### string, not number "__FLT_MAX__" */
+/* #define DBL_MAX __DBL_MAX__ ### string, not number "__DBL_MAX__" */
+/* #define LDBL_MAX __LDBL_MAX__ ### string, not number "__LDBL_MAX__" */
+/* #define FLT_EPSILON __FLT_EPSILON__ ### string, not number "__FLT_EPSILON__" */
+/* #define DBL_EPSILON __DBL_EPSILON__ ### string, not number "__DBL_EPSILON__" */
+/* #define LDBL_EPSILON __LDBL_EPSILON__ ### string, not number "__LDBL_EPSILON__" */
+/* #define FLT_MIN __FLT_MIN__ ### string, not number "__FLT_MIN__" */
+/* #define DBL_MIN __DBL_MIN__ ### string, not number "__DBL_MIN__" */
+/* #define LDBL_MIN __LDBL_MIN__ ### string, not number "__LDBL_MIN__" */
+/* #    define FLT_TRUE_MIN __FLT_DENORM_MIN__ ### string, not number "__FLT_DENORM_MIN__" */
+/* #    define DBL_TRUE_MIN __DBL_DENORM_MIN__ ### string, not number "__DBL_DENORM_MIN__" */
+/* #    define LDBL_TRUE_MIN __LDBL_DENORM_MIN__ ### string, not number "__LDBL_DENORM_MIN__" */
+/* redefining matching value: #define FLT_EVAL_METHOD __FLT_EVAL_METHOD__ */
+/* #define FLT_ROUNDS (__builtin_flt_rounds()) ### string, not number "(__builtin_flt_rounds())" */
+/* redefining matching value: #define FLT_RADIX __FLT_RADIX__ */
+/* redefining matching value: #define FLT_MANT_DIG __FLT_MANT_DIG__ */
+/* redefining matching value: #define DBL_MANT_DIG __DBL_MANT_DIG__ */
+/* redefining matching value: #define LDBL_MANT_DIG __LDBL_MANT_DIG__ */
+/* redefining matching value: #  define DECIMAL_DIG __DECIMAL_DIG__ */
+/* redefining matching value: #define FLT_DIG __FLT_DIG__ */
+/* redefining matching value: #define DBL_DIG __DBL_DIG__ */
+/* redefining matching value: #define LDBL_DIG __LDBL_DIG__ */
+/* redefining matching value: #define FLT_MIN_EXP __FLT_MIN_EXP__ */
+/* redefining matching value: #define DBL_MIN_EXP __DBL_MIN_EXP__ */
+/* redefining matching value: #define LDBL_MIN_EXP __LDBL_MIN_EXP__ */
+/* redefining matching value: #define FLT_MIN_10_EXP __FLT_MIN_10_EXP__ */
+/* redefining matching value: #define DBL_MIN_10_EXP __DBL_MIN_10_EXP__ */
+/* redefining matching value: #define LDBL_MIN_10_EXP __LDBL_MIN_10_EXP__ */
+/* redefining matching value: #define FLT_MAX_EXP __FLT_MAX_EXP__ */
+/* redefining matching value: #define DBL_MAX_EXP __DBL_MAX_EXP__ */
+/* redefining matching value: #define LDBL_MAX_EXP __LDBL_MAX_EXP__ */
+/* redefining matching value: #define FLT_MAX_10_EXP __FLT_MAX_10_EXP__ */
+/* redefining matching value: #define DBL_MAX_10_EXP __DBL_MAX_10_EXP__ */
+/* redefining matching value: #define LDBL_MAX_10_EXP __LDBL_MAX_10_EXP__ */
+/* #define FLT_MAX __FLT_MAX__ ### string, not number "__FLT_MAX__" */
+/* #define DBL_MAX __DBL_MAX__ ### string, not number "__DBL_MAX__" */
+/* #define LDBL_MAX __LDBL_MAX__ ### string, not number "__LDBL_MAX__" */
+/* #define FLT_EPSILON __FLT_EPSILON__ ### string, not number "__FLT_EPSILON__" */
+/* #define DBL_EPSILON __DBL_EPSILON__ ### string, not number "__DBL_EPSILON__" */
+/* #define LDBL_EPSILON __LDBL_EPSILON__ ### string, not number "__LDBL_EPSILON__" */
+/* #define FLT_MIN __FLT_MIN__ ### string, not number "__FLT_MIN__" */
+/* #define DBL_MIN __DBL_MIN__ ### string, not number "__DBL_MIN__" */
+/* #define LDBL_MIN __LDBL_MIN__ ### string, not number "__LDBL_MIN__" */
+/* #  define FLT_TRUE_MIN __FLT_DENORM_MIN__ ### string, not number "__FLT_DENORM_MIN__" */
+/* #  define DBL_TRUE_MIN __DBL_DENORM_MIN__ ### string, not number "__DBL_DENORM_MIN__" */
+/* #  define LDBL_TRUE_MIN __LDBL_DENORM_MIN__ ### string, not number "__LDBL_DENORM_MIN__" */
+/* redefining matching value: #  define FLT_DECIMAL_DIG __FLT_DECIMAL_DIG__ */
+/* redefining matching value: #  define DBL_DECIMAL_DIG __DBL_DECIMAL_DIG__ */
+/* redefining matching value: #  define LDBL_DECIMAL_DIG __LDBL_DECIMAL_DIG__ */
+/* redefining matching value: #  define FLT_HAS_SUBNORM __FLT_HAS_DENORM__ */
+/* redefining matching value: #  define DBL_HAS_SUBNORM __DBL_HAS_DENORM__ */
+/* redefining matching value: #  define LDBL_HAS_SUBNORM __LDBL_HAS_DENORM__ */
+/* # define SDL_SIZE_MAX SIZE_MAX ### string, not number "1.844674407371e+19" */
+/* #define SDL_MAX_SINT8   ((Sint8)0x7F) ### string, not number "((Sint8)0x7F)" */
+/* #define SDL_MIN_SINT8   ((Sint8)(~0x7F)) ### string, not number "((Sint8)(~0x7F))" */
+/* #define SDL_MAX_UINT8   ((Uint8)0xFF) ### string, not number "((Uint8)0xFF)" */
+/* #define SDL_MIN_UINT8   ((Uint8)0x00) ### string, not number "((Uint8)0x00)" */
+/* #define SDL_MAX_SINT16  ((Sint16)0x7FFF) ### string, not number "((Sint16)0x7FFF)" */
+/* #define SDL_MIN_SINT16  ((Sint16)(~0x7FFF)) ### string, not number "((Sint16)(~0x7FFF))" */
+/* #define SDL_MAX_UINT16  ((Uint16)0xFFFF) ### string, not number "((Uint16)0xFFFF)" */
+/* #define SDL_MIN_UINT16  ((Uint16)0x0000) ### string, not number "((Uint16)0x0000)" */
+/* #define SDL_MAX_SINT32  ((Sint32)0x7FFFFFFF) ### string, not number "((Sint32)0x7FFFFFFF)" */
+/* #define SDL_MIN_SINT32  ((Sint32)(~0x7FFFFFFF)) ### string, not number "((Sint32)(~0x7FFFFFFF))" */
+/* #define SDL_MAX_UINT32  ((Uint32)0xFFFFFFFFu) ### string, not number "((Uint32)0xFFFFFFFFu)" */
+/* #define SDL_MIN_UINT32  ((Uint32)0x00000000) ### string, not number "((Uint32)0x00000000)" */
+/* #define SDL_MAX_SINT64  ((Sint64)0x7FFFFFFFFFFFFFFFll) ### string, not number "((Sint64)0x7FFFFFFFFFFFFFFFll)" */
+/* #define SDL_MIN_SINT64  ((Sint64)(~0x7FFFFFFFFFFFFFFFll)) ### string, not number "((Sint64)(~0x7FFFFFFFFFFFFFFFll))" */
+/* #define SDL_MAX_UINT64  ((Uint64)0xFFFFFFFFFFFFFFFFull) ### string, not number "((Uint64)0xFFFFFFFFFFFFFFFFull)" */
+/* #define SDL_MIN_UINT64  ((Uint64)(0x0000000000000000ull)) ### string, not number "((Uint64)(0x0000000000000000ull))" */
+/* #define SDL_FLT_EPSILON FLT_EPSILON ### string, not number "FLT_EPSILON" */
+/* #define SDL_PRIs64 PRId64 ### string, not number "PRId64" */
+/* #define SDL_PRIu64 PRIu64 ### string, not number "PRIu64" */
+/* #define SDL_PRIx64 PRIx64 ### string, not number "PRIx64" */
+/* #define SDL_PRIX64 PRIX64 ### string, not number "PRIX64" */
+/* #define SDL_PRIs32 PRId32 ### string, not number "PRId32" */
+/* #define SDL_PRIu32 PRIu32 ### string, not number "PRIu32" */
+/* #define SDL_PRIx32 PRIx32 ### string, not number "PRIx32" */
+/* #define SDL_PRIX32 PRIX32 ### string, not number "PRIX32" */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* #define SDL_SCOPED_CAPABILITY    SDL_THREAD_ANNOTATION_ATTRIBUTE__(scoped_lockable) ### string, not number "SDL_THREAD_ANNOTATION_ATTRIBUTE__(scoped_lockable)" */
+/* #define SDL_NO_THREAD_SAFETY_ANALYSIS    SDL_THREAD_ANNOTATION_ATTRIBUTE__(no_thread_safety_analysis) ### string, not number "SDL_THREAD_ANNOTATION_ATTRIBUTE__(no_thread_safety_analysis)" */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* #define SDL_MUTEX_MAXWAIT   (~(Uint32)0) ### string, not number "(~(Uint32)0)" */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* #define SDL_AUDIOCVT_PACKED __attribute__((packed)) ### string, not number "__attribute__((packed))" */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* #define SDL_WINDOWPOS_UNDEFINED         SDL_WINDOWPOS_UNDEFINED_DISPLAY(0) ### string, not number "SDL_WINDOWPOS_UNDEFINED_DISPLAY(0)" */
+/* #define SDL_WINDOWPOS_CENTERED         SDL_WINDOWPOS_CENTERED_DISPLAY(0) ### string, not number "SDL_WINDOWPOS_CENTERED_DISPLAY(0)" */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* #define SDL_IPHONE_MAX_GFORCE 5.0 ### string, number, replaceline "5.0" */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* #define SDL_STANDARD_GRAVITY    9.80665f ### string, not number "9.80665f" */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* #define SDL_HAPTIC_CONSTANT   (1u<<0) ### string, not number "(1u<<0)" */
+/* #define SDL_HAPTIC_SINE       (1u<<1) ### string, not number "(1u<<1)" */
+/* #define SDL_HAPTIC_LEFTRIGHT     (1u<<2) ### string, not number "(1u<<2)" */
+/* #define SDL_HAPTIC_TRIANGLE   (1u<<3) ### string, not number "(1u<<3)" */
+/* #define SDL_HAPTIC_SAWTOOTHUP (1u<<4) ### string, not number "(1u<<4)" */
+/* #define SDL_HAPTIC_SAWTOOTHDOWN (1u<<5) ### string, not number "(1u<<5)" */
+/* #define SDL_HAPTIC_RAMP       (1u<<6) ### string, not number "(1u<<6)" */
+/* #define SDL_HAPTIC_SPRING     (1u<<7) ### string, not number "(1u<<7)" */
+/* #define SDL_HAPTIC_DAMPER     (1u<<8) ### string, not number "(1u<<8)" */
+/* #define SDL_HAPTIC_INERTIA    (1u<<9) ### string, not number "(1u<<9)" */
+/* #define SDL_HAPTIC_FRICTION   (1u<<10) ### string, not number "(1u<<10)" */
+/* #define SDL_HAPTIC_CUSTOM     (1u<<11) ### string, not number "(1u<<11)" */
+/* #define SDL_HAPTIC_GAIN       (1u<<12) ### string, not number "(1u<<12)" */
+/* #define SDL_HAPTIC_AUTOCENTER (1u<<13) ### string, not number "(1u<<13)" */
+/* #define SDL_HAPTIC_STATUS     (1u<<14) ### string, not number "(1u<<14)" */
+/* #define SDL_HAPTIC_PAUSE      (1u<<15) ### string, not number "(1u<<15)" */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* #define SDL_HINT_ACCELEROMETER_AS_JOYSTICK "SDL_ACCELEROMETER_AS_JOYSTICK" ### string, not number "\"SDL_ACCELEROMETER_AS_JOYSTICK\"" */
+/* #define SDL_HINT_ALLOW_ALT_TAB_WHILE_GRABBED "SDL_ALLOW_ALT_TAB_WHILE_GRABBED" ### string, not number "\"SDL_ALLOW_ALT_TAB_WHILE_GRABBED\"" */
+/* #define SDL_HINT_ALLOW_TOPMOST "SDL_ALLOW_TOPMOST" ### string, not number "\"SDL_ALLOW_TOPMOST\"" */
+/* #define SDL_HINT_ANDROID_APK_EXPANSION_MAIN_FILE_VERSION "SDL_ANDROID_APK_EXPANSION_MAIN_FILE_VERSION" ### string, not number "\"SDL_ANDROID_APK_EXPANSION_MAIN_FILE_VERSION\"" */
+/* #define SDL_HINT_ANDROID_APK_EXPANSION_PATCH_FILE_VERSION "SDL_ANDROID_APK_EXPANSION_PATCH_FILE_VERSION" ### string, not number "\"SDL_ANDROID_APK_EXPANSION_PATCH_FILE_VERSION\"" */
+/* #define SDL_HINT_ANDROID_BLOCK_ON_PAUSE "SDL_ANDROID_BLOCK_ON_PAUSE" ### string, not number "\"SDL_ANDROID_BLOCK_ON_PAUSE\"" */
+/* #define SDL_HINT_ANDROID_BLOCK_ON_PAUSE_PAUSEAUDIO "SDL_ANDROID_BLOCK_ON_PAUSE_PAUSEAUDIO" ### string, not number "\"SDL_ANDROID_BLOCK_ON_PAUSE_PAUSEAUDIO\"" */
+/* #define SDL_HINT_ANDROID_TRAP_BACK_BUTTON "SDL_ANDROID_TRAP_BACK_BUTTON" ### string, not number "\"SDL_ANDROID_TRAP_BACK_BUTTON\"" */
+/* #define SDL_HINT_APP_NAME "SDL_APP_NAME" ### string, not number "\"SDL_APP_NAME\"" */
+/* #define SDL_HINT_APPLE_TV_CONTROLLER_UI_EVENTS "SDL_APPLE_TV_CONTROLLER_UI_EVENTS" ### string, not number "\"SDL_APPLE_TV_CONTROLLER_UI_EVENTS\"" */
+/* #define SDL_HINT_APPLE_TV_REMOTE_ALLOW_ROTATION "SDL_APPLE_TV_REMOTE_ALLOW_ROTATION" ### string, not number "\"SDL_APPLE_TV_REMOTE_ALLOW_ROTATION\"" */
+/* #define SDL_HINT_AUDIO_CATEGORY   "SDL_AUDIO_CATEGORY" ### string, not number "\"SDL_AUDIO_CATEGORY\"" */
+/* #define SDL_HINT_AUDIO_DEVICE_APP_NAME "SDL_AUDIO_DEVICE_APP_NAME" ### string, not number "\"SDL_AUDIO_DEVICE_APP_NAME\"" */
+/* #define SDL_HINT_AUDIO_DEVICE_STREAM_NAME "SDL_AUDIO_DEVICE_STREAM_NAME" ### string, not number "\"SDL_AUDIO_DEVICE_STREAM_NAME\"" */
+/* #define SDL_HINT_AUDIO_DEVICE_STREAM_ROLE "SDL_AUDIO_DEVICE_STREAM_ROLE" ### string, not number "\"SDL_AUDIO_DEVICE_STREAM_ROLE\"" */
+/* #define SDL_HINT_AUDIO_RESAMPLING_MODE   "SDL_AUDIO_RESAMPLING_MODE" ### string, not number "\"SDL_AUDIO_RESAMPLING_MODE\"" */
+/* #define SDL_HINT_AUTO_UPDATE_JOYSTICKS  "SDL_AUTO_UPDATE_JOYSTICKS" ### string, not number "\"SDL_AUTO_UPDATE_JOYSTICKS\"" */
+/* #define SDL_HINT_AUTO_UPDATE_SENSORS    "SDL_AUTO_UPDATE_SENSORS" ### string, not number "\"SDL_AUTO_UPDATE_SENSORS\"" */
+/* #define SDL_HINT_BMP_SAVE_LEGACY_FORMAT "SDL_BMP_SAVE_LEGACY_FORMAT" ### string, not number "\"SDL_BMP_SAVE_LEGACY_FORMAT\"" */
+/* #define SDL_HINT_DISPLAY_USABLE_BOUNDS "SDL_DISPLAY_USABLE_BOUNDS" ### string, not number "\"SDL_DISPLAY_USABLE_BOUNDS\"" */
+/* #define SDL_HINT_EMSCRIPTEN_ASYNCIFY   "SDL_EMSCRIPTEN_ASYNCIFY" ### string, not number "\"SDL_EMSCRIPTEN_ASYNCIFY\"" */
+/* #define SDL_HINT_EMSCRIPTEN_KEYBOARD_ELEMENT   "SDL_EMSCRIPTEN_KEYBOARD_ELEMENT" ### string, not number "\"SDL_EMSCRIPTEN_KEYBOARD_ELEMENT\"" */
+/* #define SDL_HINT_ENABLE_SCREEN_KEYBOARD "SDL_ENABLE_SCREEN_KEYBOARD" ### string, not number "\"SDL_ENABLE_SCREEN_KEYBOARD\"" */
+/* #define SDL_HINT_EVENT_LOGGING   "SDL_EVENT_LOGGING" ### string, not number "\"SDL_EVENT_LOGGING\"" */
+/* #define SDL_HINT_FORCE_RAISEWINDOW    "SDL_HINT_FORCE_RAISEWINDOW" ### string, not number "\"SDL_HINT_FORCE_RAISEWINDOW\"" */
+/* #define SDL_HINT_FRAMEBUFFER_ACCELERATION   "SDL_FRAMEBUFFER_ACCELERATION" ### string, not number "\"SDL_FRAMEBUFFER_ACCELERATION\"" */
+/* #define SDL_HINT_GAMECONTROLLERCONFIG "SDL_GAMECONTROLLERCONFIG" ### string, not number "\"SDL_GAMECONTROLLERCONFIG\"" */
+/* #define SDL_HINT_GAMECONTROLLERCONFIG_FILE "SDL_GAMECONTROLLERCONFIG_FILE" ### string, not number "\"SDL_GAMECONTROLLERCONFIG_FILE\"" */
+/* #define SDL_HINT_GAMECONTROLLERTYPE "SDL_GAMECONTROLLERTYPE" ### string, not number "\"SDL_GAMECONTROLLERTYPE\"" */
+/* #define SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES "SDL_GAMECONTROLLER_IGNORE_DEVICES" ### string, not number "\"SDL_GAMECONTROLLER_IGNORE_DEVICES\"" */
+/* #define SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT "SDL_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT" ### string, not number "\"SDL_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT\"" */
+/* #define SDL_HINT_GAMECONTROLLER_USE_BUTTON_LABELS "SDL_GAMECONTROLLER_USE_BUTTON_LABELS" ### string, not number "\"SDL_GAMECONTROLLER_USE_BUTTON_LABELS\"" */
+/* #define SDL_HINT_GRAB_KEYBOARD              "SDL_GRAB_KEYBOARD" ### string, not number "\"SDL_GRAB_KEYBOARD\"" */
+/* #define SDL_HINT_HIDAPI_IGNORE_DEVICES "SDL_HIDAPI_IGNORE_DEVICES" ### string, not number "\"SDL_HIDAPI_IGNORE_DEVICES\"" */
+/* #define SDL_HINT_IDLE_TIMER_DISABLED "SDL_IOS_IDLE_TIMER_DISABLED" ### string, not number "\"SDL_IOS_IDLE_TIMER_DISABLED\"" */
+/* #define SDL_HINT_IME_INTERNAL_EDITING "SDL_IME_INTERNAL_EDITING" ### string, not number "\"SDL_IME_INTERNAL_EDITING\"" */
+/* #define SDL_HINT_IME_SHOW_UI "SDL_IME_SHOW_UI" ### string, not number "\"SDL_IME_SHOW_UI\"" */
+/* #define SDL_HINT_IME_SUPPORT_EXTENDED_TEXT "SDL_IME_SUPPORT_EXTENDED_TEXT" ### string, not number "\"SDL_IME_SUPPORT_EXTENDED_TEXT\"" */
+/* #define SDL_HINT_IOS_HIDE_HOME_INDICATOR "SDL_IOS_HIDE_HOME_INDICATOR" ### string, not number "\"SDL_IOS_HIDE_HOME_INDICATOR\"" */
+/* #define SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS "SDL_JOYSTICK_ALLOW_BACKGROUND_EVENTS" ### string, not number "\"SDL_JOYSTICK_ALLOW_BACKGROUND_EVENTS\"" */
+/* #define SDL_HINT_JOYSTICK_ARCADESTICK_DEVICES "SDL_JOYSTICK_ARCADESTICK_DEVICES" ### string, not number "\"SDL_JOYSTICK_ARCADESTICK_DEVICES\"" */
+/* #define SDL_HINT_JOYSTICK_ARCADESTICK_DEVICES_EXCLUDED "SDL_JOYSTICK_ARCADESTICK_DEVICES_EXCLUDED" ### string, not number "\"SDL_JOYSTICK_ARCADESTICK_DEVICES_EXCLUDED\"" */
+/* #define SDL_HINT_JOYSTICK_BLACKLIST_DEVICES "SDL_JOYSTICK_BLACKLIST_DEVICES" ### string, not number "\"SDL_JOYSTICK_BLACKLIST_DEVICES\"" */
+/* #define SDL_HINT_JOYSTICK_BLACKLIST_DEVICES_EXCLUDED "SDL_JOYSTICK_BLACKLIST_DEVICES_EXCLUDED" ### string, not number "\"SDL_JOYSTICK_BLACKLIST_DEVICES_EXCLUDED\"" */
+/* #define SDL_HINT_JOYSTICK_FLIGHTSTICK_DEVICES "SDL_JOYSTICK_FLIGHTSTICK_DEVICES" ### string, not number "\"SDL_JOYSTICK_FLIGHTSTICK_DEVICES\"" */
+/* #define SDL_HINT_JOYSTICK_FLIGHTSTICK_DEVICES_EXCLUDED "SDL_JOYSTICK_FLIGHTSTICK_DEVICES_EXCLUDED" ### string, not number "\"SDL_JOYSTICK_FLIGHTSTICK_DEVICES_EXCLUDED\"" */
+/* #define SDL_HINT_JOYSTICK_GAMECUBE_DEVICES "SDL_JOYSTICK_GAMECUBE_DEVICES" ### string, not number "\"SDL_JOYSTICK_GAMECUBE_DEVICES\"" */
+/* #define SDL_HINT_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED "SDL_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED" ### string, not number "\"SDL_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI "SDL_JOYSTICK_HIDAPI" ### string, not number "\"SDL_JOYSTICK_HIDAPI\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_GAMECUBE "SDL_JOYSTICK_HIDAPI_GAMECUBE" ### string, not number "\"SDL_JOYSTICK_HIDAPI_GAMECUBE\"" */
+/* #define SDL_HINT_JOYSTICK_GAMECUBE_RUMBLE_BRAKE "SDL_JOYSTICK_GAMECUBE_RUMBLE_BRAKE" ### string, not number "\"SDL_JOYSTICK_GAMECUBE_RUMBLE_BRAKE\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_JOY_CONS "SDL_JOYSTICK_HIDAPI_JOY_CONS" ### string, not number "\"SDL_JOYSTICK_HIDAPI_JOY_CONS\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_COMBINE_JOY_CONS "SDL_JOYSTICK_HIDAPI_COMBINE_JOY_CONS" ### string, not number "\"SDL_JOYSTICK_HIDAPI_COMBINE_JOY_CONS\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_VERTICAL_JOY_CONS "SDL_JOYSTICK_HIDAPI_VERTICAL_JOY_CONS" ### string, not number "\"SDL_JOYSTICK_HIDAPI_VERTICAL_JOY_CONS\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_LUNA "SDL_JOYSTICK_HIDAPI_LUNA" ### string, not number "\"SDL_JOYSTICK_HIDAPI_LUNA\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_NINTENDO_CLASSIC "SDL_JOYSTICK_HIDAPI_NINTENDO_CLASSIC" ### string, not number "\"SDL_JOYSTICK_HIDAPI_NINTENDO_CLASSIC\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_SHIELD "SDL_JOYSTICK_HIDAPI_SHIELD" ### string, not number "\"SDL_JOYSTICK_HIDAPI_SHIELD\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_PS3 "SDL_JOYSTICK_HIDAPI_PS3" ### string, not number "\"SDL_JOYSTICK_HIDAPI_PS3\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_PS4 "SDL_JOYSTICK_HIDAPI_PS4" ### string, not number "\"SDL_JOYSTICK_HIDAPI_PS4\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_PS4_RUMBLE "SDL_JOYSTICK_HIDAPI_PS4_RUMBLE" ### string, not number "\"SDL_JOYSTICK_HIDAPI_PS4_RUMBLE\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_PS5 "SDL_JOYSTICK_HIDAPI_PS5" ### string, not number "\"SDL_JOYSTICK_HIDAPI_PS5\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_PS5_PLAYER_LED "SDL_JOYSTICK_HIDAPI_PS5_PLAYER_LED" ### string, not number "\"SDL_JOYSTICK_HIDAPI_PS5_PLAYER_LED\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_PS5_RUMBLE "SDL_JOYSTICK_HIDAPI_PS5_RUMBLE" ### string, not number "\"SDL_JOYSTICK_HIDAPI_PS5_RUMBLE\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_STADIA "SDL_JOYSTICK_HIDAPI_STADIA" ### string, not number "\"SDL_JOYSTICK_HIDAPI_STADIA\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_STEAM "SDL_JOYSTICK_HIDAPI_STEAM" ### string, not number "\"SDL_JOYSTICK_HIDAPI_STEAM\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_STEAMDECK "SDL_JOYSTICK_HIDAPI_STEAMDECK" ### string, not number "\"SDL_JOYSTICK_HIDAPI_STEAMDECK\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_SWITCH "SDL_JOYSTICK_HIDAPI_SWITCH" ### string, not number "\"SDL_JOYSTICK_HIDAPI_SWITCH\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_SWITCH_HOME_LED "SDL_JOYSTICK_HIDAPI_SWITCH_HOME_LED" ### string, not number "\"SDL_JOYSTICK_HIDAPI_SWITCH_HOME_LED\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_JOYCON_HOME_LED "SDL_JOYSTICK_HIDAPI_JOYCON_HOME_LED" ### string, not number "\"SDL_JOYSTICK_HIDAPI_JOYCON_HOME_LED\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_SWITCH_PLAYER_LED "SDL_JOYSTICK_HIDAPI_SWITCH_PLAYER_LED" ### string, not number "\"SDL_JOYSTICK_HIDAPI_SWITCH_PLAYER_LED\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_WII "SDL_JOYSTICK_HIDAPI_WII" ### string, not number "\"SDL_JOYSTICK_HIDAPI_WII\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_WII_PLAYER_LED "SDL_JOYSTICK_HIDAPI_WII_PLAYER_LED" ### string, not number "\"SDL_JOYSTICK_HIDAPI_WII_PLAYER_LED\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_XBOX   "SDL_JOYSTICK_HIDAPI_XBOX" ### string, not number "\"SDL_JOYSTICK_HIDAPI_XBOX\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_XBOX_360   "SDL_JOYSTICK_HIDAPI_XBOX_360" ### string, not number "\"SDL_JOYSTICK_HIDAPI_XBOX_360\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_XBOX_360_PLAYER_LED "SDL_JOYSTICK_HIDAPI_XBOX_360_PLAYER_LED" ### string, not number "\"SDL_JOYSTICK_HIDAPI_XBOX_360_PLAYER_LED\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_XBOX_360_WIRELESS   "SDL_JOYSTICK_HIDAPI_XBOX_360_WIRELESS" ### string, not number "\"SDL_JOYSTICK_HIDAPI_XBOX_360_WIRELESS\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_XBOX_ONE   "SDL_JOYSTICK_HIDAPI_XBOX_ONE" ### string, not number "\"SDL_JOYSTICK_HIDAPI_XBOX_ONE\"" */
+/* #define SDL_HINT_JOYSTICK_HIDAPI_XBOX_ONE_HOME_LED "SDL_JOYSTICK_HIDAPI_XBOX_ONE_HOME_LED" ### string, not number "\"SDL_JOYSTICK_HIDAPI_XBOX_ONE_HOME_LED\"" */
+/* #define SDL_HINT_JOYSTICK_IOKIT "SDL_JOYSTICK_IOKIT" ### string, not number "\"SDL_JOYSTICK_IOKIT\"" */
+/* #define SDL_HINT_JOYSTICK_MFI "SDL_JOYSTICK_MFI" ### string, not number "\"SDL_JOYSTICK_MFI\"" */
+/* #define SDL_HINT_JOYSTICK_RAWINPUT "SDL_JOYSTICK_RAWINPUT" ### string, not number "\"SDL_JOYSTICK_RAWINPUT\"" */
+/* #define SDL_HINT_JOYSTICK_RAWINPUT_CORRELATE_XINPUT   "SDL_JOYSTICK_RAWINPUT_CORRELATE_XINPUT" ### string, not number "\"SDL_JOYSTICK_RAWINPUT_CORRELATE_XINPUT\"" */
+/* #define SDL_HINT_JOYSTICK_ROG_CHAKRAM "SDL_JOYSTICK_ROG_CHAKRAM" ### string, not number "\"SDL_JOYSTICK_ROG_CHAKRAM\"" */
+/* #define SDL_HINT_JOYSTICK_THREAD "SDL_JOYSTICK_THREAD" ### string, not number "\"SDL_JOYSTICK_THREAD\"" */
+/* #define SDL_HINT_JOYSTICK_THROTTLE_DEVICES "SDL_JOYSTICK_THROTTLE_DEVICES" ### string, not number "\"SDL_JOYSTICK_THROTTLE_DEVICES\"" */
+/* #define SDL_HINT_JOYSTICK_THROTTLE_DEVICES_EXCLUDED "SDL_JOYSTICK_THROTTLE_DEVICES_EXCLUDED" ### string, not number "\"SDL_JOYSTICK_THROTTLE_DEVICES_EXCLUDED\"" */
+/* #define SDL_HINT_JOYSTICK_WGI "SDL_JOYSTICK_WGI" ### string, not number "\"SDL_JOYSTICK_WGI\"" */
+/* #define SDL_HINT_JOYSTICK_WHEEL_DEVICES "SDL_JOYSTICK_WHEEL_DEVICES" ### string, not number "\"SDL_JOYSTICK_WHEEL_DEVICES\"" */
+/* #define SDL_HINT_JOYSTICK_WHEEL_DEVICES_EXCLUDED "SDL_JOYSTICK_WHEEL_DEVICES_EXCLUDED" ### string, not number "\"SDL_JOYSTICK_WHEEL_DEVICES_EXCLUDED\"" */
+/* #define SDL_HINT_JOYSTICK_ZERO_CENTERED_DEVICES "SDL_JOYSTICK_ZERO_CENTERED_DEVICES" ### string, not number "\"SDL_JOYSTICK_ZERO_CENTERED_DEVICES\"" */
+/* #define SDL_HINT_KMSDRM_REQUIRE_DRM_MASTER      "SDL_KMSDRM_REQUIRE_DRM_MASTER" ### string, not number "\"SDL_KMSDRM_REQUIRE_DRM_MASTER\"" */
+/* #define SDL_HINT_JOYSTICK_DEVICE "SDL_JOYSTICK_DEVICE" ### string, not number "\"SDL_JOYSTICK_DEVICE\"" */
+/* #define SDL_HINT_JOYSTICK_HAPTIC_AXES "SDL_JOYSTICK_HAPTIC_AXES" ### string, not number "\"SDL_JOYSTICK_HAPTIC_AXES\"" */
+/* #define SDL_HINT_LINUX_DIGITAL_HATS "SDL_LINUX_DIGITAL_HATS" ### string, not number "\"SDL_LINUX_DIGITAL_HATS\"" */
+/* #define SDL_HINT_LINUX_HAT_DEADZONES "SDL_LINUX_HAT_DEADZONES" ### string, not number "\"SDL_LINUX_HAT_DEADZONES\"" */
+/* #define SDL_HINT_LINUX_JOYSTICK_CLASSIC "SDL_LINUX_JOYSTICK_CLASSIC" ### string, not number "\"SDL_LINUX_JOYSTICK_CLASSIC\"" */
+/* #define SDL_HINT_LINUX_JOYSTICK_DEADZONES "SDL_LINUX_JOYSTICK_DEADZONES" ### string, not number "\"SDL_LINUX_JOYSTICK_DEADZONES\"" */
+/* #define SDL_HINT_LOGGING   "SDL_LOGGING" ### string, not number "\"SDL_LOGGING\"" */
+/* #define SDL_HINT_MAC_BACKGROUND_APP    "SDL_MAC_BACKGROUND_APP" ### string, not number "\"SDL_MAC_BACKGROUND_APP\"" */
+/* #define SDL_HINT_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK "SDL_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK" ### string, not number "\"SDL_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK\"" */
+/* #define SDL_HINT_MAC_OPENGL_ASYNC_DISPATCH "SDL_MAC_OPENGL_ASYNC_DISPATCH" ### string, not number "\"SDL_MAC_OPENGL_ASYNC_DISPATCH\"" */
+/* #define SDL_HINT_MOUSE_DOUBLE_CLICK_RADIUS    "SDL_MOUSE_DOUBLE_CLICK_RADIUS" ### string, not number "\"SDL_MOUSE_DOUBLE_CLICK_RADIUS\"" */
+/* #define SDL_HINT_MOUSE_DOUBLE_CLICK_TIME    "SDL_MOUSE_DOUBLE_CLICK_TIME" ### string, not number "\"SDL_MOUSE_DOUBLE_CLICK_TIME\"" */
+/* #define SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH "SDL_MOUSE_FOCUS_CLICKTHROUGH" ### string, not number "\"SDL_MOUSE_FOCUS_CLICKTHROUGH\"" */
+/* #define SDL_HINT_MOUSE_NORMAL_SPEED_SCALE    "SDL_MOUSE_NORMAL_SPEED_SCALE" ### string, not number "\"SDL_MOUSE_NORMAL_SPEED_SCALE\"" */
+/* #define SDL_HINT_MOUSE_RELATIVE_MODE_CENTER    "SDL_MOUSE_RELATIVE_MODE_CENTER" ### string, not number "\"SDL_MOUSE_RELATIVE_MODE_CENTER\"" */
+/* #define SDL_HINT_MOUSE_RELATIVE_MODE_WARP    "SDL_MOUSE_RELATIVE_MODE_WARP" ### string, not number "\"SDL_MOUSE_RELATIVE_MODE_WARP\"" */
+/* #define SDL_HINT_MOUSE_RELATIVE_SCALING "SDL_MOUSE_RELATIVE_SCALING" ### string, not number "\"SDL_MOUSE_RELATIVE_SCALING\"" */
+/* #define SDL_HINT_MOUSE_RELATIVE_SPEED_SCALE    "SDL_MOUSE_RELATIVE_SPEED_SCALE" ### string, not number "\"SDL_MOUSE_RELATIVE_SPEED_SCALE\"" */
+/* #define SDL_HINT_MOUSE_RELATIVE_SYSTEM_SCALE    "SDL_MOUSE_RELATIVE_SYSTEM_SCALE" ### string, not number "\"SDL_MOUSE_RELATIVE_SYSTEM_SCALE\"" */
+/* #define SDL_HINT_MOUSE_RELATIVE_WARP_MOTION  "SDL_MOUSE_RELATIVE_WARP_MOTION" ### string, not number "\"SDL_MOUSE_RELATIVE_WARP_MOTION\"" */
+/* #define SDL_HINT_MOUSE_RELATIVE_CURSOR_VISIBLE  "SDL_MOUSE_RELATIVE_CURSOR_VISIBLE" ### string, not number "\"SDL_MOUSE_RELATIVE_CURSOR_VISIBLE\"" */
+/* #define SDL_HINT_MOUSE_TOUCH_EVENTS    "SDL_MOUSE_TOUCH_EVENTS" ### string, not number "\"SDL_MOUSE_TOUCH_EVENTS\"" */
+/* #define SDL_HINT_MOUSE_AUTO_CAPTURE    "SDL_MOUSE_AUTO_CAPTURE" ### string, not number "\"SDL_MOUSE_AUTO_CAPTURE\"" */
+/* #define SDL_HINT_NO_SIGNAL_HANDLERS   "SDL_NO_SIGNAL_HANDLERS" ### string, not number "\"SDL_NO_SIGNAL_HANDLERS\"" */
+/* #define SDL_HINT_OPENGL_ES_DRIVER   "SDL_OPENGL_ES_DRIVER" ### string, not number "\"SDL_OPENGL_ES_DRIVER\"" */
+/* #define SDL_HINT_ORIENTATIONS "SDL_IOS_ORIENTATIONS" ### string, not number "\"SDL_IOS_ORIENTATIONS\"" */
+/* #define SDL_HINT_POLL_SENTINEL "SDL_POLL_SENTINEL" ### string, not number "\"SDL_POLL_SENTINEL\"" */
+/* #define SDL_HINT_PREFERRED_LOCALES "SDL_PREFERRED_LOCALES" ### string, not number "\"SDL_PREFERRED_LOCALES\"" */
+/* #define SDL_HINT_QTWAYLAND_CONTENT_ORIENTATION "SDL_QTWAYLAND_CONTENT_ORIENTATION" ### string, not number "\"SDL_QTWAYLAND_CONTENT_ORIENTATION\"" */
+/* #define SDL_HINT_QTWAYLAND_WINDOW_FLAGS "SDL_QTWAYLAND_WINDOW_FLAGS" ### string, not number "\"SDL_QTWAYLAND_WINDOW_FLAGS\"" */
+/* #define SDL_HINT_RENDER_BATCHING  "SDL_RENDER_BATCHING" ### string, not number "\"SDL_RENDER_BATCHING\"" */
+/* #define SDL_HINT_RENDER_LINE_METHOD "SDL_RENDER_LINE_METHOD" ### string, not number "\"SDL_RENDER_LINE_METHOD\"" */
+/* #define SDL_HINT_RENDER_DIRECT3D11_DEBUG    "SDL_RENDER_DIRECT3D11_DEBUG" ### string, not number "\"SDL_RENDER_DIRECT3D11_DEBUG\"" */
+/* #define SDL_HINT_RENDER_DIRECT3D_THREADSAFE "SDL_RENDER_DIRECT3D_THREADSAFE" ### string, not number "\"SDL_RENDER_DIRECT3D_THREADSAFE\"" */
+/* #define SDL_HINT_RENDER_DRIVER              "SDL_RENDER_DRIVER" ### string, not number "\"SDL_RENDER_DRIVER\"" */
+/* #define SDL_HINT_RENDER_LOGICAL_SIZE_MODE       "SDL_RENDER_LOGICAL_SIZE_MODE" ### string, not number "\"SDL_RENDER_LOGICAL_SIZE_MODE\"" */
+/* #define SDL_HINT_RENDER_OPENGL_SHADERS      "SDL_RENDER_OPENGL_SHADERS" ### string, not number "\"SDL_RENDER_OPENGL_SHADERS\"" */
+/* #define SDL_HINT_RENDER_SCALE_QUALITY       "SDL_RENDER_SCALE_QUALITY" ### string, not number "\"SDL_RENDER_SCALE_QUALITY\"" */
+/* #define SDL_HINT_RENDER_VSYNC               "SDL_RENDER_VSYNC" ### string, not number "\"SDL_RENDER_VSYNC\"" */
+/* #define SDL_HINT_RENDER_METAL_PREFER_LOW_POWER_DEVICE "SDL_RENDER_METAL_PREFER_LOW_POWER_DEVICE" ### string, not number "\"SDL_RENDER_METAL_PREFER_LOW_POWER_DEVICE\"" */
+/* #define SDL_HINT_ROG_GAMEPAD_MICE "SDL_ROG_GAMEPAD_MICE" ### string, not number "\"SDL_ROG_GAMEPAD_MICE\"" */
+/* #define SDL_HINT_ROG_GAMEPAD_MICE_EXCLUDED "SDL_ROG_GAMEPAD_MICE_EXCLUDED" ### string, not number "\"SDL_ROG_GAMEPAD_MICE_EXCLUDED\"" */
+/* #define SDL_HINT_PS2_DYNAMIC_VSYNC    "SDL_PS2_DYNAMIC_VSYNC" ### string, not number "\"SDL_PS2_DYNAMIC_VSYNC\"" */
+/* #define SDL_HINT_RETURN_KEY_HIDES_IME "SDL_RETURN_KEY_HIDES_IME" ### string, not number "\"SDL_RETURN_KEY_HIDES_IME\"" */
+/* #define SDL_HINT_RPI_VIDEO_LAYER           "SDL_RPI_VIDEO_LAYER" ### string, not number "\"SDL_RPI_VIDEO_LAYER\"" */
+/* #define SDL_HINT_SCREENSAVER_INHIBIT_ACTIVITY_NAME "SDL_SCREENSAVER_INHIBIT_ACTIVITY_NAME" ### string, not number "\"SDL_SCREENSAVER_INHIBIT_ACTIVITY_NAME\"" */
+/* #define SDL_HINT_THREAD_FORCE_REALTIME_TIME_CRITICAL "SDL_THREAD_FORCE_REALTIME_TIME_CRITICAL" ### string, not number "\"SDL_THREAD_FORCE_REALTIME_TIME_CRITICAL\"" */
+/* #define SDL_HINT_THREAD_PRIORITY_POLICY         "SDL_THREAD_PRIORITY_POLICY" ### string, not number "\"SDL_THREAD_PRIORITY_POLICY\"" */
+/* #define SDL_HINT_THREAD_STACK_SIZE              "SDL_THREAD_STACK_SIZE" ### string, not number "\"SDL_THREAD_STACK_SIZE\"" */
+/* #define SDL_HINT_TIMER_RESOLUTION "SDL_TIMER_RESOLUTION" ### string, not number "\"SDL_TIMER_RESOLUTION\"" */
+/* #define SDL_HINT_TOUCH_MOUSE_EVENTS    "SDL_TOUCH_MOUSE_EVENTS" ### string, not number "\"SDL_TOUCH_MOUSE_EVENTS\"" */
+/* #define SDL_HINT_VITA_TOUCH_MOUSE_DEVICE    "SDL_HINT_VITA_TOUCH_MOUSE_DEVICE" ### string, not number "\"SDL_HINT_VITA_TOUCH_MOUSE_DEVICE\"" */
+/* #define SDL_HINT_TV_REMOTE_AS_JOYSTICK "SDL_TV_REMOTE_AS_JOYSTICK" ### string, not number "\"SDL_TV_REMOTE_AS_JOYSTICK\"" */
+/* #define SDL_HINT_VIDEO_ALLOW_SCREENSAVER    "SDL_VIDEO_ALLOW_SCREENSAVER" ### string, not number "\"SDL_VIDEO_ALLOW_SCREENSAVER\"" */
+/* #define SDL_HINT_VIDEO_DOUBLE_BUFFER      "SDL_VIDEO_DOUBLE_BUFFER" ### string, not number "\"SDL_VIDEO_DOUBLE_BUFFER\"" */
+/* #define SDL_HINT_VIDEO_EGL_ALLOW_TRANSPARENCY "SDL_VIDEO_EGL_ALLOW_TRANSPARENCY" ### string, not number "\"SDL_VIDEO_EGL_ALLOW_TRANSPARENCY\"" */
+/* #define SDL_HINT_VIDEO_EXTERNAL_CONTEXT    "SDL_VIDEO_EXTERNAL_CONTEXT" ### string, not number "\"SDL_VIDEO_EXTERNAL_CONTEXT\"" */
+/* #define SDL_HINT_VIDEO_HIGHDPI_DISABLED "SDL_VIDEO_HIGHDPI_DISABLED" ### string, not number "\"SDL_VIDEO_HIGHDPI_DISABLED\"" */
+/* #define SDL_HINT_VIDEO_MAC_FULLSCREEN_SPACES    "SDL_VIDEO_MAC_FULLSCREEN_SPACES" ### string, not number "\"SDL_VIDEO_MAC_FULLSCREEN_SPACES\"" */
+/* #define SDL_HINT_VIDEO_MINIMIZE_ON_FOCUS_LOSS   "SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS" ### string, not number "\"SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS\"" */
+/* #define SDL_HINT_VIDEO_WAYLAND_ALLOW_LIBDECOR "SDL_VIDEO_WAYLAND_ALLOW_LIBDECOR" ### string, not number "\"SDL_VIDEO_WAYLAND_ALLOW_LIBDECOR\"" */
+/* #define SDL_HINT_VIDEO_WAYLAND_PREFER_LIBDECOR "SDL_VIDEO_WAYLAND_PREFER_LIBDECOR" ### string, not number "\"SDL_VIDEO_WAYLAND_PREFER_LIBDECOR\"" */
+/* #define SDL_HINT_VIDEO_WAYLAND_MODE_EMULATION "SDL_VIDEO_WAYLAND_MODE_EMULATION" ### string, not number "\"SDL_VIDEO_WAYLAND_MODE_EMULATION\"" */
+/* #define SDL_HINT_VIDEO_WAYLAND_EMULATE_MOUSE_WARP "SDL_VIDEO_WAYLAND_EMULATE_MOUSE_WARP" ### string, not number "\"SDL_VIDEO_WAYLAND_EMULATE_MOUSE_WARP\"" */
+/* #define SDL_HINT_VIDEO_WINDOW_SHARE_PIXEL_FORMAT    "SDL_VIDEO_WINDOW_SHARE_PIXEL_FORMAT" ### string, not number "\"SDL_VIDEO_WINDOW_SHARE_PIXEL_FORMAT\"" */
+/* #define SDL_HINT_VIDEO_FOREIGN_WINDOW_OPENGL "SDL_VIDEO_FOREIGN_WINDOW_OPENGL" ### string, not number "\"SDL_VIDEO_FOREIGN_WINDOW_OPENGL\"" */
+/* #define SDL_HINT_VIDEO_FOREIGN_WINDOW_VULKAN "SDL_VIDEO_FOREIGN_WINDOW_VULKAN" ### string, not number "\"SDL_VIDEO_FOREIGN_WINDOW_VULKAN\"" */
+/* #define SDL_HINT_VIDEO_WIN_D3DCOMPILER              "SDL_VIDEO_WIN_D3DCOMPILER" ### string, not number "\"SDL_VIDEO_WIN_D3DCOMPILER\"" */
+/* #define SDL_HINT_VIDEO_X11_FORCE_EGL "SDL_VIDEO_X11_FORCE_EGL" ### string, not number "\"SDL_VIDEO_X11_FORCE_EGL\"" */
+/* #define SDL_HINT_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR "SDL_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR" ### string, not number "\"SDL_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR\"" */
+/* #define SDL_HINT_VIDEO_X11_NET_WM_PING      "SDL_VIDEO_X11_NET_WM_PING" ### string, not number "\"SDL_VIDEO_X11_NET_WM_PING\"" */
+/* #define SDL_HINT_VIDEO_X11_WINDOW_VISUALID      "SDL_VIDEO_X11_WINDOW_VISUALID" ### string, not number "\"SDL_VIDEO_X11_WINDOW_VISUALID\"" */
+/* #define SDL_HINT_VIDEO_X11_XINERAMA         "SDL_VIDEO_X11_XINERAMA" ### string, not number "\"SDL_VIDEO_X11_XINERAMA\"" */
+/* #define SDL_HINT_VIDEO_X11_XRANDR           "SDL_VIDEO_X11_XRANDR" ### string, not number "\"SDL_VIDEO_X11_XRANDR\"" */
+/* #define SDL_HINT_VIDEO_X11_XVIDMODE         "SDL_VIDEO_X11_XVIDMODE" ### string, not number "\"SDL_VIDEO_X11_XVIDMODE\"" */
+/* #define SDL_HINT_WAVE_FACT_CHUNK   "SDL_WAVE_FACT_CHUNK" ### string, not number "\"SDL_WAVE_FACT_CHUNK\"" */
+/* #define SDL_HINT_WAVE_RIFF_CHUNK_SIZE   "SDL_WAVE_RIFF_CHUNK_SIZE" ### string, not number "\"SDL_WAVE_RIFF_CHUNK_SIZE\"" */
+/* #define SDL_HINT_WAVE_TRUNCATION   "SDL_WAVE_TRUNCATION" ### string, not number "\"SDL_WAVE_TRUNCATION\"" */
+/* #define SDL_HINT_WINDOWS_DISABLE_THREAD_NAMING "SDL_WINDOWS_DISABLE_THREAD_NAMING" ### string, not number "\"SDL_WINDOWS_DISABLE_THREAD_NAMING\"" */
+/* #define SDL_HINT_WINDOWS_ENABLE_MENU_MNEMONICS "SDL_WINDOWS_ENABLE_MENU_MNEMONICS" ### string, not number "\"SDL_WINDOWS_ENABLE_MENU_MNEMONICS\"" */
+/* #define SDL_HINT_WINDOWS_ENABLE_MESSAGELOOP "SDL_WINDOWS_ENABLE_MESSAGELOOP" ### string, not number "\"SDL_WINDOWS_ENABLE_MESSAGELOOP\"" */
+/* #define SDL_HINT_WINDOWS_FORCE_MUTEX_CRITICAL_SECTIONS "SDL_WINDOWS_FORCE_MUTEX_CRITICAL_SECTIONS" ### string, not number "\"SDL_WINDOWS_FORCE_MUTEX_CRITICAL_SECTIONS\"" */
+/* #define SDL_HINT_WINDOWS_FORCE_SEMAPHORE_KERNEL "SDL_WINDOWS_FORCE_SEMAPHORE_KERNEL" ### string, not number "\"SDL_WINDOWS_FORCE_SEMAPHORE_KERNEL\"" */
+/* #define SDL_HINT_WINDOWS_INTRESOURCE_ICON       "SDL_WINDOWS_INTRESOURCE_ICON" ### string, not number "\"SDL_WINDOWS_INTRESOURCE_ICON\"" */
+/* #define SDL_HINT_WINDOWS_INTRESOURCE_ICON_SMALL "SDL_WINDOWS_INTRESOURCE_ICON_SMALL" ### string, not number "\"SDL_WINDOWS_INTRESOURCE_ICON_SMALL\"" */
+/* #define SDL_HINT_WINDOWS_NO_CLOSE_ON_ALT_F4 "SDL_WINDOWS_NO_CLOSE_ON_ALT_F4" ### string, not number "\"SDL_WINDOWS_NO_CLOSE_ON_ALT_F4\"" */
+/* #define SDL_HINT_WINDOWS_USE_D3D9EX "SDL_WINDOWS_USE_D3D9EX" ### string, not number "\"SDL_WINDOWS_USE_D3D9EX\"" */
+/* #define SDL_HINT_WINDOWS_DPI_AWARENESS "SDL_WINDOWS_DPI_AWARENESS" ### string, not number "\"SDL_WINDOWS_DPI_AWARENESS\"" */
+/* #define SDL_HINT_WINDOWS_DPI_SCALING "SDL_WINDOWS_DPI_SCALING" ### string, not number "\"SDL_WINDOWS_DPI_SCALING\"" */
+/* #define SDL_HINT_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN    "SDL_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN" ### string, not number "\"SDL_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN\"" */
+/* #define SDL_HINT_WINDOW_NO_ACTIVATION_WHEN_SHOWN    "SDL_WINDOW_NO_ACTIVATION_WHEN_SHOWN" ### string, not number "\"SDL_WINDOW_NO_ACTIVATION_WHEN_SHOWN\"" */
+/* #define SDL_HINT_WINRT_HANDLE_BACK_BUTTON "SDL_WINRT_HANDLE_BACK_BUTTON" ### string, not number "\"SDL_WINRT_HANDLE_BACK_BUTTON\"" */
+/* #define SDL_HINT_WINRT_PRIVACY_POLICY_LABEL "SDL_WINRT_PRIVACY_POLICY_LABEL" ### string, not number "\"SDL_WINRT_PRIVACY_POLICY_LABEL\"" */
+/* #define SDL_HINT_WINRT_PRIVACY_POLICY_URL "SDL_WINRT_PRIVACY_POLICY_URL" ### string, not number "\"SDL_WINRT_PRIVACY_POLICY_URL\"" */
+/* #define SDL_HINT_X11_FORCE_OVERRIDE_REDIRECT "SDL_X11_FORCE_OVERRIDE_REDIRECT" ### string, not number "\"SDL_X11_FORCE_OVERRIDE_REDIRECT\"" */
+/* #define SDL_HINT_XINPUT_ENABLED "SDL_XINPUT_ENABLED" ### string, not number "\"SDL_XINPUT_ENABLED\"" */
+/* #define SDL_HINT_DIRECTINPUT_ENABLED "SDL_DIRECTINPUT_ENABLED" ### string, not number "\"SDL_DIRECTINPUT_ENABLED\"" */
+/* #define SDL_HINT_XINPUT_USE_OLD_JOYSTICK_MAPPING "SDL_XINPUT_USE_OLD_JOYSTICK_MAPPING" ### string, not number "\"SDL_XINPUT_USE_OLD_JOYSTICK_MAPPING\"" */
+/* #define SDL_HINT_AUDIO_INCLUDE_MONITORS "SDL_AUDIO_INCLUDE_MONITORS" ### string, not number "\"SDL_AUDIO_INCLUDE_MONITORS\"" */
+/* #define SDL_HINT_X11_WINDOW_TYPE "SDL_X11_WINDOW_TYPE" ### string, not number "\"SDL_X11_WINDOW_TYPE\"" */
+/* #define SDL_HINT_QUIT_ON_LAST_WINDOW_CLOSE "SDL_QUIT_ON_LAST_WINDOW_CLOSE" ### string, not number "\"SDL_QUIT_ON_LAST_WINDOW_CLOSE\"" */
+/* #define SDL_HINT_VIDEODRIVER "SDL_VIDEODRIVER" ### string, not number "\"SDL_VIDEODRIVER\"" */
+/* #define SDL_HINT_AUDIODRIVER "SDL_AUDIODRIVER" ### string, not number "\"SDL_AUDIODRIVER\"" */
+/* #define SDL_HINT_KMSDRM_DEVICE_INDEX "SDL_KMSDRM_DEVICE_INDEX" ### string, not number "\"SDL_KMSDRM_DEVICE_INDEX\"" */
+/* #define SDL_HINT_TRACKPAD_IS_TOUCH_ONLY "SDL_TRACKPAD_IS_TOUCH_ONLY" ### string, not number "\"SDL_TRACKPAD_IS_TOUCH_ONLY\"" */
+/* #define SDL_HINT_SHUTDOWN_DBUS_ON_QUIT "SDL_SHUTDOWN_DBUS_ON_QUIT" ### string, not number "\"SDL_SHUTDOWN_DBUS_ON_QUIT\"" */
+/* #define SDL_HINT_APPLE_RWFROMFILE_USE_RESOURCES "SDL_APPLE_RWFROMFILE_USE_RESOURCES" ### string, not number "\"SDL_APPLE_RWFROMFILE_USE_RESOURCES\"" */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* manually commented out: enum { SDL_begin_code_h = 1 }; */
+/* #define SDL_INIT_EVERYTHING (                  SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS |                  SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC | SDL_INIT_GAMECONTROLLER | SDL_INIT_SENSOR) ### string, not number "(                  SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS |                  SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC | SDL_INIT_GAMECONTROLLER | SDL_INIT_SENSOR)" */
+--]]
+
 -- typedefs
 
 if ffi.os == 'Windows' then
@@ -51,7 +408,7 @@ typedef enum { SDL_FALSE = 0, SDL_TRUE = 1 } SDL_bool;
 typedef enum { DUMMY_ENUM_VALUE } SDL_DUMMY_ENUM;
 typedef enum { SDL_ASSERTION_RETRY, SDL_ASSERTION_BREAK, SDL_ASSERTION_ABORT, SDL_ASSERTION_IGNORE, SDL_ASSERTION_ALWAYS_IGNORE } SDL_AssertState;
 typedef enum { SDL_ENOMEM, SDL_EFREAD, SDL_EFWRITE, SDL_EFSEEK, SDL_UNSUPPORTED, SDL_LASTERROR } SDL_errorcode;
-typedef enum { SDL_THREAD_PRIORITY_LOW, SDL_THREAD_PRIORITY_NORMAL, SDL_THREAD_PRIORITY_HIGH, SDL_THREAD_PRIORITY_TIME_CRITICAL } SDL_ThreadPriority;
+typedef enum SDL_ThreadPriority { SDL_THREAD_PRIORITY_LOW, SDL_THREAD_PRIORITY_NORMAL, SDL_THREAD_PRIORITY_HIGH, SDL_THREAD_PRIORITY_TIME_CRITICAL } SDL_ThreadPriority;
 typedef enum { SDL_AUDIO_STOPPED = 0, SDL_AUDIO_PLAYING, SDL_AUDIO_PAUSED } SDL_AudioStatus;
 typedef enum { SDL_PIXELTYPE_UNKNOWN, SDL_PIXELTYPE_INDEX1, SDL_PIXELTYPE_INDEX4, SDL_PIXELTYPE_INDEX8, SDL_PIXELTYPE_PACKED8, SDL_PIXELTYPE_PACKED16, SDL_PIXELTYPE_PACKED32, SDL_PIXELTYPE_ARRAYU8, SDL_PIXELTYPE_ARRAYU16, SDL_PIXELTYPE_ARRAYU32, SDL_PIXELTYPE_ARRAYF16, SDL_PIXELTYPE_ARRAYF32, SDL_PIXELTYPE_INDEX2 } SDL_PixelType;
 typedef enum { SDL_BITMAPORDER_NONE, SDL_BITMAPORDER_4321, SDL_BITMAPORDER_1234 } SDL_BitmapOrder;
@@ -116,21 +473,21 @@ typedef enum {
 	SDL_PIXELFORMAT_NV21 = ((((Uint32)(((Uint8)(('N'))))) << 0) | (((Uint32)(((Uint8)(('V'))))) << 8) | (((Uint32)(((Uint8)(('2'))))) << 16) | (((Uint32)(((Uint8)(('1'))))) << 24)) ,
 	SDL_PIXELFORMAT_EXTERNAL_OES = ((((Uint32)(((Uint8)(('O'))))) << 0) | (((Uint32)(((Uint8)(('E'))))) << 8) | (((Uint32)(((Uint8)(('S'))))) << 16) | (((Uint32)(((Uint8)((' '))))) << 24))
 } SDL_PixelFormatEnum;
-typedef enum { SDL_BLENDMODE_NONE = 0x00000000, SDL_BLENDMODE_BLEND = 0x00000001, SDL_BLENDMODE_ADD = 0x00000002, SDL_BLENDMODE_MOD = 0x00000004, SDL_BLENDMODE_MUL = 0x00000008, SDL_BLENDMODE_INVALID = 0x7FFFFFFF } SDL_BlendMode;
-typedef enum { SDL_BLENDOPERATION_ADD = 0x1, SDL_BLENDOPERATION_SUBTRACT = 0x2, SDL_BLENDOPERATION_REV_SUBTRACT = 0x3, SDL_BLENDOPERATION_MINIMUM = 0x4, SDL_BLENDOPERATION_MAXIMUM = 0x5 } SDL_BlendOperation;
-typedef enum { SDL_BLENDFACTOR_ZERO = 0x1, SDL_BLENDFACTOR_ONE = 0x2, SDL_BLENDFACTOR_SRC_COLOR = 0x3, SDL_BLENDFACTOR_ONE_MINUS_SRC_COLOR = 0x4, SDL_BLENDFACTOR_SRC_ALPHA = 0x5, SDL_BLENDFACTOR_ONE_MINUS_SRC_ALPHA = 0x6, SDL_BLENDFACTOR_DST_COLOR = 0x7, SDL_BLENDFACTOR_ONE_MINUS_DST_COLOR = 0x8, SDL_BLENDFACTOR_DST_ALPHA = 0x9, SDL_BLENDFACTOR_ONE_MINUS_DST_ALPHA = 0xA } SDL_BlendFactor;
-typedef enum { SDL_YUV_CONVERSION_JPEG, SDL_YUV_CONVERSION_BT601, SDL_YUV_CONVERSION_BT709, SDL_YUV_CONVERSION_AUTOMATIC } SDL_YUV_CONVERSION_MODE;
-typedef enum { SDL_WINDOW_FULLSCREEN = 0x00000001, SDL_WINDOW_OPENGL = 0x00000002, SDL_WINDOW_SHOWN = 0x00000004, SDL_WINDOW_HIDDEN = 0x00000008, SDL_WINDOW_BORDERLESS = 0x00000010, SDL_WINDOW_RESIZABLE = 0x00000020, SDL_WINDOW_MINIMIZED = 0x00000040, SDL_WINDOW_MAXIMIZED = 0x00000080, SDL_WINDOW_MOUSE_GRABBED = 0x00000100, SDL_WINDOW_INPUT_FOCUS = 0x00000200, SDL_WINDOW_MOUSE_FOCUS = 0x00000400, SDL_WINDOW_FULLSCREEN_DESKTOP = (SDL_WINDOW_FULLSCREEN | 0x00001000), SDL_WINDOW_FOREIGN = 0x00000800, SDL_WINDOW_ALLOW_HIGHDPI = 0x00002000, SDL_WINDOW_MOUSE_CAPTURE = 0x00004000, SDL_WINDOW_ALWAYS_ON_TOP = 0x00008000, SDL_WINDOW_SKIP_TASKBAR = 0x00010000, SDL_WINDOW_UTILITY = 0x00020000, SDL_WINDOW_TOOLTIP = 0x00040000, SDL_WINDOW_POPUP_MENU = 0x00080000, SDL_WINDOW_KEYBOARD_GRABBED = 0x00100000, SDL_WINDOW_VULKAN = 0x10000000, SDL_WINDOW_METAL = 0x20000000, SDL_WINDOW_INPUT_GRABBED = SDL_WINDOW_MOUSE_GRABBED } SDL_WindowFlags;
-typedef enum { SDL_WINDOWEVENT_NONE, SDL_WINDOWEVENT_SHOWN, SDL_WINDOWEVENT_HIDDEN, SDL_WINDOWEVENT_EXPOSED, SDL_WINDOWEVENT_MOVED, SDL_WINDOWEVENT_RESIZED, SDL_WINDOWEVENT_SIZE_CHANGED, SDL_WINDOWEVENT_MINIMIZED, SDL_WINDOWEVENT_MAXIMIZED, SDL_WINDOWEVENT_RESTORED, SDL_WINDOWEVENT_ENTER, SDL_WINDOWEVENT_LEAVE, SDL_WINDOWEVENT_FOCUS_GAINED, SDL_WINDOWEVENT_FOCUS_LOST, SDL_WINDOWEVENT_CLOSE, SDL_WINDOWEVENT_TAKE_FOCUS, SDL_WINDOWEVENT_HIT_TEST, SDL_WINDOWEVENT_ICCPROF_CHANGED, SDL_WINDOWEVENT_DISPLAY_CHANGED } SDL_WindowEventID;
-typedef enum { SDL_DISPLAYEVENT_NONE, SDL_DISPLAYEVENT_ORIENTATION, SDL_DISPLAYEVENT_CONNECTED, SDL_DISPLAYEVENT_DISCONNECTED, SDL_DISPLAYEVENT_MOVED } SDL_DisplayEventID;
-typedef enum { SDL_ORIENTATION_UNKNOWN, SDL_ORIENTATION_LANDSCAPE, SDL_ORIENTATION_LANDSCAPE_FLIPPED, SDL_ORIENTATION_PORTRAIT, SDL_ORIENTATION_PORTRAIT_FLIPPED } SDL_DisplayOrientation;
-typedef enum { SDL_FLASH_CANCEL, SDL_FLASH_BRIEFLY, SDL_FLASH_UNTIL_FOCUSED } SDL_FlashOperation;
-typedef enum { SDL_GL_RED_SIZE, SDL_GL_GREEN_SIZE, SDL_GL_BLUE_SIZE, SDL_GL_ALPHA_SIZE, SDL_GL_BUFFER_SIZE, SDL_GL_DOUBLEBUFFER, SDL_GL_DEPTH_SIZE, SDL_GL_STENCIL_SIZE, SDL_GL_ACCUM_RED_SIZE, SDL_GL_ACCUM_GREEN_SIZE, SDL_GL_ACCUM_BLUE_SIZE, SDL_GL_ACCUM_ALPHA_SIZE, SDL_GL_STEREO, SDL_GL_MULTISAMPLEBUFFERS, SDL_GL_MULTISAMPLESAMPLES, SDL_GL_ACCELERATED_VISUAL, SDL_GL_RETAINED_BACKING, SDL_GL_CONTEXT_MAJOR_VERSION, SDL_GL_CONTEXT_MINOR_VERSION, SDL_GL_CONTEXT_EGL, SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_SHARE_WITH_CURRENT_CONTEXT, SDL_GL_FRAMEBUFFER_SRGB_CAPABLE, SDL_GL_CONTEXT_RELEASE_BEHAVIOR, SDL_GL_CONTEXT_RESET_NOTIFICATION, SDL_GL_CONTEXT_NO_ERROR, SDL_GL_FLOATBUFFERS } SDL_GLattr;
-typedef enum { SDL_GL_CONTEXT_PROFILE_CORE = 0x0001, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY = 0x0002, SDL_GL_CONTEXT_PROFILE_ES = 0x0004 } SDL_GLprofile;
-typedef enum { SDL_GL_CONTEXT_DEBUG_FLAG = 0x0001, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG = 0x0002, SDL_GL_CONTEXT_ROBUST_ACCESS_FLAG = 0x0004, SDL_GL_CONTEXT_RESET_ISOLATION_FLAG = 0x0008 } SDL_GLcontextFlag;
-typedef enum { SDL_GL_CONTEXT_RELEASE_BEHAVIOR_NONE = 0x0000, SDL_GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH = 0x0001 } SDL_GLcontextReleaseFlag;
-typedef enum { SDL_GL_CONTEXT_RESET_NO_NOTIFICATION = 0x0000, SDL_GL_CONTEXT_RESET_LOSE_CONTEXT = 0x0001 } SDL_GLContextResetNotification;
-typedef enum {
+typedef enum SDL_BlendMode { SDL_BLENDMODE_NONE = 0x00000000, SDL_BLENDMODE_BLEND = 0x00000001, SDL_BLENDMODE_ADD = 0x00000002, SDL_BLENDMODE_MOD = 0x00000004, SDL_BLENDMODE_MUL = 0x00000008, SDL_BLENDMODE_INVALID = 0x7FFFFFFF } SDL_BlendMode;
+typedef enum SDL_BlendOperation { SDL_BLENDOPERATION_ADD = 0x1, SDL_BLENDOPERATION_SUBTRACT = 0x2, SDL_BLENDOPERATION_REV_SUBTRACT = 0x3, SDL_BLENDOPERATION_MINIMUM = 0x4, SDL_BLENDOPERATION_MAXIMUM = 0x5 } SDL_BlendOperation;
+typedef enum SDL_BlendFactor { SDL_BLENDFACTOR_ZERO = 0x1, SDL_BLENDFACTOR_ONE = 0x2, SDL_BLENDFACTOR_SRC_COLOR = 0x3, SDL_BLENDFACTOR_ONE_MINUS_SRC_COLOR = 0x4, SDL_BLENDFACTOR_SRC_ALPHA = 0x5, SDL_BLENDFACTOR_ONE_MINUS_SRC_ALPHA = 0x6, SDL_BLENDFACTOR_DST_COLOR = 0x7, SDL_BLENDFACTOR_ONE_MINUS_DST_COLOR = 0x8, SDL_BLENDFACTOR_DST_ALPHA = 0x9, SDL_BLENDFACTOR_ONE_MINUS_DST_ALPHA = 0xA } SDL_BlendFactor;
+typedef enum SDL_YUV_CONVERSION_MODE { SDL_YUV_CONVERSION_JPEG, SDL_YUV_CONVERSION_BT601, SDL_YUV_CONVERSION_BT709, SDL_YUV_CONVERSION_AUTOMATIC } SDL_YUV_CONVERSION_MODE;
+typedef enum SDL_WindowFlags { SDL_WINDOW_FULLSCREEN = 0x00000001, SDL_WINDOW_OPENGL = 0x00000002, SDL_WINDOW_SHOWN = 0x00000004, SDL_WINDOW_HIDDEN = 0x00000008, SDL_WINDOW_BORDERLESS = 0x00000010, SDL_WINDOW_RESIZABLE = 0x00000020, SDL_WINDOW_MINIMIZED = 0x00000040, SDL_WINDOW_MAXIMIZED = 0x00000080, SDL_WINDOW_MOUSE_GRABBED = 0x00000100, SDL_WINDOW_INPUT_FOCUS = 0x00000200, SDL_WINDOW_MOUSE_FOCUS = 0x00000400, SDL_WINDOW_FULLSCREEN_DESKTOP = (SDL_WINDOW_FULLSCREEN | 0x00001000), SDL_WINDOW_FOREIGN = 0x00000800, SDL_WINDOW_ALLOW_HIGHDPI = 0x00002000, SDL_WINDOW_MOUSE_CAPTURE = 0x00004000, SDL_WINDOW_ALWAYS_ON_TOP = 0x00008000, SDL_WINDOW_SKIP_TASKBAR = 0x00010000, SDL_WINDOW_UTILITY = 0x00020000, SDL_WINDOW_TOOLTIP = 0x00040000, SDL_WINDOW_POPUP_MENU = 0x00080000, SDL_WINDOW_KEYBOARD_GRABBED = 0x00100000, SDL_WINDOW_VULKAN = 0x10000000, SDL_WINDOW_METAL = 0x20000000, SDL_WINDOW_INPUT_GRABBED = SDL_WINDOW_MOUSE_GRABBED } SDL_WindowFlags;
+typedef enum SDL_WindowEventID { SDL_WINDOWEVENT_NONE, SDL_WINDOWEVENT_SHOWN, SDL_WINDOWEVENT_HIDDEN, SDL_WINDOWEVENT_EXPOSED, SDL_WINDOWEVENT_MOVED, SDL_WINDOWEVENT_RESIZED, SDL_WINDOWEVENT_SIZE_CHANGED, SDL_WINDOWEVENT_MINIMIZED, SDL_WINDOWEVENT_MAXIMIZED, SDL_WINDOWEVENT_RESTORED, SDL_WINDOWEVENT_ENTER, SDL_WINDOWEVENT_LEAVE, SDL_WINDOWEVENT_FOCUS_GAINED, SDL_WINDOWEVENT_FOCUS_LOST, SDL_WINDOWEVENT_CLOSE, SDL_WINDOWEVENT_TAKE_FOCUS, SDL_WINDOWEVENT_HIT_TEST, SDL_WINDOWEVENT_ICCPROF_CHANGED, SDL_WINDOWEVENT_DISPLAY_CHANGED } SDL_WindowEventID;
+typedef enum SDL_DisplayEventID { SDL_DISPLAYEVENT_NONE, SDL_DISPLAYEVENT_ORIENTATION, SDL_DISPLAYEVENT_CONNECTED, SDL_DISPLAYEVENT_DISCONNECTED, SDL_DISPLAYEVENT_MOVED } SDL_DisplayEventID;
+typedef enum SDL_DisplayOrientation { SDL_ORIENTATION_UNKNOWN, SDL_ORIENTATION_LANDSCAPE, SDL_ORIENTATION_LANDSCAPE_FLIPPED, SDL_ORIENTATION_PORTRAIT, SDL_ORIENTATION_PORTRAIT_FLIPPED } SDL_DisplayOrientation;
+typedef enum SDL_FlashOperation { SDL_FLASH_CANCEL, SDL_FLASH_BRIEFLY, SDL_FLASH_UNTIL_FOCUSED } SDL_FlashOperation;
+typedef enum SDL_GLattr { SDL_GL_RED_SIZE, SDL_GL_GREEN_SIZE, SDL_GL_BLUE_SIZE, SDL_GL_ALPHA_SIZE, SDL_GL_BUFFER_SIZE, SDL_GL_DOUBLEBUFFER, SDL_GL_DEPTH_SIZE, SDL_GL_STENCIL_SIZE, SDL_GL_ACCUM_RED_SIZE, SDL_GL_ACCUM_GREEN_SIZE, SDL_GL_ACCUM_BLUE_SIZE, SDL_GL_ACCUM_ALPHA_SIZE, SDL_GL_STEREO, SDL_GL_MULTISAMPLEBUFFERS, SDL_GL_MULTISAMPLESAMPLES, SDL_GL_ACCELERATED_VISUAL, SDL_GL_RETAINED_BACKING, SDL_GL_CONTEXT_MAJOR_VERSION, SDL_GL_CONTEXT_MINOR_VERSION, SDL_GL_CONTEXT_EGL, SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_SHARE_WITH_CURRENT_CONTEXT, SDL_GL_FRAMEBUFFER_SRGB_CAPABLE, SDL_GL_CONTEXT_RELEASE_BEHAVIOR, SDL_GL_CONTEXT_RESET_NOTIFICATION, SDL_GL_CONTEXT_NO_ERROR, SDL_GL_FLOATBUFFERS } SDL_GLattr;
+typedef enum SDL_GLprofile { SDL_GL_CONTEXT_PROFILE_CORE = 0x0001, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY = 0x0002, SDL_GL_CONTEXT_PROFILE_ES = 0x0004 } SDL_GLprofile;
+typedef enum SDL_GLcontextFlag { SDL_GL_CONTEXT_DEBUG_FLAG = 0x0001, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG = 0x0002, SDL_GL_CONTEXT_ROBUST_ACCESS_FLAG = 0x0004, SDL_GL_CONTEXT_RESET_ISOLATION_FLAG = 0x0008 } SDL_GLcontextFlag;
+typedef enum SDL_GLcontextReleaseFlag { SDL_GL_CONTEXT_RELEASE_BEHAVIOR_NONE = 0x0000, SDL_GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH = 0x0001 } SDL_GLcontextReleaseFlag;
+typedef enum SDL_GLContextResetNotification { SDL_GL_CONTEXT_RESET_NO_NOTIFICATION = 0x0000, SDL_GL_CONTEXT_RESET_LOSE_CONTEXT = 0x0001 } SDL_GLContextResetNotification;
+typedef enum SDL_HitTestResult {
 	SDL_HITTEST_NORMAL,
 	SDL_HITTEST_DRAGGABLE,
 	SDL_HITTEST_RESIZE_TOPLEFT,
@@ -142,7 +499,7 @@ typedef enum {
 	SDL_HITTEST_RESIZE_BOTTOMLEFT,
 	SDL_HITTEST_RESIZE_LEFT
 } SDL_HitTestResult;
-typedef enum {
+typedef enum SDL_Scancode {
 	SDL_SCANCODE_UNKNOWN = 0,
 	SDL_SCANCODE_A = 4,
 	SDL_SCANCODE_B = 5,
@@ -392,7 +749,7 @@ typedef enum {
 	SDL_SCANCODE_ENDCALL = 290,
 	SDL_NUM_SCANCODES = 512
 } SDL_Scancode;
-typedef enum {
+typedef enum SDL_KeyCode {
 	SDLK_UNKNOWN = 0,
 	SDLK_RETURN = '\r',
 	SDLK_ESCAPE = '\x1B',
@@ -638,7 +995,7 @@ typedef enum {
 	SDLK_CALL = (SDL_SCANCODE_CALL | (1<<30)) ,
 	SDLK_ENDCALL = (SDL_SCANCODE_ENDCALL | (1<<30))
 } SDL_KeyCode;
-typedef enum {
+typedef enum SDL_Keymod {
 	KMOD_NONE = 0x0000,
 	KMOD_LSHIFT = 0x0001,
 	KMOD_RSHIFT = 0x0002,
@@ -658,30 +1015,30 @@ typedef enum {
 	KMOD_GUI = KMOD_LGUI | KMOD_RGUI,
 	KMOD_RESERVED = KMOD_SCROLL
 } SDL_Keymod;
-typedef enum { SDL_SYSTEM_CURSOR_ARROW, SDL_SYSTEM_CURSOR_IBEAM, SDL_SYSTEM_CURSOR_WAIT, SDL_SYSTEM_CURSOR_CROSSHAIR, SDL_SYSTEM_CURSOR_WAITARROW, SDL_SYSTEM_CURSOR_SIZENWSE, SDL_SYSTEM_CURSOR_SIZENESW, SDL_SYSTEM_CURSOR_SIZEWE, SDL_SYSTEM_CURSOR_SIZENS, SDL_SYSTEM_CURSOR_SIZEALL, SDL_SYSTEM_CURSOR_NO, SDL_SYSTEM_CURSOR_HAND, SDL_NUM_SYSTEM_CURSORS } SDL_SystemCursor;
-typedef enum { SDL_MOUSEWHEEL_NORMAL, SDL_MOUSEWHEEL_FLIPPED } SDL_MouseWheelDirection;
+typedef enum SDL_SystemCursor { SDL_SYSTEM_CURSOR_ARROW, SDL_SYSTEM_CURSOR_IBEAM, SDL_SYSTEM_CURSOR_WAIT, SDL_SYSTEM_CURSOR_CROSSHAIR, SDL_SYSTEM_CURSOR_WAITARROW, SDL_SYSTEM_CURSOR_SIZENWSE, SDL_SYSTEM_CURSOR_SIZENESW, SDL_SYSTEM_CURSOR_SIZEWE, SDL_SYSTEM_CURSOR_SIZENS, SDL_SYSTEM_CURSOR_SIZEALL, SDL_SYSTEM_CURSOR_NO, SDL_SYSTEM_CURSOR_HAND, SDL_NUM_SYSTEM_CURSORS } SDL_SystemCursor;
+typedef enum SDL_MouseWheelDirection { SDL_MOUSEWHEEL_NORMAL, SDL_MOUSEWHEEL_FLIPPED } SDL_MouseWheelDirection;
 typedef enum { SDL_JOYSTICK_TYPE_UNKNOWN, SDL_JOYSTICK_TYPE_GAMECONTROLLER, SDL_JOYSTICK_TYPE_WHEEL, SDL_JOYSTICK_TYPE_ARCADE_STICK, SDL_JOYSTICK_TYPE_FLIGHT_STICK, SDL_JOYSTICK_TYPE_DANCE_PAD, SDL_JOYSTICK_TYPE_GUITAR, SDL_JOYSTICK_TYPE_DRUM_KIT, SDL_JOYSTICK_TYPE_ARCADE_PAD, SDL_JOYSTICK_TYPE_THROTTLE } SDL_JoystickType;
 typedef enum { SDL_JOYSTICK_POWER_UNKNOWN = -1, SDL_JOYSTICK_POWER_EMPTY, SDL_JOYSTICK_POWER_LOW, SDL_JOYSTICK_POWER_MEDIUM, SDL_JOYSTICK_POWER_FULL, SDL_JOYSTICK_POWER_WIRED, SDL_JOYSTICK_POWER_MAX } SDL_JoystickPowerLevel;
-typedef enum { SDL_SENSOR_INVALID = -1, SDL_SENSOR_UNKNOWN, SDL_SENSOR_ACCEL, SDL_SENSOR_GYRO, SDL_SENSOR_ACCEL_L, SDL_SENSOR_GYRO_L, SDL_SENSOR_ACCEL_R, SDL_SENSOR_GYRO_R } SDL_SensorType;
-typedef enum { SDL_CONTROLLER_TYPE_UNKNOWN = 0, SDL_CONTROLLER_TYPE_XBOX360, SDL_CONTROLLER_TYPE_XBOXONE, SDL_CONTROLLER_TYPE_PS3, SDL_CONTROLLER_TYPE_PS4, SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_PRO, SDL_CONTROLLER_TYPE_VIRTUAL, SDL_CONTROLLER_TYPE_PS5, SDL_CONTROLLER_TYPE_AMAZON_LUNA, SDL_CONTROLLER_TYPE_GOOGLE_STADIA, SDL_CONTROLLER_TYPE_NVIDIA_SHIELD, SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_LEFT, SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_RIGHT, SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_PAIR, SDL_CONTROLLER_TYPE_MAX } SDL_GameControllerType;
-typedef enum { SDL_CONTROLLER_BINDTYPE_NONE = 0, SDL_CONTROLLER_BINDTYPE_BUTTON, SDL_CONTROLLER_BINDTYPE_AXIS, SDL_CONTROLLER_BINDTYPE_HAT } SDL_GameControllerBindType;
-typedef enum { SDL_CONTROLLER_AXIS_INVALID = -1, SDL_CONTROLLER_AXIS_LEFTX, SDL_CONTROLLER_AXIS_LEFTY, SDL_CONTROLLER_AXIS_RIGHTX, SDL_CONTROLLER_AXIS_RIGHTY, SDL_CONTROLLER_AXIS_TRIGGERLEFT, SDL_CONTROLLER_AXIS_TRIGGERRIGHT, SDL_CONTROLLER_AXIS_MAX } SDL_GameControllerAxis;
-typedef enum { SDL_CONTROLLER_BUTTON_INVALID = -1, SDL_CONTROLLER_BUTTON_A, SDL_CONTROLLER_BUTTON_B, SDL_CONTROLLER_BUTTON_X, SDL_CONTROLLER_BUTTON_Y, SDL_CONTROLLER_BUTTON_BACK, SDL_CONTROLLER_BUTTON_GUIDE, SDL_CONTROLLER_BUTTON_START, SDL_CONTROLLER_BUTTON_LEFTSTICK, SDL_CONTROLLER_BUTTON_RIGHTSTICK, SDL_CONTROLLER_BUTTON_LEFTSHOULDER, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER, SDL_CONTROLLER_BUTTON_DPAD_UP, SDL_CONTROLLER_BUTTON_DPAD_DOWN, SDL_CONTROLLER_BUTTON_DPAD_LEFT, SDL_CONTROLLER_BUTTON_DPAD_RIGHT, SDL_CONTROLLER_BUTTON_MISC1, SDL_CONTROLLER_BUTTON_PADDLE1, SDL_CONTROLLER_BUTTON_PADDLE2, SDL_CONTROLLER_BUTTON_PADDLE3, SDL_CONTROLLER_BUTTON_PADDLE4, SDL_CONTROLLER_BUTTON_TOUCHPAD, SDL_CONTROLLER_BUTTON_MAX } SDL_GameControllerButton;
+typedef enum SDL_SensorType { SDL_SENSOR_INVALID = -1, SDL_SENSOR_UNKNOWN, SDL_SENSOR_ACCEL, SDL_SENSOR_GYRO, SDL_SENSOR_ACCEL_L, SDL_SENSOR_GYRO_L, SDL_SENSOR_ACCEL_R, SDL_SENSOR_GYRO_R } SDL_SensorType;
+typedef enum SDL_GameControllerType { SDL_CONTROLLER_TYPE_UNKNOWN = 0, SDL_CONTROLLER_TYPE_XBOX360, SDL_CONTROLLER_TYPE_XBOXONE, SDL_CONTROLLER_TYPE_PS3, SDL_CONTROLLER_TYPE_PS4, SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_PRO, SDL_CONTROLLER_TYPE_VIRTUAL, SDL_CONTROLLER_TYPE_PS5, SDL_CONTROLLER_TYPE_AMAZON_LUNA, SDL_CONTROLLER_TYPE_GOOGLE_STADIA, SDL_CONTROLLER_TYPE_NVIDIA_SHIELD, SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_LEFT, SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_RIGHT, SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_PAIR, SDL_CONTROLLER_TYPE_MAX } SDL_GameControllerType;
+typedef enum SDL_GameControllerBindType { SDL_CONTROLLER_BINDTYPE_NONE = 0, SDL_CONTROLLER_BINDTYPE_BUTTON, SDL_CONTROLLER_BINDTYPE_AXIS, SDL_CONTROLLER_BINDTYPE_HAT } SDL_GameControllerBindType;
+typedef enum SDL_GameControllerAxis { SDL_CONTROLLER_AXIS_INVALID = -1, SDL_CONTROLLER_AXIS_LEFTX, SDL_CONTROLLER_AXIS_LEFTY, SDL_CONTROLLER_AXIS_RIGHTX, SDL_CONTROLLER_AXIS_RIGHTY, SDL_CONTROLLER_AXIS_TRIGGERLEFT, SDL_CONTROLLER_AXIS_TRIGGERRIGHT, SDL_CONTROLLER_AXIS_MAX } SDL_GameControllerAxis;
+typedef enum SDL_GameControllerButton { SDL_CONTROLLER_BUTTON_INVALID = -1, SDL_CONTROLLER_BUTTON_A, SDL_CONTROLLER_BUTTON_B, SDL_CONTROLLER_BUTTON_X, SDL_CONTROLLER_BUTTON_Y, SDL_CONTROLLER_BUTTON_BACK, SDL_CONTROLLER_BUTTON_GUIDE, SDL_CONTROLLER_BUTTON_START, SDL_CONTROLLER_BUTTON_LEFTSTICK, SDL_CONTROLLER_BUTTON_RIGHTSTICK, SDL_CONTROLLER_BUTTON_LEFTSHOULDER, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER, SDL_CONTROLLER_BUTTON_DPAD_UP, SDL_CONTROLLER_BUTTON_DPAD_DOWN, SDL_CONTROLLER_BUTTON_DPAD_LEFT, SDL_CONTROLLER_BUTTON_DPAD_RIGHT, SDL_CONTROLLER_BUTTON_MISC1, SDL_CONTROLLER_BUTTON_PADDLE1, SDL_CONTROLLER_BUTTON_PADDLE2, SDL_CONTROLLER_BUTTON_PADDLE3, SDL_CONTROLLER_BUTTON_PADDLE4, SDL_CONTROLLER_BUTTON_TOUCHPAD, SDL_CONTROLLER_BUTTON_MAX } SDL_GameControllerButton;
 typedef enum { SDL_TOUCH_DEVICE_INVALID = -1, SDL_TOUCH_DEVICE_DIRECT, SDL_TOUCH_DEVICE_INDIRECT_ABSOLUTE, SDL_TOUCH_DEVICE_INDIRECT_RELATIVE } SDL_TouchDeviceType;
-typedef enum { SDL_FIRSTEVENT = 0, SDL_QUIT = 0x100, SDL_APP_TERMINATING, SDL_APP_LOWMEMORY, SDL_APP_WILLENTERBACKGROUND, SDL_APP_DIDENTERBACKGROUND, SDL_APP_WILLENTERFOREGROUND, SDL_APP_DIDENTERFOREGROUND, SDL_LOCALECHANGED, SDL_DISPLAYEVENT = 0x150, SDL_WINDOWEVENT = 0x200, SDL_SYSWMEVENT, SDL_KEYDOWN = 0x300, SDL_KEYUP, SDL_TEXTEDITING, SDL_TEXTINPUT, SDL_KEYMAPCHANGED, SDL_TEXTEDITING_EXT, SDL_MOUSEMOTION = 0x400, SDL_MOUSEBUTTONDOWN, SDL_MOUSEBUTTONUP, SDL_MOUSEWHEEL, SDL_JOYAXISMOTION = 0x600, SDL_JOYBALLMOTION, SDL_JOYHATMOTION, SDL_JOYBUTTONDOWN, SDL_JOYBUTTONUP, SDL_JOYDEVICEADDED, SDL_JOYDEVICEREMOVED, SDL_JOYBATTERYUPDATED, SDL_CONTROLLERAXISMOTION = 0x650, SDL_CONTROLLERBUTTONDOWN, SDL_CONTROLLERBUTTONUP, SDL_CONTROLLERDEVICEADDED, SDL_CONTROLLERDEVICEREMOVED, SDL_CONTROLLERDEVICEREMAPPED, SDL_CONTROLLERTOUCHPADDOWN, SDL_CONTROLLERTOUCHPADMOTION, SDL_CONTROLLERTOUCHPADUP, SDL_CONTROLLERSENSORUPDATE, SDL_CONTROLLERUPDATECOMPLETE_RESERVED_FOR_SDL3, SDL_CONTROLLERSTEAMHANDLEUPDATED, SDL_FINGERDOWN = 0x700, SDL_FINGERUP, SDL_FINGERMOTION, SDL_DOLLARGESTURE = 0x800, SDL_DOLLARRECORD, SDL_MULTIGESTURE, SDL_CLIPBOARDUPDATE = 0x900, SDL_DROPFILE = 0x1000, SDL_DROPTEXT, SDL_DROPBEGIN, SDL_DROPCOMPLETE, SDL_AUDIODEVICEADDED = 0x1100, SDL_AUDIODEVICEREMOVED, SDL_SENSORUPDATE = 0x1200, SDL_RENDER_TARGETS_RESET = 0x2000, SDL_RENDER_DEVICE_RESET, SDL_POLLSENTINEL = 0x7F00, SDL_USEREVENT = 0x8000, SDL_LASTEVENT = 0xFFFF } SDL_EventType;
-typedef enum { SDL_ADDEVENT, SDL_PEEKEVENT, SDL_GETEVENT } SDL_eventaction;
-typedef enum { SDL_HINT_DEFAULT, SDL_HINT_NORMAL, SDL_HINT_OVERRIDE } SDL_HintPriority;
-typedef enum { SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_CATEGORY_ERROR, SDL_LOG_CATEGORY_ASSERT, SDL_LOG_CATEGORY_SYSTEM, SDL_LOG_CATEGORY_AUDIO, SDL_LOG_CATEGORY_VIDEO, SDL_LOG_CATEGORY_RENDER, SDL_LOG_CATEGORY_INPUT, SDL_LOG_CATEGORY_TEST, SDL_LOG_CATEGORY_RESERVED1, SDL_LOG_CATEGORY_RESERVED2, SDL_LOG_CATEGORY_RESERVED3, SDL_LOG_CATEGORY_RESERVED4, SDL_LOG_CATEGORY_RESERVED5, SDL_LOG_CATEGORY_RESERVED6, SDL_LOG_CATEGORY_RESERVED7, SDL_LOG_CATEGORY_RESERVED8, SDL_LOG_CATEGORY_RESERVED9, SDL_LOG_CATEGORY_RESERVED10, SDL_LOG_CATEGORY_CUSTOM } SDL_LogCategory;
-typedef enum { SDL_LOG_PRIORITY_VERBOSE = 1, SDL_LOG_PRIORITY_DEBUG, SDL_LOG_PRIORITY_INFO, SDL_LOG_PRIORITY_WARN, SDL_LOG_PRIORITY_ERROR, SDL_LOG_PRIORITY_CRITICAL, SDL_NUM_LOG_PRIORITIES } SDL_LogPriority;
-typedef enum { SDL_MESSAGEBOX_ERROR = 0x00000010, SDL_MESSAGEBOX_WARNING = 0x00000020, SDL_MESSAGEBOX_INFORMATION = 0x00000040, SDL_MESSAGEBOX_BUTTONS_LEFT_TO_RIGHT = 0x00000080, SDL_MESSAGEBOX_BUTTONS_RIGHT_TO_LEFT = 0x00000100 } SDL_MessageBoxFlags;
-typedef enum { SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT = 0x00000001, SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT = 0x00000002 } SDL_MessageBoxButtonFlags;
-typedef enum { SDL_MESSAGEBOX_COLOR_BACKGROUND, SDL_MESSAGEBOX_COLOR_TEXT, SDL_MESSAGEBOX_COLOR_BUTTON_BORDER, SDL_MESSAGEBOX_COLOR_BUTTON_BACKGROUND, SDL_MESSAGEBOX_COLOR_BUTTON_SELECTED, SDL_MESSAGEBOX_COLOR_MAX } SDL_MessageBoxColorType;
-typedef enum { SDL_POWERSTATE_UNKNOWN, SDL_POWERSTATE_ON_BATTERY, SDL_POWERSTATE_NO_BATTERY, SDL_POWERSTATE_CHARGING, SDL_POWERSTATE_CHARGED } SDL_PowerState;
-typedef enum { SDL_RENDERER_SOFTWARE = 0x00000001, SDL_RENDERER_ACCELERATED = 0x00000002, SDL_RENDERER_PRESENTVSYNC = 0x00000004, SDL_RENDERER_TARGETTEXTURE = 0x00000008 } SDL_RendererFlags;
-typedef enum { SDL_ScaleModeNearest, SDL_ScaleModeLinear, SDL_ScaleModeBest } SDL_ScaleMode;
-typedef enum { SDL_TEXTUREACCESS_STATIC, SDL_TEXTUREACCESS_STREAMING, SDL_TEXTUREACCESS_TARGET } SDL_TextureAccess;
-typedef enum { SDL_TEXTUREMODULATE_NONE = 0x00000000, SDL_TEXTUREMODULATE_COLOR = 0x00000001, SDL_TEXTUREMODULATE_ALPHA = 0x00000002 } SDL_TextureModulate;
-typedef enum { SDL_FLIP_NONE = 0x00000000, SDL_FLIP_HORIZONTAL = 0x00000001, SDL_FLIP_VERTICAL = 0x00000002 } SDL_RendererFlip;
+typedef enum SDL_EventType { SDL_FIRSTEVENT = 0, SDL_QUIT = 0x100, SDL_APP_TERMINATING, SDL_APP_LOWMEMORY, SDL_APP_WILLENTERBACKGROUND, SDL_APP_DIDENTERBACKGROUND, SDL_APP_WILLENTERFOREGROUND, SDL_APP_DIDENTERFOREGROUND, SDL_LOCALECHANGED, SDL_DISPLAYEVENT = 0x150, SDL_WINDOWEVENT = 0x200, SDL_SYSWMEVENT, SDL_KEYDOWN = 0x300, SDL_KEYUP, SDL_TEXTEDITING, SDL_TEXTINPUT, SDL_KEYMAPCHANGED, SDL_TEXTEDITING_EXT, SDL_MOUSEMOTION = 0x400, SDL_MOUSEBUTTONDOWN, SDL_MOUSEBUTTONUP, SDL_MOUSEWHEEL, SDL_JOYAXISMOTION = 0x600, SDL_JOYBALLMOTION, SDL_JOYHATMOTION, SDL_JOYBUTTONDOWN, SDL_JOYBUTTONUP, SDL_JOYDEVICEADDED, SDL_JOYDEVICEREMOVED, SDL_JOYBATTERYUPDATED, SDL_CONTROLLERAXISMOTION = 0x650, SDL_CONTROLLERBUTTONDOWN, SDL_CONTROLLERBUTTONUP, SDL_CONTROLLERDEVICEADDED, SDL_CONTROLLERDEVICEREMOVED, SDL_CONTROLLERDEVICEREMAPPED, SDL_CONTROLLERTOUCHPADDOWN, SDL_CONTROLLERTOUCHPADMOTION, SDL_CONTROLLERTOUCHPADUP, SDL_CONTROLLERSENSORUPDATE, SDL_CONTROLLERUPDATECOMPLETE_RESERVED_FOR_SDL3, SDL_CONTROLLERSTEAMHANDLEUPDATED, SDL_FINGERDOWN = 0x700, SDL_FINGERUP, SDL_FINGERMOTION, SDL_DOLLARGESTURE = 0x800, SDL_DOLLARRECORD, SDL_MULTIGESTURE, SDL_CLIPBOARDUPDATE = 0x900, SDL_DROPFILE = 0x1000, SDL_DROPTEXT, SDL_DROPBEGIN, SDL_DROPCOMPLETE, SDL_AUDIODEVICEADDED = 0x1100, SDL_AUDIODEVICEREMOVED, SDL_SENSORUPDATE = 0x1200, SDL_RENDER_TARGETS_RESET = 0x2000, SDL_RENDER_DEVICE_RESET, SDL_POLLSENTINEL = 0x7F00, SDL_USEREVENT = 0x8000, SDL_LASTEVENT = 0xFFFF } SDL_EventType;
+typedef enum SDL_eventaction { SDL_ADDEVENT, SDL_PEEKEVENT, SDL_GETEVENT } SDL_eventaction;
+typedef enum SDL_HintPriority { SDL_HINT_DEFAULT, SDL_HINT_NORMAL, SDL_HINT_OVERRIDE } SDL_HintPriority;
+typedef enum SDL_LogCategory { SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_CATEGORY_ERROR, SDL_LOG_CATEGORY_ASSERT, SDL_LOG_CATEGORY_SYSTEM, SDL_LOG_CATEGORY_AUDIO, SDL_LOG_CATEGORY_VIDEO, SDL_LOG_CATEGORY_RENDER, SDL_LOG_CATEGORY_INPUT, SDL_LOG_CATEGORY_TEST, SDL_LOG_CATEGORY_RESERVED1, SDL_LOG_CATEGORY_RESERVED2, SDL_LOG_CATEGORY_RESERVED3, SDL_LOG_CATEGORY_RESERVED4, SDL_LOG_CATEGORY_RESERVED5, SDL_LOG_CATEGORY_RESERVED6, SDL_LOG_CATEGORY_RESERVED7, SDL_LOG_CATEGORY_RESERVED8, SDL_LOG_CATEGORY_RESERVED9, SDL_LOG_CATEGORY_RESERVED10, SDL_LOG_CATEGORY_CUSTOM } SDL_LogCategory;
+typedef enum SDL_LogPriority { SDL_LOG_PRIORITY_VERBOSE = 1, SDL_LOG_PRIORITY_DEBUG, SDL_LOG_PRIORITY_INFO, SDL_LOG_PRIORITY_WARN, SDL_LOG_PRIORITY_ERROR, SDL_LOG_PRIORITY_CRITICAL, SDL_NUM_LOG_PRIORITIES } SDL_LogPriority;
+typedef enum SDL_MessageBoxFlags { SDL_MESSAGEBOX_ERROR = 0x00000010, SDL_MESSAGEBOX_WARNING = 0x00000020, SDL_MESSAGEBOX_INFORMATION = 0x00000040, SDL_MESSAGEBOX_BUTTONS_LEFT_TO_RIGHT = 0x00000080, SDL_MESSAGEBOX_BUTTONS_RIGHT_TO_LEFT = 0x00000100 } SDL_MessageBoxFlags;
+typedef enum SDL_MessageBoxButtonFlags { SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT = 0x00000001, SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT = 0x00000002 } SDL_MessageBoxButtonFlags;
+typedef enum SDL_MessageBoxColorType { SDL_MESSAGEBOX_COLOR_BACKGROUND, SDL_MESSAGEBOX_COLOR_TEXT, SDL_MESSAGEBOX_COLOR_BUTTON_BORDER, SDL_MESSAGEBOX_COLOR_BUTTON_BACKGROUND, SDL_MESSAGEBOX_COLOR_BUTTON_SELECTED, SDL_MESSAGEBOX_COLOR_MAX } SDL_MessageBoxColorType;
+typedef enum SDL_PowerState { SDL_POWERSTATE_UNKNOWN, SDL_POWERSTATE_ON_BATTERY, SDL_POWERSTATE_NO_BATTERY, SDL_POWERSTATE_CHARGING, SDL_POWERSTATE_CHARGED } SDL_PowerState;
+typedef enum SDL_RendererFlags { SDL_RENDERER_SOFTWARE = 0x00000001, SDL_RENDERER_ACCELERATED = 0x00000002, SDL_RENDERER_PRESENTVSYNC = 0x00000004, SDL_RENDERER_TARGETTEXTURE = 0x00000008 } SDL_RendererFlags;
+typedef enum SDL_ScaleMode { SDL_ScaleModeNearest, SDL_ScaleModeLinear, SDL_ScaleModeBest } SDL_ScaleMode;
+typedef enum SDL_TextureAccess { SDL_TEXTUREACCESS_STATIC, SDL_TEXTUREACCESS_STREAMING, SDL_TEXTUREACCESS_TARGET } SDL_TextureAccess;
+typedef enum SDL_TextureModulate { SDL_TEXTUREMODULATE_NONE = 0x00000000, SDL_TEXTUREMODULATE_COLOR = 0x00000001, SDL_TEXTUREMODULATE_ALPHA = 0x00000002 } SDL_TextureModulate;
+typedef enum SDL_RendererFlip { SDL_FLIP_NONE = 0x00000000, SDL_FLIP_HORIZONTAL = 0x00000001, SDL_FLIP_VERTICAL = 0x00000002 } SDL_RendererFlip;
 typedef enum { ShapeModeDefault, ShapeModeBinarizeAlpha, ShapeModeReverseBinarizeAlpha, ShapeModeColorKey } WindowShapeMode;
 ]]
 
@@ -696,6 +1053,7 @@ typedef void *(*SDL_malloc_func)(size_t size);
 typedef void *(*SDL_calloc_func)(size_t nmemb, size_t size);
 typedef void *(*SDL_realloc_func)(void *mem, size_t size);
 typedef void (*SDL_free_func)(void *mem);
+typedef int (*SDL_CompareCallback)(const void *, const void *);
 typedef struct _SDL_iconv_t *SDL_iconv_t;
 typedef int (*SDL_main_func)(int argc, char *argv[]);
 typedef struct SDL_AssertData {
@@ -709,7 +1067,9 @@ typedef struct SDL_AssertData {
 } SDL_AssertData;
 typedef SDL_AssertState (*SDL_AssertionHandler)(const SDL_AssertData* data, void* userdata);
 typedef int SDL_SpinLock;
-typedef struct { int value; } SDL_atomic_t;
+typedef struct SDL_atomic_t {
+	int value;
+} SDL_atomic_t;
 struct SDL_mutex;
 typedef struct SDL_mutex SDL_mutex;
 struct SDL_semaphore;
@@ -721,6 +1081,7 @@ typedef struct SDL_Thread SDL_Thread;
 typedef unsigned long SDL_threadID;
 typedef unsigned int SDL_TLSID;
 typedef int (* SDL_ThreadFunction) (void *data);
+typedef void (*SDL_TLSDestructorCallback)(void*);
 typedef struct SDL_RWops {
 	Sint64 (* size) (struct SDL_RWops * context);
 	Sint64 (* seek) (struct SDL_RWops * context, Sint64 offset, int whence);
@@ -854,7 +1215,7 @@ typedef struct SDL_Surface {
 	int refcount;
 } SDL_Surface;
 typedef int (*SDL_blit) (struct SDL_Surface * src, SDL_Rect * srcrect, struct SDL_Surface * dst, SDL_Rect * dstrect);
-typedef struct {
+typedef struct SDL_DisplayMode {
 	Uint32 format;
 	int w;
 	int h;
@@ -872,7 +1233,7 @@ typedef struct SDL_Keysym {
 	Uint32 unused;
 } SDL_Keysym;
 typedef struct SDL_Cursor SDL_Cursor;
-typedef struct {
+typedef struct SDL_GUID {
 	Uint8 data[16];
 } SDL_GUID;
 struct _SDL_Joystick;
@@ -1334,18 +1695,18 @@ typedef struct SDL_hid_device_info {
 } SDL_hid_device_info;
 typedef void (*SDL_HintCallback)(void *userdata, const char *name, const char *oldValue, const char *newValue);
 typedef void (*SDL_LogOutputFunction)(void *userdata, int category, SDL_LogPriority priority, const char *message);
-typedef struct {
+typedef struct SDL_MessageBoxButtonData {
 	Uint32 flags;
 	int buttonid;
 	const char * text;
 } SDL_MessageBoxButtonData;
-typedef struct {
+typedef struct SDL_MessageBoxColor {
 	Uint8 r, g, b;
 } SDL_MessageBoxColor;
-typedef struct {
+typedef struct SDL_MessageBoxColorScheme {
 	SDL_MessageBoxColor colors[SDL_MESSAGEBOX_COLOR_MAX];
 } SDL_MessageBoxColorScheme;
-typedef struct {
+typedef struct SDL_MessageBoxData {
 	Uint32 flags;
 	SDL_Window *window;
 	const char *title;
@@ -1398,11 +1759,67 @@ typedef struct SDL_Locale {
 -- enums
 
 ffi.cdef[[
+enum { SDLCALL = 1 };
+enum { SDL_HAS_FALLTHROUGH = 0 };
+enum { SDL_AUDIO_DRIVER_COREAUDIO = 1 };
+enum { SDL_AUDIO_DRIVER_DISK = 1 };
+enum { SDL_AUDIO_DRIVER_DUMMY = 1 };
+enum { SDL_JOYSTICK_IOKIT = 1 };
+enum { SDL_JOYSTICK_MFI = 1 };
+enum { SDL_JOYSTICK_HIDAPI = 1 };
+enum { SDL_JOYSTICK_VIRTUAL = 1 };
+enum { SDL_HAPTIC_IOKIT = 1 };
+enum { SDL_SENSOR_DUMMY = 1 };
+enum { SDL_LOADSO_DLOPEN = 1 };
+enum { SDL_THREAD_PTHREAD = 1 };
+enum { SDL_THREAD_PTHREAD_RECURSIVE_MUTEX = 1 };
+enum { SDL_TIMER_UNIX = 1 };
+enum { SDL_VIDEO_DRIVER_COCOA = 1 };
+enum { SDL_VIDEO_DRIVER_DUMMY = 1 };
+enum { SDL_VIDEO_DRIVER_OFFSCREEN = 1 };
+enum { SDL_VIDEO_RENDER_OGL = 1 };
+enum { SDL_VIDEO_RENDER_OGL_ES2 = 1 };
+enum { SDL_VIDEO_RENDER_METAL = 1 };
+enum { SDL_VIDEO_OPENGL = 1 };
+enum { SDL_VIDEO_OPENGL_ES2 = 1 };
+enum { SDL_VIDEO_OPENGL_CGL = 1 };
+enum { SDL_VIDEO_OPENGL_EGL = 1 };
+enum { SDL_VIDEO_VULKAN = 1 };
+enum { SDL_VIDEO_METAL = 1 };
+enum { SDL_POWER_MACOSX = 1 };
+enum { SDL_FILESYSTEM_COCOA = 1 };
+enum { SDL_PRINTF_FORMAT_STRING = 1 };
+enum { SDL_SCANF_FORMAT_STRING = 1 };
 enum { SDL_ICONV_ERROR = -1 };
 enum { SDL_ICONV_E2BIG = -2 };
 enum { SDL_ICONV_EILSEQ = -3 };
 enum { SDL_ICONV_EINVAL = -4 };
-enum { SDL_ASSERT_LEVEL = 1 };
+enum { SDLMAIN_DECLSPEC = 1 };
+enum { SDL_ASSERT_LEVEL = 2 };
+enum { SDL_FUNCTION = 0 };
+enum { SDL_FILE = 0 };
+enum { SDL_LINE = 0 };
+enum { SDL_NULL_WHILE_LOOP_CONDITION = 0 };
+enum { SDL_assert_state = 0 };
+enum { SDL_assert_data = 0 };
+enum { SDL_LIL_ENDIAN = 1234 };
+enum { SDL_BIG_ENDIAN = 4321 };
+enum { SDL_BYTEORDER = 1234 };
+enum { SDL_FLOATWORDORDER = 1234 };
+enum { HAS_BUILTIN_BSWAP16 = 0 };
+enum { HAS_BUILTIN_BSWAP32 = 0 };
+enum { HAS_BUILTIN_BSWAP64 = 0 };
+enum { HAS_BROKEN_BSWAP = 0 };
+enum { SDL_MUTEX_TIMEDOUT = 1 };
+enum { SDL_RWOPS_UNKNOWN = 0 };
+enum { SDL_RWOPS_WINFILE = 1 };
+enum { SDL_RWOPS_STDFILE = 2 };
+enum { SDL_RWOPS_JNIFILE = 3 };
+enum { SDL_RWOPS_MEMORY = 4 };
+enum { SDL_RWOPS_MEMORY_RO = 5 };
+enum { RW_SEEK_SET = 0 };
+enum { RW_SEEK_CUR = 1 };
+enum { RW_SEEK_END = 2 };
 enum { SDL_AUDIO_MASK_BITSIZE = 255 };
 enum { SDL_AUDIO_MASK_DATATYPE = 256 };
 enum { SDL_AUDIO_MASK_ENDIAN = 4096 };
@@ -1435,11 +1852,14 @@ enum { SDL_MIX_MAXVOLUME = 128 };
 enum { SDL_CACHELINE_SIZE = 128 };
 enum { SDL_ALPHA_OPAQUE = 255 };
 enum { SDL_ALPHA_TRANSPARENT = 0 };
+enum { SDL_Colour = 0 };
 enum { SDL_SWSURFACE = 0 };
 enum { SDL_PREALLOC = 1 };
 enum { SDL_RLEACCEL = 2 };
 enum { SDL_DONTFREE = 4 };
 enum { SDL_SIMD_ALIGNED = 8 };
+enum { SDL_BlitSurface = 0 };
+enum { SDL_BlitScaled = 0 };
 enum { SDL_WINDOWPOS_UNDEFINED_MASK = 0x1FFF0000u };
 enum { SDL_WINDOWPOS_CENTERED_MASK = 0x2FFF0000u };
 enum { SDLK_SCANCODE_MASK = 1073741824 };
@@ -1485,9 +1905,9 @@ enum { SDL_NONSHAPEABLE_WINDOW = -1 };
 enum { SDL_INVALID_SHAPE_ARGUMENT = -2 };
 enum { SDL_WINDOW_LACKS_SHAPE = -3 };
 enum { SDL_MAJOR_VERSION = 2 };
-enum { SDL_MINOR_VERSION = 30 };
-enum { SDL_PATCHLEVEL = 9 };
-enum { SDL_COMPILEDVERSION = 5009 };
+enum { SDL_MINOR_VERSION = 32 };
+enum { SDL_PATCHLEVEL = 4 };
+enum { SDL_COMPILEDVERSION = 5204 };
 enum { SDL_INIT_TIMER = 0x00000001u };
 enum { SDL_INIT_AUDIO = 0x00000010u };
 enum { SDL_INIT_VIDEO = 0x00000020u };
@@ -1517,8 +1937,8 @@ extern int SDL_SetMemoryFunctions(SDL_malloc_func malloc_func, SDL_calloc_func c
 extern int SDL_GetNumAllocations();
 extern char * SDL_getenv(const char *name);
 extern int SDL_setenv(const char *name, const char *value, int overwrite);
-extern void SDL_qsort(void *base, size_t nmemb, size_t size, int (*compare) (const void *, const void *));
-extern void * SDL_bsearch(const void *key, const void *base, size_t nmemb, size_t size, int (*compare) (const void *, const void *));
+extern void SDL_qsort(void *base, size_t nmemb, size_t size, SDL_CompareCallback compare);
+extern void * SDL_bsearch(const void *key, const void *base, size_t nmemb, size_t size, SDL_CompareCallback compare);
 extern int SDL_abs(int x);
 extern int SDL_isalpha(int x);
 extern int SDL_isalnum(int x);
@@ -1686,7 +2106,7 @@ extern void SDL_WaitThread(SDL_Thread * thread, int *status);
 extern void SDL_DetachThread(SDL_Thread * thread);
 extern SDL_TLSID SDL_TLSCreate();
 extern void * SDL_TLSGet(SDL_TLSID id);
-extern int SDL_TLSSet(SDL_TLSID id, const void *value, void (*destructor)(void*));
+extern int SDL_TLSSet(SDL_TLSID id, const void *value, SDL_TLSDestructorCallback destructor);
 extern void SDL_TLSCleanup();
 extern SDL_RWops * SDL_RWFromFile(const char *file, const char *mode);
 extern SDL_RWops * SDL_RWFromFP(FILE * fp, SDL_bool autoclose);
@@ -1798,11 +2218,11 @@ extern void SDL_GetRGB(Uint32 pixel, const SDL_PixelFormat * format, Uint8 * r, 
 extern void SDL_GetRGBA(Uint32 pixel, const SDL_PixelFormat * format, Uint8 * r, Uint8 * g, Uint8 * b, Uint8 * a);
 extern void SDL_CalculateGammaRamp(float gamma, Uint16 * ramp);
 extern SDL_bool SDL_HasIntersection(const SDL_Rect * A, const SDL_Rect * B);
+extern SDL_bool SDL_HasIntersectionF(const SDL_FRect * A, const SDL_FRect * B);
 extern SDL_bool SDL_IntersectRect(const SDL_Rect * A, const SDL_Rect * B, SDL_Rect * result);
 extern void SDL_UnionRect(const SDL_Rect * A, const SDL_Rect * B, SDL_Rect * result);
 extern SDL_bool SDL_EnclosePoints(const SDL_Point * points, int count, const SDL_Rect * clip, SDL_Rect * result);
 extern SDL_bool SDL_IntersectRectAndLine(const SDL_Rect * rect, int *X1, int *Y1, int *X2, int *Y2);
-extern SDL_bool SDL_HasIntersectionF(const SDL_FRect * A, const SDL_FRect * B);
 extern SDL_bool SDL_IntersectFRect(const SDL_FRect * A, const SDL_FRect * B, SDL_FRect * result);
 extern void SDL_UnionFRect(const SDL_FRect * A, const SDL_FRect * B, SDL_FRect * result);
 extern SDL_bool SDL_EncloseFPoints(const SDL_FPoint * points, int count, const SDL_FRect * clip, SDL_FRect * result);
@@ -2359,7 +2779,5 @@ extern int SDL_LinuxSetThreadPriority(Sint64 threadID, int priority);
 extern int SDL_LinuxSetThreadPriorityAndPolicy(Sint64 threadID, int sdlPriority, int schedPolicy);
 ]]
 end
-
-
 
 return require 'ffi.load' 'SDL2'
