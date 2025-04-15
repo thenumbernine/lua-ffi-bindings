@@ -25,6 +25,8 @@ elseif ffi.os == 'Windows' then
 	require 'ffi.req' 'c.limits'
 	ffi.cdef[[
 typedef unsigned z_crc_t;
+typedef long z_off_t;
+typedef int64 z_off64_t;
 ]]
 end
 
