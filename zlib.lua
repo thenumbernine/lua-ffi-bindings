@@ -265,7 +265,7 @@ end
 
 -- safe-call wrapper:
 function wrapper.pcall(fn, ...)
-	local f = assert(wrapper[fn])
+	local f = assert.index(wrapper, fn)
 	local result = f(...)
 	if result == wrapper.Z_OK then return true end
 	local errs = require 'ext.table'{
@@ -275,7 +275,7 @@ function wrapper.pcall(fn, ...)
 		'Z_MEM_ERROR',
 		'Z_BUF_ERROR',
 		'Z_VERSION_ERROR',
-	}:mapi(function(v) return v, assert(wrapper[v]) end):setmetatable(nil)
+	}:mapi(function(v) return v, (assert.index(wrapper, v)) end):setmetatable(nil)
 	local name = errs[result]
 	return false, fn.." failed with error "..result..(name and (' ('..name..')') or ''), result
 end
