@@ -11,6 +11,8 @@ if ffi.os == 'Linux' then
 	require 'ffi.req' 'c.limits'
 	require 'ffi.req' 'c.unistd'
 	ffi.cdef[[
+typedef long z_off_t;
+typedef off_t z_off64_t;
 typedef unsigned z_crc_t;
 ]]
 elseif ffi.os == 'OSX' then
