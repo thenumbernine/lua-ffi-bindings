@@ -1,14 +1,6 @@
 local ffi = require 'ffi'
 local assert = require 'ext.assert'
 
--- comments
-
---[[
-/* #  define z_longlong long long ### string, not number "long long" */
-/* #define ZLIB_VERSION "1.3.1" ### string, not number "\"1.3.1\"" */
-/* #define zlib_version zlibVersion() ### string, not number "zlibVersion()" */
---]]
-
 -- typedefs
 
 require 'ffi.req' 'c.stddef'
@@ -116,13 +108,13 @@ wrapper = require 'ffi.libwrapper'{
 		ZEXPORT = 1,
 		ZEXPORTVA = 1,
 		--Z_U4 = 0 for non-OSX, undefined otherwise
-		--Z_HAVE_UNISTD_H = 1 for non-Windows, undefined otherwise
-		--Z_HAVE_STDARG_H = 1 for non-Windows, undefined otherwise
 		--Z_LFS64 = 1 for Linux
-		ZLIB_VERNUM = 4880,	-- 4800 -- 4784
+		Z_HAVE_UNISTD_H = 1,
+		Z_HAVE_STDARG_H = 1,
+		ZLIB_VERNUM = 4800,
 		ZLIB_VER_MAJOR = 1,
-		ZLIB_VER_MINOR = 3,
-		ZLIB_VER_REVISION = 1,
+		ZLIB_VER_MINOR = 2,
+		ZLIB_VER_REVISION = 12,
 		ZLIB_VER_SUBREVISION = 0,
 		Z_NO_FLUSH = 0,
 		Z_PARTIAL_FLUSH = 1,
@@ -224,12 +216,12 @@ wrapper = require 'ffi.libwrapper'{
 		inflateBackInit_ = [[int inflateBackInit_(z_streamp strm, int windowBits, unsigned char *window, const char *version, int stream_size);]],
 		gzgetc_ = [[int gzgetc_(gzFile file);]],
 		gzopen = [[gzFile gzopen(const char *, const char *);]],
-		gzseek = [[off_t gzseek(gzFile, off_t, int);]],
-		gztell = [[off_t gztell(gzFile);]],
-		gzoffset = [[off_t gzoffset(gzFile);]],
-		adler32_combine = [[uLong adler32_combine(uLong, uLong, off_t);]],
-		crc32_combine = [[uLong crc32_combine(uLong, uLong, off_t);]],
-		crc32_combine_gen = [[uLong crc32_combine_gen(off_t);]],
+		gzseek = [[long gzseek(gzFile, long, int);]],
+		gztell = [[long gztell(gzFile);]],
+		gzoffset = [[long gzoffset(gzFile);]],
+		adler32_combine = [[uLong adler32_combine(uLong, uLong, long);]],
+		crc32_combine = [[uLong crc32_combine(uLong, uLong, long);]],
+		crc32_combine_gen = [[uLong crc32_combine_gen(long);]],
 		zError = [[const char * zError(int);]],
 		inflateSyncPoint = [[int inflateSyncPoint(z_streamp);]],
 		get_crc_table = [[const z_crc_t * get_crc_table();]],
@@ -238,14 +230,12 @@ wrapper = require 'ffi.libwrapper'{
 		inflateCodesUsed = [[unsigned long inflateCodesUsed(z_streamp);]],
 		inflateResetKeep = [[int inflateResetKeep(z_streamp);]],
 		deflateResetKeep = [[int deflateResetKeep(z_streamp);]],
-		gzopen_w = [[gzFile gzopen_w(const wchar_t *path, const char *mode);]],	-- Windows-only
+		gzopen_w = [[gzFile gzopen_w(const wchar_t *path, const char *mode);]], -- Windows-only
 		gzvprintf = [[int gzvprintf(gzFile file, const char *format, va_list va);]],
 	},
 }
 
--- macros
-
-wrapper.ZLIB_VERSION = "1.3.1"
+wrapper.ZLIB_VERSION = "1.2.12"
 
 function wrapper.zlib_version(...)
 	return wrapper.zlibVersion(...)
