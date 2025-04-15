@@ -24,13 +24,9 @@ elseif ffi.os == 'Windows' then
 	ffi.cdef[[
 typedef unsigned z_crc_t;
 ]]
-	-- Windows zlib 1.2.11 struct gzFile_s uses __int64 instead of off_t so ...
-	assert.eq(ffi.sizeof'off_t', ffi.sizeof'__int64')
-	-- Windows uses long instead of off_t for gzseek, gztell, gzoffset, etc...
-	assert.eq(ffi.sizeof'off_t', ffi.sizeof'long')
 end
 
-ffi.cdef[[
+ffi.cdef([[
 typedef long long z_longlong;
 typedef size_t z_size_t;
 typedef unsigned char Byte;
@@ -86,9 +82,9 @@ typedef struct gzFile_s *gzFile;
 struct gzFile_s {
 	unsigned have;
 	unsigned char *next;
-	off_t pos;
+	]]..(ffi.os == 'Windows' and '__int64_t' or 'off_t')..[[ pos;
 };
-]]
+]])
 
 local wrapper
 wrapper = require 'ffi.libwrapper'{
@@ -99,18 +95,18 @@ wrapper = require 'ffi.libwrapper'{
 
 		ZLIB_H = 1,
 		ZCONF_H = 1,
-		STDC = 1,
+		--STDC = 1,
 		--STDC99 = 1 for non-Windows, undefined otherwise
+		--Z_HAVE_UNISTD_H = 1 for non-Windows, undefined otherwise
+		--Z_HAVE_STDARG_H = 1 for non-Windows, undefined otherwise
+		--Z_U4 = 0 for non-OSX, undefined otherwise
+		--Z_LFS64 = 1 for Linux
 		z_const = 1,
 		MAX_MEM_LEVEL = 9,
 		MAX_WBITS = 15,
 		ZEXTERN = 0,
 		ZEXPORT = 1,
 		ZEXPORTVA = 1,
-		--Z_U4 = 0 for non-OSX, undefined otherwise
-		--Z_LFS64 = 1 for Linux
-		Z_HAVE_UNISTD_H = 1,
-		Z_HAVE_STDARG_H = 1,
 		ZLIB_VERNUM = 4800,
 		ZLIB_VER_MAJOR = 1,
 		ZLIB_VER_MINOR = 2,
