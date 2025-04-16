@@ -82,7 +82,7 @@ extern int vorbis_block_init(vorbis_dsp_state *v, vorbis_block *vb);
 extern int vorbis_block_clear(vorbis_block *vb);
 extern void vorbis_dsp_clear(vorbis_dsp_state *v);
 extern double vorbis_granule_time(vorbis_dsp_state *v, ogg_int64_t granulepos);
-extern const char *vorbis_version_string(void);
+extern const char *vorbis_version_string();
 extern int vorbis_analysis_init(vorbis_dsp_state *v,vorbis_info *vi);
 extern int vorbis_commentheader_out(vorbis_comment *vc, ogg_packet *op);
 extern int vorbis_analysis_headerout(vorbis_dsp_state *v, vorbis_comment *vc, ogg_packet *op, ogg_packet *op_comm, ogg_packet *op_code);
