@@ -75,9 +75,10 @@ lookup'hdf5'.Linux = '/usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5.so'
 -- ================================ Windows ================================
 
 
-lookup'GL'.Windows = 'OpenGL32'
+lookup'GL'.Windows = 'OpenGL32'				-- builtin
 lookup'GLU'.Windows = 'GLU32'
 
+-- TODO when building these on Windows, make sure their names don't have version crap on the end, so there's no need for this.
 -- can ffi.load"serial/hdf5" work? hmm...
 lookup'png'.Windows = 'libpng16'
 lookup'z'.Windows = 'zlib'
@@ -102,7 +103,7 @@ lookup'GL'.OSX = '/System/Library/Frameworks/OpenGL.framework/OpenGL'	-- builtin
 --lookup'GL'.OSX = '/usr/local/lib/libGL.dylib'							-- osx brew mesa ... which, just having this installed, after the last libSDL2 brew update, caused *every single thing* that used brew SDL2 to segfault upon start.
 
 lookup'GLU'.OSX = '/System/Library/Frameworks/OpenGL.framework/OpenGL'	-- builtin crap
---lookup'GLU'.OSX = '/usr/local/lib/libGLU.dylib'							-- osx brew mesa ... which, just having this installed, after the last libSDL2 brew update, caused *every single thing* that used brew SDL2 to segfault upon start.
+--lookup'GLU'.OSX = '/usr/local/lib/libGLU.dylib'						-- osx brew mesa ... which, just having this installed, after the last libSDL2 brew update, caused *every single thing* that used brew SDL2 to segfault upon start.
 
 -- hmm, GLES library names are funny
 -- GLES1, GLES/gl.h uses GLESv1_CM.so
@@ -113,8 +114,6 @@ lookup'GLESv2'.OSX = '/System/Library/Frameworks/OpenGL.framework/OpenGL'	-- bui
 --lookup'GLESv2'.OSX = '/System/Library/Frameworks/CoreImage.framework/Versions/A/Frameworks/libWrapGLES.dylib'	-- dlopen says incompatible platforms
 --lookup'GLESv2'.OSX = '/usr/local/lib/libGLESv2.dylib'	-- osx brew mesa
 
-lookup'EGL'.OSX = '/usr/local/lib/libEGL.dylib'
-
 lookup'OpenCL'.OSX = '/System/Library/Frameworks/OpenCL.framework/OpenCL'
 lookup'openal'.OSX = '/System/Library/Frameworks/OpenAL.framework/OpenAL'
 
@@ -122,9 +121,16 @@ lookup'openal'.OSX = '/System/Library/Frameworks/OpenAL.framework/OpenAL'
 -- And setting DYLD_LIBRARY_PATH crashes library conflicts (which will probably start happening anyways as I change this more)
 -- But here I go trying to point to /usr/local/lib on OSX for all the libs I reference in here.
 -- Another reason to use malkia's model and just package all the binaries in the repo itself.
+lookup'cimgui_sdl'.OSX = '/usr/local/lib/libcimgui_sdl.dylib'
 lookup'SDL2'.OSX = '/usr/local/lib/libSDL2.dylib'
 lookup'png'.OSX = '/usr/local/lib/libpng.dylib'
+lookup'jpeg'.OSX = '/usr/local/lib/libjpeg.dylib'
+lookup'tiff'.OSX = '/usr/local/lib/libtiff.dylib'
+lookup'vorbis'.OSX = '/usr/local/lib/libvorbis.dylib'
 lookup'clip'.OSX = '/usr/local/lib/libclip.dylib'
+
+-- Is it here anymore?  It was only here when I installed brew mesa, and the latest brew sdl2 update broke everything that depended on sdl2 until I uninstalled mesa, so ...
+lookup'EGL'.OSX = '/usr/local/lib/libEGL.dylib'
 
 
 return ffi_load
