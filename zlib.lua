@@ -11,17 +11,17 @@ if ffi.os == 'Linux' then
 	require 'ffi.req' 'c.limits'
 	require 'ffi.req' 'c.unistd'
 	ffi.cdef[[
+typedef unsigned z_crc_t;
 typedef long z_off_t;
 typedef off_t z_off64_t;
-typedef unsigned z_crc_t;
 ]]
 elseif ffi.os == 'OSX' then
+	require 'ffi.req' 'c.limits'
 	require 'ffi.req' 'c.unistd'
-	require 'ffi.req' 'c.Availability'
 	ffi.cdef[[
+typedef unsigned long z_crc_t;
 typedef long z_off_t;
 typedef off_t z_off64_t;
-typedef unsigned long z_crc_t;
 ]]
 elseif ffi.os == 'Windows' then
 	require 'ffi.req' 'c.limits'
@@ -101,7 +101,7 @@ wrapper = require 'ffi.libwrapper'{
 
 		ZLIB_H = 1,
 		ZCONF_H = 1,
-		--STDC = 1
+		--STDC = 1,
 		--STDC99 = 1 for non-Windows, undefined otherwise
 		--Z_HAVE_UNISTD_H = 1 for non-Windows, undefined otherwise
 		--Z_HAVE_STDARG_H = 1 for non-Windows, undefined otherwise
@@ -113,10 +113,10 @@ wrapper = require 'ffi.libwrapper'{
 		ZEXTERN = 0,
 		ZEXPORT = 1,
 		ZEXPORTVA = 1,
-		ZLIB_VERNUM = 4800,
+		ZLIB_VERNUM = 4880,
 		ZLIB_VER_MAJOR = 1,
-		ZLIB_VER_MINOR = 2,
-		ZLIB_VER_REVISION = 12,
+		ZLIB_VER_MINOR = 3,
+		ZLIB_VER_REVISION = 1,
 		ZLIB_VER_SUBREVISION = 0,
 		Z_NO_FLUSH = 0,
 		Z_PARTIAL_FLUSH = 1,
@@ -239,7 +239,7 @@ wrapper = require 'ffi.libwrapper'{
 
 -- macros
 
-wrapper.ZLIB_VERSION = "1.2.12"
+wrapper.ZLIB_VERSION = "1.3.1"
 
 function wrapper.zlib_version(...)
 	return wrapper.zlibVersion(...)

@@ -124,6 +124,7 @@ lookup'openal'.OSX = '/System/Library/Frameworks/OpenAL.framework/OpenAL'
 lookup'cimgui_sdl'.OSX = '/usr/local/lib/libcimgui_sdl.dylib'
 lookup'SDL2'.OSX = '/usr/local/lib/libSDL2.dylib'
 lookup'png'.OSX = '/usr/local/lib/libpng.dylib'
+lookup'z'.OSX = '/usr/local/Cellar/zlib/1.3.1/lib/libz.dylib'	-- otherwise it uses zlib in system paths which for me is not the homebrew one but instead the 1.2.12 one ... what a mess ...
 lookup'jpeg'.OSX = '/usr/local/lib/libjpeg.dylib'
 lookup'tiff'.OSX = '/usr/local/lib/libtiff.dylib'
 lookup'vorbis'.OSX = '/usr/local/lib/libvorbis.dylib'
