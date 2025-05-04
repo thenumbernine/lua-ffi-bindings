@@ -680,7 +680,7 @@ enum { DT_LOOS = 1610612749 };
 enum { DT_HIOS = 1879044096 };
 enum { DT_LOPROC = 1879048192 };
 enum { DT_HIPROC = 2147483647 };
-enum { DT_PROCNUM = 0 };
+enum { DT_PROCNUM = 55 }; // = DT_MIPS_NUM, defined later
 enum { DT_VALRNGLO = 1879047424 };
 enum { DT_GNU_PRELINKED = 1879047669 };
 enum { DT_GNU_CONFLICTSZ = 1879047670 };
