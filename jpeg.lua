@@ -1,12 +1,5 @@
 local ffi = require 'ffi'
 
--- comments
-
---[[
-/* #define LIBJPEG_TURBO_VERSION  3.0.4 ### string, not number "3.0.4" */
-/* #define jpeg_common_fields    struct jpeg_error_mgr *err;       struct jpeg_memory_mgr *mem;      struct jpeg_progress_mgr *progress;     void *client_data;                boolean is_decompressor;          int global_state ### string, not number "struct jpeg_error_mgr *err;       struct jpeg_memory_mgr *mem;      struct jpeg_progress_mgr *progress;     void *client_data;                boolean is_decompressor;          int global_state" */
---]]
-
 -- typedefs
 
 require 'ffi.req' 'c.stdio'	-- for FILE, even though jpeglib.h itself never includes <stdio.h> ... hmm ...
