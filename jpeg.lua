@@ -88,9 +88,35 @@ struct jpeg_marker_struct {
 	unsigned int data_length;
 	JOCTET *data;
 };
-typedef enum { JCS_UNKNOWN, JCS_GRAYSCALE, JCS_RGB, JCS_YCbCr, JCS_CMYK, JCS_YCCK, JCS_EXT_RGB, JCS_EXT_RGBX, JCS_EXT_BGR, JCS_EXT_BGRX, JCS_EXT_XBGR, JCS_EXT_XRGB, JCS_EXT_RGBA, JCS_EXT_BGRA, JCS_EXT_ABGR, JCS_EXT_ARGB, JCS_RGB565 } J_COLOR_SPACE;
-typedef enum { JDCT_ISLOW, JDCT_IFAST, JDCT_FLOAT } J_DCT_METHOD;
-typedef enum { JDITHER_NONE, JDITHER_ORDERED, JDITHER_FS } J_DITHER_MODE;
+typedef enum {
+	JCS_UNKNOWN,
+	JCS_GRAYSCALE,
+	JCS_RGB,
+	JCS_YCbCr,
+	JCS_CMYK,
+	JCS_YCCK,
+	JCS_EXT_RGB,
+	JCS_EXT_RGBX,
+	JCS_EXT_BGR,
+	JCS_EXT_BGRX,
+	JCS_EXT_XBGR,
+	JCS_EXT_XRGB,
+	JCS_EXT_RGBA,
+	JCS_EXT_BGRA,
+	JCS_EXT_ABGR,
+	JCS_EXT_ARGB,
+	JCS_RGB565,
+} J_COLOR_SPACE;
+typedef enum {
+	JDCT_ISLOW,
+	JDCT_IFAST,
+	JDCT_FLOAT,
+} J_DCT_METHOD;
+typedef enum {
+	JDITHER_NONE,
+	JDITHER_ORDERED,
+	JDITHER_FS,
+} J_DITHER_MODE;
 struct jpeg_common_struct {
 	struct jpeg_error_mgr *err;
 	struct jpeg_memory_mgr *mem;
@@ -268,11 +294,11 @@ struct jpeg_decompress_struct {
 	struct jpeg_color_quantizer *cquantize;
 };
 struct jpeg_error_mgr {
-	void (*error_exit) (j_common_ptr cinfo);
-	void (*emit_message) (j_common_ptr cinfo, int msg_level);
-	void (*output_message) (j_common_ptr cinfo);
-	void (*format_message) (j_common_ptr cinfo, char *buffer);
-	void (*reset_error_mgr) (j_common_ptr cinfo);
+	void (*error_exit)(j_common_ptr cinfo);
+	void (*emit_message)(j_common_ptr cinfo, int msg_level);
+	void (*output_message)(j_common_ptr cinfo);
+	void (*format_message)(j_common_ptr cinfo, char *buffer);
+	void (*reset_error_mgr)(j_common_ptr cinfo);
 	int msg_code;
 	union {
 		int i[8];
@@ -280,14 +306,14 @@ struct jpeg_error_mgr {
 	} msg_parm;
 	int trace_level;
 	long num_warnings;
-	const char * const *jpeg_message_table;
+	const char *const *jpeg_message_table;
 	int last_jpeg_message;
-	const char * const *addon_message_table;
+	const char *const *addon_message_table;
 	int first_addon_message;
 	int last_addon_message;
 };
 struct jpeg_progress_mgr {
-	void (*progress_monitor) (j_common_ptr cinfo);
+	void (*progress_monitor)(j_common_ptr cinfo);
 	long pass_counter;
 	long pass_limit;
 	int completed_passes;
@@ -296,44 +322,43 @@ struct jpeg_progress_mgr {
 struct jpeg_destination_mgr {
 	JOCTET *next_output_byte;
 	size_t free_in_buffer;
-	void (*init_destination) (j_compress_ptr cinfo);
-	boolean (*empty_output_buffer) (j_compress_ptr cinfo);
-	void (*term_destination) (j_compress_ptr cinfo);
+	void (*init_destination)(j_compress_ptr cinfo);
+	boolean (*empty_output_buffer)(j_compress_ptr cinfo);
+	void (*term_destination)(j_compress_ptr cinfo);
 };
 struct jpeg_source_mgr {
 	const JOCTET *next_input_byte;
 	size_t bytes_in_buffer;
-	void (*init_source) (j_decompress_ptr cinfo);
-	boolean (*fill_input_buffer) (j_decompress_ptr cinfo);
-	void (*skip_input_data) (j_decompress_ptr cinfo, long num_bytes);
-	boolean (*resync_to_restart) (j_decompress_ptr cinfo, int desired);
-	void (*term_source) (j_decompress_ptr cinfo);
+	void (*init_source)(j_decompress_ptr cinfo);
+	boolean (*fill_input_buffer)(j_decompress_ptr cinfo);
+	void (*skip_input_data)(j_decompress_ptr cinfo, long num_bytes);
+	boolean (*resync_to_restart)(j_decompress_ptr cinfo, int desired);
+	void (*term_source)(j_decompress_ptr cinfo);
 };
 typedef struct jvirt_sarray_control *jvirt_sarray_ptr;
 typedef struct jvirt_barray_control *jvirt_barray_ptr;
 struct jpeg_memory_mgr {
-	void *(*alloc_small) (j_common_ptr cinfo, int pool_id, size_t sizeofobject);
-	void *(*alloc_large) (j_common_ptr cinfo, int pool_id, size_t sizeofobject);
-	JSAMPARRAY (*alloc_sarray) (j_common_ptr cinfo, int pool_id, JDIMENSION samplesperrow, JDIMENSION numrows);
-	JBLOCKARRAY (*alloc_barray) (j_common_ptr cinfo, int pool_id, JDIMENSION blocksperrow, JDIMENSION numrows);
-	jvirt_sarray_ptr (*request_virt_sarray) (j_common_ptr cinfo, int pool_id, boolean pre_zero, JDIMENSION samplesperrow, JDIMENSION numrows, JDIMENSION maxaccess);
-	jvirt_barray_ptr (*request_virt_barray) (j_common_ptr cinfo, int pool_id, boolean pre_zero, JDIMENSION blocksperrow, JDIMENSION numrows, JDIMENSION maxaccess);
-	void (*realize_virt_arrays) (j_common_ptr cinfo);
-	JSAMPARRAY (*access_virt_sarray) (j_common_ptr cinfo, jvirt_sarray_ptr ptr, JDIMENSION start_row, JDIMENSION num_rows, boolean writable);
-	JBLOCKARRAY (*access_virt_barray) (j_common_ptr cinfo, jvirt_barray_ptr ptr, JDIMENSION start_row, JDIMENSION num_rows, boolean writable);
-	void (*free_pool) (j_common_ptr cinfo, int pool_id);
-	void (*self_destruct) (j_common_ptr cinfo);
+	void *(*alloc_small)(j_common_ptr cinfo, int pool_id, size_t sizeofobject);
+	void *(*alloc_large)(j_common_ptr cinfo, int pool_id, size_t sizeofobject);
+	JSAMPARRAY (*alloc_sarray)(j_common_ptr cinfo, int pool_id, JDIMENSION samplesperrow, JDIMENSION numrows);
+	JBLOCKARRAY (*alloc_barray)(j_common_ptr cinfo, int pool_id, JDIMENSION blocksperrow, JDIMENSION numrows);
+	jvirt_sarray_ptr (*request_virt_sarray)(j_common_ptr cinfo, int pool_id, boolean pre_zero, JDIMENSION samplesperrow, JDIMENSION numrows, JDIMENSION maxaccess);
+	jvirt_barray_ptr (*request_virt_barray)(j_common_ptr cinfo, int pool_id, boolean pre_zero, JDIMENSION blocksperrow, JDIMENSION numrows, JDIMENSION maxaccess);
+	void (*realize_virt_arrays)(j_common_ptr cinfo);
+	JSAMPARRAY (*access_virt_sarray)(j_common_ptr cinfo, jvirt_sarray_ptr ptr, JDIMENSION start_row, JDIMENSION num_rows, boolean writable);
+	JBLOCKARRAY (*access_virt_barray)(j_common_ptr cinfo, jvirt_barray_ptr ptr, JDIMENSION start_row, JDIMENSION num_rows, boolean writable);
+	void (*free_pool)(j_common_ptr cinfo, int pool_id);
+	void (*self_destruct)(j_common_ptr cinfo);
 	long max_memory_to_use;
 	long max_alloc_chunk;
 };
-typedef boolean (*jpeg_marker_parser_method) (j_decompress_ptr cinfo);
+typedef boolean (*jpeg_marker_parser_method)(j_decompress_ptr cinfo);
 ]]
 
 local wrapper
 wrapper = require 'ffi.libwrapper'{
 	lib = require 'ffi.load' 'jpeg',
 	defs = {
-
 		-- enums
 
 		JPEGLIB_H = 1,
@@ -387,7 +412,7 @@ wrapper = require 'ffi.libwrapper'{
 
 		-- functions
 
-		jpeg_std_error = [[struct jpeg_error_mgr * jpeg_std_error(struct jpeg_error_mgr *err);]],
+		jpeg_std_error = [[struct jpeg_error_mgr *jpeg_std_error(struct jpeg_error_mgr *err);]],
 		jpeg_CreateCompress = [[void jpeg_CreateCompress(j_compress_ptr cinfo, int version, size_t structsize);]],
 		jpeg_CreateDecompress = [[void jpeg_CreateDecompress(j_decompress_ptr cinfo, int version, size_t structsize);]],
 		jpeg_destroy_compress = [[void jpeg_destroy_compress(j_compress_ptr cinfo);]],
@@ -407,8 +432,8 @@ wrapper = require 'ffi.libwrapper'{
 		jpeg_enable_lossless = [[void jpeg_enable_lossless(j_compress_ptr cinfo, int predictor_selection_value, int point_transform);]],
 		jpeg_simple_progression = [[void jpeg_simple_progression(j_compress_ptr cinfo);]],
 		jpeg_suppress_tables = [[void jpeg_suppress_tables(j_compress_ptr cinfo, boolean suppress);]],
-		jpeg_alloc_quant_table = [[JQUANT_TBL * jpeg_alloc_quant_table(j_common_ptr cinfo);]],
-		jpeg_alloc_huff_table = [[JHUFF_TBL * jpeg_alloc_huff_table(j_common_ptr cinfo);]],
+		jpeg_alloc_quant_table = [[JQUANT_TBL *jpeg_alloc_quant_table(j_common_ptr cinfo);]],
+		jpeg_alloc_huff_table = [[JHUFF_TBL *jpeg_alloc_huff_table(j_common_ptr cinfo);]],
 		jpeg_start_compress = [[void jpeg_start_compress(j_compress_ptr cinfo, boolean write_all_tables);]],
 		jpeg_write_scanlines = [[JDIMENSION jpeg_write_scanlines(j_compress_ptr cinfo, JSAMPARRAY scanlines, JDIMENSION num_lines);]],
 		jpeg12_write_scanlines = [[JDIMENSION jpeg12_write_scanlines(j_compress_ptr cinfo, J12SAMPARRAY scanlines, JDIMENSION num_lines);]],
@@ -444,7 +469,7 @@ wrapper = require 'ffi.libwrapper'{
 		jpeg_calc_output_dimensions = [[void jpeg_calc_output_dimensions(j_decompress_ptr cinfo);]],
 		jpeg_save_markers = [[void jpeg_save_markers(j_decompress_ptr cinfo, int marker_code, unsigned int length_limit);]],
 		jpeg_set_marker_processor = [[void jpeg_set_marker_processor(j_decompress_ptr cinfo, int marker_code, jpeg_marker_parser_method routine);]],
-		jpeg_read_coefficients = [[jvirt_barray_ptr * jpeg_read_coefficients(j_decompress_ptr cinfo);]],
+		jpeg_read_coefficients = [[jvirt_barray_ptr *jpeg_read_coefficients(j_decompress_ptr cinfo);]],
 		jpeg_write_coefficients = [[void jpeg_write_coefficients(j_compress_ptr cinfo, jvirt_barray_ptr *coef_arrays);]],
 		jpeg_copy_critical_parameters = [[void jpeg_copy_critical_parameters(j_decompress_ptr srcinfo, j_compress_ptr dstinfo);]],
 		jpeg_abort_compress = [[void jpeg_abort_compress(j_compress_ptr cinfo);]],
