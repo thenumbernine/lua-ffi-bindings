@@ -130,6 +130,7 @@ lookup'jpeg'.OSX = '/usr/local/lib/libjpeg.dylib'
 lookup'tiff'.OSX = '/usr/local/lib/libtiff.dylib'
 lookup'vorbis'.OSX = '/usr/local/lib/libvorbis.dylib'
 lookup'clip'.OSX = '/usr/local/lib/libclip.dylib'
+lookup'cfitsio'.OSX = '/usr/local/lib/libcfitsio.dylib'
 
 -- Is it here anymore?  It was only here when I installed brew mesa, and the latest brew sdl2 update broke everything that depended on sdl2 until I uninstalled mesa, so ...
 lookup'EGL'.OSX = '/usr/local/lib/libEGL.dylib'
