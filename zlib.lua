@@ -4,29 +4,24 @@ local assert = require 'ext.assert'
 -- typedefs
 
 require 'ffi.req' 'c.stddef'
+require 'ffi.req' 'c.limits'
 require 'ffi.req' 'c.sys.types'
 require 'ffi.req' 'c.stdarg'
 
 if ffi.os == 'Linux' then
-	require 'ffi.req' 'c.limits'
 	require 'ffi.req' 'c.unistd'
 	ffi.cdef[[
-typedef unsigned z_crc_t;
 typedef long z_off_t;
 typedef off_t z_off64_t;
 ]]
 elseif ffi.os == 'OSX' then
-	require 'ffi.req' 'c.limits'
 	require 'ffi.req' 'c.unistd'
 	ffi.cdef[[
-typedef unsigned long z_crc_t;
-typedef long z_off_t;
-typedef off_t z_off64_t;
+typedef off_t z_off_t;
+typedef z_off_t z_off64_t;
 ]]
 elseif ffi.os == 'Windows' then
-	require 'ffi.req' 'c.limits'
 	ffi.cdef[[
-typedef unsigned z_crc_t;
 typedef long z_off_t;
 typedef int64_t z_off64_t;
 ]]
@@ -46,6 +41,7 @@ typedef uLong uLongf;
 typedef void const *voidpc;
 typedef void *voidpf;
 typedef void *voidp;
+typedef unsigned z_crc_t;
 typedef voidpf (*alloc_func)(voidpf opaque, uInt items, uInt size);
 typedef void (*free_func)(voidpf opaque, voidpf address);
 struct internal_state;
@@ -82,7 +78,7 @@ typedef struct gz_header_s {
 	int done;
 } gz_header;
 typedef gz_header *gz_headerp;
-typedef unsigned (*in_func)(void *, unsigned char * *);
+typedef unsigned (*in_func)(void *, unsigned char **);
 typedef int (*out_func)(void *, unsigned char *, unsigned);
 typedef struct gzFile_s *gzFile;
 struct gzFile_s {
@@ -96,7 +92,6 @@ local wrapper
 wrapper = require 'ffi.libwrapper'{
 	lib = require 'ffi.load' 'z',
 	defs = {
-
 		-- enums
 
 		ZLIB_H = 1,
@@ -152,12 +147,12 @@ wrapper = require 'ffi.libwrapper'{
 
 		-- functions
 
-		zlibVersion = [[const char * zlibVersion();]],
+		zlibVersion = [[char const *zlibVersion();]],
 		deflate = [[int deflate(z_streamp strm, int flush);]],
 		deflateEnd = [[int deflateEnd(z_streamp strm);]],
 		inflate = [[int inflate(z_streamp strm, int flush);]],
 		inflateEnd = [[int inflateEnd(z_streamp strm);]],
-		deflateSetDictionary = [[int deflateSetDictionary(z_streamp strm, const Bytef *dictionary, uInt dictLength);]],
+		deflateSetDictionary = [[int deflateSetDictionary(z_streamp strm, Bytef const *dictionary, uInt dictLength);]],
 		deflateGetDictionary = [[int deflateGetDictionary(z_streamp strm, Bytef *dictionary, uInt *dictLength);]],
 		deflateCopy = [[int deflateCopy(z_streamp dest, z_streamp source);]],
 		deflateReset = [[int deflateReset(z_streamp strm);]],
@@ -167,7 +162,7 @@ wrapper = require 'ffi.libwrapper'{
 		deflatePending = [[int deflatePending(z_streamp strm, unsigned *pending, int *bits);]],
 		deflatePrime = [[int deflatePrime(z_streamp strm, int bits, int value);]],
 		deflateSetHeader = [[int deflateSetHeader(z_streamp strm, gz_headerp head);]],
-		inflateSetDictionary = [[int inflateSetDictionary(z_streamp strm, const Bytef *dictionary, uInt dictLength);]],
+		inflateSetDictionary = [[int inflateSetDictionary(z_streamp strm, Bytef const *dictionary, uInt dictLength);]],
 		inflateGetDictionary = [[int inflateGetDictionary(z_streamp strm, Bytef *dictionary, uInt *dictLength);]],
 		inflateSync = [[int inflateSync(z_streamp strm);]],
 		inflateCopy = [[int inflateCopy(z_streamp dest, z_streamp source);]],
@@ -179,21 +174,21 @@ wrapper = require 'ffi.libwrapper'{
 		inflateBack = [[int inflateBack(z_streamp strm, in_func in, void *in_desc, out_func out, void *out_desc);]],
 		inflateBackEnd = [[int inflateBackEnd(z_streamp strm);]],
 		zlibCompileFlags = [[uLong zlibCompileFlags();]],
-		compress = [[int compress(Bytef *dest, uLongf *destLen, const Bytef *source, uLong sourceLen);]],
-		compress2 = [[int compress2(Bytef *dest, uLongf *destLen, const Bytef *source, uLong sourceLen, int level);]],
+		compress = [[int compress(Bytef *dest, uLongf *destLen, Bytef const *source, uLong sourceLen);]],
+		compress2 = [[int compress2(Bytef *dest, uLongf *destLen, Bytef const *source, uLong sourceLen, int level);]],
 		compressBound = [[uLong compressBound(uLong sourceLen);]],
-		uncompress = [[int uncompress(Bytef *dest, uLongf *destLen, const Bytef *source, uLong sourceLen);]],
-		uncompress2 = [[int uncompress2(Bytef *dest, uLongf *destLen, const Bytef *source, uLong *sourceLen);]],
-		gzdopen = [[gzFile gzdopen(int fd, const char *mode);]],
+		uncompress = [[int uncompress(Bytef *dest, uLongf *destLen, Bytef const *source, uLong sourceLen);]],
+		uncompress2 = [[int uncompress2(Bytef *dest, uLongf *destLen, Bytef const *source, uLong *sourceLen);]],
+		gzdopen = [[gzFile gzdopen(int fd, char const *mode);]],
 		gzbuffer = [[int gzbuffer(gzFile file, unsigned size);]],
 		gzsetparams = [[int gzsetparams(gzFile file, int level, int strategy);]],
 		gzread = [[int gzread(gzFile file, voidp buf, unsigned len);]],
 		gzfread = [[z_size_t gzfread(voidp buf, z_size_t size, z_size_t nitems, gzFile file);]],
 		gzwrite = [[int gzwrite(gzFile file, voidpc buf, unsigned len);]],
 		gzfwrite = [[z_size_t gzfwrite(voidpc buf, z_size_t size, z_size_t nitems, gzFile file);]],
-		gzprintf = [[int gzprintf(gzFile file, const char *format, ...);]],
-		gzputs = [[int gzputs(gzFile file, const char *s);]],
-		gzgets = [[char * gzgets(gzFile file, char *buf, int len);]],
+		gzprintf = [[int gzprintf(gzFile file, char const *format, ...);]],
+		gzputs = [[int gzputs(gzFile file, char const *s);]],
+		gzgets = [[char *gzgets(gzFile file, char *buf, int len);]],
 		gzputc = [[int gzputc(gzFile file, int c);]],
 		gzgetc = [[int gzgetc(gzFile file);]],
 		gzungetc = [[int gzungetc(int c, gzFile file);]],
@@ -204,36 +199,36 @@ wrapper = require 'ffi.libwrapper'{
 		gzclose = [[int gzclose(gzFile file);]],
 		gzclose_r = [[int gzclose_r(gzFile file);]],
 		gzclose_w = [[int gzclose_w(gzFile file);]],
-		gzerror = [[const char * gzerror(gzFile file, int *errnum);]],
+		gzerror = [[char const *gzerror(gzFile file, int *errnum);]],
 		gzclearerr = [[void gzclearerr(gzFile file);]],
-		adler32 = [[uLong adler32(uLong adler, const Bytef *buf, uInt len);]],
-		adler32_z = [[uLong adler32_z(uLong adler, const Bytef *buf, z_size_t len);]],
-		crc32 = [[uLong crc32(uLong crc, const Bytef *buf, uInt len);]],
-		crc32_z = [[uLong crc32_z(uLong crc, const Bytef *buf, z_size_t len);]],
+		adler32 = [[uLong adler32(uLong adler, Bytef const *buf, uInt len);]],
+		adler32_z = [[uLong adler32_z(uLong adler, Bytef const *buf, z_size_t len);]],
+		crc32 = [[uLong crc32(uLong crc, Bytef const *buf, uInt len);]],
+		crc32_z = [[uLong crc32_z(uLong crc, Bytef const *buf, z_size_t len);]],
 		crc32_combine_op = [[uLong crc32_combine_op(uLong crc1, uLong crc2, uLong op);]],
-		deflateInit_ = [[int deflateInit_(z_streamp strm, int level, const char *version, int stream_size);]],
-		inflateInit_ = [[int inflateInit_(z_streamp strm, const char *version, int stream_size);]],
-		deflateInit2_ = [[int deflateInit2_(z_streamp strm, int level, int method, int windowBits, int memLevel, int strategy, const char *version, int stream_size);]],
-		inflateInit2_ = [[int inflateInit2_(z_streamp strm, int windowBits, const char *version, int stream_size);]],
-		inflateBackInit_ = [[int inflateBackInit_(z_streamp strm, int windowBits, unsigned char *window, const char *version, int stream_size);]],
+		deflateInit_ = [[int deflateInit_(z_streamp strm, int level, char const *version, int stream_size);]],
+		inflateInit_ = [[int inflateInit_(z_streamp strm, char const *version, int stream_size);]],
+		deflateInit2_ = [[int deflateInit2_(z_streamp strm, int level, int method, int windowBits, int memLevel, int strategy, char const *version, int stream_size);]],
+		inflateInit2_ = [[int inflateInit2_(z_streamp strm, int windowBits, char const *version, int stream_size);]],
+		inflateBackInit_ = [[int inflateBackInit_(z_streamp strm, int windowBits, unsigned char *window, char const *version, int stream_size);]],
 		gzgetc_ = [[int gzgetc_(gzFile file);]],
-		gzopen = [[gzFile gzopen(const char *, const char *);]],
+		gzopen = [[gzFile gzopen(char const *, char const *);]],
 		gzseek = [[z_off_t gzseek(gzFile, z_off_t, int);]],
 		gztell = [[z_off_t gztell(gzFile);]],
 		gzoffset = [[z_off_t gzoffset(gzFile);]],
 		adler32_combine = [[uLong adler32_combine(uLong, uLong, z_off_t);]],
 		crc32_combine = [[uLong crc32_combine(uLong, uLong, z_off_t);]],
 		crc32_combine_gen = [[uLong crc32_combine_gen(z_off_t);]],
-		zError = [[const char * zError(int);]],
+		zError = [[char const *zError(int);]],
 		inflateSyncPoint = [[int inflateSyncPoint(z_streamp);]],
-		get_crc_table = [[const z_crc_t * get_crc_table();]],
+		get_crc_table = [[z_crc_t const *get_crc_table();]],
 		inflateUndermine = [[int inflateUndermine(z_streamp, int);]],
 		inflateValidate = [[int inflateValidate(z_streamp, int);]],
 		inflateCodesUsed = [[unsigned long inflateCodesUsed(z_streamp);]],
 		inflateResetKeep = [[int inflateResetKeep(z_streamp);]],
 		deflateResetKeep = [[int deflateResetKeep(z_streamp);]],
-		gzopen_w = [[gzFile gzopen_w(const wchar_t *path, const char *mode);]], -- Windows-only
-		gzvprintf = [[int gzvprintf(gzFile file, const char *format, va_list va);]],
+		gzvprintf = [[int gzvprintf(gzFile file, char const *format, va_list va);]],
+		gzopen_w = [[gzFile gzopen_w(wchar_t const *path, char const *mode);]], -- Windows-only
 	},
 }
 
