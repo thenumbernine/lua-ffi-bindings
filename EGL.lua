@@ -17,10 +17,6 @@ local ffi = require 'ffi'
 
 -- typedefs
 
--- enums
-
--- functions
-
 require 'ffi.req' 'KHR.khrplatform'
 
 -- I'm guessing this is a difference of OS's and not a difference of EGL versions because the header version says it is the same, but the Linux build did void* while the OSX build did int ...
@@ -49,63 +45,62 @@ typedef void *EGLConfig;
 typedef void *EGLSurface;
 typedef void *EGLContext;
 typedef void (*__eglMustCastToProperFunctionPointerType)();
-typedef EGLBoolean (* PFNEGLCHOOSECONFIGPROC)(EGLDisplay dpy, const EGLint *attrib_list, EGLConfig *configs, EGLint config_size, EGLint *num_config);
-typedef EGLBoolean (* PFNEGLCOPYBUFFERSPROC)(EGLDisplay dpy, EGLSurface surface, EGLNativePixmapType target);
-typedef EGLContext (* PFNEGLCREATECONTEXTPROC)(EGLDisplay dpy, EGLConfig config, EGLContext share_context, const EGLint *attrib_list);
-typedef EGLSurface (* PFNEGLCREATEPBUFFERSURFACEPROC)(EGLDisplay dpy, EGLConfig config, const EGLint *attrib_list);
-typedef EGLSurface (* PFNEGLCREATEPIXMAPSURFACEPROC)(EGLDisplay dpy, EGLConfig config, EGLNativePixmapType pixmap, const EGLint *attrib_list);
-typedef EGLSurface (* PFNEGLCREATEWINDOWSURFACEPROC)(EGLDisplay dpy, EGLConfig config, EGLNativeWindowType win, const EGLint *attrib_list);
-typedef EGLBoolean (* PFNEGLDESTROYCONTEXTPROC)(EGLDisplay dpy, EGLContext ctx);
-typedef EGLBoolean (* PFNEGLDESTROYSURFACEPROC)(EGLDisplay dpy, EGLSurface surface);
-typedef EGLBoolean (* PFNEGLGETCONFIGATTRIBPROC)(EGLDisplay dpy, EGLConfig config, EGLint attribute, EGLint *value);
-typedef EGLBoolean (* PFNEGLGETCONFIGSPROC)(EGLDisplay dpy, EGLConfig *configs, EGLint config_size, EGLint *num_config);
-typedef EGLDisplay (* PFNEGLGETCURRENTDISPLAYPROC)();
-typedef EGLSurface (* PFNEGLGETCURRENTSURFACEPROC)(EGLint readdraw);
-typedef EGLDisplay (* PFNEGLGETDISPLAYPROC)(EGLNativeDisplayType display_id);
-typedef EGLint (* PFNEGLGETERRORPROC)();
-typedef __eglMustCastToProperFunctionPointerType (* PFNEGLGETPROCADDRESSPROC)(const char *procname);
-typedef EGLBoolean (* PFNEGLINITIALIZEPROC)(EGLDisplay dpy, EGLint *major, EGLint *minor);
-typedef EGLBoolean (* PFNEGLMAKECURRENTPROC)(EGLDisplay dpy, EGLSurface draw, EGLSurface read, EGLContext ctx);
-typedef EGLBoolean (* PFNEGLQUERYCONTEXTPROC)(EGLDisplay dpy, EGLContext ctx, EGLint attribute, EGLint *value);
-typedef const char *(* PFNEGLQUERYSTRINGPROC)(EGLDisplay dpy, EGLint name);
-typedef EGLBoolean (* PFNEGLQUERYSURFACEPROC)(EGLDisplay dpy, EGLSurface surface, EGLint attribute, EGLint *value);
-typedef EGLBoolean (* PFNEGLSWAPBUFFERSPROC)(EGLDisplay dpy, EGLSurface surface);
-typedef EGLBoolean (* PFNEGLTERMINATEPROC)(EGLDisplay dpy);
-typedef EGLBoolean (* PFNEGLWAITGLPROC)();
-typedef EGLBoolean (* PFNEGLWAITNATIVEPROC)(EGLint engine);
-typedef EGLBoolean (* PFNEGLBINDTEXIMAGEPROC)(EGLDisplay dpy, EGLSurface surface, EGLint buffer);
-typedef EGLBoolean (* PFNEGLRELEASETEXIMAGEPROC)(EGLDisplay dpy, EGLSurface surface, EGLint buffer);
-typedef EGLBoolean (* PFNEGLSURFACEATTRIBPROC)(EGLDisplay dpy, EGLSurface surface, EGLint attribute, EGLint value);
-typedef EGLBoolean (* PFNEGLSWAPINTERVALPROC)(EGLDisplay dpy, EGLint interval);
+typedef EGLBoolean (*PFNEGLCHOOSECONFIGPROC)(EGLDisplay dpy, EGLint const *attrib_list, EGLConfig *configs, EGLint config_size, EGLint *num_config);
+typedef EGLBoolean (*PFNEGLCOPYBUFFERSPROC)(EGLDisplay dpy, EGLSurface surface, EGLNativePixmapType target);
+typedef EGLContext (*PFNEGLCREATECONTEXTPROC)(EGLDisplay dpy, EGLConfig config, EGLContext share_context, EGLint const *attrib_list);
+typedef EGLSurface (*PFNEGLCREATEPBUFFERSURFACEPROC)(EGLDisplay dpy, EGLConfig config, EGLint const *attrib_list);
+typedef EGLSurface (*PFNEGLCREATEPIXMAPSURFACEPROC)(EGLDisplay dpy, EGLConfig config, EGLNativePixmapType pixmap, EGLint const *attrib_list);
+typedef EGLSurface (*PFNEGLCREATEWINDOWSURFACEPROC)(EGLDisplay dpy, EGLConfig config, EGLNativeWindowType win, EGLint const *attrib_list);
+typedef EGLBoolean (*PFNEGLDESTROYCONTEXTPROC)(EGLDisplay dpy, EGLContext ctx);
+typedef EGLBoolean (*PFNEGLDESTROYSURFACEPROC)(EGLDisplay dpy, EGLSurface surface);
+typedef EGLBoolean (*PFNEGLGETCONFIGATTRIBPROC)(EGLDisplay dpy, EGLConfig config, EGLint attribute, EGLint *value);
+typedef EGLBoolean (*PFNEGLGETCONFIGSPROC)(EGLDisplay dpy, EGLConfig *configs, EGLint config_size, EGLint *num_config);
+typedef EGLDisplay (*PFNEGLGETCURRENTDISPLAYPROC)();
+typedef EGLSurface (*PFNEGLGETCURRENTSURFACEPROC)(EGLint readdraw);
+typedef EGLDisplay (*PFNEGLGETDISPLAYPROC)(EGLNativeDisplayType display_id);
+typedef EGLint (*PFNEGLGETERRORPROC)();
+typedef __eglMustCastToProperFunctionPointerType (*PFNEGLGETPROCADDRESSPROC)(char const *procname);
+typedef EGLBoolean (*PFNEGLINITIALIZEPROC)(EGLDisplay dpy, EGLint *major, EGLint *minor);
+typedef EGLBoolean (*PFNEGLMAKECURRENTPROC)(EGLDisplay dpy, EGLSurface draw, EGLSurface read, EGLContext ctx);
+typedef EGLBoolean (*PFNEGLQUERYCONTEXTPROC)(EGLDisplay dpy, EGLContext ctx, EGLint attribute, EGLint *value);
+typedef char const *(*PFNEGLQUERYSTRINGPROC)(EGLDisplay dpy, EGLint name);
+typedef EGLBoolean (*PFNEGLQUERYSURFACEPROC)(EGLDisplay dpy, EGLSurface surface, EGLint attribute, EGLint *value);
+typedef EGLBoolean (*PFNEGLSWAPBUFFERSPROC)(EGLDisplay dpy, EGLSurface surface);
+typedef EGLBoolean (*PFNEGLTERMINATEPROC)(EGLDisplay dpy);
+typedef EGLBoolean (*PFNEGLWAITGLPROC)();
+typedef EGLBoolean (*PFNEGLWAITNATIVEPROC)(EGLint engine);
+typedef EGLBoolean (*PFNEGLBINDTEXIMAGEPROC)(EGLDisplay dpy, EGLSurface surface, EGLint buffer);
+typedef EGLBoolean (*PFNEGLRELEASETEXIMAGEPROC)(EGLDisplay dpy, EGLSurface surface, EGLint buffer);
+typedef EGLBoolean (*PFNEGLSURFACEATTRIBPROC)(EGLDisplay dpy, EGLSurface surface, EGLint attribute, EGLint value);
+typedef EGLBoolean (*PFNEGLSWAPINTERVALPROC)(EGLDisplay dpy, EGLint interval);
 typedef unsigned int EGLenum;
 typedef void *EGLClientBuffer;
-typedef EGLBoolean (* PFNEGLBINDAPIPROC)(EGLenum api);
-typedef EGLenum (* PFNEGLQUERYAPIPROC)();
-typedef EGLSurface (* PFNEGLCREATEPBUFFERFROMCLIENTBUFFERPROC)(EGLDisplay dpy, EGLenum buftype, EGLClientBuffer buffer, EGLConfig config, const EGLint *attrib_list);
-typedef EGLBoolean (* PFNEGLRELEASETHREADPROC)();
-typedef EGLBoolean (* PFNEGLWAITCLIENTPROC)();
-typedef EGLContext (* PFNEGLGETCURRENTCONTEXTPROC)();
+typedef EGLBoolean (*PFNEGLBINDAPIPROC)(EGLenum api);
+typedef EGLenum (*PFNEGLQUERYAPIPROC)();
+typedef EGLSurface (*PFNEGLCREATEPBUFFERFROMCLIENTBUFFERPROC)(EGLDisplay dpy, EGLenum buftype, EGLClientBuffer buffer, EGLConfig config, EGLint const *attrib_list);
+typedef EGLBoolean (*PFNEGLRELEASETHREADPROC)();
+typedef EGLBoolean (*PFNEGLWAITCLIENTPROC)();
+typedef EGLContext (*PFNEGLGETCURRENTCONTEXTPROC)();
 typedef void *EGLSync;
 typedef intptr_t EGLAttrib;
 typedef khronos_utime_nanoseconds_t EGLTime;
 typedef void *EGLImage;
-typedef EGLSync (* PFNEGLCREATESYNCPROC)(EGLDisplay dpy, EGLenum type, const EGLAttrib *attrib_list);
-typedef EGLBoolean (* PFNEGLDESTROYSYNCPROC)(EGLDisplay dpy, EGLSync sync);
-typedef EGLint (* PFNEGLCLIENTWAITSYNCPROC)(EGLDisplay dpy, EGLSync sync, EGLint flags, EGLTime timeout);
-typedef EGLBoolean (* PFNEGLGETSYNCATTRIBPROC)(EGLDisplay dpy, EGLSync sync, EGLint attribute, EGLAttrib *value);
-typedef EGLImage (* PFNEGLCREATEIMAGEPROC)(EGLDisplay dpy, EGLContext ctx, EGLenum target, EGLClientBuffer buffer, const EGLAttrib *attrib_list);
-typedef EGLBoolean (* PFNEGLDESTROYIMAGEPROC)(EGLDisplay dpy, EGLImage image);
-typedef EGLDisplay (* PFNEGLGETPLATFORMDISPLAYPROC)(EGLenum platform, void *native_display, const EGLAttrib *attrib_list);
-typedef EGLSurface (* PFNEGLCREATEPLATFORMWINDOWSURFACEPROC)(EGLDisplay dpy, EGLConfig config, void *native_window, const EGLAttrib *attrib_list);
-typedef EGLSurface (* PFNEGLCREATEPLATFORMPIXMAPSURFACEPROC)(EGLDisplay dpy, EGLConfig config, void *native_pixmap, const EGLAttrib *attrib_list);
-typedef EGLBoolean (* PFNEGLWAITSYNCPROC)(EGLDisplay dpy, EGLSync sync, EGLint flags);
+typedef EGLSync (*PFNEGLCREATESYNCPROC)(EGLDisplay dpy, EGLenum type, EGLAttrib const *attrib_list);
+typedef EGLBoolean (*PFNEGLDESTROYSYNCPROC)(EGLDisplay dpy, EGLSync sync);
+typedef EGLint (*PFNEGLCLIENTWAITSYNCPROC)(EGLDisplay dpy, EGLSync sync, EGLint flags, EGLTime timeout);
+typedef EGLBoolean (*PFNEGLGETSYNCATTRIBPROC)(EGLDisplay dpy, EGLSync sync, EGLint attribute, EGLAttrib *value);
+typedef EGLImage (*PFNEGLCREATEIMAGEPROC)(EGLDisplay dpy, EGLContext ctx, EGLenum target, EGLClientBuffer buffer, EGLAttrib const *attrib_list);
+typedef EGLBoolean (*PFNEGLDESTROYIMAGEPROC)(EGLDisplay dpy, EGLImage image);
+typedef EGLDisplay (*PFNEGLGETPLATFORMDISPLAYPROC)(EGLenum platform, void *native_display, EGLAttrib const *attrib_list);
+typedef EGLSurface (*PFNEGLCREATEPLATFORMWINDOWSURFACEPROC)(EGLDisplay dpy, EGLConfig config, void *native_window, EGLAttrib const *attrib_list);
+typedef EGLSurface (*PFNEGLCREATEPLATFORMPIXMAPSURFACEPROC)(EGLDisplay dpy, EGLConfig config, void *native_pixmap, EGLAttrib const *attrib_list);
+typedef EGLBoolean (*PFNEGLWAITSYNCPROC)(EGLDisplay dpy, EGLSync sync, EGLint flags);
 ]]
 
 local wrapper
 wrapper = require 'ffi.libwrapper'{
 	lib = require 'ffi.load' 'EGL',
 	defs = {
-
 		-- enums
 
 		EGL_EGL_PROTOTYPES = 1,
@@ -274,12 +269,12 @@ wrapper = require 'ffi.libwrapper'{
 
 		-- functions
 
-		eglChooseConfig = [[EGLBoolean eglChooseConfig(EGLDisplay dpy, const EGLint *attrib_list, EGLConfig *configs, EGLint config_size, EGLint *num_config);]],
+		eglChooseConfig = [[EGLBoolean eglChooseConfig(EGLDisplay dpy, EGLint const *attrib_list, EGLConfig *configs, EGLint config_size, EGLint *num_config);]],
 		eglCopyBuffers = [[EGLBoolean eglCopyBuffers(EGLDisplay dpy, EGLSurface surface, EGLNativePixmapType target);]],
-		eglCreateContext = [[EGLContext eglCreateContext(EGLDisplay dpy, EGLConfig config, EGLContext share_context, const EGLint *attrib_list);]],
-		eglCreatePbufferSurface = [[EGLSurface eglCreatePbufferSurface(EGLDisplay dpy, EGLConfig config, const EGLint *attrib_list);]],
-		eglCreatePixmapSurface = [[EGLSurface eglCreatePixmapSurface(EGLDisplay dpy, EGLConfig config, EGLNativePixmapType pixmap, const EGLint *attrib_list);]],
-		eglCreateWindowSurface = [[EGLSurface eglCreateWindowSurface(EGLDisplay dpy, EGLConfig config, EGLNativeWindowType win, const EGLint *attrib_list);]],
+		eglCreateContext = [[EGLContext eglCreateContext(EGLDisplay dpy, EGLConfig config, EGLContext share_context, EGLint const *attrib_list);]],
+		eglCreatePbufferSurface = [[EGLSurface eglCreatePbufferSurface(EGLDisplay dpy, EGLConfig config, EGLint const *attrib_list);]],
+		eglCreatePixmapSurface = [[EGLSurface eglCreatePixmapSurface(EGLDisplay dpy, EGLConfig config, EGLNativePixmapType pixmap, EGLint const *attrib_list);]],
+		eglCreateWindowSurface = [[EGLSurface eglCreateWindowSurface(EGLDisplay dpy, EGLConfig config, EGLNativeWindowType win, EGLint const *attrib_list);]],
 		eglDestroyContext = [[EGLBoolean eglDestroyContext(EGLDisplay dpy, EGLContext ctx);]],
 		eglDestroySurface = [[EGLBoolean eglDestroySurface(EGLDisplay dpy, EGLSurface surface);]],
 		eglGetConfigAttrib = [[EGLBoolean eglGetConfigAttrib(EGLDisplay dpy, EGLConfig config, EGLint attribute, EGLint *value);]],
@@ -288,11 +283,11 @@ wrapper = require 'ffi.libwrapper'{
 		eglGetCurrentSurface = [[EGLSurface eglGetCurrentSurface(EGLint readdraw);]],
 		eglGetDisplay = [[EGLDisplay eglGetDisplay(EGLNativeDisplayType display_id);]],
 		eglGetError = [[EGLint eglGetError();]],
-		eglGetProcAddress = [[__eglMustCastToProperFunctionPointerType eglGetProcAddress(const char *procname);]],
+		eglGetProcAddress = [[__eglMustCastToProperFunctionPointerType eglGetProcAddress(char const *procname);]],
 		eglInitialize = [[EGLBoolean eglInitialize(EGLDisplay dpy, EGLint *major, EGLint *minor);]],
 		eglMakeCurrent = [[EGLBoolean eglMakeCurrent(EGLDisplay dpy, EGLSurface draw, EGLSurface read, EGLContext ctx);]],
 		eglQueryContext = [[EGLBoolean eglQueryContext(EGLDisplay dpy, EGLContext ctx, EGLint attribute, EGLint *value);]],
-		eglQueryString = [[const char * eglQueryString(EGLDisplay dpy, EGLint name);]],
+		eglQueryString = [[char const *eglQueryString(EGLDisplay dpy, EGLint name);]],
 		eglQuerySurface = [[EGLBoolean eglQuerySurface(EGLDisplay dpy, EGLSurface surface, EGLint attribute, EGLint *value);]],
 		eglSwapBuffers = [[EGLBoolean eglSwapBuffers(EGLDisplay dpy, EGLSurface surface);]],
 		eglTerminate = [[EGLBoolean eglTerminate(EGLDisplay dpy);]],
@@ -304,22 +299,24 @@ wrapper = require 'ffi.libwrapper'{
 		eglSwapInterval = [[EGLBoolean eglSwapInterval(EGLDisplay dpy, EGLint interval);]],
 		eglBindAPI = [[EGLBoolean eglBindAPI(EGLenum api);]],
 		eglQueryAPI = [[EGLenum eglQueryAPI();]],
-		eglCreatePbufferFromClientBuffer = [[EGLSurface eglCreatePbufferFromClientBuffer(EGLDisplay dpy, EGLenum buftype, EGLClientBuffer buffer, EGLConfig config, const EGLint *attrib_list);]],
+		eglCreatePbufferFromClientBuffer = [[EGLSurface eglCreatePbufferFromClientBuffer(EGLDisplay dpy, EGLenum buftype, EGLClientBuffer buffer, EGLConfig config, EGLint const *attrib_list);]],
 		eglReleaseThread = [[EGLBoolean eglReleaseThread();]],
 		eglWaitClient = [[EGLBoolean eglWaitClient();]],
 		eglGetCurrentContext = [[EGLContext eglGetCurrentContext();]],
-		eglCreateSync = [[EGLSync eglCreateSync(EGLDisplay dpy, EGLenum type, const EGLAttrib *attrib_list);]],
+		eglCreateSync = [[EGLSync eglCreateSync(EGLDisplay dpy, EGLenum type, EGLAttrib const *attrib_list);]],
 		eglDestroySync = [[EGLBoolean eglDestroySync(EGLDisplay dpy, EGLSync sync);]],
 		eglClientWaitSync = [[EGLint eglClientWaitSync(EGLDisplay dpy, EGLSync sync, EGLint flags, EGLTime timeout);]],
 		eglGetSyncAttrib = [[EGLBoolean eglGetSyncAttrib(EGLDisplay dpy, EGLSync sync, EGLint attribute, EGLAttrib *value);]],
-		eglCreateImage = [[EGLImage eglCreateImage(EGLDisplay dpy, EGLContext ctx, EGLenum target, EGLClientBuffer buffer, const EGLAttrib *attrib_list);]],
+		eglCreateImage = [[EGLImage eglCreateImage(EGLDisplay dpy, EGLContext ctx, EGLenum target, EGLClientBuffer buffer, EGLAttrib const *attrib_list);]],
 		eglDestroyImage = [[EGLBoolean eglDestroyImage(EGLDisplay dpy, EGLImage image);]],
-		eglGetPlatformDisplay = [[EGLDisplay eglGetPlatformDisplay(EGLenum platform, void *native_display, const EGLAttrib *attrib_list);]],
-		eglCreatePlatformWindowSurface = [[EGLSurface eglCreatePlatformWindowSurface(EGLDisplay dpy, EGLConfig config, void *native_window, const EGLAttrib *attrib_list);]],
-		eglCreatePlatformPixmapSurface = [[EGLSurface eglCreatePlatformPixmapSurface(EGLDisplay dpy, EGLConfig config, void *native_pixmap, const EGLAttrib *attrib_list);]],
+		eglGetPlatformDisplay = [[EGLDisplay eglGetPlatformDisplay(EGLenum platform, void *native_display, EGLAttrib const *attrib_list);]],
+		eglCreatePlatformWindowSurface = [[EGLSurface eglCreatePlatformWindowSurface(EGLDisplay dpy, EGLConfig config, void *native_window, EGLAttrib const *attrib_list);]],
+		eglCreatePlatformPixmapSurface = [[EGLSurface eglCreatePlatformPixmapSurface(EGLDisplay dpy, EGLConfig config, void *native_pixmap, EGLAttrib const *attrib_list);]],
 		eglWaitSync = [[EGLBoolean eglWaitSync(EGLDisplay dpy, EGLSync sync, EGLint flags);]],
 	},
 }
+
+-- macros
 
 wrapper.EGL_DONT_CARE = ffi.cast('EGLint', -1)
 wrapper.EGL_NO_CONTEXT = ffi.cast('EGLDisplay', 0)
@@ -330,7 +327,5 @@ wrapper.EGL_DEFAULT_DISPLAY = ffi.cast('EGLNativeDisplayType', 0)
 wrapper.EGL_NO_SYNC = ffi.cast('EGLSync', 0)
 wrapper.EGL_NO_IMAGE = ffi.cast('EGLImage', 0)
 wrapper.EGL_FOREVER = 0xFFFFFFFFFFFFFFFFULL
-wrapper.EGL_NO_SYNC = ffi.cast('EGLSync', 0)
-wrapper.EGL_NO_IMAGE = ffi.cast('EGLImage', 0)
 
 return wrapper
