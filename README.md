@@ -81,8 +81,7 @@ so I decided to put that behavior in one place, here.  Maybe I'll put that into 
 
 # Generation:
 
-Most of them are automatically created by my [C preprocessor in Lua](https://github.com/thenumbernine/preproc-lua) project, whose `generate.lua` file will automatically create the headers from the compiler's include files.
-This is still a manually run and hand-tweaked process, but will hopefully eventually be automated into my [#include-in-Lua](https://github.com/thenumbernine/include-lua) project.
+Most of them are automatically created by my [Lua include](https://github.com/thenumbernine/include-lua) project, whose `make.lua` file will automatically create the headers from the compiler's include files.
 
 The original versions of this started from https://github.com/malkia/ufo .  One or two headers are still from malkia.
 
