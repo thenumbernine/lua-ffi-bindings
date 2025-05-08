@@ -32,58 +32,58 @@ typedef size_t png_size_t;
 typedef ptrdiff_t png_ptrdiff_t;
 typedef size_t png_alloc_size_t;
 typedef png_int_32 png_fixed_point;
-typedef void * png_voidp;
-typedef const void * png_const_voidp;
-typedef png_byte * png_bytep;
-typedef const png_byte * png_const_bytep;
-typedef png_uint_32 * png_uint_32p;
-typedef const png_uint_32 * png_const_uint_32p;
-typedef png_int_32 * png_int_32p;
-typedef const png_int_32 * png_const_int_32p;
-typedef png_uint_16 * png_uint_16p;
-typedef const png_uint_16 * png_const_uint_16p;
-typedef png_int_16 * png_int_16p;
-typedef const png_int_16 * png_const_int_16p;
-typedef char * png_charp;
-typedef const char * png_const_charp;
-typedef png_fixed_point * png_fixed_point_p;
-typedef const png_fixed_point * png_const_fixed_point_p;
-typedef size_t * png_size_tp;
-typedef const size_t * png_const_size_tp;
-typedef FILE * png_FILE_p;
-typedef double * png_doublep;
-typedef const double * png_const_doublep;
-typedef png_byte * * png_bytepp;
-typedef png_uint_32 * * png_uint_32pp;
-typedef png_int_32 * * png_int_32pp;
-typedef png_uint_16 * * png_uint_16pp;
-typedef png_int_16 * * png_int_16pp;
-typedef const char * * png_const_charpp;
-typedef char * * png_charpp;
-typedef png_fixed_point * * png_fixed_point_pp;
-typedef double * * png_doublepp;
-typedef char * * * png_charppp;
-typedef char* png_libpng_version_1_6_47;
+typedef void *png_voidp;
+typedef void const *png_const_voidp;
+typedef png_byte *png_bytep;
+typedef png_byte const *png_const_bytep;
+typedef png_uint_32 *png_uint_32p;
+typedef png_uint_32 const *png_const_uint_32p;
+typedef png_int_32 *png_int_32p;
+typedef png_int_32 const *png_const_int_32p;
+typedef png_uint_16 *png_uint_16p;
+typedef png_uint_16 const *png_const_uint_16p;
+typedef png_int_16 *png_int_16p;
+typedef png_int_16 const *png_const_int_16p;
+typedef char *png_charp;
+typedef char const *png_const_charp;
+typedef png_fixed_point *png_fixed_point_p;
+typedef png_fixed_point const *png_const_fixed_point_p;
+typedef size_t *png_size_tp;
+typedef size_t const *png_const_size_tp;
+typedef FILE *png_FILE_p;
+typedef double *png_doublep;
+typedef double const *png_const_doublep;
+typedef png_byte **png_bytepp;
+typedef png_uint_32 **png_uint_32pp;
+typedef png_int_32 **png_int_32pp;
+typedef png_uint_16 **png_uint_16pp;
+typedef png_int_16 **png_int_16pp;
+typedef char const **png_const_charpp;
+typedef char **png_charpp;
+typedef png_fixed_point **png_fixed_point_pp;
+typedef double **png_doublepp;
+typedef char ***png_charppp;
+typedef char *png_libpng_version_1_6_47;
 typedef struct png_struct_def png_struct;
-typedef const png_struct * png_const_structp;
-typedef png_struct * png_structp;
-typedef png_struct * * png_structpp;
+typedef png_struct const *png_const_structp;
+typedef png_struct *png_structp;
+typedef png_struct **png_structpp;
 typedef struct png_info_def png_info;
-typedef png_info * png_infop;
-typedef const png_info * png_const_infop;
-typedef png_info * * png_infopp;
-typedef png_struct * restrict png_structrp;
-typedef const png_struct * restrict png_const_structrp;
-typedef png_info * restrict png_inforp;
-typedef const png_info * restrict png_const_inforp;
+typedef png_info *png_infop;
+typedef png_info const *png_const_infop;
+typedef png_info **png_infopp;
+typedef png_struct *restrict png_structrp;
+typedef png_struct const *restrict png_const_structrp;
+typedef png_info *restrict png_inforp;
+typedef png_info const *restrict png_const_inforp;
 typedef struct png_color_struct {
 	png_byte red;
 	png_byte green;
 	png_byte blue;
 } png_color;
-typedef png_color * png_colorp;
-typedef const png_color * png_const_colorp;
-typedef png_color * * png_colorpp;
+typedef png_color *png_colorp;
+typedef png_color const *png_const_colorp;
+typedef png_color **png_colorpp;
 typedef struct png_color_16_struct {
 	png_byte index;
 	png_uint_16 red;
@@ -91,9 +91,9 @@ typedef struct png_color_16_struct {
 	png_uint_16 blue;
 	png_uint_16 gray;
 } png_color_16;
-typedef png_color_16 * png_color_16p;
-typedef const png_color_16 * png_const_color_16p;
-typedef png_color_16 * * png_color_16pp;
+typedef png_color_16 *png_color_16p;
+typedef png_color_16 const *png_const_color_16p;
+typedef png_color_16 **png_color_16pp;
 typedef struct png_color_8_struct {
 	png_byte red;
 	png_byte green;
@@ -101,9 +101,9 @@ typedef struct png_color_8_struct {
 	png_byte gray;
 	png_byte alpha;
 } png_color_8;
-typedef png_color_8 * png_color_8p;
-typedef const png_color_8 * png_const_color_8p;
-typedef png_color_8 * * png_color_8pp;
+typedef png_color_8 *png_color_8p;
+typedef png_color_8 const *png_const_color_8p;
+typedef png_color_8 **png_color_8pp;
 typedef struct png_sPLT_entry_struct {
 	png_uint_16 red;
 	png_uint_16 green;
@@ -111,18 +111,18 @@ typedef struct png_sPLT_entry_struct {
 	png_uint_16 alpha;
 	png_uint_16 frequency;
 } png_sPLT_entry;
-typedef png_sPLT_entry * png_sPLT_entryp;
-typedef const png_sPLT_entry * png_const_sPLT_entryp;
-typedef png_sPLT_entry * * png_sPLT_entrypp;
+typedef png_sPLT_entry *png_sPLT_entryp;
+typedef png_sPLT_entry const *png_const_sPLT_entryp;
+typedef png_sPLT_entry **png_sPLT_entrypp;
 typedef struct png_sPLT_struct {
 	png_charp name;
 	png_byte depth;
 	png_sPLT_entryp entries;
 	png_int_32 nentries;
 } png_sPLT_t;
-typedef png_sPLT_t * png_sPLT_tp;
-typedef const png_sPLT_t * png_const_sPLT_tp;
-typedef png_sPLT_t * * png_sPLT_tpp;
+typedef png_sPLT_t *png_sPLT_tp;
+typedef png_sPLT_t const *png_const_sPLT_tp;
+typedef png_sPLT_t **png_sPLT_tpp;
 typedef struct png_text_struct {
 	int compression;
 	png_charp key;
@@ -132,9 +132,9 @@ typedef struct png_text_struct {
 	png_charp lang;
 	png_charp lang_key;
 } png_text;
-typedef png_text * png_textp;
-typedef const png_text * png_const_textp;
-typedef png_text * * png_textpp;
+typedef png_text *png_textp;
+typedef png_text const *png_const_textp;
+typedef png_text **png_textpp;
 typedef struct png_time_struct {
 	png_uint_16 year;
 	png_byte month;
@@ -143,18 +143,18 @@ typedef struct png_time_struct {
 	png_byte minute;
 	png_byte second;
 } png_time;
-typedef png_time * png_timep;
-typedef const png_time * png_const_timep;
-typedef png_time * * png_timepp;
+typedef png_time *png_timep;
+typedef png_time const *png_const_timep;
+typedef png_time **png_timepp;
 typedef struct png_unknown_chunk_t {
 	png_byte name[5];
 	png_byte *data;
 	size_t size;
 	png_byte location;
 } png_unknown_chunk;
-typedef png_unknown_chunk * png_unknown_chunkp;
-typedef const png_unknown_chunk * png_const_unknown_chunkp;
-typedef png_unknown_chunk * * png_unknown_chunkpp;
+typedef png_unknown_chunk *png_unknown_chunkp;
+typedef png_unknown_chunk const *png_const_unknown_chunkp;
+typedef png_unknown_chunk **png_unknown_chunkpp;
 typedef struct png_row_info_struct {
 	png_uint_32 width;
 	size_t rowbytes;
@@ -163,8 +163,8 @@ typedef struct png_row_info_struct {
 	png_byte channels;
 	png_byte pixel_depth;
 } png_row_info;
-typedef png_row_info * png_row_infop;
-typedef png_row_info * * png_row_infopp;
+typedef png_row_info *png_row_infop;
+typedef png_row_info **png_row_infopp;
 typedef void (*png_error_ptr)(png_structp, png_const_charp);
 typedef void (*png_rw_ptr)(png_structp, png_bytep, size_t);
 typedef void (*png_flush_ptr)(png_structp);
@@ -187,8 +187,6 @@ typedef struct {
 	png_uint_32 format;
 	png_uint_32 flags;
 	png_uint_32 colormap_entries;
-	enum { PNG_IMAGE_WARNING = 1 };
-	enum { PNG_IMAGE_ERROR = 2 };
 	png_uint_32 warning_or_error;
 	char message[64];
 } png_image, *png_imagep;
@@ -198,7 +196,6 @@ local wrapper
 wrapper = require 'ffi.libwrapper'{
 	lib = require 'ffi.load' 'png',
 	defs = {
-
 		-- enums
 
 		PNG_H = 1,
@@ -609,6 +606,8 @@ wrapper = require 'ffi.libwrapper'{
 		PNG_IO_MASK_LOC = 240,
 		PNG_INTERLACE_ADAM7_PASSES = 7,
 		PNG_IMAGE_VERSION = 1,
+		PNG_IMAGE_WARNING = 1,
+		PNG_IMAGE_ERROR = 2,
 		PNG_FORMAT_FLAG_ALPHA = 1,
 		PNG_FORMAT_FLAG_COLOR = 2,
 		PNG_FORMAT_FLAG_LINEAR = 4,
@@ -672,7 +671,7 @@ wrapper = require 'ffi.libwrapper'{
 		png_read_info = [[void png_read_info(png_structrp png_ptr, png_inforp info_ptr);]],
 		png_convert_to_rfc1123 = [[png_const_charp png_convert_to_rfc1123(png_structrp png_ptr, png_const_timep ptime);]],
 		png_convert_to_rfc1123_buffer = [[int png_convert_to_rfc1123_buffer(char out[29], png_const_timep ptime);]],
-		png_convert_from_struct_tm = [[void png_convert_from_struct_tm(png_timep ptime, const struct tm * ttime);]],
+		png_convert_from_struct_tm = [[void png_convert_from_struct_tm(png_timep ptime, struct tm const * ttime);]],
 		png_convert_from_time_t = [[void png_convert_from_time_t(png_timep ptime, time_t ttime);]],
 		png_set_expand = [[void png_set_expand(png_structrp png_ptr);]],
 		png_set_expand_gray_1_2_4_to_8 = [[void png_set_expand_gray_1_2_4_to_8(png_structrp png_ptr);]],
@@ -895,20 +894,21 @@ wrapper = require 'ffi.libwrapper'{
 		png_save_uint_16 = [[void png_save_uint_16(png_bytep buf, unsigned int i);]],
 		png_set_check_for_invalid_index = [[void png_set_check_for_invalid_index(png_structrp png_ptr, int allowed);]],
 		png_get_palette_max = [[int png_get_palette_max(png_const_structp png_ptr, png_const_infop info_ptr);]],
-		png_image_begin_read_from_file = [[int png_image_begin_read_from_file(png_imagep image, const char *file_name);]],
+		png_image_begin_read_from_file = [[int png_image_begin_read_from_file(png_imagep image, char const *file_name);]],
 		png_image_begin_read_from_stdio = [[int png_image_begin_read_from_stdio(png_imagep image, FILE* file);]],
 		png_image_begin_read_from_memory = [[int png_image_begin_read_from_memory(png_imagep image, png_const_voidp memory, size_t size);]],
 		png_image_finish_read = [[int png_image_finish_read(png_imagep image, png_const_colorp background, void *buffer, png_int_32 row_stride, void *colormap);]],
 		png_image_free = [[void png_image_free(png_imagep image);]],
-		png_image_write_to_file = [[int png_image_write_to_file(png_imagep image, const char *file, int convert_to_8bit, const void *buffer, png_int_32 row_stride, const void *colormap);]],
-		png_image_write_to_stdio = [[int png_image_write_to_stdio(png_imagep image, FILE *file, int convert_to_8_bit, const void *buffer, png_int_32 row_stride, const void *colormap);]],
-		png_image_write_to_memory = [[int png_image_write_to_memory(png_imagep image, void *memory, png_alloc_size_t * restrict memory_bytes, int convert_to_8_bit, const void *buffer, png_int_32 row_stride, const void *colormap);]],
+		png_image_write_to_file = [[int png_image_write_to_file(png_imagep image, char const *file, int convert_to_8bit, void const *buffer, png_int_32 row_stride, void const *colormap);]],
+		png_image_write_to_stdio = [[int png_image_write_to_stdio(png_imagep image, FILE *file, int convert_to_8_bit, void const *buffer, png_int_32 row_stride, void const *colormap);]],
+		png_image_write_to_memory = [[int png_image_write_to_memory(png_imagep image, void *memory, png_alloc_size_t * restrict memory_bytes, int convert_to_8_bit, void const *buffer, png_int_32 row_stride, void const *colormap);]],
 		png_set_option = [[int png_set_option(png_structrp png_ptr, int option, int onoff);]],
-
 	},
 }
 
-wrapper.PNG_LIBPNG_VER_STRING = '1.6.47'
+-- macros
+
+wrapper.PNG_LIBPNG_VER_STRING = "1.6.47"
 wrapper.PNG_HEADER_VERSION_STRING =  ' libpng version '..wrapper.PNG_LIBPNG_VER_STRING..'\n'
 
 -- this is a value in C but a function in Lua
