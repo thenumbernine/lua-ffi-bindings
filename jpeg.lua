@@ -156,7 +156,7 @@ struct jpeg_compress_struct {
 	UINT8 arith_dc_U[16];
 	UINT8 arith_ac_K[16];
 	int num_scans;
-	const jpeg_scan_info *scan_info;
+	jpeg_scan_info const *scan_info;
 	boolean raw_data_in;
 	boolean arith_code;
 	boolean optimize_coding;
@@ -188,7 +188,7 @@ struct jpeg_compress_struct {
 	int MCU_membership[10];
 	int Ss, Se, Ah, Al;
 	int block_size;
-	const int *natural_order;
+	int const *natural_order;
 	int lim_Se;
 	struct jpeg_comp_master *master;
 	struct jpeg_c_main_controller *main;
@@ -278,7 +278,7 @@ struct jpeg_decompress_struct {
 	int MCU_membership[10];
 	int Ss, Se, Ah, Al;
 	int block_size;
-	const int *natural_order;
+	int const *natural_order;
 	int lim_Se;
 	int unread_marker;
 	struct jpeg_decomp_master *master;
@@ -306,9 +306,9 @@ struct jpeg_error_mgr {
 	} msg_parm;
 	int trace_level;
 	long num_warnings;
-	const char *const *jpeg_message_table;
+	char const *const *jpeg_message_table;
 	int last_jpeg_message;
-	const char *const *addon_message_table;
+	char const *const *addon_message_table;
 	int first_addon_message;
 	int last_addon_message;
 };
@@ -327,7 +327,7 @@ struct jpeg_destination_mgr {
 	void (*term_destination)(j_compress_ptr cinfo);
 };
 struct jpeg_source_mgr {
-	const JOCTET *next_input_byte;
+	JOCTET const *next_input_byte;
 	size_t bytes_in_buffer;
 	void (*init_source)(j_decompress_ptr cinfo);
 	boolean (*fill_input_buffer)(j_decompress_ptr cinfo);
@@ -420,14 +420,14 @@ wrapper = require 'ffi.libwrapper'{
 		jpeg_stdio_dest = [[void jpeg_stdio_dest(j_compress_ptr cinfo, FILE *outfile);]],
 		jpeg_stdio_src = [[void jpeg_stdio_src(j_decompress_ptr cinfo, FILE *infile);]],
 		jpeg_mem_dest = [[void jpeg_mem_dest(j_compress_ptr cinfo, unsigned char **outbuffer, unsigned long *outsize);]],
-		jpeg_mem_src = [[void jpeg_mem_src(j_decompress_ptr cinfo, const unsigned char *inbuffer, unsigned long insize);]],
+		jpeg_mem_src = [[void jpeg_mem_src(j_decompress_ptr cinfo, unsigned char const *inbuffer, unsigned long insize);]],
 		jpeg_set_defaults = [[void jpeg_set_defaults(j_compress_ptr cinfo);]],
 		jpeg_set_colorspace = [[void jpeg_set_colorspace(j_compress_ptr cinfo, J_COLOR_SPACE colorspace);]],
 		jpeg_default_colorspace = [[void jpeg_default_colorspace(j_compress_ptr cinfo);]],
 		jpeg_set_quality = [[void jpeg_set_quality(j_compress_ptr cinfo, int quality, boolean force_baseline);]],
 		jpeg_set_linear_quality = [[void jpeg_set_linear_quality(j_compress_ptr cinfo, int scale_factor, boolean force_baseline);]],
 		jpeg_default_qtables = [[void jpeg_default_qtables(j_compress_ptr cinfo, boolean force_baseline);]],
-		jpeg_add_quant_table = [[void jpeg_add_quant_table(j_compress_ptr cinfo, int which_tbl, const unsigned int *basic_table, int scale_factor, boolean force_baseline);]],
+		jpeg_add_quant_table = [[void jpeg_add_quant_table(j_compress_ptr cinfo, int which_tbl, unsigned int const *basic_table, int scale_factor, boolean force_baseline);]],
 		jpeg_quality_scaling = [[int jpeg_quality_scaling(int quality);]],
 		jpeg_enable_lossless = [[void jpeg_enable_lossless(j_compress_ptr cinfo, int predictor_selection_value, int point_transform);]],
 		jpeg_simple_progression = [[void jpeg_simple_progression(j_compress_ptr cinfo);]],
@@ -442,11 +442,11 @@ wrapper = require 'ffi.libwrapper'{
 		jpeg_calc_jpeg_dimensions = [[void jpeg_calc_jpeg_dimensions(j_compress_ptr cinfo);]],
 		jpeg_write_raw_data = [[JDIMENSION jpeg_write_raw_data(j_compress_ptr cinfo, JSAMPIMAGE data, JDIMENSION num_lines);]],
 		jpeg12_write_raw_data = [[JDIMENSION jpeg12_write_raw_data(j_compress_ptr cinfo, J12SAMPIMAGE data, JDIMENSION num_lines);]],
-		jpeg_write_marker = [[void jpeg_write_marker(j_compress_ptr cinfo, int marker, const JOCTET *dataptr, unsigned int datalen);]],
+		jpeg_write_marker = [[void jpeg_write_marker(j_compress_ptr cinfo, int marker, JOCTET const *dataptr, unsigned int datalen);]],
 		jpeg_write_m_header = [[void jpeg_write_m_header(j_compress_ptr cinfo, int marker, unsigned int datalen);]],
 		jpeg_write_m_byte = [[void jpeg_write_m_byte(j_compress_ptr cinfo, int val);]],
 		jpeg_write_tables = [[void jpeg_write_tables(j_compress_ptr cinfo);]],
-		jpeg_write_icc_profile = [[void jpeg_write_icc_profile(j_compress_ptr cinfo, const JOCTET *icc_data_ptr, unsigned int icc_data_len);]],
+		jpeg_write_icc_profile = [[void jpeg_write_icc_profile(j_compress_ptr cinfo, JOCTET const *icc_data_ptr, unsigned int icc_data_len);]],
 		jpeg_read_header = [[int jpeg_read_header(j_decompress_ptr cinfo, boolean require_image);]],
 		jpeg_start_decompress = [[boolean jpeg_start_decompress(j_decompress_ptr cinfo);]],
 		jpeg_read_scanlines = [[JDIMENSION jpeg_read_scanlines(j_decompress_ptr cinfo, JSAMPARRAY scanlines, JDIMENSION max_lines);]],
