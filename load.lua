@@ -133,5 +133,6 @@ lookup'clip'.OSX = '/usr/local/lib/libclip.dylib'
 lookup'cfitsio'.OSX = '/usr/local/lib/libcfitsio.dylib'
 lookup'netcdf'.OSX = '/usr/local/lib/libnetcdf.dylib'
 lookup'EGL'.OSX = '/usr/local/lib/libEGL.dylib'
+lookup'hdf5'.OSX = '/usr/local/lib/libhdf5.dylib'
 
 return ffi_load
