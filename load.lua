@@ -136,5 +136,6 @@ lookup'netcdf'.OSX = '/usr/local/lib/libnetcdf.dylib'
 lookup'EGL'.OSX = '/usr/local/lib/libEGL.dylib'
 lookup'hdf5'.OSX = '/usr/local/lib/libhdf5.dylib'
 lookup'lapacke'.OSX = '/usr/local/lib/liblapacke.dylib'
+lookup'vorbisfile'.OSX = '/usr/local/lib/libvorbisfile.dylib'
 
 return ffi_load
