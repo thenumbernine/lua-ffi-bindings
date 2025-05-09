@@ -123,6 +123,7 @@ lookup'openal'.OSX = '/System/Library/Frameworks/OpenAL.framework/OpenAL'
 -- Another reason to use malkia's model and just package all the binaries in the repo itself.
 lookup'cimgui_sdl'.OSX = '/usr/local/lib/libcimgui_sdl.dylib'
 lookup'SDL2'.OSX = '/usr/local/lib/libSDL2.dylib'
+lookup'SDL3'.OSX = '/usr/local/lib/libSDL3.dylib'
 lookup'png'.OSX = '/usr/local/lib/libpng.dylib'
 lookup'z'.OSX = '/usr/local/opt/zlib/lib/libz.dylib'	-- otherwise it uses zlib in system paths which for me is not the homebrew one but instead the 1.2.12 one ... what a mess ...
 lookup'zip'.OSX = '/usr/local/lib/libzip.dylib'
@@ -134,5 +135,6 @@ lookup'cfitsio'.OSX = '/usr/local/lib/libcfitsio.dylib'
 lookup'netcdf'.OSX = '/usr/local/lib/libnetcdf.dylib'
 lookup'EGL'.OSX = '/usr/local/lib/libEGL.dylib'
 lookup'hdf5'.OSX = '/usr/local/lib/libhdf5.dylib'
+lookup'lapacke'.OSX = '/usr/local/lib/liblapacke.dylib'
 
 return ffi_load
