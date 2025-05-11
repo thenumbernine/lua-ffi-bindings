@@ -125,6 +125,7 @@ lookup'cimgui_sdl'.OSX = '/usr/local/lib/libcimgui_sdl.dylib'
 lookup'SDL2'.OSX = '/usr/local/lib/libSDL2.dylib'
 lookup'SDL3'.OSX = '/usr/local/lib/libSDL3.dylib'
 lookup'png'.OSX = '/usr/local/lib/libpng.dylib'
+lookup'gif'.OSX = '/usr/local/lib/libgif.dylib'
 lookup'z'.OSX = '/usr/local/opt/zlib/lib/libz.dylib'	-- otherwise it uses zlib in system paths which for me is not the homebrew one but instead the 1.2.12 one ... what a mess ...
 lookup'zip'.OSX = '/usr/local/lib/libzip.dylib'
 lookup'jpeg'.OSX = '/usr/local/lib/libjpeg.dylib'
