@@ -1,78 +1,57 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* + BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/dirent.h */
-/* ++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types.h */
+/* + BEGIN <dirent.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/dirent.h */
+/* ++ BEGIN <_types.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types.h */
 ]] require 'ffi.req' 'c._types' ffi.cdef[[
-/* ++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types.h */
-/* ++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/dirent.h */
-/* +++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h */
-/* +++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h */
-/* +++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h */
-/* +++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h */
-/* +++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_ino_t.h */
-/* ++++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h */
-/* ++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h */
-typedef __darwin_ino_t ino_t;
-/* +++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_ino_t.h */
-/* #pragma pack(4) */
-/* #pragma pack() */
-struct dirent {
-	__uint64_t d_ino;
-	__uint64_t d_seekoff;
-	__uint16_t d_reclen;
-	__uint16_t d_namlen;
-	__uint8_t d_type;
-	char d_name[1024];
-};
-enum { d_fileno = 0 };
-enum { MAXNAMLEN = 255 };
-enum { DT_UNKNOWN = 0 };
-enum { DT_FIFO = 1 };
-enum { DT_CHR = 2 };
-enum { DT_DIR = 4 };
-enum { DT_BLK = 6 };
-enum { DT_REG = 8 };
-enum { DT_LNK = 10 };
-enum { DT_SOCK = 12 };
-enum { DT_WHT = 14 };
-/* ++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/dirent.h */
-/* ++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h */
-/* ++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h */
-/* ++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/Availability.h */
+/* ++ END <_types.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types.h */
+/* ++ BEGIN <sys/dirent.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/dirent.h */
+/* +++ BEGIN <sys/_types/_ino_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_ino_t.h */
+]] require 'ffi.req' 'c.sys._types._ino_t' ffi.cdef[[
+/* +++ END <sys/_types/_ino_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_ino_t.h */
+#pragma pack(4)
+#pragma pack()
+struct dirent { __uint64_t d_ino; __uint64_t d_seekoff; __uint16_t d_reclen; __uint16_t d_namlen; __uint8_t d_type; char d_name[1024]; };
+/* ++ END <sys/dirent.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/dirent.h */
+/* ++ BEGIN <Availability.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/Availability.h */
 ]] require 'ffi.req' 'c.Availability' ffi.cdef[[
-/* ++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/Availability.h */
-/* ++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_pthread/_pthread_types.h */
-]] require 'ffi.req' 'c.sys._pthread._pthread_types' ffi.cdef[[
-/* ++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_pthread/_pthread_types.h */
+/* ++ END <Availability.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/Availability.h */
 struct _telldir;
 typedef struct {
-	int __dd_fd;
-	long __dd_loc;
-	long __dd_size;
-	char *__dd_buf;
-	int __dd_len;
-	long __dd_seek;
-	__attribute__((__unused__)) long __padding;
-	int __dd_flags;
-	__darwin_pthread_mutex_t __dd_lock;
-	struct _telldir *__dd_td;
+ int __dd_fd;
+ long __dd_loc;
+ long __dd_size;
+ char *__dd_buf;
+ int __dd_len;
+ long __dd_seek;
+ __attribute__((__unused__)) long __padding;
+ int __dd_flags;
+ __darwin_pthread_mutex_t __dd_lock;
+ struct _telldir *__dd_td;
 } DIR;
+int closedir(DIR *) __asm("_" "closedir" );
+DIR *opendir(const char *) __asm("_" "opendir" "$INODE64" );
+struct dirent *readdir(DIR *) __asm("_" "readdir" "$INODE64");
+int readdir_r(DIR *, struct dirent *, struct dirent **) __asm("_" "readdir_r" "$INODE64");
+void rewinddir(DIR *) __asm("_" "rewinddir" "$INODE64" );
+void seekdir(DIR *, long) __asm("_" "seekdir" "$INODE64" );
+long telldir(DIR *) __asm("_" "telldir" "$INODE64" );
+__attribute__((availability(macosx,introduced=10.10)))
+DIR *fdopendir(int) __asm("_" "fdopendir" "$INODE64" );
+int alphasort(const struct dirent **, const struct dirent **) __asm("_" "alphasort" "$INODE64");
+int dirfd(DIR *dirp) __attribute__((availability(macosx,introduced=10.8)));
+int scandir(const char *, struct dirent ***,
+    int (*)(const struct dirent *), int (*)(const struct dirent **, const struct dirent **)) __asm("_" "scandir" "$INODE64");
+int getdirentries(int, char *, int, long *)
+      __asm("_getdirentries_is_not_available_when_64_bit_inodes_are_in_effect")
+;
+DIR *__opendir2(const char *, int) __asm("_" "__opendir2" "$INODE64" );
+/* + END <dirent.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/dirent.h */
+enum { _DIRENT_H_ = 1 };
 enum { DIRBLKSIZ = 1024 };
-enum { DTF_HIDEW = 1 };
-enum { DTF_NODUP = 2 };
-enum { DTF_REWIND = 4 };
-int closedir(DIR *) __asm("closedir");
-DIR *opendir(const char *) __asm("opendir$INODE64");
-struct dirent *readdir(DIR *) __asm("readdir$INODE64");
-int readdir_r(DIR *, struct dirent *, struct dirent **) __asm("readdir_r$INODE64");
-void rewinddir(DIR *) __asm("rewinddir$INODE64");
-void seekdir(DIR *, long) __asm("seekdir$INODE64");
-long telldir(DIR *) __asm("telldir$INODE64");
-DIR *fdopendir(int) __asm("fdopendir$INODE64");
-int alphasort(const struct dirent **, const struct dirent **) __asm("alphasort$INODE64");
-int dirfd(DIR *dirp);
-int scandir(const char *, struct dirent ***, int (*)(const struct dirent *), int (*)(const struct dirent **, const struct dirent **)) __asm("scandir$INODE64");
-int getdirentries(int, char *, int, long *) __asm("getdirentries_is_not_available_when_64_bit_inodes_are_in_effect");
-DIR *__opendir2(const char *, int) __asm("__opendir2$INODE64");
-/* + END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/dirent.h */
+enum { DTF_HIDEW = 0x0001 };
+enum { DTF_NODUP = 0x0002 };
+enum { DTF_REWIND = 0x0004 };
+enum { __DTF_READALL = 0x0008 };
+enum { __DTF_SKIPREAD = 0x0010 };
+enum { __DTF_ATEND = 0x0020 };
 ]]

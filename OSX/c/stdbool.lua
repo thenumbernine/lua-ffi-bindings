@@ -1,8 +1,8 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* + BEGIN /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stdbool.h */
-/* manually commented out: enum { bool = 0 }; */
-/* manually commented out: enum { true = 1 }; */
-/* manually commented out: enum { false = 0 }; */
-/* + END   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stdbool.h */
+/* + BEGIN <stdbool.h> /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stdbool.h */
+/* + END <stdbool.h> /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stdbool.h */
+enum { __STDBOOL_H = 1 };
+enum { __bool_true_false_are_defined = 1 };
+/* #define bool _Bool ### define is not number */
 ]]

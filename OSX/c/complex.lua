@@ -1,103 +1,9 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* + BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/complex.h */
-enum { __COMPLEX_H__ = 1 };
-/* ++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h */
-enum { _CDEFS_H_ = 1 };
-/* manually commented out: enum { __BEGIN_DECLS = 1 }; */
-/* manually commented out: enum { __END_DECLS = 1 }; */
-/* manually commented out: enum { __const = 0 }; */
-/* manually commented out: enum { __signed = 0 }; */
-/* manually commented out: enum { __volatile = 0 }; */
-/* #define __dead2         __attribute__((__noreturn__)) ### string, not number "__attribute__((__noreturn__))" */
-/* #define __pure2         __attribute__((__const__)) ### string, not number "__attribute__((__const__))" */
-/* #define __stateful_pure __attribute__((__pure__)) ### string, not number "__attribute__((__pure__))" */
-/* #define __unused        __attribute__((__unused__)) ### string, not number "__attribute__((__unused__))" */
-/* #define __used          __attribute__((__used__)) ### string, not number "__attribute__((__used__))" */
-enum { __cold = 1 };
-enum { __returns_nonnull = 1 };
-/* #define __exported      __attribute__((__visibility__("default"))) ### string, not number "__attribute__((__visibility__(\"default\")))" */
-/* #define __exported_push _Pragma("GCC visibility push(default)") ### string, not number "_Pragma(\"GCC visibility push(default)\")" */
-/* #define __exported_pop  _Pragma("GCC visibility pop") ### string, not number "_Pragma(\"GCC visibility pop\")" */
-/* #define __deprecated    __attribute__((__deprecated__)) ### string, not number "__attribute__((__deprecated__))" */
-enum { __unavailable = 1 };
-enum { __kpi_unavailable = 1 };
-enum { __kpi_deprecated_arm64_macos_unavailable = 1 };
-enum { __dead = 1 };
-enum { __pure = 1 };
-/* manually commented out: enum { __restrict = 0 }; */
-enum { _Nullable = 1 };
-enum { _Nonnull = 1 };
-enum { _Null_unspecified = 1 };
-enum { __disable_tail_calls = 1 };
-enum { __not_tail_called = 1 };
-enum { __result_use_check = 1 };
-enum { __swift_nonisolated = 1 };
-enum { __swift_nonisolated_unsafe = 1 };
-/* #define __abortlike __dead2 __cold __not_tail_called ### string, not number "__dead2 __cold __not_tail_called" */
-enum { __header_inline = 0 };
-/* # define __header_always_inline    __header_inline __attribute__ ((__always_inline__)) ### string, not number "__header_inline __attribute__ ((__always_inline__))" */
-/* # define __unreachable_ok_push  	 _Pragma("clang diagnostic push")  	 _Pragma("clang diagnostic ignored \"-Wunreachable-code\"") ### string, not number "_Pragma(\"clang diagnostic push\")  \9 _Pragma(\"clang diagnostic ignored \\\"-Wunreachable-code\\\"\")" */
-/* # define __unreachable_ok_pop  	 _Pragma("clang diagnostic pop") ### string, not number "_Pragma(\"clang diagnostic pop\")" */
-enum { __has_safe_buffers = 0 };
-enum { __unsafe_buffer_usage = 1 };
-enum { __unsafe_buffer_usage_begin = 1 };
-enum { __unsafe_buffer_usage_end = 1 };
-enum { __DARWIN_ONLY_64_BIT_INO_T = 0 };
-enum { __DARWIN_ONLY_UNIX_CONFORMANCE = 1 };
-enum { __DARWIN_ONLY_VERS_1050 = 0 };
-enum { __DARWIN_UNIX03 = 1 };
-enum { __DARWIN_64_BIT_INO_T = 1 };
-enum { __DARWIN_VERS_1050 = 1 };
-enum { __DARWIN_NON_CANCELABLE = 0 };
-enum { __DARWIN_SUF_UNIX03 = 1 };
-/* #      define __DARWIN_SUF_64_BIT_INO_T "$INODE64" ### string, not number "\"$INODE64\"" */
-/* #      define __DARWIN_SUF_1050         "$1050" ### string, not number "\"$1050\"" */
-enum { __DARWIN_SUF_NON_CANCELABLE = 1 };
-/* #define __DARWIN_SUF_EXTSN              "$DARWIN_EXTSN" ### string, not number "\"$DARWIN_EXTSN\"" */
-/* +++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_symbol_aliasing.h */
-/* +++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_symbol_aliasing.h */
-/* +++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_posix_availability.h */
-enum { ___POSIX_C_DEPRECATED_STARTING_198808L = 1 };
-enum { ___POSIX_C_DEPRECATED_STARTING_199009L = 1 };
-enum { ___POSIX_C_DEPRECATED_STARTING_199209L = 1 };
-enum { ___POSIX_C_DEPRECATED_STARTING_199309L = 1 };
-enum { ___POSIX_C_DEPRECATED_STARTING_199506L = 1 };
-enum { ___POSIX_C_DEPRECATED_STARTING_200112L = 1 };
-enum { ___POSIX_C_DEPRECATED_STARTING_200809L = 1 };
-/* +++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_posix_availability.h */
-enum { __DARWIN_C_ANSI = 4096 };
-enum { __DARWIN_C_FULL = 900000 };
-enum { __DARWIN_C_LEVEL = 900000 };
-enum { __STDC_WANT_LIB_EXT1__ = 1 };
-enum { __DARWIN_NO_LONG_LONG = 0 };
-enum { _DARWIN_FEATURE_64_BIT_INODE = 1 };
-enum { _DARWIN_FEATURE_ONLY_UNIX_CONFORMANCE = 1 };
-enum { _DARWIN_FEATURE_UNIX_CONFORMANCE = 3 };
-/* #define __XNU_PRIVATE_EXTERN __attribute__((visibility("hidden"))) ### string, not number "__attribute__((visibility(\"hidden\")))" */
-enum { __has_ptrcheck = 0 };
-enum { __single = 1 };
-enum { __unsafe_indexable = 1 };
-enum { __null_terminated = 1 };
-enum { __array_decay_dicards_count_in_parameters = 1 };
-enum { __unsafe_late_const = 1 };
-enum { __ptrcheck_unavailable = 1 };
-/* #define __ASSUME_PTR_ABI_SINGLE_BEGIN       __ptrcheck_abi_assume_single() ### string, not number "__ptrcheck_abi_assume_single()" */
-/* #define __ASSUME_PTR_ABI_SINGLE_END         __ptrcheck_abi_assume_unsafe_indexable() ### string, not number "__ptrcheck_abi_assume_unsafe_indexable()" */
-enum { __header_indexable = 1 };
-enum { __header_bidi_indexable = 1 };
-enum { __enum_open = 1 };
-enum { __enum_closed = 1 };
-enum { __enum_options = 1 };
-enum { __kernel_ptr_semantics = 1 };
-enum { __kernel_data_semantics = 1 };
-enum { __kernel_dual_semantics = 1 };
-enum { __xnu_data_size = 1 };
-enum { __xnu_returns_data_pointer = 1 };
-/* ++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h */
-/* manually commented out: enum { complex = 0 }; */
-/* #define _Complex_I (__extension__ 1.0iF) ### string, not number "(__extension__ 1.0iF)" */
-/* #define I _Complex_I ### string, not number "_Complex_I" */
+/* + BEGIN <complex.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/complex.h */
+/* ++ BEGIN <sys/cdefs.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h */
+]] require 'ffi.req' 'c.sys.cdefs' ffi.cdef[[
+/* ++ END <sys/cdefs.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h */
 extern float _Complex cacosf(float _Complex);
 extern double _Complex cacos(double _Complex);
 extern long double _Complex cacosl(long double _Complex);
@@ -164,5 +70,12 @@ extern long double _Complex cprojl(long double _Complex);
 extern float crealf(float _Complex);
 extern double creal(double _Complex);
 extern long double creall(long double _Complex);
-/* + END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/complex.h */
+/* + END <complex.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/complex.h */
+enum { __COMPLEX_H__ = 1 };
+/* #define complex _Complex ### define is not number */
+/* #define _Complex_I (__extension__ 1.0iF) ### define is not number */
+/* #define I _Complex_I ### define is not number */
+/* #define CMPLX (__real,__imag) _Pragma("clang diagnostic push") _Pragma("clang diagnostic ignored \"-Wcomplex-component-init\"") (double _Complex){(__real),(__imag)} _Pragma("clang diagnostic pop") ### define is not number */
+/* #define CMPLXF (__real,__imag) _Pragma("clang diagnostic push") _Pragma("clang diagnostic ignored \"-Wcomplex-component-init\"") (float _Complex){(__real),(__imag)} _Pragma("clang diagnostic pop") ### define is not number */
+/* #define CMPLXL (__real,__imag) _Pragma("clang diagnostic push") _Pragma("clang diagnostic ignored \"-Wcomplex-component-init\"") (long double _Complex){(__real),(__imag)} _Pragma("clang diagnostic pop") ### define is not number */
 ]]

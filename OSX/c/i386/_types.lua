@@ -1,6 +1,6 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* + BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/i386/_types.h */
+/* + BEGIN <i386/_types.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/i386/_types.h */
 typedef __signed char __int8_t;
 typedef unsigned char __uint8_t;
 typedef short __int16_t;
@@ -13,8 +13,8 @@ typedef long __darwin_intptr_t;
 typedef unsigned int __darwin_natural_t;
 typedef int __darwin_ct_rune_t;
 typedef union {
-	char __mbstate8[128];
-	long long _mbstateL;
+ char __mbstate8[128];
+ long long _mbstateL;
 } __mbstate_t;
 typedef __mbstate_t __darwin_mbstate_t;
 typedef long int __darwin_ptrdiff_t;
@@ -27,5 +27,6 @@ typedef unsigned long __darwin_clock_t;
 typedef __uint32_t __darwin_socklen_t;
 typedef long __darwin_ssize_t;
 typedef long __darwin_time_t;
-/* + END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/i386/_types.h */
+/* + END <i386/_types.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/i386/_types.h */
+enum { _BSD_I386__TYPES_H_ = 1 };
 ]]
