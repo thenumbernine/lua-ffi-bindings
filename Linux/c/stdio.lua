@@ -271,6 +271,7 @@ enum { FOPEN_MAX = 16 };
 /* #define stdout stdout ### define is not number */
 /* #define stderr stderr ### define is not number */
 /* #define __attr_dealloc_fclose __attr_dealloc (fclose, 1) ### define is not number */
+enum { FILENAME_MAX = 4096 };
 ]]
 -- special case since in the browser app where I'm capturing fopen for remote requests and caching
 -- feel free to not use the returend table and just use ffi.C for faster access
