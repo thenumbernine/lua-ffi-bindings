@@ -24,11 +24,11 @@ ffi.cdef[[
 int mlockall(int);
 int munlockall(void);
 int mlock(const void *, size_t);
-void * mmap(void *, size_t, int, int, int, off_t) __asm("_""mmap");
-int mprotect(void *, size_t, int) __asm("_""mprotect");
-int msync(void *, size_t, int) __asm("_""msync");
+void * mmap(void *, size_t, int, int, int, off_t) __asm("_mmap" );
+int mprotect(void *, size_t, int) __asm("_mprotect" );
+int msync(void *, size_t, int) __asm("_msync" );
 int munlock(const void *, size_t);
-int munmap(void *, size_t) __asm("_""munmap");
+int munmap(void *, size_t) __asm("_munmap" );
 int shm_open(const char *, int, ...);
 int shm_unlink(const char *);
 int posix_madvise(void *, size_t, int);

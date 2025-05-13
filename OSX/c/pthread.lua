@@ -107,22 +107,22 @@ int pthread_attr_setscope(pthread_attr_t *, int);
 int pthread_attr_setstack(pthread_attr_t *, void *, size_t);
 int pthread_attr_setstackaddr(pthread_attr_t *, void *);
 int pthread_attr_setstacksize(pthread_attr_t *, size_t);
-int pthread_cancel(pthread_t) __asm("_""pthread_cancel");
+int pthread_cancel(pthread_t) __asm("_pthread_cancel" );
 int pthread_cond_broadcast(pthread_cond_t *);
 int pthread_cond_destroy(pthread_cond_t *);
 int pthread_cond_init(
   pthread_cond_t * restrict,
   const pthread_condattr_t * restrict)
-  __asm("_""pthread_cond_init");
+  __asm("_pthread_cond_init" );
 int pthread_cond_signal(pthread_cond_t *);
 __attribute__((__swift_attr__("@_unavailableFromAsync(message: \"" "Use an asynchronous wait instead of a synchronous wait" "\")")))
 int pthread_cond_timedwait(
   pthread_cond_t * restrict, pthread_mutex_t * restrict,
   const struct timespec * restrict)
-  __asm("_""pthread_cond_timedwait");
+  __asm("_pthread_cond_timedwait" );
 __attribute__((__swift_attr__("@_unavailableFromAsync(message: \"" "Use an asynchronous wait instead of a synchronous wait" "\")")))
 int pthread_cond_wait(pthread_cond_t * restrict,
-  pthread_mutex_t * restrict) __asm("_""pthread_cond_wait");
+  pthread_mutex_t * restrict) __asm("_pthread_cond_wait" );
 int pthread_condattr_destroy(pthread_condattr_t *);
 int pthread_condattr_init(pthread_condattr_t *);
 int pthread_condattr_getpshared(const pthread_condattr_t * restrict,
@@ -143,7 +143,7 @@ __attribute__((__swift_attr__("@_unavailableFromAsync(message: \"" "Use Task Loc
 void* pthread_getspecific(pthread_key_t);
 __attribute__((__swift_attr__("@_unavailableFromAsync(message: \"" "Use an asynchronous wait instead of a synchronous wait" "\")")))
 int pthread_join(pthread_t , void * * )
-  __asm("_""pthread_join");
+  __asm("_pthread_join" );
 int pthread_key_create(pthread_key_t *, void (* )(void *));
 int pthread_key_delete(pthread_key_t);
 int pthread_mutex_destroy(pthread_mutex_t *);
@@ -159,7 +159,7 @@ __attribute__((__swift_attr__("@_unavailableFromAsync(message: \"" "Use OSAlloca
 int pthread_mutex_trylock(pthread_mutex_t *);
 __attribute__((__swift_attr__("@_unavailableFromAsync(message: \"" "Use OSAllocatedUnfairLock's withLock or NSLock for async-safe scoped locking" "\")")))
 int pthread_mutex_unlock(pthread_mutex_t *);
-int pthread_mutexattr_destroy(pthread_mutexattr_t *) __asm("_""pthread_mutexattr_destroy");
+int pthread_mutexattr_destroy(pthread_mutexattr_t *) __asm("_pthread_mutexattr_destroy" );
 int pthread_mutexattr_getprioceiling(const pthread_mutexattr_t * restrict,
   int * restrict);
 int pthread_mutexattr_getprotocol(const pthread_mutexattr_t * restrict,
@@ -177,20 +177,20 @@ int pthread_mutexattr_setpshared(pthread_mutexattr_t *, int);
 int pthread_mutexattr_settype(pthread_mutexattr_t *, int);
 int pthread_mutexattr_setpolicy_np(pthread_mutexattr_t *, int);
 int pthread_once(pthread_once_t *, void (* )(void));
-int pthread_rwlock_destroy(pthread_rwlock_t * ) __asm("_""pthread_rwlock_destroy");
+int pthread_rwlock_destroy(pthread_rwlock_t * ) __asm("_pthread_rwlock_destroy" );
 int pthread_rwlock_init(pthread_rwlock_t * restrict,
   const pthread_rwlockattr_t * restrict)
-  __asm("_""pthread_rwlock_init");
+  __asm("_pthread_rwlock_init" );
 __attribute__((__swift_attr__("@_unavailableFromAsync(message: \"" "Use async-safe scoped locking instead" "\")")))
-int pthread_rwlock_rdlock(pthread_rwlock_t *) __asm("_""pthread_rwlock_rdlock");
+int pthread_rwlock_rdlock(pthread_rwlock_t *) __asm("_pthread_rwlock_rdlock" );
 __attribute__((__swift_attr__("@_unavailableFromAsync(message: \"" "Use async-safe scoped locking instead" "\")")))
-int pthread_rwlock_tryrdlock(pthread_rwlock_t *) __asm("_""pthread_rwlock_tryrdlock");
+int pthread_rwlock_tryrdlock(pthread_rwlock_t *) __asm("_pthread_rwlock_tryrdlock" );
 __attribute__((__swift_attr__("@_unavailableFromAsync(message: \"" "Use async-safe scoped locking instead" "\")")))
-int pthread_rwlock_trywrlock(pthread_rwlock_t *) __asm("_""pthread_rwlock_trywrlock");
+int pthread_rwlock_trywrlock(pthread_rwlock_t *) __asm("_pthread_rwlock_trywrlock" );
 __attribute__((__swift_attr__("@_unavailableFromAsync(message: \"" "Use async-safe scoped locking instead" "\")")))
-int pthread_rwlock_wrlock(pthread_rwlock_t *) __asm("_""pthread_rwlock_wrlock");
+int pthread_rwlock_wrlock(pthread_rwlock_t *) __asm("_pthread_rwlock_wrlock" );
 __attribute__((__swift_attr__("@_unavailableFromAsync(message: \"" "Use async-safe scoped locking instead" "\")")))
-int pthread_rwlock_unlock(pthread_rwlock_t *) __asm("_""pthread_rwlock_unlock");
+int pthread_rwlock_unlock(pthread_rwlock_t *) __asm("_pthread_rwlock_unlock" );
 int pthread_rwlockattr_destroy(pthread_rwlockattr_t *);
 int pthread_rwlockattr_getpshared(const pthread_rwlockattr_t * restrict,
   int * restrict);
@@ -199,16 +199,16 @@ int pthread_rwlockattr_setpshared(pthread_rwlockattr_t *, int);
 pthread_t pthread_self(void);
 __attribute__((__swift_attr__("@_unavailableFromAsync(message: \"" "Use Task cancellation instead" "\")")))
 int pthread_setcancelstate(int , int * )
-  __asm("_""pthread_setcancelstate");
+  __asm("_pthread_setcancelstate" );
 __attribute__((__swift_attr__("@_unavailableFromAsync(message: \"" "Use Task cancellation instead" "\")")))
 int pthread_setcanceltype(int , int * )
-  __asm("_""pthread_setcanceltype");
+  __asm("_pthread_setcanceltype" );
 int pthread_setconcurrency(int);
 int pthread_setschedparam(pthread_t, int, const struct sched_param *);
 __attribute__((__swift_attr__("@_unavailableFromAsync(message: \"" "Use Task Local Values instead" "\")")))
 int pthread_setspecific(pthread_key_t , const void * );
 __attribute__((__swift_attr__("@_unavailableFromAsync(message: \"" "Use Task cancellation instead" "\")")))
-void pthread_testcancel(void) __asm("_""pthread_testcancel");
+void pthread_testcancel(void) __asm("_pthread_testcancel" );
 int pthread_is_threaded_np(void);
 int pthread_threadid_np(pthread_t ,__uint64_t* );
 int pthread_getname_np(pthread_t,char*,size_t);
@@ -228,7 +228,7 @@ int pthread_create_suspended_np(
 int pthread_kill(pthread_t, int);
           pthread_t pthread_from_mach_thread_np(mach_port_t);
 int pthread_sigmask(int, const sigset_t * , sigset_t * )
-  __asm("_""pthread_sigmask");
+  __asm("_pthread_sigmask" );
 __attribute__((__swift_attr__("@_unavailableFromAsync(message: \"" "Use Task.yield(), or await a condition instead of spinning" "\")")))
 void pthread_yield_np(void);
 void pthread_jit_write_protect_np(int enabled);

@@ -156,7 +156,7 @@ int wcscoll(const wchar_t *, const wchar_t *);
 wchar_t *wcscpy(wchar_t * restrict, const wchar_t * restrict);
 size_t wcscspn(const wchar_t *, const wchar_t *);
 size_t wcsftime(wchar_t * restrict, size_t, const wchar_t * restrict,
-     const struct tm * restrict) __asm("_""wcsftime");
+     const struct tm * restrict) __asm("_wcsftime" );
 size_t wcslen(const wchar_t *);
 wchar_t *wcsncat(wchar_t * restrict, const wchar_t * restrict, size_t);
 int wcsncmp(const wchar_t *, const wchar_t *, size_t);

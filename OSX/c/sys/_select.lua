@@ -12,7 +12,7 @@ ffi.cdef[[
 /* ++ END <sys/_types/_timeval.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_timeval.h */
 int select(int, fd_set * restrict, fd_set * restrict,
     fd_set * restrict, struct timeval * restrict)
-__asm("_""select""$1050")
+__asm("_select$1050")
 ;
 /* + END <sys/_select.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_select.h */
 ]]
