@@ -83,7 +83,7 @@ extern long double creall (long double _Complex __z) __attribute__ ((__nothrow__
 /* ++ END <bits/cmathcalls.h> /usr/include/x86_64-linux-gnu/bits/cmathcalls.h */
 /* #define complex _Complex ### define is not number */
 /* #define _Complex_I (__extension__ 1.0iF) ### define is not number */
-/* #define I _Complex_I ### define is not number */
+/* #define I (__extension__ 1.0iF) ### define is not number */
 /* #define CMPLX (x,y) __builtin_complex ((double) (x), (double) (y)) ### define is not number */
 /* #define CMPLXF (x,y) __builtin_complex ((float) (x), (float) (y)) ### define is not number */
 /* #define CMPLXL (x,y) __builtin_complex ((long double) (x), (long double) (y)) ### define is not number */

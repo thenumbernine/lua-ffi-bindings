@@ -37,6 +37,7 @@ extern int lockf (int __fd, int __cmd, off_t __len);
 extern int posix_fadvise (int __fd, off_t __offset, off_t __len,
      int __advise) __attribute__ ((__nothrow__ , __leaf__));
 extern int posix_fallocate (int __fd, off_t __offset, off_t __len);
+enum { __O_LARGEFILE = 0 };
 enum { F_GETLK64 = 5 };
 enum { F_SETLK64 = 6 };
 enum { F_SETLKW64 = 7 };
@@ -50,9 +51,9 @@ enum { O_NOCTTY = 0400 };
 enum { O_TRUNC = 01000 };
 enum { O_APPEND = 02000 };
 enum { O_NONBLOCK = 04000 };
-/* #define O_NDELAY O_NONBLOCK ### define is not number */
+enum { O_NDELAY = 04000 };
 enum { O_SYNC = 04010000 };
-/* #define O_FSYNC O_SYNC ### define is not number */
+enum { O_FSYNC = 04010000 };
 enum { O_ASYNC = 020000 };
 enum { __O_DIRECTORY = 0200000 };
 enum { __O_NOFOLLOW = 0400000 };
@@ -62,14 +63,14 @@ enum { __O_NOATIME = 01000000 };
 enum { __O_PATH = 010000000 };
 enum { __O_DSYNC = 010000 };
 /* #define __O_TMPFILE (020000000 | __O_DIRECTORY) ### define is not number */
-/* #define F_GETLK F_GETLK64 ### define is not number */
-/* #define F_SETLK F_SETLK64 ### define is not number */
-/* #define F_SETLKW F_SETLKW64 ### define is not number */
-/* #define O_DIRECTORY __O_DIRECTORY ### define is not number */
-/* #define O_NOFOLLOW __O_NOFOLLOW ### define is not number */
-/* #define O_CLOEXEC __O_CLOEXEC ### define is not number */
-/* #define O_DSYNC __O_DSYNC ### define is not number */
-/* #define O_RSYNC O_SYNC ### define is not number */
+enum { F_GETLK = 5 };
+enum { F_SETLK = 6 };
+enum { F_SETLKW = 7 };
+enum { O_DIRECTORY = 0200000 };
+enum { O_NOFOLLOW = 0400000 };
+enum { O_CLOEXEC = 02000000 };
+enum { O_DSYNC = 010000 };
+enum { O_RSYNC = 04010000 };
 enum { F_DUPFD = 0 };
 enum { F_GETFD = 1 };
 enum { F_SETFD = 2 };
@@ -77,8 +78,8 @@ enum { F_GETFL = 3 };
 enum { F_SETFL = 4 };
 enum { __F_SETOWN = 8 };
 enum { __F_GETOWN = 9 };
-/* #define F_SETOWN __F_SETOWN ### define is not number */
-/* #define F_GETOWN __F_GETOWN ### define is not number */
+enum { F_SETOWN = 8 };
+enum { F_GETOWN = 9 };
 enum { __F_SETSIG = 10 };
 enum { __F_GETSIG = 11 };
 enum { __F_SETOWN_EX = 15 };
@@ -94,34 +95,21 @@ enum { LOCK_SH = 1 };
 enum { LOCK_EX = 2 };
 enum { LOCK_NB = 4 };
 enum { LOCK_UN = 8 };
-/* #define FAPPEND O_APPEND ### define is not number */
-/* #define FFSYNC O_FSYNC ### define is not number */
-/* #define FASYNC O_ASYNC ### define is not number */
-/* #define FNONBLOCK O_NONBLOCK ### define is not number */
-/* #define FNDELAY O_NDELAY ### define is not number */
+enum { FAPPEND = 02000 };
+enum { FFSYNC = 04010000 };
+enum { FASYNC = 020000 };
+enum { FNONBLOCK = 04000 };
+enum { FNDELAY = 04000 };
 enum { __POSIX_FADV_DONTNEED = 4 };
 enum { __POSIX_FADV_NOREUSE = 5 };
 enum { POSIX_FADV_NORMAL = 0 };
 enum { POSIX_FADV_RANDOM = 1 };
 enum { POSIX_FADV_SEQUENTIAL = 2 };
 enum { POSIX_FADV_WILLNEED = 3 };
-/* #define POSIX_FADV_DONTNEED __POSIX_FADV_DONTNEED ### define is not number */
-/* #define POSIX_FADV_NOREUSE __POSIX_FADV_NOREUSE ### define is not number */
+enum { POSIX_FADV_DONTNEED = 4 };
+enum { POSIX_FADV_NOREUSE = 5 };
 /* #define __OPEN_NEEDS_MODE (oflag) (((oflag) & O_CREAT) != 0 || ((oflag) & __O_TMPFILE) == __O_TMPFILE) ### define is not number */
-/* #define S_IFMT __S_IFMT ### define is not number */
-/* #define S_IFDIR __S_IFDIR ### define is not number */
-/* #define S_IFCHR __S_IFCHR ### define is not number */
-/* #define S_IFBLK __S_IFBLK ### define is not number */
-/* #define S_IFREG __S_IFREG ### define is not number */
-/* #define S_IFIFO __S_IFIFO ### define is not number */
-/* #define S_IFLNK __S_IFLNK ### define is not number */
-/* #define S_IFSOCK __S_IFSOCK ### define is not number */
-/* #define S_ISUID __S_ISUID ### define is not number */
-/* #define S_ISGID __S_ISGID ### define is not number */
-/* #define S_ISVTX __S_ISVTX ### define is not number */
-/* #define S_IRUSR __S_IREAD ### define is not number */
-/* #define S_IWUSR __S_IWRITE ### define is not number */
-/* #define S_IXUSR __S_IEXEC ### define is not number */
+]] require 'ffi.req' 'c.sys.stat' ffi.cdef[[
 /* #define S_IRWXU (__S_IREAD|__S_IWRITE|__S_IEXEC) ### define is not number */
 /* #define S_IRGRP (S_IRUSR >> 3) ### define is not number */
 /* #define S_IWGRP (S_IWUSR >> 3) ### define is not number */

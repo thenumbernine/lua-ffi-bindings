@@ -216,11 +216,10 @@ extern wint_t ungetwc (wint_t __wc, __FILE *__stream);
 extern size_t wcsftime (wchar_t *__restrict __s, size_t __maxsize,
    const wchar_t *__restrict __format,
    const struct tm *__restrict __tp) __attribute__ ((__nothrow__ , __leaf__));
-/* #define __WCHAR_MAX __WCHAR_MAX__ ### define is not number */
-/* #define __WCHAR_MIN __WCHAR_MIN__ ### define is not number */
+/* #define __WCHAR_MIN (-__WCHAR_MAX__ - 1) ### define is not number */
 enum { _WINT_T = 1 };
-/* #define WCHAR_MIN __WCHAR_MIN ### define is not number */
-/* #define WCHAR_MAX __WCHAR_MAX ### define is not number */
+/* #define WCHAR_MIN (-__WCHAR_MAX__ - 1) ### define is not number */
 /* #define WEOF (0xffffffffu) ### define is not number */
+enum { __attr_dealloc_fclose = 1 };
 /* + END <wchar.h> /usr/include/wchar.h */
 ]]

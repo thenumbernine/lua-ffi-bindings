@@ -486,16 +486,20 @@ enum { SIGPROF = 27 };
 enum { SIGUSR1 = 10 };
 enum { SIGUSR2 = 12 };
 enum { SIGWINCH = 28 };
-/* #define SIGIO SIGPOLL ### define is not number */
-/* #define SIGIOT SIGABRT ### define is not number */
-/* #define SIGCLD SIGCHLD ### define is not number */
+enum { SIGIO = 29 };
+enum { SIGIOT = 6 };
+enum { SIGCLD = 17 };
 enum { __SIGRTMIN = 32 };
 enum { __SIGRTMAX = 64 };
 /* #define _NSIG (__SIGRTMAX + 1) ### define is not number */
 enum { __SI_MAX_SIZE = 128 };
 /* #define __SI_PAD_SIZE ((__SI_MAX_SIZE / sizeof (int)) - 4) ### define is not number */
+enum { __SI_ALIGNMENT = 1 };
 /* #define __SI_BAND_TYPE long int ### define is not number */
 /* #define __SI_CLOCK_T __clock_t ### define is not number */
+enum { __SI_ERRNO_THEN_CODE = 1 };
+enum { __SI_HAVE_SIGSYS = 1 };
+enum { __SI_SIGFAULT_ADDL = 1 };
 /* #define si_pid _sifields._kill.si_pid ### define is not number */
 /* #define si_uid _sifields._kill.si_uid ### define is not number */
 /* #define si_timerid _sifields._timer.si_tid ### define is not number */
@@ -516,6 +520,7 @@ enum { __SI_MAX_SIZE = 128 };
 /* #define si_call_addr _sifields._sigsys._call_addr ### define is not number */
 /* #define si_syscall _sifields._sigsys._syscall ### define is not number */
 /* #define si_arch _sifields._sigsys._arch ### define is not number */
+enum { __SI_ASYNCIO_AFTER_SIGIO = 1 };
 /* #define SI_ASYNCNL SI_ASYNCNL ### define is not number */
 /* #define SI_DETHREAD SI_DETHREAD ### define is not number */
 /* #define SI_TKILL SI_TKILL ### define is not number */
@@ -581,7 +586,7 @@ enum { __SIGEV_MAX_SIZE = 64 };
 /* #define SIGEV_THREAD SIGEV_THREAD ### define is not number */
 /* #define SIGEV_THREAD_ID SIGEV_THREAD_ID ### define is not number */
 /* #define sigmask (sig) __glibc_macro_warning ("sigmask is deprecated") ((int)(1u << ((sig) - 1))) ### define is not number */
-/* #define NSIG _NSIG ### define is not number */
+/* #define NSIG (__SIGRTMAX + 1) ### define is not number */
 /* #define sa_handler __sigaction_handler.sa_handler ### define is not number */
 /* #define sa_sigaction __sigaction_handler.sa_sigaction ### define is not number */
 enum { SA_NOCLDSTOP = 1 };
@@ -592,9 +597,9 @@ enum { SA_RESTART = 0x10000000 };
 enum { SA_NODEFER = 0x40000000 };
 enum { SA_RESETHAND = 0x80000000 };
 enum { SA_INTERRUPT = 0x20000000 };
-/* #define SA_NOMASK SA_NODEFER ### define is not number */
-/* #define SA_ONESHOT SA_RESETHAND ### define is not number */
-/* #define SA_STACK SA_ONSTACK ### define is not number */
+enum { SA_NOMASK = 0x40000000 };
+enum { SA_ONESHOT = 0x80000000 };
+enum { SA_STACK = 0x08000000 };
 enum { SIG_BLOCK = 0 };
 enum { SIG_UNBLOCK = 1 };
 enum { SIG_SETMASK = 2 };
@@ -602,7 +607,7 @@ enum { FP_XSTATE_MAGIC1 = 0x46505853 };
 enum { FP_XSTATE_MAGIC2 = 0x46505845 };
 /* #define FP_XSTATE_MAGIC2_SIZE sizeof (FP_XSTATE_MAGIC2) ### define is not number */
 enum { __NGREG = 23 };
-/* #define NGREG __NGREG ### define is not number */
+enum { NGREG = 23 };
 enum { MINSIGSTKSZ = 2048 };
 enum { SIGSTKSZ = 8192 };
 /* #define SS_ONSTACK SS_ONSTACK ### define is not number */

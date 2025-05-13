@@ -35,8 +35,7 @@ typedef unsigned long int uintptr_t;
 typedef __intmax_t intmax_t;
 typedef __uintmax_t uintmax_t;
 /* ++ END <stdint.h> /usr/include/stdint.h */
-/* #define __WCHAR_MAX __WCHAR_MAX__ ### define is not number */
-/* #define __WCHAR_MIN __WCHAR_MIN__ ### define is not number */
+/* #define __WCHAR_MIN (-__WCHAR_MAX__ - 1) ### define is not number */
 /* #define __INT64_C (c) c ## L ### define is not number */
 /* #define __UINT64_C (c) c ## UL ### define is not number */
 /* #define INT8_MIN (-128) ### define is not number */
@@ -86,8 +85,7 @@ typedef __uintmax_t uintmax_t;
 /* #define SIG_ATOMIC_MIN (-2147483647-1) ### define is not number */
 /* #define SIG_ATOMIC_MAX (2147483647) ### define is not number */
 /* #define SIZE_MAX (18446744073709551615UL) ### define is not number */
-/* #define WCHAR_MIN __WCHAR_MIN ### define is not number */
-/* #define WCHAR_MAX __WCHAR_MAX ### define is not number */
+/* #define WCHAR_MIN (-__WCHAR_MAX__ - 1) ### define is not number */
 /* #define WINT_MIN (0u) ### define is not number */
 /* #define WINT_MAX (4294967295u) ### define is not number */
 /* #define INT8_C (c) c ### define is not number */

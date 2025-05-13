@@ -83,6 +83,6 @@ enum { _DIRENT_MATCHES_DIRENT64 = 1 };
 /* #define DT_WHT DT_WHT ### define is not number */
 /* #define IFTODT (mode) (((mode) & 0170000) >> 12) ### define is not number */
 /* #define DTTOIF (dirtype) ((dirtype) << 12) ### define is not number */
-/* #define MAXNAMLEN NAME_MAX ### define is not number */
+enum { MAXNAMLEN = 255 };
 /* + END <dirent.h> /usr/include/dirent.h */
 ]]

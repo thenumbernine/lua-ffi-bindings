@@ -45,8 +45,8 @@ extern int pselect (int __nfds, fd_set *__restrict __readfds,
 /* #define __FD_ELT (d) ((d) / __NFDBITS) ### define is not number */
 /* #define __FD_MASK (d) ((__fd_mask) (1UL << ((d) % __NFDBITS))) ### define is not number */
 /* #define __FDS_BITS (set) ((set)->__fds_bits) ### define is not number */
-/* #define FD_SETSIZE __FD_SETSIZE ### define is not number */
-/* #define NFDBITS __NFDBITS ### define is not number */
+enum { FD_SETSIZE = 1024 };
+/* #define NFDBITS (8 * (int) sizeof (__fd_mask)) ### define is not number */
 /* #define FD_SET (fd,fdsetp) __FD_SET (fd, fdsetp) ### define is not number */
 /* #define FD_CLR (fd,fdsetp) __FD_CLR (fd, fdsetp) ### define is not number */
 /* #define FD_ISSET (fd,fdsetp) __FD_ISSET (fd, fdsetp) ### define is not number */

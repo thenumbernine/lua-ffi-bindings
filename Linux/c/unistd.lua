@@ -509,12 +509,12 @@ int getentropy (void *__buffer, size_t __length)
 /* ++ END <bits/unistd_ext.h> /usr/include/x86_64-linux-gnu/bits/unistd_ext.h */
 enum { _POSIX_VERSION = 200809 };
 enum { __POSIX2_THIS_VERSION = 200809 };
-/* #define _POSIX2_VERSION __POSIX2_THIS_VERSION ### define is not number */
-/* #define _POSIX2_C_VERSION __POSIX2_THIS_VERSION ### define is not number */
-/* #define _POSIX2_C_BIND __POSIX2_THIS_VERSION ### define is not number */
-/* #define _POSIX2_C_DEV __POSIX2_THIS_VERSION ### define is not number */
-/* #define _POSIX2_SW_DEV __POSIX2_THIS_VERSION ### define is not number */
-/* #define _POSIX2_LOCALEDEF __POSIX2_THIS_VERSION ### define is not number */
+enum { _POSIX2_VERSION = 200809 };
+enum { _POSIX2_C_VERSION = 200809 };
+enum { _POSIX2_C_BIND = 200809 };
+enum { _POSIX2_C_DEV = 200809 };
+enum { _POSIX2_SW_DEV = 200809 };
+enum { _POSIX2_LOCALEDEF = 200809 };
 enum { _XOPEN_VERSION = 700 };
 enum { _XOPEN_XCU_VERSION = 4 };
 enum { _XOPEN_XPG2 = 1 };
@@ -600,9 +600,9 @@ enum { STDIN_FILENO = 0 };
 enum { STDOUT_FILENO = 1 };
 enum { STDERR_FILENO = 2 };
 ]] require 'ffi.req' 'c.bits.types.SEEK' ffi.cdef[[
-/* #define L_SET SEEK_SET ### define is not number */
-/* #define L_INCR SEEK_CUR ### define is not number */
-/* #define L_XTND SEEK_END ### define is not number */
+enum { L_SET = 0 };
+enum { L_INCR = 1 };
+enum { L_XTND = 2 };
 /* #define _PC_LINK_MAX _PC_LINK_MAX ### define is not number */
 /* #define _PC_MAX_CANON _PC_MAX_CANON ### define is not number */
 /* #define _PC_MAX_INPUT _PC_MAX_INPUT ### define is not number */

@@ -54,14 +54,14 @@ extern int utimensat (int __fd, const char *__path,
         int __flags)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
 extern int futimens (int __fd, const struct timespec __times[2]) __attribute__ ((__nothrow__ , __leaf__));
-/* #define S_IFMT __S_IFMT ### define is not number */
-/* #define S_IFDIR __S_IFDIR ### define is not number */
-/* #define S_IFCHR __S_IFCHR ### define is not number */
-/* #define S_IFBLK __S_IFBLK ### define is not number */
-/* #define S_IFREG __S_IFREG ### define is not number */
-/* #define S_IFIFO __S_IFIFO ### define is not number */
-/* #define S_IFLNK __S_IFLNK ### define is not number */
-/* #define S_IFSOCK __S_IFSOCK ### define is not number */
+enum { S_IFMT = 0170000 };
+enum { S_IFDIR = 0040000 };
+enum { S_IFCHR = 0020000 };
+enum { S_IFBLK = 0060000 };
+enum { S_IFREG = 0100000 };
+enum { S_IFIFO = 0010000 };
+enum { S_IFLNK = 0120000 };
+enum { S_IFSOCK = 0140000 };
 /* #define __S_ISTYPE (mode,mask) (((mode) & __S_IFMT) == (mask)) ### define is not number */
 /* #define S_ISDIR (mode) __S_ISTYPE((mode), __S_IFDIR) ### define is not number */
 /* #define S_ISCHR (mode) __S_ISTYPE((mode), __S_IFCHR) ### define is not number */
@@ -73,16 +73,16 @@ extern int futimens (int __fd, const struct timespec __times[2]) __attribute__ (
 /* #define S_TYPEISMQ (buf) __S_TYPEISMQ(buf) ### define is not number */
 /* #define S_TYPEISSEM (buf) __S_TYPEISSEM(buf) ### define is not number */
 /* #define S_TYPEISSHM (buf) __S_TYPEISSHM(buf) ### define is not number */
-/* #define S_ISUID __S_ISUID ### define is not number */
-/* #define S_ISGID __S_ISGID ### define is not number */
-/* #define S_ISVTX __S_ISVTX ### define is not number */
-/* #define S_IRUSR __S_IREAD ### define is not number */
-/* #define S_IWUSR __S_IWRITE ### define is not number */
-/* #define S_IXUSR __S_IEXEC ### define is not number */
+enum { S_ISUID = 04000 };
+enum { S_ISGID = 02000 };
+enum { S_ISVTX = 01000 };
+enum { S_IRUSR = 0400 };
+enum { S_IWUSR = 0200 };
+enum { S_IXUSR = 0100 };
 /* #define S_IRWXU (__S_IREAD|__S_IWRITE|__S_IEXEC) ### define is not number */
-/* #define S_IREAD S_IRUSR ### define is not number */
-/* #define S_IWRITE S_IWUSR ### define is not number */
-/* #define S_IEXEC S_IXUSR ### define is not number */
+enum { S_IREAD = 0400 };
+enum { S_IWRITE = 0200 };
+enum { S_IEXEC = 0100 };
 /* #define S_IRGRP (S_IRUSR >> 3) ### define is not number */
 /* #define S_IWGRP (S_IWUSR >> 3) ### define is not number */
 /* #define S_IXGRP (S_IXUSR >> 3) ### define is not number */

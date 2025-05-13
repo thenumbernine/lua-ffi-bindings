@@ -55,7 +55,7 @@ enum { ENOLCK = 37 };
 enum { ENOSYS = 38 };
 enum { ENOTEMPTY = 39 };
 enum { ELOOP = 40 };
-/* #define EWOULDBLOCK EAGAIN ### define is not number */
+enum { EWOULDBLOCK = 11 };
 enum { ENOMSG = 42 };
 enum { EIDRM = 43 };
 enum { ECHRNG = 44 };
@@ -72,7 +72,7 @@ enum { EXFULL = 54 };
 enum { ENOANO = 55 };
 enum { EBADRQC = 56 };
 enum { EBADSLT = 57 };
-/* #define EDEADLOCK EDEADLK ### define is not number */
+enum { EDEADLOCK = 35 };
 enum { EBFONT = 59 };
 enum { ENOSTR = 60 };
 enum { ENODATA = 61 };
@@ -148,7 +148,7 @@ enum { EOWNERDEAD = 130 };
 enum { ENOTRECOVERABLE = 131 };
 enum { ERFKILL = 132 };
 enum { EHWPOISON = 133 };
-/* #define ENOTSUP EOPNOTSUPP ### define is not number */
+enum { ENOTSUP = 95 };
 /* #define errno (*__errno_location ()) ### define is not number */
 /* + END <errno.h> /usr/include/errno.h */
 ]]

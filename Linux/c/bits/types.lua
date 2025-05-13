@@ -91,42 +91,47 @@ typedef int __sig_atomic_t;
 /* #define __ULONG32_TYPE unsigned int ### define is not number */
 /* #define __S64_TYPE long int ### define is not number */
 /* #define __U64_TYPE unsigned long int ### define is not number */
-/* #define __SYSCALL_SLONG_TYPE __SLONGWORD_TYPE ### define is not number */
-/* #define __SYSCALL_ULONG_TYPE __ULONGWORD_TYPE ### define is not number */
-/* #define __DEV_T_TYPE __UQUAD_TYPE ### define is not number */
-/* #define __UID_T_TYPE __U32_TYPE ### define is not number */
-/* #define __GID_T_TYPE __U32_TYPE ### define is not number */
-/* #define __INO_T_TYPE __SYSCALL_ULONG_TYPE ### define is not number */
-/* #define __INO64_T_TYPE __UQUAD_TYPE ### define is not number */
-/* #define __MODE_T_TYPE __U32_TYPE ### define is not number */
-/* #define __NLINK_T_TYPE __SYSCALL_ULONG_TYPE ### define is not number */
-/* #define __FSWORD_T_TYPE __SYSCALL_SLONG_TYPE ### define is not number */
-/* #define __OFF_T_TYPE __SYSCALL_SLONG_TYPE ### define is not number */
-/* #define __OFF64_T_TYPE __SQUAD_TYPE ### define is not number */
-/* #define __PID_T_TYPE __S32_TYPE ### define is not number */
-/* #define __RLIM_T_TYPE __SYSCALL_ULONG_TYPE ### define is not number */
-/* #define __RLIM64_T_TYPE __UQUAD_TYPE ### define is not number */
-/* #define __BLKCNT_T_TYPE __SYSCALL_SLONG_TYPE ### define is not number */
-/* #define __BLKCNT64_T_TYPE __SQUAD_TYPE ### define is not number */
-/* #define __FSBLKCNT_T_TYPE __SYSCALL_ULONG_TYPE ### define is not number */
-/* #define __FSBLKCNT64_T_TYPE __UQUAD_TYPE ### define is not number */
-/* #define __FSFILCNT_T_TYPE __SYSCALL_ULONG_TYPE ### define is not number */
-/* #define __FSFILCNT64_T_TYPE __UQUAD_TYPE ### define is not number */
-/* #define __ID_T_TYPE __U32_TYPE ### define is not number */
-/* #define __CLOCK_T_TYPE __SYSCALL_SLONG_TYPE ### define is not number */
-/* #define __TIME_T_TYPE __SYSCALL_SLONG_TYPE ### define is not number */
-/* #define __USECONDS_T_TYPE __U32_TYPE ### define is not number */
-/* #define __SUSECONDS_T_TYPE __SYSCALL_SLONG_TYPE ### define is not number */
-/* #define __SUSECONDS64_T_TYPE __SQUAD_TYPE ### define is not number */
-/* #define __DADDR_T_TYPE __S32_TYPE ### define is not number */
-/* #define __KEY_T_TYPE __S32_TYPE ### define is not number */
-/* #define __CLOCKID_T_TYPE __S32_TYPE ### define is not number */
+/* #define __SYSCALL_SLONG_TYPE long int ### define is not number */
+/* #define __SYSCALL_ULONG_TYPE unsigned long int ### define is not number */
+/* #define __DEV_T_TYPE unsigned long int ### define is not number */
+/* #define __UID_T_TYPE unsigned int ### define is not number */
+/* #define __GID_T_TYPE unsigned int ### define is not number */
+/* #define __INO_T_TYPE unsigned long int ### define is not number */
+/* #define __INO64_T_TYPE unsigned long int ### define is not number */
+/* #define __MODE_T_TYPE unsigned int ### define is not number */
+/* #define __NLINK_T_TYPE unsigned long int ### define is not number */
+/* #define __FSWORD_T_TYPE long int ### define is not number */
+/* #define __OFF_T_TYPE long int ### define is not number */
+/* #define __OFF64_T_TYPE long int ### define is not number */
+/* #define __PID_T_TYPE int ### define is not number */
+/* #define __RLIM_T_TYPE unsigned long int ### define is not number */
+/* #define __RLIM64_T_TYPE unsigned long int ### define is not number */
+/* #define __BLKCNT_T_TYPE long int ### define is not number */
+/* #define __BLKCNT64_T_TYPE long int ### define is not number */
+/* #define __FSBLKCNT_T_TYPE unsigned long int ### define is not number */
+/* #define __FSBLKCNT64_T_TYPE unsigned long int ### define is not number */
+/* #define __FSFILCNT_T_TYPE unsigned long int ### define is not number */
+/* #define __FSFILCNT64_T_TYPE unsigned long int ### define is not number */
+/* #define __ID_T_TYPE unsigned int ### define is not number */
+/* #define __CLOCK_T_TYPE long int ### define is not number */
+/* #define __TIME_T_TYPE long int ### define is not number */
+/* #define __USECONDS_T_TYPE unsigned int ### define is not number */
+/* #define __SUSECONDS_T_TYPE long int ### define is not number */
+/* #define __SUSECONDS64_T_TYPE long int ### define is not number */
+/* #define __DADDR_T_TYPE int ### define is not number */
+/* #define __KEY_T_TYPE int ### define is not number */
+/* #define __CLOCKID_T_TYPE int ### define is not number */
 /* #define __TIMER_T_TYPE void * ### define is not number */
-/* #define __BLKSIZE_T_TYPE __SYSCALL_SLONG_TYPE ### define is not number */
+/* #define __BLKSIZE_T_TYPE long int ### define is not number */
 /* #define __FSID_T_TYPE struct { int __val[2]; } ### define is not number */
-/* #define __SSIZE_T_TYPE __SWORD_TYPE ### define is not number */
-/* #define __CPU_MASK_TYPE __SYSCALL_ULONG_TYPE ### define is not number */
+/* #define __SSIZE_T_TYPE long int ### define is not number */
+/* #define __CPU_MASK_TYPE unsigned long int ### define is not number */
+enum { __OFF_T_MATCHES_OFF64_T = 1 };
+enum { __INO_T_MATCHES_INO64_T = 1 };
+enum { __RLIM_T_MATCHES_RLIM64_T = 1 };
+enum { __STATFS_MATCHES_STATFS64 = 1 };
+enum { __KERNEL_OLD_TIMEVAL_MATCHES_TIMEVAL64 = 1 };
 enum { __FD_SETSIZE = 1024 };
-/* #define __TIME64_T_TYPE __TIME_T_TYPE ### define is not number */
+/* #define __TIME64_T_TYPE long int ### define is not number */
 /* + END <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
 ]]

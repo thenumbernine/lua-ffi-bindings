@@ -396,6 +396,7 @@ extern int pthread_atfork (void (*__prepare) (void),
 /* #define PTHREAD_CANCELED ((void *) -1) ### define is not number */
 enum { PTHREAD_ONCE_INIT = 0 };
 enum { PTHREAD_BARRIER_SERIAL_THREAD = -1 };
+enum { __cleanup_fct_attribute = 1 };
 /* #define pthread_cleanup_push (routine,arg) do { __pthread_unwind_buf_t __cancel_buf; void (*__cancel_routine) (void *) = (routine); void *__cancel_arg = (arg); int __not_first_call = __sigsetjmp_cancel (__cancel_buf.__cancel_jmp_buf, 0); if (__glibc_unlikely (__not_first_call)) { __cancel_routine (__cancel_arg); __pthread_unwind_next (&__cancel_buf); } __pthread_register_cancel (&__cancel_buf); do { ### define is not number */
 /* #define pthread_cleanup_pop (execute) do { } while (0); } while (0); __pthread_unregister_cancel (&__cancel_buf); if (execute) __cancel_routine (__cancel_arg); } while (0) ### define is not number */
 /* + END <pthread.h> /usr/include/pthread.h */

@@ -9,8 +9,8 @@ ffi.cdef[[
 enum { __LITTLE_ENDIAN = 1234 };
 enum { __BIG_ENDIAN = 4321 };
 enum { __PDP_ENDIAN = 3412 };
-/* #define __BYTE_ORDER __LITTLE_ENDIAN ### define is not number */
-/* #define __FLOAT_WORD_ORDER __BYTE_ORDER ### define is not number */
+enum { __BYTE_ORDER = 1234 };
+enum { __FLOAT_WORD_ORDER = 1234 };
 /* #define __LONG_LONG_PAIR (HI,LO) LO, HI ### define is not number */
 /* + END <bits/endian.h> /usr/include/x86_64-linux-gnu/bits/endian.h */
 ]]

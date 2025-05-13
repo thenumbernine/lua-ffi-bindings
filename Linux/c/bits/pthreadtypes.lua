@@ -139,6 +139,9 @@ enum { __SIZEOF_PTHREAD_COND_T = 48 };
 enum { __SIZEOF_PTHREAD_CONDATTR_T = 4 };
 enum { __SIZEOF_PTHREAD_RWLOCKATTR_T = 8 };
 enum { __SIZEOF_PTHREAD_BARRIERATTR_T = 4 };
+enum { __LOCK_ALIGNMENT = 1 };
+enum { __ONCE_ALIGNMENT = 1 };
+enum { __PTHREAD_MUTEX_HAVE_PREV = 1 };
 /* #define __PTHREAD_MUTEX_INITIALIZER (__kind) 0, 0, 0, 0, __kind, 0, 0, { 0, 0 } ### define is not number */
 /* #define __PTHREAD_RWLOCK_ELISION_EXTRA 0, { 0, 0, 0, 0, 0, 0, 0 } ### define is not number */
 /* #define __PTHREAD_RWLOCK_INITIALIZER (__flags) 0, 0, 0, 0, 0, 0, 0, 0, __PTHREAD_RWLOCK_ELISION_EXTRA, 0, __flags ### define is not number */

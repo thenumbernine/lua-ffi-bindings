@@ -64,7 +64,7 @@ enum { MAP_TYPE = 0x0f };
 enum { MAP_FIXED = 0x10 };
 enum { MAP_FILE = 0 };
 enum { MAP_ANONYMOUS = 0x20 };
-/* #define MAP_ANON MAP_ANONYMOUS ### define is not number */
+enum { MAP_ANON = 0x20 };
 enum { MAP_HUGE_SHIFT = 26 };
 enum { MAP_HUGE_MASK = 0x3f };
 /* #define MAP_HUGE_16KB (14 << MAP_HUGE_SHIFT) ### define is not number */

@@ -301,5 +301,6 @@ enum { EXIT_FAILURE = 1 };
 enum { EXIT_SUCCESS = 0 };
 /* #define MB_CUR_MAX (__ctype_get_mb_cur_max ()) ### define is not number */
 /* #define alloca (size) __builtin_alloca (size) ### define is not number */
+enum { __COMPAR_FN_T = 1 };
 /* + END <stdlib.h> /usr/include/stdlib.h */
 ]]
