@@ -70,3 +70,4 @@ enum { AT_SYMLINK_FOLLOW = 0x400 };
 enum { AT_EACCESS = 0x200 };
 /* + END <fcntl.h> /usr/include/fcntl.h */
 ]]
+return ffi.C
