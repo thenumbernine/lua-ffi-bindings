@@ -107,21 +107,20 @@ wrapper = require 'ffi.libwrapper'{
 		_set_doserrno = [[errno_t _set_doserrno( unsigned long _Value);]],
 		_get_doserrno = [[errno_t _get_doserrno( unsigned long * _Value);]],
 
-		str = function()
-			-- upon errno.str() load, require c.string
-			-- not before to prevent require loops
-			require 'ffi.req' 'c.string'	-- strerror
-			return function()
-				local sp = ffi.C.strerror(wrapper.errno())
-				if sp == nil then return '(null)' end
-				return ffi.string(sp)
-			end
-		end,
 	},
 }
 
 function wrapper.errno()
 	return wrapper._errno()[0]
+end
+
+function wrapper.str()
+	-- upon errno.str() load, require c.string
+	-- not before to prevent require loops
+	require 'ffi.req' 'c.string'	-- strerror
+	local sp = ffi.C.strerror(wrapper.errno())
+	if sp == nil then return '(null)' end
+	return ffi.string(sp)
 end
 
 return wrapper

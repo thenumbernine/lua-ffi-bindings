@@ -121,10 +121,19 @@ enum { EQFULL = 106 };
 enum { ELAST = 106 };
 /* + END <errno.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/errno.h */
 ]]
-return setmetatable({
+local wrapper
+wrapper = setmetatable({
 	errno = function()
 		return ffi.C.__errno_location()[0]
 	end,
+	str = function()
+		require 'ffi.req' 'c.string'	-- strerror
+		local sp = ffi.C.strerror(wrapper.errno())
+		if sp == nil then return '(null)' end
+		return ffi.string(sp)
+	end,
+
 }, {
 	__index = ffi.C,
 })
+return wrapper
