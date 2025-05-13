@@ -71,17 +71,18 @@ int fflush(FILE *);
 int fgetc(FILE *);
 int fgetpos(FILE * restrict, fpos_t *);
 char *fgets(char * restrict, int, FILE *);
-FILE *fopen(const char * restrict __filename, const char * restrict __mode);
+FILE *fopen(const char * restrict __filename, const char * restrict __mode) __asm("_" "fopen" );
 int fprintf(FILE * restrict, const char * restrict, ...) __attribute__((__format__ (__printf__, 2, 3)));
 int fputc(int, FILE *);
-int fputs(const char * restrict, FILE * restrict);
+int fputs(const char * restrict, FILE * restrict) __asm("_" "fputs" );
 size_t fread(void * restrict __ptr, size_t __size, size_t __nitems, FILE * restrict __stream);
-FILE *freopen(const char * restrict, const char * restrict, FILE * restrict);
+FILE *freopen(const char * restrict, const char * restrict,
+     FILE * restrict) __asm("_" "freopen" );
 int fscanf(FILE * restrict, const char * restrict, ...) __attribute__((__format__ (__scanf__, 2, 3)));
 int fseek(FILE *, long, int);
 int fsetpos(FILE *, const fpos_t *);
 long ftell(FILE *);
-size_t fwrite(const void * restrict __ptr, size_t __size, size_t __nitems, FILE * restrict __stream);
+size_t fwrite(const void * restrict __ptr, size_t __size, size_t __nitems, FILE * restrict __stream) __asm("_" "fwrite" );
 int getc(FILE *);
 int getchar(void);
 __attribute__((__deprecated__("This function is provided for compatibility reasons only.  Due to security concerns inherent in the design of gets(3), it is highly recommended that you use fgets(3) instead.")))
@@ -113,13 +114,19 @@ int vsprintf(char * restrict, const char * restrict, va_list) __attribute__((__f
 /* +++ BEGIN <_ctermid.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_ctermid.h */
 ]] require 'ffi.req' 'c._ctermid' ffi.cdef[[
 /* +++ END <_ctermid.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_ctermid.h */
-FILE *fdopen(int, const char *);
+FILE *fdopen(int, const char *) __asm("_" "fdopen" );
 int fileno(FILE *);
 int pclose(FILE *) __attribute__((__availability__(swift, unavailable, message="Use posix_spawn APIs or NSTask instead. (On iOS, process spawning is unavailable.)")));
-FILE *popen(const char *, const char *);
+FILE *popen(const char *, const char *) __asm("_" "popen" ) __attribute__((__availability__(swift, unavailable, message="Use posix_spawn APIs or NSTask instead. (On iOS, process spawning is unavailable.)")));
 int __srget(FILE *);
 int __svfscanf(FILE *, const char *, va_list) __attribute__((__format__ (__scanf__, 2, 0)));
 int __swbuf(int, FILE *);
+inline __attribute__ ((__always_inline__)) int __sputc(int _c, FILE *_p) {
+ if (--_p->_w >= 0 || (_p->_w >= _p->_lbfsize && (char)_c != '\n'))
+  return (*_p->_p++ = _c);
+ else
+  return (__swbuf(_c, _p));
+}
 void flockfile(FILE *);
 int ftrylockfile(FILE *);
 void funlockfile(FILE *);
@@ -131,7 +138,7 @@ int getw(FILE *);
 int putw(int, FILE *);
 __attribute__((__availability__(swift, unavailable, message="Use mkstemp(3) instead.")))
 __attribute__((__deprecated__("This function is provided for compatibility reasons only.  Due to security concerns inherent in the design of tempnam(3), it is highly recommended that you use mkstemp(3) instead.")))
-char *tempnam(const char *__dir, const char *__prefix);
+char *tempnam(const char *__dir, const char *__prefix) __asm("_" "tempnam" );
 /* +++ BEGIN <sys/_types/_off_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_off_t.h */
 ]] require 'ffi.req' 'c.sys._types._off_t' ffi.cdef[[
 /* +++ END <sys/_types/_off_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_off_t.h */
@@ -179,6 +186,65 @@ extern int __vsnprintf_chk (char * restrict, size_t, int, size_t,
        const char * restrict, va_list);
 /* +++ END <secure/_stdio.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/secure/_stdio.h */
 /* ++ END <_stdio.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdio.h */
+/* #define NULL ((void *)0) ### define is not number */
+enum { RENAME_SECLUDE = 0x00000001 };
+enum { RENAME_SWAP = 0x00000002 };
+enum { RENAME_EXCL = 0x00000004 };
+enum { RENAME_RESERVED1 = 0x00000008 };
+enum { RENAME_NOFOLLOW_ANY = 0x00000010 };
+enum { _FSTDIO = 1 };
+]] require 'ffi.req' 'c.bits.types.SEEK' ffi.cdef[[
+enum { __SLBF = 0x0001 };
+enum { __SNBF = 0x0002 };
+enum { __SRD = 0x0004 };
+enum { __SWR = 0x0008 };
+enum { __SRW = 0x0010 };
+enum { __SEOF = 0x0020 };
+enum { __SERR = 0x0040 };
+enum { __SMBF = 0x0080 };
+enum { __SAPP = 0x0100 };
+enum { __SSTR = 0x0200 };
+enum { __SOPT = 0x0400 };
+enum { __SNPT = 0x0800 };
+enum { __SOFF = 0x1000 };
+enum { __SMOD = 0x2000 };
+enum { __SALC = 0x4000 };
+enum { __SIGN = 0x8000 };
+enum { _IOFBF = 0 };
+enum { _IOLBF = 1 };
+enum { _IONBF = 2 };
+enum { BUFSIZ = 1024 };
+/* #define EOF (-1) ### define is not number */
+enum { FOPEN_MAX = 20 };
+enum { FILENAME_MAX = 1024 };
+/* #define P_tmpdir "/var/tmp/" ### define is not number */
+enum { L_tmpnam = 1024 };
+enum { TMP_MAX = 308915776 };
+/* #define stdin __stdinp ### define is not number */
+/* #define stdout __stdoutp ### define is not number */
+/* #define stderr __stderrp ### define is not number */
+enum { L_ctermid = 1024 };
+/* #define __sgetc (p) (--(p)->_r < 0 ? __srget(p) : (int)(*(p)->_p++)) ### define is not number */
+/* #define __sfeof (p) (((p)->_flags & __SEOF) != 0) ### define is not number */
+/* #define __sferror (p) (((p)->_flags & __SERR) != 0) ### define is not number */
+/* #define __sclearerr (p) ((void)((p)->_flags &= ~(__SERR|__SEOF))) ### define is not number */
+/* #define __sfileno (p) ((p)->_file) ### define is not number */
+/* #define getc_unlocked (fp) __sgetc(fp) ### define is not number */
+/* #define putc_unlocked (x,fp) __sputc(x, fp) ### define is not number */
+/* #define getchar_unlocked () getc_unlocked(stdin) ### define is not number */
+/* #define putchar_unlocked (x) putc_unlocked(x, stdout) ### define is not number */
+/* #define fropen (cookie,fn) funopen(cookie, fn, 0, 0, 0) ### define is not number */
+/* #define fwopen (cookie,fn) funopen(cookie, 0, fn, 0, 0) ### define is not number */
+/* #define feof_unlocked (p) __sfeof(p) ### define is not number */
+/* #define ferror_unlocked (p) __sferror(p) ### define is not number */
+/* #define clearerr_unlocked (p) __sclearerr(p) ### define is not number */
+/* #define fileno_unlocked (p) __sfileno(p) ### define is not number */
+/* #define __darwin_obsz0 (object) __builtin_object_size (object, 0) ### define is not number */
+/* #define __darwin_obsz (object) __builtin_object_size (object, _USE_FORTIFY_LEVEL > 1 ? 1 : 0) ### define is not number */
+/* #define sprintf (str,...) __builtin___sprintf_chk (str, 0, __darwin_obsz(str), __VA_ARGS__) ### define is not number */
+/* #define snprintf (str,len,...) __builtin___snprintf_chk (str, len, 0, __darwin_obsz(str), __VA_ARGS__) ### define is not number */
+/* #define vsprintf (str,format,ap) __builtin___vsprintf_chk (str, 0, __darwin_obsz(str), format, ap) ### define is not number */
+/* #define vsnprintf (str,len,format,ap) __builtin___vsnprintf_chk (str, len, 0, __darwin_obsz(str), format, ap) ### define is not number */
 /* + END <stdio.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/stdio.h */
 ]]
 -- special case since in the browser app where I'm capturing fopen for remote requests and caching

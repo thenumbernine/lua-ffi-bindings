@@ -77,5 +77,16 @@ __uint64_t clock_gettime_nsec_np(clockid_t __clock_id);
 int clock_settime(clockid_t __clock_id, const struct timespec *__tp);
 int timespec_get(struct timespec *ts, int base);
 /* ++ END <_time.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_time.h */
+/* #define NULL ((void *)0) ### define is not number */
+/* #define CLOCKS_PER_SEC ((clock_t)1000000) ### define is not number */
+/* #define CLOCK_REALTIME _CLOCK_REALTIME ### define is not number */
+/* #define CLOCK_MONOTONIC _CLOCK_MONOTONIC ### define is not number */
+/* #define CLOCK_MONOTONIC_RAW _CLOCK_MONOTONIC_RAW ### define is not number */
+/* #define CLOCK_MONOTONIC_RAW_APPROX _CLOCK_MONOTONIC_RAW_APPROX ### define is not number */
+/* #define CLOCK_UPTIME_RAW _CLOCK_UPTIME_RAW ### define is not number */
+/* #define CLOCK_UPTIME_RAW_APPROX _CLOCK_UPTIME_RAW_APPROX ### define is not number */
+/* #define CLOCK_PROCESS_CPUTIME_ID _CLOCK_PROCESS_CPUTIME_ID ### define is not number */
+/* #define CLOCK_THREAD_CPUTIME_ID _CLOCK_THREAD_CPUTIME_ID ### define is not number */
+enum { TIME_UTC = 1 };
 /* + END <time.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/time.h */
 ]]

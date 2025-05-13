@@ -16,7 +16,6 @@ void _longjmp(jmp_buf, int) __attribute__((__noreturn__));
 int sigsetjmp(sigjmp_buf, int);
 void siglongjmp(sigjmp_buf, int) __attribute__((__noreturn__));
 void longjmperror(void);
-/* + END <setjmp.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/setjmp.h */
-enum { _BSD_SETJMP_H = 1 };
 /* #define _JBLEN ((9 * 2) + 3 + 16) ### define is not number */
+/* + END <setjmp.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/setjmp.h */
 ]]

@@ -96,5 +96,22 @@ int flsll(long long) __attribute__((availability(macosx,introduced=10.9)));
 /* +++ BEGIN <secure/_string.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/secure/_string.h */
 /* +++ END <secure/_string.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/secure/_string.h */
 /* ++ END <_string.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_string.h */
+/* #define NULL ((void *)0) ### define is not number */
+/* #define __darwin_obsz0 (object) __builtin_object_size (object, 0) ### define is not number */
+/* #define __darwin_obsz (object) __builtin_object_size (object, _USE_FORTIFY_LEVEL > 1 ? 1 : 0) ### define is not number */
+/* #define bcopy (src,dest,...) __builtin___memmove_chk (dest, src, __VA_ARGS__, __darwin_obsz0 (dest)) ### define is not number */
+/* #define bzero (dest,...) __builtin___memset_chk (dest, 0, __VA_ARGS__, __darwin_obsz0 (dest)) ### define is not number */
+/* #define memccpy (dest,...) __builtin___memccpy_chk (dest, __VA_ARGS__, __darwin_obsz0 (dest)) ### define is not number */
+/* #define memcpy (dest,...) __builtin___memcpy_chk (dest, __VA_ARGS__, __darwin_obsz0 (dest)) ### define is not number */
+/* #define memmove (dest,...) __builtin___memmove_chk (dest, __VA_ARGS__, __darwin_obsz0 (dest)) ### define is not number */
+/* #define memset (dest,...) __builtin___memset_chk (dest, __VA_ARGS__, __darwin_obsz0 (dest)) ### define is not number */
+/* #define strcpy (dest,...) __builtin___strcpy_chk (dest, __VA_ARGS__, __darwin_obsz (dest)) ### define is not number */
+/* #define stpcpy (dest,...) __builtin___stpcpy_chk (dest, __VA_ARGS__, __darwin_obsz (dest)) ### define is not number */
+/* #define stpncpy (dest,...) __builtin___stpncpy_chk (dest, __VA_ARGS__, __darwin_obsz (dest)) ### define is not number */
+/* #define strlcpy (dest,...) __builtin___strlcpy_chk (dest, __VA_ARGS__, __darwin_obsz (dest)) ### define is not number */
+/* #define strlcat (dest,...) __builtin___strlcat_chk (dest, __VA_ARGS__, __darwin_obsz (dest)) ### define is not number */
+/* #define strncpy (dest,...) __builtin___strncpy_chk (dest, __VA_ARGS__, __darwin_obsz (dest)) ### define is not number */
+/* #define strcat (dest,...) __builtin___strcat_chk (dest, __VA_ARGS__, __darwin_obsz (dest)) ### define is not number */
+/* #define strncat (dest,...) __builtin___strncat_chk (dest, __VA_ARGS__, __darwin_obsz (dest)) ### define is not number */
 /* + END <string.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/string.h */
 ]]

@@ -73,11 +73,16 @@ int gettimeofday(struct timeval * restrict, void * restrict);
 int setitimer(int, const struct itimerval * restrict,
     struct itimerval * restrict);
 int utimes(const char *, const struct timeval *);
-/* + END <sys/time.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/time.h */
-enum { _SYS_TIME_H_ = 1 };
+enum { _STRUCT_TIMEVAL64 = 1 };
 enum { ITIMER_REAL = 0 };
 enum { ITIMER_VIRTUAL = 1 };
 enum { ITIMER_PROF = 2 };
+enum { FD_SETSIZE = 1024 };
+/* #define FD_SET (n,p) __DARWIN_FD_SET(n, p) ### define is not number */
+/* #define FD_CLR (n,p) __DARWIN_FD_CLR(n, p) ### define is not number */
+/* #define FD_ISSET (n,p) __DARWIN_FD_ISSET(n, p) ### define is not number */
+/* #define FD_ZERO (p) __DARWIN_FD_ZERO(p) ### define is not number */
+/* #define FD_COPY (f,t) __DARWIN_FD_COPY(f, t) ### define is not number */
 /* #define TIMEVAL_TO_TIMESPEC (tv,ts) { (ts)->tv_sec = (tv)->tv_sec; (ts)->tv_nsec = (tv)->tv_usec * 1000; } ### define is not number */
 /* #define TIMESPEC_TO_TIMEVAL (tv,ts) { (tv)->tv_sec = (ts)->tv_sec; (tv)->tv_usec = (__darwin_suseconds_t)((ts)->tv_nsec / 1000); } ### define is not number */
 enum { DST_NONE = 0 };
@@ -93,4 +98,5 @@ enum { DST_CAN = 6 };
 /* #define timeradd (tvp,uvp,vvp) do { (vvp)->tv_sec = (tvp)->tv_sec + (uvp)->tv_sec; (vvp)->tv_usec = (tvp)->tv_usec + (uvp)->tv_usec; if ((vvp)->tv_usec >= 1000000) { (vvp)->tv_sec++; (vvp)->tv_usec -= 1000000; } } while (0) ### define is not number */
 /* #define timersub (tvp,uvp,vvp) do { (vvp)->tv_sec = (tvp)->tv_sec - (uvp)->tv_sec; (vvp)->tv_usec = (tvp)->tv_usec - (uvp)->tv_usec; if ((vvp)->tv_usec < 0) { (vvp)->tv_sec--; (vvp)->tv_usec += 1000000; } } while (0) ### define is not number */
 /* #define timevalcmp (l,r,cmp) timercmp(l, r, cmp) ### define is not number */
+/* + END <sys/time.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/time.h */
 ]]

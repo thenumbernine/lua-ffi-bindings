@@ -686,17 +686,15 @@ struct sigstack {
  int ss_onstack;
 };
 void(*signal(int, void (*)(int)))(int);
-/* + END <sys/signal.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/signal.h */
-enum { _SYS_SIGNAL_H_ = 1 };
 enum { __DARWIN_NSIG = 32 };
-/* #define NSIG __DARWIN_NSIG ### define is not number */
+enum { NSIG = 32 };
 enum { SIGHUP = 1 };
 enum { SIGINT = 2 };
 enum { SIGQUIT = 3 };
 enum { SIGILL = 4 };
 enum { SIGTRAP = 5 };
 enum { SIGABRT = 6 };
-/* #define SIGIOT SIGABRT ### define is not number */
+enum { SIGIOT = 6 };
 enum { SIGEMT = 7 };
 enum { SIGFPE = 8 };
 enum { SIGKILL = 9 };
@@ -726,6 +724,54 @@ enum { SIGUSR2 = 31 };
 /* #define SIG_IGN (void (*)(int))1 ### define is not number */
 /* #define SIG_HOLD (void (*)(int))5 ### define is not number */
 /* #define SIG_ERR ((void (*)(int))-1) ### define is not number */
+/* #define _STRUCT_X86_THREAD_STATE32 struct __darwin_i386_thread_state ### define is not number */
+/* #define _STRUCT_FP_CONTROL struct __darwin_fp_control ### define is not number */
+enum { FP_PREC_24B = 0 };
+enum { FP_PREC_53B = 2 };
+enum { FP_PREC_64B = 3 };
+enum { FP_RND_NEAR = 0 };
+enum { FP_RND_DOWN = 1 };
+enum { FP_RND_UP = 2 };
+enum { FP_CHOP = 3 };
+/* #define _STRUCT_FP_STATUS struct __darwin_fp_status ### define is not number */
+/* #define _STRUCT_MMST_REG struct __darwin_mmst_reg ### define is not number */
+/* #define _STRUCT_XMM_REG struct __darwin_xmm_reg ### define is not number */
+/* #define _STRUCT_YMM_REG struct __darwin_ymm_reg ### define is not number */
+/* #define _STRUCT_ZMM_REG struct __darwin_zmm_reg ### define is not number */
+/* #define _STRUCT_OPMASK_REG struct __darwin_opmask_reg ### define is not number */
+enum { FP_STATE_BYTES = 512 };
+/* #define _STRUCT_X86_FLOAT_STATE32 struct __darwin_i386_float_state ### define is not number */
+/* #define _STRUCT_X86_AVX_STATE32 struct __darwin_i386_avx_state ### define is not number */
+/* #define _STRUCT_X86_AVX512_STATE32 struct __darwin_i386_avx512_state ### define is not number */
+/* #define _STRUCT_X86_EXCEPTION_STATE32 struct __darwin_i386_exception_state ### define is not number */
+/* #define _STRUCT_X86_DEBUG_STATE32 struct __darwin_x86_debug_state32 ### define is not number */
+/* #define _STRUCT_X86_INSTRUCTION_STATE struct __x86_instruction_state ### define is not number */
+/* #define _X86_INSTRUCTION_STATE_MAX_INSN_BYTES (2448 - 64 - 4) ### define is not number */
+enum { _X86_INSTRUCTION_STATE_CACHELINE_SIZE = 64 };
+/* #define _STRUCT_LAST_BRANCH_RECORD struct __last_branch_record ### define is not number */
+/* #define _STRUCT_LAST_BRANCH_STATE struct __last_branch_state ### define is not number */
+enum { __LASTBRANCH_MAX = 32 };
+/* #define _STRUCT_X86_PAGEIN_STATE struct __x86_pagein_state ### define is not number */
+/* #define _STRUCT_X86_THREAD_STATE64 struct __darwin_x86_thread_state64 ### define is not number */
+/* #define _STRUCT_X86_THREAD_FULL_STATE64 struct __darwin_x86_thread_full_state64 ### define is not number */
+/* #define _STRUCT_X86_FLOAT_STATE64 struct __darwin_x86_float_state64 ### define is not number */
+/* #define _STRUCT_X86_AVX_STATE64 struct __darwin_x86_avx_state64 ### define is not number */
+/* #define _STRUCT_X86_AVX512_STATE64 struct __darwin_x86_avx512_state64 ### define is not number */
+/* #define _STRUCT_X86_EXCEPTION_STATE64 struct __darwin_x86_exception_state64 ### define is not number */
+/* #define _STRUCT_X86_DEBUG_STATE64 struct __darwin_x86_debug_state64 ### define is not number */
+/* #define _STRUCT_X86_CPMU_STATE64 struct __darwin_x86_cpmu_state64 ### define is not number */
+/* #define _STRUCT_MCONTEXT32 struct __darwin_mcontext32 ### define is not number */
+/* #define _STRUCT_MCONTEXT_AVX32 struct __darwin_mcontext_avx32 ### define is not number */
+/* #define _STRUCT_MCONTEXT_AVX512_32 struct __darwin_mcontext_avx512_32 ### define is not number */
+/* #define _STRUCT_MCONTEXT64 struct __darwin_mcontext64 ### define is not number */
+/* #define _STRUCT_MCONTEXT64_FULL struct __darwin_mcontext64_full ### define is not number */
+/* #define _STRUCT_MCONTEXT_AVX64 struct __darwin_mcontext_avx64 ### define is not number */
+/* #define _STRUCT_MCONTEXT_AVX64_FULL struct __darwin_mcontext_avx64_full ### define is not number */
+/* #define _STRUCT_MCONTEXT_AVX512_64 struct __darwin_mcontext_avx512_64 ### define is not number */
+/* #define _STRUCT_MCONTEXT_AVX512_64_FULL struct __darwin_mcontext_avx512_64_full ### define is not number */
+/* #define _STRUCT_MCONTEXT struct __darwin_mcontext64 ### define is not number */
+/* #define _STRUCT_SIGALTSTACK struct __darwin_sigaltstack ### define is not number */
+/* #define _STRUCT_UCONTEXT struct __darwin_ucontext ### define is not number */
 enum { SIGEV_NONE = 0 };
 enum { SIGEV_SIGNAL = 1 };
 enum { SIGEV_THREAD = 3 };
@@ -793,13 +839,14 @@ enum { SS_ONSTACK = 0x0001 };
 enum { SS_DISABLE = 0x0004 };
 enum { MINSIGSTKSZ = 32768 };
 enum { SIGSTKSZ = 131072 };
-/* #define SV_ONSTACK SA_ONSTACK ### define is not number */
-/* #define SV_INTERRUPT SA_RESTART ### define is not number */
-/* #define SV_RESETHAND SA_RESETHAND ### define is not number */
-/* #define SV_NODEFER SA_NODEFER ### define is not number */
-/* #define SV_NOCLDSTOP SA_NOCLDSTOP ### define is not number */
-/* #define SV_SIGINFO SA_SIGINFO ### define is not number */
+enum { SV_ONSTACK = 0x0001 };
+enum { SV_INTERRUPT = 0x0002 };
+enum { SV_RESETHAND = 0x0004 };
+enum { SV_NODEFER = 0x0010 };
+enum { SV_NOCLDSTOP = 0x0008 };
+enum { SV_SIGINFO = 0x0040 };
 /* #define sv_onstack sv_flags ### define is not number */
 /* #define sigmask (m) (1 << ((m)-1)) ### define is not number */
-/* #define BADSIG SIG_ERR ### define is not number */
+/* #define BADSIG ((void (*)(int))-1) ### define is not number */
+/* + END <sys/signal.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/signal.h */
 ]]

@@ -8,10 +8,7 @@ ffi.cdef[[
 /* +++ BEGIN <pthread/pthread_impl.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/pthread/pthread_impl.h */
 ]] require 'ffi.req' 'c.pthread.pthread_impl' ffi.cdef[[
 /* +++ END <pthread/pthread_impl.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/pthread/pthread_impl.h */
-struct sched_param { int sched_priority; char __opaque[4]; };
-extern int sched_yield(void);
-extern int sched_get_priority_min(int);
-extern int sched_get_priority_max(int);
+]] require 'ffi.req' 'c.sched' ffi.cdef[[
 /* ++ END <pthread/sched.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/pthread/sched.h */
 /* ++ BEGIN <time.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/time.h */
 ]] require 'ffi.req' 'c.time' ffi.cdef[[
@@ -243,8 +240,8 @@ void pthread_jit_write_freeze_callbacks_np(void);
 int
 pthread_cpu_number_np(size_t *cpu_number_out);
 #pragma clang assume_nonnull end
-/* + END <pthread.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/pthread.h */
-enum { _PTHREAD_H = 1 };
+/* #define __QOS_CLASS_AVAILABLE (...) __API_AVAILABLE_GET_MACRO(__VA_ARGS__,__API_AVAILABLE8,__API_AVAILABLE7,__API_AVAILABLE6,__API_AVAILABLE5,__API_AVAILABLE4,__API_AVAILABLE3,__API_AVAILABLE2,__API_AVAILABLE1,__API_AVAILABLE0,0)(__VA_ARGS__) ### define is not number */
+/* #define QOS_MIN_RELATIVE_PRIORITY (-15) ### define is not number */
 /* #define pthread_cleanup_push (func,val) { struct __darwin_pthread_handler_rec __handler; pthread_t __self = pthread_self(); __handler.__routine = func; __handler.__arg = val; __handler.__next = __self->__cleanup_stack; __self->__cleanup_stack = &__handler; ### define is not number */
 /* #define pthread_cleanup_pop (execute) __self->__cleanup_stack = __handler.__next; if (execute) (__handler.__routine)(__handler.__arg); } ### define is not number */
 enum { PTHREAD_CREATE_JOINABLE = 1 };
@@ -266,7 +263,7 @@ enum { PTHREAD_PRIO_PROTECT = 2 };
 enum { PTHREAD_MUTEX_NORMAL = 0 };
 enum { PTHREAD_MUTEX_ERRORCHECK = 1 };
 enum { PTHREAD_MUTEX_RECURSIVE = 2 };
-/* #define PTHREAD_MUTEX_DEFAULT PTHREAD_MUTEX_NORMAL ### define is not number */
+enum { PTHREAD_MUTEX_DEFAULT = 0 };
 enum { PTHREAD_MUTEX_POLICY_FAIRSHARE_NP = 1 };
 enum { PTHREAD_MUTEX_POLICY_FIRSTFIT_NP = 3 };
 /* #define PTHREAD_RWLOCK_INITIALIZER {_PTHREAD_RWLOCK_SIG_init, {0}} ### define is not number */
@@ -278,4 +275,5 @@ enum { PTHREAD_MUTEX_POLICY_FIRSTFIT_NP = 3 };
 /* #define PTHREAD_COND_INITIALIZER {_PTHREAD_COND_SIG_init, {0}} ### define is not number */
 /* #define PTHREAD_ONCE_INIT {_PTHREAD_ONCE_SIG_init, {0}} ### define is not number */
 /* #define PTHREAD_JIT_WRITE_ALLOW_CALLBACKS_NP (...) __attribute__((__used__, __section__("__DATA_CONST,__pth_jit_func"))) static const pthread_jit_write_callback_t __pthread_jit_write_callback_allowlist[] = { __VA_ARGS__, NULL } ### define is not number */
+/* + END <pthread.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/pthread.h */
 ]]

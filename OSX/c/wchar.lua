@@ -211,5 +211,10 @@ wchar_t *fgetwln(FILE * restrict, size_t *) __attribute__((availability(macosx,i
 size_t wcslcat(wchar_t *, const wchar_t *, size_t);
 size_t wcslcpy(wchar_t *, const wchar_t *, size_t);
 /* ++ END <_wchar.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_wchar.h */
+/* #define NULL ((void *)0) ### define is not number */
+/* #define WCHAR_MIN (-0x7fffffff - 1) ### define is not number */
+enum { WCHAR_MAX = 2147483647 };
+/* #define WEOF ((__darwin_wint_t)-1) ### define is not number */
+/* #define __DARWIN_WCTYPE_TOP_inline inline ### define is not number */
 /* + END <wchar.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/wchar.h */
 ]]

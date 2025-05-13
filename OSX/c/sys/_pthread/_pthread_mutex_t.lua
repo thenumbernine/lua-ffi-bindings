@@ -6,5 +6,4 @@ ffi.cdef[[
 /* ++ END <sys/_pthread/_pthread_types.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_pthread/_pthread_types.h */
 typedef __darwin_pthread_mutex_t pthread_mutex_t;
 /* + END <sys/_pthread/_pthread_mutex_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_pthread/_pthread_mutex_t.h */
-enum { _PTHREAD_MUTEX_T = 1 };
 ]]

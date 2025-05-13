@@ -15,5 +15,4 @@ int select(int, fd_set * restrict, fd_set * restrict,
 __asm("_" "select" "$1050")
 ;
 /* + END <sys/_select.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_select.h */
-enum { _SYS__SELECT_H_ = 1 };
 ]]

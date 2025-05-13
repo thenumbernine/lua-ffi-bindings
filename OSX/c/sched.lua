@@ -12,5 +12,4 @@ extern int sched_yield(void);
 extern int sched_get_priority_min(int);
 extern int sched_get_priority_max(int);
 /* + END <sched.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sched.h */
-enum { _SCHED_H_ = 1 };
 ]]

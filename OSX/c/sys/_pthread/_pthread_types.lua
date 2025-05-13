@@ -56,8 +56,6 @@ typedef struct _opaque_pthread_once_t __darwin_pthread_once_t;
 typedef struct _opaque_pthread_rwlock_t __darwin_pthread_rwlock_t;
 typedef struct _opaque_pthread_rwlockattr_t __darwin_pthread_rwlockattr_t;
 typedef struct _opaque_pthread_t *__darwin_pthread_t;
-/* + END <sys/_pthread/_pthread_types.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_pthread/_pthread_types.h */
-enum { _SYS__PTHREAD_TYPES_H_ = 1 };
 enum { __PTHREAD_SIZE__ = 8176 };
 enum { __PTHREAD_ATTR_SIZE__ = 56 };
 enum { __PTHREAD_MUTEXATTR_SIZE__ = 8 };
@@ -67,4 +65,5 @@ enum { __PTHREAD_COND_SIZE__ = 40 };
 enum { __PTHREAD_ONCE_SIZE__ = 8 };
 enum { __PTHREAD_RWLOCK_SIZE__ = 192 };
 enum { __PTHREAD_RWLOCKATTR_SIZE__ = 16 };
+/* + END <sys/_pthread/_pthread_types.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_pthread/_pthread_types.h */
 ]]

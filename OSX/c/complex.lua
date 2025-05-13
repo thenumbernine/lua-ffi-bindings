@@ -70,12 +70,11 @@ extern long double _Complex cprojl(long double _Complex);
 extern float crealf(float _Complex);
 extern double creal(double _Complex);
 extern long double creall(long double _Complex);
-/* + END <complex.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/complex.h */
-enum { __COMPLEX_H__ = 1 };
 /* #define complex _Complex ### define is not number */
 /* #define _Complex_I (__extension__ 1.0iF) ### define is not number */
-/* #define I _Complex_I ### define is not number */
+/* #define I (__extension__ 1.0iF) ### define is not number */
 /* #define CMPLX (__real,__imag) _Pragma("clang diagnostic push") _Pragma("clang diagnostic ignored \"-Wcomplex-component-init\"") (double _Complex){(__real),(__imag)} _Pragma("clang diagnostic pop") ### define is not number */
 /* #define CMPLXF (__real,__imag) _Pragma("clang diagnostic push") _Pragma("clang diagnostic ignored \"-Wcomplex-component-init\"") (float _Complex){(__real),(__imag)} _Pragma("clang diagnostic pop") ### define is not number */
 /* #define CMPLXL (__real,__imag) _Pragma("clang diagnostic push") _Pragma("clang diagnostic ignored \"-Wcomplex-component-init\"") (long double _Complex){(__real),(__imag)} _Pragma("clang diagnostic pop") ### define is not number */
+/* + END <complex.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/complex.h */
 ]]

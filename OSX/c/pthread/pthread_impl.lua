@@ -3,8 +3,6 @@ ffi.cdef[[
 /* + BEGIN <pthread/pthread_impl.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/pthread/pthread_impl.h */
 #pragma clang assume_nonnull begin
 #pragma clang assume_nonnull end
-/* + END <pthread/pthread_impl.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/pthread/pthread_impl.h */
-enum { _PTHREAD_IMPL_H_ = 1 };
 enum { _PTHREAD_MUTEX_SIG_init = 0x32aaaba7 };
 enum { _PTHREAD_ERRORCHECK_MUTEX_SIG_init = 0x32aaaba1 };
 enum { _PTHREAD_RECURSIVE_MUTEX_SIG_init = 0x32aaaba2 };
@@ -16,4 +14,5 @@ enum { SCHED_OTHER = 1 };
 enum { SCHED_FIFO = 4 };
 enum { SCHED_RR = 2 };
 enum { __SCHED_PARAM_SIZE__ = 4 };
+/* + END <pthread/pthread_impl.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/pthread/pthread_impl.h */
 ]]

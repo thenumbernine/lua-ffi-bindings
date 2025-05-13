@@ -511,5 +511,138 @@ unsigned long long
   strtouq(const char *__str, char **__endptr, int __base);
 extern char *suboptarg;
 /* ++ END <_stdlib.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdlib.h */
+enum { PRIO_PROCESS = 0 };
+enum { PRIO_PGRP = 1 };
+enum { PRIO_USER = 2 };
+enum { PRIO_DARWIN_THREAD = 3 };
+enum { PRIO_DARWIN_PROCESS = 4 };
+enum { PRIO_MIN = -20 };
+enum { PRIO_MAX = 20 };
+enum { PRIO_DARWIN_BG = 0x1000 };
+enum { PRIO_DARWIN_NONUI = 0x1001 };
+enum { RUSAGE_SELF = 0 };
+enum { RUSAGE_CHILDREN = -1 };
+/* #define ru_first ru_ixrss ### define is not number */
+/* #define ru_last ru_nivcsw ### define is not number */
+enum { RUSAGE_INFO_V0 = 0 };
+enum { RUSAGE_INFO_V1 = 1 };
+enum { RUSAGE_INFO_V2 = 2 };
+enum { RUSAGE_INFO_V3 = 3 };
+enum { RUSAGE_INFO_V4 = 4 };
+enum { RUSAGE_INFO_V5 = 5 };
+enum { RUSAGE_INFO_V6 = 6 };
+enum { RUSAGE_INFO_CURRENT = 6 };
+enum { RU_PROC_RUNS_RESLIDE = 0x00000001 };
+/* #define RLIM_INFINITY (((__uint64_t)1 << 63) - 1) ### define is not number */
+/* #define RLIM_SAVED_MAX (((__uint64_t)1 << 63) - 1) ### define is not number */
+/* #define RLIM_SAVED_CUR (((__uint64_t)1 << 63) - 1) ### define is not number */
+enum { RLIMIT_CPU = 0 };
+enum { RLIMIT_FSIZE = 1 };
+enum { RLIMIT_DATA = 2 };
+enum { RLIMIT_STACK = 3 };
+enum { RLIMIT_CORE = 4 };
+enum { RLIMIT_AS = 5 };
+enum { RLIMIT_RSS = 5 };
+enum { RLIMIT_MEMLOCK = 6 };
+enum { RLIMIT_NPROC = 7 };
+enum { RLIMIT_NOFILE = 8 };
+enum { RLIM_NLIMITS = 9 };
+enum { _RLIMIT_POSIX_FLAG = 0x1000 };
+enum { RLIMIT_WAKEUPS_MONITOR = 0x1 };
+enum { RLIMIT_CPU_USAGE_MONITOR = 0x2 };
+enum { RLIMIT_THREAD_CPULIMITS = 0x3 };
+enum { RLIMIT_FOOTPRINT_INTERVAL = 0x4 };
+enum { WAKEMON_ENABLE = 0x01 };
+enum { WAKEMON_DISABLE = 0x02 };
+enum { WAKEMON_GET_PARAMS = 0x04 };
+enum { WAKEMON_SET_DEFAULTS = 0x08 };
+enum { WAKEMON_MAKE_FATAL = 0x10 };
+enum { CPUMON_MAKE_FATAL = 0x1000 };
+enum { FOOTPRINT_INTERVAL_RESET = 0x1 };
+enum { IOPOL_TYPE_DISK = 0 };
+enum { IOPOL_TYPE_VFS_ATIME_UPDATES = 2 };
+enum { IOPOL_TYPE_VFS_MATERIALIZE_DATALESS_FILES = 3 };
+enum { IOPOL_TYPE_VFS_STATFS_NO_DATA_VOLUME = 4 };
+enum { IOPOL_TYPE_VFS_TRIGGER_RESOLVE = 5 };
+enum { IOPOL_TYPE_VFS_IGNORE_CONTENT_PROTECTION = 6 };
+enum { IOPOL_TYPE_VFS_IGNORE_PERMISSIONS = 7 };
+enum { IOPOL_TYPE_VFS_SKIP_MTIME_UPDATE = 8 };
+enum { IOPOL_TYPE_VFS_ALLOW_LOW_SPACE_WRITES = 9 };
+enum { IOPOL_TYPE_VFS_DISALLOW_RW_FOR_O_EVTONLY = 10 };
+enum { IOPOL_SCOPE_PROCESS = 0 };
+enum { IOPOL_SCOPE_THREAD = 1 };
+enum { IOPOL_SCOPE_DARWIN_BG = 2 };
+enum { IOPOL_DEFAULT = 0 };
+enum { IOPOL_IMPORTANT = 1 };
+enum { IOPOL_PASSIVE = 2 };
+enum { IOPOL_THROTTLE = 3 };
+enum { IOPOL_UTILITY = 4 };
+enum { IOPOL_STANDARD = 5 };
+enum { IOPOL_APPLICATION = 5 };
+enum { IOPOL_NORMAL = 1 };
+enum { IOPOL_ATIME_UPDATES_DEFAULT = 0 };
+enum { IOPOL_ATIME_UPDATES_OFF = 1 };
+enum { IOPOL_MATERIALIZE_DATALESS_FILES_DEFAULT = 0 };
+enum { IOPOL_MATERIALIZE_DATALESS_FILES_OFF = 1 };
+enum { IOPOL_MATERIALIZE_DATALESS_FILES_ON = 2 };
+enum { IOPOL_VFS_STATFS_NO_DATA_VOLUME_DEFAULT = 0 };
+enum { IOPOL_VFS_STATFS_FORCE_NO_DATA_VOLUME = 1 };
+enum { IOPOL_VFS_TRIGGER_RESOLVE_DEFAULT = 0 };
+enum { IOPOL_VFS_TRIGGER_RESOLVE_OFF = 1 };
+enum { IOPOL_VFS_CONTENT_PROTECTION_DEFAULT = 0 };
+enum { IOPOL_VFS_CONTENT_PROTECTION_IGNORE = 1 };
+enum { IOPOL_VFS_IGNORE_PERMISSIONS_OFF = 0 };
+enum { IOPOL_VFS_IGNORE_PERMISSIONS_ON = 1 };
+enum { IOPOL_VFS_SKIP_MTIME_UPDATE_OFF = 0 };
+enum { IOPOL_VFS_SKIP_MTIME_UPDATE_ON = 1 };
+enum { IOPOL_VFS_ALLOW_LOW_SPACE_WRITES_OFF = 0 };
+enum { IOPOL_VFS_ALLOW_LOW_SPACE_WRITES_ON = 1 };
+enum { IOPOL_VFS_DISALLOW_RW_FOR_O_EVTONLY_DEFAULT = 0 };
+enum { IOPOL_VFS_DISALLOW_RW_FOR_O_EVTONLY_ON = 1 };
+enum { IOPOL_VFS_NOCACHE_WRITE_FS_BLKSIZE_DEFAULT = 0 };
+enum { IOPOL_VFS_NOCACHE_WRITE_FS_BLKSIZE_ON = 1 };
+enum { WNOHANG = 0x00000001 };
+enum { WUNTRACED = 0x00000002 };
+/* #define _W_INT (w) (*(int *)&(w)) ### define is not number */
+enum { WCOREFLAG = 0200 };
+/* #define _WSTATUS (x) (_W_INT(x) & 0177) ### define is not number */
+enum { _WSTOPPED = 0177 };
+/* #define WEXITSTATUS (x) ((_W_INT(x) >> 8) & 0x000000ff) ### define is not number */
+/* #define WSTOPSIG (x) (_W_INT(x) >> 8) ### define is not number */
+/* #define WIFCONTINUED (x) (_WSTATUS(x) == _WSTOPPED && WSTOPSIG(x) == 0x13) ### define is not number */
+/* #define WIFSTOPPED (x) (_WSTATUS(x) == _WSTOPPED && WSTOPSIG(x) != 0x13) ### define is not number */
+/* #define WIFEXITED (x) (_WSTATUS(x) == 0) ### define is not number */
+/* #define WIFSIGNALED (x) (_WSTATUS(x) != _WSTOPPED && _WSTATUS(x) != 0) ### define is not number */
+/* #define WTERMSIG (x) (_WSTATUS(x)) ### define is not number */
+/* #define WCOREDUMP (x) (_W_INT(x) & WCOREFLAG) ### define is not number */
+/* #define W_EXITCODE (ret,sig) ((ret) << 8 | (sig)) ### define is not number */
+/* #define W_STOPCODE (sig) ((sig) << 8 | _WSTOPPED) ### define is not number */
+enum { WEXITED = 0x00000004 };
+enum { WSTOPPED = 0x00000008 };
+enum { WCONTINUED = 0x00000010 };
+enum { WNOWAIT = 0x00000020 };
+/* #define WAIT_ANY (-1) ### define is not number */
+enum { WAIT_MYPGRP = 0 };
+/* #define w_termsig w_T.w_Termsig ### define is not number */
+/* #define w_coredump w_T.w_Coredump ### define is not number */
+/* #define w_retcode w_T.w_Retcode ### define is not number */
+/* #define w_stopval w_S.w_Stopval ### define is not number */
+/* #define w_stopsig w_S.w_Stopsig ### define is not number */
+/* #define alloca (size) __alloca(size) ### define is not number */
+/* #define __alloca (size) __builtin_alloca(size) ### define is not number */
+/* #define NULL ((void *)0) ### define is not number */
+enum { EXIT_FAILURE = 1 };
+enum { EXIT_SUCCESS = 0 };
+enum { RAND_MAX = 0x7fffffff };
+/* #define MB_CUR_MAX __mb_cur_max ### define is not number */
+/* #define __counted_by (N)  ### define is not number */
+/* #define __counted_by_or_null (N)  ### define is not number */
+/* #define __sized_by (N)  ### define is not number */
+/* #define __sized_by_or_null (N)  ### define is not number */
+/* #define __ended_by (E)  ### define is not number */
+/* #define __terminated_by (T)  ### define is not number */
+/* #define __ptrcheck_abi_assume_single ()  ### define is not number */
+/* #define _MALLOC_TYPE_AVAILABILITY __API_AVAILABLE(macos(14.0), ios(17.0), tvos(17.0), watchos(10.0), visionos(1.0), driverkit(23.0)) ### define is not number */
+/* #define _MALLOC_TYPED (override,type_param_pos)  ### define is not number */
 /* + END <stdlib.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/stdlib.h */
 ]]

@@ -6,5 +6,4 @@ ffi.cdef[[
 /* ++ END <sys/_types.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h */
 typedef __darwin_useconds_t useconds_t;
 /* + END <sys/_types/_useconds_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_useconds_t.h */
-enum { _USECONDS_T = 1 };
 ]]

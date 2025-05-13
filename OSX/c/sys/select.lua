@@ -47,6 +47,10 @@ __asm("_" "pselect" "$1050")
 /* ++ BEGIN <sys/_select.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_select.h */
 ]] require 'ffi.req' 'c.sys._select' ffi.cdef[[
 /* ++ END <sys/_select.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_select.h */
+/* #define FD_SET (n,p) __DARWIN_FD_SET(n, p) ### define is not number */
+/* #define FD_CLR (n,p) __DARWIN_FD_CLR(n, p) ### define is not number */
+/* #define FD_ISSET (n,p) __DARWIN_FD_ISSET(n, p) ### define is not number */
+/* #define FD_ZERO (p) __DARWIN_FD_ZERO(p) ### define is not number */
+/* #define FD_COPY (f,t) __DARWIN_FD_COPY(f, t) ### define is not number */
 /* + END <sys/select.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/select.h */
-enum { _SYS_SELECT_H_ = 1 };
 ]]

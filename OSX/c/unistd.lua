@@ -268,8 +268,62 @@ int ffsctl(int,unsigned long,void*,unsigned int) __attribute__((availability(mac
 int fsync_volume_np(int, int) __attribute__((availability(macosx,introduced=10.8)));
 int sync_volume_np(const char *, int) __attribute__((availability(macosx,introduced=10.8)));
 extern int optreset;
-/* + END <unistd.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/unistd.h */
-enum { _UNISTD_H_ = 1 };
+enum { _POSIX_VERSION = 200112 };
+enum { _POSIX2_VERSION = 200112 };
+/* #define _POSIX_VDISABLE ((unsigned char)'\377') ### define is not number */
+enum { F_OK = 0 };
+/* #define X_OK (1<<0) ### define is not number */
+/* #define W_OK (1<<1) ### define is not number */
+/* #define R_OK (1<<2) ### define is not number */
+/* #define _READ_OK (1<<9) ### define is not number */
+/* #define _WRITE_OK (1<<10) ### define is not number */
+/* #define _EXECUTE_OK (1<<11) ### define is not number */
+/* #define _DELETE_OK (1<<12) ### define is not number */
+/* #define _APPEND_OK (1<<13) ### define is not number */
+/* #define _RMFILE_OK (1<<14) ### define is not number */
+/* #define _RATTR_OK (1<<15) ### define is not number */
+/* #define _WATTR_OK (1<<16) ### define is not number */
+/* #define _REXT_OK (1<<17) ### define is not number */
+/* #define _WEXT_OK (1<<18) ### define is not number */
+/* #define _RPERM_OK (1<<19) ### define is not number */
+/* #define _WPERM_OK (1<<20) ### define is not number */
+/* #define _CHOWN_OK (1<<21) ### define is not number */
+/* #define _ACCESS_EXTENDED_MASK (_READ_OK | _WRITE_OK | _EXECUTE_OK | _DELETE_OK | _APPEND_OK | _RMFILE_OK | _REXT_OK | _WEXT_OK | _RATTR_OK | _WATTR_OK | _RPERM_OK | _WPERM_OK | _CHOWN_OK) ### define is not number */
+]] require 'ffi.req' 'c.bits.types.SEEK' ffi.cdef[[
+enum { L_SET = 0 };
+enum { L_INCR = 1 };
+enum { L_XTND = 2 };
+enum { ACCESSX_MAX_DESCRIPTORS = 100 };
+/* #define ACCESSX_MAX_TABLESIZE (16 * 1024) ### define is not number */
+enum { _PC_LINK_MAX = 1 };
+enum { _PC_MAX_CANON = 2 };
+enum { _PC_MAX_INPUT = 3 };
+enum { _PC_NAME_MAX = 4 };
+enum { _PC_PATH_MAX = 5 };
+enum { _PC_PIPE_BUF = 6 };
+enum { _PC_CHOWN_RESTRICTED = 7 };
+enum { _PC_NO_TRUNC = 8 };
+enum { _PC_VDISABLE = 9 };
+enum { _PC_NAME_CHARS_MAX = 10 };
+enum { _PC_CASE_SENSITIVE = 11 };
+enum { _PC_CASE_PRESERVING = 12 };
+enum { _PC_EXTENDED_SECURITY_NP = 13 };
+enum { _PC_AUTH_OPAQUE_NP = 14 };
+enum { _PC_2_SYMLINKS = 15 };
+enum { _PC_ALLOC_SIZE_MIN = 16 };
+enum { _PC_ASYNC_IO = 17 };
+enum { _PC_FILESIZEBITS = 18 };
+enum { _PC_PRIO_IO = 19 };
+enum { _PC_REC_INCR_XFER_SIZE = 20 };
+enum { _PC_REC_MAX_XFER_SIZE = 21 };
+enum { _PC_REC_MIN_XFER_SIZE = 22 };
+enum { _PC_REC_XFER_ALIGN = 23 };
+enum { _PC_SYMLINK_MAX = 24 };
+enum { _PC_SYNC_IO = 25 };
+enum { _PC_XATTR_SIZE_BITS = 26 };
+enum { _PC_MIN_HOLE_SIZE = 27 };
+enum { _CS_PATH = 1 };
+/* #define NULL ((void *)0) ### define is not number */
 enum { STDIN_FILENO = 0 };
 enum { STDOUT_FILENO = 1 };
 enum { STDERR_FILENO = 2 };
@@ -340,22 +394,22 @@ enum { _POSIX2_UPE = 200112 };
 /* #define __ILP32_OFFBIG (-1) ### define is not number */
 /* #define __LP64_OFF64 (1) ### define is not number */
 /* #define __LPBIG_OFFBIG (1) ### define is not number */
-/* #define _POSIX_V6_ILP32_OFF32 __ILP32_OFF32 ### define is not number */
-/* #define _POSIX_V6_ILP32_OFFBIG __ILP32_OFFBIG ### define is not number */
-/* #define _POSIX_V6_LP64_OFF64 __LP64_OFF64 ### define is not number */
-/* #define _POSIX_V6_LPBIG_OFFBIG __LPBIG_OFFBIG ### define is not number */
-/* #define _POSIX_V7_ILP32_OFF32 __ILP32_OFF32 ### define is not number */
-/* #define _POSIX_V7_ILP32_OFFBIG __ILP32_OFFBIG ### define is not number */
-/* #define _POSIX_V7_LP64_OFF64 __LP64_OFF64 ### define is not number */
-/* #define _POSIX_V7_LPBIG_OFFBIG __LPBIG_OFFBIG ### define is not number */
-/* #define _V6_ILP32_OFF32 __ILP32_OFF32 ### define is not number */
-/* #define _V6_ILP32_OFFBIG __ILP32_OFFBIG ### define is not number */
-/* #define _V6_LP64_OFF64 __LP64_OFF64 ### define is not number */
-/* #define _V6_LPBIG_OFFBIG __LPBIG_OFFBIG ### define is not number */
-/* #define _XBS5_ILP32_OFF32 __ILP32_OFF32 ### define is not number */
-/* #define _XBS5_ILP32_OFFBIG __ILP32_OFFBIG ### define is not number */
-/* #define _XBS5_LP64_OFF64 __LP64_OFF64 ### define is not number */
-/* #define _XBS5_LPBIG_OFFBIG __LPBIG_OFFBIG ### define is not number */
+/* #define _POSIX_V6_ILP32_OFF32 (-1) ### define is not number */
+/* #define _POSIX_V6_ILP32_OFFBIG (-1) ### define is not number */
+/* #define _POSIX_V6_LP64_OFF64 (1) ### define is not number */
+/* #define _POSIX_V6_LPBIG_OFFBIG (1) ### define is not number */
+/* #define _POSIX_V7_ILP32_OFF32 (-1) ### define is not number */
+/* #define _POSIX_V7_ILP32_OFFBIG (-1) ### define is not number */
+/* #define _POSIX_V7_LP64_OFF64 (1) ### define is not number */
+/* #define _POSIX_V7_LPBIG_OFFBIG (1) ### define is not number */
+/* #define _V6_ILP32_OFF32 (-1) ### define is not number */
+/* #define _V6_ILP32_OFFBIG (-1) ### define is not number */
+/* #define _V6_LP64_OFF64 (1) ### define is not number */
+/* #define _V6_LPBIG_OFFBIG (1) ### define is not number */
+/* #define _XBS5_ILP32_OFF32 (-1) ### define is not number */
+/* #define _XBS5_ILP32_OFFBIG (-1) ### define is not number */
+/* #define _XBS5_LP64_OFF64 (1) ### define is not number */
+/* #define _XBS5_LPBIG_OFFBIG (1) ### define is not number */
 /* #define _XOPEN_CRYPT (1) ### define is not number */
 /* #define _XOPEN_ENH_I18N (1) ### define is not number */
 /* #define _XOPEN_LEGACY (-1) ### define is not number */
@@ -471,7 +525,7 @@ enum { _SC_RAW_SOCKETS = 119 };
 enum { _SC_SYMLOOP_MAX = 120 };
 enum { _SC_ATEXIT_MAX = 107 };
 enum { _SC_IOV_MAX = 56 };
-/* #define _SC_PAGE_SIZE _SC_PAGESIZE ### define is not number */
+enum { _SC_PAGE_SIZE = 29 };
 enum { _SC_XOPEN_CRYPT = 108 };
 enum { _SC_XOPEN_ENH_I18N = 109 };
 enum { _SC_XOPEN_LEGACY = 110 };
@@ -531,5 +585,6 @@ enum { F_TLOCK = 2 };
 enum { F_TEST = 3 };
 enum { SYNC_VOLUME_FULLSYNC = 0x01 };
 enum { SYNC_VOLUME_WAIT = 0x02 };
+/* + END <unistd.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/unistd.h */
 ]]
 return ffi.C

@@ -13,7 +13,6 @@ struct utimbuf {
 };
 int utime(const char *, const struct utimbuf *);
 /* + END <utime.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/utime.h */
-enum { _UTIME_H_ = 1 };
 ]]
 return setmetatable({
 	struct_utimbuf = 'struct utimbuf',

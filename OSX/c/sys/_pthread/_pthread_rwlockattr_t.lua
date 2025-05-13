@@ -6,5 +6,4 @@ ffi.cdef[[
 /* ++ END <sys/_pthread/_pthread_types.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_pthread/_pthread_types.h */
 typedef __darwin_pthread_rwlockattr_t pthread_rwlockattr_t;
 /* + END <sys/_pthread/_pthread_rwlockattr_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_pthread/_pthread_rwlockattr_t.h */
-enum { _PTHREAD_RWLOCKATTR_T = 1 };
 ]]

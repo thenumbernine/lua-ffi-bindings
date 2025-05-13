@@ -5,8 +5,6 @@ ffi.cdef[[
 /* ++ END <sys/_symbol_aliasing.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_symbol_aliasing.h */
 /* ++ BEGIN <sys/_posix_availability.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_posix_availability.h */
 /* ++ END <sys/_posix_availability.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_posix_availability.h */
-/* + END <sys/cdefs.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h */
-enum { _CDEFS_H_ = 1 };
 enum { __BEGIN_DECLS = 1 };
 enum { __END_DECLS = 1 };
 /* #define __has_cpp_attribute (x) 0 ### define is not number */
@@ -63,7 +61,6 @@ enum { __pure = 1 };
 /* #define __DEQUALIFY (type,var) __CAST_AWAY_QUALIFIER(var, const volatile, type) ### define is not number */
 /* #define __alloc_align (n) __attribute__((alloc_align(n))) ### define is not number */
 /* #define __alloc_size (...) __attribute__((alloc_size(__VA_ARGS__))) ### define is not number */
-enum { __has_safe_buffers = 1 };
 /* #define __unsafe_buffer_usage __attribute__((__unsafe_buffer_usage__)) ### define is not number */
 /* #define __unsafe_buffer_usage_begin _Pragma("clang unsafe_buffer_usage begin") ### define is not number */
 /* #define __unsafe_buffer_usage_end _Pragma("clang unsafe_buffer_usage end") ### define is not number */
@@ -71,7 +68,6 @@ enum { __DARWIN_ONLY_64_BIT_INO_T = 0 };
 enum { __DARWIN_ONLY_UNIX_CONFORMANCE = 1 };
 enum { __DARWIN_ONLY_VERS_1050 = 0 };
 enum { __DARWIN_UNIX03 = 1 };
-enum { __DARWIN_64_BIT_INO_T = 1 };
 enum { __DARWIN_VERS_1050 = 1 };
 enum { __DARWIN_NON_CANCELABLE = 0 };
 enum { __DARWIN_SUF_UNIX03 = 1 };
@@ -91,11 +87,164 @@ enum { __DARWIN_SUF_NON_CANCELABLE = 1 };
 /* #define __DARWIN_1050INODE64 (sym) __asm("_" __STRING(sym) __DARWIN_SUF_1050 __DARWIN_SUF_64_BIT_INO_T) ### define is not number */
 /* #define __DARWIN_EXTSN (sym) __asm("_" __STRING(sym) __DARWIN_SUF_EXTSN) ### define is not number */
 /* #define __DARWIN_EXTSN_C (sym) __asm("_" __STRING(sym) __DARWIN_SUF_EXTSN __DARWIN_SUF_NON_CANCELABLE) ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_2_0 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_2_1 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_2_2 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_3_0 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_3_1 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_3_2 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_4_0 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_4_1 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_4_2 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_4_3 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_5_0 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_5_1 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_6_0 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_6_1 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_7_0 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_7_1 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_8_0 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_8_1 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_8_2 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_8_3 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_8_4 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_9_0 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_9_1 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_9_2 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_9_3 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_10_0 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_10_1 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_10_2 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_10_3 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_11_0 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_11_1 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_11_2 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_11_3 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_11_4 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_12_0 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_12_1 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_12_2 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_12_3 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_12_4 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_13_0 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_13_1 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_13_2 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_13_3 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_13_4 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_13_5 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_13_6 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_13_7 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_14_0 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_14_1 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_14_2 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_14_3 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_14_4 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_14_5 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_14_6 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_14_7 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_14_8 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_15_0 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_15_1 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_15_2 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_15_3 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_15_4 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_15_5 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_15_6 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_15_7 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_15_8 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_16_0 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_16_1 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_16_2 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_16_3 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_16_4 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_16_5 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_16_6 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_16_7 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_17_0 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_17_1 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_17_2 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_17_3 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_17_4 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_17_5 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_18_0 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_18_1 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_18_2 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_0 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_1 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_2 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_3 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_4 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_5 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_6 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_7 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_8 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_9 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_10 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_10_2 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_10_3 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_11 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_11_2 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_11_3 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_11_4 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_12 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_12_1 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_12_2 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_12_4 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_13 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_13_1 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_13_2 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_13_4 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_14 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_14_1 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_14_4 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_14_5 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_14_6 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_15 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_15_1 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_15_4 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_10_16 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_11_0 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_11_1 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_11_3 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_11_4 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_11_5 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_11_6 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_12_0 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_12_1 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_12_2 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_12_3 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_12_4 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_12_5 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_12_6 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_12_7 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_13_0 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_13_1 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_13_2 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_13_3 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_13_4 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_13_5 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_13_6 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_14_0 (x) x ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_14_1 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_14_2 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_14_3 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_14_4 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_14_5 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_15_0 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_15_1 (x)  ### define is not number */
+/* #define __DARWIN_ALIAS_STARTING_MAC___MAC_15_2 (x)  ### define is not number */
 /* #define __DARWIN_ALIAS_STARTING (_mac,_iphone,x) __DARWIN_ALIAS_STARTING_MAC_##_mac(x) ### define is not number */
+enum { ___POSIX_C_DEPRECATED_STARTING_198808L = 1 };
+enum { ___POSIX_C_DEPRECATED_STARTING_199009L = 1 };
+enum { ___POSIX_C_DEPRECATED_STARTING_199209L = 1 };
+enum { ___POSIX_C_DEPRECATED_STARTING_199309L = 1 };
+enum { ___POSIX_C_DEPRECATED_STARTING_199506L = 1 };
+enum { ___POSIX_C_DEPRECATED_STARTING_200112L = 1 };
+enum { ___POSIX_C_DEPRECATED_STARTING_200809L = 1 };
 /* #define __POSIX_C_DEPRECATED (ver) ___POSIX_C_DEPRECATED_STARTING_##ver ### define is not number */
 enum { __DARWIN_C_ANSI = 010000 };
 enum { __DARWIN_C_FULL = 900000 };
-/* #define __DARWIN_C_LEVEL __DARWIN_C_FULL ### define is not number */
+enum { __DARWIN_C_LEVEL = 900000 };
 enum { __STDC_WANT_LIB_EXT1__ = 1 };
 enum { __DARWIN_NO_LONG_LONG = 0 };
 enum { _DARWIN_FEATURE_64_BIT_INODE = 1 };
@@ -103,16 +252,12 @@ enum { _DARWIN_FEATURE_ONLY_UNIX_CONFORMANCE = 1 };
 enum { _DARWIN_FEATURE_UNIX_CONFORMANCE = 3 };
 /* #define __CAST_AWAY_QUALIFIER (variable,qualifier,type) _Pragma("GCC diagnostic push") _Pragma("GCC diagnostic ignored \"-Wcast-qual\"") _Pragma("GCC diagnostic ignored \"-Wcast-align\"") _Pragma("GCC diagnostic ignored \"-Waddress-of-packed-member\"") ((type)(variable)) _Pragma("GCC diagnostic pop") ### define is not number */
 /* #define __XNU_PRIVATE_EXTERN __attribute__((visibility("hidden"))) ### define is not number */
-enum { __has_ptrcheck = 0 };
-enum { __single = 1 };
-enum { __unsafe_indexable = 1 };
 /* #define __counted_by (N)  ### define is not number */
 /* #define __counted_by_or_null (N)  ### define is not number */
 /* #define __sized_by (N)  ### define is not number */
 /* #define __sized_by_or_null (N)  ### define is not number */
 /* #define __ended_by (E)  ### define is not number */
 /* #define __terminated_by (T)  ### define is not number */
-enum { __null_terminated = 1 };
 /* #define __ptrcheck_abi_assume_single ()  ### define is not number */
 /* #define __ptrcheck_abi_assume_unsafe_indexable ()  ### define is not number */
 /* #define __unsafe_forge_bidi_indexable (T,P,S) ((T)(P)) ### define is not number */
@@ -146,4 +291,5 @@ enum { __kernel_data_semantics = 1 };
 enum { __kernel_dual_semantics = 1 };
 enum { __xnu_data_size = 1 };
 enum { __xnu_returns_data_pointer = 1 };
+/* + END <sys/cdefs.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h */
 ]]

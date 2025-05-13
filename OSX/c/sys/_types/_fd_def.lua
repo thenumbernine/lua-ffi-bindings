@@ -45,7 +45,6 @@ __darwin_fd_clr(int _fd, struct fd_set *const _p)
   (_p->fds_bits[(unsigned long)_fd / (sizeof(__int32_t) * 8)] &= ~((__int32_t)(((unsigned long)1) << ((unsigned long)_fd % (sizeof(__int32_t) * 8)))));
  }
 }
-/* + END <sys/_types/_fd_def.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_fd_def.h */
 enum { _FD_SET = 1 };
 enum { __DARWIN_FD_SETSIZE = 1024 };
 enum { __DARWIN_NBBY = 8 };
@@ -56,4 +55,5 @@ enum { __DARWIN_NBBY = 8 };
 /* #define __DARWIN_FD_ISSET (n,p) __darwin_fd_isset((n), (p)) ### define is not number */
 /* #define __DARWIN_FD_ZERO (p) __builtin_bzero(p, sizeof(*(p))) ### define is not number */
 /* #define __DARWIN_FD_COPY (f,t) bcopy(f, t, sizeof(*(f))) ### define is not number */
+/* + END <sys/_types/_fd_def.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_fd_def.h */
 ]]

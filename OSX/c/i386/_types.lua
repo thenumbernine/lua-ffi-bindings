@@ -28,5 +28,4 @@ typedef __uint32_t __darwin_socklen_t;
 typedef long __darwin_ssize_t;
 typedef long __darwin_time_t;
 /* + END <i386/_types.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/i386/_types.h */
-enum { _BSD_I386__TYPES_H_ = 1 };
 ]]

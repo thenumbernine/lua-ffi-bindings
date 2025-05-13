@@ -48,11 +48,10 @@ __sigbits(int __signo)
 {
     return __signo > 32 ? 0 : (1 << (__signo - 1));
 }
-/* + END <signal.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/signal.h */
-enum { _USER_SIGNAL_H = 1 };
 /* #define sigaddset (set,signo) (*(set) |= __sigbits(signo), 0) ### define is not number */
 /* #define sigdelset (set,signo) (*(set) &= ~__sigbits(signo), 0) ### define is not number */
 /* #define sigismember (set,signo) ((*(set) & __sigbits(signo)) != 0) ### define is not number */
 /* #define sigemptyset (set) (*(set) = 0, 0) ### define is not number */
 /* #define sigfillset (set) (*(set) = ~(sigset_t)0, 0) ### define is not number */
+/* + END <signal.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/signal.h */
 ]]

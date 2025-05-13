@@ -322,14 +322,12 @@ struct exception {
     double arg2;
     double retval;
 };
-/* + END <math.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/math.h */
-enum { __MATH_H__ = 1 };
 enum { __MATH__ = 1 };
 /* #define HUGE_VAL __builtin_huge_val() ### define is not number */
 /* #define HUGE_VALF __builtin_huge_valf() ### define is not number */
 /* #define HUGE_VALL __builtin_huge_vall() ### define is not number */
 /* #define NAN __builtin_nanf("0x7fc00000") ### define is not number */
-/* #define INFINITY HUGE_VALF ### define is not number */
+/* #define INFINITY __builtin_huge_valf() ### define is not number */
 enum { FP_NAN = 1 };
 enum { FP_INFINITE = 2 };
 enum { FP_ZERO = 3 };
@@ -354,15 +352,16 @@ enum { MATH_ERREXCEPT = 2 };
 /* #define islessgreater (x,y) __builtin_islessgreater((x),(y)) ### define is not number */
 /* #define isunordered (x,y) __builtin_isunordered((x),(y)) ### define is not number */
 /* #define MAXFLOAT 0x1.fffffep+127f ### define is not number */
-/* #define FP_SNAN FP_NAN ### define is not number */
-/* #define FP_QNAN FP_NAN ### define is not number */
-/* #define HUGE MAXFLOAT ### define is not number */
+enum { FP_SNAN = 1 };
+enum { FP_QNAN = 1 };
+/* #define HUGE 0x1.fffffep+127f ### define is not number */
 enum { DOMAIN = 1 };
 enum { SING = 2 };
 enum { OVERFLOW = 3 };
 enum { UNDERFLOW = 4 };
 enum { TLOSS = 5 };
 enum { PLOSS = 6 };
+/* + END <math.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/math.h */
 ]]
 
 -- add in values that can't be ffi.cdef enum'd

@@ -158,14 +158,21 @@ typedef __darwin_fsblkcnt_t fsblkcnt_t;
 /* ++ BEGIN <sys/_types/_fsfilcnt_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_fsfilcnt_t.h */
 typedef __darwin_fsfilcnt_t fsfilcnt_t;
 /* ++ END <sys/_types/_fsfilcnt_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_fsfilcnt_t.h */
-/* + END <sys/types.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/types.h */
-enum { _SYS_TYPES_H_ = 1 };
+enum { _U_CHAR = 1 };
+enum { _U_SHORT = 1 };
+enum { _U_INT = 1 };
 enum { _U_LONG = 1 };
 enum { __DARWIN_UINT = 1 };
 /* #define major (x) ((int32_t)(((u_int32_t)(x) >> 24) & 0xff)) ### define is not number */
 /* #define minor (x) ((int32_t)((x) & 0xffffff)) ### define is not number */
 /* #define makedev (x,y) ((dev_t)(((x) << 24) | (y))) ### define is not number */
-/* #define NBBY __DARWIN_NBBY ### define is not number */
-/* #define NFDBITS __DARWIN_NFDBITS ### define is not number */
+enum { NBBY = 8 };
+/* #define NFDBITS (sizeof(__int32_t) * __DARWIN_NBBY) ### define is not number */
 /* #define howmany (x,y) __DARWIN_howmany(x, y) ### define is not number */
+/* #define FD_SET (n,p) __DARWIN_FD_SET(n, p) ### define is not number */
+/* #define FD_CLR (n,p) __DARWIN_FD_CLR(n, p) ### define is not number */
+/* #define FD_ZERO (p) __DARWIN_FD_ZERO(p) ### define is not number */
+/* #define FD_ISSET (n,p) __DARWIN_FD_ISSET(n, p) ### define is not number */
+/* #define FD_COPY (f,t) __DARWIN_FD_COPY(f, t) ### define is not number */
+/* + END <sys/types.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/types.h */
 ]]

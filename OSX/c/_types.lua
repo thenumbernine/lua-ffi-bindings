@@ -7,12 +7,11 @@ ffi.cdef[[
 typedef int __darwin_nl_item;
 typedef int __darwin_wctrans_t;
 typedef __uint32_t __darwin_wctype_t;
-/* + END <_types.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types.h */
-enum { __TYPES_H_ = 1 };
 /* #define __strfmonlike (fmtarg,firstvararg) __attribute__((__format__ (__strfmon__, fmtarg, firstvararg))) ### define is not number */
 /* #define __strftimelike (fmtarg) __attribute__((__format__ (__strftime__, fmtarg, 0))) ### define is not number */
-/* #define __DARWIN_WCHAR_MAX __WCHAR_MAX__ ### define is not number */
+enum { __DARWIN_WCHAR_MAX = 2147483647 };
 /* #define __DARWIN_WCHAR_MIN (-0x7fffffff - 1) ### define is not number */
 /* #define __DARWIN_WEOF ((__darwin_wint_t)-1) ### define is not number */
 enum { _FORTIFY_SOURCE = 2 };
+/* + END <_types.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types.h */
 ]]

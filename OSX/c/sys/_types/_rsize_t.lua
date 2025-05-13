@@ -6,5 +6,4 @@ ffi.cdef[[
 /* ++ END <machine/types.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/machine/types.h */
 typedef __darwin_size_t rsize_t;
 /* + END <sys/_types/_rsize_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_rsize_t.h */
-enum { _RSIZE_T = 1 };
 ]]

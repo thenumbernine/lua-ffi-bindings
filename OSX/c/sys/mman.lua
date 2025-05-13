@@ -35,15 +35,13 @@ int posix_madvise(void *, size_t, int);
 int madvise(void *, size_t, int);
 int mincore(const void *, size_t, char *);
 int minherit(void *, size_t, int);
-/* + END <sys/mman.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/mman.h */
-enum { _SYS_MMAN_H_ = 1 };
 enum { PROT_NONE = 0x00 };
 enum { PROT_READ = 0x01 };
 enum { PROT_WRITE = 0x02 };
 enum { PROT_EXEC = 0x04 };
 enum { MAP_SHARED = 0x0001 };
 enum { MAP_PRIVATE = 0x0002 };
-/* #define MAP_COPY MAP_PRIVATE ### define is not number */
+enum { MAP_COPY = 0x0002 };
 enum { MAP_FIXED = 0x0010 };
 enum { MAP_RENAME = 0x0020 };
 enum { MAP_NORESERVE = 0x0040 };
@@ -54,7 +52,7 @@ enum { MAP_NOCACHE = 0x0400 };
 enum { MAP_JIT = 0x0800 };
 enum { MAP_FILE = 0x0000 };
 enum { MAP_ANON = 0x1000 };
-/* #define MAP_ANONYMOUS MAP_ANON ### define is not number */
+enum { MAP_ANONYMOUS = 0x1000 };
 enum { MAP_RESILIENT_CODESIGN = 0x2000 };
 enum { MAP_RESILIENT_MEDIA = 0x4000 };
 enum { MAP_32BIT = 0x8000 };
@@ -74,11 +72,11 @@ enum { POSIX_MADV_RANDOM = 1 };
 enum { POSIX_MADV_SEQUENTIAL = 2 };
 enum { POSIX_MADV_WILLNEED = 3 };
 enum { POSIX_MADV_DONTNEED = 4 };
-/* #define MADV_NORMAL POSIX_MADV_NORMAL ### define is not number */
-/* #define MADV_RANDOM POSIX_MADV_RANDOM ### define is not number */
-/* #define MADV_SEQUENTIAL POSIX_MADV_SEQUENTIAL ### define is not number */
-/* #define MADV_WILLNEED POSIX_MADV_WILLNEED ### define is not number */
-/* #define MADV_DONTNEED POSIX_MADV_DONTNEED ### define is not number */
+enum { MADV_NORMAL = 0 };
+enum { MADV_RANDOM = 1 };
+enum { MADV_SEQUENTIAL = 2 };
+enum { MADV_WILLNEED = 3 };
+enum { MADV_DONTNEED = 4 };
 enum { MADV_FREE = 5 };
 enum { MADV_ZERO_WIRED_PAGES = 6 };
 enum { MADV_FREE_REUSABLE = 7 };
@@ -95,4 +93,5 @@ enum { MINCORE_PAGED_OUT = 0x20 };
 enum { MINCORE_COPIED = 0x40 };
 enum { MINCORE_ANONYMOUS = 0x80 };
 enum { _MMAP = 1 };
+/* + END <sys/mman.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/mman.h */
 ]]

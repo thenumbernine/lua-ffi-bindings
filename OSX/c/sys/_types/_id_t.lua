@@ -6,5 +6,4 @@ ffi.cdef[[
 /* ++ END <sys/_types.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h */
 typedef __darwin_id_t id_t;
 /* + END <sys/_types/_id_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_id_t.h */
-enum { _ID_T = 1 };
 ]]

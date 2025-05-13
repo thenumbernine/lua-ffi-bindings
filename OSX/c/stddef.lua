@@ -19,5 +19,8 @@ typedef long double max_align_t;
 /* ++ END <__stddef_max_align_t.h> /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/__stddef_max_align_t.h */
 /* ++ BEGIN <__stddef_offsetof.h> /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/__stddef_offsetof.h */
 /* ++ END <__stddef_offsetof.h> /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/__stddef_offsetof.h */
+/* #define NULL ((void *)0) ### define is not number */
+enum { __CLANG_MAX_ALIGN_T_DEFINED = 1 };
+/* #define offsetof (t,d) __builtin_offsetof(t, d) ### define is not number */
 /* + END <stddef.h> /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stddef.h */
 ]]

@@ -102,14 +102,40 @@ int statx64_np(const char *, struct stat64 *, filesec_t) __attribute__((availabi
 int fstat64(int, struct stat64 *) __attribute__((availability(macosx,introduced=10.5,deprecated=10.6)));
 int lstat64(const char *, struct stat64 *) __attribute__((availability(macosx,introduced=10.5,deprecated=10.6)));
 int stat64(const char *, struct stat64 *) __attribute__((availability(macosx,introduced=10.5,deprecated=10.6)));
-/* + END <sys/stat.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/stat.h */
-enum { _SYS_STAT_H_ = 1 };
 /* #define __DARWIN_STRUCT_STAT64_TIMES struct timespec st_atimespec; struct timespec st_mtimespec; struct timespec st_ctimespec; struct timespec st_birthtimespec; ### define is not number */
 /* #define __DARWIN_STRUCT_STAT64 { dev_t st_dev; mode_t st_mode; nlink_t st_nlink; __darwin_ino64_t st_ino; uid_t st_uid; gid_t st_gid; dev_t st_rdev; __DARWIN_STRUCT_STAT64_TIMES off_t st_size; blkcnt_t st_blocks; blksize_t st_blksize; __uint32_t st_flags; __uint32_t st_gen; __int32_t st_lspare; __int64_t st_qspare[2]; } ### define is not number */
 /* #define st_atime st_atimespec.tv_sec ### define is not number */
 /* #define st_mtime st_mtimespec.tv_sec ### define is not number */
 /* #define st_ctime st_ctimespec.tv_sec ### define is not number */
 /* #define st_birthtime st_birthtimespec.tv_sec ### define is not number */
+enum { S_IFMT = 0170000 };
+enum { S_IFIFO = 0010000 };
+enum { S_IFCHR = 0020000 };
+enum { S_IFDIR = 0040000 };
+enum { S_IFBLK = 0060000 };
+enum { S_IFREG = 0100000 };
+enum { S_IFLNK = 0120000 };
+enum { S_IFSOCK = 0140000 };
+enum { S_IFWHT = 0160000 };
+enum { S_IRWXU = 0000700 };
+enum { S_IRUSR = 0000400 };
+enum { S_IWUSR = 0000200 };
+enum { S_IXUSR = 0000100 };
+enum { S_IRWXG = 0000070 };
+enum { S_IRGRP = 0000040 };
+enum { S_IWGRP = 0000020 };
+enum { S_IXGRP = 0000010 };
+enum { S_IRWXO = 0000007 };
+enum { S_IROTH = 0000004 };
+enum { S_IWOTH = 0000002 };
+enum { S_IXOTH = 0000001 };
+enum { S_ISUID = 0004000 };
+enum { S_ISGID = 0002000 };
+enum { S_ISVTX = 0001000 };
+enum { S_ISTXT = 0001000 };
+enum { S_IREAD = 0000400 };
+enum { S_IWRITE = 0000200 };
+enum { S_IEXEC = 0000100 };
 /* #define S_ISBLK (m) (((m) & S_IFMT) == S_IFBLK) ### define is not number */
 /* #define S_ISCHR (m) (((m) & S_IFMT) == S_IFCHR) ### define is not number */
 /* #define S_ISDIR (m) (((m) & S_IFMT) == S_IFDIR) ### define is not number */
@@ -154,6 +180,7 @@ enum { EF_IS_SYNTHETIC = 0x00000020 };
 enum { EF_SHARES_ALL_BLOCKS = 0x00000040 };
 enum { UTIME_NOW = -1 };
 enum { UTIME_OMIT = -2 };
+/* + END <sys/stat.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/stat.h */
 ]]
 local lib = ffi.C
 local statlib = setmetatable({

@@ -48,6 +48,7 @@ typedef int64_t user_time_t;
 typedef int64_t user_off_t;
 typedef u_int64_t syscall_arg_t;
 /* ++ END "i386/types.h" /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/i386/types.h */
+/* #define USER_ADDR_NULL ((user_addr_t) 0) ### define is not number */
+/* #define CAST_USER_ADDR_T (a_ptr) ((user_addr_t)((uintptr_t)(a_ptr))) ### define is not number */
 /* + END <machine/types.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/machine/types.h */
-enum { _BSD_MACHINE_TYPES_H_ = 1 };
 ]]

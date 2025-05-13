@@ -45,6 +45,34 @@ _OSSwapInt64(
 /* ++++ END <libkern/_OSByteOrder.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libkern/_OSByteOrder.h */
 /* +++ END <sys/_endian.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_endian.h */
 /* ++ END "i386/endian.h" /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/i386/endian.h */
+enum { _QUAD_HIGHWORD = 1 };
+enum { _QUAD_LOWWORD = 0 };
+enum { __DARWIN_LITTLE_ENDIAN = 1234 };
+enum { __DARWIN_BIG_ENDIAN = 4321 };
+enum { __DARWIN_PDP_ENDIAN = 3412 };
+enum { LITTLE_ENDIAN = 1234 };
+enum { BIG_ENDIAN = 4321 };
+enum { PDP_ENDIAN = 3412 };
+enum { __DARWIN_BYTE_ORDER = 1234 };
+enum { BYTE_ORDER = 1234 };
+/* #define __DARWIN_OSSwapConstInt16 (x) ((__uint16_t)((((__uint16_t)(x) & 0xff00U) >> 8) | (((__uint16_t)(x) & 0x00ffU) << 8))) ### define is not number */
+/* #define __DARWIN_OSSwapConstInt32 (x) ((__uint32_t)((((__uint32_t)(x) & 0xff000000U) >> 24) | (((__uint32_t)(x) & 0x00ff0000U) >> 8) | (((__uint32_t)(x) & 0x0000ff00U) << 8) | (((__uint32_t)(x) & 0x000000ffU) << 24))) ### define is not number */
+/* #define __DARWIN_OSSwapConstInt64 (x) ((__uint64_t)((((__uint64_t)(x) & 0xff00000000000000ULL) >> 56) | (((__uint64_t)(x) & 0x00ff000000000000ULL) >> 40) | (((__uint64_t)(x) & 0x0000ff0000000000ULL) >> 24) | (((__uint64_t)(x) & 0x000000ff00000000ULL) >> 8) | (((__uint64_t)(x) & 0x00000000ff000000ULL) << 8) | (((__uint64_t)(x) & 0x0000000000ff0000ULL) << 24) | (((__uint64_t)(x) & 0x000000000000ff00ULL) << 40) | (((__uint64_t)(x) & 0x00000000000000ffULL) << 56))) ### define is not number */
+/* #define __DARWIN_OS_INLINE static inline ### define is not number */
+/* #define __DARWIN_OSSwapInt16 (x) ((__uint16_t)(__builtin_constant_p(x) ? __DARWIN_OSSwapConstInt16(x) : _OSSwapInt16(x))) ### define is not number */
+/* #define __DARWIN_OSSwapInt32 (x) (__builtin_constant_p(x) ? __DARWIN_OSSwapConstInt32(x) : _OSSwapInt32(x)) ### define is not number */
+/* #define __DARWIN_OSSwapInt64 (x) (__builtin_constant_p(x) ? __DARWIN_OSSwapConstInt64(x) : _OSSwapInt64(x)) ### define is not number */
+/* #define ntohs (x) __DARWIN_OSSwapInt16(x) ### define is not number */
+/* #define htons (x) __DARWIN_OSSwapInt16(x) ### define is not number */
+/* #define ntohl (x) __DARWIN_OSSwapInt32(x) ### define is not number */
+/* #define htonl (x) __DARWIN_OSSwapInt32(x) ### define is not number */
+/* #define ntohll (x) __DARWIN_OSSwapInt64(x) ### define is not number */
+/* #define htonll (x) __DARWIN_OSSwapInt64(x) ### define is not number */
+/* #define NTOHL (x) (x) = ntohl((__uint32_t)x) ### define is not number */
+/* #define NTOHS (x) (x) = ntohs((__uint16_t)x) ### define is not number */
+/* #define NTOHLL (x) (x) = ntohll((__uint64_t)x) ### define is not number */
+/* #define HTONL (x) (x) = htonl((__uint32_t)x) ### define is not number */
+/* #define HTONS (x) (x) = htons((__uint16_t)x) ### define is not number */
+/* #define HTONLL (x) (x) = htonll((__uint64_t)x) ### define is not number */
 /* + END <machine/endian.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/machine/endian.h */
-enum { _BSD_MACHINE_ENDIAN_H_ = 1 };
 ]]
