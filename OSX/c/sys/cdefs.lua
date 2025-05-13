@@ -75,18 +75,18 @@ enum { __DARWIN_SUF_UNIX03 = 1 };
 /* #define __DARWIN_SUF_1050 "$1050" ### define is not number */
 enum { __DARWIN_SUF_NON_CANCELABLE = 1 };
 /* #define __DARWIN_SUF_EXTSN "$DARWIN_EXTSN" ### define is not number */
-/* #define __DARWIN_ALIAS (sym) __asm("_" __STRING(sym) __DARWIN_SUF_UNIX03) ### define is not number */
-/* #define __DARWIN_ALIAS_C (sym) __asm("_" __STRING(sym) __DARWIN_SUF_NON_CANCELABLE __DARWIN_SUF_UNIX03) ### define is not number */
-/* #define __DARWIN_ALIAS_I (sym) __asm("_" __STRING(sym) __DARWIN_SUF_64_BIT_INO_T __DARWIN_SUF_UNIX03) ### define is not number */
-/* #define __DARWIN_NOCANCEL (sym) __asm("_" __STRING(sym) __DARWIN_SUF_NON_CANCELABLE) ### define is not number */
-/* #define __DARWIN_INODE64 (sym) __asm("_" __STRING(sym) __DARWIN_SUF_64_BIT_INO_T) ### define is not number */
-/* #define __DARWIN_1050 (sym) __asm("_" __STRING(sym) __DARWIN_SUF_1050) ### define is not number */
-/* #define __DARWIN_1050ALIAS (sym) __asm("_" __STRING(sym) __DARWIN_SUF_1050 __DARWIN_SUF_UNIX03) ### define is not number */
-/* #define __DARWIN_1050ALIAS_C (sym) __asm("_" __STRING(sym) __DARWIN_SUF_1050 __DARWIN_SUF_NON_CANCELABLE __DARWIN_SUF_UNIX03) ### define is not number */
-/* #define __DARWIN_1050ALIAS_I (sym) __asm("_" __STRING(sym) __DARWIN_SUF_1050 __DARWIN_SUF_64_BIT_INO_T __DARWIN_SUF_UNIX03) ### define is not number */
-/* #define __DARWIN_1050INODE64 (sym) __asm("_" __STRING(sym) __DARWIN_SUF_1050 __DARWIN_SUF_64_BIT_INO_T) ### define is not number */
-/* #define __DARWIN_EXTSN (sym) __asm("_" __STRING(sym) __DARWIN_SUF_EXTSN) ### define is not number */
-/* #define __DARWIN_EXTSN_C (sym) __asm("_" __STRING(sym) __DARWIN_SUF_EXTSN __DARWIN_SUF_NON_CANCELABLE) ### define is not number */
+/* #define __DARWIN_ALIAS (sym) __asm("_"__STRING(sym)__DARWIN_SUF_UNIX03) ### define is not number */
+/* #define __DARWIN_ALIAS_C (sym) __asm("_"__STRING(sym)__DARWIN_SUF_NON_CANCELABLE__DARWIN_SUF_UNIX03) ### define is not number */
+/* #define __DARWIN_ALIAS_I (sym) __asm("_"__STRING(sym)__DARWIN_SUF_64_BIT_INO_T__DARWIN_SUF_UNIX03) ### define is not number */
+/* #define __DARWIN_NOCANCEL (sym) __asm("_"__STRING(sym)__DARWIN_SUF_NON_CANCELABLE) ### define is not number */
+/* #define __DARWIN_INODE64 (sym) __asm("_"__STRING(sym)__DARWIN_SUF_64_BIT_INO_T) ### define is not number */
+/* #define __DARWIN_1050 (sym) __asm("_"__STRING(sym)__DARWIN_SUF_1050) ### define is not number */
+/* #define __DARWIN_1050ALIAS (sym) __asm("_"__STRING(sym)__DARWIN_SUF_1050__DARWIN_SUF_UNIX03) ### define is not number */
+/* #define __DARWIN_1050ALIAS_C (sym) __asm("_"__STRING(sym)__DARWIN_SUF_1050__DARWIN_SUF_NON_CANCELABLE__DARWIN_SUF_UNIX03) ### define is not number */
+/* #define __DARWIN_1050ALIAS_I (sym) __asm("_"__STRING(sym)__DARWIN_SUF_1050__DARWIN_SUF_64_BIT_INO_T__DARWIN_SUF_UNIX03) ### define is not number */
+/* #define __DARWIN_1050INODE64 (sym) __asm("_"__STRING(sym)__DARWIN_SUF_1050__DARWIN_SUF_64_BIT_INO_T) ### define is not number */
+/* #define __DARWIN_EXTSN (sym) __asm("_"__STRING(sym)__DARWIN_SUF_EXTSN) ### define is not number */
+/* #define __DARWIN_EXTSN_C (sym) __asm("_"__STRING(sym)__DARWIN_SUF_EXTSN__DARWIN_SUF_NON_CANCELABLE) ### define is not number */
 /* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_2_0 (x)  ### define is not number */
 /* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_2_1 (x)  ### define is not number */
 /* #define __DARWIN_ALIAS_STARTING_IPHONE___IPHONE_2_2 (x)  ### define is not number */

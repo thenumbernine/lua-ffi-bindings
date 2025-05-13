@@ -71,18 +71,18 @@ int fflush(FILE *);
 int fgetc(FILE *);
 int fgetpos(FILE * restrict, fpos_t *);
 char *fgets(char * restrict, int, FILE *);
-FILE *fopen(const char * restrict __filename, const char * restrict __mode) __asm("_" "fopen" );
+FILE *fopen(const char * restrict __filename, const char * restrict __mode) __asm("_""fopen");
 int fprintf(FILE * restrict, const char * restrict, ...) __attribute__((__format__ (__printf__, 2, 3)));
 int fputc(int, FILE *);
-int fputs(const char * restrict, FILE * restrict) __asm("_" "fputs" );
+int fputs(const char * restrict, FILE * restrict) __asm("_""fputs");
 size_t fread(void * restrict __ptr, size_t __size, size_t __nitems, FILE * restrict __stream);
 FILE *freopen(const char * restrict, const char * restrict,
-     FILE * restrict) __asm("_" "freopen" );
+     FILE * restrict) __asm("_""freopen");
 int fscanf(FILE * restrict, const char * restrict, ...) __attribute__((__format__ (__scanf__, 2, 3)));
 int fseek(FILE *, long, int);
 int fsetpos(FILE *, const fpos_t *);
 long ftell(FILE *);
-size_t fwrite(const void * restrict __ptr, size_t __size, size_t __nitems, FILE * restrict __stream) __asm("_" "fwrite" );
+size_t fwrite(const void * restrict __ptr, size_t __size, size_t __nitems, FILE * restrict __stream) __asm("_""fwrite");
 int getc(FILE *);
 int getchar(void);
 __attribute__((__deprecated__("This function is provided for compatibility reasons only.  Due to security concerns inherent in the design of gets(3), it is highly recommended that you use fgets(3) instead.")))
@@ -114,10 +114,10 @@ int vsprintf(char * restrict, const char * restrict, va_list) __attribute__((__f
 /* +++ BEGIN <_ctermid.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_ctermid.h */
 ]] require 'ffi.req' 'c._ctermid' ffi.cdef[[
 /* +++ END <_ctermid.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_ctermid.h */
-FILE *fdopen(int, const char *) __asm("_" "fdopen" );
+FILE *fdopen(int, const char *) __asm("_""fdopen");
 int fileno(FILE *);
 int pclose(FILE *) __attribute__((__availability__(swift, unavailable, message="Use posix_spawn APIs or NSTask instead. (On iOS, process spawning is unavailable.)")));
-FILE *popen(const char *, const char *) __asm("_" "popen" ) __attribute__((__availability__(swift, unavailable, message="Use posix_spawn APIs or NSTask instead. (On iOS, process spawning is unavailable.)")));
+FILE *popen(const char *, const char *) __asm("_""popen") __attribute__((__availability__(swift, unavailable, message="Use posix_spawn APIs or NSTask instead. (On iOS, process spawning is unavailable.)")));
 int __srget(FILE *);
 int __svfscanf(FILE *, const char *, va_list) __attribute__((__format__ (__scanf__, 2, 0)));
 int __swbuf(int, FILE *);
@@ -138,7 +138,7 @@ int getw(FILE *);
 int putw(int, FILE *);
 __attribute__((__availability__(swift, unavailable, message="Use mkstemp(3) instead.")))
 __attribute__((__deprecated__("This function is provided for compatibility reasons only.  Due to security concerns inherent in the design of tempnam(3), it is highly recommended that you use mkstemp(3) instead.")))
-char *tempnam(const char *__dir, const char *__prefix) __asm("_" "tempnam" );
+char *tempnam(const char *__dir, const char *__prefix) __asm("_""tempnam");
 /* +++ BEGIN <sys/_types/_off_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_off_t.h */
 ]] require 'ffi.req' 'c.sys._types._off_t' ffi.cdef[[
 /* +++ END <sys/_types/_off_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_off_t.h */

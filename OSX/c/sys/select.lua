@@ -42,7 +42,7 @@ ffi.cdef[[
 int pselect(int, fd_set * restrict, fd_set * restrict,
     fd_set * restrict, const struct timespec * restrict,
     const sigset_t * restrict)
-__asm("_" "pselect" "$1050")
+__asm("_""pselect""$1050")
 ;
 /* ++ BEGIN <sys/_select.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_select.h */
 ]] require 'ffi.req' 'c.sys._select' ffi.cdef[[
