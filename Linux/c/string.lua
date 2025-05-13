@@ -145,6 +145,5 @@ extern size_t strlcpy (char *__restrict __dest,
 extern size_t strlcat (char *__restrict __dest,
          const char *__restrict __src, size_t __n)
   __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2))) __attribute__ ((__access__ (__read_write__, 1, 3)));
-enum { _STRING_H = 1 };
 /* + END <string.h> /usr/include/string.h */
 ]]

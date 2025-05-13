@@ -18,6 +18,24 @@ ffi.cdef[[
 enum { _GCC_LIMITS_H_ = 1 };
 enum { _LIBC_LIMITS_H_ = 1 };
 enum { MB_LEN_MAX = 16 };
+enum { _POSIX2_BC_BASE_MAX = 99 };
+enum { _POSIX2_BC_DIM_MAX = 2048 };
+enum { _POSIX2_BC_SCALE_MAX = 99 };
+enum { _POSIX2_BC_STRING_MAX = 1000 };
+enum { _POSIX2_COLL_WEIGHTS_MAX = 2 };
+enum { _POSIX2_EXPR_NEST_MAX = 32 };
+enum { _POSIX2_LINE_MAX = 2048 };
+enum { _POSIX2_RE_DUP_MAX = 255 };
+enum { _POSIX2_CHARCLASS_NAME_MAX = 14 };
+/* #define BC_BASE_MAX _POSIX2_BC_BASE_MAX ### define is not number */
+/* #define BC_DIM_MAX _POSIX2_BC_DIM_MAX ### define is not number */
+/* #define BC_SCALE_MAX _POSIX2_BC_SCALE_MAX ### define is not number */
+/* #define BC_STRING_MAX _POSIX2_BC_STRING_MAX ### define is not number */
+enum { COLL_WEIGHTS_MAX = 255 };
+/* #define EXPR_NEST_MAX _POSIX2_EXPR_NEST_MAX ### define is not number */
+/* #define LINE_MAX _POSIX2_LINE_MAX ### define is not number */
+enum { CHARCLASS_NAME_MAX = 2048 };
+/* #define RE_DUP_MAX (0x7fff) ### define is not number */
 enum { _LIMITS_H___ = 1 };
 /* #define CHAR_BIT __CHAR_BIT__ ### define is not number */
 /* #define SCHAR_MIN (-SCHAR_MAX - 1) ### define is not number */

@@ -68,7 +68,6 @@ extern int __tolower_l (int __c, locale_t __l) __attribute__ ((__nothrow__ , __l
 extern int tolower_l (int __c, locale_t __l) __attribute__ ((__nothrow__ , __leaf__));
 extern int __toupper_l (int __c, locale_t __l) __attribute__ ((__nothrow__ , __leaf__));
 extern int toupper_l (int __c, locale_t __l) __attribute__ ((__nothrow__ , __leaf__));
-enum { _CTYPE_H = 1 };
 /* #define _ISbit (bit) ((bit) < 8 ? ((1 << (bit)) << 8) : ((1 << (bit)) >> 8)) ### define is not number */
 /* #define __isctype (c,type) ((*__ctype_b_loc ())[(int) (c)] & (unsigned short int) type) ### define is not number */
 /* #define __isascii (c) (((c) & ~0x7f) == 0) ### define is not number */

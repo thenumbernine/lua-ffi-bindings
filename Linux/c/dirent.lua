@@ -65,7 +65,11 @@ extern __ssize_t getdirentries (int __fd, char *__restrict __buf,
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2, 4)));
 /* ++ BEGIN <bits/dirent_ext.h> /usr/include/x86_64-linux-gnu/bits/dirent_ext.h */
 /* ++ END <bits/dirent_ext.h> /usr/include/x86_64-linux-gnu/bits/dirent_ext.h */
-enum { _DIRENT_H = 1 };
+/* #define d_fileno d_ino ### define is not number */
+enum { _DIRENT_HAVE_D_RECLEN = 1 };
+enum { _DIRENT_HAVE_D_OFF = 1 };
+enum { _DIRENT_HAVE_D_TYPE = 1 };
+enum { _DIRENT_MATCHES_DIRENT64 = 1 };
 /* #define _D_EXACT_NAMLEN (d) (strlen ((d)->d_name)) ### define is not number */
 /* #define _D_ALLOC_NAMLEN (d) (((char *) (d) + (d)->d_reclen) - &(d)->d_name[0]) ### define is not number */
 /* #define DT_UNKNOWN DT_UNKNOWN ### define is not number */

@@ -18,7 +18,6 @@ struct utimbuf
 extern int utime (const char *__file,
     const struct utimbuf *__file_times)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
-enum { _UTIME_H = 1 };
 /* + END <utime.h> /usr/include/utime.h */
 ]]
 return setmetatable({

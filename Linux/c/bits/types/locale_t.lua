@@ -16,6 +16,5 @@ struct __locale_struct
 typedef struct __locale_struct *__locale_t;
 /* ++ END <bits/types/__locale_t.h> /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h */
 typedef __locale_t locale_t;
-enum { _BITS_TYPES_LOCALE_T_H = 1 };
 /* + END <bits/types/locale_t.h> /usr/include/x86_64-linux-gnu/bits/types/locale_t.h */
 ]]

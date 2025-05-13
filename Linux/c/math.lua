@@ -282,12 +282,12 @@ enum
     FP_NORMAL =
       4
   };
-enum { _MATH_H = 1 };
 /* #define HUGE_VAL (__builtin_huge_val ()) ### define is not number */
 /* #define HUGE_VALF (__builtin_huge_valf ()) ### define is not number */
 /* #define HUGE_VALL (__builtin_huge_vall ()) ### define is not number */
 /* #define INFINITY (__builtin_inff ()) ### define is not number */
 /* #define NAN (__builtin_nanf ("")) ### define is not number */
+/* #define __GLIBC_FLT_EVAL_METHOD __FLT_EVAL_METHOD__ ### define is not number */
 /* #define FP_ILOGB0 (-2147483647 - 1) ### define is not number */
 /* #define FP_ILOGBNAN (-2147483647 - 1) ### define is not number */
 /* #define __SIMD_DECL (function) __CONCAT (__DECL_SIMD_, function) ### define is not number */
@@ -296,7 +296,6 @@ enum { _MATH_H = 1 };
 /* #define __MATHCALLX (function,suffix,args,attrib) __MATHDECLX (_Mdouble_,function,suffix, args, attrib) ### define is not number */
 /* #define __MATHDECLX (type,function,suffix,args,attrib) __MATHDECL_1(type, function,suffix, args) __attribute__ (attrib); __MATHDECL_1(type, __CONCAT(__,function),suffix, args) __attribute__ (attrib) ### define is not number */
 /* #define __MATHREDIR (type,function,suffix,args,to) extern type __REDIRECT_NTH (__MATH_PRECNAME (function, suffix), args, to) ### define is not number */
-enum { __MATH_DECLARE_LDOUBLE = 1 };
 /* #define __MATH_TG_F32 (FUNC,ARGS) _Float32: FUNC ## f ARGS, ### define is not number */
 /* #define __MATH_TG_F64X (FUNC,ARGS) _Float64x: FUNC ## l ARGS, ### define is not number */
 /* #define __MATH_TG (TG_ARG,FUNC,ARGS) _Generic ((TG_ARG), float: FUNC ## f ARGS, __MATH_TG_F32 (FUNC, ARGS) default: FUNC ARGS, long double: FUNC ## l ARGS, __MATH_TG_F64X (FUNC, ARGS) _Float128: FUNC ## f128 ARGS) ### define is not number */

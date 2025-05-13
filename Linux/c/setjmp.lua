@@ -21,7 +21,6 @@ extern void _longjmp (struct __jmp_buf_tag __env[1], int __val)
 typedef struct __jmp_buf_tag sigjmp_buf[1];
 extern void siglongjmp (sigjmp_buf __env, int __val)
      __attribute__ ((__nothrow__)) __attribute__ ((__noreturn__));
-enum { _SETJMP_H = 1 };
 /* #define setjmp (env) _setjmp (env) ### define is not number */
 /* #define sigsetjmp (env,savemask) __sigsetjmp (env, savemask) ### define is not number */
 /* + END <setjmp.h> /usr/include/setjmp.h */

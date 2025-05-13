@@ -26,7 +26,6 @@ extern intmax_t wcstoimax (const __gwchar_t *__restrict __nptr,
 extern uintmax_t wcstoumax (const __gwchar_t *__restrict __nptr,
        __gwchar_t ** __restrict __endptr, int __base)
      __attribute__ ((__nothrow__ , __leaf__));
-enum { _INTTYPES_H = 1 };
 /* #define __PRI64_PREFIX "l" ### define is not number */
 /* #define __PRIPTR_PREFIX "l" ### define is not number */
 /* #define PRId8 "d" ### define is not number */

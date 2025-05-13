@@ -44,11 +44,13 @@ __uint64_identity (__uint64_t __x)
   return __x;
 }
 /* ++ END <bits/uintn-identity.h> /usr/include/x86_64-linux-gnu/bits/uintn-identity.h */
-enum { _ENDIAN_H = 1 };
 /* #define LITTLE_ENDIAN __LITTLE_ENDIAN ### define is not number */
 /* #define BIG_ENDIAN __BIG_ENDIAN ### define is not number */
 /* #define PDP_ENDIAN __PDP_ENDIAN ### define is not number */
 /* #define BYTE_ORDER __BYTE_ORDER ### define is not number */
+/* #define __bswap_constant_16 (x) ((__uint16_t) ((((x) >> 8) & 0xff) | (((x) & 0xff) << 8))) ### define is not number */
+/* #define __bswap_constant_32 (x) ((((x) & 0xff000000u) >> 24) | (((x) & 0x00ff0000u) >> 8) | (((x) & 0x0000ff00u) << 8) | (((x) & 0x000000ffu) << 24)) ### define is not number */
+/* #define __bswap_constant_64 (x) ((((x) & 0xff00000000000000ull) >> 56) | (((x) & 0x00ff000000000000ull) >> 40) | (((x) & 0x0000ff0000000000ull) >> 24) | (((x) & 0x000000ff00000000ull) >> 8) | (((x) & 0x00000000ff000000ull) << 8) | (((x) & 0x0000000000ff0000ull) << 24) | (((x) & 0x000000000000ff00ull) << 40) | (((x) & 0x00000000000000ffull) << 56)) ### define is not number */
 /* #define htobe16 (x) __bswap_16 (x) ### define is not number */
 /* #define htole16 (x) __uint16_identity (x) ### define is not number */
 /* #define be16toh (x) __bswap_16 (x) ### define is not number */

@@ -262,7 +262,13 @@ extern int ftrylockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)
 extern void funlockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 extern int __uflow (FILE *);
 extern int __overflow (FILE *, int);
-enum { _STDIO_H = 1 };
+/* #define __getc_unlocked_body (_fp) (__glibc_unlikely ((_fp)->_IO_read_ptr >= (_fp)->_IO_read_end) ? __uflow (_fp) : *(unsigned char *) (_fp)->_IO_read_ptr++) ### define is not number */
+/* #define __putc_unlocked_body (_ch,_fp) (__glibc_unlikely ((_fp)->_IO_write_ptr >= (_fp)->_IO_write_end) ? __overflow (_fp, (unsigned char) (_ch)) : (unsigned char) (*(_fp)->_IO_write_ptr++ = (_ch))) ### define is not number */
+enum { _IO_EOF_SEEN = 0x0010 };
+/* #define __feof_unlocked_body (_fp) (((_fp)->_flags & _IO_EOF_SEEN) != 0) ### define is not number */
+enum { _IO_ERR_SEEN = 0x0020 };
+/* #define __ferror_unlocked_body (_fp) (((_fp)->_flags & _IO_ERR_SEEN) != 0) ### define is not number */
+enum { _IO_USER_LOCK = 0x8000 };
 enum { _IOFBF = 0 };
 enum { _IOLBF = 1 };
 enum { _IONBF = 2 };
@@ -272,13 +278,13 @@ enum { BUFSIZ = 8192 };
 /* #define P_tmpdir "/tmp" ### define is not number */
 enum { L_tmpnam = 20 };
 enum { TMP_MAX = 238328 };
+enum { FILENAME_MAX = 4096 };
 enum { L_ctermid = 9 };
 enum { FOPEN_MAX = 16 };
 /* #define stdin stdin ### define is not number */
 /* #define stdout stdout ### define is not number */
 /* #define stderr stderr ### define is not number */
 /* #define __attr_dealloc_fclose __attr_dealloc (fclose, 1) ### define is not number */
-enum { FILENAME_MAX = 4096 };
 /* + END <stdio.h> /usr/include/stdio.h */
 ]]
 -- special case since in the browser app where I'm capturing fopen for remote requests and caching

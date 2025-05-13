@@ -11,6 +11,7 @@ ffi.cdef[[
 /* +++ BEGIN <bits/wchar.h> /usr/include/x86_64-linux-gnu/bits/wchar.h */
 /* +++ END <bits/wchar.h> /usr/include/x86_64-linux-gnu/bits/wchar.h */
 /* +++ BEGIN <bits/wordsize.h> /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+]] require 'ffi.req' 'c.bits.wordsize' ffi.cdef[[
 /* +++ END <bits/wordsize.h> /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* +++ BEGIN <bits/stdint-intn.h> /usr/include/x86_64-linux-gnu/bits/stdint-intn.h */
 ]] require 'ffi.req' 'c.bits.stdint-intn' ffi.cdef[[
@@ -34,7 +35,8 @@ typedef unsigned long int uintptr_t;
 typedef __intmax_t intmax_t;
 typedef __uintmax_t uintmax_t;
 /* ++ END <stdint.h> /usr/include/stdint.h */
-enum { _STDINT_H = 1 };
+/* #define __WCHAR_MAX __WCHAR_MAX__ ### define is not number */
+/* #define __WCHAR_MIN __WCHAR_MIN__ ### define is not number */
 /* #define __INT64_C (c) c ## L ### define is not number */
 /* #define __UINT64_C (c) c ## UL ### define is not number */
 /* #define INT8_MIN (-128) ### define is not number */
@@ -98,6 +100,5 @@ enum { _STDINT_H = 1 };
 /* #define UINT64_C (c) c ## UL ### define is not number */
 /* #define INTMAX_C (c) c ## L ### define is not number */
 /* #define UINTMAX_C (c) c ## UL ### define is not number */
-enum { _GCC_WRAP_STDINT_H = 1 };
 /* + END <stdint.h> /usr/lib/gcc/x86_64-linux-gnu/14/include/stdint.h */
 ]]

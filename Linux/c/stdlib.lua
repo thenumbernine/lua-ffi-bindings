@@ -268,7 +268,27 @@ extern int getloadavg (double __loadavg[], int __nelem)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 /* ++ BEGIN <bits/stdlib-float.h> /usr/include/x86_64-linux-gnu/bits/stdlib-float.h */
 /* ++ END <bits/stdlib-float.h> /usr/include/x86_64-linux-gnu/bits/stdlib-float.h */
-enum { _STDLIB_H = 1 };
+enum { WNOHANG = 1 };
+enum { WUNTRACED = 2 };
+enum { WSTOPPED = 2 };
+enum { WEXITED = 4 };
+enum { WCONTINUED = 8 };
+enum { WNOWAIT = 0x01000000 };
+enum { __WNOTHREAD = 0x20000000 };
+enum { __WALL = 0x40000000 };
+enum { __WCLONE = 0x80000000 };
+/* #define __WEXITSTATUS (status) (((status) & 0xff00) >> 8) ### define is not number */
+/* #define __WTERMSIG (status) ((status) & 0x7f) ### define is not number */
+/* #define __WSTOPSIG (status) __WEXITSTATUS(status) ### define is not number */
+/* #define __WIFEXITED (status) (__WTERMSIG(status) == 0) ### define is not number */
+/* #define __WIFSIGNALED (status) (((signed char) (((status) & 0x7f) + 1) >> 1) > 0) ### define is not number */
+/* #define __WIFSTOPPED (status) (((status) & 0xff) == 0x7f) ### define is not number */
+/* #define __WIFCONTINUED (status) ((status) == __W_CONTINUED) ### define is not number */
+/* #define __WCOREDUMP (status) ((status) & __WCOREFLAG) ### define is not number */
+/* #define __W_EXITCODE (ret,sig) ((ret) << 8 | (sig)) ### define is not number */
+/* #define __W_STOPCODE (sig) ((sig) << 8 | 0x7f) ### define is not number */
+enum { __W_CONTINUED = 0xffff };
+enum { __WCOREFLAG = 0x80 };
 /* #define WEXITSTATUS (status) __WEXITSTATUS (status) ### define is not number */
 /* #define WTERMSIG (status) __WTERMSIG (status) ### define is not number */
 /* #define WSTOPSIG (status) __WSTOPSIG (status) ### define is not number */
@@ -280,6 +300,6 @@ enum { RAND_MAX = 2147483647 };
 enum { EXIT_FAILURE = 1 };
 enum { EXIT_SUCCESS = 0 };
 /* #define MB_CUR_MAX (__ctype_get_mb_cur_max ()) ### define is not number */
-enum { __COMPAR_FN_T = 1 };
+/* #define alloca (size) __builtin_alloca (size) ### define is not number */
 /* + END <stdlib.h> /usr/include/stdlib.h */
 ]]

@@ -54,7 +54,6 @@ extern int utimensat (int __fd, const char *__path,
         int __flags)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
 extern int futimens (int __fd, const struct timespec __times[2]) __attribute__ ((__nothrow__ , __leaf__));
-enum { _SYS_STAT_H = 1 };
 /* #define S_IFMT __S_IFMT ### define is not number */
 /* #define S_IFDIR __S_IFDIR ### define is not number */
 /* #define S_IFCHR __S_IFCHR ### define is not number */

@@ -5,6 +5,7 @@ ffi.cdef[[
 /* + END <features.h> /usr/include/features.h */
 /* + BEGIN <bits/posix1_lim.h> /usr/include/x86_64-linux-gnu/bits/posix1_lim.h */
 /* ++ BEGIN <bits/wordsize.h> /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+]] require 'ffi.req' 'c.bits.wordsize' ffi.cdef[[
 /* ++ END <bits/wordsize.h> /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* ++ BEGIN <bits/local_lim.h> /usr/include/x86_64-linux-gnu/bits/local_lim.h */
 /* +++ BEGIN <linux/limits.h> /usr/include/linux/limits.h */
@@ -13,7 +14,6 @@ ffi.cdef[[
 ]] require 'ffi.req' 'c.bits.pthread_stack_min-dynamic' ffi.cdef[[
 /* +++ END <bits/pthread_stack_min-dynamic.h> /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h */
 /* ++ END <bits/local_lim.h> /usr/include/x86_64-linux-gnu/bits/local_lim.h */
-enum { _BITS_POSIX1_LIM_H = 1 };
 enum { _POSIX_AIO_LISTIO_MAX = 2 };
 enum { _POSIX_AIO_MAX = 1 };
 enum { _POSIX_ARG_MAX = 4096 };
@@ -44,6 +44,28 @@ enum { _POSIX_TIMER_MAX = 32 };
 enum { _POSIX_TTY_NAME_MAX = 9 };
 enum { _POSIX_TZNAME_MAX = 6 };
 enum { _POSIX_CLOCKRES_MIN = 20000000 };
+enum { NGROUPS_MAX = 65536 };
+enum { MAX_CANON = 255 };
+enum { MAX_INPUT = 255 };
+enum { NAME_MAX = 255 };
+enum { PATH_MAX = 4096 };
+enum { PIPE_BUF = 4096 };
+enum { XATTR_NAME_MAX = 255 };
+enum { XATTR_SIZE_MAX = 65536 };
+enum { XATTR_LIST_MAX = 65536 };
+enum { RTSIG_MAX = 32 };
+enum { _POSIX_THREAD_KEYS_MAX = 128 };
+enum { PTHREAD_KEYS_MAX = 1024 };
+enum { _POSIX_THREAD_DESTRUCTOR_ITERATIONS = 4 };
+/* #define PTHREAD_DESTRUCTOR_ITERATIONS _POSIX_THREAD_DESTRUCTOR_ITERATIONS ### define is not number */
+enum { _POSIX_THREAD_THREADS_MAX = 64 };
+enum { AIO_PRIO_DELTA_MAX = 20 };
+enum { DELAYTIMER_MAX = 2147483647 };
+enum { TTY_NAME_MAX = 32 };
+enum { LOGIN_NAME_MAX = 256 };
+enum { HOST_NAME_MAX = 64 };
+enum { MQ_PRIO_MAX = 32768 };
+/* #define SEM_VALUE_MAX (2147483647) ### define is not number */
 /* #define SSIZE_MAX LONG_MAX ### define is not number */
 /* + END <bits/posix1_lim.h> /usr/include/x86_64-linux-gnu/bits/posix1_lim.h */
 ]]

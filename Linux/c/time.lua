@@ -112,7 +112,19 @@ extern int timer_gettime (timer_t __timerid, struct itimerspec *__value)
 extern int timer_getoverrun (timer_t __timerid) __attribute__ ((__nothrow__ , __leaf__));
 extern int timespec_get (struct timespec *__ts, int __base)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
-enum { _TIME_H = 1 };
+/* #define CLOCKS_PER_SEC ((__clock_t) 1000000) ### define is not number */
+enum { CLOCK_REALTIME = 0 };
+enum { CLOCK_MONOTONIC = 1 };
+enum { CLOCK_PROCESS_CPUTIME_ID = 2 };
+enum { CLOCK_THREAD_CPUTIME_ID = 3 };
+enum { CLOCK_MONOTONIC_RAW = 4 };
+enum { CLOCK_REALTIME_COARSE = 5 };
+enum { CLOCK_MONOTONIC_COARSE = 6 };
+enum { CLOCK_BOOTTIME = 7 };
+enum { CLOCK_REALTIME_ALARM = 8 };
+enum { CLOCK_BOOTTIME_ALARM = 9 };
+enum { CLOCK_TAI = 11 };
+enum { TIMER_ABSTIME = 1 };
 enum { TIME_UTC = 1 };
 /* #define __isleap (year) ((year) % 4 == 0 && ((year) % 100 != 0 || (year) % 400 == 0)) ### define is not number */
 /* + END <time.h> /usr/include/time.h */

@@ -24,6 +24,7 @@ typedef __uid_t uid_t;
 /* ++ END <bits/types/struct_timespec.h> /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
 /* ++ BEGIN <bits/types/siginfo_t.h> /usr/include/x86_64-linux-gnu/bits/types/siginfo_t.h */
 /* +++ BEGIN <bits/wordsize.h> /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+]] require 'ffi.req' 'c.bits.wordsize' ffi.cdef[[
 /* +++ END <bits/wordsize.h> /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* +++ BEGIN <bits/types/__sigval_t.h> /usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h */
 union sigval
@@ -182,6 +183,7 @@ typedef __sigval_t sigval_t;
 /* ++ END <bits/types/sigval_t.h> /usr/include/x86_64-linux-gnu/bits/types/sigval_t.h */
 /* ++ BEGIN <bits/types/sigevent_t.h> /usr/include/x86_64-linux-gnu/bits/types/sigevent_t.h */
 /* +++ BEGIN <bits/wordsize.h> /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+]] require 'ffi.req' 'c.bits.wordsize' ffi.cdef[[
 /* +++ END <bits/wordsize.h> /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 typedef union pthread_attr_t pthread_attr_t;
 typedef struct sigevent
@@ -450,9 +452,161 @@ extern int __libc_current_sigrtmin (void) __attribute__ ((__nothrow__ , __leaf__
 extern int __libc_current_sigrtmax (void) __attribute__ ((__nothrow__ , __leaf__));
 /* ++ BEGIN <bits/signal_ext.h> /usr/include/x86_64-linux-gnu/bits/signal_ext.h */
 /* ++ END <bits/signal_ext.h> /usr/include/x86_64-linux-gnu/bits/signal_ext.h */
-enum { _SIGNAL_H = 1 };
+/* #define SIG_ERR ((__sighandler_t) -1) ### define is not number */
+/* #define SIG_DFL ((__sighandler_t) 0) ### define is not number */
+/* #define SIG_IGN ((__sighandler_t) 1) ### define is not number */
+enum { SIGINT = 2 };
+enum { SIGILL = 4 };
+enum { SIGABRT = 6 };
+enum { SIGFPE = 8 };
+enum { SIGSEGV = 11 };
+enum { SIGTERM = 15 };
+enum { SIGHUP = 1 };
+enum { SIGQUIT = 3 };
+enum { SIGTRAP = 5 };
+enum { SIGKILL = 9 };
+enum { SIGPIPE = 13 };
+enum { SIGALRM = 14 };
+enum { SIGSTKFLT = 16 };
+enum { SIGPWR = 30 };
+enum { SIGBUS = 7 };
+enum { SIGSYS = 31 };
+enum { SIGURG = 23 };
+enum { SIGSTOP = 19 };
+enum { SIGTSTP = 20 };
+enum { SIGCONT = 18 };
+enum { SIGCHLD = 17 };
+enum { SIGTTIN = 21 };
+enum { SIGTTOU = 22 };
+enum { SIGPOLL = 29 };
+enum { SIGXFSZ = 25 };
+enum { SIGXCPU = 24 };
+enum { SIGVTALRM = 26 };
+enum { SIGPROF = 27 };
+enum { SIGUSR1 = 10 };
+enum { SIGUSR2 = 12 };
+enum { SIGWINCH = 28 };
+/* #define SIGIO SIGPOLL ### define is not number */
+/* #define SIGIOT SIGABRT ### define is not number */
+/* #define SIGCLD SIGCHLD ### define is not number */
+enum { __SIGRTMIN = 32 };
+enum { __SIGRTMAX = 64 };
+/* #define _NSIG (__SIGRTMAX + 1) ### define is not number */
+enum { __SI_MAX_SIZE = 128 };
+/* #define __SI_PAD_SIZE ((__SI_MAX_SIZE / sizeof (int)) - 4) ### define is not number */
+/* #define __SI_BAND_TYPE long int ### define is not number */
+/* #define __SI_CLOCK_T __clock_t ### define is not number */
+/* #define si_pid _sifields._kill.si_pid ### define is not number */
+/* #define si_uid _sifields._kill.si_uid ### define is not number */
+/* #define si_timerid _sifields._timer.si_tid ### define is not number */
+/* #define si_overrun _sifields._timer.si_overrun ### define is not number */
+/* #define si_status _sifields._sigchld.si_status ### define is not number */
+/* #define si_utime _sifields._sigchld.si_utime ### define is not number */
+/* #define si_stime _sifields._sigchld.si_stime ### define is not number */
+/* #define si_value _sifields._rt.si_sigval ### define is not number */
+/* #define si_int _sifields._rt.si_sigval.sival_int ### define is not number */
+/* #define si_ptr _sifields._rt.si_sigval.sival_ptr ### define is not number */
+/* #define si_addr _sifields._sigfault.si_addr ### define is not number */
+/* #define si_addr_lsb _sifields._sigfault.si_addr_lsb ### define is not number */
+/* #define si_lower _sifields._sigfault._bounds._addr_bnd._lower ### define is not number */
+/* #define si_upper _sifields._sigfault._bounds._addr_bnd._upper ### define is not number */
+/* #define si_pkey _sifields._sigfault._bounds._pkey ### define is not number */
+/* #define si_band _sifields._sigpoll.si_band ### define is not number */
+/* #define si_fd _sifields._sigpoll.si_fd ### define is not number */
+/* #define si_call_addr _sifields._sigsys._call_addr ### define is not number */
+/* #define si_syscall _sifields._sigsys._syscall ### define is not number */
+/* #define si_arch _sifields._sigsys._arch ### define is not number */
+/* #define SI_ASYNCNL SI_ASYNCNL ### define is not number */
+/* #define SI_DETHREAD SI_DETHREAD ### define is not number */
+/* #define SI_TKILL SI_TKILL ### define is not number */
+/* #define SI_SIGIO SI_SIGIO ### define is not number */
+/* #define SI_MESGQ SI_MESGQ ### define is not number */
+/* #define SI_TIMER SI_TIMER ### define is not number */
+/* #define SI_ASYNCIO SI_ASYNCIO ### define is not number */
+/* #define SI_QUEUE SI_QUEUE ### define is not number */
+/* #define SI_USER SI_USER ### define is not number */
+/* #define SI_KERNEL SI_KERNEL ### define is not number */
+/* #define ILL_ILLOPC ILL_ILLOPC ### define is not number */
+/* #define ILL_ILLOPN ILL_ILLOPN ### define is not number */
+/* #define ILL_ILLADR ILL_ILLADR ### define is not number */
+/* #define ILL_ILLTRP ILL_ILLTRP ### define is not number */
+/* #define ILL_PRVOPC ILL_PRVOPC ### define is not number */
+/* #define ILL_PRVREG ILL_PRVREG ### define is not number */
+/* #define ILL_COPROC ILL_COPROC ### define is not number */
+/* #define ILL_BADSTK ILL_BADSTK ### define is not number */
+/* #define ILL_BADIADDR ILL_BADIADDR ### define is not number */
+/* #define FPE_INTDIV FPE_INTDIV ### define is not number */
+/* #define FPE_INTOVF FPE_INTOVF ### define is not number */
+/* #define FPE_FLTDIV FPE_FLTDIV ### define is not number */
+/* #define FPE_FLTOVF FPE_FLTOVF ### define is not number */
+/* #define FPE_FLTUND FPE_FLTUND ### define is not number */
+/* #define FPE_FLTRES FPE_FLTRES ### define is not number */
+/* #define FPE_FLTINV FPE_FLTINV ### define is not number */
+/* #define FPE_FLTSUB FPE_FLTSUB ### define is not number */
+/* #define FPE_FLTUNK FPE_FLTUNK ### define is not number */
+/* #define FPE_CONDTRAP FPE_CONDTRAP ### define is not number */
+/* #define SEGV_MAPERR SEGV_MAPERR ### define is not number */
+/* #define SEGV_ACCERR SEGV_ACCERR ### define is not number */
+/* #define SEGV_BNDERR SEGV_BNDERR ### define is not number */
+/* #define SEGV_PKUERR SEGV_PKUERR ### define is not number */
+/* #define SEGV_ACCADI SEGV_ACCADI ### define is not number */
+/* #define SEGV_ADIDERR SEGV_ADIDERR ### define is not number */
+/* #define SEGV_ADIPERR SEGV_ADIPERR ### define is not number */
+/* #define SEGV_MTEAERR SEGV_MTEAERR ### define is not number */
+/* #define SEGV_MTESERR SEGV_MTESERR ### define is not number */
+/* #define SEGV_CPERR SEGV_CPERR ### define is not number */
+/* #define BUS_ADRALN BUS_ADRALN ### define is not number */
+/* #define BUS_ADRERR BUS_ADRERR ### define is not number */
+/* #define BUS_OBJERR BUS_OBJERR ### define is not number */
+/* #define BUS_MCEERR_AR BUS_MCEERR_AR ### define is not number */
+/* #define BUS_MCEERR_AO BUS_MCEERR_AO ### define is not number */
+/* #define CLD_EXITED CLD_EXITED ### define is not number */
+/* #define CLD_KILLED CLD_KILLED ### define is not number */
+/* #define CLD_DUMPED CLD_DUMPED ### define is not number */
+/* #define CLD_TRAPPED CLD_TRAPPED ### define is not number */
+/* #define CLD_STOPPED CLD_STOPPED ### define is not number */
+/* #define CLD_CONTINUED CLD_CONTINUED ### define is not number */
+/* #define POLL_IN POLL_IN ### define is not number */
+/* #define POLL_OUT POLL_OUT ### define is not number */
+/* #define POLL_MSG POLL_MSG ### define is not number */
+/* #define POLL_ERR POLL_ERR ### define is not number */
+/* #define POLL_PRI POLL_PRI ### define is not number */
+/* #define POLL_HUP POLL_HUP ### define is not number */
+enum { __SIGEV_MAX_SIZE = 64 };
+/* #define __SIGEV_PAD_SIZE ((__SIGEV_MAX_SIZE / sizeof (int)) - 4) ### define is not number */
+/* #define sigev_notify_function _sigev_un._sigev_thread._function ### define is not number */
+/* #define sigev_notify_attributes _sigev_un._sigev_thread._attribute ### define is not number */
+/* #define SIGEV_SIGNAL SIGEV_SIGNAL ### define is not number */
+/* #define SIGEV_NONE SIGEV_NONE ### define is not number */
+/* #define SIGEV_THREAD SIGEV_THREAD ### define is not number */
+/* #define SIGEV_THREAD_ID SIGEV_THREAD_ID ### define is not number */
 /* #define sigmask (sig) __glibc_macro_warning ("sigmask is deprecated") ((int)(1u << ((sig) - 1))) ### define is not number */
 /* #define NSIG _NSIG ### define is not number */
+/* #define sa_handler __sigaction_handler.sa_handler ### define is not number */
+/* #define sa_sigaction __sigaction_handler.sa_sigaction ### define is not number */
+enum { SA_NOCLDSTOP = 1 };
+enum { SA_NOCLDWAIT = 2 };
+enum { SA_SIGINFO = 4 };
+enum { SA_ONSTACK = 0x08000000 };
+enum { SA_RESTART = 0x10000000 };
+enum { SA_NODEFER = 0x40000000 };
+enum { SA_RESETHAND = 0x80000000 };
+enum { SA_INTERRUPT = 0x20000000 };
+/* #define SA_NOMASK SA_NODEFER ### define is not number */
+/* #define SA_ONESHOT SA_RESETHAND ### define is not number */
+/* #define SA_STACK SA_ONSTACK ### define is not number */
+enum { SIG_BLOCK = 0 };
+enum { SIG_UNBLOCK = 1 };
+enum { SIG_SETMASK = 2 };
+enum { FP_XSTATE_MAGIC1 = 0x46505853 };
+enum { FP_XSTATE_MAGIC2 = 0x46505845 };
+/* #define FP_XSTATE_MAGIC2_SIZE sizeof (FP_XSTATE_MAGIC2) ### define is not number */
+enum { __NGREG = 23 };
+/* #define NGREG __NGREG ### define is not number */
+enum { MINSIGSTKSZ = 2048 };
+enum { SIGSTKSZ = 8192 };
+/* #define SS_ONSTACK SS_ONSTACK ### define is not number */
+/* #define SS_DISABLE SS_DISABLE ### define is not number */
 /* #define SIGRTMIN (__libc_current_sigrtmin ()) ### define is not number */
 /* #define SIGRTMAX (__libc_current_sigrtmax ()) ### define is not number */
 /* + END <signal.h> /usr/include/signal.h */

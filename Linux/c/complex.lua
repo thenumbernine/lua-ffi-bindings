@@ -81,7 +81,6 @@ extern long double _Complex cprojl (long double _Complex __z) __attribute__ ((__
 extern long double cimagl (long double _Complex __z) __attribute__ ((__nothrow__ , __leaf__)); extern long double __cimagl (long double _Complex __z) __attribute__ ((__nothrow__ , __leaf__));
 extern long double creall (long double _Complex __z) __attribute__ ((__nothrow__ , __leaf__)); extern long double __creall (long double _Complex __z) __attribute__ ((__nothrow__ , __leaf__));
 /* ++ END <bits/cmathcalls.h> /usr/include/x86_64-linux-gnu/bits/cmathcalls.h */
-enum { _COMPLEX_H = 1 };
 /* #define complex _Complex ### define is not number */
 /* #define _Complex_I (__extension__ 1.0iF) ### define is not number */
 /* #define I _Complex_I ### define is not number */
@@ -89,5 +88,6 @@ enum { _COMPLEX_H = 1 };
 /* #define CMPLXF (x,y) __builtin_complex ((float) (x), (float) (y)) ### define is not number */
 /* #define CMPLXL (x,y) __builtin_complex ((long double) (x), (long double) (y)) ### define is not number */
 /* #define __MATHDECL_IMPL (type,function,args) __MATHDECL_1(type, function, args); __MATHDECL_1(type, __CONCAT(__,function), args) ### define is not number */
+/* #define _Mdouble_complex_ _Mdouble_ _Complex ### define is not number */
 /* + END <complex.h> /usr/include/complex.h */
 ]]

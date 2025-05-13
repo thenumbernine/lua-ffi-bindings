@@ -67,7 +67,5 @@ typedef __fsfilcnt_t fsfilcnt_t;
 /* ++ BEGIN <bits/pthreadtypes.h> /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h */
 ]] require 'ffi.req' 'c.bits.pthreadtypes' ffi.cdef[[
 /* ++ END <bits/pthreadtypes.h> /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h */
-enum { _SYS_TYPES_H = 1 };
-enum { __BIT_TYPES_DEFINED__ = 1 };
 /* + END <sys/types.h> /usr/include/x86_64-linux-gnu/sys/types.h */
 ]]

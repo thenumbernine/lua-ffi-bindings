@@ -7,6 +7,7 @@ ffi.cdef[[
 /* ++ BEGIN <bits/thread-shared-types.h> /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h */
 /* +++ BEGIN <bits/pthreadtypes-arch.h> /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h */
 /* ++++ BEGIN <bits/wordsize.h> /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+]] require 'ffi.req' 'c.bits.wordsize' ffi.cdef[[
 /* ++++ END <bits/wordsize.h> /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* +++ END <bits/pthreadtypes-arch.h> /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h */
 /* +++ BEGIN <bits/atomic_wide_counter.h> /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h */
@@ -129,7 +130,18 @@ typedef union
   char __size[4];
   int __align;
 } pthread_barrierattr_t;
-enum { _BITS_PTHREADTYPES_COMMON_H = 1 };
-enum { __have_pthread_attr_t = 1 };
+enum { __SIZEOF_PTHREAD_MUTEX_T = 40 };
+enum { __SIZEOF_PTHREAD_ATTR_T = 56 };
+enum { __SIZEOF_PTHREAD_RWLOCK_T = 56 };
+enum { __SIZEOF_PTHREAD_BARRIER_T = 32 };
+enum { __SIZEOF_PTHREAD_MUTEXATTR_T = 4 };
+enum { __SIZEOF_PTHREAD_COND_T = 48 };
+enum { __SIZEOF_PTHREAD_CONDATTR_T = 4 };
+enum { __SIZEOF_PTHREAD_RWLOCKATTR_T = 8 };
+enum { __SIZEOF_PTHREAD_BARRIERATTR_T = 4 };
+/* #define __PTHREAD_MUTEX_INITIALIZER (__kind) 0, 0, 0, 0, __kind, 0, 0, { 0, 0 } ### define is not number */
+/* #define __PTHREAD_RWLOCK_ELISION_EXTRA 0, { 0, 0, 0, 0, 0, 0, 0 } ### define is not number */
+/* #define __PTHREAD_RWLOCK_INITIALIZER (__flags) 0, 0, 0, 0, 0, 0, 0, 0, __PTHREAD_RWLOCK_ELISION_EXTRA, 0, __flags ### define is not number */
+/* #define __ONCE_FLAG_INIT { 0 } ### define is not number */
 /* + END <bits/pthreadtypes.h> /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h */
 ]]

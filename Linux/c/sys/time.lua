@@ -51,7 +51,6 @@ extern int utimes (const char *__file, const struct timeval __tvp[2])
 extern int lutimes (const char *__file, const struct timeval __tvp[2])
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 extern int futimes (int __fd, const struct timeval __tvp[2]) __attribute__ ((__nothrow__ , __leaf__));
-enum { _SYS_TIME_H = 1 };
 /* #define ITIMER_REAL ITIMER_REAL ### define is not number */
 /* #define ITIMER_VIRTUAL ITIMER_VIRTUAL ### define is not number */
 /* #define ITIMER_PROF ITIMER_PROF ### define is not number */
