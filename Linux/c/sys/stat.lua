@@ -1,6 +1,9 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN <sys/stat.h> /usr/include/x86_64-linux-gnu/sys/stat.h */
+/* ++ BEGIN <features.h> /usr/include/features.h */
+]] require 'ffi.req' 'c.features' ffi.cdef[[
+/* ++ END <features.h> /usr/include/features.h */
 /* ++ BEGIN <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* ++ END <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
@@ -51,7 +54,6 @@ extern int utimensat (int __fd, const char *__path,
         int __flags)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
 extern int futimens (int __fd, const struct timespec __times[2]) __attribute__ ((__nothrow__ , __leaf__));
-/* + END <sys/stat.h> /usr/include/x86_64-linux-gnu/sys/stat.h */
 enum { _SYS_STAT_H = 1 };
 /* #define S_IFMT __S_IFMT ### define is not number */
 /* #define S_IFDIR __S_IFDIR ### define is not number */
@@ -94,6 +96,7 @@ enum { _SYS_STAT_H = 1 };
 /* #define ALLPERMS (S_ISUID|S_ISGID|S_ISVTX|S_IRWXU|S_IRWXG|S_IRWXO) ### define is not number */
 /* #define DEFFILEMODE (S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP|S_IROTH|S_IWOTH) ### define is not number */
 enum { S_BLKSIZE = 512 };
+/* + END <sys/stat.h> /usr/include/x86_64-linux-gnu/sys/stat.h */
 ]]
 local lib = ffi.C
 local statlib = setmetatable({

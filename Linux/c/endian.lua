@@ -1,6 +1,12 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN <endian.h> /usr/include/endian.h */
+/* ++ BEGIN <features.h> /usr/include/features.h */
+]] require 'ffi.req' 'c.features' ffi.cdef[[
+/* ++ END <features.h> /usr/include/features.h */
+/* ++ BEGIN <bits/endian.h> /usr/include/x86_64-linux-gnu/bits/endian.h */
+]] require 'ffi.req' 'c.bits.endian' ffi.cdef[[
+/* ++ END <bits/endian.h> /usr/include/x86_64-linux-gnu/bits/endian.h */
 /* ++ BEGIN <bits/byteswap.h> /usr/include/x86_64-linux-gnu/bits/byteswap.h */
 /* +++ BEGIN <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
@@ -38,7 +44,6 @@ __uint64_identity (__uint64_t __x)
   return __x;
 }
 /* ++ END <bits/uintn-identity.h> /usr/include/x86_64-linux-gnu/bits/uintn-identity.h */
-/* + END <endian.h> /usr/include/endian.h */
 enum { _ENDIAN_H = 1 };
 /* #define LITTLE_ENDIAN __LITTLE_ENDIAN ### define is not number */
 /* #define BIG_ENDIAN __BIG_ENDIAN ### define is not number */
@@ -56,4 +61,5 @@ enum { _ENDIAN_H = 1 };
 /* #define htole64 (x) __uint64_identity (x) ### define is not number */
 /* #define be64toh (x) __bswap_64 (x) ### define is not number */
 /* #define le64toh (x) __uint64_identity (x) ### define is not number */
+/* + END <endian.h> /usr/include/endian.h */
 ]]

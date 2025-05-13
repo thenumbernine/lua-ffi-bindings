@@ -1,6 +1,9 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN <sys/types.h> /usr/include/x86_64-linux-gnu/sys/types.h */
+/* ++ BEGIN <features.h> /usr/include/features.h */
+]] require 'ffi.req' 'c.features' ffi.cdef[[
+/* ++ END <features.h> /usr/include/features.h */
 /* ++ BEGIN <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* ++ END <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
@@ -64,7 +67,7 @@ typedef __fsfilcnt_t fsfilcnt_t;
 /* ++ BEGIN <bits/pthreadtypes.h> /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h */
 ]] require 'ffi.req' 'c.bits.pthreadtypes' ffi.cdef[[
 /* ++ END <bits/pthreadtypes.h> /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h */
-/* + END <sys/types.h> /usr/include/x86_64-linux-gnu/sys/types.h */
 enum { _SYS_TYPES_H = 1 };
 enum { __BIT_TYPES_DEFINED__ = 1 };
+/* + END <sys/types.h> /usr/include/x86_64-linux-gnu/sys/types.h */
 ]]

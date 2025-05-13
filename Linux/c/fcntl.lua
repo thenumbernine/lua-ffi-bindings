@@ -1,6 +1,9 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN <fcntl.h> /usr/include/fcntl.h */
+/* ++ BEGIN <features.h> /usr/include/features.h */
+]] require 'ffi.req' 'c.features' ffi.cdef[[
+/* ++ END <features.h> /usr/include/features.h */
 /* ++ BEGIN <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* ++ END <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
@@ -13,6 +16,8 @@ struct flock
     __off_t l_len;
     __pid_t l_pid;
   };
+/* +++ BEGIN <bits/fcntl-linux.h> /usr/include/x86_64-linux-gnu/bits/fcntl-linux.h */
+/* +++ END <bits/fcntl-linux.h> /usr/include/x86_64-linux-gnu/bits/fcntl-linux.h */
 /* ++ END <bits/fcntl.h> /usr/include/x86_64-linux-gnu/bits/fcntl.h */
 typedef __mode_t mode_t;
 typedef __off_t off_t;
@@ -32,7 +37,6 @@ extern int lockf (int __fd, int __cmd, off_t __len);
 extern int posix_fadvise (int __fd, off_t __offset, off_t __len,
      int __advise) __attribute__ ((__nothrow__ , __leaf__));
 extern int posix_fallocate (int __fd, off_t __offset, off_t __len);
-/* + END <fcntl.h> /usr/include/fcntl.h */
 enum { _FCNTL_H = 1 };
 /* #define __OPEN_NEEDS_MODE (oflag) (((oflag) & O_CREAT) != 0 || ((oflag) & __O_TMPFILE) == __O_TMPFILE) ### define is not number */
 /* #define S_IFMT __S_IFMT ### define is not number */
@@ -64,4 +68,5 @@ enum { AT_SYMLINK_NOFOLLOW = 0x100 };
 enum { AT_REMOVEDIR = 0x200 };
 enum { AT_SYMLINK_FOLLOW = 0x400 };
 enum { AT_EACCESS = 0x200 };
+/* + END <fcntl.h> /usr/include/fcntl.h */
 ]]

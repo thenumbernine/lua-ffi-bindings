@@ -1,11 +1,27 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN <math.h> /usr/include/math.h */
+/* ++ BEGIN <bits/libc-header-start.h> /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
+]] require 'ffi.req' 'c.bits.libc-header-start' ffi.cdef[[
+/* ++ END <bits/libc-header-start.h> /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 /* ++ BEGIN <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* ++ END <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
+/* ++ BEGIN <bits/math-vector.h> /usr/include/x86_64-linux-gnu/bits/math-vector.h */
+/* +++ BEGIN <bits/libm-simd-decl-stubs.h> /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h */
+/* +++ END <bits/libm-simd-decl-stubs.h> /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h */
+/* ++ END <bits/math-vector.h> /usr/include/x86_64-linux-gnu/bits/math-vector.h */
+/* ++ BEGIN <bits/floatn.h> /usr/include/x86_64-linux-gnu/bits/floatn.h */
+]] require 'ffi.req' 'c.bits.floatn' ffi.cdef[[
+/* ++ END <bits/floatn.h> /usr/include/x86_64-linux-gnu/bits/floatn.h */
+/* ++ BEGIN <bits/flt-eval-method.h> /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h */
+/* ++ END <bits/flt-eval-method.h> /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h */
 typedef float float_t;
 typedef double double_t;
+/* ++ BEGIN <bits/fp-logb.h> /usr/include/x86_64-linux-gnu/bits/fp-logb.h */
+/* ++ END <bits/fp-logb.h> /usr/include/x86_64-linux-gnu/bits/fp-logb.h */
+/* ++ BEGIN <bits/fp-fast.h> /usr/include/x86_64-linux-gnu/bits/fp-fast.h */
+/* ++ END <bits/fp-fast.h> /usr/include/x86_64-linux-gnu/bits/fp-fast.h */
 /* ++ BEGIN <bits/mathcalls-helper-functions.h> /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h */
 ]] require 'ffi.req' 'c.bits.mathcalls-helper-functions' ffi.cdef[[
 /* ++ END <bits/mathcalls-helper-functions.h> /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h */
@@ -266,8 +282,7 @@ enum
     FP_NORMAL =
       4
   };
-/* + END <math.h> /usr/include/math.h */
-//enum { _MATH_H = 1 };
+enum { _MATH_H = 1 };
 /* #define HUGE_VAL (__builtin_huge_val ()) ### define is not number */
 /* #define HUGE_VALF (__builtin_huge_valf ()) ### define is not number */
 /* #define HUGE_VALL (__builtin_huge_vall ()) ### define is not number */
@@ -281,23 +296,18 @@ enum
 /* #define __MATHCALLX (function,suffix,args,attrib) __MATHDECLX (_Mdouble_,function,suffix, args, attrib) ### define is not number */
 /* #define __MATHDECLX (type,function,suffix,args,attrib) __MATHDECL_1(type, function,suffix, args) __attribute__ (attrib); __MATHDECL_1(type, __CONCAT(__,function),suffix, args) __attribute__ (attrib) ### define is not number */
 /* #define __MATHREDIR (type,function,suffix,args,to) extern type __REDIRECT_NTH (__MATH_PRECNAME (function, suffix), args, to) ### define is not number */
-//enum { __MATH_DECLARE_LDOUBLE = 1 };
+enum { __MATH_DECLARE_LDOUBLE = 1 };
 /* #define __MATH_TG_F32 (FUNC,ARGS) _Float32: FUNC ## f ARGS, ### define is not number */
 /* #define __MATH_TG_F64X (FUNC,ARGS) _Float64x: FUNC ## l ARGS, ### define is not number */
 /* #define __MATH_TG (TG_ARG,FUNC,ARGS) _Generic ((TG_ARG), float: FUNC ## f ARGS, __MATH_TG_F32 (FUNC, ARGS) default: FUNC ARGS, long double: FUNC ## l ARGS, __MATH_TG_F64X (FUNC, ARGS) _Float128: FUNC ## f128 ARGS) ### define is not number */
-//enum { FP_NAN = 0 };
-//enum { FP_INFINITE = 1 };
-//enum { FP_ZERO = 2 };
-//enum { FP_SUBNORMAL = 3 };
-//enum { FP_NORMAL = 4 };
 /* #define fpclassify (x) __builtin_fpclassify (FP_NAN, FP_INFINITE, FP_NORMAL, FP_SUBNORMAL, FP_ZERO, x) ### define is not number */
 /* #define signbit (x) __builtin_signbit (x) ### define is not number */
 /* #define isfinite (x) __builtin_isfinite (x) ### define is not number */
 /* #define isnormal (x) __builtin_isnormal (x) ### define is not number */
 /* #define isnan (x) __builtin_isnan (x) ### define is not number */
 /* #define isinf (x) __builtin_isinf_sign (x) ### define is not number */
-//enum { MATH_ERRNO = 1 };
-//enum { MATH_ERREXCEPT = 2 };
+enum { MATH_ERRNO = 1 };
+enum { MATH_ERREXCEPT = 2 };
 /* #define math_errhandling (MATH_ERRNO | MATH_ERREXCEPT) ### define is not number */
 //enum { M_E = 2.7182818284590452354 };
 //enum { M_LOG2E = 1.4426950408889634074 };
@@ -318,4 +328,5 @@ enum
 /* #define islessequal (x,y) __builtin_islessequal(x, y) ### define is not number */
 /* #define islessgreater (x,y) __builtin_islessgreater(x, y) ### define is not number */
 /* #define isunordered (x,y) __builtin_isunordered(x, y) ### define is not number */
+/* + END <math.h> /usr/include/math.h */
 ]]

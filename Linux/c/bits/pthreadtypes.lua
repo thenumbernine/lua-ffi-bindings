@@ -1,7 +1,14 @@
 local ffi = require 'ffi'
 ffi.cdef[[
+/* + BEGIN <features.h> /usr/include/features.h */
+]] require 'ffi.req' 'c.features' ffi.cdef[[
+/* + END <features.h> /usr/include/features.h */
 /* + BEGIN <bits/pthreadtypes.h> /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h */
 /* ++ BEGIN <bits/thread-shared-types.h> /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h */
+/* +++ BEGIN <bits/pthreadtypes-arch.h> /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h */
+/* ++++ BEGIN <bits/wordsize.h> /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+/* ++++ END <bits/wordsize.h> /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+/* +++ END <bits/pthreadtypes-arch.h> /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h */
 /* +++ BEGIN <bits/atomic_wide_counter.h> /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h */
 typedef union
 {
@@ -122,7 +129,7 @@ typedef union
   char __size[4];
   int __align;
 } pthread_barrierattr_t;
-/* + END <bits/pthreadtypes.h> /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h */
 enum { _BITS_PTHREADTYPES_COMMON_H = 1 };
 enum { __have_pthread_attr_t = 1 };
+/* + END <bits/pthreadtypes.h> /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h */
 ]]

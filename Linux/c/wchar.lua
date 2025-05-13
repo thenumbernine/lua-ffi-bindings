@@ -1,6 +1,12 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN <wchar.h> /usr/include/wchar.h */
+/* ++ BEGIN <bits/libc-header-start.h> /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
+]] require 'ffi.req' 'c.bits.libc-header-start' ffi.cdef[[
+/* ++ END <bits/libc-header-start.h> /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
+/* ++ BEGIN <bits/floatn.h> /usr/include/x86_64-linux-gnu/bits/floatn.h */
+]] require 'ffi.req' 'c.bits.floatn' ffi.cdef[[
+/* ++ END <bits/floatn.h> /usr/include/x86_64-linux-gnu/bits/floatn.h */
 /* ++ BEGIN <stddef.h> /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* ++ END <stddef.h> /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
@@ -8,6 +14,8 @@ ffi.cdef[[
 ]] require 'ffi.req' 'c.stdarg' ffi.cdef[[
 /* ++ END <stdarg.h> /usr/lib/gcc/x86_64-linux-gnu/14/include/stdarg.h */
 typedef __gnuc_va_list va_list;
+/* ++ BEGIN <bits/wchar.h> /usr/include/x86_64-linux-gnu/bits/wchar.h */
+/* ++ END <bits/wchar.h> /usr/include/x86_64-linux-gnu/bits/wchar.h */
 /* ++ BEGIN <bits/types/wint_t.h> /usr/include/x86_64-linux-gnu/bits/types/wint_t.h */
 typedef unsigned int wint_t;
 /* ++ END <bits/types/wint_t.h> /usr/include/x86_64-linux-gnu/bits/types/wint_t.h */
@@ -208,10 +216,10 @@ extern wint_t ungetwc (wint_t __wc, __FILE *__stream);
 extern size_t wcsftime (wchar_t *__restrict __s, size_t __maxsize,
    const wchar_t *__restrict __format,
    const struct tm *__restrict __tp) __attribute__ ((__nothrow__ , __leaf__));
-/* + END <wchar.h> /usr/include/wchar.h */
 enum { _WCHAR_H = 1 };
 /* #define WCHAR_MIN __WCHAR_MIN ### define is not number */
 /* #define WCHAR_MAX __WCHAR_MAX ### define is not number */
 /* #define WEOF (0xffffffffu) ### define is not number */
 enum { __attr_dealloc_fclose = 1 };
+/* + END <wchar.h> /usr/include/wchar.h */
 ]]

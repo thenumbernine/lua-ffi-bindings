@@ -1,6 +1,9 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN <sched.h> /usr/include/sched.h */
+/* ++ BEGIN <features.h> /usr/include/features.h */
+]] require 'ffi.req' 'c.features' ffi.cdef[[
+/* ++ END <features.h> /usr/include/features.h */
 /* ++ BEGIN <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* ++ END <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
@@ -43,8 +46,8 @@ extern int sched_yield (void) __attribute__ ((__nothrow__ , __leaf__));
 extern int sched_get_priority_max (int __algorithm) __attribute__ ((__nothrow__ , __leaf__));
 extern int sched_get_priority_min (int __algorithm) __attribute__ ((__nothrow__ , __leaf__));
 extern int sched_rr_get_interval (__pid_t __pid, struct timespec *__t) __attribute__ ((__nothrow__ , __leaf__));
-/* + END <sched.h> /usr/include/sched.h */
 enum { _SCHED_H = 1 };
 /* #define sched_priority sched_priority ### define is not number */
 /* #define __sched_priority sched_priority ### define is not number */
+/* + END <sched.h> /usr/include/sched.h */
 ]]

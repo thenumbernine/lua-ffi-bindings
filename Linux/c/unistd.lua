@@ -1,6 +1,15 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN <unistd.h> /usr/include/unistd.h */
+/* ++ BEGIN <features.h> /usr/include/features.h */
+]] require 'ffi.req' 'c.features' ffi.cdef[[
+/* ++ END <features.h> /usr/include/features.h */
+/* ++ BEGIN <bits/posix_opt.h> /usr/include/x86_64-linux-gnu/bits/posix_opt.h */
+/* ++ END <bits/posix_opt.h> /usr/include/x86_64-linux-gnu/bits/posix_opt.h */
+/* ++ BEGIN <bits/environments.h> /usr/include/x86_64-linux-gnu/bits/environments.h */
+/* +++ BEGIN <bits/wordsize.h> /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+/* +++ END <bits/wordsize.h> /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+/* ++ END <bits/environments.h> /usr/include/x86_64-linux-gnu/bits/environments.h */
 /* ++ BEGIN <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* ++ END <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
@@ -495,7 +504,8 @@ extern char *crypt (const char *__key, const char *__salt)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 int getentropy (void *__buffer, size_t __length)
     __attribute__ ((__access__ (__write_only__, 1, 2)));
-/* + END <unistd.h> /usr/include/unistd.h */
+/* ++ BEGIN <bits/unistd_ext.h> /usr/include/x86_64-linux-gnu/bits/unistd_ext.h */
+/* ++ END <bits/unistd_ext.h> /usr/include/x86_64-linux-gnu/bits/unistd_ext.h */
 enum { _UNISTD_H = 1 };
 enum { _POSIX_VERSION = 200809 };
 enum { __POSIX2_THIS_VERSION = 200809 };
@@ -520,5 +530,6 @@ enum { STDERR_FILENO = 2 };
 /* #define L_SET SEEK_SET ### define is not number */
 /* #define L_INCR SEEK_CUR ### define is not number */
 /* #define L_XTND SEEK_END ### define is not number */
+/* + END <unistd.h> /usr/include/unistd.h */
 ]]
 return ffi.C

@@ -1,6 +1,14 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
+/* ++ BEGIN <features.h> /usr/include/features.h */
+]] require 'ffi.req' 'c.features' ffi.cdef[[
+/* ++ END <features.h> /usr/include/features.h */
+/* ++ BEGIN <bits/wordsize.h> /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+/* ++ END <bits/wordsize.h> /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+/* ++ BEGIN <bits/timesize.h> /usr/include/x86_64-linux-gnu/bits/timesize.h */
+]] require 'ffi.req' 'c.bits.timesize' ffi.cdef[[
+/* ++ END <bits/timesize.h> /usr/include/x86_64-linux-gnu/bits/timesize.h */
 typedef unsigned char __u_char;
 typedef unsigned short int __u_short;
 typedef unsigned int __u_int;
@@ -25,6 +33,10 @@ typedef long int __quad_t;
 typedef unsigned long int __u_quad_t;
 typedef long int __intmax_t;
 typedef unsigned long int __uintmax_t;
+/* ++ BEGIN <bits/typesizes.h> /usr/include/x86_64-linux-gnu/bits/typesizes.h */
+/* ++ END <bits/typesizes.h> /usr/include/x86_64-linux-gnu/bits/typesizes.h */
+/* ++ BEGIN <bits/time64.h> /usr/include/x86_64-linux-gnu/bits/time64.h */
+/* ++ END <bits/time64.h> /usr/include/x86_64-linux-gnu/bits/time64.h */
 typedef unsigned long int __dev_t;
 typedef unsigned int __uid_t;
 typedef unsigned int __gid_t;
@@ -64,7 +76,6 @@ typedef char *__caddr_t;
 typedef long int __intptr_t;
 typedef unsigned int __socklen_t;
 typedef int __sig_atomic_t;
-/* + END <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
 enum { _BITS_TYPES_H = 1 };
 /* #define __S16_TYPE short int ### define is not number */
 /* #define __U16_TYPE unsigned short int ### define is not number */
@@ -80,4 +91,5 @@ enum { _BITS_TYPES_H = 1 };
 /* #define __ULONG32_TYPE unsigned int ### define is not number */
 /* #define __S64_TYPE long int ### define is not number */
 /* #define __U64_TYPE unsigned long int ### define is not number */
+/* + END <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
 ]]

@@ -1,6 +1,9 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN <pthread.h> /usr/include/pthread.h */
+/* ++ BEGIN <features.h> /usr/include/features.h */
+]] require 'ffi.req' 'c.features' ffi.cdef[[
+/* ++ END <features.h> /usr/include/features.h */
 /* ++ BEGIN <sched.h> /usr/include/sched.h */
 ]] require 'ffi.req' 'c.sched' ffi.cdef[[
 /* ++ END <sched.h> /usr/include/sched.h */
@@ -13,12 +16,17 @@ ffi.cdef[[
 /* ++ BEGIN <bits/setjmp.h> /usr/include/x86_64-linux-gnu/bits/setjmp.h */
 ]] require 'ffi.req' 'c.bits.setjmp' ffi.cdef[[
 /* ++ END <bits/setjmp.h> /usr/include/x86_64-linux-gnu/bits/setjmp.h */
+/* ++ BEGIN <bits/wordsize.h> /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+/* ++ END <bits/wordsize.h> /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* ++ BEGIN <bits/types/__sigset_t.h> /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h */
 ]] require 'ffi.req' 'c.bits.types.__sigset_t' ffi.cdef[[
 /* ++ END <bits/types/__sigset_t.h> /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h */
 /* ++ BEGIN <bits/types/struct___jmp_buf_tag.h> /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h */
 ]] require 'ffi.req' 'c.bits.types.struct___jmp_buf_tag' ffi.cdef[[
 /* ++ END <bits/types/struct___jmp_buf_tag.h> /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h */
+/* ++ BEGIN <bits/pthread_stack_min-dynamic.h> /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h */
+]] require 'ffi.req' 'c.bits.pthread_stack_min-dynamic' ffi.cdef[[
+/* ++ END <bits/pthread_stack_min-dynamic.h> /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h */
 enum
 {
   PTHREAD_CREATE_JOINABLE,
@@ -369,7 +377,6 @@ extern int pthread_getcpuclockid (pthread_t __thread_id,
 extern int pthread_atfork (void (*__prepare) (void),
       void (*__parent) (void),
       void (*__child) (void)) __attribute__ ((__nothrow__ , __leaf__));
-/* + END <pthread.h> /usr/include/pthread.h */
 enum { _PTHREAD_H = 1 };
 /* #define PTHREAD_CREATE_JOINABLE PTHREAD_CREATE_JOINABLE ### define is not number */
 /* #define PTHREAD_CREATE_DETACHED PTHREAD_CREATE_DETACHED ### define is not number */
@@ -392,4 +399,5 @@ enum { PTHREAD_BARRIER_SERIAL_THREAD = -1 };
 enum { __cleanup_fct_attribute = 1 };
 /* #define pthread_cleanup_push (routine,arg) do { __pthread_unwind_buf_t __cancel_buf; void (*__cancel_routine) (void *) = (routine); void *__cancel_arg = (arg); int __not_first_call = __sigsetjmp_cancel (__cancel_buf.__cancel_jmp_buf, 0); if (__glibc_unlikely (__not_first_call)) { __cancel_routine (__cancel_arg); __pthread_unwind_next (&__cancel_buf); } __pthread_register_cancel (&__cancel_buf); do { ### define is not number */
 /* #define pthread_cleanup_pop (execute) do { } while (0); } while (0); __pthread_unregister_cancel (&__cancel_buf); if (execute) __cancel_routine (__cancel_arg); } while (0) ### define is not number */
+/* + END <pthread.h> /usr/include/pthread.h */
 ]]

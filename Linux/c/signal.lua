@@ -1,9 +1,16 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN <signal.h> /usr/include/signal.h */
+/* ++ BEGIN <features.h> /usr/include/features.h */
+]] require 'ffi.req' 'c.features' ffi.cdef[[
+/* ++ END <features.h> /usr/include/features.h */
 /* ++ BEGIN <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* ++ END <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
+/* ++ BEGIN <bits/signum-generic.h> /usr/include/x86_64-linux-gnu/bits/signum-generic.h */
+/* +++ BEGIN <bits/signum-arch.h> /usr/include/x86_64-linux-gnu/bits/signum-arch.h */
+/* +++ END <bits/signum-arch.h> /usr/include/x86_64-linux-gnu/bits/signum-arch.h */
+/* ++ END <bits/signum-generic.h> /usr/include/x86_64-linux-gnu/bits/signum-generic.h */
 /* ++ BEGIN <bits/types/sig_atomic_t.h> /usr/include/x86_64-linux-gnu/bits/types/sig_atomic_t.h */
 typedef __sig_atomic_t sig_atomic_t;
 /* ++ END <bits/types/sig_atomic_t.h> /usr/include/x86_64-linux-gnu/bits/types/sig_atomic_t.h */
@@ -16,6 +23,8 @@ typedef __uid_t uid_t;
 ]] require 'ffi.req' 'c.bits.types.struct_timespec' ffi.cdef[[
 /* ++ END <bits/types/struct_timespec.h> /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h */
 /* ++ BEGIN <bits/types/siginfo_t.h> /usr/include/x86_64-linux-gnu/bits/types/siginfo_t.h */
+/* +++ BEGIN <bits/wordsize.h> /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+/* +++ END <bits/wordsize.h> /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 /* +++ BEGIN <bits/types/__sigval_t.h> /usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h */
 union sigval
 {
@@ -24,6 +33,8 @@ union sigval
 };
 typedef union sigval __sigval_t;
 /* +++ END <bits/types/__sigval_t.h> /usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h */
+/* +++ BEGIN <bits/siginfo-arch.h> /usr/include/x86_64-linux-gnu/bits/siginfo-arch.h */
+/* +++ END <bits/siginfo-arch.h> /usr/include/x86_64-linux-gnu/bits/siginfo-arch.h */
 typedef struct
   {
     int si_signo;
@@ -170,6 +181,8 @@ enum
 typedef __sigval_t sigval_t;
 /* ++ END <bits/types/sigval_t.h> /usr/include/x86_64-linux-gnu/bits/types/sigval_t.h */
 /* ++ BEGIN <bits/types/sigevent_t.h> /usr/include/x86_64-linux-gnu/bits/types/sigevent_t.h */
+/* +++ BEGIN <bits/wordsize.h> /usr/include/x86_64-linux-gnu/bits/wordsize.h */
+/* +++ END <bits/wordsize.h> /usr/include/x86_64-linux-gnu/bits/wordsize.h */
 typedef union pthread_attr_t pthread_attr_t;
 typedef struct sigevent
   {
@@ -402,6 +415,10 @@ typedef struct ucontext_t
 /* ++ END <sys/ucontext.h> /usr/include/x86_64-linux-gnu/sys/ucontext.h */
 extern int siginterrupt (int __sig, int __interrupt) __attribute__ ((__nothrow__ , __leaf__))
   __attribute__ ((__deprecated__ ("Use sigaction with SA_RESTART instead")));
+/* ++ BEGIN <bits/sigstack.h> /usr/include/x86_64-linux-gnu/bits/sigstack.h */
+/* ++ END <bits/sigstack.h> /usr/include/x86_64-linux-gnu/bits/sigstack.h */
+/* ++ BEGIN <bits/sigstksz.h> /usr/include/x86_64-linux-gnu/bits/sigstksz.h */
+/* ++ END <bits/sigstksz.h> /usr/include/x86_64-linux-gnu/bits/sigstksz.h */
 /* ++ BEGIN <bits/ss_flags.h> /usr/include/x86_64-linux-gnu/bits/ss_flags.h */
 enum
 {
@@ -431,10 +448,12 @@ extern int pthread_kill (pthread_t __threadid, int __signo) __attribute__ ((__no
 /* ++ END <bits/sigthread.h> /usr/include/x86_64-linux-gnu/bits/sigthread.h */
 extern int __libc_current_sigrtmin (void) __attribute__ ((__nothrow__ , __leaf__));
 extern int __libc_current_sigrtmax (void) __attribute__ ((__nothrow__ , __leaf__));
-/* + END <signal.h> /usr/include/signal.h */
+/* ++ BEGIN <bits/signal_ext.h> /usr/include/x86_64-linux-gnu/bits/signal_ext.h */
+/* ++ END <bits/signal_ext.h> /usr/include/x86_64-linux-gnu/bits/signal_ext.h */
 enum { _SIGNAL_H = 1 };
 /* #define sigmask (sig) __glibc_macro_warning ("sigmask is deprecated") ((int)(1u << ((sig) - 1))) ### define is not number */
 /* #define NSIG _NSIG ### define is not number */
 /* #define SIGRTMIN (__libc_current_sigrtmin ()) ### define is not number */
 /* #define SIGRTMAX (__libc_current_sigrtmax ()) ### define is not number */
+/* + END <signal.h> /usr/include/signal.h */
 ]]

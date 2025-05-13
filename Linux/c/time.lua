@@ -1,6 +1,9 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN <time.h> /usr/include/time.h */
+/* ++ BEGIN <features.h> /usr/include/features.h */
+]] require 'ffi.req' 'c.features' ffi.cdef[[
+/* ++ END <features.h> /usr/include/features.h */
 /* ++ BEGIN <stddef.h> /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* ++ END <stddef.h> /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
@@ -109,8 +112,8 @@ extern int timer_gettime (timer_t __timerid, struct itimerspec *__value)
 extern int timer_getoverrun (timer_t __timerid) __attribute__ ((__nothrow__ , __leaf__));
 extern int timespec_get (struct timespec *__ts, int __base)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
-/* + END <time.h> /usr/include/time.h */
 enum { _TIME_H = 1 };
 enum { TIME_UTC = 1 };
 /* #define __isleap (year) ((year) % 4 == 0 && ((year) % 100 != 0 || (year) % 400 == 0)) ### define is not number */
+/* + END <time.h> /usr/include/time.h */
 ]]

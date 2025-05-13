@@ -1,6 +1,14 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN <complex.h> /usr/include/complex.h */
+/* ++ BEGIN <bits/libc-header-start.h> /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
+]] require 'ffi.req' 'c.bits.libc-header-start' ffi.cdef[[
+/* ++ END <bits/libc-header-start.h> /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
+/* ++ BEGIN <bits/mathdef.h> /usr/include/x86_64-linux-gnu/bits/mathdef.h */
+/* ++ END <bits/mathdef.h> /usr/include/x86_64-linux-gnu/bits/mathdef.h */
+/* ++ BEGIN <bits/floatn.h> /usr/include/x86_64-linux-gnu/bits/floatn.h */
+]] require 'ffi.req' 'c.bits.floatn' ffi.cdef[[
+/* ++ END <bits/floatn.h> /usr/include/x86_64-linux-gnu/bits/floatn.h */
 /* ++ BEGIN <bits/cmathcalls.h> /usr/include/x86_64-linux-gnu/bits/cmathcalls.h */
 extern double _Complex cacos (double _Complex __z) __attribute__ ((__nothrow__ , __leaf__)); extern double _Complex __cacos (double _Complex __z) __attribute__ ((__nothrow__ , __leaf__));
 extern double _Complex casin (double _Complex __z) __attribute__ ((__nothrow__ , __leaf__)); extern double _Complex __casin (double _Complex __z) __attribute__ ((__nothrow__ , __leaf__));
@@ -73,7 +81,6 @@ extern long double _Complex cprojl (long double _Complex __z) __attribute__ ((__
 extern long double cimagl (long double _Complex __z) __attribute__ ((__nothrow__ , __leaf__)); extern long double __cimagl (long double _Complex __z) __attribute__ ((__nothrow__ , __leaf__));
 extern long double creall (long double _Complex __z) __attribute__ ((__nothrow__ , __leaf__)); extern long double __creall (long double _Complex __z) __attribute__ ((__nothrow__ , __leaf__));
 /* ++ END <bits/cmathcalls.h> /usr/include/x86_64-linux-gnu/bits/cmathcalls.h */
-/* + END <complex.h> /usr/include/complex.h */
 enum { _COMPLEX_H = 1 };
 /* #define complex _Complex ### define is not number */
 /* #define _Complex_I (__extension__ 1.0iF) ### define is not number */
@@ -82,4 +89,5 @@ enum { _COMPLEX_H = 1 };
 /* #define CMPLXF (x,y) __builtin_complex ((float) (x), (float) (y)) ### define is not number */
 /* #define CMPLXL (x,y) __builtin_complex ((long double) (x), (long double) (y)) ### define is not number */
 /* #define __MATHDECL_IMPL (type,function,args) __MATHDECL_1(type, function, args); __MATHDECL_1(type, __CONCAT(__,function), args) ### define is not number */
+/* + END <complex.h> /usr/include/complex.h */
 ]]

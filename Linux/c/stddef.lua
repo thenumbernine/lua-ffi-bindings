@@ -8,7 +8,6 @@ typedef struct {
   long long __max_align_ll __attribute__((__aligned__(__alignof__(long long))));
   long double __max_align_ld __attribute__((__aligned__(__alignof__(long double))));
 } max_align_t;
-/* + END <stddef.h> /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 enum { _STDDEF_H = 1 };
 enum { _STDDEF_H_ = 1 };
 enum { _ANSI_STDDEF_H = 1 };
@@ -58,4 +57,5 @@ enum { __DEFINED_wchar_t = 1 };
 /* #define NULL ((void *)0) ### define is not number */
 /* #define offsetof (TYPE,MEMBER) __builtin_offsetof (TYPE, MEMBER) ### define is not number */
 enum { _GCC_MAX_ALIGN_T = 1 };
+/* + END <stddef.h> /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 ]]

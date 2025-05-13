@@ -1,6 +1,9 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN <inttypes.h> /usr/include/inttypes.h */
+/* ++ BEGIN <features.h> /usr/include/features.h */
+]] require 'ffi.req' 'c.features' ffi.cdef[[
+/* ++ END <features.h> /usr/include/features.h */
 /* ++ BEGIN <stdint.h> /usr/lib/gcc/x86_64-linux-gnu/14/include/stdint.h */
 ]] require 'ffi.req' 'c.stdint' ffi.cdef[[
 /* ++ END <stdint.h> /usr/lib/gcc/x86_64-linux-gnu/14/include/stdint.h */
@@ -23,7 +26,6 @@ extern intmax_t wcstoimax (const __gwchar_t *__restrict __nptr,
 extern uintmax_t wcstoumax (const __gwchar_t *__restrict __nptr,
        __gwchar_t ** __restrict __endptr, int __base)
      __attribute__ ((__nothrow__ , __leaf__));
-/* + END <inttypes.h> /usr/include/inttypes.h */
 enum { _INTTYPES_H = 1 };
 /* #define __PRI64_PREFIX "l" ### define is not number */
 /* #define __PRIPTR_PREFIX "l" ### define is not number */
@@ -181,4 +183,5 @@ enum { _INTTYPES_H = 1 };
 /* #define SCNoPTR __PRIPTR_PREFIX "o" ### define is not number */
 /* #define SCNuPTR __PRIPTR_PREFIX "u" ### define is not number */
 /* #define SCNxPTR __PRIPTR_PREFIX "x" ### define is not number */
+/* + END <inttypes.h> /usr/include/inttypes.h */
 ]]

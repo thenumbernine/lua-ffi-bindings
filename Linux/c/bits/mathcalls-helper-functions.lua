@@ -1,5 +1,8 @@
 local ffi = require 'ffi'
 ffi.cdef[[
+/* + BEGIN <features.h> /usr/include/features.h */
+]] require 'ffi.req' 'c.features' ffi.cdef[[
+/* + END <features.h> /usr/include/features.h */
 /* + BEGIN <bits/mathcalls-helper-functions.h> /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h */
 //__MATHDECL_ALIAS (int, __fpclassify,, (_Mdouble_ __value), fpclassify)
      //__attribute__ ((__const__));

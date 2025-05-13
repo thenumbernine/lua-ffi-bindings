@@ -1,6 +1,9 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN <dirent.h> /usr/include/dirent.h */
+/* ++ BEGIN <features.h> /usr/include/features.h */
+]] require 'ffi.req' 'c.features' ffi.cdef[[
+/* ++ END <features.h> /usr/include/features.h */
 /* ++ BEGIN <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* ++ END <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
@@ -41,6 +44,9 @@ extern void rewinddir (DIR *__dirp) __attribute__ ((__nothrow__ , __leaf__)) __a
 extern void seekdir (DIR *__dirp, long int __pos) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 extern long int telldir (DIR *__dirp) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 extern int dirfd (DIR *__dirp) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+/* ++ BEGIN <bits/posix1_lim.h> /usr/include/x86_64-linux-gnu/bits/posix1_lim.h */
+]] require 'ffi.req' 'c.bits.posix1_lim' ffi.cdef[[
+/* ++ END <bits/posix1_lim.h> /usr/include/x86_64-linux-gnu/bits/posix1_lim.h */
 /* ++ BEGIN <stddef.h> /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* ++ END <stddef.h> /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
@@ -57,7 +63,8 @@ extern __ssize_t getdirentries (int __fd, char *__restrict __buf,
     size_t __nbytes,
     __off_t *__restrict __basep)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2, 4)));
-/* + END <dirent.h> /usr/include/dirent.h */
+/* ++ BEGIN <bits/dirent_ext.h> /usr/include/x86_64-linux-gnu/bits/dirent_ext.h */
+/* ++ END <bits/dirent_ext.h> /usr/include/x86_64-linux-gnu/bits/dirent_ext.h */
 enum { _DIRENT_H = 1 };
 /* #define _D_EXACT_NAMLEN (d) (strlen ((d)->d_name)) ### define is not number */
 /* #define _D_ALLOC_NAMLEN (d) (((char *) (d) + (d)->d_reclen) - &(d)->d_name[0]) ### define is not number */
@@ -73,4 +80,5 @@ enum { _DIRENT_H = 1 };
 /* #define IFTODT (mode) (((mode) & 0170000) >> 12) ### define is not number */
 /* #define DTTOIF (dirtype) ((dirtype) << 12) ### define is not number */
 /* #define MAXNAMLEN NAME_MAX ### define is not number */
+/* + END <dirent.h> /usr/include/dirent.h */
 ]]

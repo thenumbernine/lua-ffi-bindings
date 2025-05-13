@@ -1,9 +1,14 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN <sys/select.h> /usr/include/x86_64-linux-gnu/sys/select.h */
+/* ++ BEGIN <features.h> /usr/include/features.h */
+]] require 'ffi.req' 'c.features' ffi.cdef[[
+/* ++ END <features.h> /usr/include/features.h */
 /* ++ BEGIN <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* ++ END <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
+/* ++ BEGIN <bits/select.h> /usr/include/x86_64-linux-gnu/bits/select.h */
+/* ++ END <bits/select.h> /usr/include/x86_64-linux-gnu/bits/select.h */
 /* ++ BEGIN <bits/types/sigset_t.h> /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h */
 ]] require 'ffi.req' 'c.bits.types.sigset_t' ffi.cdef[[
 /* ++ END <bits/types/sigset_t.h> /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h */
@@ -32,7 +37,6 @@ extern int pselect (int __nfds, fd_set *__restrict __readfds,
       fd_set *__restrict __exceptfds,
       const struct timespec *__restrict __timeout,
       const __sigset_t *__restrict __sigmask);
-/* + END <sys/select.h> /usr/include/x86_64-linux-gnu/sys/select.h */
 enum { _SYS_SELECT_H = 1 };
 /* #define __NFDBITS (8 * (int) sizeof (__fd_mask)) ### define is not number */
 /* #define __FD_ELT (d) ((d) / __NFDBITS) ### define is not number */
@@ -44,4 +48,5 @@ enum { _SYS_SELECT_H = 1 };
 /* #define FD_CLR (fd,fdsetp) __FD_CLR (fd, fdsetp) ### define is not number */
 /* #define FD_ISSET (fd,fdsetp) __FD_ISSET (fd, fdsetp) ### define is not number */
 /* #define FD_ZERO (fdsetp) __FD_ZERO (fdsetp) ### define is not number */
+/* + END <sys/select.h> /usr/include/x86_64-linux-gnu/sys/select.h */
 ]]

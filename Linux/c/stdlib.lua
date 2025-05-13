@@ -1,9 +1,19 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN <stdlib.h> /usr/include/stdlib.h */
+/* ++ BEGIN <bits/libc-header-start.h> /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
+]] require 'ffi.req' 'c.bits.libc-header-start' ffi.cdef[[
+/* ++ END <bits/libc-header-start.h> /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 /* ++ BEGIN <stddef.h> /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* ++ END <stddef.h> /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
+/* ++ BEGIN <bits/waitflags.h> /usr/include/x86_64-linux-gnu/bits/waitflags.h */
+/* ++ END <bits/waitflags.h> /usr/include/x86_64-linux-gnu/bits/waitflags.h */
+/* ++ BEGIN <bits/waitstatus.h> /usr/include/x86_64-linux-gnu/bits/waitstatus.h */
+/* ++ END <bits/waitstatus.h> /usr/include/x86_64-linux-gnu/bits/waitstatus.h */
+/* ++ BEGIN <bits/floatn.h> /usr/include/x86_64-linux-gnu/bits/floatn.h */
+]] require 'ffi.req' 'c.bits.floatn' ffi.cdef[[
+/* ++ END <bits/floatn.h> /usr/include/x86_64-linux-gnu/bits/floatn.h */
 typedef struct
   {
     int quot;
@@ -256,7 +266,8 @@ extern int getsubopt (char **__restrict __optionp,
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2, 3))) ;
 extern int getloadavg (double __loadavg[], int __nelem)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
-/* + END <stdlib.h> /usr/include/stdlib.h */
+/* ++ BEGIN <bits/stdlib-float.h> /usr/include/x86_64-linux-gnu/bits/stdlib-float.h */
+/* ++ END <bits/stdlib-float.h> /usr/include/x86_64-linux-gnu/bits/stdlib-float.h */
 enum { _STDLIB_H = 1 };
 /* #define WEXITSTATUS (status) __WEXITSTATUS (status) ### define is not number */
 /* #define WTERMSIG (status) __WTERMSIG (status) ### define is not number */
@@ -270,4 +281,5 @@ enum { EXIT_FAILURE = 1 };
 enum { EXIT_SUCCESS = 0 };
 /* #define MB_CUR_MAX (__ctype_get_mb_cur_max ()) ### define is not number */
 enum { __COMPAR_FN_T = 1 };
+/* + END <stdlib.h> /usr/include/stdlib.h */
 ]]

@@ -1,6 +1,9 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN <string.h> /usr/include/string.h */
+/* ++ BEGIN <bits/libc-header-start.h> /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
+]] require 'ffi.req' 'c.bits.libc-header-start' ffi.cdef[[
+/* ++ END <bits/libc-header-start.h> /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 /* ++ BEGIN <stddef.h> /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* ++ END <stddef.h> /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
@@ -142,6 +145,6 @@ extern size_t strlcpy (char *__restrict __dest,
 extern size_t strlcat (char *__restrict __dest,
          const char *__restrict __src, size_t __n)
   __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2))) __attribute__ ((__access__ (__read_write__, 1, 3)));
-/* + END <string.h> /usr/include/string.h */
 enum { _STRING_H = 1 };
+/* + END <string.h> /usr/include/string.h */
 ]]

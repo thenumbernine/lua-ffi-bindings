@@ -3,7 +3,6 @@ ffi.cdef[[
 /* + BEGIN <stdarg.h> /usr/lib/gcc/x86_64-linux-gnu/14/include/stdarg.h */
 typedef __builtin_va_list __gnuc_va_list;
 typedef __gnuc_va_list va_list;
-/* + END <stdarg.h> /usr/lib/gcc/x86_64-linux-gnu/14/include/stdarg.h */
 enum { _STDARG_H = 1 };
 enum { _ANSI_STDARG_H_ = 1 };
 enum { __GNUC_VA_LIST = 1 };
@@ -17,4 +16,5 @@ enum { _VA_LIST = 1 };
 enum { _VA_LIST_DEFINED = 1 };
 enum { _VA_LIST_T_H = 1 };
 enum { __va_list__ = 1 };
+/* + END <stdarg.h> /usr/lib/gcc/x86_64-linux-gnu/14/include/stdarg.h */
 ]]

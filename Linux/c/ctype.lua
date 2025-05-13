@@ -1,9 +1,15 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN <ctype.h> /usr/include/ctype.h */
+/* ++ BEGIN <features.h> /usr/include/features.h */
+]] require 'ffi.req' 'c.features' ffi.cdef[[
+/* ++ END <features.h> /usr/include/features.h */
 /* ++ BEGIN <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* ++ END <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
+/* ++ BEGIN <bits/endian.h> /usr/include/x86_64-linux-gnu/bits/endian.h */
+]] require 'ffi.req' 'c.bits.endian' ffi.cdef[[
+/* ++ END <bits/endian.h> /usr/include/x86_64-linux-gnu/bits/endian.h */
 enum
 {
   _ISupper = ((0) < 8 ? ((1 << (0)) << 8) : ((1 << (0)) >> 8)),
@@ -62,7 +68,6 @@ extern int __tolower_l (int __c, locale_t __l) __attribute__ ((__nothrow__ , __l
 extern int tolower_l (int __c, locale_t __l) __attribute__ ((__nothrow__ , __leaf__));
 extern int __toupper_l (int __c, locale_t __l) __attribute__ ((__nothrow__ , __leaf__));
 extern int toupper_l (int __c, locale_t __l) __attribute__ ((__nothrow__ , __leaf__));
-/* + END <ctype.h> /usr/include/ctype.h */
 enum { _CTYPE_H = 1 };
 /* #define _ISbit (bit) ((bit) < 8 ? ((1 << (bit)) << 8) : ((1 << (bit)) >> 8)) ### define is not number */
 /* #define __isctype (c,type) ((*__ctype_b_loc ())[(int) (c)] & (unsigned short int) type) ### define is not number */
@@ -116,4 +121,5 @@ enum { _CTYPE_H = 1 };
 /* #define isblank_l (c,l) __isblank_l ((c), (l)) ### define is not number */
 /* #define isascii_l (c,l) __isascii_l ((c), (l)) ### define is not number */
 /* #define toascii_l (c,l) __toascii_l ((c), (l)) ### define is not number */
+/* + END <ctype.h> /usr/include/ctype.h */
 ]]

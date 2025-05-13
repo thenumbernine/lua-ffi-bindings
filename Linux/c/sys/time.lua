@@ -1,6 +1,9 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN <sys/time.h> /usr/include/x86_64-linux-gnu/sys/time.h */
+/* ++ BEGIN <features.h> /usr/include/features.h */
+]] require 'ffi.req' 'c.features' ffi.cdef[[
+/* ++ END <features.h> /usr/include/features.h */
 /* ++ BEGIN <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* ++ END <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
@@ -48,7 +51,6 @@ extern int utimes (const char *__file, const struct timeval __tvp[2])
 extern int lutimes (const char *__file, const struct timeval __tvp[2])
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 extern int futimes (int __fd, const struct timeval __tvp[2]) __attribute__ ((__nothrow__ , __leaf__));
-/* + END <sys/time.h> /usr/include/x86_64-linux-gnu/sys/time.h */
 enum { _SYS_TIME_H = 1 };
 /* #define ITIMER_REAL ITIMER_REAL ### define is not number */
 /* #define ITIMER_VIRTUAL ITIMER_VIRTUAL ### define is not number */
@@ -58,4 +60,5 @@ enum { _SYS_TIME_H = 1 };
 /* #define timercmp (a,b,CMP) (((a)->tv_sec == (b)->tv_sec) ? ((a)->tv_usec CMP (b)->tv_usec) : ((a)->tv_sec CMP (b)->tv_sec)) ### define is not number */
 /* #define timeradd (a,b,result) do { (result)->tv_sec = (a)->tv_sec + (b)->tv_sec; (result)->tv_usec = (a)->tv_usec + (b)->tv_usec; if ((result)->tv_usec >= 1000000) { ++(result)->tv_sec; (result)->tv_usec -= 1000000; } } while (0) ### define is not number */
 /* #define timersub (a,b,result) do { (result)->tv_sec = (a)->tv_sec - (b)->tv_sec; (result)->tv_usec = (a)->tv_usec - (b)->tv_usec; if ((result)->tv_usec < 0) { --(result)->tv_sec; (result)->tv_usec += 1000000; } } while (0) ### define is not number */
+/* + END <sys/time.h> /usr/include/x86_64-linux-gnu/sys/time.h */
 ]]

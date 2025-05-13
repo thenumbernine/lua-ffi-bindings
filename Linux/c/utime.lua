@@ -1,6 +1,9 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN <utime.h> /usr/include/utime.h */
+/* ++ BEGIN <features.h> /usr/include/features.h */
+]] require 'ffi.req' 'c.features' ffi.cdef[[
+/* ++ END <features.h> /usr/include/features.h */
 /* ++ BEGIN <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
 ]] require 'ffi.req' 'c.bits.types' ffi.cdef[[
 /* ++ END <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
@@ -15,8 +18,8 @@ struct utimbuf
 extern int utime (const char *__file,
     const struct utimbuf *__file_times)
      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
-/* + END <utime.h> /usr/include/utime.h */
 enum { _UTIME_H = 1 };
+/* + END <utime.h> /usr/include/utime.h */
 ]]
 return setmetatable({
 	struct_utimbuf = 'struct utimbuf',

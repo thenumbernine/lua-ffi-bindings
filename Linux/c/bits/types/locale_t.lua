@@ -1,5 +1,8 @@
 local ffi = require 'ffi'
 ffi.cdef[[
+/* + BEGIN <features.h> /usr/include/features.h */
+]] require 'ffi.req' 'c.features' ffi.cdef[[
+/* + END <features.h> /usr/include/features.h */
 /* + BEGIN <bits/types/locale_t.h> /usr/include/x86_64-linux-gnu/bits/types/locale_t.h */
 /* ++ BEGIN <bits/types/__locale_t.h> /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h */
 struct __locale_struct
@@ -13,6 +16,6 @@ struct __locale_struct
 typedef struct __locale_struct *__locale_t;
 /* ++ END <bits/types/__locale_t.h> /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h */
 typedef __locale_t locale_t;
-/* + END <bits/types/locale_t.h> /usr/include/x86_64-linux-gnu/bits/types/locale_t.h */
 enum { _BITS_TYPES_LOCALE_T_H = 1 };
+/* + END <bits/types/locale_t.h> /usr/include/x86_64-linux-gnu/bits/types/locale_t.h */
 ]]

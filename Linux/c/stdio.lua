@@ -1,6 +1,9 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN <stdio.h> /usr/include/stdio.h */
+/* ++ BEGIN <bits/libc-header-start.h> /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
+]] require 'ffi.req' 'c.bits.libc-header-start' ffi.cdef[[
+/* ++ END <bits/libc-header-start.h> /usr/include/x86_64-linux-gnu/bits/libc-header-start.h */
 /* ++ BEGIN <stddef.h> /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
 /* ++ END <stddef.h> /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
@@ -91,6 +94,8 @@ typedef __gnuc_va_list va_list;
 typedef __off_t off_t;
 typedef __ssize_t ssize_t;
 typedef __fpos_t fpos_t;
+/* ++ BEGIN <bits/stdio_lim.h> /usr/include/x86_64-linux-gnu/bits/stdio_lim.h */
+/* ++ END <bits/stdio_lim.h> /usr/include/x86_64-linux-gnu/bits/stdio_lim.h */
 extern FILE *stdin;
 extern FILE *stdout;
 extern FILE *stderr;
@@ -165,6 +170,9 @@ extern int fscanf (FILE *__restrict __stream,
 extern int scanf (const char *__restrict __format, ...) ;
 extern int sscanf (const char *__restrict __s,
      const char *__restrict __format, ...) __attribute__ ((__nothrow__ , __leaf__));
+/* ++ BEGIN <bits/floatn.h> /usr/include/x86_64-linux-gnu/bits/floatn.h */
+]] require 'ffi.req' 'c.bits.floatn' ffi.cdef[[
+/* ++ END <bits/floatn.h> /usr/include/x86_64-linux-gnu/bits/floatn.h */
 extern int fscanf (FILE *__restrict __stream, const char *__restrict __format, ...) __asm__ ("" "__isoc99_fscanf")
                                 __attribute__ ((__nonnull__ (1)));
 extern int scanf (const char *__restrict __format, ...) __asm__ ("" "__isoc99_scanf")
@@ -254,7 +262,6 @@ extern int ftrylockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)
 extern void funlockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 extern int __uflow (FILE *);
 extern int __overflow (FILE *, int);
-/* + END <stdio.h> /usr/include/stdio.h */
 enum { _STDIO_H = 1 };
 enum { _IOFBF = 0 };
 enum { _IOLBF = 1 };
@@ -272,6 +279,7 @@ enum { FOPEN_MAX = 16 };
 /* #define stderr stderr ### define is not number */
 /* #define __attr_dealloc_fclose __attr_dealloc (fclose, 1) ### define is not number */
 enum { FILENAME_MAX = 4096 };
+/* + END <stdio.h> /usr/include/stdio.h */
 ]]
 -- special case since in the browser app where I'm capturing fopen for remote requests and caching
 -- feel free to not use the returend table and just use ffi.C for faster access
