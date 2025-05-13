@@ -152,10 +152,18 @@ enum { ENOTSUP = 95 };
 /* #define errno (*__errno_location ()) ### define is not number */
 /* + END <errno.h> /usr/include/errno.h */
 ]]
-return setmetatable({
+local wrapper
+wrapper = setmetatable({
 	errno = function()
 		return ffi.C.__errno_location()[0]
+	end,
+	str = function()
+		require 'ffi.req' 'c.string'	-- strerror
+		local sp = ffi.C.strerror(wrapper.errno())
+		if sp == nil then return '(null)' end
+		return ffi.string(sp)
 	end,
 }, {
 	__index = ffi.C,
 })
+return wrapper
