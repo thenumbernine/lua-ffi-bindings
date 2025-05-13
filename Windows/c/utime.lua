@@ -1,2 +1,2 @@
 -- here for posix compat
-return require 'Windows.c.sys.utime'
+return require 'ffi.Windows.c.sys.utime'
