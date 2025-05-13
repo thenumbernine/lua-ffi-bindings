@@ -118,10 +118,10 @@ typedef enum {
  FILESEC_ACL_RAW = 100,
  FILESEC_ACL_ALLOCSIZE = 101
 } filesec_property_t;
-int open(const char *, int, ...) __asm("_open" );
-int openat(int, const char *, int, ...) __asm("_openat" ) __attribute__((availability(macosx,introduced=10.10)));
-int creat(const char *, mode_t) __asm("_creat" );
-int fcntl(int, int, ...) __asm("_fcntl" );
+int open(const char *, int, ...) __asm( "open" );
+int openat(int, const char *, int, ...) __asm( "openat" ) __attribute__((availability(macosx,introduced=10.10)));
+int creat(const char *, mode_t) __asm( "creat" );
+int fcntl(int, int, ...) __asm( "fcntl" );
 int openx_np(const char *, int, filesec_t);
 int open_dprotected_np( const char *, int, int, int, ...);
 int openat_dprotected_np( int, const char *, int, int, int, ...);

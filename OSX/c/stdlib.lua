@@ -275,11 +275,11 @@ struct proc_rlimit_control_wakeupmon {
 };
 int getpriority(int, id_t);
 int getiopolicy_np(int, int) ;
-int getrlimit(int, struct rlimit *) __asm("_getrlimit" );
+int getrlimit(int, struct rlimit *) __asm( "getrlimit" );
 int getrusage(int, struct rusage *);
 int setpriority(int, id_t, int);
 int setiopolicy_np(int, int, int) ;
-int setrlimit(int, const struct rlimit *) __asm("_setrlimit" );
+int setrlimit(int, const struct rlimit *) __asm( "setrlimit" );
 /* ++++ END <sys/resource.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/resource.h */
 /* ++++ BEGIN <machine/endian.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/machine/endian.h */
 ]] require 'ffi.req' 'c.machine.endian' ffi.cdef[[
@@ -298,9 +298,9 @@ union wait {
       w_Filler:16;
  } w_S;
 };
-pid_t wait(int *) __asm("_wait" );
-pid_t waitpid(pid_t, int *, int) __asm("_waitpid" );
-int waitid(idtype_t, id_t, siginfo_t *, int) __asm("_waitid" );
+pid_t wait(int *) __asm( "wait" );
+pid_t waitpid(pid_t, int *, int) __asm( "waitpid" );
+int waitid(idtype_t, id_t, siginfo_t *, int) __asm( "waitid" );
 pid_t wait3(int *, int, struct rusage *);
 pid_t wait4(pid_t, int *, int, struct rusage *);
 /* +++ END <sys/wait.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/wait.h */
@@ -401,8 +401,8 @@ void qsort(void *__base, size_t __nel, size_t __width,
 void quick_exit(int) __attribute__((__noreturn__));
 int rand(void) __attribute__((__availability__(swift, unavailable, message="Use arc4random instead.")));
 void srand(unsigned) __attribute__((__availability__(swift, unavailable, message="Use arc4random instead.")));
-double strtod(const char *, char **) __asm("_strtod" );
-float strtof(const char *, char **) __asm("_strtof" );
+double strtod(const char *, char **) __asm( "strtod" );
+float strtof(const char *, char **) __asm( "strtof" );
 long strtol(const char *__str, char **__endptr, int __base);
 long double
   strtold(const char *, char **);
@@ -413,7 +413,7 @@ unsigned long
 unsigned long long
   strtoull(const char *__str, char **__endptr, int __base);
 __attribute__((__availability__(swift, unavailable, message="Use posix_spawn APIs or NSTask instead. (On iOS, process spawning is unavailable.)")))
-int system(const char *) __asm("_system" );
+int system(const char *) __asm( "system" );
 size_t wcstombs(char * restrict, const wchar_t * restrict, size_t);
 int wctomb(char *, wchar_t);
 void _Exit(int) __attribute__((__noreturn__));
@@ -438,19 +438,19 @@ long nrand48(unsigned short[3]) __attribute__((__availability__(swift, unavailab
 int posix_openpt(int);
 char *ptsname(int);
 int ptsname_r(int fildes, char *buffer, size_t buflen)    ;
-int putenv(char *) __asm("_putenv" );
+int putenv(char *) __asm( "putenv" );
 long random(void) __attribute__((__availability__(swift, unavailable, message="Use arc4random instead.")));
 int rand_r(unsigned *) __attribute__((__availability__(swift, unavailable, message="Use arc4random instead.")));
-char *realpath(const char * restrict, char * restrict) __asm("_realpath$DARWIN_EXTSN");
+char *realpath(const char * restrict, char * restrict) __asm( "realpath$DARWIN_EXTSN");
 unsigned short
  *seed48(unsigned short[3]);
-int setenv(const char * __name, const char * __value, int __overwrite) __asm("_setenv" );
-void setkey(const char *) __asm("_setkey" );
+int setenv(const char * __name, const char * __value, int __overwrite) __asm( "setenv" );
+void setkey(const char *) __asm( "setkey" );
 char *setstate(const char *);
 void srand48(long);
 void srandom(unsigned);
 int unlockpt(int);
-int unsetenv(const char *) __asm("_unsetenv" );
+int unsetenv(const char *) __asm( "unsetenv" );
 /* +++ BEGIN <sys/_types/_dev_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_dev_t.h */
 ]] require 'ffi.req' 'c.sys._types._dev_t' ffi.cdef[[
 /* +++ END <sys/_types/_dev_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_dev_t.h */
@@ -474,7 +474,7 @@ int cgetnum(char *, const char *, long *);
 int cgetset(const char *);
 int cgetstr(char *, const char *, char **);
 int cgetustr(char *, const char *, char **);
-int daemon(int, int) __asm("_daemon$1050")   ;
+int daemon(int, int) __asm( "daemon$1050")   ;
 char *devname(dev_t, mode_t);
 char *devname_r(dev_t, mode_t, char *buf, int len);
 char *getbsize(int *, long *);

@@ -37,18 +37,18 @@ struct tm {
 };
 extern char *tzname[];
 extern int getdate_err;
-extern long timezone __asm("_timezone" );
+extern long timezone __asm( "timezone" );
 extern int daylight;
 char *asctime(const struct tm *);
-clock_t clock(void) __asm("_clock" );
+clock_t clock(void) __asm( "clock" );
 char *ctime(const time_t *);
 double difftime(time_t, time_t);
 struct tm *getdate(const char *);
 struct tm *gmtime(const time_t *);
 struct tm *localtime(const time_t *);
-time_t mktime(struct tm *) __asm("_mktime" );
-size_t strftime(char * restrict, size_t, const char * restrict, const struct tm * restrict) __asm("_strftime" );
-char *strptime(const char * restrict, const char * restrict, struct tm * restrict) __asm("_strptime" );
+time_t mktime(struct tm *) __asm( "mktime" );
+size_t strftime(char * restrict, size_t, const char * restrict, const struct tm * restrict) __asm( "strftime" );
+char *strptime(const char * restrict, const char * restrict, struct tm * restrict) __asm( "strptime" );
 time_t time(time_t *);
 void tzset(void);
 char *asctime_r(const struct tm * restrict, char * restrict);
@@ -60,7 +60,7 @@ void tzsetwall(void);
 time_t time2posix(time_t);
 time_t timelocal(struct tm * const);
 time_t timegm(struct tm * const);
-int nanosleep(const struct timespec *__rqtp, struct timespec *__rmtp) __asm("_nanosleep" );
+int nanosleep(const struct timespec *__rqtp, struct timespec *__rmtp) __asm( "nanosleep" );
 typedef enum {
 _CLOCK_REALTIME     = 0,
 _CLOCK_MONOTONIC     = 6,
