@@ -7,6 +7,13 @@ require 'ffi.req' 'c.stdlib'
 if ffi.os ~= 'Windows' then
 	require 'ffi.req' 'c.sys.types'
 	require 'ffi.req' 'c.limits'
+ffi.cdef[[
+typedef off_t fitsio_off_t;
+]]
+else
+ffi.cdef[[
+typedef long long fitsio_off_t;
+]]
 end
 
 ffi.cdef[[
@@ -646,7 +653,7 @@ wrapper = require 'ffi.libwrapper'{
 		ffghdt = [[int ffghdt(fitsfile *fptr, int *exttype, int *status);]],
 		ffghad = [[int ffghad(fitsfile *fptr, long *headstart, long *datastart, long *dataend, int *status);]],
 		ffghadll = [[int ffghadll(fitsfile *fptr, LONGLONG *headstart, LONGLONG *datastart, LONGLONG *dataend, int *status);]],
-		ffghof = [[int ffghof(fitsfile *fptr, off_t *headstart, off_t *datastart, off_t *dataend, int *status);]],
+		ffghof = [[int ffghof(fitsfile *fptr, fitsio_off_t *headstart, fitsio_off_t *datastart, fitsio_off_t *dataend, int *status);]],
 		ffgipr = [[int ffgipr(fitsfile *fptr, int maxaxis, int *imgtype, int *naxis, long *naxes, int *status);]],
 		ffgiprll = [[int ffgiprll(fitsfile *fptr, int maxaxis, int *imgtype, int *naxis, LONGLONG *naxes, int *status);]],
 		ffgidt = [[int ffgidt(fitsfile *fptr, int *imgtype, int *status);]],
@@ -1530,7 +1537,7 @@ wrapper = require 'ffi.libwrapper'{
 		fits_read_string_key_com = function() return wrapper.ffgskyc end,
 		fits_read_string_key = function() return wrapper.ffgsky end,
 		fits_read_key_longstr = function() return wrapper.ffgkls end,
-		fits_get_key_com_strlen = function() return wrapper.ffgksl end,
+		fits_get_key_com_strlen = function() return wrapper.ffgkcsl end,
 		fits_get_key_strlen = function() return wrapper.ffgksl end,
 		fits_read_key_triple = function() return wrapper.ffgkyt end,
 		fits_read_key_dblcmp = function() return wrapper.ffgkym end,
