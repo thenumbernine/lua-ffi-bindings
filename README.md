@@ -96,3 +96,11 @@ The original versions of this started from https://github.com/malkia/ufo .  One 
 
 - LuaJIT
 - ffi.cpp and ffi.gcwrapper depend on my [lua-ext](https://github.com/thenumbernine/lua-ext) repo.
+
+# TODO
+
+- why do I have a separate `ffi.req`?  It's just a search path.
+Instead I should have a one-time check for inserting the `"ffi/$os/$arch/?.lua;ffi/$os/?.lua;ffi/$arch/?.lua;ffi/?.lua" into the package.path if it's not there.
+That means restructuring the directories from `ffi/`, `ffi/Windows`, `ffi/OSX/` etc to `ffi/`, `ffi/Windows/ffi`, `ffi/OSX/ffi` etc ... it just means wedging one extra `ffi/` folder into the `$os/$arch, $os/, $arch/` folders.
+And once I've done that, I can just do `require 'ffi.wherever'` ... but that still won't work unless I do a luarocks and do some initial setup somewhere `require = require 'ffi.require'` that auto-inserts the paths ... which honestly is just as tedious as what I'm doing right now ...
+Maybe I'll keep doing `require 'ffi.req' '...'`.
