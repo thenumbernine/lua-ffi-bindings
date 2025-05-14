@@ -132,7 +132,6 @@ wrapper = setmetatable({
 		if sp == nil then return '(null)' end
 		return ffi.string(sp)
 	end,
-
 }, {
 	__index = ffi.C,
 })
