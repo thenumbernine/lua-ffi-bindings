@@ -1,5 +1,5 @@
 local ffi = require 'ffi'
-local sdl = require 'ffi.req' 'sdl'
+local sdl = require 'ffi.req' 'sdl2'
 ffi.cdef[[
 
 enum {
