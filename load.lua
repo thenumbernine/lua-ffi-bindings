@@ -100,21 +100,39 @@ lookup'ogg'.Windows = 'libogg-0'
 
 
 lookup'GL'.OSX = '/System/Library/Frameworks/OpenGL.framework/OpenGL'	-- builtin crap
---lookup'GL'.OSX = '/usr/local/lib/libGL.dylib'							-- osx brew mesa ... which, just having this installed, after the last libSDL2 brew update, caused *every single thing* that used brew SDL2 to segfault upon start.
+--lookup'GL'.OSX = '/usr/local/lib/libGL.dylib'							-- osx brew mesa
+--lookup'GL'.OSX = '/usr/local/opt/mesa/lib/libMesaOpenCL.dylib'		-- osx brew mesa
 
 lookup'GLU'.OSX = '/System/Library/Frameworks/OpenGL.framework/OpenGL'	-- builtin crap
---lookup'GLU'.OSX = '/usr/local/lib/libGLU.dylib'						-- osx brew mesa ... which, just having this installed, after the last libSDL2 brew update, caused *every single thing* that used brew SDL2 to segfault upon start.
+--lookup'GLU'.OSX = '/usr/local/lib/libGLU.dylib'						-- osx brew mesa
+
+lookup'GLESv1_CM'.OSX = '/usr/local/lib/libGLESv1_CM.dylib'				-- mesa
 
 -- hmm, GLES library names are funny
 -- GLES1, GLES/gl.h uses GLESv1_CM.so
 -- GLES2, GLES2/gl2.h uses GLESv2.so
 -- GLES3, GLES3/gl3.h uses ... GLESv2.so as well
 -- (on Linux?)
-lookup'GLESv2'.OSX = '/System/Library/Frameworks/OpenGL.framework/OpenGL'	-- builtin crap
+--lookup'GLESv2'.OSX = '/System/Library/Frameworks/OpenGL.framework/OpenGL'	-- builtin crap
 --lookup'GLESv2'.OSX = '/System/Library/Frameworks/CoreImage.framework/Versions/A/Frameworks/libWrapGLES.dylib'	-- dlopen says incompatible platforms
---lookup'GLESv2'.OSX = '/usr/local/lib/libGLESv2.dylib'	-- osx brew mesa
+--lookup'GLESv2'.OSX = '/usr/local/lib/libGLESv2.dylib'				-- osx brew mesa
+lookup'GLESv2'.OSX = '/usr/local/opt/mesa/lib/libGLESv2.dylib'	-- osx brew mesa
 
 lookup'OpenCL'.OSX = '/System/Library/Frameworks/OpenCL.framework/OpenCL'
+--lookup'OpenCL'.OSX = '/usr/local/opt/mesa/lib/libMesaOpenCL.dylib'	-- osx brew mesa
+
+lookup'vulkan'.OSX = '/usr/local/lib/libMoltenVK.dylib'	-- molten-vk ... will this work so easily?
+--lookup'vulkan'.OSX = '/usr/local/opt/mesa/lib/libvulkan_lvp.dylib'	-- ... or this one? it's mesa ...
+--lookup'vulkan'.OSX = '/usr/local/opt/mesa/lib/libVkLayer_MESA_overlay.dylib'	-- ... or this one? it's mesa ...
+--lookup'vulkan'.OSX = '/usr/local/lib/libvulkan.dylib'	-- this one is with homebrew `vulkan-loader`
+--lookup'vulkan'.OSX = function()
+-- ... I have an 'elseif' up there, but maybe I should separate it into an 'if' so I can specify a function at any nesting of $os/$arch/etc
+--ffi_load.vulkan = function()
+	-- "failed to load Vulkan Portability library ... is that a 2nd lib we gotta load?
+	--ffi.load'/usr/local/opt/vulkan-tools/lib/mock_icd/libVkICD_mock_icd.dylib'
+	--return '/usr/local/opt/vulkan-loader/lib/libvulkan.dylib'	-- this one is with homebrew `vulkan-loader`
+--end
+
 lookup'openal'.OSX = '/System/Library/Frameworks/OpenAL.framework/OpenAL'
 
 -- Welp, OSX luajit stopped linking against /usr/local/lib by default ...
@@ -138,6 +156,5 @@ lookup'EGL'.OSX = '/usr/local/lib/libEGL.dylib'
 lookup'hdf5'.OSX = '/usr/local/lib/libhdf5.dylib'
 lookup'lapacke'.OSX = '/usr/local/lib/liblapacke.dylib'
 lookup'vorbisfile'.OSX = '/usr/local/lib/libvorbisfile.dylib'
-lookup'GLESv1_CM'.OSX = '/usr/local/lib/libGLESv1_CM.dylib'
 
 return ffi_load

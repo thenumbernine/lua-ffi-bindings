@@ -104,3 +104,12 @@ Instead I should have a one-time check for inserting the `"ffi/$os/$arch/?.lua;f
 That means restructuring the directories from `ffi/`, `ffi/Windows`, `ffi/OSX/` etc to `ffi/`, `ffi/Windows/ffi`, `ffi/OSX/ffi` etc ... it just means wedging one extra `ffi/` folder into the `$os/$arch, $os/, $arch/` folders.
 And once I've done that, I can just do `require 'ffi.wherever'` ... but that still won't work unless I do a luarocks and do some initial setup somewhere `require = require 'ffi.require'` that auto-inserts the paths ... which honestly is just as tedious as what I'm doing right now ...
 Maybe I'll keep doing `require 'ffi.req' '...'`.
+
+...
+- how about splitting this up per 3rd party search?
+- then rename this package to 'c' or 'libc' or something,
+- and then make require 'c' the same as the old require 'ffi.req', so you'd jsut do `require 'c' 'stdio'` to do a search for Windows/x64/stdio.lua, Windows/stdio.lua, x64/stdio.lua, or stdio.lua.
+
+...
+- separately, as for the 3rd party ones, maybe move them out of root level and into their own subfolder
+- merge them with their `include/` information, make one unique file per-3rd-party-lib with its `include/` generatio info and with its `ffi/` generated binding info and with its `distinfo/` packaging information.
