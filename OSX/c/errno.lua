@@ -124,7 +124,7 @@ enum { ELAST = 106 };
 local wrapper
 wrapper = setmetatable({
 	errno = function()
-		return ffi.C.__errno_location()[0]
+		return ffi.C.__error()[0]
 	end,
 	str = function()
 		require 'ffi.req' 'c.string'	-- strerror
@@ -132,7 +132,6 @@ wrapper = setmetatable({
 		if sp == nil then return '(null)' end
 		return ffi.string(sp)
 	end,
-
 }, {
 	__index = ffi.C,
 })
