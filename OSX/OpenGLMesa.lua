@@ -11276,4 +11276,7 @@ typedef void ( * PFNGLEGLIMAGETARGETRENDERBUFFERSTORAGEOESPROC) (GLenum target, 
 /* + BEGIN /usr/local/include/GL/glext.h */
 /* + END   /usr/local/include/GL/glext.h */
 ]]
-return require 'ffi.load' 'GL'
+-- hmm the whole point of ffi.load was to abstract library loading per OS
+-- I never expected Apple to be so stupid as to make me need to abstract multiple different GL libraries within the same OS
+--return require 'ffi.load' 'GL'						-- load what ffi/load.lua has now set to the OpenGL.framework library
+return ffi.load'/usr/local/opt/mesa/lib/libGL.dylib'	-- load mesa's GL
