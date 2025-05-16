@@ -32,7 +32,8 @@ local ffi_load = setmetatable({}, {
 			if type(v) == 'table' then
 				v = v[ffi.arch]
 			end
-		elseif type(v) == 'function' then
+		end
+		if type(v) == 'function' then
 			-- if it's a function then call?
 			v = v(reqname)
 		end
@@ -99,32 +100,32 @@ lookup'ogg'.Windows = 'libogg-0'
 -- ================================ OSX ================================
 
 
+--lookup'EGL'.OSX = '/usr/local/lib/libEGL.dylib'
+lookup'EGL'.OSX = '/usr/local/opt/mesa/lib/libEGL.dylib'
+
 lookup'GL'.OSX = '/System/Library/Frameworks/OpenGL.framework/OpenGL'	-- builtin crap
 --lookup'GL'.OSX = '/usr/local/lib/libGL.dylib'							-- osx brew mesa
---lookup'GL'.OSX = '/usr/local/opt/mesa/lib/libMesaOpenCL.dylib'		-- osx brew mesa
+--lookup'GL'.OSX = '/usr/local/opt/mesa/lib/libGL.dylib'		-- osx brew mesa
 
 lookup'GLU'.OSX = '/System/Library/Frameworks/OpenGL.framework/OpenGL'	-- builtin crap
---lookup'GLU'.OSX = '/usr/local/lib/libGLU.dylib'						-- osx brew mesa
+--lookup'GLU'.OSX = '/usr/local/opt/mesa-glu/lib/libGLU.dylib'						-- osx brew mesa
 
-lookup'GLESv1_CM'.OSX = '/usr/local/lib/libGLESv1_CM.dylib'				-- mesa
+--lookup'GLESv1_CM'.OSX = '/usr/local/lib/libGLESv1_CM.dylib'				-- mesa
+lookup'GLESv1_CM'.OSX = '/usr/local/opt/mesa/lib/libGLESv1_CM.dylib'				-- mesa
 
--- hmm, GLES library names are funny
--- GLES1, GLES/gl.h uses GLESv1_CM.so
--- GLES2, GLES2/gl2.h uses GLESv2.so
--- GLES3, GLES3/gl3.h uses ... GLESv2.so as well
--- (on Linux?)
 --lookup'GLESv2'.OSX = '/System/Library/Frameworks/OpenGL.framework/OpenGL'	-- builtin crap
 --lookup'GLESv2'.OSX = '/System/Library/Frameworks/CoreImage.framework/Versions/A/Frameworks/libWrapGLES.dylib'	-- dlopen says incompatible platforms
 --lookup'GLESv2'.OSX = '/usr/local/lib/libGLESv2.dylib'				-- osx brew mesa
 lookup'GLESv2'.OSX = '/usr/local/opt/mesa/lib/libGLESv2.dylib'	-- osx brew mesa
 
 lookup'OpenCL'.OSX = '/System/Library/Frameworks/OpenCL.framework/OpenCL'
---lookup'OpenCL'.OSX = '/usr/local/opt/mesa/lib/libMesaOpenCL.dylib'	-- osx brew mesa
+--lookup'OpenCL'.OSX = '/usr/local/opt/mesa/lib/libMesaOpenCL.dylib'	-- osx brew mesa ... but I don't see it now ...
+--lookup'OpenCL'.OSX = '/usr/local/opt/mesa/lib/libRusticlOpenCL.dylib'	-- osx brew mesa ... missing clGetMemObjectInfo ...
 
-lookup'vulkan'.OSX = '/usr/local/lib/libMoltenVK.dylib'	-- molten-vk ... will this work so easily?
+lookup'vulkan'.OSX = '/usr/local/opt/molten-vk/lib/libMoltenVK.dylib'	-- molten-vk ... will this work so easily?
 --lookup'vulkan'.OSX = '/usr/local/opt/mesa/lib/libvulkan_lvp.dylib'	-- ... or this one? it's mesa ...
 --lookup'vulkan'.OSX = '/usr/local/opt/mesa/lib/libVkLayer_MESA_overlay.dylib'	-- ... or this one? it's mesa ...
---lookup'vulkan'.OSX = '/usr/local/lib/libvulkan.dylib'	-- this one is with homebrew `vulkan-loader`
+--lookup'vulkan'.OSX = '/usr/local/opt/vulkan-loader/lib/libvulkan.dylib'	-- this one is with homebrew `vulkan-loader`
 --lookup'vulkan'.OSX = function()
 -- ... I have an 'elseif' up there, but maybe I should separate it into an 'if' so I can specify a function at any nesting of $os/$arch/etc
 --ffi_load.vulkan = function()
@@ -148,13 +149,13 @@ lookup'z'.OSX = '/usr/local/opt/zlib/lib/libz.dylib'	-- otherwise it uses zlib i
 lookup'zip'.OSX = '/usr/local/lib/libzip.dylib'
 lookup'jpeg'.OSX = '/usr/local/lib/libjpeg.dylib'
 lookup'tiff'.OSX = '/usr/local/lib/libtiff.dylib'
-lookup'vorbis'.OSX = '/usr/local/lib/libvorbis.dylib'
 lookup'clip'.OSX = '/usr/local/lib/libclip.dylib'
 lookup'cfitsio'.OSX = '/usr/local/lib/libcfitsio.dylib'
 lookup'netcdf'.OSX = '/usr/local/lib/libnetcdf.dylib'
-lookup'EGL'.OSX = '/usr/local/lib/libEGL.dylib'
 lookup'hdf5'.OSX = '/usr/local/lib/libhdf5.dylib'
 lookup'lapacke'.OSX = '/usr/local/lib/liblapacke.dylib'
 lookup'vorbisfile'.OSX = '/usr/local/lib/libvorbisfile.dylib'
+lookup'vorbis'.OSX = '/usr/local/lib/libvorbis.dylib'
+lookup'ogg'.OSX = '/usr/local/lib/libogg.dylib'
 
 return ffi_load
