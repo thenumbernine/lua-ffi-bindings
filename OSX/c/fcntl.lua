@@ -98,13 +98,11 @@ typedef struct fattributiontag {
  unsigned long long ft_hash;
  char ft_attribution_name[255];
 } fattributiontag_t;
-#pragma pack(4)
 struct log2phys {
- unsigned int l2p_flags;
- off_t l2p_contigbytes;
- off_t l2p_devoffset;
+ unsigned int l2p_flags __attribute__((packed,aligned(4)));
+ off_t l2p_contigbytes __attribute__((packed,aligned(4)));
+ off_t l2p_devoffset __attribute__((packed,aligned(4)));
 };
-#pragma pack()
 /* +++ BEGIN <sys/_types/_filesec_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_filesec_t.h */
 ]] require 'ffi.req' 'c.sys._types._filesec_t' ffi.cdef[[
 /* +++ END <sys/_types/_filesec_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_filesec_t.h */
