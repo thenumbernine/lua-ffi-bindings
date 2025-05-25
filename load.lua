@@ -81,7 +81,6 @@ lookup'GLU'.Windows = 'GLU32'
 
 -- TODO when building these on Windows, make sure their names don't have version crap on the end, so there's no need for this.
 -- can ffi.load"serial/hdf5" work? hmm...
-lookup'png'.Windows = 'libpng16'
 lookup'z'.Windows = 'zlib'
 
 -- For Windows msvc turbojpeg 2.0.3 cmake wouldn't build, so i used 2.0.4 instead
