@@ -36,9 +36,9 @@ enum { CL_API_PREFIX_DEPRECATED = 1 };
 /* #define CL_API_PREFIX__VERSION_2_1_DEPRECATED CL_API_PREFIX_COMMON CL_API_PREFIX_DEPRECATED ### string, not number "CL_API_PREFIX_COMMON CL_API_PREFIX_DEPRECATED" */
 /* #define CL_API_SUFFIX__VERSION_2_2_DEPRECATED CL_API_SUFFIX_COMMON CL_API_SUFFIX_DEPRECATED ### string, not number "CL_API_SUFFIX_COMMON CL_API_SUFFIX_DEPRECATED" */
 /* #define CL_API_PREFIX__VERSION_2_2_DEPRECATED CL_API_PREFIX_COMMON CL_API_PREFIX_DEPRECATED ### string, not number "CL_API_PREFIX_COMMON CL_API_PREFIX_DEPRECATED" */
-/* ++++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
+/* ++++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stdint.h */
 ]] require 'ffi.req' 'c.stdint' ffi.cdef[[
-/* ++++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
+/* ++++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stdint.h */
 typedef int8_t cl_char;
 typedef uint8_t cl_uchar;
 typedef int16_t cl_short;
@@ -127,9 +127,9 @@ float nanf( const char * );
 /* #define CL_NAN           nanf( "" ) ### string, not number "nanf( \"\" )" */
 /* #define CL_MAXFLOAT         CL_FLT_MAX ### string, not number "CL_FLT_MAX" */
 /* #define CL_INFINITY         CL_HUGE_VALF ### string, not number "CL_HUGE_VALF" */
-/* ++++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* ++++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 typedef unsigned int cl_GLuint;
 typedef int cl_GLint;
 typedef unsigned int cl_GLenum;
@@ -1220,10 +1220,6 @@ typedef cl_int clCommandFillImageKHR_t( cl_command_buffer_khr command_buffer, cl
 typedef clCommandFillImageKHR_t * clCommandFillImageKHR_fn;
 typedef cl_int clCommandNDRangeKernelKHR_t( cl_command_buffer_khr command_buffer, cl_command_queue command_queue, const cl_ndrange_kernel_command_properties_khr* properties, cl_kernel kernel, cl_uint work_dim, const size_t* global_work_offset, const size_t* global_work_size, const size_t* local_work_size, cl_uint num_sync_points_in_wait_list, const cl_sync_point_khr* sync_point_wait_list, cl_sync_point_khr* sync_point, cl_mutable_command_khr* mutable_handle);
 typedef clCommandNDRangeKernelKHR_t * clCommandNDRangeKernelKHR_fn;
-typedef cl_int clCommandSVMMemcpyKHR_t( cl_command_buffer_khr command_buffer, cl_command_queue command_queue, void* dst_ptr, const void* src_ptr, size_t size, cl_uint num_sync_points_in_wait_list, const cl_sync_point_khr* sync_point_wait_list, cl_sync_point_khr* sync_point, cl_mutable_command_khr* mutable_handle);
-typedef clCommandSVMMemcpyKHR_t * clCommandSVMMemcpyKHR_fn;
-typedef cl_int clCommandSVMMemFillKHR_t( cl_command_buffer_khr command_buffer, cl_command_queue command_queue, void* svm_ptr, const void* pattern, size_t pattern_size, size_t size, cl_uint num_sync_points_in_wait_list, const cl_sync_point_khr* sync_point_wait_list, cl_sync_point_khr* sync_point, cl_mutable_command_khr* mutable_handle);
-typedef clCommandSVMMemFillKHR_t * clCommandSVMMemFillKHR_fn;
 typedef cl_int clGetCommandBufferInfoKHR_t( cl_command_buffer_khr command_buffer, cl_command_buffer_info_khr param_name, size_t param_value_size, void* param_value, size_t* param_value_size_ret);
 typedef clGetCommandBufferInfoKHR_t * clGetCommandBufferInfoKHR_fn;
 extern cl_command_buffer_khr clCreateCommandBufferKHR( cl_uint num_queues, const cl_command_queue* queues, const cl_command_buffer_properties_khr* properties, cl_int* errcode_ret);
@@ -1240,9 +1236,13 @@ extern cl_int clCommandCopyImageToBufferKHR( cl_command_buffer_khr command_buffe
 extern cl_int clCommandFillBufferKHR( cl_command_buffer_khr command_buffer, cl_command_queue command_queue, cl_mem buffer, const void* pattern, size_t pattern_size, size_t offset, size_t size, cl_uint num_sync_points_in_wait_list, const cl_sync_point_khr* sync_point_wait_list, cl_sync_point_khr* sync_point, cl_mutable_command_khr* mutable_handle);
 extern cl_int clCommandFillImageKHR( cl_command_buffer_khr command_buffer, cl_command_queue command_queue, cl_mem image, const void* fill_color, const size_t* origin, const size_t* region, cl_uint num_sync_points_in_wait_list, const cl_sync_point_khr* sync_point_wait_list, cl_sync_point_khr* sync_point, cl_mutable_command_khr* mutable_handle);
 extern cl_int clCommandNDRangeKernelKHR( cl_command_buffer_khr command_buffer, cl_command_queue command_queue, const cl_ndrange_kernel_command_properties_khr* properties, cl_kernel kernel, cl_uint work_dim, const size_t* global_work_offset, const size_t* global_work_size, const size_t* local_work_size, cl_uint num_sync_points_in_wait_list, const cl_sync_point_khr* sync_point_wait_list, cl_sync_point_khr* sync_point, cl_mutable_command_khr* mutable_handle);
+extern cl_int clGetCommandBufferInfoKHR( cl_command_buffer_khr command_buffer, cl_command_buffer_info_khr param_name, size_t param_value_size, void* param_value, size_t* param_value_size_ret);
+typedef cl_int clCommandSVMMemcpyKHR_t( cl_command_buffer_khr command_buffer, cl_command_queue command_queue, void* dst_ptr, const void* src_ptr, size_t size, cl_uint num_sync_points_in_wait_list, const cl_sync_point_khr* sync_point_wait_list, cl_sync_point_khr* sync_point, cl_mutable_command_khr* mutable_handle);
+typedef clCommandSVMMemcpyKHR_t * clCommandSVMMemcpyKHR_fn;
+typedef cl_int clCommandSVMMemFillKHR_t( cl_command_buffer_khr command_buffer, cl_command_queue command_queue, void* svm_ptr, const void* pattern, size_t pattern_size, size_t size, cl_uint num_sync_points_in_wait_list, const cl_sync_point_khr* sync_point_wait_list, cl_sync_point_khr* sync_point, cl_mutable_command_khr* mutable_handle);
+typedef clCommandSVMMemFillKHR_t * clCommandSVMMemFillKHR_fn;
 extern cl_int clCommandSVMMemcpyKHR( cl_command_buffer_khr command_buffer, cl_command_queue command_queue, void* dst_ptr, const void* src_ptr, size_t size, cl_uint num_sync_points_in_wait_list, const cl_sync_point_khr* sync_point_wait_list, cl_sync_point_khr* sync_point, cl_mutable_command_khr* mutable_handle);
 extern cl_int clCommandSVMMemFillKHR( cl_command_buffer_khr command_buffer, cl_command_queue command_queue, void* svm_ptr, const void* pattern, size_t pattern_size, size_t size, cl_uint num_sync_points_in_wait_list, const cl_sync_point_khr* sync_point_wait_list, cl_sync_point_khr* sync_point, cl_mutable_command_khr* mutable_handle);
-extern cl_int clGetCommandBufferInfoKHR( cl_command_buffer_khr command_buffer, cl_command_buffer_info_khr param_name, size_t param_value_size, void* param_value, size_t* param_value_size_ret);
 enum { cl_khr_command_buffer_multi_device = 1 };
 /* #define CL_KHR_COMMAND_BUFFER_MULTI_DEVICE_EXTENSION_NAME      "cl_khr_command_buffer_multi_device" ### string, not number "\"cl_khr_command_buffer_multi_device\"" */
 typedef cl_bitfield cl_platform_command_buffer_capabilities_khr;
@@ -1293,6 +1293,7 @@ typedef struct _cl_mutable_base_config_khr {
 	cl_uint num_mutable_dispatch;
 	const cl_mutable_dispatch_config_khr* mutable_dispatch_list;
 } cl_mutable_base_config_khr;
+typedef cl_bitfield cl_mutable_dispatch_asserts_khr;
 enum { CL_COMMAND_BUFFER_MUTABLE_KHR = 2 };
 enum { CL_INVALID_MUTABLE_COMMAND_KHR = -1141 };
 enum { CL_DEVICE_MUTABLE_DISPATCH_CAPABILITIES_KHR = 4784 };
@@ -1313,6 +1314,9 @@ enum { CL_MUTABLE_DISPATCH_GLOBAL_WORK_SIZE_KHR = 4774 };
 enum { CL_MUTABLE_DISPATCH_LOCAL_WORK_SIZE_KHR = 4775 };
 enum { CL_STRUCTURE_TYPE_MUTABLE_BASE_CONFIG_KHR = 0 };
 enum { CL_STRUCTURE_TYPE_MUTABLE_DISPATCH_CONFIG_KHR = 1 };
+enum { CL_COMMAND_BUFFER_MUTABLE_DISPATCH_ASSERTS_KHR = 4791 };
+enum { CL_MUTABLE_DISPATCH_ASSERTS_KHR = 4792 };
+enum { CL_MUTABLE_DISPATCH_ASSERT_NO_ADDITIONAL_WORK_GROUPS_KHR = 1 };
 typedef cl_int clUpdateMutableCommandsKHR_t( cl_command_buffer_khr command_buffer, const cl_mutable_base_config_khr* mutable_config);
 typedef clUpdateMutableCommandsKHR_t * clUpdateMutableCommandsKHR_fn;
 typedef cl_int clGetMutableCommandInfoKHR_t( cl_mutable_command_khr command, cl_mutable_command_info_khr param_name, size_t param_value_size, void* param_value, size_t* param_value_size_ret);
@@ -1543,6 +1547,12 @@ enum { cl_img_mem_properties = 1 };
 /* #define CL_IMG_MEM_PROPERTIES_EXTENSION_NAME      "cl_img_mem_properties" ### string, not number "\"cl_img_mem_properties\"" */
 enum { CL_MEM_ALLOC_FLAGS_IMG = 16599 };
 enum { CL_MEM_ALLOC_RELAX_REQUIREMENTS_IMG = 1 };
+enum { CL_MEM_ALLOC_GPU_WRITE_COMBINE_IMG = 2 };
+enum { CL_MEM_ALLOC_GPU_CACHED_IMG = 4 };
+enum { CL_MEM_ALLOC_CPU_LOCAL_IMG = 8 };
+enum { CL_MEM_ALLOC_GPU_LOCAL_IMG = 16 };
+enum { CL_MEM_ALLOC_GPU_PRIVATE_IMG = 32 };
+enum { CL_DEVICE_MEMORY_CAPABILITIES_IMG = 16600 };
 enum { cl_khr_subgroups = 1 };
 /* #define CL_KHR_SUBGROUPS_EXTENSION_NAME      "cl_khr_subgroups" ### string, not number "\"cl_khr_subgroups\"" */
 enum { CL_KERNEL_MAX_SUB_GROUP_SIZE_FOR_NDRANGE_KHR = 8243 };
@@ -2269,6 +2279,75 @@ enum { cl_ext_image_raw10_raw12 = 1 };
 /* #define CL_EXT_IMAGE_RAW10_RAW12_EXTENSION_NAME      "cl_ext_image_raw10_raw12" ### string, not number "\"cl_ext_image_raw10_raw12\"" */
 enum { CL_UNSIGNED_INT_RAW10_EXT = 4323 };
 enum { CL_UNSIGNED_INT_RAW12_EXT = 4324 };
+enum { cl_khr_3d_image_writes = 1 };
+/* #define CL_KHR_3D_IMAGE_WRITES_EXTENSION_NAME      "cl_khr_3d_image_writes" ### string, not number "\"cl_khr_3d_image_writes\"" */
+enum { cl_khr_async_work_group_copy_fence = 1 };
+/* #define CL_KHR_ASYNC_WORK_GROUP_COPY_FENCE_EXTENSION_NAME      "cl_khr_async_work_group_copy_fence" ### string, not number "\"cl_khr_async_work_group_copy_fence\"" */
+enum { cl_khr_byte_addressable_store = 1 };
+/* #define CL_KHR_BYTE_ADDRESSABLE_STORE_EXTENSION_NAME      "cl_khr_byte_addressable_store" ### string, not number "\"cl_khr_byte_addressable_store\"" */
+enum { cl_khr_device_enqueue_local_arg_types = 1 };
+/* #define CL_KHR_DEVICE_ENQUEUE_LOCAL_ARG_TYPES_EXTENSION_NAME      "cl_khr_device_enqueue_local_arg_types" ### string, not number "\"cl_khr_device_enqueue_local_arg_types\"" */
+enum { cl_khr_expect_assume = 1 };
+/* #define CL_KHR_EXPECT_ASSUME_EXTENSION_NAME      "cl_khr_expect_assume" ### string, not number "\"cl_khr_expect_assume\"" */
+enum { cl_khr_extended_async_copies = 1 };
+/* #define CL_KHR_EXTENDED_ASYNC_COPIES_EXTENSION_NAME      "cl_khr_extended_async_copies" ### string, not number "\"cl_khr_extended_async_copies\"" */
+enum { cl_khr_extended_bit_ops = 1 };
+/* #define CL_KHR_EXTENDED_BIT_OPS_EXTENSION_NAME      "cl_khr_extended_bit_ops" ### string, not number "\"cl_khr_extended_bit_ops\"" */
+enum { cl_khr_global_int32_base_atomics = 1 };
+/* #define CL_KHR_GLOBAL_INT32_BASE_ATOMICS_EXTENSION_NAME      "cl_khr_global_int32_base_atomics" ### string, not number "\"cl_khr_global_int32_base_atomics\"" */
+enum { cl_khr_global_int32_extended_atomics = 1 };
+/* #define CL_KHR_GLOBAL_INT32_EXTENDED_ATOMICS_EXTENSION_NAME      "cl_khr_global_int32_extended_atomics" ### string, not number "\"cl_khr_global_int32_extended_atomics\"" */
+enum { cl_khr_int64_base_atomics = 1 };
+/* #define CL_KHR_INT64_BASE_ATOMICS_EXTENSION_NAME      "cl_khr_int64_base_atomics" ### string, not number "\"cl_khr_int64_base_atomics\"" */
+enum { cl_khr_int64_extended_atomics = 1 };
+/* #define CL_KHR_INT64_EXTENDED_ATOMICS_EXTENSION_NAME      "cl_khr_int64_extended_atomics" ### string, not number "\"cl_khr_int64_extended_atomics\"" */
+enum { cl_khr_kernel_clock = 1 };
+/* #define CL_KHR_KERNEL_CLOCK_EXTENSION_NAME      "cl_khr_kernel_clock" ### string, not number "\"cl_khr_kernel_clock\"" */
+enum { CL_DEVICE_KERNEL_CLOCK_CAPABILITIES_KHR = 4214 };
+typedef cl_bitfield cl_device_kernel_clock_capabilities_khr;
+enum { CL_DEVICE_KERNEL_CLOCK_SCOPE_DEVICE_KHR = 1 };
+enum { CL_DEVICE_KERNEL_CLOCK_SCOPE_WORK_GROUP_KHR = 2 };
+enum { CL_DEVICE_KERNEL_CLOCK_SCOPE_SUB_GROUP_KHR = 4 };
+enum { cl_khr_local_int32_base_atomics = 1 };
+/* #define CL_KHR_LOCAL_INT32_BASE_ATOMICS_EXTENSION_NAME      "cl_khr_local_int32_base_atomics" ### string, not number "\"cl_khr_local_int32_base_atomics\"" */
+enum { cl_khr_local_int32_extended_atomics = 1 };
+/* #define CL_KHR_LOCAL_INT32_EXTENDED_ATOMICS_EXTENSION_NAME      "cl_khr_local_int32_extended_atomics" ### string, not number "\"cl_khr_local_int32_extended_atomics\"" */
+enum { cl_khr_mipmap_image_writes = 1 };
+/* #define CL_KHR_MIPMAP_IMAGE_WRITES_EXTENSION_NAME      "cl_khr_mipmap_image_writes" ### string, not number "\"cl_khr_mipmap_image_writes\"" */
+enum { cl_khr_select_fprounding_mode = 1 };
+/* #define CL_KHR_SELECT_FPROUNDING_MODE_EXTENSION_NAME      "cl_khr_select_fprounding_mode" ### string, not number "\"cl_khr_select_fprounding_mode\"" */
+enum { cl_khr_spirv_extended_debug_info = 1 };
+/* #define CL_KHR_SPIRV_EXTENDED_DEBUG_INFO_EXTENSION_NAME      "cl_khr_spirv_extended_debug_info" ### string, not number "\"cl_khr_spirv_extended_debug_info\"" */
+enum { cl_khr_spirv_linkonce_odr = 1 };
+/* #define CL_KHR_SPIRV_LINKONCE_ODR_EXTENSION_NAME      "cl_khr_spirv_linkonce_odr" ### string, not number "\"cl_khr_spirv_linkonce_odr\"" */
+enum { cl_khr_spirv_no_integer_wrap_decoration = 1 };
+/* #define CL_KHR_SPIRV_NO_INTEGER_WRAP_DECORATION_EXTENSION_NAME      "cl_khr_spirv_no_integer_wrap_decoration" ### string, not number "\"cl_khr_spirv_no_integer_wrap_decoration\"" */
+enum { cl_khr_srgb_image_writes = 1 };
+/* #define CL_KHR_SRGB_IMAGE_WRITES_EXTENSION_NAME      "cl_khr_srgb_image_writes" ### string, not number "\"cl_khr_srgb_image_writes\"" */
+enum { cl_khr_subgroup_ballot = 1 };
+/* #define CL_KHR_SUBGROUP_BALLOT_EXTENSION_NAME      "cl_khr_subgroup_ballot" ### string, not number "\"cl_khr_subgroup_ballot\"" */
+enum { cl_khr_subgroup_clustered_reduce = 1 };
+/* #define CL_KHR_SUBGROUP_CLUSTERED_REDUCE_EXTENSION_NAME      "cl_khr_subgroup_clustered_reduce" ### string, not number "\"cl_khr_subgroup_clustered_reduce\"" */
+enum { cl_khr_subgroup_extended_types = 1 };
+/* #define CL_KHR_SUBGROUP_EXTENDED_TYPES_EXTENSION_NAME      "cl_khr_subgroup_extended_types" ### string, not number "\"cl_khr_subgroup_extended_types\"" */
+enum { cl_khr_subgroup_non_uniform_arithmetic = 1 };
+/* #define CL_KHR_SUBGROUP_NON_UNIFORM_ARITHMETIC_EXTENSION_NAME      "cl_khr_subgroup_non_uniform_arithmetic" ### string, not number "\"cl_khr_subgroup_non_uniform_arithmetic\"" */
+enum { cl_khr_subgroup_non_uniform_vote = 1 };
+/* #define CL_KHR_SUBGROUP_NON_UNIFORM_VOTE_EXTENSION_NAME      "cl_khr_subgroup_non_uniform_vote" ### string, not number "\"cl_khr_subgroup_non_uniform_vote\"" */
+enum { cl_khr_subgroup_rotate = 1 };
+/* #define CL_KHR_SUBGROUP_ROTATE_EXTENSION_NAME      "cl_khr_subgroup_rotate" ### string, not number "\"cl_khr_subgroup_rotate\"" */
+enum { cl_khr_subgroup_shuffle = 1 };
+/* #define CL_KHR_SUBGROUP_SHUFFLE_EXTENSION_NAME      "cl_khr_subgroup_shuffle" ### string, not number "\"cl_khr_subgroup_shuffle\"" */
+enum { cl_khr_subgroup_shuffle_relative = 1 };
+/* #define CL_KHR_SUBGROUP_SHUFFLE_RELATIVE_EXTENSION_NAME      "cl_khr_subgroup_shuffle_relative" ### string, not number "\"cl_khr_subgroup_shuffle_relative\"" */
+enum { cl_khr_work_group_uniform_arithmetic = 1 };
+/* #define CL_KHR_WORK_GROUP_UNIFORM_ARITHMETIC_EXTENSION_NAME      "cl_khr_work_group_uniform_arithmetic" ### string, not number "\"cl_khr_work_group_uniform_arithmetic\"" */
+enum { cl_img_cancel_command = 1 };
+/* #define CL_IMG_CANCEL_COMMAND_EXTENSION_NAME      "cl_img_cancel_command" ### string, not number "\"cl_img_cancel_command\"" */
+enum { CL_CANCELLED_IMG = -1126 };
+typedef cl_int clCancelCommandsIMG_t( const cl_event* event_list, size_t num_events_in_list);
+typedef clCancelCommandsIMG_t * clCancelCommandsIMG_fn;
+extern cl_int clCancelCommandsIMG( const cl_event* event_list, size_t num_events_in_list);
 /* ++ END   /usr/include/CL/cl_ext.h */
 /* + END   /usr/include/CL/opencl.h */
 ]]

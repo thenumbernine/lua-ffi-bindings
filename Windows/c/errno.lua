@@ -100,26 +100,27 @@ wrapper = require 'ffi.libwrapper'{
 
 		-- functions
 
-		_errno = [[int* __cdecl _errno();]],
-		_set_errno = [[errno_t __cdecl _set_errno( int _Value);]],
-		_get_errno = [[errno_t __cdecl _get_errno( int* _Value);]],
-		__doserrno = [[unsigned long* __cdecl __doserrno();]],
-		_set_doserrno = [[errno_t __cdecl _set_doserrno( unsigned long _Value);]],
-		_get_doserrno = [[errno_t __cdecl _get_doserrno( unsigned long * _Value);]],
+		_errno = [[int* _errno();]],
+		_set_errno = [[errno_t _set_errno( int _Value);]],
+		_get_errno = [[errno_t _get_errno( int* _Value);]],
+		__doserrno = [[unsigned long* __doserrno();]],
+		_set_doserrno = [[errno_t _set_doserrno( unsigned long _Value);]],
+		_get_doserrno = [[errno_t _get_doserrno( unsigned long * _Value);]],
 
-		errno = function()
-			return function()
-				return wrapper._errno()[0]
-			end
-		end,
-		str = function()
-			require 'ffi.req' 'c.string'	-- strerror
-			return function()
-				local sp = ffi.C.strerror(wrapper.errno())
-				if sp == nil then return '(null)' end
-				return ffi.string(sp)
-			end
-		end,
 	},
 }
+
+function wrapper.errno()
+	return wrapper._errno()[0]
+end
+
+function wrapper.str()
+	-- upon errno.str() load, require c.string
+	-- not before to prevent require loops
+	require 'ffi.req' 'c.string'	-- strerror
+	local sp = ffi.C.strerror(wrapper.errno())
+	if sp == nil then return '(null)' end
+	return ffi.string(sp)
+end
+
 return wrapper

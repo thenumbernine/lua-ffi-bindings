@@ -1,9 +1,9 @@
 local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN /usr/include/netcdf.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 /* ++ BEGIN /usr/include/errno.h */
 ]] require 'ffi.req' 'c.errno' ffi.cdef[[
 /* ++ END   /usr/include/errno.h */
@@ -249,6 +249,7 @@ enum { NC_ECONSTRAINT = -75 };
 /* #define DIM_WITHOUT_VARIABLE "This is a netCDF dimension but not a netCDF variable." ### string, not number "\"This is a netCDF dimension but not a netCDF variable.\"" */
 enum { NC_HAVE_NEW_CHUNKING_API = 1 };
 enum { MSC_EXTRA = 1 };
+/* #define EXTERNL MSC_EXTRA extern ### string, not number "MSC_EXTRA extern" */
 extern const char * nc_inq_libvers(void);
 extern const char * nc_strerror(int ncerr);
 typedef struct NC_Dispatch NC_Dispatch;

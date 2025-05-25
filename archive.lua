@@ -2,13 +2,13 @@ local ffi = require 'ffi'
 ffi.cdef[[
 /* + BEGIN /usr/include/archive.h */
 enum { ARCHIVE_H_INCLUDED = 1 };
-enum { ARCHIVE_VERSION_NUMBER = 3007002 };
+enum { ARCHIVE_VERSION_NUMBER = 3007004 };
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/sys/stat.h */
 ]] require 'ffi.req' 'c.sys.stat' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/sys/stat.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 /* ++ BEGIN /usr/include/stdio.h */
 ]] require 'ffi.req' 'c.stdio' ffi.cdef[[
 /* ++ END   /usr/include/stdio.h */
@@ -27,7 +27,7 @@ typedef int64_t la_int64_t;
 /* ++ END   /usr/include/unistd.h */
 typedef ssize_t la_ssize_t;
 int archive_version_number(void);
-/* #define	ARCHIVE_VERSION_ONLY_STRING "3.7.2" ### string, not number "\"3.7.2\"" */
+/* #define	ARCHIVE_VERSION_ONLY_STRING "3.7.4" ### string, not number "\"3.7.4\"" */
 /* #define	ARCHIVE_VERSION_STRING "libarchive " ARCHIVE_VERSION_ONLY_STRING ### string, not number "\"libarchive \" ARCHIVE_VERSION_ONLY_STRING" */
 const char * archive_version_string(void);
 const char * archive_version_details(void);
@@ -410,16 +410,16 @@ int archive_utility_string_sort(char **);
 /* + END   /usr/include/archive.h */
 /* + BEGIN /usr/include/archive_entry.h */
 enum { ARCHIVE_ENTRY_H_INCLUDED = 1 };
-/* redefining matching value: #define	ARCHIVE_VERSION_NUMBER 3007002 */
+/* redefining matching value: #define	ARCHIVE_VERSION_NUMBER 3007004 */
 /* ++ BEGIN /usr/include/x86_64-linux-gnu/sys/types.h */
 ]] require 'ffi.req' 'c.sys.types' ffi.cdef[[
 /* ++ END   /usr/include/x86_64-linux-gnu/sys/types.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
+/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stdint.h */
 ]] require 'ffi.req' 'c.stdint' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
+/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stdint.h */
 /* ++ BEGIN /usr/include/time.h */
 ]] require 'ffi.req' 'c.time' ffi.cdef[[
 /* ++ END   /usr/include/time.h */
@@ -455,9 +455,11 @@ int archive_entry_dev_is_set(struct archive_entry *);
 dev_t archive_entry_devmajor(struct archive_entry *);
 dev_t archive_entry_devminor(struct archive_entry *);
 mode_t archive_entry_filetype(struct archive_entry *);
+int archive_entry_filetype_is_set(struct archive_entry *);
 void archive_entry_fflags(struct archive_entry *, unsigned long * , unsigned long * );
 const char *archive_entry_fflags_text(struct archive_entry *);
 la_int64_t archive_entry_gid(struct archive_entry *);
+int archive_entry_gid_is_set(struct archive_entry *);
 const char *archive_entry_gname(struct archive_entry *);
 const char *archive_entry_gname_utf8(struct archive_entry *);
 const wchar_t *archive_entry_gname_w(struct archive_entry *);
@@ -476,6 +478,7 @@ const char *archive_entry_pathname(struct archive_entry *);
 const char *archive_entry_pathname_utf8(struct archive_entry *);
 const wchar_t *archive_entry_pathname_w(struct archive_entry *);
 mode_t archive_entry_perm(struct archive_entry *);
+int archive_entry_perm_is_set(struct archive_entry *);
 dev_t archive_entry_rdev(struct archive_entry *);
 dev_t archive_entry_rdevmajor(struct archive_entry *);
 dev_t archive_entry_rdevminor(struct archive_entry *);
@@ -489,6 +492,7 @@ const char *archive_entry_symlink_utf8(struct archive_entry *);
 int archive_entry_symlink_type(struct archive_entry *);
 const wchar_t *archive_entry_symlink_w(struct archive_entry *);
 la_int64_t archive_entry_uid(struct archive_entry *);
+int archive_entry_uid_is_set(struct archive_entry *);
 const char *archive_entry_uname(struct archive_entry *);
 const char *archive_entry_uname_utf8(struct archive_entry *);
 const wchar_t *archive_entry_uname_w(struct archive_entry *);

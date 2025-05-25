@@ -1,120 +1,186 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* + BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/fcntl.h */
-/* ++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/fcntl.h */
-/* +++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h */
-/* ++++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h */
-/* +++++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_symbol_aliasing.h */
-/* +++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_symbol_aliasing.h */
-/* +++++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_posix_availability.h */
-/* +++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_posix_availability.h */
-/* ++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h */
-/* ++++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/machine/_types.h */
-]] require 'ffi.req' 'c.machine._types' ffi.cdef[[
-/* ++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/machine/_types.h */
-/* redefining matching value: #define USE_CLANG_TYPES 0 */
-typedef __int64_t __darwin_blkcnt_t;
-typedef __int32_t __darwin_blksize_t;
-typedef __int32_t __darwin_dev_t;
-typedef unsigned int __darwin_fsblkcnt_t;
-typedef unsigned int __darwin_fsfilcnt_t;
-typedef __uint32_t __darwin_gid_t;
-typedef __uint32_t __darwin_id_t;
-typedef __uint64_t __darwin_ino64_t;
-typedef __darwin_ino64_t __darwin_ino_t;
-typedef __darwin_natural_t __darwin_mach_port_name_t;
-typedef __darwin_mach_port_name_t __darwin_mach_port_t;
-typedef __uint16_t __darwin_mode_t;
-typedef __int64_t __darwin_off_t;
-typedef __int32_t __darwin_pid_t;
-typedef __uint32_t __darwin_sigset_t;
-typedef __int32_t __darwin_suseconds_t;
-typedef __uint32_t __darwin_uid_t;
-typedef __uint32_t __darwin_useconds_t;
-typedef unsigned char __darwin_uuid_t[16];
-typedef char __darwin_uuid_string_t[37];
-/* ++++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_pthread/_pthread_types.h */
-]] require 'ffi.req' 'c.sys._pthread._pthread_types' ffi.cdef[[
-/* ++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_pthread/_pthread_types.h */
-/* +++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h */
-/* +++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h */
-/* +++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h */
-/* +++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/Availability.h */
+/* + BEGIN <fcntl.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/fcntl.h */
+/* ++ BEGIN <sys/fcntl.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/fcntl.h */
+/* +++ BEGIN <sys/_types.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h */
+]] require 'ffi.req' 'c.sys._types' ffi.cdef[[
+/* +++ END <sys/_types.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h */
+/* +++ BEGIN <Availability.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/Availability.h */
 ]] require 'ffi.req' 'c.Availability' ffi.cdef[[
-/* +++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/Availability.h */
-/* +++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h */
-/* ++++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/machine/_types.h */
-]] require 'ffi.req' 'c.machine._types' ffi.cdef[[
-/* ++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/machine/_types.h */
-typedef __darwin_size_t size_t;
-/* +++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h */
-/* +++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_mode_t.h */
-/* ++++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h */
-/* ++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h */
-typedef __darwin_mode_t mode_t;
-/* +++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_mode_t.h */
-/* +++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_off_t.h */
-/* ++++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h */
-/* ++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h */
-typedef __darwin_off_t off_t;
-/* +++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_off_t.h */
-/* +++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_pid_t.h */
-/* ++++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h */
-/* ++++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h */
-typedef __darwin_pid_t pid_t;
-/* +++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_pid_t.h */
-enum { O_RDONLY = 0 };
-enum { O_WRONLY = 1 };
-enum { O_RDWR = 2 };
-enum { O_ACCMODE = 3 };
-enum { FREAD = 1 };
-enum { FWRITE = 2 };
-enum { O_NONBLOCK = 4 };
-enum { O_APPEND = 8 };
-/* +++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_o_sync.h */
-enum { O_SYNC = 128 };
-/* +++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_o_sync.h */
-enum { O_SHLOCK = 16 };
-enum { O_EXLOCK = 32 };
-enum { O_ASYNC = 64 };
-enum { O_FSYNC = 128 };
-enum { O_NOFOLLOW = 256 };
-enum { O_CREAT = 512 };
-enum { O_TRUNC = 1024 };
-enum { O_EXCL = 2048 };
-enum { O_EVTONLY = 32768 };
-enum { O_NOCTTY = 131072 };
-enum { O_DIRECTORY = 1048576 };
-enum { O_SYMLINK = 2097152 };
-/* +++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_o_dsync.h */
-enum { O_DSYNC = 4194304 };
-/* +++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_o_dsync.h */
-enum { O_CLOEXEC = 16777216 };
-enum { O_NOFOLLOW_ANY = 536870912 };
-enum { O_EXEC = 1073741824 };
-enum { O_SEARCH = 1074790400 };
+/* +++ END <Availability.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/Availability.h */
+/* +++ BEGIN <sys/_types/_size_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h */
+]] require 'ffi.req' 'c.sys._types._size_t' ffi.cdef[[
+/* +++ END <sys/_types/_size_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h */
+/* +++ BEGIN <sys/_types/_mode_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_mode_t.h */
+]] require 'ffi.req' 'c.sys._types._mode_t' ffi.cdef[[
+/* +++ END <sys/_types/_mode_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_mode_t.h */
+/* +++ BEGIN <sys/_types/_off_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_off_t.h */
+]] require 'ffi.req' 'c.sys._types._off_t' ffi.cdef[[
+/* +++ END <sys/_types/_off_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_off_t.h */
+/* +++ BEGIN <sys/_types/_pid_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_pid_t.h */
+]] require 'ffi.req' 'c.sys._types._pid_t' ffi.cdef[[
+/* +++ END <sys/_types/_pid_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_pid_t.h */
+/* +++ BEGIN <sys/_types/_o_sync.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_o_sync.h */
+/* +++ END <sys/_types/_o_sync.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_o_sync.h */
+/* +++ BEGIN <sys/_types/_o_dsync.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_o_dsync.h */
+/* +++ END <sys/_types/_o_dsync.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_o_dsync.h */
+/* +++ BEGIN <sys/_types/_seek_set.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_seek_set.h */
+/* +++ END <sys/_types/_seek_set.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_seek_set.h */
+/* +++ BEGIN <sys/_types/_s_ifmt.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_s_ifmt.h */
+/* +++ END <sys/_types/_s_ifmt.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_s_ifmt.h */
+struct flock {
+ off_t l_start;
+ off_t l_len;
+ pid_t l_pid;
+ short l_type;
+ short l_whence;
+};
+/* +++ BEGIN <sys/_types/_timespec.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_timespec.h */
+]] require 'ffi.req' 'c.sys._types._timespec' ffi.cdef[[
+/* +++ END <sys/_types/_timespec.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_timespec.h */
+struct flocktimeout {
+ struct flock fl;
+ struct timespec timeout;
+};
+struct radvisory {
+ off_t ra_offset;
+ int ra_count;
+};
+typedef struct fsignatures {
+ off_t fs_file_start;
+ void *fs_blob_start;
+ size_t fs_blob_size;
+ size_t fs_fsignatures_size;
+ char fs_cdhash[20];
+ int fs_hash_type;
+} fsignatures_t;
+typedef struct fsupplement {
+ off_t fs_file_start;
+ off_t fs_blob_start;
+ size_t fs_blob_size;
+ int fs_orig_fd;
+} fsupplement_t;
+typedef struct fchecklv {
+ off_t lv_file_start;
+ size_t lv_error_message_size;
+ void *lv_error_message;
+} fchecklv_t;
+typedef struct fgetsigsinfo {
+ off_t fg_file_start;
+ int fg_info_request;
+ int fg_sig_is_platform;
+} fgetsigsinfo_t;
+typedef struct fstore {
+ unsigned int fst_flags;
+ int fst_posmode;
+ off_t fst_offset;
+ off_t fst_length;
+ off_t fst_bytesalloc;
+} fstore_t;
+typedef struct fpunchhole {
+ unsigned int fp_flags;
+ unsigned int reserved;
+ off_t fp_offset;
+ off_t fp_length;
+} fpunchhole_t;
+typedef struct ftrimactivefile {
+ off_t fta_offset;
+ off_t fta_length;
+} ftrimactivefile_t;
+typedef struct fspecread {
+ unsigned int fsr_flags;
+ unsigned int reserved;
+ off_t fsr_offset;
+ off_t fsr_length;
+} fspecread_t;
+typedef struct fattributiontag {
+ unsigned int ft_flags;
+ unsigned long long ft_hash;
+ char ft_attribution_name[255];
+} fattributiontag_t;
+struct log2phys {
+ unsigned int l2p_flags __attribute__((packed,aligned(4)));
+ off_t l2p_contigbytes __attribute__((packed,aligned(4)));
+ off_t l2p_devoffset __attribute__((packed,aligned(4)));
+};
+/* +++ BEGIN <sys/_types/_filesec_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_filesec_t.h */
+]] require 'ffi.req' 'c.sys._types._filesec_t' ffi.cdef[[
+/* +++ END <sys/_types/_filesec_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_filesec_t.h */
+typedef enum {
+ FILESEC_OWNER = 1,
+ FILESEC_GROUP = 2,
+ FILESEC_UUID = 3,
+ FILESEC_MODE = 4,
+ FILESEC_ACL = 5,
+ FILESEC_GRPUUID = 6,
+ FILESEC_ACL_RAW = 100,
+ FILESEC_ACL_ALLOCSIZE = 101
+} filesec_property_t;
+int open(const char *, int, ...) __asm( "open" );
+int openat(int, const char *, int, ...) __asm( "openat" ) __attribute__((availability(macosx,introduced=10.10)));
+int creat(const char *, mode_t) __asm( "creat" );
+int fcntl(int, int, ...) __asm( "fcntl" );
+int openx_np(const char *, int, filesec_t);
+int open_dprotected_np( const char *, int, int, int, ...);
+int openat_dprotected_np( int, const char *, int, int, int, ...);
+int openat_authenticated_np(int, const char *, int, int);
+int flock(int, int);
+filesec_t filesec_init(void);
+filesec_t filesec_dup(filesec_t);
+void filesec_free(filesec_t);
+int filesec_get_property(filesec_t, filesec_property_t, void *);
+int filesec_query_property(filesec_t, filesec_property_t, int *);
+int filesec_set_property(filesec_t, filesec_property_t, const void *);
+int filesec_unset_property(filesec_t, filesec_property_t) __attribute__((availability(macosx,introduced=10.6)));
+/* ++ END <sys/fcntl.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/fcntl.h */
+enum { O_RDONLY = 0x0000 };
+enum { O_WRONLY = 0x0001 };
+enum { O_RDWR = 0x0002 };
+enum { O_ACCMODE = 0x0003 };
+enum { FREAD = 0x00000001 };
+enum { FWRITE = 0x00000002 };
+enum { O_NONBLOCK = 0x00000004 };
+enum { O_APPEND = 0x00000008 };
+enum { O_SYNC = 0x0080 };
+enum { O_SHLOCK = 0x00000010 };
+enum { O_EXLOCK = 0x00000020 };
+enum { O_ASYNC = 0x00000040 };
+enum { O_FSYNC = 0x0080 };
+enum { O_NOFOLLOW = 0x00000100 };
+enum { O_CREAT = 0x00000200 };
+enum { O_TRUNC = 0x00000400 };
+enum { O_EXCL = 0x00000800 };
+enum { O_EVTONLY = 0x00008000 };
+enum { O_NOCTTY = 0x00020000 };
+enum { O_DIRECTORY = 0x00100000 };
+enum { O_SYMLINK = 0x00200000 };
+enum { O_DSYNC = 0x400000 };
+enum { O_CLOEXEC = 0x01000000 };
+enum { O_NOFOLLOW_ANY = 0x20000000 };
+enum { O_EXEC = 0x40000000 };
+/* #define O_SEARCH (O_EXEC | O_DIRECTORY) ### define is not number */
 enum { AT_FDCWD = -2 };
-enum { AT_EACCESS = 16 };
-enum { AT_SYMLINK_NOFOLLOW = 32 };
-enum { AT_SYMLINK_FOLLOW = 64 };
-enum { AT_REMOVEDIR = 128 };
-enum { AT_REALDEV = 512 };
-enum { AT_FDONLY = 1024 };
-enum { AT_SYMLINK_NOFOLLOW_ANY = 2048 };
-enum { O_DP_GETRAWENCRYPTED = 1 };
-enum { O_DP_GETRAWUNENCRYPTED = 2 };
-enum { O_DP_AUTHENTICATE = 4 };
+enum { AT_EACCESS = 0x0010 };
+enum { AT_SYMLINK_NOFOLLOW = 0x0020 };
+enum { AT_SYMLINK_FOLLOW = 0x0040 };
+enum { AT_REMOVEDIR = 0x0080 };
+enum { AT_REALDEV = 0x0200 };
+enum { AT_FDONLY = 0x0400 };
+enum { AT_SYMLINK_NOFOLLOW_ANY = 0x0800 };
+enum { O_DP_GETRAWENCRYPTED = 0x0001 };
+enum { O_DP_GETRAWUNENCRYPTED = 0x0002 };
+enum { O_DP_AUTHENTICATE = 0x0004 };
 enum { AUTH_OPEN_NOAUTHFD = -1 };
-enum { FAPPEND = 8 };
-enum { FASYNC = 64 };
-enum { FFSYNC = 128 };
-enum { FFDSYNC = 4194304 };
-enum { FNONBLOCK = 4 };
-enum { FNDELAY = 4 };
-enum { O_NDELAY = 4 };
-enum { CPF_OVERWRITE = 1 };
-enum { CPF_IGNORE_MODE = 2 };
-enum { CPF_MASK = 3 };
+enum { FAPPEND = 0x00000008 };
+enum { FASYNC = 0x00000040 };
+enum { FFSYNC = 0x0080 };
+enum { FFDSYNC = 0x400000 };
+enum { FNONBLOCK = 0x00000004 };
+enum { FNDELAY = 0x00000004 };
+enum { O_NDELAY = 0x00000004 };
+enum { CPF_OVERWRITE = 0x0001 };
+enum { CPF_IGNORE_MODE = 0x0002 };
+/* #define CPF_MASK (CPF_OVERWRITE|CPF_IGNORE_MODE) ### define is not number */
 enum { F_DUPFD = 0 };
 enum { F_GETFD = 1 };
 enum { F_SETFD = 2 };
@@ -173,138 +239,38 @@ enum { F_ADDFILESUPPL = 104 };
 enum { F_GETSIGSINFO = 105 };
 enum { F_SETLEASE = 106 };
 enum { F_GETLEASE = 107 };
+/* #define F_SETLEASE_ARG (t,oc) ((t) | ((oc) << 2)) ### define is not number */
 enum { F_TRANSFEREXTENTS = 110 };
 enum { F_ATTRIBUTION_TAG = 111 };
 enum { F_ADDSIGS_MAIN_BINARY = 113 };
-enum { FCNTL_FS_SPECIFIC_BASE = 65536 };
+enum { FCNTL_FS_SPECIFIC_BASE = 0x00010000 };
 enum { F_DUPFD_CLOEXEC = 67 };
 enum { FD_CLOEXEC = 1 };
 enum { F_RDLCK = 1 };
 enum { F_UNLCK = 2 };
 enum { F_WRLCK = 3 };
-/* +++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_seek_set.h */
-]] require 'ffi.req' 'c.sys._types._seek_set' ffi.cdef[[
-/* +++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_seek_set.h */
-/* +++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_s_ifmt.h */
-]] require 'ffi.req' 'c.sys._types._s_ifmt' ffi.cdef[[
-/* +++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_s_ifmt.h */
-enum { F_ALLOCATECONTIG = 2 };
-enum { F_ALLOCATEALL = 4 };
-enum { F_ALLOCATEPERSIST = 8 };
+]] require 'ffi.req' 'c.bits.types.SEEK' ffi.cdef[[
+]] require 'ffi.req' 'c.sys.stat' ffi.cdef[[
+enum { F_ALLOCATECONTIG = 0x00000002 };
+enum { F_ALLOCATEALL = 0x00000004 };
+enum { F_ALLOCATEPERSIST = 0x00000008 };
 enum { F_PEOFPOSMODE = 3 };
 enum { F_VOLPOSMODE = 4 };
-struct flock {
-	off_t l_start;
-	off_t l_len;
-	pid_t l_pid;
-	short l_type;
-	short l_whence;
-};
-/* +++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_timespec.h */
-]] require 'ffi.req' 'c.sys._types._timespec' ffi.cdef[[
-/* +++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_timespec.h */
-struct flocktimeout {
-	struct flock fl;
-	struct timespec timeout;
-};
-struct radvisory {
-	off_t ra_offset;
-	int ra_count;
-};
 enum { USER_FSIGNATURES_CDHASH_LEN = 20 };
-typedef struct fsignatures {
-	off_t fs_file_start;
-	void *fs_blob_start;
-	size_t fs_blob_size;
-	size_t fs_fsignatures_size;
-	char fs_cdhash[20];
-	int fs_hash_type;
-} fsignatures_t;
-typedef struct fsupplement {
-	off_t fs_file_start;
-	off_t fs_blob_start;
-	size_t fs_blob_size;
-	int fs_orig_fd;
-} fsupplement_t;
-typedef struct fchecklv {
-	off_t lv_file_start;
-	size_t lv_error_message_size;
-	void *lv_error_message;
-} fchecklv_t;
 enum { GETSIGSINFO_PLATFORM_BINARY = 1 };
-typedef struct fgetsigsinfo {
-	off_t fg_file_start;
-	int fg_info_request;
-	int fg_sig_is_platform;
-} fgetsigsinfo_t;
-enum { LOCK_SH = 1 };
-enum { LOCK_EX = 2 };
-enum { LOCK_NB = 4 };
-enum { LOCK_UN = 8 };
-typedef struct fstore {
-	unsigned int fst_flags;
-	int fst_posmode;
-	off_t fst_offset;
-	off_t fst_length;
-	off_t fst_bytesalloc;
-} fstore_t;
-typedef struct fpunchhole {
-	unsigned int fp_flags;
-	unsigned int reserved;
-	off_t fp_offset;
-	off_t fp_length;
-} fpunchhole_t;
-typedef struct ftrimactivefile {
-	off_t fta_offset;
-	off_t fta_length;
-} ftrimactivefile_t;
-typedef struct fspecread {
-	unsigned int fsr_flags;
-	unsigned int reserved;
-	off_t fsr_offset;
-	off_t fsr_length;
-} fspecread_t;
+enum { LOCK_SH = 0x01 };
+enum { LOCK_EX = 0x02 };
+enum { LOCK_NB = 0x04 };
+enum { LOCK_UN = 0x08 };
 enum { ATTRIBUTION_NAME_MAX = 255 };
-typedef struct fattributiontag {
-	unsigned int ft_flags;
-	unsigned long long ft_hash;
-	char ft_attribution_name[255];
-} fattributiontag_t;
-enum { F_CREATE_TAG = 1 };
-enum { F_DELETE_TAG = 2 };
-enum { F_QUERY_TAG = 4 };
-/* #pragma pack(4) */
-struct log2phys {
-	unsigned int l2p_flags;
-	off_t l2p_contigbytes;
-	off_t l2p_devoffset;
-};
-/* #pragma pack() */
-enum { O_POPUP = 2147483648 };
-enum { O_ALERT = 536870912 };
-/* +++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_filesec_t.h */
-struct _filesec;
-typedef struct _filesec *filesec_t;
-/* +++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_filesec_t.h */
-typedef enum { FILESEC_OWNER = 1, FILESEC_GROUP = 2, FILESEC_UUID = 3, FILESEC_MODE = 4, FILESEC_ACL = 5, FILESEC_GRPUUID = 6, FILESEC_ACL_RAW = 100, FILESEC_ACL_ALLOCSIZE = 101 } filesec_property_t;
-enum { FILESEC_GUID = 0 };
-int open(const char *, int, ...) __asm("open");
-int openat(int, const char *, int, ...) __asm("openat");
-int creat(const char *, mode_t) __asm("creat");
-int fcntl(int, int, ...) __asm("fcntl");
-int openx_np(const char *, int, filesec_t);
-int open_dprotected_np( const char *, int, int, int, ...);
-int openat_dprotected_np( int, const char *, int, int, int, ...);
-int openat_authenticated_np(int, const char *, int, int);
-int flock(int, int);
-filesec_t filesec_init(void);
-filesec_t filesec_dup(filesec_t);
-void filesec_free(filesec_t);
-int filesec_get_property(filesec_t, filesec_property_t, void *);
-int filesec_query_property(filesec_t, filesec_property_t, int *);
-int filesec_set_property(filesec_t, filesec_property_t, const void *);
-int filesec_unset_property(filesec_t, filesec_property_t);
-/* ++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/fcntl.h */
-/* + END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/fcntl.h */
+enum { F_CREATE_TAG = 0x00000001 };
+enum { F_DELETE_TAG = 0x00000002 };
+enum { F_QUERY_TAG = 0x00000004 };
+enum { O_POPUP = 0x80000000 };
+enum { O_ALERT = 0x20000000 };
+/* #define FILESEC_GUID FILESEC_UUID ### define is not number */
+/* #define _FILESEC_UNSET_PROPERTY ((void *)0) ### define is not number */
+/* #define _FILESEC_REMOVE_ACL ((void *)1) ### define is not number */
+/* + END <fcntl.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/fcntl.h */
 ]]
 return ffi.C

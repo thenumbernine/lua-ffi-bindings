@@ -1,23 +1,1106 @@
 local ffi = require 'ffi'
+
+-- comments
+
+--[[
+/* #define ImDrawCallback_ResetRenderState       (ImDrawCallback)(-8) ### string, not number "(ImDrawCallback)(-8)" */
+--]]
+
+-- typedefs
+
+require 'ffi.req' 'c.stdio'
+require 'ffi.req' 'c.stdint'
+require 'ffi.req' 'c.stdarg'
+require 'ffi.req' 'c.stdbool'
+require 'ffi.req' 'sdl2'
+
 ffi.cdef[[
-/* + BEGIN /usr/local/include/imgui-1.90.5dock/cimgui.h */
-enum { CIMGUI_INCLUDED = 1 };
-/* ++ BEGIN /usr/include/stdio.h */
-]] require 'ffi.req' 'c.stdio' ffi.cdef[[
-/* ++ END   /usr/include/stdio.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
-]] require 'ffi.req' 'c.stdint' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h */
-/* #define API  __attribute__((__visibility__("default"))) ### string, not number "__attribute__((__visibility__(\"default\")))" */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h */
-]] require 'ffi.req' 'c.stdarg' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h */
-/* ++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h */
-]] require 'ffi.req' 'c.stdbool' ffi.cdef[[
-/* ++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h */
-enum { EXTERN = 0 };
-/* #define CIMGUI_API EXTERN API ### string, not number "EXTERN API" */
-enum { CONST = 0 };
+
+// typedefs that can become enums
+
+typedef enum {
+	ImGuiWindowFlags_None = 0,
+	ImGuiWindowFlags_NoTitleBar = 1 << 0,
+	ImGuiWindowFlags_NoResize = 1 << 1,
+	ImGuiWindowFlags_NoMove = 1 << 2,
+	ImGuiWindowFlags_NoScrollbar = 1 << 3,
+	ImGuiWindowFlags_NoScrollWithMouse = 1 << 4,
+	ImGuiWindowFlags_NoCollapse = 1 << 5,
+	ImGuiWindowFlags_AlwaysAutoResize = 1 << 6,
+	ImGuiWindowFlags_NoBackground = 1 << 7,
+	ImGuiWindowFlags_NoSavedSettings = 1 << 8,
+	ImGuiWindowFlags_NoMouseInputs = 1 << 9,
+	ImGuiWindowFlags_MenuBar = 1 << 10,
+	ImGuiWindowFlags_HorizontalScrollbar = 1 << 11,
+	ImGuiWindowFlags_NoFocusOnAppearing = 1 << 12,
+	ImGuiWindowFlags_NoBringToFrontOnFocus = 1 << 13,
+	ImGuiWindowFlags_AlwaysVerticalScrollbar= 1 << 14,
+	ImGuiWindowFlags_AlwaysHorizontalScrollbar=1<< 15,
+	ImGuiWindowFlags_NoNavInputs = 1 << 16,
+	ImGuiWindowFlags_NoNavFocus = 1 << 17,
+	ImGuiWindowFlags_UnsavedDocument = 1 << 18,
+	ImGuiWindowFlags_NoDocking = 1 << 19,
+	ImGuiWindowFlags_NoNav = ImGuiWindowFlags_NoNavInputs | ImGuiWindowFlags_NoNavFocus,
+	ImGuiWindowFlags_NoDecoration = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoCollapse,
+	ImGuiWindowFlags_NoInputs = ImGuiWindowFlags_NoMouseInputs | ImGuiWindowFlags_NoNavInputs | ImGuiWindowFlags_NoNavFocus,
+	ImGuiWindowFlags_NavFlattened = 1 << 23,
+	ImGuiWindowFlags_ChildWindow = 1 << 24,
+	ImGuiWindowFlags_Tooltip = 1 << 25,
+	ImGuiWindowFlags_Popup = 1 << 26,
+	ImGuiWindowFlags_Modal = 1 << 27,
+	ImGuiWindowFlags_ChildMenu = 1 << 28,
+	ImGuiWindowFlags_DockNodeHost = 1 << 29,
+} ImGuiWindowFlags_;
+typedef enum {
+	ImGuiChildFlags_None = 0,
+	ImGuiChildFlags_Border = 1 << 0,
+	ImGuiChildFlags_AlwaysUseWindowPadding = 1 << 1,
+	ImGuiChildFlags_ResizeX = 1 << 2,
+	ImGuiChildFlags_ResizeY = 1 << 3,
+	ImGuiChildFlags_AutoResizeX = 1 << 4,
+	ImGuiChildFlags_AutoResizeY = 1 << 5,
+	ImGuiChildFlags_AlwaysAutoResize = 1 << 6,
+	ImGuiChildFlags_FrameStyle = 1 << 7,
+} ImGuiChildFlags_;
+typedef enum {
+	ImGuiInputTextFlags_None = 0,
+	ImGuiInputTextFlags_CharsDecimal = 1 << 0,
+	ImGuiInputTextFlags_CharsHexadecimal = 1 << 1,
+	ImGuiInputTextFlags_CharsUppercase = 1 << 2,
+	ImGuiInputTextFlags_CharsNoBlank = 1 << 3,
+	ImGuiInputTextFlags_AutoSelectAll = 1 << 4,
+	ImGuiInputTextFlags_EnterReturnsTrue = 1 << 5,
+	ImGuiInputTextFlags_CallbackCompletion = 1 << 6,
+	ImGuiInputTextFlags_CallbackHistory = 1 << 7,
+	ImGuiInputTextFlags_CallbackAlways = 1 << 8,
+	ImGuiInputTextFlags_CallbackCharFilter = 1 << 9,
+	ImGuiInputTextFlags_AllowTabInput = 1 << 10,
+	ImGuiInputTextFlags_CtrlEnterForNewLine = 1 << 11,
+	ImGuiInputTextFlags_NoHorizontalScroll = 1 << 12,
+	ImGuiInputTextFlags_AlwaysOverwrite = 1 << 13,
+	ImGuiInputTextFlags_ReadOnly = 1 << 14,
+	ImGuiInputTextFlags_Password = 1 << 15,
+	ImGuiInputTextFlags_NoUndoRedo = 1 << 16,
+	ImGuiInputTextFlags_CharsScientific = 1 << 17,
+	ImGuiInputTextFlags_CallbackResize = 1 << 18,
+	ImGuiInputTextFlags_CallbackEdit = 1 << 19,
+	ImGuiInputTextFlags_EscapeClearsAll = 1 << 20,
+} ImGuiInputTextFlags_;
+typedef enum {
+	ImGuiTreeNodeFlags_None = 0,
+	ImGuiTreeNodeFlags_Selected = 1 << 0,
+	ImGuiTreeNodeFlags_Framed = 1 << 1,
+	ImGuiTreeNodeFlags_AllowOverlap = 1 << 2,
+	ImGuiTreeNodeFlags_NoTreePushOnOpen = 1 << 3,
+	ImGuiTreeNodeFlags_NoAutoOpenOnLog = 1 << 4,
+	ImGuiTreeNodeFlags_DefaultOpen = 1 << 5,
+	ImGuiTreeNodeFlags_OpenOnDoubleClick = 1 << 6,
+	ImGuiTreeNodeFlags_OpenOnArrow = 1 << 7,
+	ImGuiTreeNodeFlags_Leaf = 1 << 8,
+	ImGuiTreeNodeFlags_Bullet = 1 << 9,
+	ImGuiTreeNodeFlags_FramePadding = 1 << 10,
+	ImGuiTreeNodeFlags_SpanAvailWidth = 1 << 11,
+	ImGuiTreeNodeFlags_SpanFullWidth = 1 << 12,
+	ImGuiTreeNodeFlags_SpanAllColumns = 1 << 13,
+	ImGuiTreeNodeFlags_NavLeftJumpsBackHere = 1 << 14,
+	ImGuiTreeNodeFlags_CollapsingHeader = ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoTreePushOnOpen | ImGuiTreeNodeFlags_NoAutoOpenOnLog,
+} ImGuiTreeNodeFlags_;
+typedef enum {
+	ImGuiPopupFlags_None = 0,
+	ImGuiPopupFlags_MouseButtonLeft = 0,
+	ImGuiPopupFlags_MouseButtonRight = 1,
+	ImGuiPopupFlags_MouseButtonMiddle = 2,
+	ImGuiPopupFlags_MouseButtonMask_ = 0x1F,
+	ImGuiPopupFlags_MouseButtonDefault_ = 1,
+	ImGuiPopupFlags_NoReopen = 1 << 5,
+	ImGuiPopupFlags_NoOpenOverExistingPopup = 1 << 7,
+	ImGuiPopupFlags_NoOpenOverItems = 1 << 8,
+	ImGuiPopupFlags_AnyPopupId = 1 << 10,
+	ImGuiPopupFlags_AnyPopupLevel = 1 << 11,
+	ImGuiPopupFlags_AnyPopup = ImGuiPopupFlags_AnyPopupId | ImGuiPopupFlags_AnyPopupLevel,
+} ImGuiPopupFlags_;
+typedef enum {
+	ImGuiSelectableFlags_None = 0,
+	ImGuiSelectableFlags_DontClosePopups = 1 << 0,
+	ImGuiSelectableFlags_SpanAllColumns = 1 << 1,
+	ImGuiSelectableFlags_AllowDoubleClick = 1 << 2,
+	ImGuiSelectableFlags_Disabled = 1 << 3,
+	ImGuiSelectableFlags_AllowOverlap = 1 << 4,
+} ImGuiSelectableFlags_;
+typedef enum {
+	ImGuiComboFlags_None = 0,
+	ImGuiComboFlags_PopupAlignLeft = 1 << 0,
+	ImGuiComboFlags_HeightSmall = 1 << 1,
+	ImGuiComboFlags_HeightRegular = 1 << 2,
+	ImGuiComboFlags_HeightLarge = 1 << 3,
+	ImGuiComboFlags_HeightLargest = 1 << 4,
+	ImGuiComboFlags_NoArrowButton = 1 << 5,
+	ImGuiComboFlags_NoPreview = 1 << 6,
+	ImGuiComboFlags_WidthFitPreview = 1 << 7,
+	ImGuiComboFlags_HeightMask_ = ImGuiComboFlags_HeightSmall | ImGuiComboFlags_HeightRegular | ImGuiComboFlags_HeightLarge | ImGuiComboFlags_HeightLargest,
+} ImGuiComboFlags_;
+typedef enum {
+	ImGuiTabBarFlags_None = 0,
+	ImGuiTabBarFlags_Reorderable = 1 << 0,
+	ImGuiTabBarFlags_AutoSelectNewTabs = 1 << 1,
+	ImGuiTabBarFlags_TabListPopupButton = 1 << 2,
+	ImGuiTabBarFlags_NoCloseWithMiddleMouseButton = 1 << 3,
+	ImGuiTabBarFlags_NoTabListScrollingButtons = 1 << 4,
+	ImGuiTabBarFlags_NoTooltip = 1 << 5,
+	ImGuiTabBarFlags_FittingPolicyResizeDown = 1 << 6,
+	ImGuiTabBarFlags_FittingPolicyScroll = 1 << 7,
+	ImGuiTabBarFlags_FittingPolicyMask_ = ImGuiTabBarFlags_FittingPolicyResizeDown | ImGuiTabBarFlags_FittingPolicyScroll,
+	ImGuiTabBarFlags_FittingPolicyDefault_ = ImGuiTabBarFlags_FittingPolicyResizeDown,
+} ImGuiTabBarFlags_;
+typedef enum {
+	ImGuiTabItemFlags_None = 0,
+	ImGuiTabItemFlags_UnsavedDocument = 1 << 0,
+	ImGuiTabItemFlags_SetSelected = 1 << 1,
+	ImGuiTabItemFlags_NoCloseWithMiddleMouseButton = 1 << 2,
+	ImGuiTabItemFlags_NoPushId = 1 << 3,
+	ImGuiTabItemFlags_NoTooltip = 1 << 4,
+	ImGuiTabItemFlags_NoReorder = 1 << 5,
+	ImGuiTabItemFlags_Leading = 1 << 6,
+	ImGuiTabItemFlags_Trailing = 1 << 7,
+	ImGuiTabItemFlags_NoAssumedClosure = 1 << 8,
+} ImGuiTabItemFlags_;
+typedef enum {
+	ImGuiFocusedFlags_None = 0,
+	ImGuiFocusedFlags_ChildWindows = 1 << 0,
+	ImGuiFocusedFlags_RootWindow = 1 << 1,
+	ImGuiFocusedFlags_AnyWindow = 1 << 2,
+	ImGuiFocusedFlags_NoPopupHierarchy = 1 << 3,
+	ImGuiFocusedFlags_DockHierarchy = 1 << 4,
+	ImGuiFocusedFlags_RootAndChildWindows = ImGuiFocusedFlags_RootWindow | ImGuiFocusedFlags_ChildWindows,
+} ImGuiFocusedFlags_;
+typedef enum {
+	ImGuiHoveredFlags_None = 0,
+	ImGuiHoveredFlags_ChildWindows = 1 << 0,
+	ImGuiHoveredFlags_RootWindow = 1 << 1,
+	ImGuiHoveredFlags_AnyWindow = 1 << 2,
+	ImGuiHoveredFlags_NoPopupHierarchy = 1 << 3,
+	ImGuiHoveredFlags_DockHierarchy = 1 << 4,
+	ImGuiHoveredFlags_AllowWhenBlockedByPopup = 1 << 5,
+	ImGuiHoveredFlags_AllowWhenBlockedByActiveItem = 1 << 7,
+	ImGuiHoveredFlags_AllowWhenOverlappedByItem = 1 << 8,
+	ImGuiHoveredFlags_AllowWhenOverlappedByWindow = 1 << 9,
+	ImGuiHoveredFlags_AllowWhenDisabled = 1 << 10,
+	ImGuiHoveredFlags_NoNavOverride = 1 << 11,
+	ImGuiHoveredFlags_AllowWhenOverlapped = ImGuiHoveredFlags_AllowWhenOverlappedByItem | ImGuiHoveredFlags_AllowWhenOverlappedByWindow,
+	ImGuiHoveredFlags_RectOnly = ImGuiHoveredFlags_AllowWhenBlockedByPopup | ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenOverlapped,
+	ImGuiHoveredFlags_RootAndChildWindows = ImGuiHoveredFlags_RootWindow | ImGuiHoveredFlags_ChildWindows,
+	ImGuiHoveredFlags_ForTooltip = 1 << 12,
+	ImGuiHoveredFlags_Stationary = 1 << 13,
+	ImGuiHoveredFlags_DelayNone = 1 << 14,
+	ImGuiHoveredFlags_DelayShort = 1 << 15,
+	ImGuiHoveredFlags_DelayNormal = 1 << 16,
+	ImGuiHoveredFlags_NoSharedDelay = 1 << 17,
+} ImGuiHoveredFlags_;
+typedef enum {
+	ImGuiDockNodeFlags_None = 0,
+	ImGuiDockNodeFlags_KeepAliveOnly = 1 << 0,
+	ImGuiDockNodeFlags_NoDockingOverCentralNode = 1 << 2,
+	ImGuiDockNodeFlags_PassthruCentralNode = 1 << 3,
+	ImGuiDockNodeFlags_NoDockingSplit = 1 << 4,
+	ImGuiDockNodeFlags_NoResize = 1 << 5,
+	ImGuiDockNodeFlags_AutoHideTabBar = 1 << 6,
+	ImGuiDockNodeFlags_NoUndocking = 1 << 7,
+} ImGuiDockNodeFlags_;
+typedef enum {
+	ImGuiDragDropFlags_None = 0,
+	ImGuiDragDropFlags_SourceNoPreviewTooltip = 1 << 0,
+	ImGuiDragDropFlags_SourceNoDisableHover = 1 << 1,
+	ImGuiDragDropFlags_SourceNoHoldToOpenOthers = 1 << 2,
+	ImGuiDragDropFlags_SourceAllowNullID = 1 << 3,
+	ImGuiDragDropFlags_SourceExtern = 1 << 4,
+	ImGuiDragDropFlags_SourceAutoExpirePayload = 1 << 5,
+	ImGuiDragDropFlags_AcceptBeforeDelivery = 1 << 10,
+	ImGuiDragDropFlags_AcceptNoDrawDefaultRect = 1 << 11,
+	ImGuiDragDropFlags_AcceptNoPreviewTooltip = 1 << 12,
+	ImGuiDragDropFlags_AcceptPeekOnly = ImGuiDragDropFlags_AcceptBeforeDelivery | ImGuiDragDropFlags_AcceptNoDrawDefaultRect,
+} ImGuiDragDropFlags_;
+typedef enum {
+	ImGuiDataType_S8,
+	ImGuiDataType_U8,
+	ImGuiDataType_S16,
+	ImGuiDataType_U16,
+	ImGuiDataType_S32,
+	ImGuiDataType_U32,
+	ImGuiDataType_S64,
+	ImGuiDataType_U64,
+	ImGuiDataType_Float,
+	ImGuiDataType_Double,
+	ImGuiDataType_COUNT
+} ImGuiDataType_;
+typedef enum {
+	ImGuiDir_None = -1,
+	ImGuiDir_Left = 0,
+	ImGuiDir_Right = 1,
+	ImGuiDir_Up = 2,
+	ImGuiDir_Down = 3,
+	ImGuiDir_COUNT
+} ImGuiDir_;
+typedef enum {
+	ImGuiSortDirection_None = 0,
+	ImGuiSortDirection_Ascending = 1,
+	ImGuiSortDirection_Descending = 2
+} ImGuiSortDirection_;
+typedef enum {
+	ImGuiKey_None=0,
+	ImGuiKey_Tab=512,
+	ImGuiKey_LeftArrow=513,
+	ImGuiKey_RightArrow=514,
+	ImGuiKey_UpArrow=515,
+	ImGuiKey_DownArrow=516,
+	ImGuiKey_PageUp=517,
+	ImGuiKey_PageDown=518,
+	ImGuiKey_Home=519,
+	ImGuiKey_End=520,
+	ImGuiKey_Insert=521,
+	ImGuiKey_Delete=522,
+	ImGuiKey_Backspace=523,
+	ImGuiKey_Space=524,
+	ImGuiKey_Enter=525,
+	ImGuiKey_Escape=526,
+	ImGuiKey_LeftCtrl=527,
+	ImGuiKey_LeftShift=528,
+	ImGuiKey_LeftAlt=529,
+	ImGuiKey_LeftSuper=530,
+	ImGuiKey_RightCtrl=531,
+	ImGuiKey_RightShift=532,
+	ImGuiKey_RightAlt=533,
+	ImGuiKey_RightSuper=534,
+	ImGuiKey_Menu=535,
+	ImGuiKey_0=536,
+	ImGuiKey_1=537,
+	ImGuiKey_2=538,
+	ImGuiKey_3=539,
+	ImGuiKey_4=540,
+	ImGuiKey_5=541,
+	ImGuiKey_6=542,
+	ImGuiKey_7=543,
+	ImGuiKey_8=544,
+	ImGuiKey_9=545,
+	ImGuiKey_A=546,
+	ImGuiKey_B=547,
+	ImGuiKey_C=548,
+	ImGuiKey_D=549,
+	ImGuiKey_E=550,
+	ImGuiKey_F=551,
+	ImGuiKey_G=552,
+	ImGuiKey_H=553,
+	ImGuiKey_I=554,
+	ImGuiKey_J=555,
+	ImGuiKey_K=556,
+	ImGuiKey_L=557,
+	ImGuiKey_M=558,
+	ImGuiKey_N=559,
+	ImGuiKey_O=560,
+	ImGuiKey_P=561,
+	ImGuiKey_Q=562,
+	ImGuiKey_R=563,
+	ImGuiKey_S=564,
+	ImGuiKey_T=565,
+	ImGuiKey_U=566,
+	ImGuiKey_V=567,
+	ImGuiKey_W=568,
+	ImGuiKey_X=569,
+	ImGuiKey_Y=570,
+	ImGuiKey_Z=571,
+	ImGuiKey_F1=572,
+	ImGuiKey_F2=573,
+	ImGuiKey_F3=574,
+	ImGuiKey_F4=575,
+	ImGuiKey_F5=576,
+	ImGuiKey_F6=577,
+	ImGuiKey_F7=578,
+	ImGuiKey_F8=579,
+	ImGuiKey_F9=580,
+	ImGuiKey_F10=581,
+	ImGuiKey_F11=582,
+	ImGuiKey_F12=583,
+	ImGuiKey_F13=584,
+	ImGuiKey_F14=585,
+	ImGuiKey_F15=586,
+	ImGuiKey_F16=587,
+	ImGuiKey_F17=588,
+	ImGuiKey_F18=589,
+	ImGuiKey_F19=590,
+	ImGuiKey_F20=591,
+	ImGuiKey_F21=592,
+	ImGuiKey_F22=593,
+	ImGuiKey_F23=594,
+	ImGuiKey_F24=595,
+	ImGuiKey_Apostrophe=596,
+	ImGuiKey_Comma=597,
+	ImGuiKey_Minus=598,
+	ImGuiKey_Period=599,
+	ImGuiKey_Slash=600,
+	ImGuiKey_Semicolon=601,
+	ImGuiKey_Equal=602,
+	ImGuiKey_LeftBracket=603,
+	ImGuiKey_Backslash=604,
+	ImGuiKey_RightBracket=605,
+	ImGuiKey_GraveAccent=606,
+	ImGuiKey_CapsLock=607,
+	ImGuiKey_ScrollLock=608,
+	ImGuiKey_NumLock=609,
+	ImGuiKey_PrintScreen=610,
+	ImGuiKey_Pause=611,
+	ImGuiKey_Keypad0=612,
+	ImGuiKey_Keypad1=613,
+	ImGuiKey_Keypad2=614,
+	ImGuiKey_Keypad3=615,
+	ImGuiKey_Keypad4=616,
+	ImGuiKey_Keypad5=617,
+	ImGuiKey_Keypad6=618,
+	ImGuiKey_Keypad7=619,
+	ImGuiKey_Keypad8=620,
+	ImGuiKey_Keypad9=621,
+	ImGuiKey_KeypadDecimal=622,
+	ImGuiKey_KeypadDivide=623,
+	ImGuiKey_KeypadMultiply=624,
+	ImGuiKey_KeypadSubtract=625,
+	ImGuiKey_KeypadAdd=626,
+	ImGuiKey_KeypadEnter=627,
+	ImGuiKey_KeypadEqual=628,
+	ImGuiKey_AppBack=629,
+	ImGuiKey_AppForward=630,
+	ImGuiKey_GamepadStart=631,
+	ImGuiKey_GamepadBack=632,
+	ImGuiKey_GamepadFaceLeft=633,
+	ImGuiKey_GamepadFaceRight=634,
+	ImGuiKey_GamepadFaceUp=635,
+	ImGuiKey_GamepadFaceDown=636,
+	ImGuiKey_GamepadDpadLeft=637,
+	ImGuiKey_GamepadDpadRight=638,
+	ImGuiKey_GamepadDpadUp=639,
+	ImGuiKey_GamepadDpadDown=640,
+	ImGuiKey_GamepadL1=641,
+	ImGuiKey_GamepadR1=642,
+	ImGuiKey_GamepadL2=643,
+	ImGuiKey_GamepadR2=644,
+	ImGuiKey_GamepadL3=645,
+	ImGuiKey_GamepadR3=646,
+	ImGuiKey_GamepadLStickLeft=647,
+	ImGuiKey_GamepadLStickRight=648,
+	ImGuiKey_GamepadLStickUp=649,
+	ImGuiKey_GamepadLStickDown=650,
+	ImGuiKey_GamepadRStickLeft=651,
+	ImGuiKey_GamepadRStickRight=652,
+	ImGuiKey_GamepadRStickUp=653,
+	ImGuiKey_GamepadRStickDown=654,
+	ImGuiKey_MouseLeft=655,
+	ImGuiKey_MouseRight=656,
+	ImGuiKey_MouseMiddle=657,
+	ImGuiKey_MouseX1=658,
+	ImGuiKey_MouseX2=659,
+	ImGuiKey_MouseWheelX=660,
+	ImGuiKey_MouseWheelY=661,
+	ImGuiKey_ReservedForModCtrl=662,
+	ImGuiKey_ReservedForModShift=663,
+	ImGuiKey_ReservedForModAlt=664,
+	ImGuiKey_ReservedForModSuper=665,
+	ImGuiKey_COUNT=666,
+	ImGuiMod_None=0,
+	ImGuiMod_Ctrl=1 << 12,
+	ImGuiMod_Shift=1 << 13,
+	ImGuiMod_Alt=1 << 14,
+	ImGuiMod_Super=1 << 15,
+	ImGuiMod_Shortcut=1 << 11,
+	ImGuiMod_Mask_=0xF800,
+	ImGuiKey_NamedKey_BEGIN=512,
+	ImGuiKey_NamedKey_END=ImGuiKey_COUNT,
+	ImGuiKey_NamedKey_COUNT=ImGuiKey_NamedKey_END - ImGuiKey_NamedKey_BEGIN,
+	ImGuiKey_KeysData_SIZE=ImGuiKey_NamedKey_COUNT,
+	ImGuiKey_KeysData_OFFSET=ImGuiKey_NamedKey_BEGIN,
+} ImGuiKey;
+typedef enum {
+	ImGuiConfigFlags_None = 0,
+	ImGuiConfigFlags_NavEnableKeyboard = 1 << 0,
+	ImGuiConfigFlags_NavEnableGamepad = 1 << 1,
+	ImGuiConfigFlags_NavEnableSetMousePos = 1 << 2,
+	ImGuiConfigFlags_NavNoCaptureKeyboard = 1 << 3,
+	ImGuiConfigFlags_NoMouse = 1 << 4,
+	ImGuiConfigFlags_NoMouseCursorChange = 1 << 5,
+	ImGuiConfigFlags_DockingEnable = 1 << 6,
+	ImGuiConfigFlags_ViewportsEnable = 1 << 10,
+	ImGuiConfigFlags_DpiEnableScaleViewports= 1 << 14,
+	ImGuiConfigFlags_DpiEnableScaleFonts = 1 << 15,
+	ImGuiConfigFlags_IsSRGB = 1 << 20,
+	ImGuiConfigFlags_IsTouchScreen = 1 << 21,
+} ImGuiConfigFlags_;
+typedef enum {
+	ImGuiBackendFlags_None = 0,
+	ImGuiBackendFlags_HasGamepad = 1 << 0,
+	ImGuiBackendFlags_HasMouseCursors = 1 << 1,
+	ImGuiBackendFlags_HasSetMousePos = 1 << 2,
+	ImGuiBackendFlags_RendererHasVtxOffset = 1 << 3,
+	ImGuiBackendFlags_PlatformHasViewports = 1 << 10,
+	ImGuiBackendFlags_HasMouseHoveredViewport=1 << 11,
+	ImGuiBackendFlags_RendererHasViewports = 1 << 12,
+} ImGuiBackendFlags_;
+typedef enum {
+	ImGuiCol_Text,
+	ImGuiCol_TextDisabled,
+	ImGuiCol_WindowBg,
+	ImGuiCol_ChildBg,
+	ImGuiCol_PopupBg,
+	ImGuiCol_Border,
+	ImGuiCol_BorderShadow,
+	ImGuiCol_FrameBg,
+	ImGuiCol_FrameBgHovered,
+	ImGuiCol_FrameBgActive,
+	ImGuiCol_TitleBg,
+	ImGuiCol_TitleBgActive,
+	ImGuiCol_TitleBgCollapsed,
+	ImGuiCol_MenuBarBg,
+	ImGuiCol_ScrollbarBg,
+	ImGuiCol_ScrollbarGrab,
+	ImGuiCol_ScrollbarGrabHovered,
+	ImGuiCol_ScrollbarGrabActive,
+	ImGuiCol_CheckMark,
+	ImGuiCol_SliderGrab,
+	ImGuiCol_SliderGrabActive,
+	ImGuiCol_Button,
+	ImGuiCol_ButtonHovered,
+	ImGuiCol_ButtonActive,
+	ImGuiCol_Header,
+	ImGuiCol_HeaderHovered,
+	ImGuiCol_HeaderActive,
+	ImGuiCol_Separator,
+	ImGuiCol_SeparatorHovered,
+	ImGuiCol_SeparatorActive,
+	ImGuiCol_ResizeGrip,
+	ImGuiCol_ResizeGripHovered,
+	ImGuiCol_ResizeGripActive,
+	ImGuiCol_Tab,
+	ImGuiCol_TabHovered,
+	ImGuiCol_TabActive,
+	ImGuiCol_TabUnfocused,
+	ImGuiCol_TabUnfocusedActive,
+	ImGuiCol_DockingPreview,
+	ImGuiCol_DockingEmptyBg,
+	ImGuiCol_PlotLines,
+	ImGuiCol_PlotLinesHovered,
+	ImGuiCol_PlotHistogram,
+	ImGuiCol_PlotHistogramHovered,
+	ImGuiCol_TableHeaderBg,
+	ImGuiCol_TableBorderStrong,
+	ImGuiCol_TableBorderLight,
+	ImGuiCol_TableRowBg,
+	ImGuiCol_TableRowBgAlt,
+	ImGuiCol_TextSelectedBg,
+	ImGuiCol_DragDropTarget,
+	ImGuiCol_NavHighlight,
+	ImGuiCol_NavWindowingHighlight,
+	ImGuiCol_NavWindowingDimBg,
+	ImGuiCol_ModalWindowDimBg,
+	ImGuiCol_COUNT
+} ImGuiCol_;
+typedef enum {
+	ImGuiStyleVar_Alpha,
+	ImGuiStyleVar_DisabledAlpha,
+	ImGuiStyleVar_WindowPadding,
+	ImGuiStyleVar_WindowRounding,
+	ImGuiStyleVar_WindowBorderSize,
+	ImGuiStyleVar_WindowMinSize,
+	ImGuiStyleVar_WindowTitleAlign,
+	ImGuiStyleVar_ChildRounding,
+	ImGuiStyleVar_ChildBorderSize,
+	ImGuiStyleVar_PopupRounding,
+	ImGuiStyleVar_PopupBorderSize,
+	ImGuiStyleVar_FramePadding,
+	ImGuiStyleVar_FrameRounding,
+	ImGuiStyleVar_FrameBorderSize,
+	ImGuiStyleVar_ItemSpacing,
+	ImGuiStyleVar_ItemInnerSpacing,
+	ImGuiStyleVar_IndentSpacing,
+	ImGuiStyleVar_CellPadding,
+	ImGuiStyleVar_ScrollbarSize,
+	ImGuiStyleVar_ScrollbarRounding,
+	ImGuiStyleVar_GrabMinSize,
+	ImGuiStyleVar_GrabRounding,
+	ImGuiStyleVar_TabRounding,
+	ImGuiStyleVar_TabBorderSize,
+	ImGuiStyleVar_TabBarBorderSize,
+	ImGuiStyleVar_TableAngledHeadersAngle,
+	ImGuiStyleVar_ButtonTextAlign,
+	ImGuiStyleVar_SelectableTextAlign,
+	ImGuiStyleVar_SeparatorTextBorderSize,
+	ImGuiStyleVar_SeparatorTextAlign,
+	ImGuiStyleVar_SeparatorTextPadding,
+	ImGuiStyleVar_DockingSeparatorSize,
+	ImGuiStyleVar_COUNT
+} ImGuiStyleVar_;
+typedef enum {
+	ImGuiButtonFlags_None = 0,
+	ImGuiButtonFlags_MouseButtonLeft = 1 << 0,
+	ImGuiButtonFlags_MouseButtonRight = 1 << 1,
+	ImGuiButtonFlags_MouseButtonMiddle = 1 << 2,
+	ImGuiButtonFlags_MouseButtonMask_ = ImGuiButtonFlags_MouseButtonLeft | ImGuiButtonFlags_MouseButtonRight | ImGuiButtonFlags_MouseButtonMiddle,
+	ImGuiButtonFlags_MouseButtonDefault_ = ImGuiButtonFlags_MouseButtonLeft,
+} ImGuiButtonFlags_;
+typedef enum {
+	ImGuiColorEditFlags_None = 0,
+	ImGuiColorEditFlags_NoAlpha = 1 << 1,
+	ImGuiColorEditFlags_NoPicker = 1 << 2,
+	ImGuiColorEditFlags_NoOptions = 1 << 3,
+	ImGuiColorEditFlags_NoSmallPreview = 1 << 4,
+	ImGuiColorEditFlags_NoInputs = 1 << 5,
+	ImGuiColorEditFlags_NoTooltip = 1 << 6,
+	ImGuiColorEditFlags_NoLabel = 1 << 7,
+	ImGuiColorEditFlags_NoSidePreview = 1 << 8,
+	ImGuiColorEditFlags_NoDragDrop = 1 << 9,
+	ImGuiColorEditFlags_NoBorder = 1 << 10,
+	ImGuiColorEditFlags_AlphaBar = 1 << 16,
+	ImGuiColorEditFlags_AlphaPreview = 1 << 17,
+	ImGuiColorEditFlags_AlphaPreviewHalf= 1 << 18,
+	ImGuiColorEditFlags_HDR = 1 << 19,
+	ImGuiColorEditFlags_DisplayRGB = 1 << 20,
+	ImGuiColorEditFlags_DisplayHSV = 1 << 21,
+	ImGuiColorEditFlags_DisplayHex = 1 << 22,
+	ImGuiColorEditFlags_Uint8 = 1 << 23,
+	ImGuiColorEditFlags_Float = 1 << 24,
+	ImGuiColorEditFlags_PickerHueBar = 1 << 25,
+	ImGuiColorEditFlags_PickerHueWheel = 1 << 26,
+	ImGuiColorEditFlags_InputRGB = 1 << 27,
+	ImGuiColorEditFlags_InputHSV = 1 << 28,
+	ImGuiColorEditFlags_DefaultOptions_ = ImGuiColorEditFlags_Uint8 | ImGuiColorEditFlags_DisplayRGB | ImGuiColorEditFlags_InputRGB | ImGuiColorEditFlags_PickerHueBar,
+	ImGuiColorEditFlags_DisplayMask_ = ImGuiColorEditFlags_DisplayRGB | ImGuiColorEditFlags_DisplayHSV | ImGuiColorEditFlags_DisplayHex,
+	ImGuiColorEditFlags_DataTypeMask_ = ImGuiColorEditFlags_Uint8 | ImGuiColorEditFlags_Float,
+	ImGuiColorEditFlags_PickerMask_ = ImGuiColorEditFlags_PickerHueWheel | ImGuiColorEditFlags_PickerHueBar,
+	ImGuiColorEditFlags_InputMask_ = ImGuiColorEditFlags_InputRGB | ImGuiColorEditFlags_InputHSV,
+} ImGuiColorEditFlags_;
+typedef enum {
+	ImGuiSliderFlags_None = 0,
+	ImGuiSliderFlags_AlwaysClamp = 1 << 4,
+	ImGuiSliderFlags_Logarithmic = 1 << 5,
+	ImGuiSliderFlags_NoRoundToFormat = 1 << 6,
+	ImGuiSliderFlags_NoInput = 1 << 7,
+	ImGuiSliderFlags_InvalidMask_ = 0x7000000F,
+} ImGuiSliderFlags_;
+typedef enum {
+	ImGuiMouseButton_Left = 0,
+	ImGuiMouseButton_Right = 1,
+	ImGuiMouseButton_Middle = 2,
+	ImGuiMouseButton_COUNT = 5
+} ImGuiMouseButton_;
+typedef enum {
+	ImGuiMouseCursor_None = -1,
+	ImGuiMouseCursor_Arrow = 0,
+	ImGuiMouseCursor_TextInput,
+	ImGuiMouseCursor_ResizeAll,
+	ImGuiMouseCursor_ResizeNS,
+	ImGuiMouseCursor_ResizeEW,
+	ImGuiMouseCursor_ResizeNESW,
+	ImGuiMouseCursor_ResizeNWSE,
+	ImGuiMouseCursor_Hand,
+	ImGuiMouseCursor_NotAllowed,
+	ImGuiMouseCursor_COUNT
+} ImGuiMouseCursor_;
+typedef enum {
+	ImGuiMouseSource_Mouse=0,
+	ImGuiMouseSource_TouchScreen=1,
+	ImGuiMouseSource_Pen=2,
+	ImGuiMouseSource_COUNT=3,
+} ImGuiMouseSource;
+typedef enum {
+	ImGuiCond_None = 0,
+	ImGuiCond_Always = 1 << 0,
+	ImGuiCond_Once = 1 << 1,
+	ImGuiCond_FirstUseEver = 1 << 2,
+	ImGuiCond_Appearing = 1 << 3,
+} ImGuiCond_;
+typedef enum {
+	ImGuiTableFlags_None = 0,
+	ImGuiTableFlags_Resizable = 1 << 0,
+	ImGuiTableFlags_Reorderable = 1 << 1,
+	ImGuiTableFlags_Hideable = 1 << 2,
+	ImGuiTableFlags_Sortable = 1 << 3,
+	ImGuiTableFlags_NoSavedSettings = 1 << 4,
+	ImGuiTableFlags_ContextMenuInBody = 1 << 5,
+	ImGuiTableFlags_RowBg = 1 << 6,
+	ImGuiTableFlags_BordersInnerH = 1 << 7,
+	ImGuiTableFlags_BordersOuterH = 1 << 8,
+	ImGuiTableFlags_BordersInnerV = 1 << 9,
+	ImGuiTableFlags_BordersOuterV = 1 << 10,
+	ImGuiTableFlags_BordersH = ImGuiTableFlags_BordersInnerH | ImGuiTableFlags_BordersOuterH,
+	ImGuiTableFlags_BordersV = ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_BordersOuterV,
+	ImGuiTableFlags_BordersInner = ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_BordersInnerH,
+	ImGuiTableFlags_BordersOuter = ImGuiTableFlags_BordersOuterV | ImGuiTableFlags_BordersOuterH,
+	ImGuiTableFlags_Borders = ImGuiTableFlags_BordersInner | ImGuiTableFlags_BordersOuter,
+	ImGuiTableFlags_NoBordersInBody = 1 << 11,
+	ImGuiTableFlags_NoBordersInBodyUntilResize = 1 << 12,
+	ImGuiTableFlags_SizingFixedFit = 1 << 13,
+	ImGuiTableFlags_SizingFixedSame = 2 << 13,
+	ImGuiTableFlags_SizingStretchProp = 3 << 13,
+	ImGuiTableFlags_SizingStretchSame = 4 << 13,
+	ImGuiTableFlags_NoHostExtendX = 1 << 16,
+	ImGuiTableFlags_NoHostExtendY = 1 << 17,
+	ImGuiTableFlags_NoKeepColumnsVisible = 1 << 18,
+	ImGuiTableFlags_PreciseWidths = 1 << 19,
+	ImGuiTableFlags_NoClip = 1 << 20,
+	ImGuiTableFlags_PadOuterX = 1 << 21,
+	ImGuiTableFlags_NoPadOuterX = 1 << 22,
+	ImGuiTableFlags_NoPadInnerX = 1 << 23,
+	ImGuiTableFlags_ScrollX = 1 << 24,
+	ImGuiTableFlags_ScrollY = 1 << 25,
+	ImGuiTableFlags_SortMulti = 1 << 26,
+	ImGuiTableFlags_SortTristate = 1 << 27,
+	ImGuiTableFlags_HighlightHoveredColumn = 1 << 28,
+	ImGuiTableFlags_SizingMask_ = ImGuiTableFlags_SizingFixedFit | ImGuiTableFlags_SizingFixedSame | ImGuiTableFlags_SizingStretchProp | ImGuiTableFlags_SizingStretchSame,
+} ImGuiTableFlags_;
+typedef enum {
+	ImGuiTableColumnFlags_None = 0,
+	ImGuiTableColumnFlags_Disabled = 1 << 0,
+	ImGuiTableColumnFlags_DefaultHide = 1 << 1,
+	ImGuiTableColumnFlags_DefaultSort = 1 << 2,
+	ImGuiTableColumnFlags_WidthStretch = 1 << 3,
+	ImGuiTableColumnFlags_WidthFixed = 1 << 4,
+	ImGuiTableColumnFlags_NoResize = 1 << 5,
+	ImGuiTableColumnFlags_NoReorder = 1 << 6,
+	ImGuiTableColumnFlags_NoHide = 1 << 7,
+	ImGuiTableColumnFlags_NoClip = 1 << 8,
+	ImGuiTableColumnFlags_NoSort = 1 << 9,
+	ImGuiTableColumnFlags_NoSortAscending = 1 << 10,
+	ImGuiTableColumnFlags_NoSortDescending = 1 << 11,
+	ImGuiTableColumnFlags_NoHeaderLabel = 1 << 12,
+	ImGuiTableColumnFlags_NoHeaderWidth = 1 << 13,
+	ImGuiTableColumnFlags_PreferSortAscending = 1 << 14,
+	ImGuiTableColumnFlags_PreferSortDescending = 1 << 15,
+	ImGuiTableColumnFlags_IndentEnable = 1 << 16,
+	ImGuiTableColumnFlags_IndentDisable = 1 << 17,
+	ImGuiTableColumnFlags_AngledHeader = 1 << 18,
+	ImGuiTableColumnFlags_IsEnabled = 1 << 24,
+	ImGuiTableColumnFlags_IsVisible = 1 << 25,
+	ImGuiTableColumnFlags_IsSorted = 1 << 26,
+	ImGuiTableColumnFlags_IsHovered = 1 << 27,
+	ImGuiTableColumnFlags_WidthMask_ = ImGuiTableColumnFlags_WidthStretch | ImGuiTableColumnFlags_WidthFixed,
+	ImGuiTableColumnFlags_IndentMask_ = ImGuiTableColumnFlags_IndentEnable | ImGuiTableColumnFlags_IndentDisable,
+	ImGuiTableColumnFlags_StatusMask_ = ImGuiTableColumnFlags_IsEnabled | ImGuiTableColumnFlags_IsVisible | ImGuiTableColumnFlags_IsSorted | ImGuiTableColumnFlags_IsHovered,
+	ImGuiTableColumnFlags_NoDirectResize_ = 1 << 30,
+} ImGuiTableColumnFlags_;
+typedef enum {
+	ImGuiTableRowFlags_None = 0,
+	ImGuiTableRowFlags_Headers = 1 << 0,
+} ImGuiTableRowFlags_;
+typedef enum {
+	ImGuiTableBgTarget_None = 0,
+	ImGuiTableBgTarget_RowBg0 = 1,
+	ImGuiTableBgTarget_RowBg1 = 2,
+	ImGuiTableBgTarget_CellBg = 3,
+} ImGuiTableBgTarget_;
+typedef enum {
+	ImDrawFlags_None = 0,
+	ImDrawFlags_Closed = 1 << 0,
+	ImDrawFlags_RoundCornersTopLeft = 1 << 4,
+	ImDrawFlags_RoundCornersTopRight = 1 << 5,
+	ImDrawFlags_RoundCornersBottomLeft = 1 << 6,
+	ImDrawFlags_RoundCornersBottomRight = 1 << 7,
+	ImDrawFlags_RoundCornersNone = 1 << 8,
+	ImDrawFlags_RoundCornersTop = ImDrawFlags_RoundCornersTopLeft | ImDrawFlags_RoundCornersTopRight,
+	ImDrawFlags_RoundCornersBottom = ImDrawFlags_RoundCornersBottomLeft | ImDrawFlags_RoundCornersBottomRight,
+	ImDrawFlags_RoundCornersLeft = ImDrawFlags_RoundCornersBottomLeft | ImDrawFlags_RoundCornersTopLeft,
+	ImDrawFlags_RoundCornersRight = ImDrawFlags_RoundCornersBottomRight | ImDrawFlags_RoundCornersTopRight,
+	ImDrawFlags_RoundCornersAll = ImDrawFlags_RoundCornersTopLeft | ImDrawFlags_RoundCornersTopRight | ImDrawFlags_RoundCornersBottomLeft | ImDrawFlags_RoundCornersBottomRight,
+	ImDrawFlags_RoundCornersDefault_ = ImDrawFlags_RoundCornersAll,
+	ImDrawFlags_RoundCornersMask_ = ImDrawFlags_RoundCornersAll | ImDrawFlags_RoundCornersNone,
+} ImDrawFlags_;
+typedef enum {
+	ImDrawListFlags_None = 0,
+	ImDrawListFlags_AntiAliasedLines = 1 << 0,
+	ImDrawListFlags_AntiAliasedLinesUseTex = 1 << 1,
+	ImDrawListFlags_AntiAliasedFill = 1 << 2,
+	ImDrawListFlags_AllowVtxOffset = 1 << 3,
+} ImDrawListFlags_;
+typedef enum {
+	ImFontAtlasFlags_None = 0,
+	ImFontAtlasFlags_NoPowerOfTwoHeight = 1 << 0,
+	ImFontAtlasFlags_NoMouseCursors = 1 << 1,
+	ImFontAtlasFlags_NoBakedLines = 1 << 2,
+} ImFontAtlasFlags_;
+typedef enum {
+	ImGuiViewportFlags_None = 0,
+	ImGuiViewportFlags_IsPlatformWindow = 1 << 0,
+	ImGuiViewportFlags_IsPlatformMonitor = 1 << 1,
+	ImGuiViewportFlags_OwnedByApp = 1 << 2,
+	ImGuiViewportFlags_NoDecoration = 1 << 3,
+	ImGuiViewportFlags_NoTaskBarIcon = 1 << 4,
+	ImGuiViewportFlags_NoFocusOnAppearing = 1 << 5,
+	ImGuiViewportFlags_NoFocusOnClick = 1 << 6,
+	ImGuiViewportFlags_NoInputs = 1 << 7,
+	ImGuiViewportFlags_NoRendererClear = 1 << 8,
+	ImGuiViewportFlags_NoAutoMerge = 1 << 9,
+	ImGuiViewportFlags_TopMost = 1 << 10,
+	ImGuiViewportFlags_CanHostOtherWindows = 1 << 11,
+	ImGuiViewportFlags_IsMinimized = 1 << 12,
+	ImGuiViewportFlags_IsFocused = 1 << 13,
+} ImGuiViewportFlags_;
+typedef enum {
+	ImGuiItemFlags_None = 0,
+	ImGuiItemFlags_NoTabStop = 1 << 0,
+	ImGuiItemFlags_ButtonRepeat = 1 << 1,
+	ImGuiItemFlags_Disabled = 1 << 2,
+	ImGuiItemFlags_NoNav = 1 << 3,
+	ImGuiItemFlags_NoNavDefaultFocus = 1 << 4,
+	ImGuiItemFlags_SelectableDontClosePopup = 1 << 5,
+	ImGuiItemFlags_MixedValue = 1 << 6,
+	ImGuiItemFlags_ReadOnly = 1 << 7,
+	ImGuiItemFlags_NoWindowHoverableCheck = 1 << 8,
+	ImGuiItemFlags_AllowOverlap = 1 << 9,
+	ImGuiItemFlags_Inputable = 1 << 10,
+	ImGuiItemFlags_HasSelectionUserData = 1 << 11,
+} ImGuiItemFlags_;
+typedef enum {
+	ImGuiItemStatusFlags_None = 0,
+	ImGuiItemStatusFlags_HoveredRect = 1 << 0,
+	ImGuiItemStatusFlags_HasDisplayRect = 1 << 1,
+	ImGuiItemStatusFlags_Edited = 1 << 2,
+	ImGuiItemStatusFlags_ToggledSelection = 1 << 3,
+	ImGuiItemStatusFlags_ToggledOpen = 1 << 4,
+	ImGuiItemStatusFlags_HasDeactivated = 1 << 5,
+	ImGuiItemStatusFlags_Deactivated = 1 << 6,
+	ImGuiItemStatusFlags_HoveredWindow = 1 << 7,
+	ImGuiItemStatusFlags_Visible = 1 << 8,
+	ImGuiItemStatusFlags_HasClipRect = 1 << 9,
+} ImGuiItemStatusFlags_;
+typedef enum {
+	ImGuiHoveredFlags_DelayMask_ = ImGuiHoveredFlags_DelayNone | ImGuiHoveredFlags_DelayShort | ImGuiHoveredFlags_DelayNormal | ImGuiHoveredFlags_NoSharedDelay,
+	ImGuiHoveredFlags_AllowedMaskForIsWindowHovered = ImGuiHoveredFlags_ChildWindows | ImGuiHoveredFlags_RootWindow | ImGuiHoveredFlags_AnyWindow | ImGuiHoveredFlags_NoPopupHierarchy | ImGuiHoveredFlags_DockHierarchy | ImGuiHoveredFlags_AllowWhenBlockedByPopup | ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_ForTooltip | ImGuiHoveredFlags_Stationary,
+	ImGuiHoveredFlags_AllowedMaskForIsItemHovered = ImGuiHoveredFlags_AllowWhenBlockedByPopup | ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenOverlapped | ImGuiHoveredFlags_AllowWhenDisabled | ImGuiHoveredFlags_NoNavOverride | ImGuiHoveredFlags_ForTooltip | ImGuiHoveredFlags_Stationary | ImGuiHoveredFlags_DelayMask_,
+} ImGuiHoveredFlagsPrivate_;
+typedef enum {
+	ImGuiInputTextFlags_Multiline = 1 << 26,
+	ImGuiInputTextFlags_NoMarkEdited = 1 << 27,
+	ImGuiInputTextFlags_MergedItem = 1 << 28,
+	ImGuiInputTextFlags_LocalizeDecimalPoint= 1 << 29,
+} ImGuiInputTextFlagsPrivate_;
+typedef enum {
+	ImGuiButtonFlags_PressedOnClick = 1 << 4,
+	ImGuiButtonFlags_PressedOnClickRelease = 1 << 5,
+	ImGuiButtonFlags_PressedOnClickReleaseAnywhere = 1 << 6,
+	ImGuiButtonFlags_PressedOnRelease = 1 << 7,
+	ImGuiButtonFlags_PressedOnDoubleClick = 1 << 8,
+	ImGuiButtonFlags_PressedOnDragDropHold = 1 << 9,
+	ImGuiButtonFlags_Repeat = 1 << 10,
+	ImGuiButtonFlags_FlattenChildren = 1 << 11,
+	ImGuiButtonFlags_AllowOverlap = 1 << 12,
+	ImGuiButtonFlags_DontClosePopups = 1 << 13,
+	ImGuiButtonFlags_AlignTextBaseLine = 1 << 15,
+	ImGuiButtonFlags_NoKeyModifiers = 1 << 16,
+	ImGuiButtonFlags_NoHoldingActiveId = 1 << 17,
+	ImGuiButtonFlags_NoNavFocus = 1 << 18,
+	ImGuiButtonFlags_NoHoveredOnFocus = 1 << 19,
+	ImGuiButtonFlags_NoSetKeyOwner = 1 << 20,
+	ImGuiButtonFlags_NoTestKeyOwner = 1 << 21,
+	ImGuiButtonFlags_PressedOnMask_ = ImGuiButtonFlags_PressedOnClick | ImGuiButtonFlags_PressedOnClickRelease | ImGuiButtonFlags_PressedOnClickReleaseAnywhere | ImGuiButtonFlags_PressedOnRelease | ImGuiButtonFlags_PressedOnDoubleClick | ImGuiButtonFlags_PressedOnDragDropHold,
+	ImGuiButtonFlags_PressedOnDefault_ = ImGuiButtonFlags_PressedOnClickRelease,
+} ImGuiButtonFlagsPrivate_;
+typedef enum {
+	ImGuiComboFlags_CustomPreview = 1 << 20,
+} ImGuiComboFlagsPrivate_;
+typedef enum {
+	ImGuiSliderFlags_Vertical = 1 << 20,
+	ImGuiSliderFlags_ReadOnly = 1 << 21,
+} ImGuiSliderFlagsPrivate_;
+typedef enum {
+	ImGuiSelectableFlags_NoHoldingActiveID = 1 << 20,
+	ImGuiSelectableFlags_SelectOnNav = 1 << 21,
+	ImGuiSelectableFlags_SelectOnClick = 1 << 22,
+	ImGuiSelectableFlags_SelectOnRelease = 1 << 23,
+	ImGuiSelectableFlags_SpanAvailWidth = 1 << 24,
+	ImGuiSelectableFlags_SetNavIdOnHover = 1 << 25,
+	ImGuiSelectableFlags_NoPadWithHalfSpacing = 1 << 26,
+	ImGuiSelectableFlags_NoSetKeyOwner = 1 << 27,
+} ImGuiSelectableFlagsPrivate_;
+typedef enum {
+	ImGuiTreeNodeFlags_ClipLabelForTrailingButton = 1 << 20,
+	ImGuiTreeNodeFlags_UpsideDownArrow = 1 << 21,
+} ImGuiTreeNodeFlagsPrivate_;
+typedef enum {
+	ImGuiSeparatorFlags_None = 0,
+	ImGuiSeparatorFlags_Horizontal = 1 << 0,
+	ImGuiSeparatorFlags_Vertical = 1 << 1,
+	ImGuiSeparatorFlags_SpanAllColumns = 1 << 2,
+} ImGuiSeparatorFlags_;
+typedef enum {
+	ImGuiFocusRequestFlags_None = 0,
+	ImGuiFocusRequestFlags_RestoreFocusedChild = 1 << 0,
+	ImGuiFocusRequestFlags_UnlessBelowModal = 1 << 1,
+} ImGuiFocusRequestFlags_;
+typedef enum {
+	ImGuiTextFlags_None = 0,
+	ImGuiTextFlags_NoWidthForLargeClippedText = 1 << 0,
+} ImGuiTextFlags_;
+typedef enum {
+	ImGuiTooltipFlags_None = 0,
+	ImGuiTooltipFlags_OverridePrevious = 1 << 1,
+} ImGuiTooltipFlags_;
+typedef enum {
+	ImGuiLayoutType_Horizontal = 0,
+	ImGuiLayoutType_Vertical = 1
+} ImGuiLayoutType_;
+typedef enum {
+	ImGuiLogType_None = 0,
+	ImGuiLogType_TTY,
+	ImGuiLogType_File,
+	ImGuiLogType_Buffer,
+	ImGuiLogType_Clipboard,
+} ImGuiLogType;
+typedef enum {
+	ImGuiAxis_None = -1,
+	ImGuiAxis_X = 0,
+	ImGuiAxis_Y = 1
+}ImGuiAxis;
+typedef enum {
+	ImGuiPlotType_Lines,
+	ImGuiPlotType_Histogram,
+} ImGuiPlotType;
+typedef enum {
+	ImGuiNextWindowDataFlags_None = 0,
+	ImGuiNextWindowDataFlags_HasPos = 1 << 0,
+	ImGuiNextWindowDataFlags_HasSize = 1 << 1,
+	ImGuiNextWindowDataFlags_HasContentSize = 1 << 2,
+	ImGuiNextWindowDataFlags_HasCollapsed = 1 << 3,
+	ImGuiNextWindowDataFlags_HasSizeConstraint = 1 << 4,
+	ImGuiNextWindowDataFlags_HasFocus = 1 << 5,
+	ImGuiNextWindowDataFlags_HasBgAlpha = 1 << 6,
+	ImGuiNextWindowDataFlags_HasScroll = 1 << 7,
+	ImGuiNextWindowDataFlags_HasChildFlags = 1 << 8,
+	ImGuiNextWindowDataFlags_HasViewport = 1 << 9,
+	ImGuiNextWindowDataFlags_HasDock = 1 << 10,
+	ImGuiNextWindowDataFlags_HasWindowClass = 1 << 11,
+} ImGuiNextWindowDataFlags_;
+typedef enum {
+	ImGuiNextItemDataFlags_None = 0,
+	ImGuiNextItemDataFlags_HasWidth = 1 << 0,
+	ImGuiNextItemDataFlags_HasOpen = 1 << 1,
+	ImGuiNextItemDataFlags_HasShortcut = 1 << 2,
+} ImGuiNextItemDataFlags_;
+typedef enum {
+	ImGuiDataType_String = ImGuiDataType_COUNT + 1,
+	ImGuiDataType_Pointer,
+	ImGuiDataType_ID,
+} ImGuiDataTypePrivate_;
+typedef enum {
+	ImGuiPopupPositionPolicy_Default,
+	ImGuiPopupPositionPolicy_ComboBox,
+	ImGuiPopupPositionPolicy_Tooltip,
+} ImGuiPopupPositionPolicy;
+typedef enum {
+	ImGuiInputEventType_None = 0,
+	ImGuiInputEventType_MousePos,
+	ImGuiInputEventType_MouseWheel,
+	ImGuiInputEventType_MouseButton,
+	ImGuiInputEventType_MouseViewport,
+	ImGuiInputEventType_Key,
+	ImGuiInputEventType_Text,
+	ImGuiInputEventType_Focus,
+	ImGuiInputEventType_COUNT
+} ImGuiInputEventType;
+typedef enum {
+	ImGuiInputSource_None = 0,
+	ImGuiInputSource_Mouse,
+	ImGuiInputSource_Keyboard,
+	ImGuiInputSource_Gamepad,
+	ImGuiInputSource_COUNT
+} ImGuiInputSource;
+typedef enum {
+	ImGuiInputFlags_None = 0,
+	ImGuiInputFlags_Repeat = 1 << 0,
+	ImGuiInputFlags_RepeatRateDefault = 1 << 1,
+	ImGuiInputFlags_RepeatRateNavMove = 1 << 2,
+	ImGuiInputFlags_RepeatRateNavTweak = 1 << 3,
+	ImGuiInputFlags_RepeatUntilRelease = 1 << 4,
+	ImGuiInputFlags_RepeatUntilKeyModsChange = 1 << 5,
+	ImGuiInputFlags_RepeatUntilKeyModsChangeFromNone = 1 << 6,
+	ImGuiInputFlags_RepeatUntilOtherKeyPress = 1 << 7,
+	ImGuiInputFlags_CondHovered = 1 << 8,
+	ImGuiInputFlags_CondActive = 1 << 9,
+	ImGuiInputFlags_CondDefault_ = ImGuiInputFlags_CondHovered | ImGuiInputFlags_CondActive,
+	ImGuiInputFlags_LockThisFrame = 1 << 10,
+	ImGuiInputFlags_LockUntilRelease = 1 << 11,
+	ImGuiInputFlags_RouteFocused = 1 << 12,
+	ImGuiInputFlags_RouteGlobalLow = 1 << 13,
+	ImGuiInputFlags_RouteGlobal = 1 << 14,
+	ImGuiInputFlags_RouteGlobalHigh = 1 << 15,
+	ImGuiInputFlags_RouteAlways = 1 << 16,
+	ImGuiInputFlags_RouteUnlessBgFocused= 1 << 17,
+	ImGuiInputFlags_RepeatRateMask_ = ImGuiInputFlags_RepeatRateDefault | ImGuiInputFlags_RepeatRateNavMove | ImGuiInputFlags_RepeatRateNavTweak,
+	ImGuiInputFlags_RepeatUntilMask_ = ImGuiInputFlags_RepeatUntilRelease | ImGuiInputFlags_RepeatUntilKeyModsChange | ImGuiInputFlags_RepeatUntilKeyModsChangeFromNone | ImGuiInputFlags_RepeatUntilOtherKeyPress,
+	ImGuiInputFlags_RepeatMask_ = ImGuiInputFlags_Repeat | ImGuiInputFlags_RepeatRateMask_ | ImGuiInputFlags_RepeatUntilMask_,
+	ImGuiInputFlags_CondMask_ = ImGuiInputFlags_CondHovered | ImGuiInputFlags_CondActive,
+	ImGuiInputFlags_RouteMask_ = ImGuiInputFlags_RouteFocused | ImGuiInputFlags_RouteGlobal | ImGuiInputFlags_RouteGlobalLow | ImGuiInputFlags_RouteGlobalHigh,
+	ImGuiInputFlags_SupportedByIsKeyPressed = ImGuiInputFlags_RepeatMask_,
+	ImGuiInputFlags_SupportedByIsMouseClicked = ImGuiInputFlags_Repeat,
+	ImGuiInputFlags_SupportedByShortcut = ImGuiInputFlags_RepeatMask_ | ImGuiInputFlags_RouteMask_ | ImGuiInputFlags_RouteAlways | ImGuiInputFlags_RouteUnlessBgFocused,
+	ImGuiInputFlags_SupportedBySetKeyOwner = ImGuiInputFlags_LockThisFrame | ImGuiInputFlags_LockUntilRelease,
+	ImGuiInputFlags_SupportedBySetItemKeyOwner = ImGuiInputFlags_SupportedBySetKeyOwner | ImGuiInputFlags_CondMask_,
+} ImGuiInputFlags_;
+typedef enum {
+	ImGuiActivateFlags_None = 0,
+	ImGuiActivateFlags_PreferInput = 1 << 0,
+	ImGuiActivateFlags_PreferTweak = 1 << 1,
+	ImGuiActivateFlags_TryToPreserveState = 1 << 2,
+	ImGuiActivateFlags_FromTabbing = 1 << 3,
+	ImGuiActivateFlags_FromShortcut = 1 << 4,
+} ImGuiActivateFlags_;
+typedef enum {
+	ImGuiScrollFlags_None = 0,
+	ImGuiScrollFlags_KeepVisibleEdgeX = 1 << 0,
+	ImGuiScrollFlags_KeepVisibleEdgeY = 1 << 1,
+	ImGuiScrollFlags_KeepVisibleCenterX = 1 << 2,
+	ImGuiScrollFlags_KeepVisibleCenterY = 1 << 3,
+	ImGuiScrollFlags_AlwaysCenterX = 1 << 4,
+	ImGuiScrollFlags_AlwaysCenterY = 1 << 5,
+	ImGuiScrollFlags_NoScrollParent = 1 << 6,
+	ImGuiScrollFlags_MaskX_ = ImGuiScrollFlags_KeepVisibleEdgeX | ImGuiScrollFlags_KeepVisibleCenterX | ImGuiScrollFlags_AlwaysCenterX,
+	ImGuiScrollFlags_MaskY_ = ImGuiScrollFlags_KeepVisibleEdgeY | ImGuiScrollFlags_KeepVisibleCenterY | ImGuiScrollFlags_AlwaysCenterY,
+} ImGuiScrollFlags_;
+typedef enum {
+	ImGuiNavHighlightFlags_None = 0,
+	ImGuiNavHighlightFlags_Compact = 1 << 1,
+	ImGuiNavHighlightFlags_AlwaysDraw = 1 << 2,
+	ImGuiNavHighlightFlags_NoRounding = 1 << 3,
+} ImGuiNavHighlightFlags_;
+typedef enum {
+	ImGuiNavMoveFlags_None = 0,
+	ImGuiNavMoveFlags_LoopX = 1 << 0,
+	ImGuiNavMoveFlags_LoopY = 1 << 1,
+	ImGuiNavMoveFlags_WrapX = 1 << 2,
+	ImGuiNavMoveFlags_WrapY = 1 << 3,
+	ImGuiNavMoveFlags_WrapMask_ = ImGuiNavMoveFlags_LoopX | ImGuiNavMoveFlags_LoopY | ImGuiNavMoveFlags_WrapX | ImGuiNavMoveFlags_WrapY,
+	ImGuiNavMoveFlags_AllowCurrentNavId = 1 << 4,
+	ImGuiNavMoveFlags_AlsoScoreVisibleSet = 1 << 5,
+	ImGuiNavMoveFlags_ScrollToEdgeY = 1 << 6,
+	ImGuiNavMoveFlags_Forwarded = 1 << 7,
+	ImGuiNavMoveFlags_DebugNoResult = 1 << 8,
+	ImGuiNavMoveFlags_FocusApi = 1 << 9,
+	ImGuiNavMoveFlags_IsTabbing = 1 << 10,
+	ImGuiNavMoveFlags_IsPageMove = 1 << 11,
+	ImGuiNavMoveFlags_Activate = 1 << 12,
+	ImGuiNavMoveFlags_NoSelect = 1 << 13,
+	ImGuiNavMoveFlags_NoSetNavHighlight = 1 << 14,
+	ImGuiNavMoveFlags_NoClearActiveId = 1 << 15,
+} ImGuiNavMoveFlags_;
+typedef enum {
+	ImGuiNavLayer_Main = 0,
+	ImGuiNavLayer_Menu = 1,
+	ImGuiNavLayer_COUNT
+} ImGuiNavLayer;
+typedef enum {
+	ImGuiTypingSelectFlags_None = 0,
+	ImGuiTypingSelectFlags_AllowBackspace = 1 << 0,
+	ImGuiTypingSelectFlags_AllowSingleCharMode = 1 << 1,
+} ImGuiTypingSelectFlags_;
+typedef enum {
+	ImGuiOldColumnFlags_None = 0,
+	ImGuiOldColumnFlags_NoBorder = 1 << 0,
+	ImGuiOldColumnFlags_NoResize = 1 << 1,
+	ImGuiOldColumnFlags_NoPreserveWidths = 1 << 2,
+	ImGuiOldColumnFlags_NoForceWithinWindow = 1 << 3,
+	ImGuiOldColumnFlags_GrowParentContentsSize = 1 << 4,
+} ImGuiOldColumnFlags_;
+typedef enum {
+	ImGuiDockNodeFlags_DockSpace = 1 << 10,
+	ImGuiDockNodeFlags_CentralNode = 1 << 11,
+	ImGuiDockNodeFlags_NoTabBar = 1 << 12,
+	ImGuiDockNodeFlags_HiddenTabBar = 1 << 13,
+	ImGuiDockNodeFlags_NoWindowMenuButton = 1 << 14,
+	ImGuiDockNodeFlags_NoCloseButton = 1 << 15,
+	ImGuiDockNodeFlags_NoResizeX = 1 << 16,
+	ImGuiDockNodeFlags_NoResizeY = 1 << 17,
+	ImGuiDockNodeFlags_DockedWindowsInFocusRoute= 1 << 18,
+	ImGuiDockNodeFlags_NoDockingSplitOther = 1 << 19,
+	ImGuiDockNodeFlags_NoDockingOverMe = 1 << 20,
+	ImGuiDockNodeFlags_NoDockingOverOther = 1 << 21,
+	ImGuiDockNodeFlags_NoDockingOverEmpty = 1 << 22,
+	ImGuiDockNodeFlags_NoDocking = ImGuiDockNodeFlags_NoDockingOverMe | ImGuiDockNodeFlags_NoDockingOverOther | ImGuiDockNodeFlags_NoDockingOverEmpty | ImGuiDockNodeFlags_NoDockingSplit | ImGuiDockNodeFlags_NoDockingSplitOther,
+	ImGuiDockNodeFlags_SharedFlagsInheritMask_ = ~0,
+	ImGuiDockNodeFlags_NoResizeFlagsMask_ = ImGuiDockNodeFlags_NoResize | ImGuiDockNodeFlags_NoResizeX | ImGuiDockNodeFlags_NoResizeY,
+	ImGuiDockNodeFlags_LocalFlagsTransferMask_ = ImGuiDockNodeFlags_NoDockingSplit | ImGuiDockNodeFlags_NoResizeFlagsMask_ | ImGuiDockNodeFlags_AutoHideTabBar | ImGuiDockNodeFlags_CentralNode | ImGuiDockNodeFlags_NoTabBar | ImGuiDockNodeFlags_HiddenTabBar | ImGuiDockNodeFlags_NoWindowMenuButton | ImGuiDockNodeFlags_NoCloseButton,
+	ImGuiDockNodeFlags_SavedFlagsMask_ = ImGuiDockNodeFlags_NoResizeFlagsMask_ | ImGuiDockNodeFlags_DockSpace | ImGuiDockNodeFlags_CentralNode | ImGuiDockNodeFlags_NoTabBar | ImGuiDockNodeFlags_HiddenTabBar | ImGuiDockNodeFlags_NoWindowMenuButton | ImGuiDockNodeFlags_NoCloseButton,
+} ImGuiDockNodeFlagsPrivate_;
+typedef enum {
+	ImGuiDataAuthority_Auto,
+	ImGuiDataAuthority_DockNode,
+	ImGuiDataAuthority_Window,
+} ImGuiDataAuthority_;
+typedef enum {
+	ImGuiDockNodeState_Unknown,
+	ImGuiDockNodeState_HostWindowHiddenBecauseSingleWindow,
+	ImGuiDockNodeState_HostWindowHiddenBecauseWindowsAreResizing,
+	ImGuiDockNodeState_HostWindowVisible,
+} ImGuiDockNodeState;
+typedef enum {
+	ImGuiWindowDockStyleCol_Text,
+	ImGuiWindowDockStyleCol_Tab,
+	ImGuiWindowDockStyleCol_TabHovered,
+	ImGuiWindowDockStyleCol_TabActive,
+	ImGuiWindowDockStyleCol_TabUnfocused,
+	ImGuiWindowDockStyleCol_TabUnfocusedActive,
+	ImGuiWindowDockStyleCol_COUNT
+} ImGuiWindowDockStyleCol;
+typedef enum {
+	ImGuiLocKey_VersionStr=0,
+	ImGuiLocKey_TableSizeOne=1,
+	ImGuiLocKey_TableSizeAllFit=2,
+	ImGuiLocKey_TableSizeAllDefault=3,
+	ImGuiLocKey_TableResetOrder=4,
+	ImGuiLocKey_WindowingMainMenuBar=5,
+	ImGuiLocKey_WindowingPopup=6,
+	ImGuiLocKey_WindowingUntitled=7,
+	ImGuiLocKey_DockingHideTabBar=8,
+	ImGuiLocKey_DockingHoldShiftToDock=9,
+	ImGuiLocKey_DockingDragToUndockOrMoveNode=10,
+	ImGuiLocKey_COUNT=11,
+} ImGuiLocKey;
+typedef enum {
+	ImGuiDebugLogFlags_None = 0,
+	ImGuiDebugLogFlags_EventActiveId = 1 << 0,
+	ImGuiDebugLogFlags_EventFocus = 1 << 1,
+	ImGuiDebugLogFlags_EventPopup = 1 << 2,
+	ImGuiDebugLogFlags_EventNav = 1 << 3,
+	ImGuiDebugLogFlags_EventClipper = 1 << 4,
+	ImGuiDebugLogFlags_EventSelection = 1 << 5,
+	ImGuiDebugLogFlags_EventIO = 1 << 6,
+	ImGuiDebugLogFlags_EventInputRouting = 1 << 7,
+	ImGuiDebugLogFlags_EventDocking = 1 << 8,
+	ImGuiDebugLogFlags_EventViewport = 1 << 9,
+	ImGuiDebugLogFlags_EventMask_ = ImGuiDebugLogFlags_EventActiveId | ImGuiDebugLogFlags_EventFocus | ImGuiDebugLogFlags_EventPopup | ImGuiDebugLogFlags_EventNav | ImGuiDebugLogFlags_EventClipper | ImGuiDebugLogFlags_EventSelection | ImGuiDebugLogFlags_EventIO | ImGuiDebugLogFlags_EventInputRouting | ImGuiDebugLogFlags_EventDocking | ImGuiDebugLogFlags_EventViewport,
+	ImGuiDebugLogFlags_OutputToTTY = 1 << 20,
+	ImGuiDebugLogFlags_OutputToTestEngine = 1 << 21,
+} ImGuiDebugLogFlags_;
+typedef enum {
+	ImGuiContextHookType_NewFramePre,
+	ImGuiContextHookType_NewFramePost,
+	ImGuiContextHookType_EndFramePre,
+	ImGuiContextHookType_EndFramePost,
+	ImGuiContextHookType_RenderPre,
+	ImGuiContextHookType_RenderPost,
+	ImGuiContextHookType_Shutdown,
+	ImGuiContextHookType_PendingRemoval_
+} ImGuiContextHookType;
+typedef enum {
+	ImGuiTabBarFlags_DockNode = 1 << 20,
+	ImGuiTabBarFlags_IsFocused = 1 << 21,
+	ImGuiTabBarFlags_SaveSettings = 1 << 22,
+} ImGuiTabBarFlagsPrivate_;
+typedef enum {
+	ImGuiTabItemFlags_SectionMask_ = ImGuiTabItemFlags_Leading | ImGuiTabItemFlags_Trailing,
+	ImGuiTabItemFlags_NoCloseButton = 1 << 20,
+	ImGuiTabItemFlags_Button = 1 << 21,
+	ImGuiTabItemFlags_Unsorted = 1 << 22,
+} ImGuiTabItemFlagsPrivate_;
+typedef enum {
+	ImGui_ImplSDL2_GamepadMode_AutoFirst,
+	ImGui_ImplSDL2_GamepadMode_AutoAll,
+	ImGui_ImplSDL2_GamepadMode_Manual
+} ImGui_ImplSDL2_GamepadMode;
+
+// typedefs
+
 typedef struct ImDrawChannel ImDrawChannel;
 typedef struct ImDrawCmd ImDrawCmd;
 typedef struct ImDrawData ImDrawData;
@@ -92,7 +1175,11 @@ typedef struct ImGuiTypingSelectRequest ImGuiTypingSelectRequest;
 typedef struct ImGuiWindow ImGuiWindow;
 typedef struct ImGuiWindowTempData ImGuiWindowTempData;
 typedef struct ImGuiWindowSettings ImGuiWindowSettings;
-typedef struct ImVector_const_charPtr {int Size;int Capacity;const char** Data;} ImVector_const_charPtr;
+typedef struct ImVector {
+	int Size;
+	int Capacity;
+	char* Data;
+} ImVector;
 struct ImDrawChannel;
 struct ImDrawCmd;
 struct ImDrawData;
@@ -187,38 +1274,6 @@ typedef struct ImVec4 ImVec4;
 struct ImVec4 {
 	float x, y, z, w;
 };
-typedef enum { ImGuiWindowFlags_None = 0, ImGuiWindowFlags_NoTitleBar = 1 << 0, ImGuiWindowFlags_NoResize = 1 << 1, ImGuiWindowFlags_NoMove = 1 << 2, ImGuiWindowFlags_NoScrollbar = 1 << 3, ImGuiWindowFlags_NoScrollWithMouse = 1 << 4, ImGuiWindowFlags_NoCollapse = 1 << 5, ImGuiWindowFlags_AlwaysAutoResize = 1 << 6, ImGuiWindowFlags_NoBackground = 1 << 7, ImGuiWindowFlags_NoSavedSettings = 1 << 8, ImGuiWindowFlags_NoMouseInputs = 1 << 9, ImGuiWindowFlags_MenuBar = 1 << 10, ImGuiWindowFlags_HorizontalScrollbar = 1 << 11, ImGuiWindowFlags_NoFocusOnAppearing = 1 << 12, ImGuiWindowFlags_NoBringToFrontOnFocus = 1 << 13, ImGuiWindowFlags_AlwaysVerticalScrollbar= 1 << 14, ImGuiWindowFlags_AlwaysHorizontalScrollbar=1<< 15, ImGuiWindowFlags_NoNavInputs = 1 << 16, ImGuiWindowFlags_NoNavFocus = 1 << 17, ImGuiWindowFlags_UnsavedDocument = 1 << 18, ImGuiWindowFlags_NoDocking = 1 << 19, ImGuiWindowFlags_NoNav = ImGuiWindowFlags_NoNavInputs | ImGuiWindowFlags_NoNavFocus, ImGuiWindowFlags_NoDecoration = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoCollapse, ImGuiWindowFlags_NoInputs = ImGuiWindowFlags_NoMouseInputs | ImGuiWindowFlags_NoNavInputs | ImGuiWindowFlags_NoNavFocus, ImGuiWindowFlags_NavFlattened = 1 << 23, ImGuiWindowFlags_ChildWindow = 1 << 24, ImGuiWindowFlags_Tooltip = 1 << 25, ImGuiWindowFlags_Popup = 1 << 26, ImGuiWindowFlags_Modal = 1 << 27, ImGuiWindowFlags_ChildMenu = 1 << 28, ImGuiWindowFlags_DockNodeHost = 1 << 29, }ImGuiWindowFlags_;
-typedef enum { ImGuiChildFlags_None = 0, ImGuiChildFlags_Border = 1 << 0, ImGuiChildFlags_AlwaysUseWindowPadding = 1 << 1, ImGuiChildFlags_ResizeX = 1 << 2, ImGuiChildFlags_ResizeY = 1 << 3, ImGuiChildFlags_AutoResizeX = 1 << 4, ImGuiChildFlags_AutoResizeY = 1 << 5, ImGuiChildFlags_AlwaysAutoResize = 1 << 6, ImGuiChildFlags_FrameStyle = 1 << 7, }ImGuiChildFlags_;
-typedef enum { ImGuiInputTextFlags_None = 0, ImGuiInputTextFlags_CharsDecimal = 1 << 0, ImGuiInputTextFlags_CharsHexadecimal = 1 << 1, ImGuiInputTextFlags_CharsUppercase = 1 << 2, ImGuiInputTextFlags_CharsNoBlank = 1 << 3, ImGuiInputTextFlags_AutoSelectAll = 1 << 4, ImGuiInputTextFlags_EnterReturnsTrue = 1 << 5, ImGuiInputTextFlags_CallbackCompletion = 1 << 6, ImGuiInputTextFlags_CallbackHistory = 1 << 7, ImGuiInputTextFlags_CallbackAlways = 1 << 8, ImGuiInputTextFlags_CallbackCharFilter = 1 << 9, ImGuiInputTextFlags_AllowTabInput = 1 << 10, ImGuiInputTextFlags_CtrlEnterForNewLine = 1 << 11, ImGuiInputTextFlags_NoHorizontalScroll = 1 << 12, ImGuiInputTextFlags_AlwaysOverwrite = 1 << 13, ImGuiInputTextFlags_ReadOnly = 1 << 14, ImGuiInputTextFlags_Password = 1 << 15, ImGuiInputTextFlags_NoUndoRedo = 1 << 16, ImGuiInputTextFlags_CharsScientific = 1 << 17, ImGuiInputTextFlags_CallbackResize = 1 << 18, ImGuiInputTextFlags_CallbackEdit = 1 << 19, ImGuiInputTextFlags_EscapeClearsAll = 1 << 20, }ImGuiInputTextFlags_;
-typedef enum { ImGuiTreeNodeFlags_None = 0, ImGuiTreeNodeFlags_Selected = 1 << 0, ImGuiTreeNodeFlags_Framed = 1 << 1, ImGuiTreeNodeFlags_AllowOverlap = 1 << 2, ImGuiTreeNodeFlags_NoTreePushOnOpen = 1 << 3, ImGuiTreeNodeFlags_NoAutoOpenOnLog = 1 << 4, ImGuiTreeNodeFlags_DefaultOpen = 1 << 5, ImGuiTreeNodeFlags_OpenOnDoubleClick = 1 << 6, ImGuiTreeNodeFlags_OpenOnArrow = 1 << 7, ImGuiTreeNodeFlags_Leaf = 1 << 8, ImGuiTreeNodeFlags_Bullet = 1 << 9, ImGuiTreeNodeFlags_FramePadding = 1 << 10, ImGuiTreeNodeFlags_SpanAvailWidth = 1 << 11, ImGuiTreeNodeFlags_SpanFullWidth = 1 << 12, ImGuiTreeNodeFlags_SpanAllColumns = 1 << 13, ImGuiTreeNodeFlags_NavLeftJumpsBackHere = 1 << 14, ImGuiTreeNodeFlags_CollapsingHeader = ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoTreePushOnOpen | ImGuiTreeNodeFlags_NoAutoOpenOnLog, }ImGuiTreeNodeFlags_;
-typedef enum { ImGuiPopupFlags_None = 0, ImGuiPopupFlags_MouseButtonLeft = 0, ImGuiPopupFlags_MouseButtonRight = 1, ImGuiPopupFlags_MouseButtonMiddle = 2, ImGuiPopupFlags_MouseButtonMask_ = 0x1F, ImGuiPopupFlags_MouseButtonDefault_ = 1, ImGuiPopupFlags_NoReopen = 1 << 5, ImGuiPopupFlags_NoOpenOverExistingPopup = 1 << 7, ImGuiPopupFlags_NoOpenOverItems = 1 << 8, ImGuiPopupFlags_AnyPopupId = 1 << 10, ImGuiPopupFlags_AnyPopupLevel = 1 << 11, ImGuiPopupFlags_AnyPopup = ImGuiPopupFlags_AnyPopupId | ImGuiPopupFlags_AnyPopupLevel, }ImGuiPopupFlags_;
-typedef enum { ImGuiSelectableFlags_None = 0, ImGuiSelectableFlags_DontClosePopups = 1 << 0, ImGuiSelectableFlags_SpanAllColumns = 1 << 1, ImGuiSelectableFlags_AllowDoubleClick = 1 << 2, ImGuiSelectableFlags_Disabled = 1 << 3, ImGuiSelectableFlags_AllowOverlap = 1 << 4, }ImGuiSelectableFlags_;
-typedef enum { ImGuiComboFlags_None = 0, ImGuiComboFlags_PopupAlignLeft = 1 << 0, ImGuiComboFlags_HeightSmall = 1 << 1, ImGuiComboFlags_HeightRegular = 1 << 2, ImGuiComboFlags_HeightLarge = 1 << 3, ImGuiComboFlags_HeightLargest = 1 << 4, ImGuiComboFlags_NoArrowButton = 1 << 5, ImGuiComboFlags_NoPreview = 1 << 6, ImGuiComboFlags_WidthFitPreview = 1 << 7, ImGuiComboFlags_HeightMask_ = ImGuiComboFlags_HeightSmall | ImGuiComboFlags_HeightRegular | ImGuiComboFlags_HeightLarge | ImGuiComboFlags_HeightLargest, }ImGuiComboFlags_;
-typedef enum { ImGuiTabBarFlags_None = 0, ImGuiTabBarFlags_Reorderable = 1 << 0, ImGuiTabBarFlags_AutoSelectNewTabs = 1 << 1, ImGuiTabBarFlags_TabListPopupButton = 1 << 2, ImGuiTabBarFlags_NoCloseWithMiddleMouseButton = 1 << 3, ImGuiTabBarFlags_NoTabListScrollingButtons = 1 << 4, ImGuiTabBarFlags_NoTooltip = 1 << 5, ImGuiTabBarFlags_FittingPolicyResizeDown = 1 << 6, ImGuiTabBarFlags_FittingPolicyScroll = 1 << 7, ImGuiTabBarFlags_FittingPolicyMask_ = ImGuiTabBarFlags_FittingPolicyResizeDown | ImGuiTabBarFlags_FittingPolicyScroll, ImGuiTabBarFlags_FittingPolicyDefault_ = ImGuiTabBarFlags_FittingPolicyResizeDown, }ImGuiTabBarFlags_;
-typedef enum { ImGuiTabItemFlags_None = 0, ImGuiTabItemFlags_UnsavedDocument = 1 << 0, ImGuiTabItemFlags_SetSelected = 1 << 1, ImGuiTabItemFlags_NoCloseWithMiddleMouseButton = 1 << 2, ImGuiTabItemFlags_NoPushId = 1 << 3, ImGuiTabItemFlags_NoTooltip = 1 << 4, ImGuiTabItemFlags_NoReorder = 1 << 5, ImGuiTabItemFlags_Leading = 1 << 6, ImGuiTabItemFlags_Trailing = 1 << 7, ImGuiTabItemFlags_NoAssumedClosure = 1 << 8, }ImGuiTabItemFlags_;
-typedef enum { ImGuiFocusedFlags_None = 0, ImGuiFocusedFlags_ChildWindows = 1 << 0, ImGuiFocusedFlags_RootWindow = 1 << 1, ImGuiFocusedFlags_AnyWindow = 1 << 2, ImGuiFocusedFlags_NoPopupHierarchy = 1 << 3, ImGuiFocusedFlags_DockHierarchy = 1 << 4, ImGuiFocusedFlags_RootAndChildWindows = ImGuiFocusedFlags_RootWindow | ImGuiFocusedFlags_ChildWindows, }ImGuiFocusedFlags_;
-typedef enum { ImGuiHoveredFlags_None = 0, ImGuiHoveredFlags_ChildWindows = 1 << 0, ImGuiHoveredFlags_RootWindow = 1 << 1, ImGuiHoveredFlags_AnyWindow = 1 << 2, ImGuiHoveredFlags_NoPopupHierarchy = 1 << 3, ImGuiHoveredFlags_DockHierarchy = 1 << 4, ImGuiHoveredFlags_AllowWhenBlockedByPopup = 1 << 5, ImGuiHoveredFlags_AllowWhenBlockedByActiveItem = 1 << 7, ImGuiHoveredFlags_AllowWhenOverlappedByItem = 1 << 8, ImGuiHoveredFlags_AllowWhenOverlappedByWindow = 1 << 9, ImGuiHoveredFlags_AllowWhenDisabled = 1 << 10, ImGuiHoveredFlags_NoNavOverride = 1 << 11, ImGuiHoveredFlags_AllowWhenOverlapped = ImGuiHoveredFlags_AllowWhenOverlappedByItem | ImGuiHoveredFlags_AllowWhenOverlappedByWindow, ImGuiHoveredFlags_RectOnly = ImGuiHoveredFlags_AllowWhenBlockedByPopup | ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenOverlapped, ImGuiHoveredFlags_RootAndChildWindows = ImGuiHoveredFlags_RootWindow | ImGuiHoveredFlags_ChildWindows, ImGuiHoveredFlags_ForTooltip = 1 << 12, ImGuiHoveredFlags_Stationary = 1 << 13, ImGuiHoveredFlags_DelayNone = 1 << 14, ImGuiHoveredFlags_DelayShort = 1 << 15, ImGuiHoveredFlags_DelayNormal = 1 << 16, ImGuiHoveredFlags_NoSharedDelay = 1 << 17, }ImGuiHoveredFlags_;
-typedef enum { ImGuiDockNodeFlags_None = 0, ImGuiDockNodeFlags_KeepAliveOnly = 1 << 0, ImGuiDockNodeFlags_NoDockingOverCentralNode = 1 << 2, ImGuiDockNodeFlags_PassthruCentralNode = 1 << 3, ImGuiDockNodeFlags_NoDockingSplit = 1 << 4, ImGuiDockNodeFlags_NoResize = 1 << 5, ImGuiDockNodeFlags_AutoHideTabBar = 1 << 6, ImGuiDockNodeFlags_NoUndocking = 1 << 7, }ImGuiDockNodeFlags_;
-typedef enum { ImGuiDragDropFlags_None = 0, ImGuiDragDropFlags_SourceNoPreviewTooltip = 1 << 0, ImGuiDragDropFlags_SourceNoDisableHover = 1 << 1, ImGuiDragDropFlags_SourceNoHoldToOpenOthers = 1 << 2, ImGuiDragDropFlags_SourceAllowNullID = 1 << 3, ImGuiDragDropFlags_SourceExtern = 1 << 4, ImGuiDragDropFlags_SourceAutoExpirePayload = 1 << 5, ImGuiDragDropFlags_AcceptBeforeDelivery = 1 << 10, ImGuiDragDropFlags_AcceptNoDrawDefaultRect = 1 << 11, ImGuiDragDropFlags_AcceptNoPreviewTooltip = 1 << 12, ImGuiDragDropFlags_AcceptPeekOnly = ImGuiDragDropFlags_AcceptBeforeDelivery | ImGuiDragDropFlags_AcceptNoDrawDefaultRect, }ImGuiDragDropFlags_;
-typedef enum { ImGuiDataType_S8, ImGuiDataType_U8, ImGuiDataType_S16, ImGuiDataType_U16, ImGuiDataType_S32, ImGuiDataType_U32, ImGuiDataType_S64, ImGuiDataType_U64, ImGuiDataType_Float, ImGuiDataType_Double, ImGuiDataType_COUNT }ImGuiDataType_;
-typedef enum { ImGuiDir_None = -1, ImGuiDir_Left = 0, ImGuiDir_Right = 1, ImGuiDir_Up = 2, ImGuiDir_Down = 3, ImGuiDir_COUNT }ImGuiDir_;
-typedef enum { ImGuiSortDirection_None = 0, ImGuiSortDirection_Ascending = 1, ImGuiSortDirection_Descending = 2 }ImGuiSortDirection_;
-typedef enum { ImGuiKey_None=0, ImGuiKey_Tab=512, ImGuiKey_LeftArrow=513, ImGuiKey_RightArrow=514, ImGuiKey_UpArrow=515, ImGuiKey_DownArrow=516, ImGuiKey_PageUp=517, ImGuiKey_PageDown=518, ImGuiKey_Home=519, ImGuiKey_End=520, ImGuiKey_Insert=521, ImGuiKey_Delete=522, ImGuiKey_Backspace=523, ImGuiKey_Space=524, ImGuiKey_Enter=525, ImGuiKey_Escape=526, ImGuiKey_LeftCtrl=527, ImGuiKey_LeftShift=528, ImGuiKey_LeftAlt=529, ImGuiKey_LeftSuper=530, ImGuiKey_RightCtrl=531, ImGuiKey_RightShift=532, ImGuiKey_RightAlt=533, ImGuiKey_RightSuper=534, ImGuiKey_Menu=535, ImGuiKey_0=536, ImGuiKey_1=537, ImGuiKey_2=538, ImGuiKey_3=539, ImGuiKey_4=540, ImGuiKey_5=541, ImGuiKey_6=542, ImGuiKey_7=543, ImGuiKey_8=544, ImGuiKey_9=545, ImGuiKey_A=546, ImGuiKey_B=547, ImGuiKey_C=548, ImGuiKey_D=549, ImGuiKey_E=550, ImGuiKey_F=551, ImGuiKey_G=552, ImGuiKey_H=553, ImGuiKey_I=554, ImGuiKey_J=555, ImGuiKey_K=556, ImGuiKey_L=557, ImGuiKey_M=558, ImGuiKey_N=559, ImGuiKey_O=560, ImGuiKey_P=561, ImGuiKey_Q=562, ImGuiKey_R=563, ImGuiKey_S=564, ImGuiKey_T=565, ImGuiKey_U=566, ImGuiKey_V=567, ImGuiKey_W=568, ImGuiKey_X=569, ImGuiKey_Y=570, ImGuiKey_Z=571, ImGuiKey_F1=572, ImGuiKey_F2=573, ImGuiKey_F3=574, ImGuiKey_F4=575, ImGuiKey_F5=576, ImGuiKey_F6=577, ImGuiKey_F7=578, ImGuiKey_F8=579, ImGuiKey_F9=580, ImGuiKey_F10=581, ImGuiKey_F11=582, ImGuiKey_F12=583, ImGuiKey_F13=584, ImGuiKey_F14=585, ImGuiKey_F15=586, ImGuiKey_F16=587, ImGuiKey_F17=588, ImGuiKey_F18=589, ImGuiKey_F19=590, ImGuiKey_F20=591, ImGuiKey_F21=592, ImGuiKey_F22=593, ImGuiKey_F23=594, ImGuiKey_F24=595, ImGuiKey_Apostrophe=596, ImGuiKey_Comma=597, ImGuiKey_Minus=598, ImGuiKey_Period=599, ImGuiKey_Slash=600, ImGuiKey_Semicolon=601, ImGuiKey_Equal=602, ImGuiKey_LeftBracket=603, ImGuiKey_Backslash=604, ImGuiKey_RightBracket=605, ImGuiKey_GraveAccent=606, ImGuiKey_CapsLock=607, ImGuiKey_ScrollLock=608, ImGuiKey_NumLock=609, ImGuiKey_PrintScreen=610, ImGuiKey_Pause=611, ImGuiKey_Keypad0=612, ImGuiKey_Keypad1=613, ImGuiKey_Keypad2=614, ImGuiKey_Keypad3=615, ImGuiKey_Keypad4=616, ImGuiKey_Keypad5=617, ImGuiKey_Keypad6=618, ImGuiKey_Keypad7=619, ImGuiKey_Keypad8=620, ImGuiKey_Keypad9=621, ImGuiKey_KeypadDecimal=622, ImGuiKey_KeypadDivide=623, ImGuiKey_KeypadMultiply=624, ImGuiKey_KeypadSubtract=625, ImGuiKey_KeypadAdd=626, ImGuiKey_KeypadEnter=627, ImGuiKey_KeypadEqual=628, ImGuiKey_AppBack=629, ImGuiKey_AppForward=630, ImGuiKey_GamepadStart=631, ImGuiKey_GamepadBack=632, ImGuiKey_GamepadFaceLeft=633, ImGuiKey_GamepadFaceRight=634, ImGuiKey_GamepadFaceUp=635, ImGuiKey_GamepadFaceDown=636, ImGuiKey_GamepadDpadLeft=637, ImGuiKey_GamepadDpadRight=638, ImGuiKey_GamepadDpadUp=639, ImGuiKey_GamepadDpadDown=640, ImGuiKey_GamepadL1=641, ImGuiKey_GamepadR1=642, ImGuiKey_GamepadL2=643, ImGuiKey_GamepadR2=644, ImGuiKey_GamepadL3=645, ImGuiKey_GamepadR3=646, ImGuiKey_GamepadLStickLeft=647, ImGuiKey_GamepadLStickRight=648, ImGuiKey_GamepadLStickUp=649, ImGuiKey_GamepadLStickDown=650, ImGuiKey_GamepadRStickLeft=651, ImGuiKey_GamepadRStickRight=652, ImGuiKey_GamepadRStickUp=653, ImGuiKey_GamepadRStickDown=654, ImGuiKey_MouseLeft=655, ImGuiKey_MouseRight=656, ImGuiKey_MouseMiddle=657, ImGuiKey_MouseX1=658, ImGuiKey_MouseX2=659, ImGuiKey_MouseWheelX=660, ImGuiKey_MouseWheelY=661, ImGuiKey_ReservedForModCtrl=662, ImGuiKey_ReservedForModShift=663, ImGuiKey_ReservedForModAlt=664, ImGuiKey_ReservedForModSuper=665, ImGuiKey_COUNT=666, ImGuiMod_None=0, ImGuiMod_Ctrl=1 << 12, ImGuiMod_Shift=1 << 13, ImGuiMod_Alt=1 << 14, ImGuiMod_Super=1 << 15, ImGuiMod_Shortcut=1 << 11, ImGuiMod_Mask_=0xF800, ImGuiKey_NamedKey_BEGIN=512, ImGuiKey_NamedKey_END=ImGuiKey_COUNT, ImGuiKey_NamedKey_COUNT=ImGuiKey_NamedKey_END - ImGuiKey_NamedKey_BEGIN, ImGuiKey_KeysData_SIZE=ImGuiKey_NamedKey_COUNT, ImGuiKey_KeysData_OFFSET=ImGuiKey_NamedKey_BEGIN, }ImGuiKey;
-typedef enum { ImGuiConfigFlags_None = 0, ImGuiConfigFlags_NavEnableKeyboard = 1 << 0, ImGuiConfigFlags_NavEnableGamepad = 1 << 1, ImGuiConfigFlags_NavEnableSetMousePos = 1 << 2, ImGuiConfigFlags_NavNoCaptureKeyboard = 1 << 3, ImGuiConfigFlags_NoMouse = 1 << 4, ImGuiConfigFlags_NoMouseCursorChange = 1 << 5, ImGuiConfigFlags_DockingEnable = 1 << 6, ImGuiConfigFlags_ViewportsEnable = 1 << 10, ImGuiConfigFlags_DpiEnableScaleViewports= 1 << 14, ImGuiConfigFlags_DpiEnableScaleFonts = 1 << 15, ImGuiConfigFlags_IsSRGB = 1 << 20, ImGuiConfigFlags_IsTouchScreen = 1 << 21, }ImGuiConfigFlags_;
-typedef enum { ImGuiBackendFlags_None = 0, ImGuiBackendFlags_HasGamepad = 1 << 0, ImGuiBackendFlags_HasMouseCursors = 1 << 1, ImGuiBackendFlags_HasSetMousePos = 1 << 2, ImGuiBackendFlags_RendererHasVtxOffset = 1 << 3, ImGuiBackendFlags_PlatformHasViewports = 1 << 10, ImGuiBackendFlags_HasMouseHoveredViewport=1 << 11, ImGuiBackendFlags_RendererHasViewports = 1 << 12, }ImGuiBackendFlags_;
-typedef enum { ImGuiCol_Text, ImGuiCol_TextDisabled, ImGuiCol_WindowBg, ImGuiCol_ChildBg, ImGuiCol_PopupBg, ImGuiCol_Border, ImGuiCol_BorderShadow, ImGuiCol_FrameBg, ImGuiCol_FrameBgHovered, ImGuiCol_FrameBgActive, ImGuiCol_TitleBg, ImGuiCol_TitleBgActive, ImGuiCol_TitleBgCollapsed, ImGuiCol_MenuBarBg, ImGuiCol_ScrollbarBg, ImGuiCol_ScrollbarGrab, ImGuiCol_ScrollbarGrabHovered, ImGuiCol_ScrollbarGrabActive, ImGuiCol_CheckMark, ImGuiCol_SliderGrab, ImGuiCol_SliderGrabActive, ImGuiCol_Button, ImGuiCol_ButtonHovered, ImGuiCol_ButtonActive, ImGuiCol_Header, ImGuiCol_HeaderHovered, ImGuiCol_HeaderActive, ImGuiCol_Separator, ImGuiCol_SeparatorHovered, ImGuiCol_SeparatorActive, ImGuiCol_ResizeGrip, ImGuiCol_ResizeGripHovered, ImGuiCol_ResizeGripActive, ImGuiCol_Tab, ImGuiCol_TabHovered, ImGuiCol_TabActive, ImGuiCol_TabUnfocused, ImGuiCol_TabUnfocusedActive, ImGuiCol_DockingPreview, ImGuiCol_DockingEmptyBg, ImGuiCol_PlotLines, ImGuiCol_PlotLinesHovered, ImGuiCol_PlotHistogram, ImGuiCol_PlotHistogramHovered, ImGuiCol_TableHeaderBg, ImGuiCol_TableBorderStrong, ImGuiCol_TableBorderLight, ImGuiCol_TableRowBg, ImGuiCol_TableRowBgAlt, ImGuiCol_TextSelectedBg, ImGuiCol_DragDropTarget, ImGuiCol_NavHighlight, ImGuiCol_NavWindowingHighlight, ImGuiCol_NavWindowingDimBg, ImGuiCol_ModalWindowDimBg, ImGuiCol_COUNT }ImGuiCol_;
-typedef enum { ImGuiStyleVar_Alpha, ImGuiStyleVar_DisabledAlpha, ImGuiStyleVar_WindowPadding, ImGuiStyleVar_WindowRounding, ImGuiStyleVar_WindowBorderSize, ImGuiStyleVar_WindowMinSize, ImGuiStyleVar_WindowTitleAlign, ImGuiStyleVar_ChildRounding, ImGuiStyleVar_ChildBorderSize, ImGuiStyleVar_PopupRounding, ImGuiStyleVar_PopupBorderSize, ImGuiStyleVar_FramePadding, ImGuiStyleVar_FrameRounding, ImGuiStyleVar_FrameBorderSize, ImGuiStyleVar_ItemSpacing, ImGuiStyleVar_ItemInnerSpacing, ImGuiStyleVar_IndentSpacing, ImGuiStyleVar_CellPadding, ImGuiStyleVar_ScrollbarSize, ImGuiStyleVar_ScrollbarRounding, ImGuiStyleVar_GrabMinSize, ImGuiStyleVar_GrabRounding, ImGuiStyleVar_TabRounding, ImGuiStyleVar_TabBorderSize, ImGuiStyleVar_TabBarBorderSize, ImGuiStyleVar_TableAngledHeadersAngle, ImGuiStyleVar_ButtonTextAlign, ImGuiStyleVar_SelectableTextAlign, ImGuiStyleVar_SeparatorTextBorderSize, ImGuiStyleVar_SeparatorTextAlign, ImGuiStyleVar_SeparatorTextPadding, ImGuiStyleVar_DockingSeparatorSize, ImGuiStyleVar_COUNT }ImGuiStyleVar_;
-typedef enum { ImGuiButtonFlags_None = 0, ImGuiButtonFlags_MouseButtonLeft = 1 << 0, ImGuiButtonFlags_MouseButtonRight = 1 << 1, ImGuiButtonFlags_MouseButtonMiddle = 1 << 2, ImGuiButtonFlags_MouseButtonMask_ = ImGuiButtonFlags_MouseButtonLeft | ImGuiButtonFlags_MouseButtonRight | ImGuiButtonFlags_MouseButtonMiddle, ImGuiButtonFlags_MouseButtonDefault_ = ImGuiButtonFlags_MouseButtonLeft, }ImGuiButtonFlags_;
-typedef enum { ImGuiColorEditFlags_None = 0, ImGuiColorEditFlags_NoAlpha = 1 << 1, ImGuiColorEditFlags_NoPicker = 1 << 2, ImGuiColorEditFlags_NoOptions = 1 << 3, ImGuiColorEditFlags_NoSmallPreview = 1 << 4, ImGuiColorEditFlags_NoInputs = 1 << 5, ImGuiColorEditFlags_NoTooltip = 1 << 6, ImGuiColorEditFlags_NoLabel = 1 << 7, ImGuiColorEditFlags_NoSidePreview = 1 << 8, ImGuiColorEditFlags_NoDragDrop = 1 << 9, ImGuiColorEditFlags_NoBorder = 1 << 10, ImGuiColorEditFlags_AlphaBar = 1 << 16, ImGuiColorEditFlags_AlphaPreview = 1 << 17, ImGuiColorEditFlags_AlphaPreviewHalf= 1 << 18, ImGuiColorEditFlags_HDR = 1 << 19, ImGuiColorEditFlags_DisplayRGB = 1 << 20, ImGuiColorEditFlags_DisplayHSV = 1 << 21, ImGuiColorEditFlags_DisplayHex = 1 << 22, ImGuiColorEditFlags_Uint8 = 1 << 23, ImGuiColorEditFlags_Float = 1 << 24, ImGuiColorEditFlags_PickerHueBar = 1 << 25, ImGuiColorEditFlags_PickerHueWheel = 1 << 26, ImGuiColorEditFlags_InputRGB = 1 << 27, ImGuiColorEditFlags_InputHSV = 1 << 28, ImGuiColorEditFlags_DefaultOptions_ = ImGuiColorEditFlags_Uint8 | ImGuiColorEditFlags_DisplayRGB | ImGuiColorEditFlags_InputRGB | ImGuiColorEditFlags_PickerHueBar, ImGuiColorEditFlags_DisplayMask_ = ImGuiColorEditFlags_DisplayRGB | ImGuiColorEditFlags_DisplayHSV | ImGuiColorEditFlags_DisplayHex, ImGuiColorEditFlags_DataTypeMask_ = ImGuiColorEditFlags_Uint8 | ImGuiColorEditFlags_Float, ImGuiColorEditFlags_PickerMask_ = ImGuiColorEditFlags_PickerHueWheel | ImGuiColorEditFlags_PickerHueBar, ImGuiColorEditFlags_InputMask_ = ImGuiColorEditFlags_InputRGB | ImGuiColorEditFlags_InputHSV, }ImGuiColorEditFlags_;
-typedef enum { ImGuiSliderFlags_None = 0, ImGuiSliderFlags_AlwaysClamp = 1 << 4, ImGuiSliderFlags_Logarithmic = 1 << 5, ImGuiSliderFlags_NoRoundToFormat = 1 << 6, ImGuiSliderFlags_NoInput = 1 << 7, ImGuiSliderFlags_InvalidMask_ = 0x7000000F, }ImGuiSliderFlags_;
-typedef enum { ImGuiMouseButton_Left = 0, ImGuiMouseButton_Right = 1, ImGuiMouseButton_Middle = 2, ImGuiMouseButton_COUNT = 5 }ImGuiMouseButton_;
-typedef enum { ImGuiMouseCursor_None = -1, ImGuiMouseCursor_Arrow = 0, ImGuiMouseCursor_TextInput, ImGuiMouseCursor_ResizeAll, ImGuiMouseCursor_ResizeNS, ImGuiMouseCursor_ResizeEW, ImGuiMouseCursor_ResizeNESW, ImGuiMouseCursor_ResizeNWSE, ImGuiMouseCursor_Hand, ImGuiMouseCursor_NotAllowed, ImGuiMouseCursor_COUNT }ImGuiMouseCursor_;
-typedef enum { ImGuiMouseSource_Mouse=0, ImGuiMouseSource_TouchScreen=1, ImGuiMouseSource_Pen=2, ImGuiMouseSource_COUNT=3, }ImGuiMouseSource;
-typedef enum { ImGuiCond_None = 0, ImGuiCond_Always = 1 << 0, ImGuiCond_Once = 1 << 1, ImGuiCond_FirstUseEver = 1 << 2, ImGuiCond_Appearing = 1 << 3, }ImGuiCond_;
-typedef enum { ImGuiTableFlags_None = 0, ImGuiTableFlags_Resizable = 1 << 0, ImGuiTableFlags_Reorderable = 1 << 1, ImGuiTableFlags_Hideable = 1 << 2, ImGuiTableFlags_Sortable = 1 << 3, ImGuiTableFlags_NoSavedSettings = 1 << 4, ImGuiTableFlags_ContextMenuInBody = 1 << 5, ImGuiTableFlags_RowBg = 1 << 6, ImGuiTableFlags_BordersInnerH = 1 << 7, ImGuiTableFlags_BordersOuterH = 1 << 8, ImGuiTableFlags_BordersInnerV = 1 << 9, ImGuiTableFlags_BordersOuterV = 1 << 10, ImGuiTableFlags_BordersH = ImGuiTableFlags_BordersInnerH | ImGuiTableFlags_BordersOuterH, ImGuiTableFlags_BordersV = ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_BordersOuterV, ImGuiTableFlags_BordersInner = ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_BordersInnerH, ImGuiTableFlags_BordersOuter = ImGuiTableFlags_BordersOuterV | ImGuiTableFlags_BordersOuterH, ImGuiTableFlags_Borders = ImGuiTableFlags_BordersInner | ImGuiTableFlags_BordersOuter, ImGuiTableFlags_NoBordersInBody = 1 << 11, ImGuiTableFlags_NoBordersInBodyUntilResize = 1 << 12, ImGuiTableFlags_SizingFixedFit = 1 << 13, ImGuiTableFlags_SizingFixedSame = 2 << 13, ImGuiTableFlags_SizingStretchProp = 3 << 13, ImGuiTableFlags_SizingStretchSame = 4 << 13, ImGuiTableFlags_NoHostExtendX = 1 << 16, ImGuiTableFlags_NoHostExtendY = 1 << 17, ImGuiTableFlags_NoKeepColumnsVisible = 1 << 18, ImGuiTableFlags_PreciseWidths = 1 << 19, ImGuiTableFlags_NoClip = 1 << 20, ImGuiTableFlags_PadOuterX = 1 << 21, ImGuiTableFlags_NoPadOuterX = 1 << 22, ImGuiTableFlags_NoPadInnerX = 1 << 23, ImGuiTableFlags_ScrollX = 1 << 24, ImGuiTableFlags_ScrollY = 1 << 25, ImGuiTableFlags_SortMulti = 1 << 26, ImGuiTableFlags_SortTristate = 1 << 27, ImGuiTableFlags_HighlightHoveredColumn = 1 << 28, ImGuiTableFlags_SizingMask_ = ImGuiTableFlags_SizingFixedFit | ImGuiTableFlags_SizingFixedSame | ImGuiTableFlags_SizingStretchProp | ImGuiTableFlags_SizingStretchSame, }ImGuiTableFlags_;
-typedef enum { ImGuiTableColumnFlags_None = 0, ImGuiTableColumnFlags_Disabled = 1 << 0, ImGuiTableColumnFlags_DefaultHide = 1 << 1, ImGuiTableColumnFlags_DefaultSort = 1 << 2, ImGuiTableColumnFlags_WidthStretch = 1 << 3, ImGuiTableColumnFlags_WidthFixed = 1 << 4, ImGuiTableColumnFlags_NoResize = 1 << 5, ImGuiTableColumnFlags_NoReorder = 1 << 6, ImGuiTableColumnFlags_NoHide = 1 << 7, ImGuiTableColumnFlags_NoClip = 1 << 8, ImGuiTableColumnFlags_NoSort = 1 << 9, ImGuiTableColumnFlags_NoSortAscending = 1 << 10, ImGuiTableColumnFlags_NoSortDescending = 1 << 11, ImGuiTableColumnFlags_NoHeaderLabel = 1 << 12, ImGuiTableColumnFlags_NoHeaderWidth = 1 << 13, ImGuiTableColumnFlags_PreferSortAscending = 1 << 14, ImGuiTableColumnFlags_PreferSortDescending = 1 << 15, ImGuiTableColumnFlags_IndentEnable = 1 << 16, ImGuiTableColumnFlags_IndentDisable = 1 << 17, ImGuiTableColumnFlags_AngledHeader = 1 << 18, ImGuiTableColumnFlags_IsEnabled = 1 << 24, ImGuiTableColumnFlags_IsVisible = 1 << 25, ImGuiTableColumnFlags_IsSorted = 1 << 26, ImGuiTableColumnFlags_IsHovered = 1 << 27, ImGuiTableColumnFlags_WidthMask_ = ImGuiTableColumnFlags_WidthStretch | ImGuiTableColumnFlags_WidthFixed, ImGuiTableColumnFlags_IndentMask_ = ImGuiTableColumnFlags_IndentEnable | ImGuiTableColumnFlags_IndentDisable, ImGuiTableColumnFlags_StatusMask_ = ImGuiTableColumnFlags_IsEnabled | ImGuiTableColumnFlags_IsVisible | ImGuiTableColumnFlags_IsSorted | ImGuiTableColumnFlags_IsHovered, ImGuiTableColumnFlags_NoDirectResize_ = 1 << 30, }ImGuiTableColumnFlags_;
-typedef enum { ImGuiTableRowFlags_None = 0, ImGuiTableRowFlags_Headers = 1 << 0, }ImGuiTableRowFlags_;
-typedef enum { ImGuiTableBgTarget_None = 0, ImGuiTableBgTarget_RowBg0 = 1, ImGuiTableBgTarget_RowBg1 = 2, ImGuiTableBgTarget_CellBg = 3, }ImGuiTableBgTarget_;
 struct ImGuiTableSortSpecs {
 	const ImGuiTableColumnSortSpecs* Specs;
 	int SpecsCount;
@@ -290,7 +1345,6 @@ struct ImGuiKeyData {
 	float DownDurationPrev;
 	float AnalogValue;
 };
-typedef struct ImVector_ImWchar {int Size;int Capacity;ImWchar* Data;} ImVector_ImWchar;
 struct ImGuiIO {
 	ImGuiConfigFlags ConfigFlags;
 	ImGuiBackendFlags BackendFlags;
@@ -390,7 +1444,7 @@ struct ImGuiIO {
 	ImS8 BackendUsingLegacyKeyArrays;
 	_Bool BackendUsingLegacyNavInputArray;
 	ImWchar16 InputQueueSurrogate;
-	ImVector_ImWchar InputQueueCharacters;
+	ImVector/*<ImWchar>*/ InputQueueCharacters;
 };
 struct ImGuiInputTextCallbackData {
 	ImGuiContext* Ctx;
@@ -442,25 +1496,24 @@ struct ImGuiTextRange {
 	const char* e;
 };
 typedef struct ImGuiTextRange ImGuiTextRange;
-typedef struct ImVector_ImGuiTextRange {int Size;int Capacity;ImGuiTextRange* Data;} ImVector_ImGuiTextRange;
 struct ImGuiTextFilter {
 	char InputBuf[256];
-	ImVector_ImGuiTextRange Filters;
+	ImVector/*<ImGuiTextRange>*/ Filters;
 	int CountGrep;
 };
 typedef struct ImGuiTextRange ImGuiTextRange;
-typedef struct ImVector_char {int Size;int Capacity;char* Data;} ImVector_char;
 struct ImGuiTextBuffer {
-	ImVector_char Buf;
+	ImVector/*<char>*/ Buf;
 };
 struct ImGuiStoragePair {
 	ImGuiID key;
-	union { int val_i; float val_f; void* val_p; };
+	union {
+		int val_i; float val_f; void* val_p;
+	};
 };
 typedef struct ImGuiStoragePair ImGuiStoragePair;
-typedef struct ImVector_ImGuiStoragePair {int Size;int Capacity;ImGuiStoragePair* Data;} ImVector_ImGuiStoragePair;
 struct ImGuiStorage {
-	ImVector_ImGuiStoragePair Data;
+	ImVector/*<ImGuiStoragePair>*/ Data;
 };
 typedef struct ImGuiStoragePair ImGuiStoragePair;
 struct ImGuiListClipper {
@@ -496,48 +1549,38 @@ struct ImDrawCmdHeader {
 	ImTextureID TextureId;
 	unsigned int VtxOffset;
 };
-typedef struct ImVector_ImDrawCmd {int Size;int Capacity;ImDrawCmd* Data;} ImVector_ImDrawCmd;
-typedef struct ImVector_ImDrawIdx {int Size;int Capacity;ImDrawIdx* Data;} ImVector_ImDrawIdx;
 struct ImDrawChannel {
-	ImVector_ImDrawCmd _CmdBuffer;
-	ImVector_ImDrawIdx _IdxBuffer;
+	ImVector/*<ImDrawCmd>*/ _CmdBuffer;
+	ImVector/*<ImDrawIdx>*/ _IdxBuffer;
 };
-typedef struct ImVector_ImDrawChannel {int Size;int Capacity;ImDrawChannel* Data;} ImVector_ImDrawChannel;
 struct ImDrawListSplitter {
 	int _Current;
 	int _Count;
-	ImVector_ImDrawChannel _Channels;
+	ImVector/*<ImDrawChannel>*/ _Channels;
 };
-typedef enum { ImDrawFlags_None = 0, ImDrawFlags_Closed = 1 << 0, ImDrawFlags_RoundCornersTopLeft = 1 << 4, ImDrawFlags_RoundCornersTopRight = 1 << 5, ImDrawFlags_RoundCornersBottomLeft = 1 << 6, ImDrawFlags_RoundCornersBottomRight = 1 << 7, ImDrawFlags_RoundCornersNone = 1 << 8, ImDrawFlags_RoundCornersTop = ImDrawFlags_RoundCornersTopLeft | ImDrawFlags_RoundCornersTopRight, ImDrawFlags_RoundCornersBottom = ImDrawFlags_RoundCornersBottomLeft | ImDrawFlags_RoundCornersBottomRight, ImDrawFlags_RoundCornersLeft = ImDrawFlags_RoundCornersBottomLeft | ImDrawFlags_RoundCornersTopLeft, ImDrawFlags_RoundCornersRight = ImDrawFlags_RoundCornersBottomRight | ImDrawFlags_RoundCornersTopRight, ImDrawFlags_RoundCornersAll = ImDrawFlags_RoundCornersTopLeft | ImDrawFlags_RoundCornersTopRight | ImDrawFlags_RoundCornersBottomLeft | ImDrawFlags_RoundCornersBottomRight, ImDrawFlags_RoundCornersDefault_ = ImDrawFlags_RoundCornersAll, ImDrawFlags_RoundCornersMask_ = ImDrawFlags_RoundCornersAll | ImDrawFlags_RoundCornersNone, }ImDrawFlags_;
-typedef enum { ImDrawListFlags_None = 0, ImDrawListFlags_AntiAliasedLines = 1 << 0, ImDrawListFlags_AntiAliasedLinesUseTex = 1 << 1, ImDrawListFlags_AntiAliasedFill = 1 << 2, ImDrawListFlags_AllowVtxOffset = 1 << 3, }ImDrawListFlags_;
-typedef struct ImVector_ImDrawVert {int Size;int Capacity;ImDrawVert* Data;} ImVector_ImDrawVert;
-typedef struct ImVector_ImVec4 {int Size;int Capacity;ImVec4* Data;} ImVector_ImVec4;
-typedef struct ImVector_ImTextureID {int Size;int Capacity;ImTextureID* Data;} ImVector_ImTextureID;
-typedef struct ImVector_ImVec2 {int Size;int Capacity;ImVec2* Data;} ImVector_ImVec2;
 struct ImDrawList {
-	ImVector_ImDrawCmd CmdBuffer;
-	ImVector_ImDrawIdx IdxBuffer;
-	ImVector_ImDrawVert VtxBuffer;
+	ImVector/*<ImDrawCmd>*/ CmdBuffer;
+	ImVector/*<ImDrawIdx>*/ IdxBuffer;
+	ImVector/*<ImDrawVert>*/ VtxBuffer;
 	ImDrawListFlags Flags;
 	unsigned int _VtxCurrentIdx;
 	ImDrawListSharedData* _Data;
 	const char* _OwnerName;
 	ImDrawVert* _VtxWritePtr;
 	ImDrawIdx* _IdxWritePtr;
-	ImVector_ImVec4 _ClipRectStack;
-	ImVector_ImTextureID _TextureIdStack;
-	ImVector_ImVec2 _Path;
+	ImVector/*<ImVec4>*/ _ClipRectStack;
+	ImVector/*<ImTextureID>*/ _TextureIdStack;
+	ImVector/*<ImVec2>*/ _Path;
 	ImDrawCmdHeader _CmdHeader;
 	ImDrawListSplitter _Splitter;
 	float _FringeScale;
 };
-typedef struct ImVector_ImDrawListPtr {int Size;int Capacity;ImDrawList** Data;} ImVector_ImDrawListPtr;
 struct ImDrawData {
 	_Bool Valid;
 	int CmdListsCount;
 	int TotalIdxCount;
 	int TotalVtxCount;
-	ImVector_ImDrawListPtr CmdLists;
+	ImVector/*<ImDrawListPtr>*/ CmdLists;
 	ImVec2 DisplayPos;
 	ImVec2 DisplaySize;
 	ImVec2 FramebufferScale;
@@ -573,9 +1616,8 @@ struct ImFontGlyph {
 	float X0, Y0, X1, Y1;
 	float U0, V0, U1, V1;
 };
-typedef struct ImVector_ImU32 {int Size;int Capacity;ImU32* Data;} ImVector_ImU32;
 struct ImFontGlyphRangesBuilder {
-	ImVector_ImU32 UsedChars;
+	ImVector/*<ImU32>*/ UsedChars;
 };
 typedef struct ImFontAtlasCustomRect ImFontAtlasCustomRect;
 struct ImFontAtlasCustomRect {
@@ -586,10 +1628,6 @@ struct ImFontAtlasCustomRect {
 	ImVec2 GlyphOffset;
 	ImFont* Font;
 };
-typedef enum { ImFontAtlasFlags_None = 0, ImFontAtlasFlags_NoPowerOfTwoHeight = 1 << 0, ImFontAtlasFlags_NoMouseCursors = 1 << 1, ImFontAtlasFlags_NoBakedLines = 1 << 2, }ImFontAtlasFlags_;
-typedef struct ImVector_ImFontPtr {int Size;int Capacity;ImFont** Data;} ImVector_ImFontPtr;
-typedef struct ImVector_ImFontAtlasCustomRect {int Size;int Capacity;ImFontAtlasCustomRect* Data;} ImVector_ImFontAtlasCustomRect;
-typedef struct ImVector_ImFontConfig {int Size;int Capacity;ImFontConfig* Data;} ImVector_ImFontConfig;
 struct ImFontAtlas {
 	ImFontAtlasFlags Flags;
 	ImTextureID TexID;
@@ -605,23 +1643,21 @@ struct ImFontAtlas {
 	int TexHeight;
 	ImVec2 TexUvScale;
 	ImVec2 TexUvWhitePixel;
-	ImVector_ImFontPtr Fonts;
-	ImVector_ImFontAtlasCustomRect CustomRects;
-	ImVector_ImFontConfig ConfigData;
+	ImVector/*<ImFontPtr>*/ Fonts;
+	ImVector/*<ImFontAtlasCustomRect>*/ CustomRects;
+	ImVector/*<ImFontConfig>*/ ConfigData;
 	ImVec4 TexUvLines[(63) + 1];
 	const ImFontBuilderIO* FontBuilderIO;
 	unsigned int FontBuilderFlags;
 	int PackIdMouseCursors;
 	int PackIdLines;
 };
-typedef struct ImVector_float {int Size;int Capacity;float* Data;} ImVector_float;
-typedef struct ImVector_ImFontGlyph {int Size;int Capacity;ImFontGlyph* Data;} ImVector_ImFontGlyph;
 struct ImFont {
-	ImVector_float IndexAdvanceX;
+	ImVector/*<float>*/ IndexAdvanceX;
 	float FallbackAdvanceX;
 	float FontSize;
-	ImVector_ImWchar IndexLookup;
-	ImVector_ImFontGlyph Glyphs;
+	ImVector/*<ImWchar>*/ IndexLookup;
+	ImVector/*<ImFontGlyph>*/ Glyphs;
 	const ImFontGlyph* FallbackGlyph;
 	ImFontAtlas* ContainerAtlas;
 	const ImFontConfig* ConfigData;
@@ -637,7 +1673,6 @@ struct ImFont {
 	int MetricsTotalSurface;
 	ImU8 Used4kPagesMap[(0xFFFF +1)/4096/8];
 };
-typedef enum { ImGuiViewportFlags_None = 0, ImGuiViewportFlags_IsPlatformWindow = 1 << 0, ImGuiViewportFlags_IsPlatformMonitor = 1 << 1, ImGuiViewportFlags_OwnedByApp = 1 << 2, ImGuiViewportFlags_NoDecoration = 1 << 3, ImGuiViewportFlags_NoTaskBarIcon = 1 << 4, ImGuiViewportFlags_NoFocusOnAppearing = 1 << 5, ImGuiViewportFlags_NoFocusOnClick = 1 << 6, ImGuiViewportFlags_NoInputs = 1 << 7, ImGuiViewportFlags_NoRendererClear = 1 << 8, ImGuiViewportFlags_NoAutoMerge = 1 << 9, ImGuiViewportFlags_TopMost = 1 << 10, ImGuiViewportFlags_CanHostOtherWindows = 1 << 11, ImGuiViewportFlags_IsMinimized = 1 << 12, ImGuiViewportFlags_IsFocused = 1 << 13, }ImGuiViewportFlags_;
 struct ImGuiViewport {
 	ImGuiID ID;
 	ImGuiViewportFlags Flags;
@@ -657,8 +1692,6 @@ struct ImGuiViewport {
 	_Bool PlatformRequestResize;
 	_Bool PlatformRequestClose;
 };
-typedef struct ImVector_ImGuiPlatformMonitor {int Size;int Capacity;ImGuiPlatformMonitor* Data;} ImVector_ImGuiPlatformMonitor;
-typedef struct ImVector_ImGuiViewportPtr {int Size;int Capacity;ImGuiViewport** Data;} ImVector_ImGuiViewportPtr;
 struct ImGuiPlatformIO {
 	void (*Platform_CreateWindow)(ImGuiViewport* vp);
 	void (*Platform_DestroyWindow)(ImGuiViewport* vp);
@@ -683,8 +1716,8 @@ struct ImGuiPlatformIO {
 	void (*Renderer_SetWindowSize)(ImGuiViewport* vp, ImVec2 size);
 	void (*Renderer_RenderWindow)(ImGuiViewport* vp, void* render_arg);
 	void (*Renderer_SwapBuffers)(ImGuiViewport* vp, void* render_arg);
-	ImVector_ImGuiPlatformMonitor Monitors;
-	ImVector_ImGuiViewportPtr Viewports;
+	ImVector/*<ImGuiPlatformMonitor>*/ Monitors;
+	ImVector/*<ImGuiViewportPtr>*/ Viewports;
 };
 struct ImGuiPlatformMonitor {
 	ImVec2 MainPos, MainSize;
@@ -811,13 +1844,12 @@ struct ImRect {
 };
 typedef ImU32* ImBitArrayPtr;
 struct ImBitVector {
-	ImVector_ImU32 Storage;
+	ImVector/*<ImU32>*/ Storage;
 };
 typedef int ImPoolIdx;
 typedef struct ImGuiTextIndex ImGuiTextIndex;
-typedef struct ImVector_int {int Size;int Capacity;int* Data;} ImVector_int;
 struct ImGuiTextIndex {
-	ImVector_int LineOffsets;
+	ImVector/*<int>*/ LineOffsets;
 	int EndOffset;
 };
 struct ImDrawListSharedData {
@@ -828,40 +1860,26 @@ struct ImDrawListSharedData {
 	float CircleSegmentMaxError;
 	ImVec4 ClipRectFullscreen;
 	ImDrawListFlags InitialFlags;
-	ImVector_ImVec2 TempBuffer;
+	ImVector/*<ImVec2>*/ TempBuffer;
 	ImVec2 ArcFastVtx[48];
 	float ArcFastRadiusCutoff;
 	ImU8 CircleSegmentCounts[64];
 	const ImVec4* TexUvLines;
 };
 struct ImDrawDataBuilder {
-	ImVector_ImDrawListPtr* Layers[2];
-	ImVector_ImDrawListPtr LayerData1;
+	ImVector/*<ImDrawListPtr>*/* Layers[2];
+	ImVector/*<ImDrawListPtr>*/ LayerData1;
 };
-typedef enum { ImGuiItemFlags_None = 0, ImGuiItemFlags_NoTabStop = 1 << 0, ImGuiItemFlags_ButtonRepeat = 1 << 1, ImGuiItemFlags_Disabled = 1 << 2, ImGuiItemFlags_NoNav = 1 << 3, ImGuiItemFlags_NoNavDefaultFocus = 1 << 4, ImGuiItemFlags_SelectableDontClosePopup = 1 << 5, ImGuiItemFlags_MixedValue = 1 << 6, ImGuiItemFlags_ReadOnly = 1 << 7, ImGuiItemFlags_NoWindowHoverableCheck = 1 << 8, ImGuiItemFlags_AllowOverlap = 1 << 9, ImGuiItemFlags_Inputable = 1 << 10, ImGuiItemFlags_HasSelectionUserData = 1 << 11, }ImGuiItemFlags_;
-typedef enum { ImGuiItemStatusFlags_None = 0, ImGuiItemStatusFlags_HoveredRect = 1 << 0, ImGuiItemStatusFlags_HasDisplayRect = 1 << 1, ImGuiItemStatusFlags_Edited = 1 << 2, ImGuiItemStatusFlags_ToggledSelection = 1 << 3, ImGuiItemStatusFlags_ToggledOpen = 1 << 4, ImGuiItemStatusFlags_HasDeactivated = 1 << 5, ImGuiItemStatusFlags_Deactivated = 1 << 6, ImGuiItemStatusFlags_HoveredWindow = 1 << 7, ImGuiItemStatusFlags_Visible = 1 << 8, ImGuiItemStatusFlags_HasClipRect = 1 << 9, }ImGuiItemStatusFlags_;
-typedef enum { ImGuiHoveredFlags_DelayMask_ = ImGuiHoveredFlags_DelayNone | ImGuiHoveredFlags_DelayShort | ImGuiHoveredFlags_DelayNormal | ImGuiHoveredFlags_NoSharedDelay, ImGuiHoveredFlags_AllowedMaskForIsWindowHovered = ImGuiHoveredFlags_ChildWindows | ImGuiHoveredFlags_RootWindow | ImGuiHoveredFlags_AnyWindow | ImGuiHoveredFlags_NoPopupHierarchy | ImGuiHoveredFlags_DockHierarchy | ImGuiHoveredFlags_AllowWhenBlockedByPopup | ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_ForTooltip | ImGuiHoveredFlags_Stationary, ImGuiHoveredFlags_AllowedMaskForIsItemHovered = ImGuiHoveredFlags_AllowWhenBlockedByPopup | ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenOverlapped | ImGuiHoveredFlags_AllowWhenDisabled | ImGuiHoveredFlags_NoNavOverride | ImGuiHoveredFlags_ForTooltip | ImGuiHoveredFlags_Stationary | ImGuiHoveredFlags_DelayMask_, }ImGuiHoveredFlagsPrivate_;
-typedef enum { ImGuiInputTextFlags_Multiline = 1 << 26, ImGuiInputTextFlags_NoMarkEdited = 1 << 27, ImGuiInputTextFlags_MergedItem = 1 << 28, ImGuiInputTextFlags_LocalizeDecimalPoint= 1 << 29, }ImGuiInputTextFlagsPrivate_;
-typedef enum { ImGuiButtonFlags_PressedOnClick = 1 << 4, ImGuiButtonFlags_PressedOnClickRelease = 1 << 5, ImGuiButtonFlags_PressedOnClickReleaseAnywhere = 1 << 6, ImGuiButtonFlags_PressedOnRelease = 1 << 7, ImGuiButtonFlags_PressedOnDoubleClick = 1 << 8, ImGuiButtonFlags_PressedOnDragDropHold = 1 << 9, ImGuiButtonFlags_Repeat = 1 << 10, ImGuiButtonFlags_FlattenChildren = 1 << 11, ImGuiButtonFlags_AllowOverlap = 1 << 12, ImGuiButtonFlags_DontClosePopups = 1 << 13, ImGuiButtonFlags_AlignTextBaseLine = 1 << 15, ImGuiButtonFlags_NoKeyModifiers = 1 << 16, ImGuiButtonFlags_NoHoldingActiveId = 1 << 17, ImGuiButtonFlags_NoNavFocus = 1 << 18, ImGuiButtonFlags_NoHoveredOnFocus = 1 << 19, ImGuiButtonFlags_NoSetKeyOwner = 1 << 20, ImGuiButtonFlags_NoTestKeyOwner = 1 << 21, ImGuiButtonFlags_PressedOnMask_ = ImGuiButtonFlags_PressedOnClick | ImGuiButtonFlags_PressedOnClickRelease | ImGuiButtonFlags_PressedOnClickReleaseAnywhere | ImGuiButtonFlags_PressedOnRelease | ImGuiButtonFlags_PressedOnDoubleClick | ImGuiButtonFlags_PressedOnDragDropHold, ImGuiButtonFlags_PressedOnDefault_ = ImGuiButtonFlags_PressedOnClickRelease, }ImGuiButtonFlagsPrivate_;
-typedef enum { ImGuiComboFlags_CustomPreview = 1 << 20, }ImGuiComboFlagsPrivate_;
-typedef enum { ImGuiSliderFlags_Vertical = 1 << 20, ImGuiSliderFlags_ReadOnly = 1 << 21, }ImGuiSliderFlagsPrivate_;
-typedef enum { ImGuiSelectableFlags_NoHoldingActiveID = 1 << 20, ImGuiSelectableFlags_SelectOnNav = 1 << 21, ImGuiSelectableFlags_SelectOnClick = 1 << 22, ImGuiSelectableFlags_SelectOnRelease = 1 << 23, ImGuiSelectableFlags_SpanAvailWidth = 1 << 24, ImGuiSelectableFlags_SetNavIdOnHover = 1 << 25, ImGuiSelectableFlags_NoPadWithHalfSpacing = 1 << 26, ImGuiSelectableFlags_NoSetKeyOwner = 1 << 27, }ImGuiSelectableFlagsPrivate_;
-typedef enum { ImGuiTreeNodeFlags_ClipLabelForTrailingButton = 1 << 20, ImGuiTreeNodeFlags_UpsideDownArrow = 1 << 21, }ImGuiTreeNodeFlagsPrivate_;
-typedef enum { ImGuiSeparatorFlags_None = 0, ImGuiSeparatorFlags_Horizontal = 1 << 0, ImGuiSeparatorFlags_Vertical = 1 << 1, ImGuiSeparatorFlags_SpanAllColumns = 1 << 2, }ImGuiSeparatorFlags_;
-typedef enum { ImGuiFocusRequestFlags_None = 0, ImGuiFocusRequestFlags_RestoreFocusedChild = 1 << 0, ImGuiFocusRequestFlags_UnlessBelowModal = 1 << 1, }ImGuiFocusRequestFlags_;
-typedef enum { ImGuiTextFlags_None = 0, ImGuiTextFlags_NoWidthForLargeClippedText = 1 << 0, }ImGuiTextFlags_;
-typedef enum { ImGuiTooltipFlags_None = 0, ImGuiTooltipFlags_OverridePrevious = 1 << 1, }ImGuiTooltipFlags_;
-typedef enum { ImGuiLayoutType_Horizontal = 0, ImGuiLayoutType_Vertical = 1 }ImGuiLayoutType_;
-typedef enum { ImGuiLogType_None = 0, ImGuiLogType_TTY, ImGuiLogType_File, ImGuiLogType_Buffer, ImGuiLogType_Clipboard, }ImGuiLogType;
-typedef enum { ImGuiAxis_None = -1, ImGuiAxis_X = 0, ImGuiAxis_Y = 1 }ImGuiAxis;
-typedef enum { ImGuiPlotType_Lines, ImGuiPlotType_Histogram, }ImGuiPlotType;
 struct ImGuiColorMod {
 	ImGuiCol Col;
 	ImVec4 BackupValue;
 };
 struct ImGuiStyleMod {
 	ImGuiStyleVar VarIdx;
-	union { int BackupInt[2]; float BackupFloat[2]; };
+	union { 
+		int BackupInt[2]; 
+		float BackupFloat[2]; 
+	};
 };
 typedef struct ImGuiComboPreviewData ImGuiComboPreviewData;
 struct ImGuiComboPreviewData {
@@ -900,15 +1918,15 @@ struct ImGuiMenuColumns {
 typedef struct ImGuiInputTextDeactivatedState ImGuiInputTextDeactivatedState;
 struct ImGuiInputTextDeactivatedState {
 	ImGuiID ID;
-	ImVector_char TextA;
+	ImVector/*<char>*/ TextA;
 };
 struct ImGuiInputTextState {
 	ImGuiContext* Ctx;
 	ImGuiID ID;
 	int CurLenW, CurLenA;
-	ImVector_ImWchar TextW;
-	ImVector_char TextA;
-	ImVector_char InitialTextA;
+	ImVector/*<ImWchar>*/ TextW;
+	ImVector/*<char>*/ TextA;
+	ImVector/*<char>*/ InitialTextA;
 	_Bool TextAIsValid;
 	int BufCapacityA;
 	float ScrollX;
@@ -922,7 +1940,6 @@ struct ImGuiInputTextState {
 	int ReloadSelectionStart;
 	int ReloadSelectionEnd;
 };
-typedef enum { ImGuiNextWindowDataFlags_None = 0, ImGuiNextWindowDataFlags_HasPos = 1 << 0, ImGuiNextWindowDataFlags_HasSize = 1 << 1, ImGuiNextWindowDataFlags_HasContentSize = 1 << 2, ImGuiNextWindowDataFlags_HasCollapsed = 1 << 3, ImGuiNextWindowDataFlags_HasSizeConstraint = 1 << 4, ImGuiNextWindowDataFlags_HasFocus = 1 << 5, ImGuiNextWindowDataFlags_HasBgAlpha = 1 << 6, ImGuiNextWindowDataFlags_HasScroll = 1 << 7, ImGuiNextWindowDataFlags_HasChildFlags = 1 << 8, ImGuiNextWindowDataFlags_HasViewport = 1 << 9, ImGuiNextWindowDataFlags_HasDock = 1 << 10, ImGuiNextWindowDataFlags_HasWindowClass = 1 << 11, }ImGuiNextWindowDataFlags_;
 struct ImGuiNextWindowData {
 	ImGuiNextWindowDataFlags Flags;
 	ImGuiCond PosCond;
@@ -947,7 +1964,6 @@ struct ImGuiNextWindowData {
 	ImVec2 MenuBarOffsetMinVal;
 };
 typedef ImS64 ImGuiSelectionUserData;
-typedef enum { ImGuiNextItemDataFlags_None = 0, ImGuiNextItemDataFlags_HasWidth = 1 << 0, ImGuiNextItemDataFlags_HasOpen = 1 << 1, ImGuiNextItemDataFlags_HasShortcut = 1 << 2, }ImGuiNextItemDataFlags_;
 struct ImGuiNextItemData {
 	ImGuiNextItemDataFlags Flags;
 	ImGuiItemFlags ItemFlags;
@@ -1014,8 +2030,6 @@ struct ImGuiDataTypeInfo {
 	const char* PrintFmt;
 	const char* ScanFmt;
 };
-typedef enum { ImGuiDataType_String = ImGuiDataType_COUNT + 1, ImGuiDataType_Pointer, ImGuiDataType_ID, }ImGuiDataTypePrivate_;
-typedef enum { ImGuiPopupPositionPolicy_Default, ImGuiPopupPositionPolicy_ComboBox, ImGuiPopupPositionPolicy_Tooltip, }ImGuiPopupPositionPolicy;
 struct ImGuiPopupData {
 	ImGuiID PopupId;
 	ImGuiWindow* Window;
@@ -1026,21 +2040,25 @@ struct ImGuiPopupData {
 	ImVec2 OpenPopupPos;
 	ImVec2 OpenMousePos;
 };
-typedef struct ImBitArray_ImGuiKey_NamedKey_COUNT__lessImGuiKey_NamedKey_BEGIN {ImU32 Storage[(ImGuiKey_NamedKey_COUNT+31)>>5];} ImBitArray_ImGuiKey_NamedKey_COUNT__lessImGuiKey_NamedKey_BEGIN;
+typedef struct ImBitArray_ImGuiKey_NamedKey_COUNT__lessImGuiKey_NamedKey_BEGIN {
+	ImU32 Storage[(ImGuiKey_NamedKey_COUNT+31)>>5];
+} ImBitArray_ImGuiKey_NamedKey_COUNT__lessImGuiKey_NamedKey_BEGIN;
 typedef ImBitArray_ImGuiKey_NamedKey_COUNT__lessImGuiKey_NamedKey_BEGIN ImBitArrayForNamedKeys;
-typedef enum { ImGuiInputEventType_None = 0, ImGuiInputEventType_MousePos, ImGuiInputEventType_MouseWheel, ImGuiInputEventType_MouseButton, ImGuiInputEventType_MouseViewport, ImGuiInputEventType_Key, ImGuiInputEventType_Text, ImGuiInputEventType_Focus, ImGuiInputEventType_COUNT }ImGuiInputEventType;
-typedef enum { ImGuiInputSource_None = 0, ImGuiInputSource_Mouse, ImGuiInputSource_Keyboard, ImGuiInputSource_Gamepad, ImGuiInputSource_COUNT }ImGuiInputSource;
 typedef struct ImGuiInputEventMousePos ImGuiInputEventMousePos;
 struct ImGuiInputEventMousePos {
-	float PosX, PosY; ImGuiMouseSource MouseSource;
+	float PosX, PosY;
+	ImGuiMouseSource MouseSource;
 };
 typedef struct ImGuiInputEventMouseWheel ImGuiInputEventMouseWheel;
 struct ImGuiInputEventMouseWheel {
-	float WheelX, WheelY; ImGuiMouseSource MouseSource;
+	float WheelX, WheelY;
+	ImGuiMouseSource MouseSource;
 };
 typedef struct ImGuiInputEventMouseButton ImGuiInputEventMouseButton;
 struct ImGuiInputEventMouseButton {
-	int Button; _Bool Down; ImGuiMouseSource MouseSource;
+	int Button;
+	_Bool Down;
+	ImGuiMouseSource MouseSource;
 };
 typedef struct ImGuiInputEventMouseViewport ImGuiInputEventMouseViewport;
 struct ImGuiInputEventMouseViewport {
@@ -1048,7 +2066,9 @@ struct ImGuiInputEventMouseViewport {
 };
 typedef struct ImGuiInputEventKey ImGuiInputEventKey;
 struct ImGuiInputEventKey {
-	ImGuiKey Key; _Bool Down; float AnalogValue;
+	ImGuiKey Key;
+	_Bool Down;
+	float AnalogValue;
 };
 typedef struct ImGuiInputEventText ImGuiInputEventText;
 struct ImGuiInputEventText {
@@ -1064,15 +2084,15 @@ struct ImGuiInputEvent {
 	ImGuiInputSource Source;
 	ImU32 EventId;
 	union {
-	ImGuiInputEventMousePos MousePos;
-	ImGuiInputEventMouseWheel MouseWheel;
-	ImGuiInputEventMouseButton MouseButton;
-	ImGuiInputEventMouseViewport MouseViewport;
-	ImGuiInputEventKey Key;
-	ImGuiInputEventText Text;
-	ImGuiInputEventAppFocused AppFocused;
-};
-_Bool AddedByTestEngine;
+		ImGuiInputEventMousePos MousePos;
+		ImGuiInputEventMouseWheel MouseWheel;
+		ImGuiInputEventMouseButton MouseButton;
+		ImGuiInputEventMouseViewport MouseViewport;
+		ImGuiInputEventKey Key;
+		ImGuiInputEventText Text;
+		ImGuiInputEventAppFocused AppFocused;
+	};
+	_Bool AddedByTestEngine;
 };
 typedef ImS16 ImGuiKeyRoutingIndex;
 typedef struct ImGuiKeyRoutingData ImGuiKeyRoutingData;
@@ -1085,11 +2105,10 @@ struct ImGuiKeyRoutingData {
 	ImGuiID RoutingNext;
 };
 typedef struct ImGuiKeyRoutingTable ImGuiKeyRoutingTable;
-typedef struct ImVector_ImGuiKeyRoutingData {int Size;int Capacity;ImGuiKeyRoutingData* Data;} ImVector_ImGuiKeyRoutingData;
 struct ImGuiKeyRoutingTable {
 	ImGuiKeyRoutingIndex Index[ImGuiKey_NamedKey_COUNT];
-	ImVector_ImGuiKeyRoutingData Entries;
-	ImVector_ImGuiKeyRoutingData EntriesNext;
+	ImVector/*<ImGuiKeyRoutingData>*/ Entries;
+	ImVector/*<ImGuiKeyRoutingData>*/ EntriesNext;
 };
 typedef struct ImGuiKeyOwnerData ImGuiKeyOwnerData;
 struct ImGuiKeyOwnerData {
@@ -1098,7 +2117,6 @@ struct ImGuiKeyOwnerData {
 	_Bool LockThisFrame;
 	_Bool LockUntilRelease;
 };
-typedef enum { ImGuiInputFlags_None = 0, ImGuiInputFlags_Repeat = 1 << 0, ImGuiInputFlags_RepeatRateDefault = 1 << 1, ImGuiInputFlags_RepeatRateNavMove = 1 << 2, ImGuiInputFlags_RepeatRateNavTweak = 1 << 3, ImGuiInputFlags_RepeatUntilRelease = 1 << 4, ImGuiInputFlags_RepeatUntilKeyModsChange = 1 << 5, ImGuiInputFlags_RepeatUntilKeyModsChangeFromNone = 1 << 6, ImGuiInputFlags_RepeatUntilOtherKeyPress = 1 << 7, ImGuiInputFlags_CondHovered = 1 << 8, ImGuiInputFlags_CondActive = 1 << 9, ImGuiInputFlags_CondDefault_ = ImGuiInputFlags_CondHovered | ImGuiInputFlags_CondActive, ImGuiInputFlags_LockThisFrame = 1 << 10, ImGuiInputFlags_LockUntilRelease = 1 << 11, ImGuiInputFlags_RouteFocused = 1 << 12, ImGuiInputFlags_RouteGlobalLow = 1 << 13, ImGuiInputFlags_RouteGlobal = 1 << 14, ImGuiInputFlags_RouteGlobalHigh = 1 << 15, ImGuiInputFlags_RouteAlways = 1 << 16, ImGuiInputFlags_RouteUnlessBgFocused= 1 << 17, ImGuiInputFlags_RepeatRateMask_ = ImGuiInputFlags_RepeatRateDefault | ImGuiInputFlags_RepeatRateNavMove | ImGuiInputFlags_RepeatRateNavTweak, ImGuiInputFlags_RepeatUntilMask_ = ImGuiInputFlags_RepeatUntilRelease | ImGuiInputFlags_RepeatUntilKeyModsChange | ImGuiInputFlags_RepeatUntilKeyModsChangeFromNone | ImGuiInputFlags_RepeatUntilOtherKeyPress, ImGuiInputFlags_RepeatMask_ = ImGuiInputFlags_Repeat | ImGuiInputFlags_RepeatRateMask_ | ImGuiInputFlags_RepeatUntilMask_, ImGuiInputFlags_CondMask_ = ImGuiInputFlags_CondHovered | ImGuiInputFlags_CondActive, ImGuiInputFlags_RouteMask_ = ImGuiInputFlags_RouteFocused | ImGuiInputFlags_RouteGlobal | ImGuiInputFlags_RouteGlobalLow | ImGuiInputFlags_RouteGlobalHigh, ImGuiInputFlags_SupportedByIsKeyPressed = ImGuiInputFlags_RepeatMask_, ImGuiInputFlags_SupportedByIsMouseClicked = ImGuiInputFlags_Repeat, ImGuiInputFlags_SupportedByShortcut = ImGuiInputFlags_RepeatMask_ | ImGuiInputFlags_RouteMask_ | ImGuiInputFlags_RouteAlways | ImGuiInputFlags_RouteUnlessBgFocused, ImGuiInputFlags_SupportedBySetKeyOwner = ImGuiInputFlags_LockThisFrame | ImGuiInputFlags_LockUntilRelease, ImGuiInputFlags_SupportedBySetItemKeyOwner = ImGuiInputFlags_SupportedBySetKeyOwner | ImGuiInputFlags_CondMask_, }ImGuiInputFlags_;
 typedef struct ImGuiListClipperRange ImGuiListClipperRange;
 struct ImGuiListClipperRange {
 	int Min;
@@ -1108,19 +2126,13 @@ struct ImGuiListClipperRange {
 	ImS8 PosToIndexOffsetMax;
 };
 typedef struct ImGuiListClipperData ImGuiListClipperData;
-typedef struct ImVector_ImGuiListClipperRange {int Size;int Capacity;ImGuiListClipperRange* Data;} ImVector_ImGuiListClipperRange;
 struct ImGuiListClipperData {
 	ImGuiListClipper* ListClipper;
 	float LossynessOffset;
 	int StepNo;
 	int ItemsFrozen;
-	ImVector_ImGuiListClipperRange Ranges;
+	ImVector/*<ImGuiListClipperRange>*/ Ranges;
 };
-typedef enum { ImGuiActivateFlags_None = 0, ImGuiActivateFlags_PreferInput = 1 << 0, ImGuiActivateFlags_PreferTweak = 1 << 1, ImGuiActivateFlags_TryToPreserveState = 1 << 2, ImGuiActivateFlags_FromTabbing = 1 << 3, ImGuiActivateFlags_FromShortcut = 1 << 4, }ImGuiActivateFlags_;
-typedef enum { ImGuiScrollFlags_None = 0, ImGuiScrollFlags_KeepVisibleEdgeX = 1 << 0, ImGuiScrollFlags_KeepVisibleEdgeY = 1 << 1, ImGuiScrollFlags_KeepVisibleCenterX = 1 << 2, ImGuiScrollFlags_KeepVisibleCenterY = 1 << 3, ImGuiScrollFlags_AlwaysCenterX = 1 << 4, ImGuiScrollFlags_AlwaysCenterY = 1 << 5, ImGuiScrollFlags_NoScrollParent = 1 << 6, ImGuiScrollFlags_MaskX_ = ImGuiScrollFlags_KeepVisibleEdgeX | ImGuiScrollFlags_KeepVisibleCenterX | ImGuiScrollFlags_AlwaysCenterX, ImGuiScrollFlags_MaskY_ = ImGuiScrollFlags_KeepVisibleEdgeY | ImGuiScrollFlags_KeepVisibleCenterY | ImGuiScrollFlags_AlwaysCenterY, }ImGuiScrollFlags_;
-typedef enum { ImGuiNavHighlightFlags_None = 0, ImGuiNavHighlightFlags_Compact = 1 << 1, ImGuiNavHighlightFlags_AlwaysDraw = 1 << 2, ImGuiNavHighlightFlags_NoRounding = 1 << 3, }ImGuiNavHighlightFlags_;
-typedef enum { ImGuiNavMoveFlags_None = 0, ImGuiNavMoveFlags_LoopX = 1 << 0, ImGuiNavMoveFlags_LoopY = 1 << 1, ImGuiNavMoveFlags_WrapX = 1 << 2, ImGuiNavMoveFlags_WrapY = 1 << 3, ImGuiNavMoveFlags_WrapMask_ = ImGuiNavMoveFlags_LoopX | ImGuiNavMoveFlags_LoopY | ImGuiNavMoveFlags_WrapX | ImGuiNavMoveFlags_WrapY, ImGuiNavMoveFlags_AllowCurrentNavId = 1 << 4, ImGuiNavMoveFlags_AlsoScoreVisibleSet = 1 << 5, ImGuiNavMoveFlags_ScrollToEdgeY = 1 << 6, ImGuiNavMoveFlags_Forwarded = 1 << 7, ImGuiNavMoveFlags_DebugNoResult = 1 << 8, ImGuiNavMoveFlags_FocusApi = 1 << 9, ImGuiNavMoveFlags_IsTabbing = 1 << 10, ImGuiNavMoveFlags_IsPageMove = 1 << 11, ImGuiNavMoveFlags_Activate = 1 << 12, ImGuiNavMoveFlags_NoSelect = 1 << 13, ImGuiNavMoveFlags_NoSetNavHighlight = 1 << 14, ImGuiNavMoveFlags_NoClearActiveId = 1 << 15, }ImGuiNavMoveFlags_;
-typedef enum { ImGuiNavLayer_Main = 0, ImGuiNavLayer_Menu = 1, ImGuiNavLayer_COUNT }ImGuiNavLayer;
 struct ImGuiNavItemData {
 	ImGuiWindow* Window;
 	ImGuiID ID;
@@ -1137,7 +2149,6 @@ struct ImGuiFocusScopeData {
 	ImGuiID ID;
 	ImGuiID WindowID;
 };
-typedef enum { ImGuiTypingSelectFlags_None = 0, ImGuiTypingSelectFlags_AllowBackspace = 1 << 0, ImGuiTypingSelectFlags_AllowSingleCharMode = 1 << 1, }ImGuiTypingSelectFlags_;
 struct ImGuiTypingSelectRequest {
 	ImGuiTypingSelectFlags Flags;
 	int SearchBufferLen;
@@ -1154,14 +2165,12 @@ struct ImGuiTypingSelectState {
 	float LastRequestTime;
 	_Bool SingleCharModeLock;
 };
-typedef enum { ImGuiOldColumnFlags_None = 0, ImGuiOldColumnFlags_NoBorder = 1 << 0, ImGuiOldColumnFlags_NoResize = 1 << 1, ImGuiOldColumnFlags_NoPreserveWidths = 1 << 2, ImGuiOldColumnFlags_NoForceWithinWindow = 1 << 3, ImGuiOldColumnFlags_GrowParentContentsSize = 1 << 4, }ImGuiOldColumnFlags_;
 struct ImGuiOldColumnData {
 	float OffsetNorm;
 	float OffsetNormBeforeResize;
 	ImGuiOldColumnFlags Flags;
 	ImRect ClipRect;
 };
-typedef struct ImVector_ImGuiOldColumnData {int Size;int Capacity;ImGuiOldColumnData* Data;} ImVector_ImGuiOldColumnData;
 struct ImGuiOldColumns {
 	ImGuiID ID;
 	ImGuiOldColumnFlags Flags;
@@ -1176,13 +2185,9 @@ struct ImGuiOldColumns {
 	ImRect HostInitialClipRect;
 	ImRect HostBackupClipRect;
 	ImRect HostBackupParentWorkRect;
-	ImVector_ImGuiOldColumnData Columns;
+	ImVector/*<ImGuiOldColumnData>*/ Columns;
 	ImDrawListSplitter Splitter;
 };
-typedef enum { ImGuiDockNodeFlags_DockSpace = 1 << 10, ImGuiDockNodeFlags_CentralNode = 1 << 11, ImGuiDockNodeFlags_NoTabBar = 1 << 12, ImGuiDockNodeFlags_HiddenTabBar = 1 << 13, ImGuiDockNodeFlags_NoWindowMenuButton = 1 << 14, ImGuiDockNodeFlags_NoCloseButton = 1 << 15, ImGuiDockNodeFlags_NoResizeX = 1 << 16, ImGuiDockNodeFlags_NoResizeY = 1 << 17, ImGuiDockNodeFlags_DockedWindowsInFocusRoute= 1 << 18, ImGuiDockNodeFlags_NoDockingSplitOther = 1 << 19, ImGuiDockNodeFlags_NoDockingOverMe = 1 << 20, ImGuiDockNodeFlags_NoDockingOverOther = 1 << 21, ImGuiDockNodeFlags_NoDockingOverEmpty = 1 << 22, ImGuiDockNodeFlags_NoDocking = ImGuiDockNodeFlags_NoDockingOverMe | ImGuiDockNodeFlags_NoDockingOverOther | ImGuiDockNodeFlags_NoDockingOverEmpty | ImGuiDockNodeFlags_NoDockingSplit | ImGuiDockNodeFlags_NoDockingSplitOther, ImGuiDockNodeFlags_SharedFlagsInheritMask_ = ~0, ImGuiDockNodeFlags_NoResizeFlagsMask_ = ImGuiDockNodeFlags_NoResize | ImGuiDockNodeFlags_NoResizeX | ImGuiDockNodeFlags_NoResizeY, ImGuiDockNodeFlags_LocalFlagsTransferMask_ = ImGuiDockNodeFlags_NoDockingSplit | ImGuiDockNodeFlags_NoResizeFlagsMask_ | ImGuiDockNodeFlags_AutoHideTabBar | ImGuiDockNodeFlags_CentralNode | ImGuiDockNodeFlags_NoTabBar | ImGuiDockNodeFlags_HiddenTabBar | ImGuiDockNodeFlags_NoWindowMenuButton | ImGuiDockNodeFlags_NoCloseButton, ImGuiDockNodeFlags_SavedFlagsMask_ = ImGuiDockNodeFlags_NoResizeFlagsMask_ | ImGuiDockNodeFlags_DockSpace | ImGuiDockNodeFlags_CentralNode | ImGuiDockNodeFlags_NoTabBar | ImGuiDockNodeFlags_HiddenTabBar | ImGuiDockNodeFlags_NoWindowMenuButton | ImGuiDockNodeFlags_NoCloseButton, }ImGuiDockNodeFlagsPrivate_;
-typedef enum { ImGuiDataAuthority_Auto, ImGuiDataAuthority_DockNode, ImGuiDataAuthority_Window, }ImGuiDataAuthority_;
-typedef enum { ImGuiDockNodeState_Unknown, ImGuiDockNodeState_HostWindowHiddenBecauseSingleWindow, ImGuiDockNodeState_HostWindowHiddenBecauseWindowsAreResizing, ImGuiDockNodeState_HostWindowVisible, }ImGuiDockNodeState;
-typedef struct ImVector_ImGuiWindowPtr {int Size;int Capacity;ImGuiWindow** Data;} ImVector_ImGuiWindowPtr;
 struct ImGuiDockNode {
 	ImGuiID ID;
 	ImGuiDockNodeFlags SharedFlags;
@@ -1192,7 +2197,7 @@ struct ImGuiDockNode {
 	ImGuiDockNodeState State;
 	ImGuiDockNode* ParentNode;
 	ImGuiDockNode* ChildNodes[2];
-	ImVector_ImGuiWindowPtr Windows;
+	ImVector/*<ImGuiWindowPtr>*/ Windows;
 	ImGuiTabBar* TabBar;
 	ImVec2 Pos;
 	ImVec2 Size;
@@ -1227,17 +2232,14 @@ struct ImGuiDockNode {
 	_Bool WantHiddenTabBarUpdate :1;
 	_Bool WantHiddenTabBarToggle :1;
 };
-typedef enum { ImGuiWindowDockStyleCol_Text, ImGuiWindowDockStyleCol_Tab, ImGuiWindowDockStyleCol_TabHovered, ImGuiWindowDockStyleCol_TabActive, ImGuiWindowDockStyleCol_TabUnfocused, ImGuiWindowDockStyleCol_TabUnfocusedActive, ImGuiWindowDockStyleCol_COUNT }ImGuiWindowDockStyleCol;
 typedef struct ImGuiWindowDockStyle ImGuiWindowDockStyle;
 struct ImGuiWindowDockStyle {
 	ImU32 Colors[ImGuiWindowDockStyleCol_COUNT];
 };
-typedef struct ImVector_ImGuiDockRequest {int Size;int Capacity;ImGuiDockRequest* Data;} ImVector_ImGuiDockRequest;
-typedef struct ImVector_ImGuiDockNodeSettings {int Size;int Capacity;ImGuiDockNodeSettings* Data;} ImVector_ImGuiDockNodeSettings;
 struct ImGuiDockContext {
 	ImGuiStorage Nodes;
-	ImVector_ImGuiDockRequest Requests;
-	ImVector_ImGuiDockNodeSettings NodesSettings;
+	ImVector/*<ImGuiDockRequest>*/ Requests;
+	ImVector/*<ImGuiDockNodeSettings>*/ NodesSettings;
 	_Bool WantFullRebuild;
 };
 typedef struct ImGuiViewportP ImGuiViewportP;
@@ -1290,12 +2292,10 @@ struct ImGuiSettingsHandler {
 	void (*WriteAllFn)(ImGuiContext* ctx, ImGuiSettingsHandler* handler, ImGuiTextBuffer* out_buf);
 	void* UserData;
 };
-typedef enum { ImGuiLocKey_VersionStr=0, ImGuiLocKey_TableSizeOne=1, ImGuiLocKey_TableSizeAllFit=2, ImGuiLocKey_TableSizeAllDefault=3, ImGuiLocKey_TableResetOrder=4, ImGuiLocKey_WindowingMainMenuBar=5, ImGuiLocKey_WindowingPopup=6, ImGuiLocKey_WindowingUntitled=7, ImGuiLocKey_DockingHideTabBar=8, ImGuiLocKey_DockingHoldShiftToDock=9, ImGuiLocKey_DockingDragToUndockOrMoveNode=10, ImGuiLocKey_COUNT=11, }ImGuiLocKey;
 struct ImGuiLocEntry {
 	ImGuiLocKey Key;
 	const char* Text;
 };
-typedef enum { ImGuiDebugLogFlags_None = 0, ImGuiDebugLogFlags_EventActiveId = 1 << 0, ImGuiDebugLogFlags_EventFocus = 1 << 1, ImGuiDebugLogFlags_EventPopup = 1 << 2, ImGuiDebugLogFlags_EventNav = 1 << 3, ImGuiDebugLogFlags_EventClipper = 1 << 4, ImGuiDebugLogFlags_EventSelection = 1 << 5, ImGuiDebugLogFlags_EventIO = 1 << 6, ImGuiDebugLogFlags_EventInputRouting = 1 << 7, ImGuiDebugLogFlags_EventDocking = 1 << 8, ImGuiDebugLogFlags_EventViewport = 1 << 9, ImGuiDebugLogFlags_EventMask_ = ImGuiDebugLogFlags_EventActiveId | ImGuiDebugLogFlags_EventFocus | ImGuiDebugLogFlags_EventPopup | ImGuiDebugLogFlags_EventNav | ImGuiDebugLogFlags_EventClipper | ImGuiDebugLogFlags_EventSelection | ImGuiDebugLogFlags_EventIO | ImGuiDebugLogFlags_EventInputRouting | ImGuiDebugLogFlags_EventDocking | ImGuiDebugLogFlags_EventViewport, ImGuiDebugLogFlags_OutputToTTY = 1 << 20, ImGuiDebugLogFlags_OutputToTestEngine = 1 << 21, }ImGuiDebugLogFlags_;
 typedef struct ImGuiDebugAllocEntry ImGuiDebugAllocEntry;
 struct ImGuiDebugAllocEntry {
 	int FrameCount;
@@ -1334,17 +2334,15 @@ struct ImGuiStackLevelInfo {
 	char Desc[57];
 };
 typedef struct ImGuiIDStackTool ImGuiIDStackTool;
-typedef struct ImVector_ImGuiStackLevelInfo {int Size;int Capacity;ImGuiStackLevelInfo* Data;} ImVector_ImGuiStackLevelInfo;
 struct ImGuiIDStackTool {
 	int LastActiveFrame;
 	int StackLevel;
 	ImGuiID QueryId;
-	ImVector_ImGuiStackLevelInfo Results;
+	ImVector/*<ImGuiStackLevelInfo>*/ Results;
 	_Bool CopyToClipboardOnCtrlC;
 	float CopyToClipboardLastTime;
 };
 typedef void (*ImGuiContextHookCallback)(ImGuiContext* ctx, ImGuiContextHook* hook);
-typedef enum { ImGuiContextHookType_NewFramePre, ImGuiContextHookType_NewFramePost, ImGuiContextHookType_EndFramePre, ImGuiContextHookType_EndFramePost, ImGuiContextHookType_RenderPre, ImGuiContextHookType_RenderPost, ImGuiContextHookType_Shutdown, ImGuiContextHookType_PendingRemoval_ }ImGuiContextHookType;
 struct ImGuiContextHook {
 	ImGuiID HookId;
 	ImGuiContextHookType Type;
@@ -1352,30 +2350,24 @@ struct ImGuiContextHook {
 	ImGuiContextHookCallback Callback;
 	void* UserData;
 };
-typedef struct ImVector_ImGuiInputEvent {int Size;int Capacity;ImGuiInputEvent* Data;} ImVector_ImGuiInputEvent;
-typedef struct ImVector_ImGuiWindowStackData {int Size;int Capacity;ImGuiWindowStackData* Data;} ImVector_ImGuiWindowStackData;
-typedef struct ImVector_ImGuiColorMod {int Size;int Capacity;ImGuiColorMod* Data;} ImVector_ImGuiColorMod;
-typedef struct ImVector_ImGuiStyleMod {int Size;int Capacity;ImGuiStyleMod* Data;} ImVector_ImGuiStyleMod;
-typedef struct ImVector_ImGuiFocusScopeData {int Size;int Capacity;ImGuiFocusScopeData* Data;} ImVector_ImGuiFocusScopeData;
-typedef struct ImVector_ImGuiItemFlags {int Size;int Capacity;ImGuiItemFlags* Data;} ImVector_ImGuiItemFlags;
-typedef struct ImVector_ImGuiGroupData {int Size;int Capacity;ImGuiGroupData* Data;} ImVector_ImGuiGroupData;
-typedef struct ImVector_ImGuiPopupData {int Size;int Capacity;ImGuiPopupData* Data;} ImVector_ImGuiPopupData;
-typedef struct ImVector_ImGuiNavTreeNodeData {int Size;int Capacity;ImGuiNavTreeNodeData* Data;} ImVector_ImGuiNavTreeNodeData;
-typedef struct ImVector_ImGuiViewportPPtr {int Size;int Capacity;ImGuiViewportP** Data;} ImVector_ImGuiViewportPPtr;
-typedef struct ImVector_unsigned_char {int Size;int Capacity;unsigned char* Data;} ImVector_unsigned_char;
-typedef struct ImVector_ImGuiListClipperData {int Size;int Capacity;ImGuiListClipperData* Data;} ImVector_ImGuiListClipperData;
-typedef struct ImVector_ImGuiTableTempData {int Size;int Capacity;ImGuiTableTempData* Data;} ImVector_ImGuiTableTempData;
-typedef struct ImVector_ImGuiTable {int Size;int Capacity;ImGuiTable* Data;} ImVector_ImGuiTable;
-typedef struct ImPool_ImGuiTable {ImVector_ImGuiTable Buf;ImGuiStorage Map;ImPoolIdx FreeIdx;ImPoolIdx AliveCount;} ImPool_ImGuiTable;
-typedef struct ImVector_ImGuiTabBar {int Size;int Capacity;ImGuiTabBar* Data;} ImVector_ImGuiTabBar;
-typedef struct ImPool_ImGuiTabBar {ImVector_ImGuiTabBar Buf;ImGuiStorage Map;ImPoolIdx FreeIdx;ImPoolIdx AliveCount;} ImPool_ImGuiTabBar;
-typedef struct ImVector_ImGuiPtrOrIndex {int Size;int Capacity;ImGuiPtrOrIndex* Data;} ImVector_ImGuiPtrOrIndex;
-typedef struct ImVector_ImGuiShrinkWidthItem {int Size;int Capacity;ImGuiShrinkWidthItem* Data;} ImVector_ImGuiShrinkWidthItem;
-typedef struct ImVector_ImGuiID {int Size;int Capacity;ImGuiID* Data;} ImVector_ImGuiID;
-typedef struct ImVector_ImGuiSettingsHandler {int Size;int Capacity;ImGuiSettingsHandler* Data;} ImVector_ImGuiSettingsHandler;
-typedef struct ImChunkStream_ImGuiWindowSettings {ImVector_char Buf;} ImChunkStream_ImGuiWindowSettings;
-typedef struct ImChunkStream_ImGuiTableSettings {ImVector_char Buf;} ImChunkStream_ImGuiTableSettings;
-typedef struct ImVector_ImGuiContextHook {int Size;int Capacity;ImGuiContextHook* Data;} ImVector_ImGuiContextHook;
+typedef struct ImPool_ImGuiTable {
+	ImVector/*<ImGuiTable>*/ Buf;
+	ImGuiStorage Map;
+	ImPoolIdx FreeIdx;
+	ImPoolIdx AliveCount;
+} ImPool_ImGuiTable;
+typedef struct ImPool_ImGuiTabBar {
+	ImVector/*<ImGuiTabBar>*/ Buf;
+	ImGuiStorage Map;
+	ImPoolIdx FreeIdx;
+	ImPoolIdx AliveCount;
+} ImPool_ImGuiTabBar;
+typedef struct ImChunkStream_ImGuiWindowSettings {
+	ImVector/*<char>*/ Buf;
+} ImChunkStream_ImGuiWindowSettings;
+typedef struct ImChunkStream_ImGuiTableSettings {
+	ImVector/*<char>*/ Buf;
+} ImChunkStream_ImGuiTableSettings;
 struct ImGuiContext {
 	_Bool Initialized;
 	_Bool FontAtlasOwnedByContext;
@@ -1399,14 +2391,14 @@ struct ImGuiContext {
 	_Bool GcCompactAll;
 	_Bool TestEngineHookItems;
 	void* TestEngine;
-	ImVector_ImGuiInputEvent InputEventsQueue;
-	ImVector_ImGuiInputEvent InputEventsTrail;
+	ImVector/*<ImGuiInputEvent>*/ InputEventsQueue;
+	ImVector/*<ImGuiInputEvent>*/ InputEventsTrail;
 	ImGuiMouseSource InputEventsNextMouseSource;
 	ImU32 InputEventsNextEventId;
-	ImVector_ImGuiWindowPtr Windows;
-	ImVector_ImGuiWindowPtr WindowsFocusOrder;
-	ImVector_ImGuiWindowPtr WindowsTempSortBuffer;
-	ImVector_ImGuiWindowStackData CurrentWindowStack;
+	ImVector/*<ImGuiWindowPtr>*/ Windows;
+	ImVector/*<ImGuiWindowPtr>*/ WindowsFocusOrder;
+	ImVector/*<ImGuiWindowPtr>*/ WindowsTempSortBuffer;
+	ImVector/*<ImGuiWindowStackData>*/ CurrentWindowStack;
 	ImGuiStorage WindowsById;
 	int WindowsActiveCount;
 	ImVec2 WindowsHoverPadding;
@@ -1466,16 +2458,16 @@ struct ImGuiContext {
 	ImGuiNextWindowData NextWindowData;
 	_Bool DebugShowGroupRects;
 	ImGuiCol DebugFlashStyleColorIdx;
-	ImVector_ImGuiColorMod ColorStack;
-	ImVector_ImGuiStyleMod StyleVarStack;
-	ImVector_ImFontPtr FontStack;
-	ImVector_ImGuiFocusScopeData FocusScopeStack;
-	ImVector_ImGuiItemFlags ItemFlagsStack;
-	ImVector_ImGuiGroupData GroupStack;
-	ImVector_ImGuiPopupData OpenPopupStack;
-	ImVector_ImGuiPopupData BeginPopupStack;
-	ImVector_ImGuiNavTreeNodeData NavTreeNodeStack;
-	ImVector_ImGuiViewportPPtr Viewports;
+	ImVector/*<ImGuiColorMod>*/ ColorStack;
+	ImVector/*<ImGuiStyleMod>*/ StyleVarStack;
+	ImVector/*<ImFontPtr>*/ FontStack;
+	ImVector/*<ImGuiFocusScopeData>*/ FocusScopeStack;
+	ImVector/*<ImGuiItemFlags>*/ ItemFlagsStack;
+	ImVector/*<ImGuiGroupData>*/ GroupStack;
+	ImVector/*<ImGuiPopupData>*/ OpenPopupStack;
+	ImVector/*<ImGuiPopupData>*/ BeginPopupStack;
+	ImVector/*<ImGuiNavTreeNodeData>*/ NavTreeNodeStack;
+	ImVector/*<ImGuiViewportPPtr>*/ Viewports;
 	float CurrentDpiScale;
 	ImGuiViewportP* CurrentViewport;
 	ImGuiViewportP* MouseViewport;
@@ -1489,7 +2481,7 @@ struct ImGuiContext {
 	ImGuiWindow* NavWindow;
 	ImGuiID NavId;
 	ImGuiID NavFocusScopeId;
-	ImVector_ImGuiFocusScopeData NavFocusRoute;
+	ImVector/*<ImGuiFocusScopeData>*/ NavFocusRoute;
 	ImGuiID NavActivateId;
 	ImGuiID NavActivateDownId;
 	ImGuiID NavActivatePressedId;
@@ -1558,21 +2550,21 @@ struct ImGuiContext {
 	ImGuiID DragDropAcceptIdPrev;
 	int DragDropAcceptFrameCount;
 	ImGuiID DragDropHoldJustPressedId;
-	ImVector_unsigned_char DragDropPayloadBufHeap;
+	ImVector/*<unsigned_char>*/ DragDropPayloadBufHeap;
 	unsigned char DragDropPayloadBufLocal[16];
 	int ClipperTempDataStacked;
-	ImVector_ImGuiListClipperData ClipperTempData;
+	ImVector/*<ImGuiListClipperData>*/ ClipperTempData;
 	ImGuiTable* CurrentTable;
 	ImGuiID DebugBreakInTable;
 	int TablesTempDataStacked;
-	ImVector_ImGuiTableTempData TablesTempData;
+	ImVector/*<ImGuiTableTempData>*/ TablesTempData;
 	ImPool_ImGuiTable Tables;
-	ImVector_float TablesLastTimeActive;
-	ImVector_ImDrawChannel DrawChannelsTempMergeBuffer;
+	ImVector/*<float>*/ TablesLastTimeActive;
+	ImVector/*<ImDrawChannel>*/ DrawChannelsTempMergeBuffer;
 	ImGuiTabBar* CurrentTabBar;
 	ImPool_ImGuiTabBar TabBars;
-	ImVector_ImGuiPtrOrIndex CurrentTabBarStack;
-	ImVector_ImGuiShrinkWidthItem ShrinkWidthBuffer;
+	ImVector/*<ImGuiPtrOrIndex>*/ CurrentTabBarStack;
+	ImVector/*<ImGuiShrinkWidthItem>*/ ShrinkWidthBuffer;
 	ImGuiID HoverItemDelayId;
 	ImGuiID HoverItemDelayIdPreviousFrame;
 	float HoverItemDelayTimer;
@@ -1609,8 +2601,8 @@ struct ImGuiContext {
 	short DisabledStackSize;
 	short LockMarkEdited;
 	short TooltipOverrideCount;
-	ImVector_char ClipboardHandlerData;
-	ImVector_ImGuiID MenusIdSubmittedThisFrame;
+	ImVector/*<char>*/ ClipboardHandlerData;
+	ImVector/*<ImGuiID>*/ MenusIdSubmittedThisFrame;
 	ImGuiTypingSelectState TypingSelectState;
 	ImGuiPlatformImeData PlatformImeData;
 	ImGuiPlatformImeData PlatformImeDataPrev;
@@ -1620,10 +2612,10 @@ struct ImGuiContext {
 	_Bool SettingsLoaded;
 	float SettingsDirtyTimer;
 	ImGuiTextBuffer SettingsIniData;
-	ImVector_ImGuiSettingsHandler SettingsHandlers;
+	ImVector/*<ImGuiSettingsHandler>*/ SettingsHandlers;
 	ImChunkStream_ImGuiWindowSettings SettingsWindows;
 	ImChunkStream_ImGuiTableSettings SettingsTables;
-	ImVector_ImGuiContextHook Hooks;
+	ImVector/*<ImGuiContextHook>*/ Hooks;
 	ImGuiID HookIdNext;
 	const char* LocalizationTable[ImGuiLocKey_COUNT];
 	_Bool LogEnabled;
@@ -1662,7 +2654,7 @@ struct ImGuiContext {
 	int WantCaptureMouseNextFrame;
 	int WantCaptureKeyboardNextFrame;
 	int WantTextInputNextFrame;
-	ImVector_char TempBuffer;
+	ImVector/*<char>*/ TempBuffer;
 	char TempKeychordName[64];
 };
 struct ImGuiWindowTempData {
@@ -1692,7 +2684,7 @@ struct ImGuiWindowTempData {
 	ImGuiMenuColumns MenuColumns;
 	int TreeDepth;
 	ImU32 TreeJumpToParentOnPopMask;
-	ImVector_ImGuiWindowPtr ChildWindows;
+	ImVector/*<ImGuiWindowPtr>*/ ChildWindows;
 	ImGuiStorage* StateStorage;
 	ImGuiOldColumns* CurrentColumns;
 	int CurrentTableIdx;
@@ -1701,10 +2693,9 @@ struct ImGuiWindowTempData {
 	ImU32 ModalDimBgColor;
 	float ItemWidth;
 	float TextWrapPos;
-	ImVector_float ItemWidthStack;
-	ImVector_float TextWrapPosStack;
+	ImVector/*<float>*/ ItemWidthStack;
+	ImVector/*<float>*/ TextWrapPosStack;
 };
-typedef struct ImVector_ImGuiOldColumns {int Size;int Capacity;ImGuiOldColumns* Data;} ImVector_ImGuiOldColumns;
 struct ImGuiWindow {
 	ImGuiContext* Ctx;
 	char* Name;
@@ -1772,7 +2763,7 @@ struct ImGuiWindow {
 	ImGuiCond SetWindowDockAllowFlags : 8;
 	ImVec2 SetWindowPosVal;
 	ImVec2 SetWindowPosPivot;
-	ImVector_ImGuiID IDStack;
+	ImVector/*<ImGuiID>*/ IDStack;
 	ImGuiWindowTempData DC;
 	ImRect OuterRectClipped;
 	ImRect InnerRect;
@@ -1788,7 +2779,7 @@ struct ImGuiWindow {
 	float LastTimeActive;
 	float ItemWidthDefault;
 	ImGuiStorage StateStorage;
-	ImVector_ImGuiOldColumns ColumnsStorage;
+	ImVector/*<ImGuiOldColumns>*/ ColumnsStorage;
 	float FontWindowScale;
 	float FontDpiScale;
 	int SettingsOffset;
@@ -1822,8 +2813,6 @@ struct ImGuiWindow {
 	ImGuiItemStatusFlags DockTabItemStatusFlags;
 	ImRect DockTabItemRect;
 };
-typedef enum { ImGuiTabBarFlags_DockNode = 1 << 20, ImGuiTabBarFlags_IsFocused = 1 << 21, ImGuiTabBarFlags_SaveSettings = 1 << 22, }ImGuiTabBarFlagsPrivate_;
-typedef enum { ImGuiTabItemFlags_SectionMask_ = ImGuiTabItemFlags_Leading | ImGuiTabItemFlags_Trailing, ImGuiTabItemFlags_NoCloseButton = 1 << 20, ImGuiTabItemFlags_Button = 1 << 21, ImGuiTabItemFlags_Unsorted = 1 << 22, }ImGuiTabItemFlagsPrivate_;
 struct ImGuiTabItem {
 	ImGuiID ID;
 	ImGuiTabItemFlags Flags;
@@ -1839,9 +2828,8 @@ struct ImGuiTabItem {
 	ImS16 IndexDuringLayout;
 	_Bool WantClose;
 };
-typedef struct ImVector_ImGuiTabItem {int Size;int Capacity;ImGuiTabItem* Data;} ImVector_ImGuiTabItem;
 struct ImGuiTabBar {
-	ImVector_ImGuiTabItem Tabs;
+	ImVector/*<ImGuiTabItem>*/ Tabs;
 	ImGuiTabBarFlags Flags;
 	ImGuiID ID;
 	ImGuiID SelectedTabId;
@@ -1933,11 +2921,18 @@ struct ImGuiTableInstanceData {
 	int HoveredRowLast;
 	int HoveredRowNext;
 };
-typedef struct ImSpan_ImGuiTableColumn {ImGuiTableColumn* Data;ImGuiTableColumn* DataEnd;} ImSpan_ImGuiTableColumn;
-typedef struct ImSpan_ImGuiTableColumnIdx {ImGuiTableColumnIdx* Data;ImGuiTableColumnIdx* DataEnd;} ImSpan_ImGuiTableColumnIdx;
-typedef struct ImSpan_ImGuiTableCellData {ImGuiTableCellData* Data;ImGuiTableCellData* DataEnd;} ImSpan_ImGuiTableCellData;
-typedef struct ImVector_ImGuiTableInstanceData {int Size;int Capacity;ImGuiTableInstanceData* Data;} ImVector_ImGuiTableInstanceData;
-typedef struct ImVector_ImGuiTableColumnSortSpecs {int Size;int Capacity;ImGuiTableColumnSortSpecs* Data;} ImVector_ImGuiTableColumnSortSpecs;
+typedef struct ImSpan_ImGuiTableColumn {
+	ImGuiTableColumn* Data;
+	ImGuiTableColumn* DataEnd;
+} ImSpan_ImGuiTableColumn;
+typedef struct ImSpan_ImGuiTableColumnIdx {
+	ImGuiTableColumnIdx* Data;
+	ImGuiTableColumnIdx* DataEnd;
+} ImSpan_ImGuiTableColumnIdx;
+typedef struct ImSpan_ImGuiTableCellData {
+	ImGuiTableCellData* Data;
+	ImGuiTableCellData* DataEnd;
+} ImSpan_ImGuiTableCellData;
 struct ImGuiTable {
 	ImGuiID ID;
 	ImGuiTableFlags Flags;
@@ -2000,9 +2995,9 @@ struct ImGuiTable {
 	ImGuiTextBuffer ColumnsNames;
 	ImDrawListSplitter* DrawSplitter;
 	ImGuiTableInstanceData InstanceDataFirst;
-	ImVector_ImGuiTableInstanceData InstanceDataExtra;
+	ImVector/*<ImGuiTableInstanceData>*/ InstanceDataExtra;
 	ImGuiTableColumnSortSpecs SortSpecsSingle;
-	ImVector_ImGuiTableColumnSortSpecs SortSpecsMulti;
+	ImVector/*<ImGuiTableColumnSortSpecs>*/ SortSpecsMulti;
 	ImGuiTableSortSpecs SortSpecs;
 	ImGuiTableColumnIdx SortSpecsCount;
 	ImGuiTableColumnIdx ColumnsEnabledCount;
@@ -2089,1425 +3084,1426 @@ struct ImGuiTableSettings {
 struct ImFontBuilderIO {
 	_Bool (*FontBuilder_Build)(ImFontAtlas* atlas);
 };
-enum { IMGUI_HAS_DOCK = 1 };
-/* #define ImDrawCallback_ResetRenderState       (ImDrawCallback)(-8) ### string, not number "(ImDrawCallback)(-8)" */
-extern __attribute__((__visibility__("default"))) ImVec2* ImVec2_ImVec2_Nil(void);
-extern __attribute__((__visibility__("default"))) void ImVec2_destroy(ImVec2* self);
-extern __attribute__((__visibility__("default"))) ImVec2* ImVec2_ImVec2_Float(float _x,float _y);
-extern __attribute__((__visibility__("default"))) ImVec4* ImVec4_ImVec4_Nil(void);
-extern __attribute__((__visibility__("default"))) void ImVec4_destroy(ImVec4* self);
-extern __attribute__((__visibility__("default"))) ImVec4* ImVec4_ImVec4_Float(float _x,float _y,float _z,float _w);
-extern __attribute__((__visibility__("default"))) ImGuiContext* igCreateContext(ImFontAtlas* shared_font_atlas);
-extern __attribute__((__visibility__("default"))) void igDestroyContext(ImGuiContext* ctx);
-extern __attribute__((__visibility__("default"))) ImGuiContext* igGetCurrentContext(void);
-extern __attribute__((__visibility__("default"))) void igSetCurrentContext(ImGuiContext* ctx);
-extern __attribute__((__visibility__("default"))) ImGuiIO* igGetIO(void);
-extern __attribute__((__visibility__("default"))) ImGuiStyle* igGetStyle(void);
-extern __attribute__((__visibility__("default"))) void igNewFrame(void);
-extern __attribute__((__visibility__("default"))) void igEndFrame(void);
-extern __attribute__((__visibility__("default"))) void igRender(void);
-extern __attribute__((__visibility__("default"))) ImDrawData* igGetDrawData(void);
-extern __attribute__((__visibility__("default"))) void igShowDemoWindow(_Bool* p_open);
-extern __attribute__((__visibility__("default"))) void igShowMetricsWindow(_Bool* p_open);
-extern __attribute__((__visibility__("default"))) void igShowDebugLogWindow(_Bool* p_open);
-extern __attribute__((__visibility__("default"))) void igShowIDStackToolWindow(_Bool* p_open);
-extern __attribute__((__visibility__("default"))) void igShowAboutWindow(_Bool* p_open);
-extern __attribute__((__visibility__("default"))) void igShowStyleEditor(ImGuiStyle* ref);
-extern __attribute__((__visibility__("default"))) _Bool igShowStyleSelector(const char* label);
-extern __attribute__((__visibility__("default"))) void igShowFontSelector(const char* label);
-extern __attribute__((__visibility__("default"))) void igShowUserGuide(void);
-extern __attribute__((__visibility__("default"))) const char* igGetVersion(void);
-extern __attribute__((__visibility__("default"))) void igStyleColorsDark(ImGuiStyle* dst);
-extern __attribute__((__visibility__("default"))) void igStyleColorsLight(ImGuiStyle* dst);
-extern __attribute__((__visibility__("default"))) void igStyleColorsClassic(ImGuiStyle* dst);
-extern __attribute__((__visibility__("default"))) _Bool igBegin(const char* name,_Bool* p_open,ImGuiWindowFlags flags);
-extern __attribute__((__visibility__("default"))) void igEnd(void);
-extern __attribute__((__visibility__("default"))) _Bool igBeginChild_Str(const char* str_id,const ImVec2 size,ImGuiChildFlags child_flags,ImGuiWindowFlags window_flags);
-extern __attribute__((__visibility__("default"))) _Bool igBeginChild_ID(ImGuiID id,const ImVec2 size,ImGuiChildFlags child_flags,ImGuiWindowFlags window_flags);
-extern __attribute__((__visibility__("default"))) void igEndChild(void);
-extern __attribute__((__visibility__("default"))) _Bool igIsWindowAppearing(void);
-extern __attribute__((__visibility__("default"))) _Bool igIsWindowCollapsed(void);
-extern __attribute__((__visibility__("default"))) _Bool igIsWindowFocused(ImGuiFocusedFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igIsWindowHovered(ImGuiHoveredFlags flags);
-extern __attribute__((__visibility__("default"))) ImDrawList* igGetWindowDrawList(void);
-extern __attribute__((__visibility__("default"))) float igGetWindowDpiScale(void);
-extern __attribute__((__visibility__("default"))) void igGetWindowPos(ImVec2 *pOut);
-extern __attribute__((__visibility__("default"))) void igGetWindowSize(ImVec2 *pOut);
-extern __attribute__((__visibility__("default"))) float igGetWindowWidth(void);
-extern __attribute__((__visibility__("default"))) float igGetWindowHeight(void);
-extern __attribute__((__visibility__("default"))) ImGuiViewport* igGetWindowViewport(void);
-extern __attribute__((__visibility__("default"))) void igSetNextWindowPos(const ImVec2 pos,ImGuiCond cond,const ImVec2 pivot);
-extern __attribute__((__visibility__("default"))) void igSetNextWindowSize(const ImVec2 size,ImGuiCond cond);
-extern __attribute__((__visibility__("default"))) void igSetNextWindowSizeConstraints(const ImVec2 size_min,const ImVec2 size_max,ImGuiSizeCallback custom_callback,void* custom_callback_data);
-extern __attribute__((__visibility__("default"))) void igSetNextWindowContentSize(const ImVec2 size);
-extern __attribute__((__visibility__("default"))) void igSetNextWindowCollapsed(_Bool collapsed,ImGuiCond cond);
-extern __attribute__((__visibility__("default"))) void igSetNextWindowFocus(void);
-extern __attribute__((__visibility__("default"))) void igSetNextWindowScroll(const ImVec2 scroll);
-extern __attribute__((__visibility__("default"))) void igSetNextWindowBgAlpha(float alpha);
-extern __attribute__((__visibility__("default"))) void igSetNextWindowViewport(ImGuiID viewport_id);
-extern __attribute__((__visibility__("default"))) void igSetWindowPos_Vec2(const ImVec2 pos,ImGuiCond cond);
-extern __attribute__((__visibility__("default"))) void igSetWindowSize_Vec2(const ImVec2 size,ImGuiCond cond);
-extern __attribute__((__visibility__("default"))) void igSetWindowCollapsed_Bool(_Bool collapsed,ImGuiCond cond);
-extern __attribute__((__visibility__("default"))) void igSetWindowFocus_Nil(void);
-extern __attribute__((__visibility__("default"))) void igSetWindowFontScale(float scale);
-extern __attribute__((__visibility__("default"))) void igSetWindowPos_Str(const char* name,const ImVec2 pos,ImGuiCond cond);
-extern __attribute__((__visibility__("default"))) void igSetWindowSize_Str(const char* name,const ImVec2 size,ImGuiCond cond);
-extern __attribute__((__visibility__("default"))) void igSetWindowCollapsed_Str(const char* name,_Bool collapsed,ImGuiCond cond);
-extern __attribute__((__visibility__("default"))) void igSetWindowFocus_Str(const char* name);
-extern __attribute__((__visibility__("default"))) void igGetContentRegionAvail(ImVec2 *pOut);
-extern __attribute__((__visibility__("default"))) void igGetContentRegionMax(ImVec2 *pOut);
-extern __attribute__((__visibility__("default"))) void igGetWindowContentRegionMin(ImVec2 *pOut);
-extern __attribute__((__visibility__("default"))) void igGetWindowContentRegionMax(ImVec2 *pOut);
-extern __attribute__((__visibility__("default"))) float igGetScrollX(void);
-extern __attribute__((__visibility__("default"))) float igGetScrollY(void);
-extern __attribute__((__visibility__("default"))) void igSetScrollX_Float(float scroll_x);
-extern __attribute__((__visibility__("default"))) void igSetScrollY_Float(float scroll_y);
-extern __attribute__((__visibility__("default"))) float igGetScrollMaxX(void);
-extern __attribute__((__visibility__("default"))) float igGetScrollMaxY(void);
-extern __attribute__((__visibility__("default"))) void igSetScrollHereX(float center_x_ratio);
-extern __attribute__((__visibility__("default"))) void igSetScrollHereY(float center_y_ratio);
-extern __attribute__((__visibility__("default"))) void igSetScrollFromPosX_Float(float local_x,float center_x_ratio);
-extern __attribute__((__visibility__("default"))) void igSetScrollFromPosY_Float(float local_y,float center_y_ratio);
-extern __attribute__((__visibility__("default"))) void igPushFont(ImFont* font);
-extern __attribute__((__visibility__("default"))) void igPopFont(void);
-extern __attribute__((__visibility__("default"))) void igPushStyleColor_U32(ImGuiCol idx,ImU32 col);
-extern __attribute__((__visibility__("default"))) void igPushStyleColor_Vec4(ImGuiCol idx,const ImVec4 col);
-extern __attribute__((__visibility__("default"))) void igPopStyleColor(int count);
-extern __attribute__((__visibility__("default"))) void igPushStyleVar_Float(ImGuiStyleVar idx,float val);
-extern __attribute__((__visibility__("default"))) void igPushStyleVar_Vec2(ImGuiStyleVar idx,const ImVec2 val);
-extern __attribute__((__visibility__("default"))) void igPopStyleVar(int count);
-extern __attribute__((__visibility__("default"))) void igPushTabStop(_Bool tab_stop);
-extern __attribute__((__visibility__("default"))) void igPopTabStop(void);
-extern __attribute__((__visibility__("default"))) void igPushButtonRepeat(_Bool repeat);
-extern __attribute__((__visibility__("default"))) void igPopButtonRepeat(void);
-extern __attribute__((__visibility__("default"))) void igPushItemWidth(float item_width);
-extern __attribute__((__visibility__("default"))) void igPopItemWidth(void);
-extern __attribute__((__visibility__("default"))) void igSetNextItemWidth(float item_width);
-extern __attribute__((__visibility__("default"))) float igCalcItemWidth(void);
-extern __attribute__((__visibility__("default"))) void igPushTextWrapPos(float wrap_local_pos_x);
-extern __attribute__((__visibility__("default"))) void igPopTextWrapPos(void);
-extern __attribute__((__visibility__("default"))) ImFont* igGetFont(void);
-extern __attribute__((__visibility__("default"))) float igGetFontSize(void);
-extern __attribute__((__visibility__("default"))) void igGetFontTexUvWhitePixel(ImVec2 *pOut);
-extern __attribute__((__visibility__("default"))) ImU32 igGetColorU32_Col(ImGuiCol idx,float alpha_mul);
-extern __attribute__((__visibility__("default"))) ImU32 igGetColorU32_Vec4(const ImVec4 col);
-extern __attribute__((__visibility__("default"))) ImU32 igGetColorU32_U32(ImU32 col,float alpha_mul);
-extern __attribute__((__visibility__("default"))) const ImVec4* igGetStyleColorVec4(ImGuiCol idx);
-extern __attribute__((__visibility__("default"))) void igGetCursorScreenPos(ImVec2 *pOut);
-extern __attribute__((__visibility__("default"))) void igSetCursorScreenPos(const ImVec2 pos);
-extern __attribute__((__visibility__("default"))) void igGetCursorPos(ImVec2 *pOut);
-extern __attribute__((__visibility__("default"))) float igGetCursorPosX(void);
-extern __attribute__((__visibility__("default"))) float igGetCursorPosY(void);
-extern __attribute__((__visibility__("default"))) void igSetCursorPos(const ImVec2 local_pos);
-extern __attribute__((__visibility__("default"))) void igSetCursorPosX(float local_x);
-extern __attribute__((__visibility__("default"))) void igSetCursorPosY(float local_y);
-extern __attribute__((__visibility__("default"))) void igGetCursorStartPos(ImVec2 *pOut);
-extern __attribute__((__visibility__("default"))) void igSeparator(void);
-extern __attribute__((__visibility__("default"))) void igSameLine(float offset_from_start_x,float spacing);
-extern __attribute__((__visibility__("default"))) void igNewLine(void);
-extern __attribute__((__visibility__("default"))) void igSpacing(void);
-extern __attribute__((__visibility__("default"))) void igDummy(const ImVec2 size);
-extern __attribute__((__visibility__("default"))) void igIndent(float indent_w);
-extern __attribute__((__visibility__("default"))) void igUnindent(float indent_w);
-extern __attribute__((__visibility__("default"))) void igBeginGroup(void);
-extern __attribute__((__visibility__("default"))) void igEndGroup(void);
-extern __attribute__((__visibility__("default"))) void igAlignTextToFramePadding(void);
-extern __attribute__((__visibility__("default"))) float igGetTextLineHeight(void);
-extern __attribute__((__visibility__("default"))) float igGetTextLineHeightWithSpacing(void);
-extern __attribute__((__visibility__("default"))) float igGetFrameHeight(void);
-extern __attribute__((__visibility__("default"))) float igGetFrameHeightWithSpacing(void);
-extern __attribute__((__visibility__("default"))) void igPushID_Str(const char* str_id);
-extern __attribute__((__visibility__("default"))) void igPushID_StrStr(const char* str_id_begin,const char* str_id_end);
-extern __attribute__((__visibility__("default"))) void igPushID_Ptr(const void* ptr_id);
-extern __attribute__((__visibility__("default"))) void igPushID_Int(int int_id);
-extern __attribute__((__visibility__("default"))) void igPopID(void);
-extern __attribute__((__visibility__("default"))) ImGuiID igGetID_Str(const char* str_id);
-extern __attribute__((__visibility__("default"))) ImGuiID igGetID_StrStr(const char* str_id_begin,const char* str_id_end);
-extern __attribute__((__visibility__("default"))) ImGuiID igGetID_Ptr(const void* ptr_id);
-extern __attribute__((__visibility__("default"))) void igTextUnformatted(const char* text,const char* text_end);
-extern __attribute__((__visibility__("default"))) void igText(const char* fmt,...);
-extern __attribute__((__visibility__("default"))) void igTextV(const char* fmt,va_list args);
-extern __attribute__((__visibility__("default"))) void igTextColored(const ImVec4 col,const char* fmt,...);
-extern __attribute__((__visibility__("default"))) void igTextColoredV(const ImVec4 col,const char* fmt,va_list args);
-extern __attribute__((__visibility__("default"))) void igTextDisabled(const char* fmt,...);
-extern __attribute__((__visibility__("default"))) void igTextDisabledV(const char* fmt,va_list args);
-extern __attribute__((__visibility__("default"))) void igTextWrapped(const char* fmt,...);
-extern __attribute__((__visibility__("default"))) void igTextWrappedV(const char* fmt,va_list args);
-extern __attribute__((__visibility__("default"))) void igLabelText(const char* label,const char* fmt,...);
-extern __attribute__((__visibility__("default"))) void igLabelTextV(const char* label,const char* fmt,va_list args);
-extern __attribute__((__visibility__("default"))) void igBulletText(const char* fmt,...);
-extern __attribute__((__visibility__("default"))) void igBulletTextV(const char* fmt,va_list args);
-extern __attribute__((__visibility__("default"))) void igSeparatorText(const char* label);
-extern __attribute__((__visibility__("default"))) _Bool igButton(const char* label,const ImVec2 size);
-extern __attribute__((__visibility__("default"))) _Bool igSmallButton(const char* label);
-extern __attribute__((__visibility__("default"))) _Bool igInvisibleButton(const char* str_id,const ImVec2 size,ImGuiButtonFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igArrowButton(const char* str_id,ImGuiDir dir);
-extern __attribute__((__visibility__("default"))) _Bool igCheckbox(const char* label,_Bool* v);
-extern __attribute__((__visibility__("default"))) _Bool igCheckboxFlags_IntPtr(const char* label,int* flags,int flags_value);
-extern __attribute__((__visibility__("default"))) _Bool igCheckboxFlags_UintPtr(const char* label,unsigned int* flags,unsigned int flags_value);
-extern __attribute__((__visibility__("default"))) _Bool igRadioButton_Bool(const char* label,_Bool active);
-extern __attribute__((__visibility__("default"))) _Bool igRadioButton_IntPtr(const char* label,int* v,int v_button);
-extern __attribute__((__visibility__("default"))) void igProgressBar(float fraction,const ImVec2 size_arg,const char* overlay);
-extern __attribute__((__visibility__("default"))) void igBullet(void);
-extern __attribute__((__visibility__("default"))) void igImage(ImTextureID user_texture_id,const ImVec2 image_size,const ImVec2 uv0,const ImVec2 uv1,const ImVec4 tint_col,const ImVec4 border_col);
-extern __attribute__((__visibility__("default"))) _Bool igImageButton(const char* str_id,ImTextureID user_texture_id,const ImVec2 image_size,const ImVec2 uv0,const ImVec2 uv1,const ImVec4 bg_col,const ImVec4 tint_col);
-extern __attribute__((__visibility__("default"))) _Bool igBeginCombo(const char* label,const char* preview_value,ImGuiComboFlags flags);
-extern __attribute__((__visibility__("default"))) void igEndCombo(void);
-extern __attribute__((__visibility__("default"))) _Bool igCombo_Str_arr(const char* label,int* current_item,const char* const items[],int items_count,int popup_max_height_in_items);
-extern __attribute__((__visibility__("default"))) _Bool igCombo_Str(const char* label,int* current_item,const char* items_separated_by_zeros,int popup_max_height_in_items);
-extern __attribute__((__visibility__("default"))) _Bool igCombo_FnStrPtr(const char* label,int* current_item,const char*(*getter)(void* user_data,int idx),void* user_data,int items_count,int popup_max_height_in_items);
-extern __attribute__((__visibility__("default"))) _Bool igDragFloat(const char* label,float* v,float v_speed,float v_min,float v_max,const char* format,ImGuiSliderFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igDragFloat2(const char* label,float v[2],float v_speed,float v_min,float v_max,const char* format,ImGuiSliderFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igDragFloat3(const char* label,float v[3],float v_speed,float v_min,float v_max,const char* format,ImGuiSliderFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igDragFloat4(const char* label,float v[4],float v_speed,float v_min,float v_max,const char* format,ImGuiSliderFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igDragFloatRange2(const char* label,float* v_current_min,float* v_current_max,float v_speed,float v_min,float v_max,const char* format,const char* format_max,ImGuiSliderFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igDragInt(const char* label,int* v,float v_speed,int v_min,int v_max,const char* format,ImGuiSliderFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igDragInt2(const char* label,int v[2],float v_speed,int v_min,int v_max,const char* format,ImGuiSliderFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igDragInt3(const char* label,int v[3],float v_speed,int v_min,int v_max,const char* format,ImGuiSliderFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igDragInt4(const char* label,int v[4],float v_speed,int v_min,int v_max,const char* format,ImGuiSliderFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igDragIntRange2(const char* label,int* v_current_min,int* v_current_max,float v_speed,int v_min,int v_max,const char* format,const char* format_max,ImGuiSliderFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igDragScalar(const char* label,ImGuiDataType data_type,void* p_data,float v_speed,const void* p_min,const void* p_max,const char* format,ImGuiSliderFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igDragScalarN(const char* label,ImGuiDataType data_type,void* p_data,int components,float v_speed,const void* p_min,const void* p_max,const char* format,ImGuiSliderFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igSliderFloat(const char* label,float* v,float v_min,float v_max,const char* format,ImGuiSliderFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igSliderFloat2(const char* label,float v[2],float v_min,float v_max,const char* format,ImGuiSliderFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igSliderFloat3(const char* label,float v[3],float v_min,float v_max,const char* format,ImGuiSliderFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igSliderFloat4(const char* label,float v[4],float v_min,float v_max,const char* format,ImGuiSliderFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igSliderAngle(const char* label,float* v_rad,float v_degrees_min,float v_degrees_max,const char* format,ImGuiSliderFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igSliderInt(const char* label,int* v,int v_min,int v_max,const char* format,ImGuiSliderFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igSliderInt2(const char* label,int v[2],int v_min,int v_max,const char* format,ImGuiSliderFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igSliderInt3(const char* label,int v[3],int v_min,int v_max,const char* format,ImGuiSliderFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igSliderInt4(const char* label,int v[4],int v_min,int v_max,const char* format,ImGuiSliderFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igSliderScalar(const char* label,ImGuiDataType data_type,void* p_data,const void* p_min,const void* p_max,const char* format,ImGuiSliderFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igSliderScalarN(const char* label,ImGuiDataType data_type,void* p_data,int components,const void* p_min,const void* p_max,const char* format,ImGuiSliderFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igVSliderFloat(const char* label,const ImVec2 size,float* v,float v_min,float v_max,const char* format,ImGuiSliderFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igVSliderInt(const char* label,const ImVec2 size,int* v,int v_min,int v_max,const char* format,ImGuiSliderFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igVSliderScalar(const char* label,const ImVec2 size,ImGuiDataType data_type,void* p_data,const void* p_min,const void* p_max,const char* format,ImGuiSliderFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igInputText(const char* label,char* buf,size_t buf_size,ImGuiInputTextFlags flags,ImGuiInputTextCallback callback,void* user_data);
-extern __attribute__((__visibility__("default"))) _Bool igInputTextMultiline(const char* label,char* buf,size_t buf_size,const ImVec2 size,ImGuiInputTextFlags flags,ImGuiInputTextCallback callback,void* user_data);
-extern __attribute__((__visibility__("default"))) _Bool igInputTextWithHint(const char* label,const char* hint,char* buf,size_t buf_size,ImGuiInputTextFlags flags,ImGuiInputTextCallback callback,void* user_data);
-extern __attribute__((__visibility__("default"))) _Bool igInputFloat(const char* label,float* v,float step,float step_fast,const char* format,ImGuiInputTextFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igInputFloat2(const char* label,float v[2],const char* format,ImGuiInputTextFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igInputFloat3(const char* label,float v[3],const char* format,ImGuiInputTextFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igInputFloat4(const char* label,float v[4],const char* format,ImGuiInputTextFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igInputInt(const char* label,int* v,int step,int step_fast,ImGuiInputTextFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igInputInt2(const char* label,int v[2],ImGuiInputTextFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igInputInt3(const char* label,int v[3],ImGuiInputTextFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igInputInt4(const char* label,int v[4],ImGuiInputTextFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igInputDouble(const char* label,double* v,double step,double step_fast,const char* format,ImGuiInputTextFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igInputScalar(const char* label,ImGuiDataType data_type,void* p_data,const void* p_step,const void* p_step_fast,const char* format,ImGuiInputTextFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igInputScalarN(const char* label,ImGuiDataType data_type,void* p_data,int components,const void* p_step,const void* p_step_fast,const char* format,ImGuiInputTextFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igColorEdit3(const char* label,float col[3],ImGuiColorEditFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igColorEdit4(const char* label,float col[4],ImGuiColorEditFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igColorPicker3(const char* label,float col[3],ImGuiColorEditFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igColorPicker4(const char* label,float col[4],ImGuiColorEditFlags flags,const float* ref_col);
-extern __attribute__((__visibility__("default"))) _Bool igColorButton(const char* desc_id,const ImVec4 col,ImGuiColorEditFlags flags,const ImVec2 size);
-extern __attribute__((__visibility__("default"))) void igSetColorEditOptions(ImGuiColorEditFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igTreeNode_Str(const char* label);
-extern __attribute__((__visibility__("default"))) _Bool igTreeNode_StrStr(const char* str_id,const char* fmt,...);
-extern __attribute__((__visibility__("default"))) _Bool igTreeNode_Ptr(const void* ptr_id,const char* fmt,...);
-extern __attribute__((__visibility__("default"))) _Bool igTreeNodeV_Str(const char* str_id,const char* fmt,va_list args);
-extern __attribute__((__visibility__("default"))) _Bool igTreeNodeV_Ptr(const void* ptr_id,const char* fmt,va_list args);
-extern __attribute__((__visibility__("default"))) _Bool igTreeNodeEx_Str(const char* label,ImGuiTreeNodeFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igTreeNodeEx_StrStr(const char* str_id,ImGuiTreeNodeFlags flags,const char* fmt,...);
-extern __attribute__((__visibility__("default"))) _Bool igTreeNodeEx_Ptr(const void* ptr_id,ImGuiTreeNodeFlags flags,const char* fmt,...);
-extern __attribute__((__visibility__("default"))) _Bool igTreeNodeExV_Str(const char* str_id,ImGuiTreeNodeFlags flags,const char* fmt,va_list args);
-extern __attribute__((__visibility__("default"))) _Bool igTreeNodeExV_Ptr(const void* ptr_id,ImGuiTreeNodeFlags flags,const char* fmt,va_list args);
-extern __attribute__((__visibility__("default"))) void igTreePush_Str(const char* str_id);
-extern __attribute__((__visibility__("default"))) void igTreePush_Ptr(const void* ptr_id);
-extern __attribute__((__visibility__("default"))) void igTreePop(void);
-extern __attribute__((__visibility__("default"))) float igGetTreeNodeToLabelSpacing(void);
-extern __attribute__((__visibility__("default"))) _Bool igCollapsingHeader_TreeNodeFlags(const char* label,ImGuiTreeNodeFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igCollapsingHeader_BoolPtr(const char* label,_Bool* p_visible,ImGuiTreeNodeFlags flags);
-extern __attribute__((__visibility__("default"))) void igSetNextItemOpen(_Bool is_open,ImGuiCond cond);
-extern __attribute__((__visibility__("default"))) _Bool igSelectable_Bool(const char* label,_Bool selected,ImGuiSelectableFlags flags,const ImVec2 size);
-extern __attribute__((__visibility__("default"))) _Bool igSelectable_BoolPtr(const char* label,_Bool* p_selected,ImGuiSelectableFlags flags,const ImVec2 size);
-extern __attribute__((__visibility__("default"))) _Bool igBeginListBox(const char* label,const ImVec2 size);
-extern __attribute__((__visibility__("default"))) void igEndListBox(void);
-extern __attribute__((__visibility__("default"))) _Bool igListBox_Str_arr(const char* label,int* current_item,const char* const items[],int items_count,int height_in_items);
-extern __attribute__((__visibility__("default"))) _Bool igListBox_FnStrPtr(const char* label,int* current_item,const char*(*getter)(void* user_data,int idx),void* user_data,int items_count,int height_in_items);
-extern __attribute__((__visibility__("default"))) void igPlotLines_FloatPtr(const char* label,const float* values,int values_count,int values_offset,const char* overlay_text,float scale_min,float scale_max,ImVec2 graph_size,int stride);
-extern __attribute__((__visibility__("default"))) void igPlotLines_FnFloatPtr(const char* label,float(*values_getter)(void* data,int idx),void* data,int values_count,int values_offset,const char* overlay_text,float scale_min,float scale_max,ImVec2 graph_size);
-extern __attribute__((__visibility__("default"))) void igPlotHistogram_FloatPtr(const char* label,const float* values,int values_count,int values_offset,const char* overlay_text,float scale_min,float scale_max,ImVec2 graph_size,int stride);
-extern __attribute__((__visibility__("default"))) void igPlotHistogram_FnFloatPtr(const char* label,float(*values_getter)(void* data,int idx),void* data,int values_count,int values_offset,const char* overlay_text,float scale_min,float scale_max,ImVec2 graph_size);
-extern __attribute__((__visibility__("default"))) void igValue_Bool(const char* prefix,_Bool b);
-extern __attribute__((__visibility__("default"))) void igValue_Int(const char* prefix,int v);
-extern __attribute__((__visibility__("default"))) void igValue_Uint(const char* prefix,unsigned int v);
-extern __attribute__((__visibility__("default"))) void igValue_Float(const char* prefix,float v,const char* float_format);
-extern __attribute__((__visibility__("default"))) _Bool igBeginMenuBar(void);
-extern __attribute__((__visibility__("default"))) void igEndMenuBar(void);
-extern __attribute__((__visibility__("default"))) _Bool igBeginMainMenuBar(void);
-extern __attribute__((__visibility__("default"))) void igEndMainMenuBar(void);
-extern __attribute__((__visibility__("default"))) _Bool igBeginMenu(const char* label,_Bool enabled);
-extern __attribute__((__visibility__("default"))) void igEndMenu(void);
-extern __attribute__((__visibility__("default"))) _Bool igMenuItem_Bool(const char* label,const char* shortcut,_Bool selected,_Bool enabled);
-extern __attribute__((__visibility__("default"))) _Bool igMenuItem_BoolPtr(const char* label,const char* shortcut,_Bool* p_selected,_Bool enabled);
-extern __attribute__((__visibility__("default"))) _Bool igBeginTooltip(void);
-extern __attribute__((__visibility__("default"))) void igEndTooltip(void);
-extern __attribute__((__visibility__("default"))) void igSetTooltip(const char* fmt,...);
-extern __attribute__((__visibility__("default"))) void igSetTooltipV(const char* fmt,va_list args);
-extern __attribute__((__visibility__("default"))) _Bool igBeginItemTooltip(void);
-extern __attribute__((__visibility__("default"))) void igSetItemTooltip(const char* fmt,...);
-extern __attribute__((__visibility__("default"))) void igSetItemTooltipV(const char* fmt,va_list args);
-extern __attribute__((__visibility__("default"))) _Bool igBeginPopup(const char* str_id,ImGuiWindowFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igBeginPopupModal(const char* name,_Bool* p_open,ImGuiWindowFlags flags);
-extern __attribute__((__visibility__("default"))) void igEndPopup(void);
-extern __attribute__((__visibility__("default"))) void igOpenPopup_Str(const char* str_id,ImGuiPopupFlags popup_flags);
-extern __attribute__((__visibility__("default"))) void igOpenPopup_ID(ImGuiID id,ImGuiPopupFlags popup_flags);
-extern __attribute__((__visibility__("default"))) void igOpenPopupOnItemClick(const char* str_id,ImGuiPopupFlags popup_flags);
-extern __attribute__((__visibility__("default"))) void igCloseCurrentPopup(void);
-extern __attribute__((__visibility__("default"))) _Bool igBeginPopupContextItem(const char* str_id,ImGuiPopupFlags popup_flags);
-extern __attribute__((__visibility__("default"))) _Bool igBeginPopupContextWindow(const char* str_id,ImGuiPopupFlags popup_flags);
-extern __attribute__((__visibility__("default"))) _Bool igBeginPopupContextVoid(const char* str_id,ImGuiPopupFlags popup_flags);
-extern __attribute__((__visibility__("default"))) _Bool igIsPopupOpen_Str(const char* str_id,ImGuiPopupFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igBeginTable(const char* str_id,int column,ImGuiTableFlags flags,const ImVec2 outer_size,float inner_width);
-extern __attribute__((__visibility__("default"))) void igEndTable(void);
-extern __attribute__((__visibility__("default"))) void igTableNextRow(ImGuiTableRowFlags row_flags,float min_row_height);
-extern __attribute__((__visibility__("default"))) _Bool igTableNextColumn(void);
-extern __attribute__((__visibility__("default"))) _Bool igTableSetColumnIndex(int column_n);
-extern __attribute__((__visibility__("default"))) void igTableSetupColumn(const char* label,ImGuiTableColumnFlags flags,float init_width_or_weight,ImGuiID user_id);
-extern __attribute__((__visibility__("default"))) void igTableSetupScrollFreeze(int cols,int rows);
-extern __attribute__((__visibility__("default"))) void igTableHeader(const char* label);
-extern __attribute__((__visibility__("default"))) void igTableHeadersRow(void);
-extern __attribute__((__visibility__("default"))) void igTableAngledHeadersRow(void);
-extern __attribute__((__visibility__("default"))) ImGuiTableSortSpecs* igTableGetSortSpecs(void);
-extern __attribute__((__visibility__("default"))) int igTableGetColumnCount(void);
-extern __attribute__((__visibility__("default"))) int igTableGetColumnIndex(void);
-extern __attribute__((__visibility__("default"))) int igTableGetRowIndex(void);
-extern __attribute__((__visibility__("default"))) const char* igTableGetColumnName_Int(int column_n);
-extern __attribute__((__visibility__("default"))) ImGuiTableColumnFlags igTableGetColumnFlags(int column_n);
-extern __attribute__((__visibility__("default"))) void igTableSetColumnEnabled(int column_n,_Bool v);
-extern __attribute__((__visibility__("default"))) void igTableSetBgColor(ImGuiTableBgTarget target,ImU32 color,int column_n);
-extern __attribute__((__visibility__("default"))) void igColumns(int count,const char* id,_Bool border);
-extern __attribute__((__visibility__("default"))) void igNextColumn(void);
-extern __attribute__((__visibility__("default"))) int igGetColumnIndex(void);
-extern __attribute__((__visibility__("default"))) float igGetColumnWidth(int column_index);
-extern __attribute__((__visibility__("default"))) void igSetColumnWidth(int column_index,float width);
-extern __attribute__((__visibility__("default"))) float igGetColumnOffset(int column_index);
-extern __attribute__((__visibility__("default"))) void igSetColumnOffset(int column_index,float offset_x);
-extern __attribute__((__visibility__("default"))) int igGetColumnsCount(void);
-extern __attribute__((__visibility__("default"))) _Bool igBeginTabBar(const char* str_id,ImGuiTabBarFlags flags);
-extern __attribute__((__visibility__("default"))) void igEndTabBar(void);
-extern __attribute__((__visibility__("default"))) _Bool igBeginTabItem(const char* label,_Bool* p_open,ImGuiTabItemFlags flags);
-extern __attribute__((__visibility__("default"))) void igEndTabItem(void);
-extern __attribute__((__visibility__("default"))) _Bool igTabItemButton(const char* label,ImGuiTabItemFlags flags);
-extern __attribute__((__visibility__("default"))) void igSetTabItemClosed(const char* tab_or_docked_window_label);
-extern __attribute__((__visibility__("default"))) ImGuiID igDockSpace(ImGuiID id,const ImVec2 size,ImGuiDockNodeFlags flags,const ImGuiWindowClass* window_class);
-extern __attribute__((__visibility__("default"))) ImGuiID igDockSpaceOverViewport(const ImGuiViewport* viewport,ImGuiDockNodeFlags flags,const ImGuiWindowClass* window_class);
-extern __attribute__((__visibility__("default"))) void igSetNextWindowDockID(ImGuiID dock_id,ImGuiCond cond);
-extern __attribute__((__visibility__("default"))) void igSetNextWindowClass(const ImGuiWindowClass* window_class);
-extern __attribute__((__visibility__("default"))) ImGuiID igGetWindowDockID(void);
-extern __attribute__((__visibility__("default"))) _Bool igIsWindowDocked(void);
-extern __attribute__((__visibility__("default"))) void igLogToTTY(int auto_open_depth);
-extern __attribute__((__visibility__("default"))) void igLogToFile(int auto_open_depth,const char* filename);
-extern __attribute__((__visibility__("default"))) void igLogToClipboard(int auto_open_depth);
-extern __attribute__((__visibility__("default"))) void igLogFinish(void);
-extern __attribute__((__visibility__("default"))) void igLogButtons(void);
-extern __attribute__((__visibility__("default"))) void igLogTextV(const char* fmt,va_list args);
-extern __attribute__((__visibility__("default"))) _Bool igBeginDragDropSource(ImGuiDragDropFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igSetDragDropPayload(const char* type,const void* data,size_t sz,ImGuiCond cond);
-extern __attribute__((__visibility__("default"))) void igEndDragDropSource(void);
-extern __attribute__((__visibility__("default"))) _Bool igBeginDragDropTarget(void);
-extern __attribute__((__visibility__("default"))) const ImGuiPayload* igAcceptDragDropPayload(const char* type,ImGuiDragDropFlags flags);
-extern __attribute__((__visibility__("default"))) void igEndDragDropTarget(void);
-extern __attribute__((__visibility__("default"))) const ImGuiPayload* igGetDragDropPayload(void);
-extern __attribute__((__visibility__("default"))) void igBeginDisabled(_Bool disabled);
-extern __attribute__((__visibility__("default"))) void igEndDisabled(void);
-extern __attribute__((__visibility__("default"))) void igPushClipRect(const ImVec2 clip_rect_min,const ImVec2 clip_rect_max,_Bool intersect_with_current_clip_rect);
-extern __attribute__((__visibility__("default"))) void igPopClipRect(void);
-extern __attribute__((__visibility__("default"))) void igSetItemDefaultFocus(void);
-extern __attribute__((__visibility__("default"))) void igSetKeyboardFocusHere(int offset);
-extern __attribute__((__visibility__("default"))) void igSetNextItemAllowOverlap(void);
-extern __attribute__((__visibility__("default"))) _Bool igIsItemHovered(ImGuiHoveredFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igIsItemActive(void);
-extern __attribute__((__visibility__("default"))) _Bool igIsItemFocused(void);
-extern __attribute__((__visibility__("default"))) _Bool igIsItemClicked(ImGuiMouseButton mouse_button);
-extern __attribute__((__visibility__("default"))) _Bool igIsItemVisible(void);
-extern __attribute__((__visibility__("default"))) _Bool igIsItemEdited(void);
-extern __attribute__((__visibility__("default"))) _Bool igIsItemActivated(void);
-extern __attribute__((__visibility__("default"))) _Bool igIsItemDeactivated(void);
-extern __attribute__((__visibility__("default"))) _Bool igIsItemDeactivatedAfterEdit(void);
-extern __attribute__((__visibility__("default"))) _Bool igIsItemToggledOpen(void);
-extern __attribute__((__visibility__("default"))) _Bool igIsAnyItemHovered(void);
-extern __attribute__((__visibility__("default"))) _Bool igIsAnyItemActive(void);
-extern __attribute__((__visibility__("default"))) _Bool igIsAnyItemFocused(void);
-extern __attribute__((__visibility__("default"))) ImGuiID igGetItemID(void);
-extern __attribute__((__visibility__("default"))) void igGetItemRectMin(ImVec2 *pOut);
-extern __attribute__((__visibility__("default"))) void igGetItemRectMax(ImVec2 *pOut);
-extern __attribute__((__visibility__("default"))) void igGetItemRectSize(ImVec2 *pOut);
-extern __attribute__((__visibility__("default"))) ImGuiViewport* igGetMainViewport(void);
-extern __attribute__((__visibility__("default"))) ImDrawList* igGetBackgroundDrawList_Nil(void);
-extern __attribute__((__visibility__("default"))) ImDrawList* igGetForegroundDrawList_Nil(void);
-extern __attribute__((__visibility__("default"))) ImDrawList* igGetBackgroundDrawList_ViewportPtr(ImGuiViewport* viewport);
-extern __attribute__((__visibility__("default"))) ImDrawList* igGetForegroundDrawList_ViewportPtr(ImGuiViewport* viewport);
-extern __attribute__((__visibility__("default"))) _Bool igIsRectVisible_Nil(const ImVec2 size);
-extern __attribute__((__visibility__("default"))) _Bool igIsRectVisible_Vec2(const ImVec2 rect_min,const ImVec2 rect_max);
-extern __attribute__((__visibility__("default"))) double igGetTime(void);
-extern __attribute__((__visibility__("default"))) int igGetFrameCount(void);
-extern __attribute__((__visibility__("default"))) ImDrawListSharedData* igGetDrawListSharedData(void);
-extern __attribute__((__visibility__("default"))) const char* igGetStyleColorName(ImGuiCol idx);
-extern __attribute__((__visibility__("default"))) void igSetStateStorage(ImGuiStorage* storage);
-extern __attribute__((__visibility__("default"))) ImGuiStorage* igGetStateStorage(void);
-extern __attribute__((__visibility__("default"))) void igCalcTextSize(ImVec2 *pOut,const char* text,const char* text_end,_Bool hide_text_after_double_hash,float wrap_width);
-extern __attribute__((__visibility__("default"))) void igColorConvertU32ToFloat4(ImVec4 *pOut,ImU32 in);
-extern __attribute__((__visibility__("default"))) ImU32 igColorConvertFloat4ToU32(const ImVec4 in);
-extern __attribute__((__visibility__("default"))) void igColorConvertRGBtoHSV(float r,float g,float b,float* out_h,float* out_s,float* out_v);
-extern __attribute__((__visibility__("default"))) void igColorConvertHSVtoRGB(float h,float s,float v,float* out_r,float* out_g,float* out_b);
-extern __attribute__((__visibility__("default"))) _Bool igIsKeyDown_Nil(ImGuiKey key);
-extern __attribute__((__visibility__("default"))) _Bool igIsKeyPressed_Bool(ImGuiKey key,_Bool repeat);
-extern __attribute__((__visibility__("default"))) _Bool igIsKeyReleased_Nil(ImGuiKey key);
-extern __attribute__((__visibility__("default"))) _Bool igIsKeyChordPressed_Nil(ImGuiKeyChord key_chord);
-extern __attribute__((__visibility__("default"))) int igGetKeyPressedAmount(ImGuiKey key,float repeat_delay,float rate);
-extern __attribute__((__visibility__("default"))) const char* igGetKeyName(ImGuiKey key);
-extern __attribute__((__visibility__("default"))) void igSetNextFrameWantCaptureKeyboard(_Bool want_capture_keyboard);
-extern __attribute__((__visibility__("default"))) _Bool igIsMouseDown_Nil(ImGuiMouseButton button);
-extern __attribute__((__visibility__("default"))) _Bool igIsMouseClicked_Bool(ImGuiMouseButton button,_Bool repeat);
-extern __attribute__((__visibility__("default"))) _Bool igIsMouseReleased_Nil(ImGuiMouseButton button);
-extern __attribute__((__visibility__("default"))) _Bool igIsMouseDoubleClicked_Nil(ImGuiMouseButton button);
-extern __attribute__((__visibility__("default"))) int igGetMouseClickedCount(ImGuiMouseButton button);
-extern __attribute__((__visibility__("default"))) _Bool igIsMouseHoveringRect(const ImVec2 r_min,const ImVec2 r_max,_Bool clip);
-extern __attribute__((__visibility__("default"))) _Bool igIsMousePosValid(const ImVec2* mouse_pos);
-extern __attribute__((__visibility__("default"))) _Bool igIsAnyMouseDown(void);
-extern __attribute__((__visibility__("default"))) void igGetMousePos(ImVec2 *pOut);
-extern __attribute__((__visibility__("default"))) void igGetMousePosOnOpeningCurrentPopup(ImVec2 *pOut);
-extern __attribute__((__visibility__("default"))) _Bool igIsMouseDragging(ImGuiMouseButton button,float lock_threshold);
-extern __attribute__((__visibility__("default"))) void igGetMouseDragDelta(ImVec2 *pOut,ImGuiMouseButton button,float lock_threshold);
-extern __attribute__((__visibility__("default"))) void igResetMouseDragDelta(ImGuiMouseButton button);
-extern __attribute__((__visibility__("default"))) ImGuiMouseCursor igGetMouseCursor(void);
-extern __attribute__((__visibility__("default"))) void igSetMouseCursor(ImGuiMouseCursor cursor_type);
-extern __attribute__((__visibility__("default"))) void igSetNextFrameWantCaptureMouse(_Bool want_capture_mouse);
-extern __attribute__((__visibility__("default"))) const char* igGetClipboardText(void);
-extern __attribute__((__visibility__("default"))) void igSetClipboardText(const char* text);
-extern __attribute__((__visibility__("default"))) void igLoadIniSettingsFromDisk(const char* ini_filename);
-extern __attribute__((__visibility__("default"))) void igLoadIniSettingsFromMemory(const char* ini_data,size_t ini_size);
-extern __attribute__((__visibility__("default"))) void igSaveIniSettingsToDisk(const char* ini_filename);
-extern __attribute__((__visibility__("default"))) const char* igSaveIniSettingsToMemory(size_t* out_ini_size);
-extern __attribute__((__visibility__("default"))) void igDebugTextEncoding(const char* text);
-extern __attribute__((__visibility__("default"))) void igDebugFlashStyleColor(ImGuiCol idx);
-extern __attribute__((__visibility__("default"))) void igDebugStartItemPicker(void);
-extern __attribute__((__visibility__("default"))) _Bool igDebugCheckVersionAndDataLayout(const char* version_str,size_t sz_io,size_t sz_style,size_t sz_vec2,size_t sz_vec4,size_t sz_drawvert,size_t sz_drawidx);
-extern __attribute__((__visibility__("default"))) void igSetAllocatorFunctions(ImGuiMemAllocFunc alloc_func,ImGuiMemFreeFunc free_func,void* user_data);
-extern __attribute__((__visibility__("default"))) void igGetAllocatorFunctions(ImGuiMemAllocFunc* p_alloc_func,ImGuiMemFreeFunc* p_free_func,void** p_user_data);
-extern __attribute__((__visibility__("default"))) void* igMemAlloc(size_t size);
-extern __attribute__((__visibility__("default"))) void igMemFree(void* ptr);
-extern __attribute__((__visibility__("default"))) ImGuiPlatformIO* igGetPlatformIO(void);
-extern __attribute__((__visibility__("default"))) void igUpdatePlatformWindows(void);
-extern __attribute__((__visibility__("default"))) void igRenderPlatformWindowsDefault(void* platform_render_arg,void* renderer_render_arg);
-extern __attribute__((__visibility__("default"))) void igDestroyPlatformWindows(void);
-extern __attribute__((__visibility__("default"))) ImGuiViewport* igFindViewportByID(ImGuiID id);
-extern __attribute__((__visibility__("default"))) ImGuiViewport* igFindViewportByPlatformHandle(void* platform_handle);
-extern __attribute__((__visibility__("default"))) ImGuiTableSortSpecs* ImGuiTableSortSpecs_ImGuiTableSortSpecs(void);
-extern __attribute__((__visibility__("default"))) void ImGuiTableSortSpecs_destroy(ImGuiTableSortSpecs* self);
-extern __attribute__((__visibility__("default"))) ImGuiTableColumnSortSpecs* ImGuiTableColumnSortSpecs_ImGuiTableColumnSortSpecs(void);
-extern __attribute__((__visibility__("default"))) void ImGuiTableColumnSortSpecs_destroy(ImGuiTableColumnSortSpecs* self);
-extern __attribute__((__visibility__("default"))) ImGuiStyle* ImGuiStyle_ImGuiStyle(void);
-extern __attribute__((__visibility__("default"))) void ImGuiStyle_destroy(ImGuiStyle* self);
-extern __attribute__((__visibility__("default"))) void ImGuiStyle_ScaleAllSizes(ImGuiStyle* self,float scale_factor);
-extern __attribute__((__visibility__("default"))) void ImGuiIO_AddKeyEvent(ImGuiIO* self,ImGuiKey key,_Bool down);
-extern __attribute__((__visibility__("default"))) void ImGuiIO_AddKeyAnalogEvent(ImGuiIO* self,ImGuiKey key,_Bool down,float v);
-extern __attribute__((__visibility__("default"))) void ImGuiIO_AddMousePosEvent(ImGuiIO* self,float x,float y);
-extern __attribute__((__visibility__("default"))) void ImGuiIO_AddMouseButtonEvent(ImGuiIO* self,int button,_Bool down);
-extern __attribute__((__visibility__("default"))) void ImGuiIO_AddMouseWheelEvent(ImGuiIO* self,float wheel_x,float wheel_y);
-extern __attribute__((__visibility__("default"))) void ImGuiIO_AddMouseSourceEvent(ImGuiIO* self,ImGuiMouseSource source);
-extern __attribute__((__visibility__("default"))) void ImGuiIO_AddMouseViewportEvent(ImGuiIO* self,ImGuiID id);
-extern __attribute__((__visibility__("default"))) void ImGuiIO_AddFocusEvent(ImGuiIO* self,_Bool focused);
-extern __attribute__((__visibility__("default"))) void ImGuiIO_AddInputCharacter(ImGuiIO* self,unsigned int c);
-extern __attribute__((__visibility__("default"))) void ImGuiIO_AddInputCharacterUTF16(ImGuiIO* self,ImWchar16 c);
-extern __attribute__((__visibility__("default"))) void ImGuiIO_AddInputCharactersUTF8(ImGuiIO* self,const char* str);
-extern __attribute__((__visibility__("default"))) void ImGuiIO_SetKeyEventNativeData(ImGuiIO* self,ImGuiKey key,int native_keycode,int native_scancode,int native_legacy_index);
-extern __attribute__((__visibility__("default"))) void ImGuiIO_SetAppAcceptingEvents(ImGuiIO* self,_Bool accepting_events);
-extern __attribute__((__visibility__("default"))) void ImGuiIO_ClearEventsQueue(ImGuiIO* self);
-extern __attribute__((__visibility__("default"))) void ImGuiIO_ClearInputKeys(ImGuiIO* self);
-extern __attribute__((__visibility__("default"))) ImGuiIO* ImGuiIO_ImGuiIO(void);
-extern __attribute__((__visibility__("default"))) void ImGuiIO_destroy(ImGuiIO* self);
-extern __attribute__((__visibility__("default"))) ImGuiInputTextCallbackData* ImGuiInputTextCallbackData_ImGuiInputTextCallbackData(void);
-extern __attribute__((__visibility__("default"))) void ImGuiInputTextCallbackData_destroy(ImGuiInputTextCallbackData* self);
-extern __attribute__((__visibility__("default"))) void ImGuiInputTextCallbackData_DeleteChars(ImGuiInputTextCallbackData* self,int pos,int bytes_count);
-extern __attribute__((__visibility__("default"))) void ImGuiInputTextCallbackData_InsertChars(ImGuiInputTextCallbackData* self,int pos,const char* text,const char* text_end);
-extern __attribute__((__visibility__("default"))) void ImGuiInputTextCallbackData_SelectAll(ImGuiInputTextCallbackData* self);
-extern __attribute__((__visibility__("default"))) void ImGuiInputTextCallbackData_ClearSelection(ImGuiInputTextCallbackData* self);
-extern __attribute__((__visibility__("default"))) _Bool ImGuiInputTextCallbackData_HasSelection(ImGuiInputTextCallbackData* self);
-extern __attribute__((__visibility__("default"))) ImGuiWindowClass* ImGuiWindowClass_ImGuiWindowClass(void);
-extern __attribute__((__visibility__("default"))) void ImGuiWindowClass_destroy(ImGuiWindowClass* self);
-extern __attribute__((__visibility__("default"))) ImGuiPayload* ImGuiPayload_ImGuiPayload(void);
-extern __attribute__((__visibility__("default"))) void ImGuiPayload_destroy(ImGuiPayload* self);
-extern __attribute__((__visibility__("default"))) void ImGuiPayload_Clear(ImGuiPayload* self);
-extern __attribute__((__visibility__("default"))) _Bool ImGuiPayload_IsDataType(ImGuiPayload* self,const char* type);
-extern __attribute__((__visibility__("default"))) _Bool ImGuiPayload_IsPreview(ImGuiPayload* self);
-extern __attribute__((__visibility__("default"))) _Bool ImGuiPayload_IsDelivery(ImGuiPayload* self);
-extern __attribute__((__visibility__("default"))) ImGuiOnceUponAFrame* ImGuiOnceUponAFrame_ImGuiOnceUponAFrame(void);
-extern __attribute__((__visibility__("default"))) void ImGuiOnceUponAFrame_destroy(ImGuiOnceUponAFrame* self);
-extern __attribute__((__visibility__("default"))) ImGuiTextFilter* ImGuiTextFilter_ImGuiTextFilter(const char* default_filter);
-extern __attribute__((__visibility__("default"))) void ImGuiTextFilter_destroy(ImGuiTextFilter* self);
-extern __attribute__((__visibility__("default"))) _Bool ImGuiTextFilter_Draw(ImGuiTextFilter* self,const char* label,float width);
-extern __attribute__((__visibility__("default"))) _Bool ImGuiTextFilter_PassFilter(ImGuiTextFilter* self,const char* text,const char* text_end);
-extern __attribute__((__visibility__("default"))) void ImGuiTextFilter_Build(ImGuiTextFilter* self);
-extern __attribute__((__visibility__("default"))) void ImGuiTextFilter_Clear(ImGuiTextFilter* self);
-extern __attribute__((__visibility__("default"))) _Bool ImGuiTextFilter_IsActive(ImGuiTextFilter* self);
-extern __attribute__((__visibility__("default"))) ImGuiTextRange* ImGuiTextRange_ImGuiTextRange_Nil(void);
-extern __attribute__((__visibility__("default"))) void ImGuiTextRange_destroy(ImGuiTextRange* self);
-extern __attribute__((__visibility__("default"))) ImGuiTextRange* ImGuiTextRange_ImGuiTextRange_Str(const char* _b,const char* _e);
-extern __attribute__((__visibility__("default"))) _Bool ImGuiTextRange_empty(ImGuiTextRange* self);
-extern __attribute__((__visibility__("default"))) void ImGuiTextRange_split(ImGuiTextRange* self,char separator,ImVector_ImGuiTextRange* out);
-extern __attribute__((__visibility__("default"))) ImGuiTextBuffer* ImGuiTextBuffer_ImGuiTextBuffer(void);
-extern __attribute__((__visibility__("default"))) void ImGuiTextBuffer_destroy(ImGuiTextBuffer* self);
-extern __attribute__((__visibility__("default"))) const char* ImGuiTextBuffer_begin(ImGuiTextBuffer* self);
-extern __attribute__((__visibility__("default"))) const char* ImGuiTextBuffer_end(ImGuiTextBuffer* self);
-extern __attribute__((__visibility__("default"))) int ImGuiTextBuffer_size(ImGuiTextBuffer* self);
-extern __attribute__((__visibility__("default"))) _Bool ImGuiTextBuffer_empty(ImGuiTextBuffer* self);
-extern __attribute__((__visibility__("default"))) void ImGuiTextBuffer_clear(ImGuiTextBuffer* self);
-extern __attribute__((__visibility__("default"))) void ImGuiTextBuffer_reserve(ImGuiTextBuffer* self,int capacity);
-extern __attribute__((__visibility__("default"))) const char* ImGuiTextBuffer_c_str(ImGuiTextBuffer* self);
-extern __attribute__((__visibility__("default"))) void ImGuiTextBuffer_append(ImGuiTextBuffer* self,const char* str,const char* str_end);
-extern __attribute__((__visibility__("default"))) void ImGuiTextBuffer_appendfv(ImGuiTextBuffer* self,const char* fmt,va_list args);
-extern __attribute__((__visibility__("default"))) ImGuiStoragePair* ImGuiStoragePair_ImGuiStoragePair_Int(ImGuiID _key,int _val);
-extern __attribute__((__visibility__("default"))) void ImGuiStoragePair_destroy(ImGuiStoragePair* self);
-extern __attribute__((__visibility__("default"))) ImGuiStoragePair* ImGuiStoragePair_ImGuiStoragePair_Float(ImGuiID _key,float _val);
-extern __attribute__((__visibility__("default"))) ImGuiStoragePair* ImGuiStoragePair_ImGuiStoragePair_Ptr(ImGuiID _key,void* _val);
-extern __attribute__((__visibility__("default"))) void ImGuiStorage_Clear(ImGuiStorage* self);
-extern __attribute__((__visibility__("default"))) int ImGuiStorage_GetInt(ImGuiStorage* self,ImGuiID key,int default_val);
-extern __attribute__((__visibility__("default"))) void ImGuiStorage_SetInt(ImGuiStorage* self,ImGuiID key,int val);
-extern __attribute__((__visibility__("default"))) _Bool ImGuiStorage_GetBool(ImGuiStorage* self,ImGuiID key,_Bool default_val);
-extern __attribute__((__visibility__("default"))) void ImGuiStorage_SetBool(ImGuiStorage* self,ImGuiID key,_Bool val);
-extern __attribute__((__visibility__("default"))) float ImGuiStorage_GetFloat(ImGuiStorage* self,ImGuiID key,float default_val);
-extern __attribute__((__visibility__("default"))) void ImGuiStorage_SetFloat(ImGuiStorage* self,ImGuiID key,float val);
-extern __attribute__((__visibility__("default"))) void* ImGuiStorage_GetVoidPtr(ImGuiStorage* self,ImGuiID key);
-extern __attribute__((__visibility__("default"))) void ImGuiStorage_SetVoidPtr(ImGuiStorage* self,ImGuiID key,void* val);
-extern __attribute__((__visibility__("default"))) int* ImGuiStorage_GetIntRef(ImGuiStorage* self,ImGuiID key,int default_val);
-extern __attribute__((__visibility__("default"))) _Bool* ImGuiStorage_GetBoolRef(ImGuiStorage* self,ImGuiID key,_Bool default_val);
-extern __attribute__((__visibility__("default"))) float* ImGuiStorage_GetFloatRef(ImGuiStorage* self,ImGuiID key,float default_val);
-extern __attribute__((__visibility__("default"))) void** ImGuiStorage_GetVoidPtrRef(ImGuiStorage* self,ImGuiID key,void* default_val);
-extern __attribute__((__visibility__("default"))) void ImGuiStorage_BuildSortByKey(ImGuiStorage* self);
-extern __attribute__((__visibility__("default"))) void ImGuiStorage_SetAllInt(ImGuiStorage* self,int val);
-extern __attribute__((__visibility__("default"))) ImGuiListClipper* ImGuiListClipper_ImGuiListClipper(void);
-extern __attribute__((__visibility__("default"))) void ImGuiListClipper_destroy(ImGuiListClipper* self);
-extern __attribute__((__visibility__("default"))) void ImGuiListClipper_Begin(ImGuiListClipper* self,int items_count,float items_height);
-extern __attribute__((__visibility__("default"))) void ImGuiListClipper_End(ImGuiListClipper* self);
-extern __attribute__((__visibility__("default"))) _Bool ImGuiListClipper_Step(ImGuiListClipper* self);
-extern __attribute__((__visibility__("default"))) void ImGuiListClipper_IncludeItemByIndex(ImGuiListClipper* self,int item_index);
-extern __attribute__((__visibility__("default"))) void ImGuiListClipper_IncludeItemsByIndex(ImGuiListClipper* self,int item_begin,int item_end);
-extern __attribute__((__visibility__("default"))) ImColor* ImColor_ImColor_Nil(void);
-extern __attribute__((__visibility__("default"))) void ImColor_destroy(ImColor* self);
-extern __attribute__((__visibility__("default"))) ImColor* ImColor_ImColor_Float(float r,float g,float b,float a);
-extern __attribute__((__visibility__("default"))) ImColor* ImColor_ImColor_Vec4(const ImVec4 col);
-extern __attribute__((__visibility__("default"))) ImColor* ImColor_ImColor_Int(int r,int g,int b,int a);
-extern __attribute__((__visibility__("default"))) ImColor* ImColor_ImColor_U32(ImU32 rgba);
-extern __attribute__((__visibility__("default"))) void ImColor_SetHSV(ImColor* self,float h,float s,float v,float a);
-extern __attribute__((__visibility__("default"))) void ImColor_HSV(ImColor *pOut,float h,float s,float v,float a);
-extern __attribute__((__visibility__("default"))) ImDrawCmd* ImDrawCmd_ImDrawCmd(void);
-extern __attribute__((__visibility__("default"))) void ImDrawCmd_destroy(ImDrawCmd* self);
-extern __attribute__((__visibility__("default"))) ImTextureID ImDrawCmd_GetTexID(ImDrawCmd* self);
-extern __attribute__((__visibility__("default"))) ImDrawListSplitter* ImDrawListSplitter_ImDrawListSplitter(void);
-extern __attribute__((__visibility__("default"))) void ImDrawListSplitter_destroy(ImDrawListSplitter* self);
-extern __attribute__((__visibility__("default"))) void ImDrawListSplitter_Clear(ImDrawListSplitter* self);
-extern __attribute__((__visibility__("default"))) void ImDrawListSplitter_ClearFreeMemory(ImDrawListSplitter* self);
-extern __attribute__((__visibility__("default"))) void ImDrawListSplitter_Split(ImDrawListSplitter* self,ImDrawList* draw_list,int count);
-extern __attribute__((__visibility__("default"))) void ImDrawListSplitter_Merge(ImDrawListSplitter* self,ImDrawList* draw_list);
-extern __attribute__((__visibility__("default"))) void ImDrawListSplitter_SetCurrentChannel(ImDrawListSplitter* self,ImDrawList* draw_list,int channel_idx);
-extern __attribute__((__visibility__("default"))) ImDrawList* ImDrawList_ImDrawList(ImDrawListSharedData* shared_data);
-extern __attribute__((__visibility__("default"))) void ImDrawList_destroy(ImDrawList* self);
-extern __attribute__((__visibility__("default"))) void ImDrawList_PushClipRect(ImDrawList* self,const ImVec2 clip_rect_min,const ImVec2 clip_rect_max,_Bool intersect_with_current_clip_rect);
-extern __attribute__((__visibility__("default"))) void ImDrawList_PushClipRectFullScreen(ImDrawList* self);
-extern __attribute__((__visibility__("default"))) void ImDrawList_PopClipRect(ImDrawList* self);
-extern __attribute__((__visibility__("default"))) void ImDrawList_PushTextureID(ImDrawList* self,ImTextureID texture_id);
-extern __attribute__((__visibility__("default"))) void ImDrawList_PopTextureID(ImDrawList* self);
-extern __attribute__((__visibility__("default"))) void ImDrawList_GetClipRectMin(ImVec2 *pOut,ImDrawList* self);
-extern __attribute__((__visibility__("default"))) void ImDrawList_GetClipRectMax(ImVec2 *pOut,ImDrawList* self);
-extern __attribute__((__visibility__("default"))) void ImDrawList_AddLine(ImDrawList* self,const ImVec2 p1,const ImVec2 p2,ImU32 col,float thickness);
-extern __attribute__((__visibility__("default"))) void ImDrawList_AddRect(ImDrawList* self,const ImVec2 p_min,const ImVec2 p_max,ImU32 col,float rounding,ImDrawFlags flags,float thickness);
-extern __attribute__((__visibility__("default"))) void ImDrawList_AddRectFilled(ImDrawList* self,const ImVec2 p_min,const ImVec2 p_max,ImU32 col,float rounding,ImDrawFlags flags);
-extern __attribute__((__visibility__("default"))) void ImDrawList_AddRectFilledMultiColor(ImDrawList* self,const ImVec2 p_min,const ImVec2 p_max,ImU32 col_upr_left,ImU32 col_upr_right,ImU32 col_bot_right,ImU32 col_bot_left);
-extern __attribute__((__visibility__("default"))) void ImDrawList_AddQuad(ImDrawList* self,const ImVec2 p1,const ImVec2 p2,const ImVec2 p3,const ImVec2 p4,ImU32 col,float thickness);
-extern __attribute__((__visibility__("default"))) void ImDrawList_AddQuadFilled(ImDrawList* self,const ImVec2 p1,const ImVec2 p2,const ImVec2 p3,const ImVec2 p4,ImU32 col);
-extern __attribute__((__visibility__("default"))) void ImDrawList_AddTriangle(ImDrawList* self,const ImVec2 p1,const ImVec2 p2,const ImVec2 p3,ImU32 col,float thickness);
-extern __attribute__((__visibility__("default"))) void ImDrawList_AddTriangleFilled(ImDrawList* self,const ImVec2 p1,const ImVec2 p2,const ImVec2 p3,ImU32 col);
-extern __attribute__((__visibility__("default"))) void ImDrawList_AddCircle(ImDrawList* self,const ImVec2 center,float radius,ImU32 col,int num_segments,float thickness);
-extern __attribute__((__visibility__("default"))) void ImDrawList_AddCircleFilled(ImDrawList* self,const ImVec2 center,float radius,ImU32 col,int num_segments);
-extern __attribute__((__visibility__("default"))) void ImDrawList_AddNgon(ImDrawList* self,const ImVec2 center,float radius,ImU32 col,int num_segments,float thickness);
-extern __attribute__((__visibility__("default"))) void ImDrawList_AddNgonFilled(ImDrawList* self,const ImVec2 center,float radius,ImU32 col,int num_segments);
-extern __attribute__((__visibility__("default"))) void ImDrawList_AddEllipse(ImDrawList* self,const ImVec2 center,const ImVec2 radius,ImU32 col,float rot,int num_segments,float thickness);
-extern __attribute__((__visibility__("default"))) void ImDrawList_AddEllipseFilled(ImDrawList* self,const ImVec2 center,const ImVec2 radius,ImU32 col,float rot,int num_segments);
-extern __attribute__((__visibility__("default"))) void ImDrawList_AddText_Vec2(ImDrawList* self,const ImVec2 pos,ImU32 col,const char* text_begin,const char* text_end);
-extern __attribute__((__visibility__("default"))) void ImDrawList_AddText_FontPtr(ImDrawList* self,const ImFont* font,float font_size,const ImVec2 pos,ImU32 col,const char* text_begin,const char* text_end,float wrap_width,const ImVec4* cpu_fine_clip_rect);
-extern __attribute__((__visibility__("default"))) void ImDrawList_AddBezierCubic(ImDrawList* self,const ImVec2 p1,const ImVec2 p2,const ImVec2 p3,const ImVec2 p4,ImU32 col,float thickness,int num_segments);
-extern __attribute__((__visibility__("default"))) void ImDrawList_AddBezierQuadratic(ImDrawList* self,const ImVec2 p1,const ImVec2 p2,const ImVec2 p3,ImU32 col,float thickness,int num_segments);
-extern __attribute__((__visibility__("default"))) void ImDrawList_AddPolyline(ImDrawList* self,const ImVec2* points,int num_points,ImU32 col,ImDrawFlags flags,float thickness);
-extern __attribute__((__visibility__("default"))) void ImDrawList_AddConvexPolyFilled(ImDrawList* self,const ImVec2* points,int num_points,ImU32 col);
-extern __attribute__((__visibility__("default"))) void ImDrawList_AddConcavePolyFilled(ImDrawList* self,const ImVec2* points,int num_points,ImU32 col);
-extern __attribute__((__visibility__("default"))) void ImDrawList_AddImage(ImDrawList* self,ImTextureID user_texture_id,const ImVec2 p_min,const ImVec2 p_max,const ImVec2 uv_min,const ImVec2 uv_max,ImU32 col);
-extern __attribute__((__visibility__("default"))) void ImDrawList_AddImageQuad(ImDrawList* self,ImTextureID user_texture_id,const ImVec2 p1,const ImVec2 p2,const ImVec2 p3,const ImVec2 p4,const ImVec2 uv1,const ImVec2 uv2,const ImVec2 uv3,const ImVec2 uv4,ImU32 col);
-extern __attribute__((__visibility__("default"))) void ImDrawList_AddImageRounded(ImDrawList* self,ImTextureID user_texture_id,const ImVec2 p_min,const ImVec2 p_max,const ImVec2 uv_min,const ImVec2 uv_max,ImU32 col,float rounding,ImDrawFlags flags);
-extern __attribute__((__visibility__("default"))) void ImDrawList_PathClear(ImDrawList* self);
-extern __attribute__((__visibility__("default"))) void ImDrawList_PathLineTo(ImDrawList* self,const ImVec2 pos);
-extern __attribute__((__visibility__("default"))) void ImDrawList_PathLineToMergeDuplicate(ImDrawList* self,const ImVec2 pos);
-extern __attribute__((__visibility__("default"))) void ImDrawList_PathFillConvex(ImDrawList* self,ImU32 col);
-extern __attribute__((__visibility__("default"))) void ImDrawList_PathFillConcave(ImDrawList* self,ImU32 col);
-extern __attribute__((__visibility__("default"))) void ImDrawList_PathStroke(ImDrawList* self,ImU32 col,ImDrawFlags flags,float thickness);
-extern __attribute__((__visibility__("default"))) void ImDrawList_PathArcTo(ImDrawList* self,const ImVec2 center,float radius,float a_min,float a_max,int num_segments);
-extern __attribute__((__visibility__("default"))) void ImDrawList_PathArcToFast(ImDrawList* self,const ImVec2 center,float radius,int a_min_of_12,int a_max_of_12);
-extern __attribute__((__visibility__("default"))) void ImDrawList_PathEllipticalArcTo(ImDrawList* self,const ImVec2 center,const ImVec2 radius,float rot,float a_min,float a_max,int num_segments);
-extern __attribute__((__visibility__("default"))) void ImDrawList_PathBezierCubicCurveTo(ImDrawList* self,const ImVec2 p2,const ImVec2 p3,const ImVec2 p4,int num_segments);
-extern __attribute__((__visibility__("default"))) void ImDrawList_PathBezierQuadraticCurveTo(ImDrawList* self,const ImVec2 p2,const ImVec2 p3,int num_segments);
-extern __attribute__((__visibility__("default"))) void ImDrawList_PathRect(ImDrawList* self,const ImVec2 rect_min,const ImVec2 rect_max,float rounding,ImDrawFlags flags);
-extern __attribute__((__visibility__("default"))) void ImDrawList_AddCallback(ImDrawList* self,ImDrawCallback callback,void* callback_data);
-extern __attribute__((__visibility__("default"))) void ImDrawList_AddDrawCmd(ImDrawList* self);
-extern __attribute__((__visibility__("default"))) ImDrawList* ImDrawList_CloneOutput(ImDrawList* self);
-extern __attribute__((__visibility__("default"))) void ImDrawList_ChannelsSplit(ImDrawList* self,int count);
-extern __attribute__((__visibility__("default"))) void ImDrawList_ChannelsMerge(ImDrawList* self);
-extern __attribute__((__visibility__("default"))) void ImDrawList_ChannelsSetCurrent(ImDrawList* self,int n);
-extern __attribute__((__visibility__("default"))) void ImDrawList_PrimReserve(ImDrawList* self,int idx_count,int vtx_count);
-extern __attribute__((__visibility__("default"))) void ImDrawList_PrimUnreserve(ImDrawList* self,int idx_count,int vtx_count);
-extern __attribute__((__visibility__("default"))) void ImDrawList_PrimRect(ImDrawList* self,const ImVec2 a,const ImVec2 b,ImU32 col);
-extern __attribute__((__visibility__("default"))) void ImDrawList_PrimRectUV(ImDrawList* self,const ImVec2 a,const ImVec2 b,const ImVec2 uv_a,const ImVec2 uv_b,ImU32 col);
-extern __attribute__((__visibility__("default"))) void ImDrawList_PrimQuadUV(ImDrawList* self,const ImVec2 a,const ImVec2 b,const ImVec2 c,const ImVec2 d,const ImVec2 uv_a,const ImVec2 uv_b,const ImVec2 uv_c,const ImVec2 uv_d,ImU32 col);
-extern __attribute__((__visibility__("default"))) void ImDrawList_PrimWriteVtx(ImDrawList* self,const ImVec2 pos,const ImVec2 uv,ImU32 col);
-extern __attribute__((__visibility__("default"))) void ImDrawList_PrimWriteIdx(ImDrawList* self,ImDrawIdx idx);
-extern __attribute__((__visibility__("default"))) void ImDrawList_PrimVtx(ImDrawList* self,const ImVec2 pos,const ImVec2 uv,ImU32 col);
-extern __attribute__((__visibility__("default"))) void ImDrawList__ResetForNewFrame(ImDrawList* self);
-extern __attribute__((__visibility__("default"))) void ImDrawList__ClearFreeMemory(ImDrawList* self);
-extern __attribute__((__visibility__("default"))) void ImDrawList__PopUnusedDrawCmd(ImDrawList* self);
-extern __attribute__((__visibility__("default"))) void ImDrawList__TryMergeDrawCmds(ImDrawList* self);
-extern __attribute__((__visibility__("default"))) void ImDrawList__OnChangedClipRect(ImDrawList* self);
-extern __attribute__((__visibility__("default"))) void ImDrawList__OnChangedTextureID(ImDrawList* self);
-extern __attribute__((__visibility__("default"))) void ImDrawList__OnChangedVtxOffset(ImDrawList* self);
-extern __attribute__((__visibility__("default"))) int ImDrawList__CalcCircleAutoSegmentCount(ImDrawList* self,float radius);
-extern __attribute__((__visibility__("default"))) void ImDrawList__PathArcToFastEx(ImDrawList* self,const ImVec2 center,float radius,int a_min_sample,int a_max_sample,int a_step);
-extern __attribute__((__visibility__("default"))) void ImDrawList__PathArcToN(ImDrawList* self,const ImVec2 center,float radius,float a_min,float a_max,int num_segments);
-extern __attribute__((__visibility__("default"))) ImDrawData* ImDrawData_ImDrawData(void);
-extern __attribute__((__visibility__("default"))) void ImDrawData_destroy(ImDrawData* self);
-extern __attribute__((__visibility__("default"))) void ImDrawData_Clear(ImDrawData* self);
-extern __attribute__((__visibility__("default"))) void ImDrawData_AddDrawList(ImDrawData* self,ImDrawList* draw_list);
-extern __attribute__((__visibility__("default"))) void ImDrawData_DeIndexAllBuffers(ImDrawData* self);
-extern __attribute__((__visibility__("default"))) void ImDrawData_ScaleClipRects(ImDrawData* self,const ImVec2 fb_scale);
-extern __attribute__((__visibility__("default"))) ImFontConfig* ImFontConfig_ImFontConfig(void);
-extern __attribute__((__visibility__("default"))) void ImFontConfig_destroy(ImFontConfig* self);
-extern __attribute__((__visibility__("default"))) ImFontGlyphRangesBuilder* ImFontGlyphRangesBuilder_ImFontGlyphRangesBuilder(void);
-extern __attribute__((__visibility__("default"))) void ImFontGlyphRangesBuilder_destroy(ImFontGlyphRangesBuilder* self);
-extern __attribute__((__visibility__("default"))) void ImFontGlyphRangesBuilder_Clear(ImFontGlyphRangesBuilder* self);
-extern __attribute__((__visibility__("default"))) _Bool ImFontGlyphRangesBuilder_GetBit(ImFontGlyphRangesBuilder* self,size_t n);
-extern __attribute__((__visibility__("default"))) void ImFontGlyphRangesBuilder_SetBit(ImFontGlyphRangesBuilder* self,size_t n);
-extern __attribute__((__visibility__("default"))) void ImFontGlyphRangesBuilder_AddChar(ImFontGlyphRangesBuilder* self,ImWchar c);
-extern __attribute__((__visibility__("default"))) void ImFontGlyphRangesBuilder_AddText(ImFontGlyphRangesBuilder* self,const char* text,const char* text_end);
-extern __attribute__((__visibility__("default"))) void ImFontGlyphRangesBuilder_AddRanges(ImFontGlyphRangesBuilder* self,const ImWchar* ranges);
-extern __attribute__((__visibility__("default"))) void ImFontGlyphRangesBuilder_BuildRanges(ImFontGlyphRangesBuilder* self,ImVector_ImWchar* out_ranges);
-extern __attribute__((__visibility__("default"))) ImFontAtlasCustomRect* ImFontAtlasCustomRect_ImFontAtlasCustomRect(void);
-extern __attribute__((__visibility__("default"))) void ImFontAtlasCustomRect_destroy(ImFontAtlasCustomRect* self);
-extern __attribute__((__visibility__("default"))) _Bool ImFontAtlasCustomRect_IsPacked(ImFontAtlasCustomRect* self);
-extern __attribute__((__visibility__("default"))) ImFontAtlas* ImFontAtlas_ImFontAtlas(void);
-extern __attribute__((__visibility__("default"))) void ImFontAtlas_destroy(ImFontAtlas* self);
-extern __attribute__((__visibility__("default"))) ImFont* ImFontAtlas_AddFont(ImFontAtlas* self,const ImFontConfig* font_cfg);
-extern __attribute__((__visibility__("default"))) ImFont* ImFontAtlas_AddFontDefault(ImFontAtlas* self,const ImFontConfig* font_cfg);
-extern __attribute__((__visibility__("default"))) ImFont* ImFontAtlas_AddFontFromFileTTF(ImFontAtlas* self,const char* filename,float size_pixels,const ImFontConfig* font_cfg,const ImWchar* glyph_ranges);
-extern __attribute__((__visibility__("default"))) ImFont* ImFontAtlas_AddFontFromMemoryTTF(ImFontAtlas* self,void* font_data,int font_data_size,float size_pixels,const ImFontConfig* font_cfg,const ImWchar* glyph_ranges);
-extern __attribute__((__visibility__("default"))) ImFont* ImFontAtlas_AddFontFromMemoryCompressedTTF(ImFontAtlas* self,const void* compressed_font_data,int compressed_font_data_size,float size_pixels,const ImFontConfig* font_cfg,const ImWchar* glyph_ranges);
-extern __attribute__((__visibility__("default"))) ImFont* ImFontAtlas_AddFontFromMemoryCompressedBase85TTF(ImFontAtlas* self,const char* compressed_font_data_base85,float size_pixels,const ImFontConfig* font_cfg,const ImWchar* glyph_ranges);
-extern __attribute__((__visibility__("default"))) void ImFontAtlas_ClearInputData(ImFontAtlas* self);
-extern __attribute__((__visibility__("default"))) void ImFontAtlas_ClearTexData(ImFontAtlas* self);
-extern __attribute__((__visibility__("default"))) void ImFontAtlas_ClearFonts(ImFontAtlas* self);
-extern __attribute__((__visibility__("default"))) void ImFontAtlas_Clear(ImFontAtlas* self);
-extern __attribute__((__visibility__("default"))) _Bool ImFontAtlas_Build(ImFontAtlas* self);
-extern __attribute__((__visibility__("default"))) void ImFontAtlas_GetTexDataAsAlpha8(ImFontAtlas* self,unsigned char** out_pixels,int* out_width,int* out_height,int* out_bytes_per_pixel);
-extern __attribute__((__visibility__("default"))) void ImFontAtlas_GetTexDataAsRGBA32(ImFontAtlas* self,unsigned char** out_pixels,int* out_width,int* out_height,int* out_bytes_per_pixel);
-extern __attribute__((__visibility__("default"))) _Bool ImFontAtlas_IsBuilt(ImFontAtlas* self);
-extern __attribute__((__visibility__("default"))) void ImFontAtlas_SetTexID(ImFontAtlas* self,ImTextureID id);
-extern __attribute__((__visibility__("default"))) const ImWchar* ImFontAtlas_GetGlyphRangesDefault(ImFontAtlas* self);
-extern __attribute__((__visibility__("default"))) const ImWchar* ImFontAtlas_GetGlyphRangesGreek(ImFontAtlas* self);
-extern __attribute__((__visibility__("default"))) const ImWchar* ImFontAtlas_GetGlyphRangesKorean(ImFontAtlas* self);
-extern __attribute__((__visibility__("default"))) const ImWchar* ImFontAtlas_GetGlyphRangesJapanese(ImFontAtlas* self);
-extern __attribute__((__visibility__("default"))) const ImWchar* ImFontAtlas_GetGlyphRangesChineseFull(ImFontAtlas* self);
-extern __attribute__((__visibility__("default"))) const ImWchar* ImFontAtlas_GetGlyphRangesChineseSimplifiedCommon(ImFontAtlas* self);
-extern __attribute__((__visibility__("default"))) const ImWchar* ImFontAtlas_GetGlyphRangesCyrillic(ImFontAtlas* self);
-extern __attribute__((__visibility__("default"))) const ImWchar* ImFontAtlas_GetGlyphRangesThai(ImFontAtlas* self);
-extern __attribute__((__visibility__("default"))) const ImWchar* ImFontAtlas_GetGlyphRangesVietnamese(ImFontAtlas* self);
-extern __attribute__((__visibility__("default"))) int ImFontAtlas_AddCustomRectRegular(ImFontAtlas* self,int width,int height);
-extern __attribute__((__visibility__("default"))) int ImFontAtlas_AddCustomRectFontGlyph(ImFontAtlas* self,ImFont* font,ImWchar id,int width,int height,float advance_x,const ImVec2 offset);
-extern __attribute__((__visibility__("default"))) ImFontAtlasCustomRect* ImFontAtlas_GetCustomRectByIndex(ImFontAtlas* self,int index);
-extern __attribute__((__visibility__("default"))) void ImFontAtlas_CalcCustomRectUV(ImFontAtlas* self,const ImFontAtlasCustomRect* rect,ImVec2* out_uv_min,ImVec2* out_uv_max);
-extern __attribute__((__visibility__("default"))) _Bool ImFontAtlas_GetMouseCursorTexData(ImFontAtlas* self,ImGuiMouseCursor cursor,ImVec2* out_offset,ImVec2* out_size,ImVec2 out_uv_border[2],ImVec2 out_uv_fill[2]);
-extern __attribute__((__visibility__("default"))) ImFont* ImFont_ImFont(void);
-extern __attribute__((__visibility__("default"))) void ImFont_destroy(ImFont* self);
-extern __attribute__((__visibility__("default"))) const ImFontGlyph* ImFont_FindGlyph(ImFont* self,ImWchar c);
-extern __attribute__((__visibility__("default"))) const ImFontGlyph* ImFont_FindGlyphNoFallback(ImFont* self,ImWchar c);
-extern __attribute__((__visibility__("default"))) float ImFont_GetCharAdvance(ImFont* self,ImWchar c);
-extern __attribute__((__visibility__("default"))) _Bool ImFont_IsLoaded(ImFont* self);
-extern __attribute__((__visibility__("default"))) const char* ImFont_GetDebugName(ImFont* self);
-extern __attribute__((__visibility__("default"))) void ImFont_CalcTextSizeA(ImVec2 *pOut,ImFont* self,float size,float max_width,float wrap_width,const char* text_begin,const char* text_end,const char** remaining);
-extern __attribute__((__visibility__("default"))) const char* ImFont_CalcWordWrapPositionA(ImFont* self,float scale,const char* text,const char* text_end,float wrap_width);
-extern __attribute__((__visibility__("default"))) void ImFont_RenderChar(ImFont* self,ImDrawList* draw_list,float size,const ImVec2 pos,ImU32 col,ImWchar c);
-extern __attribute__((__visibility__("default"))) void ImFont_RenderText(ImFont* self,ImDrawList* draw_list,float size,const ImVec2 pos,ImU32 col,const ImVec4 clip_rect,const char* text_begin,const char* text_end,float wrap_width,_Bool cpu_fine_clip);
-extern __attribute__((__visibility__("default"))) void ImFont_BuildLookupTable(ImFont* self);
-extern __attribute__((__visibility__("default"))) void ImFont_ClearOutputData(ImFont* self);
-extern __attribute__((__visibility__("default"))) void ImFont_GrowIndex(ImFont* self,int new_size);
-extern __attribute__((__visibility__("default"))) void ImFont_AddGlyph(ImFont* self,const ImFontConfig* src_cfg,ImWchar c,float x0,float y0,float x1,float y1,float u0,float v0,float u1,float v1,float advance_x);
-extern __attribute__((__visibility__("default"))) void ImFont_AddRemapChar(ImFont* self,ImWchar dst,ImWchar src,_Bool overwrite_dst);
-extern __attribute__((__visibility__("default"))) void ImFont_SetGlyphVisible(ImFont* self,ImWchar c,_Bool visible);
-extern __attribute__((__visibility__("default"))) _Bool ImFont_IsGlyphRangeUnused(ImFont* self,unsigned int c_begin,unsigned int c_last);
-extern __attribute__((__visibility__("default"))) ImGuiViewport* ImGuiViewport_ImGuiViewport(void);
-extern __attribute__((__visibility__("default"))) void ImGuiViewport_destroy(ImGuiViewport* self);
-extern __attribute__((__visibility__("default"))) void ImGuiViewport_GetCenter(ImVec2 *pOut,ImGuiViewport* self);
-extern __attribute__((__visibility__("default"))) void ImGuiViewport_GetWorkCenter(ImVec2 *pOut,ImGuiViewport* self);
-extern __attribute__((__visibility__("default"))) ImGuiPlatformIO* ImGuiPlatformIO_ImGuiPlatformIO(void);
-extern __attribute__((__visibility__("default"))) void ImGuiPlatformIO_destroy(ImGuiPlatformIO* self);
-extern __attribute__((__visibility__("default"))) ImGuiPlatformMonitor* ImGuiPlatformMonitor_ImGuiPlatformMonitor(void);
-extern __attribute__((__visibility__("default"))) void ImGuiPlatformMonitor_destroy(ImGuiPlatformMonitor* self);
-extern __attribute__((__visibility__("default"))) ImGuiPlatformImeData* ImGuiPlatformImeData_ImGuiPlatformImeData(void);
-extern __attribute__((__visibility__("default"))) void ImGuiPlatformImeData_destroy(ImGuiPlatformImeData* self);
-extern __attribute__((__visibility__("default"))) ImGuiID igImHashData(const void* data,size_t data_size,ImGuiID seed);
-extern __attribute__((__visibility__("default"))) ImGuiID igImHashStr(const char* data,size_t data_size,ImGuiID seed);
-extern __attribute__((__visibility__("default"))) void igImQsort(void* base,size_t count,size_t size_of_element,int(*compare_func)(void const*,void const*));
-extern __attribute__((__visibility__("default"))) ImU32 igImAlphaBlendColors(ImU32 col_a,ImU32 col_b);
-extern __attribute__((__visibility__("default"))) _Bool igImIsPowerOfTwo_Int(int v);
-extern __attribute__((__visibility__("default"))) _Bool igImIsPowerOfTwo_U64(ImU64 v);
-extern __attribute__((__visibility__("default"))) int igImUpperPowerOfTwo(int v);
-extern __attribute__((__visibility__("default"))) int igImStricmp(const char* str1,const char* str2);
-extern __attribute__((__visibility__("default"))) int igImStrnicmp(const char* str1,const char* str2,size_t count);
-extern __attribute__((__visibility__("default"))) void igImStrncpy(char* dst,const char* src,size_t count);
-extern __attribute__((__visibility__("default"))) char* igImStrdup(const char* str);
-extern __attribute__((__visibility__("default"))) char* igImStrdupcpy(char* dst,size_t* p_dst_size,const char* str);
-extern __attribute__((__visibility__("default"))) const char* igImStrchrRange(const char* str_begin,const char* str_end,char c);
-extern __attribute__((__visibility__("default"))) const char* igImStreolRange(const char* str,const char* str_end);
-extern __attribute__((__visibility__("default"))) const char* igImStristr(const char* haystack,const char* haystack_end,const char* needle,const char* needle_end);
-extern __attribute__((__visibility__("default"))) void igImStrTrimBlanks(char* str);
-extern __attribute__((__visibility__("default"))) const char* igImStrSkipBlank(const char* str);
-extern __attribute__((__visibility__("default"))) int igImStrlenW(const ImWchar* str);
-extern __attribute__((__visibility__("default"))) const ImWchar* igImStrbolW(const ImWchar* buf_mid_line,const ImWchar* buf_begin);
-extern __attribute__((__visibility__("default"))) char igImToUpper(char c);
-extern __attribute__((__visibility__("default"))) _Bool igImCharIsBlankA(char c);
-extern __attribute__((__visibility__("default"))) _Bool igImCharIsBlankW(unsigned int c);
-extern __attribute__((__visibility__("default"))) int igImFormatString(char* buf,size_t buf_size,const char* fmt,...);
-extern __attribute__((__visibility__("default"))) int igImFormatStringV(char* buf,size_t buf_size,const char* fmt,va_list args);
-extern __attribute__((__visibility__("default"))) void igImFormatStringToTempBuffer(const char** out_buf,const char** out_buf_end,const char* fmt,...);
-extern __attribute__((__visibility__("default"))) void igImFormatStringToTempBufferV(const char** out_buf,const char** out_buf_end,const char* fmt,va_list args);
-extern __attribute__((__visibility__("default"))) const char* igImParseFormatFindStart(const char* format);
-extern __attribute__((__visibility__("default"))) const char* igImParseFormatFindEnd(const char* format);
-extern __attribute__((__visibility__("default"))) const char* igImParseFormatTrimDecorations(const char* format,char* buf,size_t buf_size);
-extern __attribute__((__visibility__("default"))) void igImParseFormatSanitizeForPrinting(const char* fmt_in,char* fmt_out,size_t fmt_out_size);
-extern __attribute__((__visibility__("default"))) const char* igImParseFormatSanitizeForScanning(const char* fmt_in,char* fmt_out,size_t fmt_out_size);
-extern __attribute__((__visibility__("default"))) int igImParseFormatPrecision(const char* format,int default_value);
-extern __attribute__((__visibility__("default"))) const char* igImTextCharToUtf8(char out_buf[5],unsigned int c);
-extern __attribute__((__visibility__("default"))) int igImTextStrToUtf8(char* out_buf,int out_buf_size,const ImWchar* in_text,const ImWchar* in_text_end);
-extern __attribute__((__visibility__("default"))) int igImTextCharFromUtf8(unsigned int* out_char,const char* in_text,const char* in_text_end);
-extern __attribute__((__visibility__("default"))) int igImTextStrFromUtf8(ImWchar* out_buf,int out_buf_size,const char* in_text,const char* in_text_end,const char** in_remaining);
-extern __attribute__((__visibility__("default"))) int igImTextCountCharsFromUtf8(const char* in_text,const char* in_text_end);
-extern __attribute__((__visibility__("default"))) int igImTextCountUtf8BytesFromChar(const char* in_text,const char* in_text_end);
-extern __attribute__((__visibility__("default"))) int igImTextCountUtf8BytesFromStr(const ImWchar* in_text,const ImWchar* in_text_end);
-extern __attribute__((__visibility__("default"))) const char* igImTextFindPreviousUtf8Codepoint(const char* in_text_start,const char* in_text_curr);
-extern __attribute__((__visibility__("default"))) ImFileHandle igImFileOpen(const char* filename,const char* mode);
-extern __attribute__((__visibility__("default"))) _Bool igImFileClose(ImFileHandle file);
-extern __attribute__((__visibility__("default"))) ImU64 igImFileGetSize(ImFileHandle file);
-extern __attribute__((__visibility__("default"))) ImU64 igImFileRead(void* data,ImU64 size,ImU64 count,ImFileHandle file);
-extern __attribute__((__visibility__("default"))) ImU64 igImFileWrite(const void* data,ImU64 size,ImU64 count,ImFileHandle file);
-extern __attribute__((__visibility__("default"))) void* igImFileLoadToMemory(const char* filename,const char* mode,size_t* out_file_size,int padding_bytes);
-extern __attribute__((__visibility__("default"))) float igImPow_Float(float x,float y);
-extern __attribute__((__visibility__("default"))) double igImPow_double(double x,double y);
-extern __attribute__((__visibility__("default"))) float igImLog_Float(float x);
-extern __attribute__((__visibility__("default"))) double igImLog_double(double x);
-extern __attribute__((__visibility__("default"))) int igImAbs_Int(int x);
-extern __attribute__((__visibility__("default"))) float igImAbs_Float(float x);
-extern __attribute__((__visibility__("default"))) double igImAbs_double(double x);
-extern __attribute__((__visibility__("default"))) float igImSign_Float(float x);
-extern __attribute__((__visibility__("default"))) double igImSign_double(double x);
-extern __attribute__((__visibility__("default"))) float igImRsqrt_Float(float x);
-extern __attribute__((__visibility__("default"))) double igImRsqrt_double(double x);
-extern __attribute__((__visibility__("default"))) void igImMin(ImVec2 *pOut,const ImVec2 lhs,const ImVec2 rhs);
-extern __attribute__((__visibility__("default"))) void igImMax(ImVec2 *pOut,const ImVec2 lhs,const ImVec2 rhs);
-extern __attribute__((__visibility__("default"))) void igImClamp(ImVec2 *pOut,const ImVec2 v,const ImVec2 mn,ImVec2 mx);
-extern __attribute__((__visibility__("default"))) void igImLerp_Vec2Float(ImVec2 *pOut,const ImVec2 a,const ImVec2 b,float t);
-extern __attribute__((__visibility__("default"))) void igImLerp_Vec2Vec2(ImVec2 *pOut,const ImVec2 a,const ImVec2 b,const ImVec2 t);
-extern __attribute__((__visibility__("default"))) void igImLerp_Vec4(ImVec4 *pOut,const ImVec4 a,const ImVec4 b,float t);
-extern __attribute__((__visibility__("default"))) float igImSaturate(float f);
-extern __attribute__((__visibility__("default"))) float igImLengthSqr_Vec2(const ImVec2 lhs);
-extern __attribute__((__visibility__("default"))) float igImLengthSqr_Vec4(const ImVec4 lhs);
-extern __attribute__((__visibility__("default"))) float igImInvLength(const ImVec2 lhs,float fail_value);
-extern __attribute__((__visibility__("default"))) float igImTrunc_Float(float f);
-extern __attribute__((__visibility__("default"))) void igImTrunc_Vec2(ImVec2 *pOut,const ImVec2 v);
-extern __attribute__((__visibility__("default"))) float igImFloor_Float(float f);
-extern __attribute__((__visibility__("default"))) void igImFloor_Vec2(ImVec2 *pOut,const ImVec2 v);
-extern __attribute__((__visibility__("default"))) int igImModPositive(int a,int b);
-extern __attribute__((__visibility__("default"))) float igImDot(const ImVec2 a,const ImVec2 b);
-extern __attribute__((__visibility__("default"))) void igImRotate(ImVec2 *pOut,const ImVec2 v,float cos_a,float sin_a);
-extern __attribute__((__visibility__("default"))) float igImLinearSweep(float current,float target,float speed);
-extern __attribute__((__visibility__("default"))) void igImMul(ImVec2 *pOut,const ImVec2 lhs,const ImVec2 rhs);
-extern __attribute__((__visibility__("default"))) _Bool igImIsFloatAboveGuaranteedIntegerPrecision(float f);
-extern __attribute__((__visibility__("default"))) float igImExponentialMovingAverage(float avg,float sample,int n);
-extern __attribute__((__visibility__("default"))) void igImBezierCubicCalc(ImVec2 *pOut,const ImVec2 p1,const ImVec2 p2,const ImVec2 p3,const ImVec2 p4,float t);
-extern __attribute__((__visibility__("default"))) void igImBezierCubicClosestPoint(ImVec2 *pOut,const ImVec2 p1,const ImVec2 p2,const ImVec2 p3,const ImVec2 p4,const ImVec2 p,int num_segments);
-extern __attribute__((__visibility__("default"))) void igImBezierCubicClosestPointCasteljau(ImVec2 *pOut,const ImVec2 p1,const ImVec2 p2,const ImVec2 p3,const ImVec2 p4,const ImVec2 p,float tess_tol);
-extern __attribute__((__visibility__("default"))) void igImBezierQuadraticCalc(ImVec2 *pOut,const ImVec2 p1,const ImVec2 p2,const ImVec2 p3,float t);
-extern __attribute__((__visibility__("default"))) void igImLineClosestPoint(ImVec2 *pOut,const ImVec2 a,const ImVec2 b,const ImVec2 p);
-extern __attribute__((__visibility__("default"))) _Bool igImTriangleContainsPoint(const ImVec2 a,const ImVec2 b,const ImVec2 c,const ImVec2 p);
-extern __attribute__((__visibility__("default"))) void igImTriangleClosestPoint(ImVec2 *pOut,const ImVec2 a,const ImVec2 b,const ImVec2 c,const ImVec2 p);
-extern __attribute__((__visibility__("default"))) void igImTriangleBarycentricCoords(const ImVec2 a,const ImVec2 b,const ImVec2 c,const ImVec2 p,float* out_u,float* out_v,float* out_w);
-extern __attribute__((__visibility__("default"))) float igImTriangleArea(const ImVec2 a,const ImVec2 b,const ImVec2 c);
-extern __attribute__((__visibility__("default"))) _Bool igImTriangleIsClockwise(const ImVec2 a,const ImVec2 b,const ImVec2 c);
-extern __attribute__((__visibility__("default"))) ImVec1* ImVec1_ImVec1_Nil(void);
-extern __attribute__((__visibility__("default"))) void ImVec1_destroy(ImVec1* self);
-extern __attribute__((__visibility__("default"))) ImVec1* ImVec1_ImVec1_Float(float _x);
-extern __attribute__((__visibility__("default"))) ImVec2ih* ImVec2ih_ImVec2ih_Nil(void);
-extern __attribute__((__visibility__("default"))) void ImVec2ih_destroy(ImVec2ih* self);
-extern __attribute__((__visibility__("default"))) ImVec2ih* ImVec2ih_ImVec2ih_short(short _x,short _y);
-extern __attribute__((__visibility__("default"))) ImVec2ih* ImVec2ih_ImVec2ih_Vec2(const ImVec2 rhs);
-extern __attribute__((__visibility__("default"))) ImRect* ImRect_ImRect_Nil(void);
-extern __attribute__((__visibility__("default"))) void ImRect_destroy(ImRect* self);
-extern __attribute__((__visibility__("default"))) ImRect* ImRect_ImRect_Vec2(const ImVec2 min,const ImVec2 max);
-extern __attribute__((__visibility__("default"))) ImRect* ImRect_ImRect_Vec4(const ImVec4 v);
-extern __attribute__((__visibility__("default"))) ImRect* ImRect_ImRect_Float(float x1,float y1,float x2,float y2);
-extern __attribute__((__visibility__("default"))) void ImRect_GetCenter(ImVec2 *pOut,ImRect* self);
-extern __attribute__((__visibility__("default"))) void ImRect_GetSize(ImVec2 *pOut,ImRect* self);
-extern __attribute__((__visibility__("default"))) float ImRect_GetWidth(ImRect* self);
-extern __attribute__((__visibility__("default"))) float ImRect_GetHeight(ImRect* self);
-extern __attribute__((__visibility__("default"))) float ImRect_GetArea(ImRect* self);
-extern __attribute__((__visibility__("default"))) void ImRect_GetTL(ImVec2 *pOut,ImRect* self);
-extern __attribute__((__visibility__("default"))) void ImRect_GetTR(ImVec2 *pOut,ImRect* self);
-extern __attribute__((__visibility__("default"))) void ImRect_GetBL(ImVec2 *pOut,ImRect* self);
-extern __attribute__((__visibility__("default"))) void ImRect_GetBR(ImVec2 *pOut,ImRect* self);
-extern __attribute__((__visibility__("default"))) _Bool ImRect_Contains_Vec2(ImRect* self,const ImVec2 p);
-extern __attribute__((__visibility__("default"))) _Bool ImRect_Contains_Rect(ImRect* self,const ImRect r);
-extern __attribute__((__visibility__("default"))) _Bool ImRect_ContainsWithPad(ImRect* self,const ImVec2 p,const ImVec2 pad);
-extern __attribute__((__visibility__("default"))) _Bool ImRect_Overlaps(ImRect* self,const ImRect r);
-extern __attribute__((__visibility__("default"))) void ImRect_Add_Vec2(ImRect* self,const ImVec2 p);
-extern __attribute__((__visibility__("default"))) void ImRect_Add_Rect(ImRect* self,const ImRect r);
-extern __attribute__((__visibility__("default"))) void ImRect_Expand_Float(ImRect* self,const float amount);
-extern __attribute__((__visibility__("default"))) void ImRect_Expand_Vec2(ImRect* self,const ImVec2 amount);
-extern __attribute__((__visibility__("default"))) void ImRect_Translate(ImRect* self,const ImVec2 d);
-extern __attribute__((__visibility__("default"))) void ImRect_TranslateX(ImRect* self,float dx);
-extern __attribute__((__visibility__("default"))) void ImRect_TranslateY(ImRect* self,float dy);
-extern __attribute__((__visibility__("default"))) void ImRect_ClipWith(ImRect* self,const ImRect r);
-extern __attribute__((__visibility__("default"))) void ImRect_ClipWithFull(ImRect* self,const ImRect r);
-extern __attribute__((__visibility__("default"))) void ImRect_Floor(ImRect* self);
-extern __attribute__((__visibility__("default"))) _Bool ImRect_IsInverted(ImRect* self);
-extern __attribute__((__visibility__("default"))) void ImRect_ToVec4(ImVec4 *pOut,ImRect* self);
-extern __attribute__((__visibility__("default"))) size_t igImBitArrayGetStorageSizeInBytes(int bitcount);
-extern __attribute__((__visibility__("default"))) void igImBitArrayClearAllBits(ImU32* arr,int bitcount);
-extern __attribute__((__visibility__("default"))) _Bool igImBitArrayTestBit(const ImU32* arr,int n);
-extern __attribute__((__visibility__("default"))) void igImBitArrayClearBit(ImU32* arr,int n);
-extern __attribute__((__visibility__("default"))) void igImBitArraySetBit(ImU32* arr,int n);
-extern __attribute__((__visibility__("default"))) void igImBitArraySetBitRange(ImU32* arr,int n,int n2);
-extern __attribute__((__visibility__("default"))) void ImBitVector_Create(ImBitVector* self,int sz);
-extern __attribute__((__visibility__("default"))) void ImBitVector_Clear(ImBitVector* self);
-extern __attribute__((__visibility__("default"))) _Bool ImBitVector_TestBit(ImBitVector* self,int n);
-extern __attribute__((__visibility__("default"))) void ImBitVector_SetBit(ImBitVector* self,int n);
-extern __attribute__((__visibility__("default"))) void ImBitVector_ClearBit(ImBitVector* self,int n);
-extern __attribute__((__visibility__("default"))) void ImGuiTextIndex_clear(ImGuiTextIndex* self);
-extern __attribute__((__visibility__("default"))) int ImGuiTextIndex_size(ImGuiTextIndex* self);
-extern __attribute__((__visibility__("default"))) const char* ImGuiTextIndex_get_line_begin(ImGuiTextIndex* self,const char* base,int n);
-extern __attribute__((__visibility__("default"))) const char* ImGuiTextIndex_get_line_end(ImGuiTextIndex* self,const char* base,int n);
-extern __attribute__((__visibility__("default"))) void ImGuiTextIndex_append(ImGuiTextIndex* self,const char* base,int old_size,int new_size);
-extern __attribute__((__visibility__("default"))) ImDrawListSharedData* ImDrawListSharedData_ImDrawListSharedData(void);
-extern __attribute__((__visibility__("default"))) void ImDrawListSharedData_destroy(ImDrawListSharedData* self);
-extern __attribute__((__visibility__("default"))) void ImDrawListSharedData_SetCircleTessellationMaxError(ImDrawListSharedData* self,float max_error);
-extern __attribute__((__visibility__("default"))) ImDrawDataBuilder* ImDrawDataBuilder_ImDrawDataBuilder(void);
-extern __attribute__((__visibility__("default"))) void ImDrawDataBuilder_destroy(ImDrawDataBuilder* self);
-extern __attribute__((__visibility__("default"))) ImGuiStyleMod* ImGuiStyleMod_ImGuiStyleMod_Int(ImGuiStyleVar idx,int v);
-extern __attribute__((__visibility__("default"))) void ImGuiStyleMod_destroy(ImGuiStyleMod* self);
-extern __attribute__((__visibility__("default"))) ImGuiStyleMod* ImGuiStyleMod_ImGuiStyleMod_Float(ImGuiStyleVar idx,float v);
-extern __attribute__((__visibility__("default"))) ImGuiStyleMod* ImGuiStyleMod_ImGuiStyleMod_Vec2(ImGuiStyleVar idx,ImVec2 v);
-extern __attribute__((__visibility__("default"))) ImGuiComboPreviewData* ImGuiComboPreviewData_ImGuiComboPreviewData(void);
-extern __attribute__((__visibility__("default"))) void ImGuiComboPreviewData_destroy(ImGuiComboPreviewData* self);
-extern __attribute__((__visibility__("default"))) ImGuiMenuColumns* ImGuiMenuColumns_ImGuiMenuColumns(void);
-extern __attribute__((__visibility__("default"))) void ImGuiMenuColumns_destroy(ImGuiMenuColumns* self);
-extern __attribute__((__visibility__("default"))) void ImGuiMenuColumns_Update(ImGuiMenuColumns* self,float spacing,_Bool window_reappearing);
-extern __attribute__((__visibility__("default"))) float ImGuiMenuColumns_DeclColumns(ImGuiMenuColumns* self,float w_icon,float w_label,float w_shortcut,float w_mark);
-extern __attribute__((__visibility__("default"))) void ImGuiMenuColumns_CalcNextTotalWidth(ImGuiMenuColumns* self,_Bool update_offsets);
-extern __attribute__((__visibility__("default"))) ImGuiInputTextDeactivatedState* ImGuiInputTextDeactivatedState_ImGuiInputTextDeactivatedState(void);
-extern __attribute__((__visibility__("default"))) void ImGuiInputTextDeactivatedState_destroy(ImGuiInputTextDeactivatedState* self);
-extern __attribute__((__visibility__("default"))) void ImGuiInputTextDeactivatedState_ClearFreeMemory(ImGuiInputTextDeactivatedState* self);
-extern __attribute__((__visibility__("default"))) ImGuiInputTextState* ImGuiInputTextState_ImGuiInputTextState(void);
-extern __attribute__((__visibility__("default"))) void ImGuiInputTextState_destroy(ImGuiInputTextState* self);
-extern __attribute__((__visibility__("default"))) void ImGuiInputTextState_ClearText(ImGuiInputTextState* self);
-extern __attribute__((__visibility__("default"))) void ImGuiInputTextState_ClearFreeMemory(ImGuiInputTextState* self);
-extern __attribute__((__visibility__("default"))) int ImGuiInputTextState_GetUndoAvailCount(ImGuiInputTextState* self);
-extern __attribute__((__visibility__("default"))) int ImGuiInputTextState_GetRedoAvailCount(ImGuiInputTextState* self);
-extern __attribute__((__visibility__("default"))) void ImGuiInputTextState_OnKeyPressed(ImGuiInputTextState* self,int key);
-extern __attribute__((__visibility__("default"))) void ImGuiInputTextState_CursorAnimReset(ImGuiInputTextState* self);
-extern __attribute__((__visibility__("default"))) void ImGuiInputTextState_CursorClamp(ImGuiInputTextState* self);
-extern __attribute__((__visibility__("default"))) _Bool ImGuiInputTextState_HasSelection(ImGuiInputTextState* self);
-extern __attribute__((__visibility__("default"))) void ImGuiInputTextState_ClearSelection(ImGuiInputTextState* self);
-extern __attribute__((__visibility__("default"))) int ImGuiInputTextState_GetCursorPos(ImGuiInputTextState* self);
-extern __attribute__((__visibility__("default"))) int ImGuiInputTextState_GetSelectionStart(ImGuiInputTextState* self);
-extern __attribute__((__visibility__("default"))) int ImGuiInputTextState_GetSelectionEnd(ImGuiInputTextState* self);
-extern __attribute__((__visibility__("default"))) void ImGuiInputTextState_SelectAll(ImGuiInputTextState* self);
-extern __attribute__((__visibility__("default"))) void ImGuiInputTextState_ReloadUserBufAndSelectAll(ImGuiInputTextState* self);
-extern __attribute__((__visibility__("default"))) void ImGuiInputTextState_ReloadUserBufAndKeepSelection(ImGuiInputTextState* self);
-extern __attribute__((__visibility__("default"))) void ImGuiInputTextState_ReloadUserBufAndMoveToEnd(ImGuiInputTextState* self);
-extern __attribute__((__visibility__("default"))) ImGuiNextWindowData* ImGuiNextWindowData_ImGuiNextWindowData(void);
-extern __attribute__((__visibility__("default"))) void ImGuiNextWindowData_destroy(ImGuiNextWindowData* self);
-extern __attribute__((__visibility__("default"))) void ImGuiNextWindowData_ClearFlags(ImGuiNextWindowData* self);
-extern __attribute__((__visibility__("default"))) ImGuiNextItemData* ImGuiNextItemData_ImGuiNextItemData(void);
-extern __attribute__((__visibility__("default"))) void ImGuiNextItemData_destroy(ImGuiNextItemData* self);
-extern __attribute__((__visibility__("default"))) void ImGuiNextItemData_ClearFlags(ImGuiNextItemData* self);
-extern __attribute__((__visibility__("default"))) ImGuiLastItemData* ImGuiLastItemData_ImGuiLastItemData(void);
-extern __attribute__((__visibility__("default"))) void ImGuiLastItemData_destroy(ImGuiLastItemData* self);
-extern __attribute__((__visibility__("default"))) ImGuiStackSizes* ImGuiStackSizes_ImGuiStackSizes(void);
-extern __attribute__((__visibility__("default"))) void ImGuiStackSizes_destroy(ImGuiStackSizes* self);
-extern __attribute__((__visibility__("default"))) void ImGuiStackSizes_SetToContextState(ImGuiStackSizes* self,ImGuiContext* ctx);
-extern __attribute__((__visibility__("default"))) void ImGuiStackSizes_CompareWithContextState(ImGuiStackSizes* self,ImGuiContext* ctx);
-extern __attribute__((__visibility__("default"))) ImGuiPtrOrIndex* ImGuiPtrOrIndex_ImGuiPtrOrIndex_Ptr(void* ptr);
-extern __attribute__((__visibility__("default"))) void ImGuiPtrOrIndex_destroy(ImGuiPtrOrIndex* self);
-extern __attribute__((__visibility__("default"))) ImGuiPtrOrIndex* ImGuiPtrOrIndex_ImGuiPtrOrIndex_Int(int index);
-extern __attribute__((__visibility__("default"))) void* ImGuiDataVarInfo_GetVarPtr(ImGuiDataVarInfo* self,void* parent);
-extern __attribute__((__visibility__("default"))) ImGuiPopupData* ImGuiPopupData_ImGuiPopupData(void);
-extern __attribute__((__visibility__("default"))) void ImGuiPopupData_destroy(ImGuiPopupData* self);
-extern __attribute__((__visibility__("default"))) ImGuiInputEvent* ImGuiInputEvent_ImGuiInputEvent(void);
-extern __attribute__((__visibility__("default"))) void ImGuiInputEvent_destroy(ImGuiInputEvent* self);
-extern __attribute__((__visibility__("default"))) ImGuiKeyRoutingData* ImGuiKeyRoutingData_ImGuiKeyRoutingData(void);
-extern __attribute__((__visibility__("default"))) void ImGuiKeyRoutingData_destroy(ImGuiKeyRoutingData* self);
-extern __attribute__((__visibility__("default"))) ImGuiKeyRoutingTable* ImGuiKeyRoutingTable_ImGuiKeyRoutingTable(void);
-extern __attribute__((__visibility__("default"))) void ImGuiKeyRoutingTable_destroy(ImGuiKeyRoutingTable* self);
-extern __attribute__((__visibility__("default"))) void ImGuiKeyRoutingTable_Clear(ImGuiKeyRoutingTable* self);
-extern __attribute__((__visibility__("default"))) ImGuiKeyOwnerData* ImGuiKeyOwnerData_ImGuiKeyOwnerData(void);
-extern __attribute__((__visibility__("default"))) void ImGuiKeyOwnerData_destroy(ImGuiKeyOwnerData* self);
-extern __attribute__((__visibility__("default"))) ImGuiListClipperRange ImGuiListClipperRange_FromIndices(int min,int max);
-extern __attribute__((__visibility__("default"))) ImGuiListClipperRange ImGuiListClipperRange_FromPositions(float y1,float y2,int off_min,int off_max);
-extern __attribute__((__visibility__("default"))) ImGuiListClipperData* ImGuiListClipperData_ImGuiListClipperData(void);
-extern __attribute__((__visibility__("default"))) void ImGuiListClipperData_destroy(ImGuiListClipperData* self);
-extern __attribute__((__visibility__("default"))) void ImGuiListClipperData_Reset(ImGuiListClipperData* self,ImGuiListClipper* clipper);
-extern __attribute__((__visibility__("default"))) ImGuiNavItemData* ImGuiNavItemData_ImGuiNavItemData(void);
-extern __attribute__((__visibility__("default"))) void ImGuiNavItemData_destroy(ImGuiNavItemData* self);
-extern __attribute__((__visibility__("default"))) void ImGuiNavItemData_Clear(ImGuiNavItemData* self);
-extern __attribute__((__visibility__("default"))) ImGuiTypingSelectState* ImGuiTypingSelectState_ImGuiTypingSelectState(void);
-extern __attribute__((__visibility__("default"))) void ImGuiTypingSelectState_destroy(ImGuiTypingSelectState* self);
-extern __attribute__((__visibility__("default"))) void ImGuiTypingSelectState_Clear(ImGuiTypingSelectState* self);
-extern __attribute__((__visibility__("default"))) ImGuiOldColumnData* ImGuiOldColumnData_ImGuiOldColumnData(void);
-extern __attribute__((__visibility__("default"))) void ImGuiOldColumnData_destroy(ImGuiOldColumnData* self);
-extern __attribute__((__visibility__("default"))) ImGuiOldColumns* ImGuiOldColumns_ImGuiOldColumns(void);
-extern __attribute__((__visibility__("default"))) void ImGuiOldColumns_destroy(ImGuiOldColumns* self);
-extern __attribute__((__visibility__("default"))) ImGuiDockNode* ImGuiDockNode_ImGuiDockNode(ImGuiID id);
-extern __attribute__((__visibility__("default"))) void ImGuiDockNode_destroy(ImGuiDockNode* self);
-extern __attribute__((__visibility__("default"))) _Bool ImGuiDockNode_IsRootNode(ImGuiDockNode* self);
-extern __attribute__((__visibility__("default"))) _Bool ImGuiDockNode_IsDockSpace(ImGuiDockNode* self);
-extern __attribute__((__visibility__("default"))) _Bool ImGuiDockNode_IsFloatingNode(ImGuiDockNode* self);
-extern __attribute__((__visibility__("default"))) _Bool ImGuiDockNode_IsCentralNode(ImGuiDockNode* self);
-extern __attribute__((__visibility__("default"))) _Bool ImGuiDockNode_IsHiddenTabBar(ImGuiDockNode* self);
-extern __attribute__((__visibility__("default"))) _Bool ImGuiDockNode_IsNoTabBar(ImGuiDockNode* self);
-extern __attribute__((__visibility__("default"))) _Bool ImGuiDockNode_IsSplitNode(ImGuiDockNode* self);
-extern __attribute__((__visibility__("default"))) _Bool ImGuiDockNode_IsLeafNode(ImGuiDockNode* self);
-extern __attribute__((__visibility__("default"))) _Bool ImGuiDockNode_IsEmpty(ImGuiDockNode* self);
-extern __attribute__((__visibility__("default"))) void ImGuiDockNode_Rect(ImRect *pOut,ImGuiDockNode* self);
-extern __attribute__((__visibility__("default"))) void ImGuiDockNode_SetLocalFlags(ImGuiDockNode* self,ImGuiDockNodeFlags flags);
-extern __attribute__((__visibility__("default"))) void ImGuiDockNode_UpdateMergedFlags(ImGuiDockNode* self);
-extern __attribute__((__visibility__("default"))) ImGuiDockContext* ImGuiDockContext_ImGuiDockContext(void);
-extern __attribute__((__visibility__("default"))) void ImGuiDockContext_destroy(ImGuiDockContext* self);
-extern __attribute__((__visibility__("default"))) ImGuiViewportP* ImGuiViewportP_ImGuiViewportP(void);
-extern __attribute__((__visibility__("default"))) void ImGuiViewportP_destroy(ImGuiViewportP* self);
-extern __attribute__((__visibility__("default"))) void ImGuiViewportP_ClearRequestFlags(ImGuiViewportP* self);
-extern __attribute__((__visibility__("default"))) void ImGuiViewportP_CalcWorkRectPos(ImVec2 *pOut,ImGuiViewportP* self,const ImVec2 off_min);
-extern __attribute__((__visibility__("default"))) void ImGuiViewportP_CalcWorkRectSize(ImVec2 *pOut,ImGuiViewportP* self,const ImVec2 off_min,const ImVec2 off_max);
-extern __attribute__((__visibility__("default"))) void ImGuiViewportP_UpdateWorkRect(ImGuiViewportP* self);
-extern __attribute__((__visibility__("default"))) void ImGuiViewportP_GetMainRect(ImRect *pOut,ImGuiViewportP* self);
-extern __attribute__((__visibility__("default"))) void ImGuiViewportP_GetWorkRect(ImRect *pOut,ImGuiViewportP* self);
-extern __attribute__((__visibility__("default"))) void ImGuiViewportP_GetBuildWorkRect(ImRect *pOut,ImGuiViewportP* self);
-extern __attribute__((__visibility__("default"))) ImGuiWindowSettings* ImGuiWindowSettings_ImGuiWindowSettings(void);
-extern __attribute__((__visibility__("default"))) void ImGuiWindowSettings_destroy(ImGuiWindowSettings* self);
-extern __attribute__((__visibility__("default"))) char* ImGuiWindowSettings_GetName(ImGuiWindowSettings* self);
-extern __attribute__((__visibility__("default"))) ImGuiSettingsHandler* ImGuiSettingsHandler_ImGuiSettingsHandler(void);
-extern __attribute__((__visibility__("default"))) void ImGuiSettingsHandler_destroy(ImGuiSettingsHandler* self);
-extern __attribute__((__visibility__("default"))) ImGuiDebugAllocInfo* ImGuiDebugAllocInfo_ImGuiDebugAllocInfo(void);
-extern __attribute__((__visibility__("default"))) void ImGuiDebugAllocInfo_destroy(ImGuiDebugAllocInfo* self);
-extern __attribute__((__visibility__("default"))) ImGuiStackLevelInfo* ImGuiStackLevelInfo_ImGuiStackLevelInfo(void);
-extern __attribute__((__visibility__("default"))) void ImGuiStackLevelInfo_destroy(ImGuiStackLevelInfo* self);
-extern __attribute__((__visibility__("default"))) ImGuiIDStackTool* ImGuiIDStackTool_ImGuiIDStackTool(void);
-extern __attribute__((__visibility__("default"))) void ImGuiIDStackTool_destroy(ImGuiIDStackTool* self);
-extern __attribute__((__visibility__("default"))) ImGuiContextHook* ImGuiContextHook_ImGuiContextHook(void);
-extern __attribute__((__visibility__("default"))) void ImGuiContextHook_destroy(ImGuiContextHook* self);
-extern __attribute__((__visibility__("default"))) ImGuiContext* ImGuiContext_ImGuiContext(ImFontAtlas* shared_font_atlas);
-extern __attribute__((__visibility__("default"))) void ImGuiContext_destroy(ImGuiContext* self);
-extern __attribute__((__visibility__("default"))) ImGuiWindow* ImGuiWindow_ImGuiWindow(ImGuiContext* context,const char* name);
-extern __attribute__((__visibility__("default"))) void ImGuiWindow_destroy(ImGuiWindow* self);
-extern __attribute__((__visibility__("default"))) ImGuiID ImGuiWindow_GetID_Str(ImGuiWindow* self,const char* str,const char* str_end);
-extern __attribute__((__visibility__("default"))) ImGuiID ImGuiWindow_GetID_Ptr(ImGuiWindow* self,const void* ptr);
-extern __attribute__((__visibility__("default"))) ImGuiID ImGuiWindow_GetID_Int(ImGuiWindow* self,int n);
-extern __attribute__((__visibility__("default"))) ImGuiID ImGuiWindow_GetIDFromRectangle(ImGuiWindow* self,const ImRect r_abs);
-extern __attribute__((__visibility__("default"))) void ImGuiWindow_Rect(ImRect *pOut,ImGuiWindow* self);
-extern __attribute__((__visibility__("default"))) float ImGuiWindow_CalcFontSize(ImGuiWindow* self);
-extern __attribute__((__visibility__("default"))) float ImGuiWindow_TitleBarHeight(ImGuiWindow* self);
-extern __attribute__((__visibility__("default"))) void ImGuiWindow_TitleBarRect(ImRect *pOut,ImGuiWindow* self);
-extern __attribute__((__visibility__("default"))) float ImGuiWindow_MenuBarHeight(ImGuiWindow* self);
-extern __attribute__((__visibility__("default"))) void ImGuiWindow_MenuBarRect(ImRect *pOut,ImGuiWindow* self);
-extern __attribute__((__visibility__("default"))) ImGuiTabItem* ImGuiTabItem_ImGuiTabItem(void);
-extern __attribute__((__visibility__("default"))) void ImGuiTabItem_destroy(ImGuiTabItem* self);
-extern __attribute__((__visibility__("default"))) ImGuiTabBar* ImGuiTabBar_ImGuiTabBar(void);
-extern __attribute__((__visibility__("default"))) void ImGuiTabBar_destroy(ImGuiTabBar* self);
-extern __attribute__((__visibility__("default"))) ImGuiTableColumn* ImGuiTableColumn_ImGuiTableColumn(void);
-extern __attribute__((__visibility__("default"))) void ImGuiTableColumn_destroy(ImGuiTableColumn* self);
-extern __attribute__((__visibility__("default"))) ImGuiTableInstanceData* ImGuiTableInstanceData_ImGuiTableInstanceData(void);
-extern __attribute__((__visibility__("default"))) void ImGuiTableInstanceData_destroy(ImGuiTableInstanceData* self);
-extern __attribute__((__visibility__("default"))) ImGuiTable* ImGuiTable_ImGuiTable(void);
-extern __attribute__((__visibility__("default"))) void ImGuiTable_destroy(ImGuiTable* self);
-extern __attribute__((__visibility__("default"))) ImGuiTableTempData* ImGuiTableTempData_ImGuiTableTempData(void);
-extern __attribute__((__visibility__("default"))) void ImGuiTableTempData_destroy(ImGuiTableTempData* self);
-extern __attribute__((__visibility__("default"))) ImGuiTableColumnSettings* ImGuiTableColumnSettings_ImGuiTableColumnSettings(void);
-extern __attribute__((__visibility__("default"))) void ImGuiTableColumnSettings_destroy(ImGuiTableColumnSettings* self);
-extern __attribute__((__visibility__("default"))) ImGuiTableSettings* ImGuiTableSettings_ImGuiTableSettings(void);
-extern __attribute__((__visibility__("default"))) void ImGuiTableSettings_destroy(ImGuiTableSettings* self);
-extern __attribute__((__visibility__("default"))) ImGuiTableColumnSettings* ImGuiTableSettings_GetColumnSettings(ImGuiTableSettings* self);
-extern __attribute__((__visibility__("default"))) ImGuiWindow* igGetCurrentWindowRead(void);
-extern __attribute__((__visibility__("default"))) ImGuiWindow* igGetCurrentWindow(void);
-extern __attribute__((__visibility__("default"))) ImGuiWindow* igFindWindowByID(ImGuiID id);
-extern __attribute__((__visibility__("default"))) ImGuiWindow* igFindWindowByName(const char* name);
-extern __attribute__((__visibility__("default"))) void igUpdateWindowParentAndRootLinks(ImGuiWindow* window,ImGuiWindowFlags flags,ImGuiWindow* parent_window);
-extern __attribute__((__visibility__("default"))) void igCalcWindowNextAutoFitSize(ImVec2 *pOut,ImGuiWindow* window);
-extern __attribute__((__visibility__("default"))) _Bool igIsWindowChildOf(ImGuiWindow* window,ImGuiWindow* potential_parent,_Bool popup_hierarchy,_Bool dock_hierarchy);
-extern __attribute__((__visibility__("default"))) _Bool igIsWindowWithinBeginStackOf(ImGuiWindow* window,ImGuiWindow* potential_parent);
-extern __attribute__((__visibility__("default"))) _Bool igIsWindowAbove(ImGuiWindow* potential_above,ImGuiWindow* potential_below);
-extern __attribute__((__visibility__("default"))) _Bool igIsWindowNavFocusable(ImGuiWindow* window);
-extern __attribute__((__visibility__("default"))) void igSetWindowPos_WindowPtr(ImGuiWindow* window,const ImVec2 pos,ImGuiCond cond);
-extern __attribute__((__visibility__("default"))) void igSetWindowSize_WindowPtr(ImGuiWindow* window,const ImVec2 size,ImGuiCond cond);
-extern __attribute__((__visibility__("default"))) void igSetWindowCollapsed_WindowPtr(ImGuiWindow* window,_Bool collapsed,ImGuiCond cond);
-extern __attribute__((__visibility__("default"))) void igSetWindowHitTestHole(ImGuiWindow* window,const ImVec2 pos,const ImVec2 size);
-extern __attribute__((__visibility__("default"))) void igSetWindowHiddenAndSkipItemsForCurrentFrame(ImGuiWindow* window);
-extern __attribute__((__visibility__("default"))) void igSetWindowParentWindowForFocusRoute(ImGuiWindow* window,ImGuiWindow* parent_window);
-extern __attribute__((__visibility__("default"))) void igWindowRectAbsToRel(ImRect *pOut,ImGuiWindow* window,const ImRect r);
-extern __attribute__((__visibility__("default"))) void igWindowRectRelToAbs(ImRect *pOut,ImGuiWindow* window,const ImRect r);
-extern __attribute__((__visibility__("default"))) void igWindowPosRelToAbs(ImVec2 *pOut,ImGuiWindow* window,const ImVec2 p);
-extern __attribute__((__visibility__("default"))) void igFocusWindow(ImGuiWindow* window,ImGuiFocusRequestFlags flags);
-extern __attribute__((__visibility__("default"))) void igFocusTopMostWindowUnderOne(ImGuiWindow* under_this_window,ImGuiWindow* ignore_window,ImGuiViewport* filter_viewport,ImGuiFocusRequestFlags flags);
-extern __attribute__((__visibility__("default"))) void igBringWindowToFocusFront(ImGuiWindow* window);
-extern __attribute__((__visibility__("default"))) void igBringWindowToDisplayFront(ImGuiWindow* window);
-extern __attribute__((__visibility__("default"))) void igBringWindowToDisplayBack(ImGuiWindow* window);
-extern __attribute__((__visibility__("default"))) void igBringWindowToDisplayBehind(ImGuiWindow* window,ImGuiWindow* above_window);
-extern __attribute__((__visibility__("default"))) int igFindWindowDisplayIndex(ImGuiWindow* window);
-extern __attribute__((__visibility__("default"))) ImGuiWindow* igFindBottomMostVisibleWindowWithinBeginStack(ImGuiWindow* window);
-extern __attribute__((__visibility__("default"))) void igSetCurrentFont(ImFont* font);
-extern __attribute__((__visibility__("default"))) ImFont* igGetDefaultFont(void);
-extern __attribute__((__visibility__("default"))) ImDrawList* igGetForegroundDrawList_WindowPtr(ImGuiWindow* window);
-extern __attribute__((__visibility__("default"))) void igAddDrawListToDrawDataEx(ImDrawData* draw_data,ImVector_ImDrawListPtr* out_list,ImDrawList* draw_list);
-extern __attribute__((__visibility__("default"))) void igInitialize(void);
-extern __attribute__((__visibility__("default"))) void igShutdown(void);
-extern __attribute__((__visibility__("default"))) void igUpdateInputEvents(_Bool trickle_fast_inputs);
-extern __attribute__((__visibility__("default"))) void igUpdateHoveredWindowAndCaptureFlags(void);
-extern __attribute__((__visibility__("default"))) void igStartMouseMovingWindow(ImGuiWindow* window);
-extern __attribute__((__visibility__("default"))) void igStartMouseMovingWindowOrNode(ImGuiWindow* window,ImGuiDockNode* node,_Bool undock);
-extern __attribute__((__visibility__("default"))) void igUpdateMouseMovingWindowNewFrame(void);
-extern __attribute__((__visibility__("default"))) void igUpdateMouseMovingWindowEndFrame(void);
-extern __attribute__((__visibility__("default"))) ImGuiID igAddContextHook(ImGuiContext* context,const ImGuiContextHook* hook);
-extern __attribute__((__visibility__("default"))) void igRemoveContextHook(ImGuiContext* context,ImGuiID hook_to_remove);
-extern __attribute__((__visibility__("default"))) void igCallContextHooks(ImGuiContext* context,ImGuiContextHookType type);
-extern __attribute__((__visibility__("default"))) void igTranslateWindowsInViewport(ImGuiViewportP* viewport,const ImVec2 old_pos,const ImVec2 new_pos);
-extern __attribute__((__visibility__("default"))) void igScaleWindowsInViewport(ImGuiViewportP* viewport,float scale);
-extern __attribute__((__visibility__("default"))) void igDestroyPlatformWindow(ImGuiViewportP* viewport);
-extern __attribute__((__visibility__("default"))) void igSetWindowViewport(ImGuiWindow* window,ImGuiViewportP* viewport);
-extern __attribute__((__visibility__("default"))) void igSetCurrentViewport(ImGuiWindow* window,ImGuiViewportP* viewport);
-extern __attribute__((__visibility__("default"))) const ImGuiPlatformMonitor* igGetViewportPlatformMonitor(ImGuiViewport* viewport);
-extern __attribute__((__visibility__("default"))) ImGuiViewportP* igFindHoveredViewportFromPlatformWindowStack(const ImVec2 mouse_platform_pos);
-extern __attribute__((__visibility__("default"))) void igMarkIniSettingsDirty_Nil(void);
-extern __attribute__((__visibility__("default"))) void igMarkIniSettingsDirty_WindowPtr(ImGuiWindow* window);
-extern __attribute__((__visibility__("default"))) void igClearIniSettings(void);
-extern __attribute__((__visibility__("default"))) void igAddSettingsHandler(const ImGuiSettingsHandler* handler);
-extern __attribute__((__visibility__("default"))) void igRemoveSettingsHandler(const char* type_name);
-extern __attribute__((__visibility__("default"))) ImGuiSettingsHandler* igFindSettingsHandler(const char* type_name);
-extern __attribute__((__visibility__("default"))) ImGuiWindowSettings* igCreateNewWindowSettings(const char* name);
-extern __attribute__((__visibility__("default"))) ImGuiWindowSettings* igFindWindowSettingsByID(ImGuiID id);
-extern __attribute__((__visibility__("default"))) ImGuiWindowSettings* igFindWindowSettingsByWindow(ImGuiWindow* window);
-extern __attribute__((__visibility__("default"))) void igClearWindowSettings(const char* name);
-extern __attribute__((__visibility__("default"))) void igLocalizeRegisterEntries(const ImGuiLocEntry* entries,int count);
-extern __attribute__((__visibility__("default"))) const char* igLocalizeGetMsg(ImGuiLocKey key);
-extern __attribute__((__visibility__("default"))) void igSetScrollX_WindowPtr(ImGuiWindow* window,float scroll_x);
-extern __attribute__((__visibility__("default"))) void igSetScrollY_WindowPtr(ImGuiWindow* window,float scroll_y);
-extern __attribute__((__visibility__("default"))) void igSetScrollFromPosX_WindowPtr(ImGuiWindow* window,float local_x,float center_x_ratio);
-extern __attribute__((__visibility__("default"))) void igSetScrollFromPosY_WindowPtr(ImGuiWindow* window,float local_y,float center_y_ratio);
-extern __attribute__((__visibility__("default"))) void igScrollToItem(ImGuiScrollFlags flags);
-extern __attribute__((__visibility__("default"))) void igScrollToRect(ImGuiWindow* window,const ImRect rect,ImGuiScrollFlags flags);
-extern __attribute__((__visibility__("default"))) void igScrollToRectEx(ImVec2 *pOut,ImGuiWindow* window,const ImRect rect,ImGuiScrollFlags flags);
-extern __attribute__((__visibility__("default"))) void igScrollToBringRectIntoView(ImGuiWindow* window,const ImRect rect);
-extern __attribute__((__visibility__("default"))) ImGuiItemStatusFlags igGetItemStatusFlags(void);
-extern __attribute__((__visibility__("default"))) ImGuiItemFlags igGetItemFlags(void);
-extern __attribute__((__visibility__("default"))) ImGuiID igGetActiveID(void);
-extern __attribute__((__visibility__("default"))) ImGuiID igGetFocusID(void);
-extern __attribute__((__visibility__("default"))) void igSetActiveID(ImGuiID id,ImGuiWindow* window);
-extern __attribute__((__visibility__("default"))) void igSetFocusID(ImGuiID id,ImGuiWindow* window);
-extern __attribute__((__visibility__("default"))) void igClearActiveID(void);
-extern __attribute__((__visibility__("default"))) ImGuiID igGetHoveredID(void);
-extern __attribute__((__visibility__("default"))) void igSetHoveredID(ImGuiID id);
-extern __attribute__((__visibility__("default"))) void igKeepAliveID(ImGuiID id);
-extern __attribute__((__visibility__("default"))) void igMarkItemEdited(ImGuiID id);
-extern __attribute__((__visibility__("default"))) void igPushOverrideID(ImGuiID id);
-extern __attribute__((__visibility__("default"))) ImGuiID igGetIDWithSeed_Str(const char* str_id_begin,const char* str_id_end,ImGuiID seed);
-extern __attribute__((__visibility__("default"))) ImGuiID igGetIDWithSeed_Int(int n,ImGuiID seed);
-extern __attribute__((__visibility__("default"))) void igItemSize_Vec2(const ImVec2 size,float text_baseline_y);
-extern __attribute__((__visibility__("default"))) void igItemSize_Rect(const ImRect bb,float text_baseline_y);
-extern __attribute__((__visibility__("default"))) _Bool igItemAdd(const ImRect bb,ImGuiID id,const ImRect* nav_bb,ImGuiItemFlags extra_flags);
-extern __attribute__((__visibility__("default"))) _Bool igItemHoverable(const ImRect bb,ImGuiID id,ImGuiItemFlags item_flags);
-extern __attribute__((__visibility__("default"))) _Bool igIsWindowContentHoverable(ImGuiWindow* window,ImGuiHoveredFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igIsClippedEx(const ImRect bb,ImGuiID id);
-extern __attribute__((__visibility__("default"))) void igSetLastItemData(ImGuiID item_id,ImGuiItemFlags in_flags,ImGuiItemStatusFlags status_flags,const ImRect item_rect);
-extern __attribute__((__visibility__("default"))) void igCalcItemSize(ImVec2 *pOut,ImVec2 size,float default_w,float default_h);
-extern __attribute__((__visibility__("default"))) float igCalcWrapWidthForPos(const ImVec2 pos,float wrap_pos_x);
-extern __attribute__((__visibility__("default"))) void igPushMultiItemsWidths(int components,float width_full);
-extern __attribute__((__visibility__("default"))) _Bool igIsItemToggledSelection(void);
-extern __attribute__((__visibility__("default"))) void igGetContentRegionMaxAbs(ImVec2 *pOut);
-extern __attribute__((__visibility__("default"))) void igShrinkWidths(ImGuiShrinkWidthItem* items,int count,float width_excess);
-extern __attribute__((__visibility__("default"))) void igPushItemFlag(ImGuiItemFlags option,_Bool enabled);
-extern __attribute__((__visibility__("default"))) void igPopItemFlag(void);
-extern __attribute__((__visibility__("default"))) const ImGuiDataVarInfo* igGetStyleVarInfo(ImGuiStyleVar idx);
-extern __attribute__((__visibility__("default"))) void igLogBegin(ImGuiLogType type,int auto_open_depth);
-extern __attribute__((__visibility__("default"))) void igLogToBuffer(int auto_open_depth);
-extern __attribute__((__visibility__("default"))) void igLogRenderedText(const ImVec2* ref_pos,const char* text,const char* text_end);
-extern __attribute__((__visibility__("default"))) void igLogSetNextTextDecoration(const char* prefix,const char* suffix);
-extern __attribute__((__visibility__("default"))) _Bool igBeginChildEx(const char* name,ImGuiID id,const ImVec2 size_arg,ImGuiChildFlags child_flags,ImGuiWindowFlags window_flags);
-extern __attribute__((__visibility__("default"))) void igOpenPopupEx(ImGuiID id,ImGuiPopupFlags popup_flags);
-extern __attribute__((__visibility__("default"))) void igClosePopupToLevel(int remaining,_Bool restore_focus_to_window_under_popup);
-extern __attribute__((__visibility__("default"))) void igClosePopupsOverWindow(ImGuiWindow* ref_window,_Bool restore_focus_to_window_under_popup);
-extern __attribute__((__visibility__("default"))) void igClosePopupsExceptModals(void);
-extern __attribute__((__visibility__("default"))) _Bool igIsPopupOpen_ID(ImGuiID id,ImGuiPopupFlags popup_flags);
-extern __attribute__((__visibility__("default"))) _Bool igBeginPopupEx(ImGuiID id,ImGuiWindowFlags extra_flags);
-extern __attribute__((__visibility__("default"))) _Bool igBeginTooltipEx(ImGuiTooltipFlags tooltip_flags,ImGuiWindowFlags extra_window_flags);
-extern __attribute__((__visibility__("default"))) _Bool igBeginTooltipHidden(void);
-extern __attribute__((__visibility__("default"))) void igGetPopupAllowedExtentRect(ImRect *pOut,ImGuiWindow* window);
-extern __attribute__((__visibility__("default"))) ImGuiWindow* igGetTopMostPopupModal(void);
-extern __attribute__((__visibility__("default"))) ImGuiWindow* igGetTopMostAndVisiblePopupModal(void);
-extern __attribute__((__visibility__("default"))) ImGuiWindow* igFindBlockingModal(ImGuiWindow* window);
-extern __attribute__((__visibility__("default"))) void igFindBestWindowPosForPopup(ImVec2 *pOut,ImGuiWindow* window);
-extern __attribute__((__visibility__("default"))) void igFindBestWindowPosForPopupEx(ImVec2 *pOut,const ImVec2 ref_pos,const ImVec2 size,ImGuiDir* last_dir,const ImRect r_outer,const ImRect r_avoid,ImGuiPopupPositionPolicy policy);
-extern __attribute__((__visibility__("default"))) _Bool igBeginViewportSideBar(const char* name,ImGuiViewport* viewport,ImGuiDir dir,float size,ImGuiWindowFlags window_flags);
-extern __attribute__((__visibility__("default"))) _Bool igBeginMenuEx(const char* label,const char* icon,_Bool enabled);
-extern __attribute__((__visibility__("default"))) _Bool igMenuItemEx(const char* label,const char* icon,const char* shortcut,_Bool selected,_Bool enabled);
-extern __attribute__((__visibility__("default"))) _Bool igBeginComboPopup(ImGuiID popup_id,const ImRect bb,ImGuiComboFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igBeginComboPreview(void);
-extern __attribute__((__visibility__("default"))) void igEndComboPreview(void);
-extern __attribute__((__visibility__("default"))) void igNavInitWindow(ImGuiWindow* window,_Bool force_reinit);
-extern __attribute__((__visibility__("default"))) void igNavInitRequestApplyResult(void);
-extern __attribute__((__visibility__("default"))) _Bool igNavMoveRequestButNoResultYet(void);
-extern __attribute__((__visibility__("default"))) void igNavMoveRequestSubmit(ImGuiDir move_dir,ImGuiDir clip_dir,ImGuiNavMoveFlags move_flags,ImGuiScrollFlags scroll_flags);
-extern __attribute__((__visibility__("default"))) void igNavMoveRequestForward(ImGuiDir move_dir,ImGuiDir clip_dir,ImGuiNavMoveFlags move_flags,ImGuiScrollFlags scroll_flags);
-extern __attribute__((__visibility__("default"))) void igNavMoveRequestResolveWithLastItem(ImGuiNavItemData* result);
-extern __attribute__((__visibility__("default"))) void igNavMoveRequestResolveWithPastTreeNode(ImGuiNavItemData* result,ImGuiNavTreeNodeData* tree_node_data);
-extern __attribute__((__visibility__("default"))) void igNavMoveRequestCancel(void);
-extern __attribute__((__visibility__("default"))) void igNavMoveRequestApplyResult(void);
-extern __attribute__((__visibility__("default"))) void igNavMoveRequestTryWrapping(ImGuiWindow* window,ImGuiNavMoveFlags move_flags);
-extern __attribute__((__visibility__("default"))) void igNavHighlightActivated(ImGuiID id);
-extern __attribute__((__visibility__("default"))) void igNavClearPreferredPosForAxis(ImGuiAxis axis);
-extern __attribute__((__visibility__("default"))) void igNavRestoreHighlightAfterMove(void);
-extern __attribute__((__visibility__("default"))) void igNavUpdateCurrentWindowIsScrollPushableX(void);
-extern __attribute__((__visibility__("default"))) void igSetNavWindow(ImGuiWindow* window);
-extern __attribute__((__visibility__("default"))) void igSetNavID(ImGuiID id,ImGuiNavLayer nav_layer,ImGuiID focus_scope_id,const ImRect rect_rel);
-extern __attribute__((__visibility__("default"))) void igSetNavFocusScope(ImGuiID focus_scope_id);
-extern __attribute__((__visibility__("default"))) void igFocusItem(void);
-extern __attribute__((__visibility__("default"))) void igActivateItemByID(ImGuiID id);
-extern __attribute__((__visibility__("default"))) _Bool igIsNamedKey(ImGuiKey key);
-extern __attribute__((__visibility__("default"))) _Bool igIsNamedKeyOrModKey(ImGuiKey key);
-extern __attribute__((__visibility__("default"))) _Bool igIsLegacyKey(ImGuiKey key);
-extern __attribute__((__visibility__("default"))) _Bool igIsKeyboardKey(ImGuiKey key);
-extern __attribute__((__visibility__("default"))) _Bool igIsGamepadKey(ImGuiKey key);
-extern __attribute__((__visibility__("default"))) _Bool igIsMouseKey(ImGuiKey key);
-extern __attribute__((__visibility__("default"))) _Bool igIsAliasKey(ImGuiKey key);
-extern __attribute__((__visibility__("default"))) _Bool igIsModKey(ImGuiKey key);
-extern __attribute__((__visibility__("default"))) ImGuiKeyChord igFixupKeyChord(ImGuiContext* ctx,ImGuiKeyChord key_chord);
-extern __attribute__((__visibility__("default"))) ImGuiKey igConvertSingleModFlagToKey(ImGuiContext* ctx,ImGuiKey key);
-extern __attribute__((__visibility__("default"))) ImGuiKeyData* igGetKeyData_ContextPtr(ImGuiContext* ctx,ImGuiKey key);
-extern __attribute__((__visibility__("default"))) ImGuiKeyData* igGetKeyData_Key(ImGuiKey key);
-extern __attribute__((__visibility__("default"))) const char* igGetKeyChordName(ImGuiKeyChord key_chord);
-extern __attribute__((__visibility__("default"))) ImGuiKey igMouseButtonToKey(ImGuiMouseButton button);
-extern __attribute__((__visibility__("default"))) _Bool igIsMouseDragPastThreshold(ImGuiMouseButton button,float lock_threshold);
-extern __attribute__((__visibility__("default"))) void igGetKeyMagnitude2d(ImVec2 *pOut,ImGuiKey key_left,ImGuiKey key_right,ImGuiKey key_up,ImGuiKey key_down);
-extern __attribute__((__visibility__("default"))) float igGetNavTweakPressedAmount(ImGuiAxis axis);
-extern __attribute__((__visibility__("default"))) int igCalcTypematicRepeatAmount(float t0,float t1,float repeat_delay,float repeat_rate);
-extern __attribute__((__visibility__("default"))) void igGetTypematicRepeatRate(ImGuiInputFlags flags,float* repeat_delay,float* repeat_rate);
-extern __attribute__((__visibility__("default"))) void igTeleportMousePos(const ImVec2 pos);
-extern __attribute__((__visibility__("default"))) void igSetActiveIdUsingAllKeyboardKeys(void);
-extern __attribute__((__visibility__("default"))) _Bool igIsActiveIdUsingNavDir(ImGuiDir dir);
-extern __attribute__((__visibility__("default"))) ImGuiID igGetKeyOwner(ImGuiKey key);
-extern __attribute__((__visibility__("default"))) void igSetKeyOwner(ImGuiKey key,ImGuiID owner_id,ImGuiInputFlags flags);
-extern __attribute__((__visibility__("default"))) void igSetKeyOwnersForKeyChord(ImGuiKeyChord key,ImGuiID owner_id,ImGuiInputFlags flags);
-extern __attribute__((__visibility__("default"))) void igSetItemKeyOwner(ImGuiKey key,ImGuiInputFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igTestKeyOwner(ImGuiKey key,ImGuiID owner_id);
-extern __attribute__((__visibility__("default"))) ImGuiKeyOwnerData* igGetKeyOwnerData(ImGuiContext* ctx,ImGuiKey key);
-extern __attribute__((__visibility__("default"))) _Bool igIsKeyDown_ID(ImGuiKey key,ImGuiID owner_id);
-extern __attribute__((__visibility__("default"))) _Bool igIsKeyPressed_ID(ImGuiKey key,ImGuiID owner_id,ImGuiInputFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igIsKeyReleased_ID(ImGuiKey key,ImGuiID owner_id);
-extern __attribute__((__visibility__("default"))) _Bool igIsMouseDown_ID(ImGuiMouseButton button,ImGuiID owner_id);
-extern __attribute__((__visibility__("default"))) _Bool igIsMouseClicked_ID(ImGuiMouseButton button,ImGuiID owner_id,ImGuiInputFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igIsMouseReleased_ID(ImGuiMouseButton button,ImGuiID owner_id);
-extern __attribute__((__visibility__("default"))) _Bool igIsMouseDoubleClicked_ID(ImGuiMouseButton button,ImGuiID owner_id);
-extern __attribute__((__visibility__("default"))) _Bool igIsKeyChordPressed_ID(ImGuiKeyChord key_chord,ImGuiID owner_id,ImGuiInputFlags flags);
-extern __attribute__((__visibility__("default"))) void igSetNextItemShortcut(ImGuiKeyChord key_chord);
-extern __attribute__((__visibility__("default"))) _Bool igShortcut(ImGuiKeyChord key_chord,ImGuiID owner_id,ImGuiInputFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igSetShortcutRouting(ImGuiKeyChord key_chord,ImGuiID owner_id,ImGuiInputFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igTestShortcutRouting(ImGuiKeyChord key_chord,ImGuiID owner_id);
-extern __attribute__((__visibility__("default"))) ImGuiKeyRoutingData* igGetShortcutRoutingData(ImGuiKeyChord key_chord);
-extern __attribute__((__visibility__("default"))) void igDockContextInitialize(ImGuiContext* ctx);
-extern __attribute__((__visibility__("default"))) void igDockContextShutdown(ImGuiContext* ctx);
-extern __attribute__((__visibility__("default"))) void igDockContextClearNodes(ImGuiContext* ctx,ImGuiID root_id,_Bool clear_settings_refs);
-extern __attribute__((__visibility__("default"))) void igDockContextRebuildNodes(ImGuiContext* ctx);
-extern __attribute__((__visibility__("default"))) void igDockContextNewFrameUpdateUndocking(ImGuiContext* ctx);
-extern __attribute__((__visibility__("default"))) void igDockContextNewFrameUpdateDocking(ImGuiContext* ctx);
-extern __attribute__((__visibility__("default"))) void igDockContextEndFrame(ImGuiContext* ctx);
-extern __attribute__((__visibility__("default"))) ImGuiID igDockContextGenNodeID(ImGuiContext* ctx);
-extern __attribute__((__visibility__("default"))) void igDockContextQueueDock(ImGuiContext* ctx,ImGuiWindow* target,ImGuiDockNode* target_node,ImGuiWindow* payload,ImGuiDir split_dir,float split_ratio,_Bool split_outer);
-extern __attribute__((__visibility__("default"))) void igDockContextQueueUndockWindow(ImGuiContext* ctx,ImGuiWindow* window);
-extern __attribute__((__visibility__("default"))) void igDockContextQueueUndockNode(ImGuiContext* ctx,ImGuiDockNode* node);
-extern __attribute__((__visibility__("default"))) void igDockContextProcessUndockWindow(ImGuiContext* ctx,ImGuiWindow* window,_Bool clear_persistent_docking_ref);
-extern __attribute__((__visibility__("default"))) void igDockContextProcessUndockNode(ImGuiContext* ctx,ImGuiDockNode* node);
-extern __attribute__((__visibility__("default"))) _Bool igDockContextCalcDropPosForDocking(ImGuiWindow* target,ImGuiDockNode* target_node,ImGuiWindow* payload_window,ImGuiDockNode* payload_node,ImGuiDir split_dir,_Bool split_outer,ImVec2* out_pos);
-extern __attribute__((__visibility__("default"))) ImGuiDockNode* igDockContextFindNodeByID(ImGuiContext* ctx,ImGuiID id);
-extern __attribute__((__visibility__("default"))) void igDockNodeWindowMenuHandler_Default(ImGuiContext* ctx,ImGuiDockNode* node,ImGuiTabBar* tab_bar);
-extern __attribute__((__visibility__("default"))) _Bool igDockNodeBeginAmendTabBar(ImGuiDockNode* node);
-extern __attribute__((__visibility__("default"))) void igDockNodeEndAmendTabBar(void);
-extern __attribute__((__visibility__("default"))) ImGuiDockNode* igDockNodeGetRootNode(ImGuiDockNode* node);
-extern __attribute__((__visibility__("default"))) _Bool igDockNodeIsInHierarchyOf(ImGuiDockNode* node,ImGuiDockNode* parent);
-extern __attribute__((__visibility__("default"))) int igDockNodeGetDepth(const ImGuiDockNode* node);
-extern __attribute__((__visibility__("default"))) ImGuiID igDockNodeGetWindowMenuButtonId(const ImGuiDockNode* node);
-extern __attribute__((__visibility__("default"))) ImGuiDockNode* igGetWindowDockNode(void);
-extern __attribute__((__visibility__("default"))) _Bool igGetWindowAlwaysWantOwnTabBar(ImGuiWindow* window);
-extern __attribute__((__visibility__("default"))) void igBeginDocked(ImGuiWindow* window,_Bool* p_open);
-extern __attribute__((__visibility__("default"))) void igBeginDockableDragDropSource(ImGuiWindow* window);
-extern __attribute__((__visibility__("default"))) void igBeginDockableDragDropTarget(ImGuiWindow* window);
-extern __attribute__((__visibility__("default"))) void igSetWindowDock(ImGuiWindow* window,ImGuiID dock_id,ImGuiCond cond);
-extern __attribute__((__visibility__("default"))) void igDockBuilderDockWindow(const char* window_name,ImGuiID node_id);
-extern __attribute__((__visibility__("default"))) ImGuiDockNode* igDockBuilderGetNode(ImGuiID node_id);
-extern __attribute__((__visibility__("default"))) ImGuiDockNode* igDockBuilderGetCentralNode(ImGuiID node_id);
-extern __attribute__((__visibility__("default"))) ImGuiID igDockBuilderAddNode(ImGuiID node_id,ImGuiDockNodeFlags flags);
-extern __attribute__((__visibility__("default"))) void igDockBuilderRemoveNode(ImGuiID node_id);
-extern __attribute__((__visibility__("default"))) void igDockBuilderRemoveNodeDockedWindows(ImGuiID node_id,_Bool clear_settings_refs);
-extern __attribute__((__visibility__("default"))) void igDockBuilderRemoveNodeChildNodes(ImGuiID node_id);
-extern __attribute__((__visibility__("default"))) void igDockBuilderSetNodePos(ImGuiID node_id,ImVec2 pos);
-extern __attribute__((__visibility__("default"))) void igDockBuilderSetNodeSize(ImGuiID node_id,ImVec2 size);
-extern __attribute__((__visibility__("default"))) ImGuiID igDockBuilderSplitNode(ImGuiID node_id,ImGuiDir split_dir,float size_ratio_for_node_at_dir,ImGuiID* out_id_at_dir,ImGuiID* out_id_at_opposite_dir);
-extern __attribute__((__visibility__("default"))) void igDockBuilderCopyDockSpace(ImGuiID src_dockspace_id,ImGuiID dst_dockspace_id,ImVector_const_charPtr* in_window_remap_pairs);
-extern __attribute__((__visibility__("default"))) void igDockBuilderCopyNode(ImGuiID src_node_id,ImGuiID dst_node_id,ImVector_ImGuiID* out_node_remap_pairs);
-extern __attribute__((__visibility__("default"))) void igDockBuilderCopyWindowSettings(const char* src_name,const char* dst_name);
-extern __attribute__((__visibility__("default"))) void igDockBuilderFinish(ImGuiID node_id);
-extern __attribute__((__visibility__("default"))) void igPushFocusScope(ImGuiID id);
-extern __attribute__((__visibility__("default"))) void igPopFocusScope(void);
-extern __attribute__((__visibility__("default"))) ImGuiID igGetCurrentFocusScope(void);
-extern __attribute__((__visibility__("default"))) _Bool igIsDragDropActive(void);
-extern __attribute__((__visibility__("default"))) _Bool igBeginDragDropTargetCustom(const ImRect bb,ImGuiID id);
-extern __attribute__((__visibility__("default"))) void igClearDragDrop(void);
-extern __attribute__((__visibility__("default"))) _Bool igIsDragDropPayloadBeingAccepted(void);
-extern __attribute__((__visibility__("default"))) void igRenderDragDropTargetRect(const ImRect bb,const ImRect item_clip_rect);
-extern __attribute__((__visibility__("default"))) ImGuiTypingSelectRequest* igGetTypingSelectRequest(ImGuiTypingSelectFlags flags);
-extern __attribute__((__visibility__("default"))) int igTypingSelectFindMatch(ImGuiTypingSelectRequest* req,int items_count,const char*(*get_item_name_func)(void*,int),void* user_data,int nav_item_idx);
-extern __attribute__((__visibility__("default"))) int igTypingSelectFindNextSingleCharMatch(ImGuiTypingSelectRequest* req,int items_count,const char*(*get_item_name_func)(void*,int),void* user_data,int nav_item_idx);
-extern __attribute__((__visibility__("default"))) int igTypingSelectFindBestLeadingMatch(ImGuiTypingSelectRequest* req,int items_count,const char*(*get_item_name_func)(void*,int),void* user_data);
-extern __attribute__((__visibility__("default"))) void igSetWindowClipRectBeforeSetChannel(ImGuiWindow* window,const ImRect clip_rect);
-extern __attribute__((__visibility__("default"))) void igBeginColumns(const char* str_id,int count,ImGuiOldColumnFlags flags);
-extern __attribute__((__visibility__("default"))) void igEndColumns(void);
-extern __attribute__((__visibility__("default"))) void igPushColumnClipRect(int column_index);
-extern __attribute__((__visibility__("default"))) void igPushColumnsBackground(void);
-extern __attribute__((__visibility__("default"))) void igPopColumnsBackground(void);
-extern __attribute__((__visibility__("default"))) ImGuiID igGetColumnsID(const char* str_id,int count);
-extern __attribute__((__visibility__("default"))) ImGuiOldColumns* igFindOrCreateColumns(ImGuiWindow* window,ImGuiID id);
-extern __attribute__((__visibility__("default"))) float igGetColumnOffsetFromNorm(const ImGuiOldColumns* columns,float offset_norm);
-extern __attribute__((__visibility__("default"))) float igGetColumnNormFromOffset(const ImGuiOldColumns* columns,float offset);
-extern __attribute__((__visibility__("default"))) void igTableOpenContextMenu(int column_n);
-extern __attribute__((__visibility__("default"))) void igTableSetColumnWidth(int column_n,float width);
-extern __attribute__((__visibility__("default"))) void igTableSetColumnSortDirection(int column_n,ImGuiSortDirection sort_direction,_Bool append_to_sort_specs);
-extern __attribute__((__visibility__("default"))) int igTableGetHoveredColumn(void);
-extern __attribute__((__visibility__("default"))) int igTableGetHoveredRow(void);
-extern __attribute__((__visibility__("default"))) float igTableGetHeaderRowHeight(void);
-extern __attribute__((__visibility__("default"))) float igTableGetHeaderAngledMaxLabelWidth(void);
-extern __attribute__((__visibility__("default"))) void igTablePushBackgroundChannel(void);
-extern __attribute__((__visibility__("default"))) void igTablePopBackgroundChannel(void);
-extern __attribute__((__visibility__("default"))) void igTableAngledHeadersRowEx(float angle,float max_label_width);
-extern __attribute__((__visibility__("default"))) ImGuiTable* igGetCurrentTable(void);
-extern __attribute__((__visibility__("default"))) ImGuiTable* igTableFindByID(ImGuiID id);
-extern __attribute__((__visibility__("default"))) _Bool igBeginTableEx(const char* name,ImGuiID id,int columns_count,ImGuiTableFlags flags,const ImVec2 outer_size,float inner_width);
-extern __attribute__((__visibility__("default"))) void igTableBeginInitMemory(ImGuiTable* table,int columns_count);
-extern __attribute__((__visibility__("default"))) void igTableBeginApplyRequests(ImGuiTable* table);
-extern __attribute__((__visibility__("default"))) void igTableSetupDrawChannels(ImGuiTable* table);
-extern __attribute__((__visibility__("default"))) void igTableUpdateLayout(ImGuiTable* table);
-extern __attribute__((__visibility__("default"))) void igTableUpdateBorders(ImGuiTable* table);
-extern __attribute__((__visibility__("default"))) void igTableUpdateColumnsWeightFromWidth(ImGuiTable* table);
-extern __attribute__((__visibility__("default"))) void igTableDrawBorders(ImGuiTable* table);
-extern __attribute__((__visibility__("default"))) void igTableDrawDefaultContextMenu(ImGuiTable* table,ImGuiTableFlags flags_for_section_to_display);
-extern __attribute__((__visibility__("default"))) _Bool igTableBeginContextMenuPopup(ImGuiTable* table);
-extern __attribute__((__visibility__("default"))) void igTableMergeDrawChannels(ImGuiTable* table);
-extern __attribute__((__visibility__("default"))) ImGuiTableInstanceData* igTableGetInstanceData(ImGuiTable* table,int instance_no);
-extern __attribute__((__visibility__("default"))) ImGuiID igTableGetInstanceID(ImGuiTable* table,int instance_no);
-extern __attribute__((__visibility__("default"))) void igTableSortSpecsSanitize(ImGuiTable* table);
-extern __attribute__((__visibility__("default"))) void igTableSortSpecsBuild(ImGuiTable* table);
-extern __attribute__((__visibility__("default"))) ImGuiSortDirection igTableGetColumnNextSortDirection(ImGuiTableColumn* column);
-extern __attribute__((__visibility__("default"))) void igTableFixColumnSortDirection(ImGuiTable* table,ImGuiTableColumn* column);
-extern __attribute__((__visibility__("default"))) float igTableGetColumnWidthAuto(ImGuiTable* table,ImGuiTableColumn* column);
-extern __attribute__((__visibility__("default"))) void igTableBeginRow(ImGuiTable* table);
-extern __attribute__((__visibility__("default"))) void igTableEndRow(ImGuiTable* table);
-extern __attribute__((__visibility__("default"))) void igTableBeginCell(ImGuiTable* table,int column_n);
-extern __attribute__((__visibility__("default"))) void igTableEndCell(ImGuiTable* table);
-extern __attribute__((__visibility__("default"))) void igTableGetCellBgRect(ImRect *pOut,const ImGuiTable* table,int column_n);
-extern __attribute__((__visibility__("default"))) const char* igTableGetColumnName_TablePtr(const ImGuiTable* table,int column_n);
-extern __attribute__((__visibility__("default"))) ImGuiID igTableGetColumnResizeID(ImGuiTable* table,int column_n,int instance_no);
-extern __attribute__((__visibility__("default"))) float igTableGetMaxColumnWidth(const ImGuiTable* table,int column_n);
-extern __attribute__((__visibility__("default"))) void igTableSetColumnWidthAutoSingle(ImGuiTable* table,int column_n);
-extern __attribute__((__visibility__("default"))) void igTableSetColumnWidthAutoAll(ImGuiTable* table);
-extern __attribute__((__visibility__("default"))) void igTableRemove(ImGuiTable* table);
-extern __attribute__((__visibility__("default"))) void igTableGcCompactTransientBuffers_TablePtr(ImGuiTable* table);
-extern __attribute__((__visibility__("default"))) void igTableGcCompactTransientBuffers_TableTempDataPtr(ImGuiTableTempData* table);
-extern __attribute__((__visibility__("default"))) void igTableGcCompactSettings(void);
-extern __attribute__((__visibility__("default"))) void igTableLoadSettings(ImGuiTable* table);
-extern __attribute__((__visibility__("default"))) void igTableSaveSettings(ImGuiTable* table);
-extern __attribute__((__visibility__("default"))) void igTableResetSettings(ImGuiTable* table);
-extern __attribute__((__visibility__("default"))) ImGuiTableSettings* igTableGetBoundSettings(ImGuiTable* table);
-extern __attribute__((__visibility__("default"))) void igTableSettingsAddSettingsHandler(void);
-extern __attribute__((__visibility__("default"))) ImGuiTableSettings* igTableSettingsCreate(ImGuiID id,int columns_count);
-extern __attribute__((__visibility__("default"))) ImGuiTableSettings* igTableSettingsFindByID(ImGuiID id);
-extern __attribute__((__visibility__("default"))) ImGuiTabBar* igGetCurrentTabBar(void);
-extern __attribute__((__visibility__("default"))) _Bool igBeginTabBarEx(ImGuiTabBar* tab_bar,const ImRect bb,ImGuiTabBarFlags flags);
-extern __attribute__((__visibility__("default"))) ImGuiTabItem* igTabBarFindTabByID(ImGuiTabBar* tab_bar,ImGuiID tab_id);
-extern __attribute__((__visibility__("default"))) ImGuiTabItem* igTabBarFindTabByOrder(ImGuiTabBar* tab_bar,int order);
-extern __attribute__((__visibility__("default"))) ImGuiTabItem* igTabBarFindMostRecentlySelectedTabForActiveWindow(ImGuiTabBar* tab_bar);
-extern __attribute__((__visibility__("default"))) ImGuiTabItem* igTabBarGetCurrentTab(ImGuiTabBar* tab_bar);
-extern __attribute__((__visibility__("default"))) int igTabBarGetTabOrder(ImGuiTabBar* tab_bar,ImGuiTabItem* tab);
-extern __attribute__((__visibility__("default"))) const char* igTabBarGetTabName(ImGuiTabBar* tab_bar,ImGuiTabItem* tab);
-extern __attribute__((__visibility__("default"))) void igTabBarAddTab(ImGuiTabBar* tab_bar,ImGuiTabItemFlags tab_flags,ImGuiWindow* window);
-extern __attribute__((__visibility__("default"))) void igTabBarRemoveTab(ImGuiTabBar* tab_bar,ImGuiID tab_id);
-extern __attribute__((__visibility__("default"))) void igTabBarCloseTab(ImGuiTabBar* tab_bar,ImGuiTabItem* tab);
-extern __attribute__((__visibility__("default"))) void igTabBarQueueFocus(ImGuiTabBar* tab_bar,ImGuiTabItem* tab);
-extern __attribute__((__visibility__("default"))) void igTabBarQueueReorder(ImGuiTabBar* tab_bar,ImGuiTabItem* tab,int offset);
-extern __attribute__((__visibility__("default"))) void igTabBarQueueReorderFromMousePos(ImGuiTabBar* tab_bar,ImGuiTabItem* tab,ImVec2 mouse_pos);
-extern __attribute__((__visibility__("default"))) _Bool igTabBarProcessReorder(ImGuiTabBar* tab_bar);
-extern __attribute__((__visibility__("default"))) _Bool igTabItemEx(ImGuiTabBar* tab_bar,const char* label,_Bool* p_open,ImGuiTabItemFlags flags,ImGuiWindow* docked_window);
-extern __attribute__((__visibility__("default"))) void igTabItemCalcSize_Str(ImVec2 *pOut,const char* label,_Bool has_close_button_or_unsaved_marker);
-extern __attribute__((__visibility__("default"))) void igTabItemCalcSize_WindowPtr(ImVec2 *pOut,ImGuiWindow* window);
-extern __attribute__((__visibility__("default"))) void igTabItemBackground(ImDrawList* draw_list,const ImRect bb,ImGuiTabItemFlags flags,ImU32 col);
-extern __attribute__((__visibility__("default"))) void igTabItemLabelAndCloseButton(ImDrawList* draw_list,const ImRect bb,ImGuiTabItemFlags flags,ImVec2 frame_padding,const char* label,ImGuiID tab_id,ImGuiID close_button_id,_Bool is_contents_visible,_Bool* out_just_closed,_Bool* out_text_clipped);
-extern __attribute__((__visibility__("default"))) void igRenderText(ImVec2 pos,const char* text,const char* text_end,_Bool hide_text_after_hash);
-extern __attribute__((__visibility__("default"))) void igRenderTextWrapped(ImVec2 pos,const char* text,const char* text_end,float wrap_width);
-extern __attribute__((__visibility__("default"))) void igRenderTextClipped(const ImVec2 pos_min,const ImVec2 pos_max,const char* text,const char* text_end,const ImVec2* text_size_if_known,const ImVec2 align,const ImRect* clip_rect);
-extern __attribute__((__visibility__("default"))) void igRenderTextClippedEx(ImDrawList* draw_list,const ImVec2 pos_min,const ImVec2 pos_max,const char* text,const char* text_end,const ImVec2* text_size_if_known,const ImVec2 align,const ImRect* clip_rect);
-extern __attribute__((__visibility__("default"))) void igRenderTextEllipsis(ImDrawList* draw_list,const ImVec2 pos_min,const ImVec2 pos_max,float clip_max_x,float ellipsis_max_x,const char* text,const char* text_end,const ImVec2* text_size_if_known);
-extern __attribute__((__visibility__("default"))) void igRenderFrame(ImVec2 p_min,ImVec2 p_max,ImU32 fill_col,_Bool border,float rounding);
-extern __attribute__((__visibility__("default"))) void igRenderFrameBorder(ImVec2 p_min,ImVec2 p_max,float rounding);
-extern __attribute__((__visibility__("default"))) void igRenderColorRectWithAlphaCheckerboard(ImDrawList* draw_list,ImVec2 p_min,ImVec2 p_max,ImU32 fill_col,float grid_step,ImVec2 grid_off,float rounding,ImDrawFlags flags);
-extern __attribute__((__visibility__("default"))) void igRenderNavHighlight(const ImRect bb,ImGuiID id,ImGuiNavHighlightFlags flags);
-extern __attribute__((__visibility__("default"))) const char* igFindRenderedTextEnd(const char* text,const char* text_end);
-extern __attribute__((__visibility__("default"))) void igRenderMouseCursor(ImVec2 pos,float scale,ImGuiMouseCursor mouse_cursor,ImU32 col_fill,ImU32 col_border,ImU32 col_shadow);
-extern __attribute__((__visibility__("default"))) void igRenderArrow(ImDrawList* draw_list,ImVec2 pos,ImU32 col,ImGuiDir dir,float scale);
-extern __attribute__((__visibility__("default"))) void igRenderBullet(ImDrawList* draw_list,ImVec2 pos,ImU32 col);
-extern __attribute__((__visibility__("default"))) void igRenderCheckMark(ImDrawList* draw_list,ImVec2 pos,ImU32 col,float sz);
-extern __attribute__((__visibility__("default"))) void igRenderArrowPointingAt(ImDrawList* draw_list,ImVec2 pos,ImVec2 half_sz,ImGuiDir direction,ImU32 col);
-extern __attribute__((__visibility__("default"))) void igRenderArrowDockMenu(ImDrawList* draw_list,ImVec2 p_min,float sz,ImU32 col);
-extern __attribute__((__visibility__("default"))) void igRenderRectFilledRangeH(ImDrawList* draw_list,const ImRect rect,ImU32 col,float x_start_norm,float x_end_norm,float rounding);
-extern __attribute__((__visibility__("default"))) void igRenderRectFilledWithHole(ImDrawList* draw_list,const ImRect outer,const ImRect inner,ImU32 col,float rounding);
-extern __attribute__((__visibility__("default"))) ImDrawFlags igCalcRoundingFlagsForRectInRect(const ImRect r_in,const ImRect r_outer,float threshold);
-extern __attribute__((__visibility__("default"))) void igTextEx(const char* text,const char* text_end,ImGuiTextFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igButtonEx(const char* label,const ImVec2 size_arg,ImGuiButtonFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igArrowButtonEx(const char* str_id,ImGuiDir dir,ImVec2 size_arg,ImGuiButtonFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igImageButtonEx(ImGuiID id,ImTextureID texture_id,const ImVec2 image_size,const ImVec2 uv0,const ImVec2 uv1,const ImVec4 bg_col,const ImVec4 tint_col,ImGuiButtonFlags flags);
-extern __attribute__((__visibility__("default"))) void igSeparatorEx(ImGuiSeparatorFlags flags,float thickness);
-extern __attribute__((__visibility__("default"))) void igSeparatorTextEx(ImGuiID id,const char* label,const char* label_end,float extra_width);
-extern __attribute__((__visibility__("default"))) _Bool igCheckboxFlags_S64Ptr(const char* label,ImS64* flags,ImS64 flags_value);
-extern __attribute__((__visibility__("default"))) _Bool igCheckboxFlags_U64Ptr(const char* label,ImU64* flags,ImU64 flags_value);
-extern __attribute__((__visibility__("default"))) _Bool igCloseButton(ImGuiID id,const ImVec2 pos);
-extern __attribute__((__visibility__("default"))) _Bool igCollapseButton(ImGuiID id,const ImVec2 pos,ImGuiDockNode* dock_node);
-extern __attribute__((__visibility__("default"))) void igScrollbar(ImGuiAxis axis);
-extern __attribute__((__visibility__("default"))) _Bool igScrollbarEx(const ImRect bb,ImGuiID id,ImGuiAxis axis,ImS64* p_scroll_v,ImS64 avail_v,ImS64 contents_v,ImDrawFlags flags);
-extern __attribute__((__visibility__("default"))) void igGetWindowScrollbarRect(ImRect *pOut,ImGuiWindow* window,ImGuiAxis axis);
-extern __attribute__((__visibility__("default"))) ImGuiID igGetWindowScrollbarID(ImGuiWindow* window,ImGuiAxis axis);
-extern __attribute__((__visibility__("default"))) ImGuiID igGetWindowResizeCornerID(ImGuiWindow* window,int n);
-extern __attribute__((__visibility__("default"))) ImGuiID igGetWindowResizeBorderID(ImGuiWindow* window,ImGuiDir dir);
-extern __attribute__((__visibility__("default"))) _Bool igButtonBehavior(const ImRect bb,ImGuiID id,_Bool* out_hovered,_Bool* out_held,ImGuiButtonFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igDragBehavior(ImGuiID id,ImGuiDataType data_type,void* p_v,float v_speed,const void* p_min,const void* p_max,const char* format,ImGuiSliderFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igSliderBehavior(const ImRect bb,ImGuiID id,ImGuiDataType data_type,void* p_v,const void* p_min,const void* p_max,const char* format,ImGuiSliderFlags flags,ImRect* out_grab_bb);
-extern __attribute__((__visibility__("default"))) _Bool igSplitterBehavior(const ImRect bb,ImGuiID id,ImGuiAxis axis,float* size1,float* size2,float min_size1,float min_size2,float hover_extend,float hover_visibility_delay,ImU32 bg_col);
-extern __attribute__((__visibility__("default"))) _Bool igTreeNodeBehavior(ImGuiID id,ImGuiTreeNodeFlags flags,const char* label,const char* label_end);
-extern __attribute__((__visibility__("default"))) void igTreePushOverrideID(ImGuiID id);
-extern __attribute__((__visibility__("default"))) void igTreeNodeSetOpen(ImGuiID id,_Bool open);
-extern __attribute__((__visibility__("default"))) _Bool igTreeNodeUpdateNextOpen(ImGuiID id,ImGuiTreeNodeFlags flags);
-extern __attribute__((__visibility__("default"))) void igSetNextItemSelectionUserData(ImGuiSelectionUserData selection_user_data);
-extern __attribute__((__visibility__("default"))) const ImGuiDataTypeInfo* igDataTypeGetInfo(ImGuiDataType data_type);
-extern __attribute__((__visibility__("default"))) int igDataTypeFormatString(char* buf,int buf_size,ImGuiDataType data_type,const void* p_data,const char* format);
-extern __attribute__((__visibility__("default"))) void igDataTypeApplyOp(ImGuiDataType data_type,int op,void* output,const void* arg_1,const void* arg_2);
-extern __attribute__((__visibility__("default"))) _Bool igDataTypeApplyFromText(const char* buf,ImGuiDataType data_type,void* p_data,const char* format);
-extern __attribute__((__visibility__("default"))) int igDataTypeCompare(ImGuiDataType data_type,const void* arg_1,const void* arg_2);
-extern __attribute__((__visibility__("default"))) _Bool igDataTypeClamp(ImGuiDataType data_type,void* p_data,const void* p_min,const void* p_max);
-extern __attribute__((__visibility__("default"))) _Bool igInputTextEx(const char* label,const char* hint,char* buf,int buf_size,const ImVec2 size_arg,ImGuiInputTextFlags flags,ImGuiInputTextCallback callback,void* user_data);
-extern __attribute__((__visibility__("default"))) void igInputTextDeactivateHook(ImGuiID id);
-extern __attribute__((__visibility__("default"))) _Bool igTempInputText(const ImRect bb,ImGuiID id,const char* label,char* buf,int buf_size,ImGuiInputTextFlags flags);
-extern __attribute__((__visibility__("default"))) _Bool igTempInputScalar(const ImRect bb,ImGuiID id,const char* label,ImGuiDataType data_type,void* p_data,const char* format,const void* p_clamp_min,const void* p_clamp_max);
-extern __attribute__((__visibility__("default"))) _Bool igTempInputIsActive(ImGuiID id);
-extern __attribute__((__visibility__("default"))) ImGuiInputTextState* igGetInputTextState(ImGuiID id);
-extern __attribute__((__visibility__("default"))) void igColorTooltip(const char* text,const float* col,ImGuiColorEditFlags flags);
-extern __attribute__((__visibility__("default"))) void igColorEditOptionsPopup(const float* col,ImGuiColorEditFlags flags);
-extern __attribute__((__visibility__("default"))) void igColorPickerOptionsPopup(const float* ref_col,ImGuiColorEditFlags flags);
-extern __attribute__((__visibility__("default"))) int igPlotEx(ImGuiPlotType plot_type,const char* label,float(*values_getter)(void* data,int idx),void* data,int values_count,int values_offset,const char* overlay_text,float scale_min,float scale_max,const ImVec2 size_arg);
-extern __attribute__((__visibility__("default"))) void igShadeVertsLinearColorGradientKeepAlpha(ImDrawList* draw_list,int vert_start_idx,int vert_end_idx,ImVec2 gradient_p0,ImVec2 gradient_p1,ImU32 col0,ImU32 col1);
-extern __attribute__((__visibility__("default"))) void igShadeVertsLinearUV(ImDrawList* draw_list,int vert_start_idx,int vert_end_idx,const ImVec2 a,const ImVec2 b,const ImVec2 uv_a,const ImVec2 uv_b,_Bool clamp);
-extern __attribute__((__visibility__("default"))) void igShadeVertsTransformPos(ImDrawList* draw_list,int vert_start_idx,int vert_end_idx,const ImVec2 pivot_in,float cos_a,float sin_a,const ImVec2 pivot_out);
-extern __attribute__((__visibility__("default"))) void igGcCompactTransientMiscBuffers(void);
-extern __attribute__((__visibility__("default"))) void igGcCompactTransientWindowBuffers(ImGuiWindow* window);
-extern __attribute__((__visibility__("default"))) void igGcAwakeTransientWindowBuffers(ImGuiWindow* window);
 ]]
--- I'm disabling these because luajit is getting too many symbols ...
---[[ ffi.cdef[[
-extern __attribute__((__visibility__("default"))) void igDebugLog(const char* fmt,...);
-extern __attribute__((__visibility__("default"))) void igDebugLogV(const char* fmt,va_list args);
-extern __attribute__((__visibility__("default"))) void igDebugAllocHook(ImGuiDebugAllocInfo* info,int frame_count,void* ptr,size_t size);
-extern __attribute__((__visibility__("default"))) void igErrorCheckEndFrameRecover(ImGuiErrorLogCallback log_callback,void* user_data);
-extern __attribute__((__visibility__("default"))) void igErrorCheckEndWindowRecover(ImGuiErrorLogCallback log_callback,void* user_data);
-extern __attribute__((__visibility__("default"))) void igErrorCheckUsingSetCursorPosToExtendParentBoundaries(void);
-extern __attribute__((__visibility__("default"))) void igDebugDrawCursorPos(ImU32 col);
-extern __attribute__((__visibility__("default"))) void igDebugDrawLineExtents(ImU32 col);
-extern __attribute__((__visibility__("default"))) void igDebugDrawItemRect(ImU32 col);
-extern __attribute__((__visibility__("default"))) void igDebugLocateItem(ImGuiID target_id);
-extern __attribute__((__visibility__("default"))) void igDebugLocateItemOnHover(ImGuiID target_id);
-extern __attribute__((__visibility__("default"))) void igDebugLocateItemResolveWithLastItem(void);
-extern __attribute__((__visibility__("default"))) void igDebugBreakClearData(void);
-extern __attribute__((__visibility__("default"))) _Bool igDebugBreakButton(const char* label,const char* description_of_location);
-extern __attribute__((__visibility__("default"))) void igDebugBreakButtonTooltip(_Bool keyboard_only,const char* description_of_location);
-extern __attribute__((__visibility__("default"))) void igShowFontAtlas(ImFontAtlas* atlas);
-extern __attribute__((__visibility__("default"))) void igDebugHookIdInfo(ImGuiID id,ImGuiDataType data_type,const void* data_id,const void* data_id_end);
-extern __attribute__((__visibility__("default"))) void igDebugNodeColumns(ImGuiOldColumns* columns);
-extern __attribute__((__visibility__("default"))) void igDebugNodeDockNode(ImGuiDockNode* node,const char* label);
-extern __attribute__((__visibility__("default"))) void igDebugNodeDrawList(ImGuiWindow* window,ImGuiViewportP* viewport,const ImDrawList* draw_list,const char* label);
-extern __attribute__((__visibility__("default"))) void igDebugNodeDrawCmdShowMeshAndBoundingBox(ImDrawList* out_draw_list,const ImDrawList* draw_list,const ImDrawCmd* draw_cmd,_Bool show_mesh,_Bool show_aabb);
-extern __attribute__((__visibility__("default"))) void igDebugNodeFont(ImFont* font);
-extern __attribute__((__visibility__("default"))) void igDebugNodeFontGlyph(ImFont* font,const ImFontGlyph* glyph);
-extern __attribute__((__visibility__("default"))) void igDebugNodeStorage(ImGuiStorage* storage,const char* label);
-extern __attribute__((__visibility__("default"))) void igDebugNodeTabBar(ImGuiTabBar* tab_bar,const char* label);
-extern __attribute__((__visibility__("default"))) void igDebugNodeTable(ImGuiTable* table);
-extern __attribute__((__visibility__("default"))) void igDebugNodeTableSettings(ImGuiTableSettings* settings);
-extern __attribute__((__visibility__("default"))) void igDebugNodeInputTextState(ImGuiInputTextState* state);
-extern __attribute__((__visibility__("default"))) void igDebugNodeTypingSelectState(ImGuiTypingSelectState* state);
-extern __attribute__((__visibility__("default"))) void igDebugNodeWindow(ImGuiWindow* window,const char* label);
-extern __attribute__((__visibility__("default"))) void igDebugNodeWindowSettings(ImGuiWindowSettings* settings);
-extern __attribute__((__visibility__("default"))) void igDebugNodeWindowsList(ImVector_ImGuiWindowPtr* windows,const char* label);
-extern __attribute__((__visibility__("default"))) void igDebugNodeWindowsListByBeginStackParent(ImGuiWindow** windows,int windows_size,ImGuiWindow* parent_in_begin_stack);
-extern __attribute__((__visibility__("default"))) void igDebugNodeViewport(ImGuiViewportP* viewport);
-extern __attribute__((__visibility__("default"))) void igDebugRenderKeyboardPreview(ImDrawList* draw_list);
-extern __attribute__((__visibility__("default"))) void igDebugRenderViewportThumbnail(ImDrawList* draw_list,ImGuiViewportP* viewport,const ImRect bb);
-]]
-ffi.cdef[[
-extern __attribute__((__visibility__("default"))) const ImFontBuilderIO* igImFontAtlasGetBuilderForStbTruetype(void);
-extern __attribute__((__visibility__("default"))) void igImFontAtlasUpdateConfigDataPointers(ImFontAtlas* atlas);
-extern __attribute__((__visibility__("default"))) void igImFontAtlasBuildInit(ImFontAtlas* atlas);
-extern __attribute__((__visibility__("default"))) void igImFontAtlasBuildSetupFont(ImFontAtlas* atlas,ImFont* font,ImFontConfig* font_config,float ascent,float descent);
-extern __attribute__((__visibility__("default"))) void igImFontAtlasBuildPackCustomRects(ImFontAtlas* atlas,void* stbrp_context_opaque);
-extern __attribute__((__visibility__("default"))) void igImFontAtlasBuildFinish(ImFontAtlas* atlas);
-extern __attribute__((__visibility__("default"))) void igImFontAtlasBuildRender8bppRectFromString(ImFontAtlas* atlas,int x,int y,int w,int h,const char* in_str,char in_marker_char,unsigned char in_marker_pixel_value);
-extern __attribute__((__visibility__("default"))) void igImFontAtlasBuildRender32bppRectFromString(ImFontAtlas* atlas,int x,int y,int w,int h,const char* in_str,char in_marker_char,unsigned int in_marker_pixel_value);
-extern __attribute__((__visibility__("default"))) void igImFontAtlasBuildMultiplyCalcLookupTable(unsigned char out_table[256],float in_multiply_factor);
-extern __attribute__((__visibility__("default"))) void igImFontAtlasBuildMultiplyRectAlpha8(const unsigned char table[256],unsigned char* pixels,int x,int y,int w,int h,int stride);
-extern __attribute__((__visibility__("default"))) void igLogText(const char *fmt, ...);
-extern __attribute__((__visibility__("default"))) void ImGuiTextBuffer_appendf(struct ImGuiTextBuffer *buffer, const char *fmt, ...);
-extern __attribute__((__visibility__("default"))) float igGET_FLT_MAX(void);
-extern __attribute__((__visibility__("default"))) float igGET_FLT_MIN(void);
-extern __attribute__((__visibility__("default"))) ImVector_ImWchar* ImVector_ImWchar_create(void);
-extern __attribute__((__visibility__("default"))) void ImVector_ImWchar_destroy(ImVector_ImWchar* self);
-extern __attribute__((__visibility__("default"))) void ImVector_ImWchar_Init(ImVector_ImWchar* p);
-extern __attribute__((__visibility__("default"))) void ImVector_ImWchar_UnInit(ImVector_ImWchar* p);
-/* + END   /usr/local/include/imgui-1.90.5dock/cimgui.h */
-/* + BEGIN /usr/local/include/imgui-1.90.5dock/imgui_impl_sdl2.h */
-]] require 'ffi.req' 'sdl' ffi.cdef[[
-_Bool ImGui_ImplSDL2_InitForOpenGL(SDL_Window* window, void* sdl_gl_context);
-_Bool ImGui_ImplSDL2_InitForVulkan(SDL_Window* window);
-_Bool ImGui_ImplSDL2_InitForD3D(SDL_Window* window);
-_Bool ImGui_ImplSDL2_InitForMetal(SDL_Window* window);
-_Bool ImGui_ImplSDL2_InitForSDLRenderer(SDL_Window* window, SDL_Renderer* renderer);
-_Bool ImGui_ImplSDL2_InitForOther(SDL_Window* window);
-void ImGui_ImplSDL2_Shutdown();
-void ImGui_ImplSDL2_NewFrame();
-_Bool ImGui_ImplSDL2_ProcessEvent(const SDL_Event* event);
-typedef enum { ImGui_ImplSDL2_GamepadMode_AutoFirst, ImGui_ImplSDL2_GamepadMode_AutoAll, ImGui_ImplSDL2_GamepadMode_Manual } ImGui_ImplSDL2_GamepadMode;
-void ImGui_ImplSDL2_SetGamepadMode(ImGui_ImplSDL2_GamepadMode mode, struct _SDL_GameController** manual_gamepads_array, int manual_gamepads_count);
-/* + END   /usr/local/include/imgui-1.90.5dock/imgui_impl_sdl2.h */
-/* + BEGIN /usr/local/include/imgui-1.90.5dock/imgui_impl_opengl3.h */
-_Bool ImGui_ImplOpenGL3_Init(const char* glsl_version);
-void ImGui_ImplOpenGL3_Shutdown();
-void ImGui_ImplOpenGL3_NewFrame();
-void ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data);
-_Bool ImGui_ImplOpenGL3_CreateFontsTexture();
-void ImGui_ImplOpenGL3_DestroyFontsTexture();
-_Bool ImGui_ImplOpenGL3_CreateDeviceObjects();
-void ImGui_ImplOpenGL3_DestroyDeviceObjects();
-/* + END   /usr/local/include/imgui-1.90.5dock/imgui_impl_opengl3.h */
-]]
-return require 'ffi.load' 'cimgui_sdl'
+
+local wrapper
+wrapper = require 'ffi.libwrapper'{
+	lib = require 'ffi.load' 'cimgui_sdl',
+	defs = {
+		-- enums
+
+		CIMGUI_INCLUDED = 1,
+		IMGUI_HAS_DOCK = 1,
+
+		-- functions
+	
+		ImVec2_ImVec2_Nil = [[ImVec2* ImVec2_ImVec2_Nil();]],
+		ImVec2_destroy = [[void ImVec2_destroy(ImVec2* self);]],
+		ImVec2_ImVec2_Float = [[ImVec2* ImVec2_ImVec2_Float(float _x,float _y);]],
+		ImVec4_ImVec4_Nil = [[ImVec4* ImVec4_ImVec4_Nil();]],
+		ImVec4_destroy = [[void ImVec4_destroy(ImVec4* self);]],
+		ImVec4_ImVec4_Float = [[ImVec4* ImVec4_ImVec4_Float(float _x,float _y,float _z,float _w);]],
+		igCreateContext = [[ImGuiContext* igCreateContext(ImFontAtlas* shared_font_atlas);]],
+		igDestroyContext = [[void igDestroyContext(ImGuiContext* ctx);]],
+		igGetCurrentContext = [[ImGuiContext* igGetCurrentContext();]],
+		igSetCurrentContext = [[void igSetCurrentContext(ImGuiContext* ctx);]],
+		igGetIO = [[ImGuiIO* igGetIO();]],
+		igGetStyle = [[ImGuiStyle* igGetStyle();]],
+		igNewFrame = [[void igNewFrame();]],
+		igEndFrame = [[void igEndFrame();]],
+		igRender = [[void igRender();]],
+		igGetDrawData = [[ImDrawData* igGetDrawData();]],
+		igShowDemoWindow = [[void igShowDemoWindow(_Bool* p_open);]],
+		igShowMetricsWindow = [[void igShowMetricsWindow(_Bool* p_open);]],
+		igShowDebugLogWindow = [[void igShowDebugLogWindow(_Bool* p_open);]],
+		igShowIDStackToolWindow = [[void igShowIDStackToolWindow(_Bool* p_open);]],
+		igShowAboutWindow = [[void igShowAboutWindow(_Bool* p_open);]],
+		igShowStyleEditor = [[void igShowStyleEditor(ImGuiStyle* ref);]],
+		igShowStyleSelector = [[_Bool igShowStyleSelector(const char* label);]],
+		igShowFontSelector = [[void igShowFontSelector(const char* label);]],
+		igShowUserGuide = [[void igShowUserGuide();]],
+		igGetVersion = [[const char* igGetVersion();]],
+		igStyleColorsDark = [[void igStyleColorsDark(ImGuiStyle* dst);]],
+		igStyleColorsLight = [[void igStyleColorsLight(ImGuiStyle* dst);]],
+		igStyleColorsClassic = [[void igStyleColorsClassic(ImGuiStyle* dst);]],
+		igBegin = [[_Bool igBegin(const char* name,_Bool* p_open,ImGuiWindowFlags flags);]],
+		igEnd = [[void igEnd();]],
+		igBeginChild_Str = [[_Bool igBeginChild_Str(const char* str_id,const ImVec2 size,ImGuiChildFlags child_flags,ImGuiWindowFlags window_flags);]],
+		igBeginChild_ID = [[_Bool igBeginChild_ID(ImGuiID id,const ImVec2 size,ImGuiChildFlags child_flags,ImGuiWindowFlags window_flags);]],
+		igEndChild = [[void igEndChild();]],
+		igIsWindowAppearing = [[_Bool igIsWindowAppearing();]],
+		igIsWindowCollapsed = [[_Bool igIsWindowCollapsed();]],
+		igIsWindowFocused = [[_Bool igIsWindowFocused(ImGuiFocusedFlags flags);]],
+		igIsWindowHovered = [[_Bool igIsWindowHovered(ImGuiHoveredFlags flags);]],
+		igGetWindowDrawList = [[ImDrawList* igGetWindowDrawList();]],
+		igGetWindowDpiScale = [[float igGetWindowDpiScale();]],
+		igGetWindowPos = [[void igGetWindowPos(ImVec2 *pOut);]],
+		igGetWindowSize = [[void igGetWindowSize(ImVec2 *pOut);]],
+		igGetWindowWidth = [[float igGetWindowWidth();]],
+		igGetWindowHeight = [[float igGetWindowHeight();]],
+		igGetWindowViewport = [[ImGuiViewport* igGetWindowViewport();]],
+		igSetNextWindowPos = [[void igSetNextWindowPos(const ImVec2 pos,ImGuiCond cond,const ImVec2 pivot);]],
+		igSetNextWindowSize = [[void igSetNextWindowSize(const ImVec2 size,ImGuiCond cond);]],
+		igSetNextWindowSizeConstraints = [[void igSetNextWindowSizeConstraints(const ImVec2 size_min,const ImVec2 size_max,ImGuiSizeCallback custom_callback,void* custom_callback_data);]],
+		igSetNextWindowContentSize = [[void igSetNextWindowContentSize(const ImVec2 size);]],
+		igSetNextWindowCollapsed = [[void igSetNextWindowCollapsed(_Bool collapsed,ImGuiCond cond);]],
+		igSetNextWindowFocus = [[void igSetNextWindowFocus();]],
+		igSetNextWindowScroll = [[void igSetNextWindowScroll(const ImVec2 scroll);]],
+		igSetNextWindowBgAlpha = [[void igSetNextWindowBgAlpha(float alpha);]],
+		igSetNextWindowViewport = [[void igSetNextWindowViewport(ImGuiID viewport_id);]],
+		igSetWindowPos_Vec2 = [[void igSetWindowPos_Vec2(const ImVec2 pos,ImGuiCond cond);]],
+		igSetWindowSize_Vec2 = [[void igSetWindowSize_Vec2(const ImVec2 size,ImGuiCond cond);]],
+		igSetWindowCollapsed_Bool = [[void igSetWindowCollapsed_Bool(_Bool collapsed,ImGuiCond cond);]],
+		igSetWindowFocus_Nil = [[void igSetWindowFocus_Nil();]],
+		igSetWindowFontScale = [[void igSetWindowFontScale(float scale);]],
+		igSetWindowPos_Str = [[void igSetWindowPos_Str(const char* name,const ImVec2 pos,ImGuiCond cond);]],
+		igSetWindowSize_Str = [[void igSetWindowSize_Str(const char* name,const ImVec2 size,ImGuiCond cond);]],
+		igSetWindowCollapsed_Str = [[void igSetWindowCollapsed_Str(const char* name,_Bool collapsed,ImGuiCond cond);]],
+		igSetWindowFocus_Str = [[void igSetWindowFocus_Str(const char* name);]],
+		igGetContentRegionAvail = [[void igGetContentRegionAvail(ImVec2 *pOut);]],
+		igGetContentRegionMax = [[void igGetContentRegionMax(ImVec2 *pOut);]],
+		igGetWindowContentRegionMin = [[void igGetWindowContentRegionMin(ImVec2 *pOut);]],
+		igGetWindowContentRegionMax = [[void igGetWindowContentRegionMax(ImVec2 *pOut);]],
+		igGetScrollX = [[float igGetScrollX();]],
+		igGetScrollY = [[float igGetScrollY();]],
+		igSetScrollX_Float = [[void igSetScrollX_Float(float scroll_x);]],
+		igSetScrollY_Float = [[void igSetScrollY_Float(float scroll_y);]],
+		igGetScrollMaxX = [[float igGetScrollMaxX();]],
+		igGetScrollMaxY = [[float igGetScrollMaxY();]],
+		igSetScrollHereX = [[void igSetScrollHereX(float center_x_ratio);]],
+		igSetScrollHereY = [[void igSetScrollHereY(float center_y_ratio);]],
+		igSetScrollFromPosX_Float = [[void igSetScrollFromPosX_Float(float local_x,float center_x_ratio);]],
+		igSetScrollFromPosY_Float = [[void igSetScrollFromPosY_Float(float local_y,float center_y_ratio);]],
+		igPushFont = [[void igPushFont(ImFont* font);]],
+		igPopFont = [[void igPopFont();]],
+		igPushStyleColor_U32 = [[void igPushStyleColor_U32(ImGuiCol idx,ImU32 col);]],
+		igPushStyleColor_Vec4 = [[void igPushStyleColor_Vec4(ImGuiCol idx,const ImVec4 col);]],
+		igPopStyleColor = [[void igPopStyleColor(int count);]],
+		igPushStyleVar_Float = [[void igPushStyleVar_Float(ImGuiStyleVar idx,float val);]],
+		igPushStyleVar_Vec2 = [[void igPushStyleVar_Vec2(ImGuiStyleVar idx,const ImVec2 val);]],
+		igPopStyleVar = [[void igPopStyleVar(int count);]],
+		igPushTabStop = [[void igPushTabStop(_Bool tab_stop);]],
+		igPopTabStop = [[void igPopTabStop();]],
+		igPushButtonRepeat = [[void igPushButtonRepeat(_Bool repeat);]],
+		igPopButtonRepeat = [[void igPopButtonRepeat();]],
+		igPushItemWidth = [[void igPushItemWidth(float item_width);]],
+		igPopItemWidth = [[void igPopItemWidth();]],
+		igSetNextItemWidth = [[void igSetNextItemWidth(float item_width);]],
+		igCalcItemWidth = [[float igCalcItemWidth();]],
+		igPushTextWrapPos = [[void igPushTextWrapPos(float wrap_local_pos_x);]],
+		igPopTextWrapPos = [[void igPopTextWrapPos();]],
+		igGetFont = [[ImFont* igGetFont();]],
+		igGetFontSize = [[float igGetFontSize();]],
+		igGetFontTexUvWhitePixel = [[void igGetFontTexUvWhitePixel(ImVec2 *pOut);]],
+		igGetColorU32_Col = [[ImU32 igGetColorU32_Col(ImGuiCol idx,float alpha_mul);]],
+		igGetColorU32_Vec4 = [[ImU32 igGetColorU32_Vec4(const ImVec4 col);]],
+		igGetColorU32_U32 = [[ImU32 igGetColorU32_U32(ImU32 col,float alpha_mul);]],
+		igGetStyleColorVec4 = [[const ImVec4* igGetStyleColorVec4(ImGuiCol idx);]],
+		igGetCursorScreenPos = [[void igGetCursorScreenPos(ImVec2 *pOut);]],
+		igSetCursorScreenPos = [[void igSetCursorScreenPos(const ImVec2 pos);]],
+		igGetCursorPos = [[void igGetCursorPos(ImVec2 *pOut);]],
+		igGetCursorPosX = [[float igGetCursorPosX();]],
+		igGetCursorPosY = [[float igGetCursorPosY();]],
+		igSetCursorPos = [[void igSetCursorPos(const ImVec2 local_pos);]],
+		igSetCursorPosX = [[void igSetCursorPosX(float local_x);]],
+		igSetCursorPosY = [[void igSetCursorPosY(float local_y);]],
+		igGetCursorStartPos = [[void igGetCursorStartPos(ImVec2 *pOut);]],
+		igSeparator = [[void igSeparator();]],
+		igSameLine = [[void igSameLine(float offset_from_start_x,float spacing);]],
+		igNewLine = [[void igNewLine();]],
+		igSpacing = [[void igSpacing();]],
+		igDummy = [[void igDummy(const ImVec2 size);]],
+		igIndent = [[void igIndent(float indent_w);]],
+		igUnindent = [[void igUnindent(float indent_w);]],
+		igBeginGroup = [[void igBeginGroup();]],
+		igEndGroup = [[void igEndGroup();]],
+		igAlignTextToFramePadding = [[void igAlignTextToFramePadding();]],
+		igGetTextLineHeight = [[float igGetTextLineHeight();]],
+		igGetTextLineHeightWithSpacing = [[float igGetTextLineHeightWithSpacing();]],
+		igGetFrameHeight = [[float igGetFrameHeight();]],
+		igGetFrameHeightWithSpacing = [[float igGetFrameHeightWithSpacing();]],
+		igPushID_Str = [[void igPushID_Str(const char* str_id);]],
+		igPushID_StrStr = [[void igPushID_StrStr(const char* str_id_begin,const char* str_id_end);]],
+		igPushID_Ptr = [[void igPushID_Ptr(const void* ptr_id);]],
+		igPushID_Int = [[void igPushID_Int(int int_id);]],
+		igPopID = [[void igPopID();]],
+		igGetID_Str = [[ImGuiID igGetID_Str(const char* str_id);]],
+		igGetID_StrStr = [[ImGuiID igGetID_StrStr(const char* str_id_begin,const char* str_id_end);]],
+		igGetID_Ptr = [[ImGuiID igGetID_Ptr(const void* ptr_id);]],
+		igTextUnformatted = [[void igTextUnformatted(const char* text,const char* text_end);]],
+		igText = [[void igText(const char* fmt,...);]],
+		igTextV = [[void igTextV(const char* fmt,va_list args);]],
+		igTextColored = [[void igTextColored(const ImVec4 col,const char* fmt,...);]],
+		igTextColoredV = [[void igTextColoredV(const ImVec4 col,const char* fmt,va_list args);]],
+		igTextDisabled = [[void igTextDisabled(const char* fmt,...);]],
+		igTextDisabledV = [[void igTextDisabledV(const char* fmt,va_list args);]],
+		igTextWrapped = [[void igTextWrapped(const char* fmt,...);]],
+		igTextWrappedV = [[void igTextWrappedV(const char* fmt,va_list args);]],
+		igLabelText = [[void igLabelText(const char* label,const char* fmt,...);]],
+		igLabelTextV = [[void igLabelTextV(const char* label,const char* fmt,va_list args);]],
+		igBulletText = [[void igBulletText(const char* fmt,...);]],
+		igBulletTextV = [[void igBulletTextV(const char* fmt,va_list args);]],
+		igSeparatorText = [[void igSeparatorText(const char* label);]],
+		igButton = [[_Bool igButton(const char* label,const ImVec2 size);]],
+		igSmallButton = [[_Bool igSmallButton(const char* label);]],
+		igInvisibleButton = [[_Bool igInvisibleButton(const char* str_id,const ImVec2 size,ImGuiButtonFlags flags);]],
+		igArrowButton = [[_Bool igArrowButton(const char* str_id,ImGuiDir dir);]],
+		igCheckbox = [[_Bool igCheckbox(const char* label,_Bool* v);]],
+		igCheckboxFlags_IntPtr = [[_Bool igCheckboxFlags_IntPtr(const char* label,int* flags,int flags_value);]],
+		igCheckboxFlags_UintPtr = [[_Bool igCheckboxFlags_UintPtr(const char* label,unsigned int* flags,unsigned int flags_value);]],
+		igRadioButton_Bool = [[_Bool igRadioButton_Bool(const char* label,_Bool active);]],
+		igRadioButton_IntPtr = [[_Bool igRadioButton_IntPtr(const char* label,int* v,int v_button);]],
+		igProgressBar = [[void igProgressBar(float fraction,const ImVec2 size_arg,const char* overlay);]],
+		igBullet = [[void igBullet();]],
+		igImage = [[void igImage(ImTextureID user_texture_id,const ImVec2 image_size,const ImVec2 uv0,const ImVec2 uv1,const ImVec4 tint_col,const ImVec4 border_col);]],
+		igImageButton = [[_Bool igImageButton(const char* str_id,ImTextureID user_texture_id,const ImVec2 image_size,const ImVec2 uv0,const ImVec2 uv1,const ImVec4 bg_col,const ImVec4 tint_col);]],
+		igBeginCombo = [[_Bool igBeginCombo(const char* label,const char* preview_value,ImGuiComboFlags flags);]],
+		igEndCombo = [[void igEndCombo();]],
+		igCombo_Str_arr = [[_Bool igCombo_Str_arr(const char* label,int* current_item,const char* const items[],int items_count,int popup_max_height_in_items);]],
+		igCombo_Str = [[_Bool igCombo_Str(const char* label,int* current_item,const char* items_separated_by_zeros,int popup_max_height_in_items);]],
+		igCombo_FnStrPtr = [[_Bool igCombo_FnStrPtr(const char* label,int* current_item,const char*(*getter)(void* user_data,int idx),void* user_data,int items_count,int popup_max_height_in_items);]],
+		igDragFloat = [[_Bool igDragFloat(const char* label,float* v,float v_speed,float v_min,float v_max,const char* format,ImGuiSliderFlags flags);]],
+		igDragFloat2 = [[_Bool igDragFloat2(const char* label,float v[2],float v_speed,float v_min,float v_max,const char* format,ImGuiSliderFlags flags);]],
+		igDragFloat3 = [[_Bool igDragFloat3(const char* label,float v[3],float v_speed,float v_min,float v_max,const char* format,ImGuiSliderFlags flags);]],
+		igDragFloat4 = [[_Bool igDragFloat4(const char* label,float v[4],float v_speed,float v_min,float v_max,const char* format,ImGuiSliderFlags flags);]],
+		igDragFloatRange2 = [[_Bool igDragFloatRange2(const char* label,float* v_current_min,float* v_current_max,float v_speed,float v_min,float v_max,const char* format,const char* format_max,ImGuiSliderFlags flags);]],
+		igDragInt = [[_Bool igDragInt(const char* label,int* v,float v_speed,int v_min,int v_max,const char* format,ImGuiSliderFlags flags);]],
+		igDragInt2 = [[_Bool igDragInt2(const char* label,int v[2],float v_speed,int v_min,int v_max,const char* format,ImGuiSliderFlags flags);]],
+		igDragInt3 = [[_Bool igDragInt3(const char* label,int v[3],float v_speed,int v_min,int v_max,const char* format,ImGuiSliderFlags flags);]],
+		igDragInt4 = [[_Bool igDragInt4(const char* label,int v[4],float v_speed,int v_min,int v_max,const char* format,ImGuiSliderFlags flags);]],
+		igDragIntRange2 = [[_Bool igDragIntRange2(const char* label,int* v_current_min,int* v_current_max,float v_speed,int v_min,int v_max,const char* format,const char* format_max,ImGuiSliderFlags flags);]],
+		igDragScalar = [[_Bool igDragScalar(const char* label,ImGuiDataType data_type,void* p_data,float v_speed,const void* p_min,const void* p_max,const char* format,ImGuiSliderFlags flags);]],
+		igDragScalarN = [[_Bool igDragScalarN(const char* label,ImGuiDataType data_type,void* p_data,int components,float v_speed,const void* p_min,const void* p_max,const char* format,ImGuiSliderFlags flags);]],
+		igSliderFloat = [[_Bool igSliderFloat(const char* label,float* v,float v_min,float v_max,const char* format,ImGuiSliderFlags flags);]],
+		igSliderFloat2 = [[_Bool igSliderFloat2(const char* label,float v[2],float v_min,float v_max,const char* format,ImGuiSliderFlags flags);]],
+		igSliderFloat3 = [[_Bool igSliderFloat3(const char* label,float v[3],float v_min,float v_max,const char* format,ImGuiSliderFlags flags);]],
+		igSliderFloat4 = [[_Bool igSliderFloat4(const char* label,float v[4],float v_min,float v_max,const char* format,ImGuiSliderFlags flags);]],
+		igSliderAngle = [[_Bool igSliderAngle(const char* label,float* v_rad,float v_degrees_min,float v_degrees_max,const char* format,ImGuiSliderFlags flags);]],
+		igSliderInt = [[_Bool igSliderInt(const char* label,int* v,int v_min,int v_max,const char* format,ImGuiSliderFlags flags);]],
+		igSliderInt2 = [[_Bool igSliderInt2(const char* label,int v[2],int v_min,int v_max,const char* format,ImGuiSliderFlags flags);]],
+		igSliderInt3 = [[_Bool igSliderInt3(const char* label,int v[3],int v_min,int v_max,const char* format,ImGuiSliderFlags flags);]],
+		igSliderInt4 = [[_Bool igSliderInt4(const char* label,int v[4],int v_min,int v_max,const char* format,ImGuiSliderFlags flags);]],
+		igSliderScalar = [[_Bool igSliderScalar(const char* label,ImGuiDataType data_type,void* p_data,const void* p_min,const void* p_max,const char* format,ImGuiSliderFlags flags);]],
+		igSliderScalarN = [[_Bool igSliderScalarN(const char* label,ImGuiDataType data_type,void* p_data,int components,const void* p_min,const void* p_max,const char* format,ImGuiSliderFlags flags);]],
+		igVSliderFloat = [[_Bool igVSliderFloat(const char* label,const ImVec2 size,float* v,float v_min,float v_max,const char* format,ImGuiSliderFlags flags);]],
+		igVSliderInt = [[_Bool igVSliderInt(const char* label,const ImVec2 size,int* v,int v_min,int v_max,const char* format,ImGuiSliderFlags flags);]],
+		igVSliderScalar = [[_Bool igVSliderScalar(const char* label,const ImVec2 size,ImGuiDataType data_type,void* p_data,const void* p_min,const void* p_max,const char* format,ImGuiSliderFlags flags);]],
+		igInputText = [[_Bool igInputText(const char* label,char* buf,size_t buf_size,ImGuiInputTextFlags flags,ImGuiInputTextCallback callback,void* user_data);]],
+		igInputTextMultiline = [[_Bool igInputTextMultiline(const char* label,char* buf,size_t buf_size,const ImVec2 size,ImGuiInputTextFlags flags,ImGuiInputTextCallback callback,void* user_data);]],
+		igInputTextWithHint = [[_Bool igInputTextWithHint(const char* label,const char* hint,char* buf,size_t buf_size,ImGuiInputTextFlags flags,ImGuiInputTextCallback callback,void* user_data);]],
+		igInputFloat = [[_Bool igInputFloat(const char* label,float* v,float step,float step_fast,const char* format,ImGuiInputTextFlags flags);]],
+		igInputFloat2 = [[_Bool igInputFloat2(const char* label,float v[2],const char* format,ImGuiInputTextFlags flags);]],
+		igInputFloat3 = [[_Bool igInputFloat3(const char* label,float v[3],const char* format,ImGuiInputTextFlags flags);]],
+		igInputFloat4 = [[_Bool igInputFloat4(const char* label,float v[4],const char* format,ImGuiInputTextFlags flags);]],
+		igInputInt = [[_Bool igInputInt(const char* label,int* v,int step,int step_fast,ImGuiInputTextFlags flags);]],
+		igInputInt2 = [[_Bool igInputInt2(const char* label,int v[2],ImGuiInputTextFlags flags);]],
+		igInputInt3 = [[_Bool igInputInt3(const char* label,int v[3],ImGuiInputTextFlags flags);]],
+		igInputInt4 = [[_Bool igInputInt4(const char* label,int v[4],ImGuiInputTextFlags flags);]],
+		igInputDouble = [[_Bool igInputDouble(const char* label,double* v,double step,double step_fast,const char* format,ImGuiInputTextFlags flags);]],
+		igInputScalar = [[_Bool igInputScalar(const char* label,ImGuiDataType data_type,void* p_data,const void* p_step,const void* p_step_fast,const char* format,ImGuiInputTextFlags flags);]],
+		igInputScalarN = [[_Bool igInputScalarN(const char* label,ImGuiDataType data_type,void* p_data,int components,const void* p_step,const void* p_step_fast,const char* format,ImGuiInputTextFlags flags);]],
+		igColorEdit3 = [[_Bool igColorEdit3(const char* label,float col[3],ImGuiColorEditFlags flags);]],
+		igColorEdit4 = [[_Bool igColorEdit4(const char* label,float col[4],ImGuiColorEditFlags flags);]],
+		igColorPicker3 = [[_Bool igColorPicker3(const char* label,float col[3],ImGuiColorEditFlags flags);]],
+		igColorPicker4 = [[_Bool igColorPicker4(const char* label,float col[4],ImGuiColorEditFlags flags,const float* ref_col);]],
+		igColorButton = [[_Bool igColorButton(const char* desc_id,const ImVec4 col,ImGuiColorEditFlags flags,const ImVec2 size);]],
+		igSetColorEditOptions = [[void igSetColorEditOptions(ImGuiColorEditFlags flags);]],
+		igTreeNode_Str = [[_Bool igTreeNode_Str(const char* label);]],
+		igTreeNode_StrStr = [[_Bool igTreeNode_StrStr(const char* str_id,const char* fmt,...);]],
+		igTreeNode_Ptr = [[_Bool igTreeNode_Ptr(const void* ptr_id,const char* fmt,...);]],
+		igTreeNodeV_Str = [[_Bool igTreeNodeV_Str(const char* str_id,const char* fmt,va_list args);]],
+		igTreeNodeV_Ptr = [[_Bool igTreeNodeV_Ptr(const void* ptr_id,const char* fmt,va_list args);]],
+		igTreeNodeEx_Str = [[_Bool igTreeNodeEx_Str(const char* label,ImGuiTreeNodeFlags flags);]],
+		igTreeNodeEx_StrStr = [[_Bool igTreeNodeEx_StrStr(const char* str_id,ImGuiTreeNodeFlags flags,const char* fmt,...);]],
+		igTreeNodeEx_Ptr = [[_Bool igTreeNodeEx_Ptr(const void* ptr_id,ImGuiTreeNodeFlags flags,const char* fmt,...);]],
+		igTreeNodeExV_Str = [[_Bool igTreeNodeExV_Str(const char* str_id,ImGuiTreeNodeFlags flags,const char* fmt,va_list args);]],
+		igTreeNodeExV_Ptr = [[_Bool igTreeNodeExV_Ptr(const void* ptr_id,ImGuiTreeNodeFlags flags,const char* fmt,va_list args);]],
+		igTreePush_Str = [[void igTreePush_Str(const char* str_id);]],
+		igTreePush_Ptr = [[void igTreePush_Ptr(const void* ptr_id);]],
+		igTreePop = [[void igTreePop();]],
+		igGetTreeNodeToLabelSpacing = [[float igGetTreeNodeToLabelSpacing();]],
+		igCollapsingHeader_TreeNodeFlags = [[_Bool igCollapsingHeader_TreeNodeFlags(const char* label,ImGuiTreeNodeFlags flags);]],
+		igCollapsingHeader_BoolPtr = [[_Bool igCollapsingHeader_BoolPtr(const char* label,_Bool* p_visible,ImGuiTreeNodeFlags flags);]],
+		igSetNextItemOpen = [[void igSetNextItemOpen(_Bool is_open,ImGuiCond cond);]],
+		igSelectable_Bool = [[_Bool igSelectable_Bool(const char* label,_Bool selected,ImGuiSelectableFlags flags,const ImVec2 size);]],
+		igSelectable_BoolPtr = [[_Bool igSelectable_BoolPtr(const char* label,_Bool* p_selected,ImGuiSelectableFlags flags,const ImVec2 size);]],
+		igBeginListBox = [[_Bool igBeginListBox(const char* label,const ImVec2 size);]],
+		igEndListBox = [[void igEndListBox();]],
+		igListBox_Str_arr = [[_Bool igListBox_Str_arr(const char* label,int* current_item,const char* const items[],int items_count,int height_in_items);]],
+		igListBox_FnStrPtr = [[_Bool igListBox_FnStrPtr(const char* label,int* current_item,const char*(*getter)(void* user_data,int idx),void* user_data,int items_count,int height_in_items);]],
+		igPlotLines_FloatPtr = [[void igPlotLines_FloatPtr(const char* label,const float* values,int values_count,int values_offset,const char* overlay_text,float scale_min,float scale_max,ImVec2 graph_size,int stride);]],
+		float = [[void igPlotLines_FnFloatPtr(const char* label,float(*values_getter)(void* data,int idx),void* data,int values_count,int values_offset,const char* overlay_text,float scale_min,float scale_max,ImVec2 graph_size);]],
+		igPlotHistogram_FloatPtr = [[void igPlotHistogram_FloatPtr(const char* label,const float* values,int values_count,int values_offset,const char* overlay_text,float scale_min,float scale_max,ImVec2 graph_size,int stride);]],
+		float = [[void igPlotHistogram_FnFloatPtr(const char* label,float(*values_getter)(void* data,int idx),void* data,int values_count,int values_offset,const char* overlay_text,float scale_min,float scale_max,ImVec2 graph_size);]],
+		igValue_Bool = [[void igValue_Bool(const char* prefix,_Bool b);]],
+		igValue_Int = [[void igValue_Int(const char* prefix,int v);]],
+		igValue_Uint = [[void igValue_Uint(const char* prefix,unsigned int v);]],
+		igValue_Float = [[void igValue_Float(const char* prefix,float v,const char* float_format);]],
+		igBeginMenuBar = [[_Bool igBeginMenuBar();]],
+		igEndMenuBar = [[void igEndMenuBar();]],
+		igBeginMainMenuBar = [[_Bool igBeginMainMenuBar();]],
+		igEndMainMenuBar = [[void igEndMainMenuBar();]],
+		igBeginMenu = [[_Bool igBeginMenu(const char* label,_Bool enabled);]],
+		igEndMenu = [[void igEndMenu();]],
+		igMenuItem_Bool = [[_Bool igMenuItem_Bool(const char* label,const char* shortcut,_Bool selected,_Bool enabled);]],
+		igMenuItem_BoolPtr = [[_Bool igMenuItem_BoolPtr(const char* label,const char* shortcut,_Bool* p_selected,_Bool enabled);]],
+		igBeginTooltip = [[_Bool igBeginTooltip();]],
+		igEndTooltip = [[void igEndTooltip();]],
+		igSetTooltip = [[void igSetTooltip(const char* fmt,...);]],
+		igSetTooltipV = [[void igSetTooltipV(const char* fmt,va_list args);]],
+		igBeginItemTooltip = [[_Bool igBeginItemTooltip();]],
+		igSetItemTooltip = [[void igSetItemTooltip(const char* fmt,...);]],
+		igSetItemTooltipV = [[void igSetItemTooltipV(const char* fmt,va_list args);]],
+		igBeginPopup = [[_Bool igBeginPopup(const char* str_id,ImGuiWindowFlags flags);]],
+		igBeginPopupModal = [[_Bool igBeginPopupModal(const char* name,_Bool* p_open,ImGuiWindowFlags flags);]],
+		igEndPopup = [[void igEndPopup();]],
+		igOpenPopup_Str = [[void igOpenPopup_Str(const char* str_id,ImGuiPopupFlags popup_flags);]],
+		igOpenPopup_ID = [[void igOpenPopup_ID(ImGuiID id,ImGuiPopupFlags popup_flags);]],
+		igOpenPopupOnItemClick = [[void igOpenPopupOnItemClick(const char* str_id,ImGuiPopupFlags popup_flags);]],
+		igCloseCurrentPopup = [[void igCloseCurrentPopup();]],
+		igBeginPopupContextItem = [[_Bool igBeginPopupContextItem(const char* str_id,ImGuiPopupFlags popup_flags);]],
+		igBeginPopupContextWindow = [[_Bool igBeginPopupContextWindow(const char* str_id,ImGuiPopupFlags popup_flags);]],
+		igBeginPopupContextVoid = [[_Bool igBeginPopupContextVoid(const char* str_id,ImGuiPopupFlags popup_flags);]],
+		igIsPopupOpen_Str = [[_Bool igIsPopupOpen_Str(const char* str_id,ImGuiPopupFlags flags);]],
+		igBeginTable = [[_Bool igBeginTable(const char* str_id,int column,ImGuiTableFlags flags,const ImVec2 outer_size,float inner_width);]],
+		igEndTable = [[void igEndTable();]],
+		igTableNextRow = [[void igTableNextRow(ImGuiTableRowFlags row_flags,float min_row_height);]],
+		igTableNextColumn = [[_Bool igTableNextColumn();]],
+		igTableSetColumnIndex = [[_Bool igTableSetColumnIndex(int column_n);]],
+		igTableSetupColumn = [[void igTableSetupColumn(const char* label,ImGuiTableColumnFlags flags,float init_width_or_weight,ImGuiID user_id);]],
+		igTableSetupScrollFreeze = [[void igTableSetupScrollFreeze(int cols,int rows);]],
+		igTableHeader = [[void igTableHeader(const char* label);]],
+		igTableHeadersRow = [[void igTableHeadersRow();]],
+		igTableAngledHeadersRow = [[void igTableAngledHeadersRow();]],
+		igTableGetSortSpecs = [[ImGuiTableSortSpecs* igTableGetSortSpecs();]],
+		igTableGetColumnCount = [[int igTableGetColumnCount();]],
+		igTableGetColumnIndex = [[int igTableGetColumnIndex();]],
+		igTableGetRowIndex = [[int igTableGetRowIndex();]],
+		igTableGetColumnName_Int = [[const char* igTableGetColumnName_Int(int column_n);]],
+		igTableGetColumnFlags = [[ImGuiTableColumnFlags igTableGetColumnFlags(int column_n);]],
+		igTableSetColumnEnabled = [[void igTableSetColumnEnabled(int column_n,_Bool v);]],
+		igTableSetBgColor = [[void igTableSetBgColor(ImGuiTableBgTarget target,ImU32 color,int column_n);]],
+		igColumns = [[void igColumns(int count,const char* id,_Bool border);]],
+		igNextColumn = [[void igNextColumn();]],
+		igGetColumnIndex = [[int igGetColumnIndex();]],
+		igGetColumnWidth = [[float igGetColumnWidth(int column_index);]],
+		igSetColumnWidth = [[void igSetColumnWidth(int column_index,float width);]],
+		igGetColumnOffset = [[float igGetColumnOffset(int column_index);]],
+		igSetColumnOffset = [[void igSetColumnOffset(int column_index,float offset_x);]],
+		igGetColumnsCount = [[int igGetColumnsCount();]],
+		igBeginTabBar = [[_Bool igBeginTabBar(const char* str_id,ImGuiTabBarFlags flags);]],
+		igEndTabBar = [[void igEndTabBar();]],
+		igBeginTabItem = [[_Bool igBeginTabItem(const char* label,_Bool* p_open,ImGuiTabItemFlags flags);]],
+		igEndTabItem = [[void igEndTabItem();]],
+		igTabItemButton = [[_Bool igTabItemButton(const char* label,ImGuiTabItemFlags flags);]],
+		igSetTabItemClosed = [[void igSetTabItemClosed(const char* tab_or_docked_window_label);]],
+		igDockSpace = [[ImGuiID igDockSpace(ImGuiID id,const ImVec2 size,ImGuiDockNodeFlags flags,const ImGuiWindowClass* window_class);]],
+		igDockSpaceOverViewport = [[ImGuiID igDockSpaceOverViewport(const ImGuiViewport* viewport,ImGuiDockNodeFlags flags,const ImGuiWindowClass* window_class);]],
+		igSetNextWindowDockID = [[void igSetNextWindowDockID(ImGuiID dock_id,ImGuiCond cond);]],
+		igSetNextWindowClass = [[void igSetNextWindowClass(const ImGuiWindowClass* window_class);]],
+		igGetWindowDockID = [[ImGuiID igGetWindowDockID();]],
+		igIsWindowDocked = [[_Bool igIsWindowDocked();]],
+		igLogToTTY = [[void igLogToTTY(int auto_open_depth);]],
+		igLogToFile = [[void igLogToFile(int auto_open_depth,const char* filename);]],
+		igLogToClipboard = [[void igLogToClipboard(int auto_open_depth);]],
+		igLogFinish = [[void igLogFinish();]],
+		igLogButtons = [[void igLogButtons();]],
+		igLogTextV = [[void igLogTextV(const char* fmt,va_list args);]],
+		igBeginDragDropSource = [[_Bool igBeginDragDropSource(ImGuiDragDropFlags flags);]],
+		igSetDragDropPayload = [[_Bool igSetDragDropPayload(const char* type,const void* data,size_t sz,ImGuiCond cond);]],
+		igEndDragDropSource = [[void igEndDragDropSource();]],
+		igBeginDragDropTarget = [[_Bool igBeginDragDropTarget();]],
+		igAcceptDragDropPayload = [[const ImGuiPayload* igAcceptDragDropPayload(const char* type,ImGuiDragDropFlags flags);]],
+		igEndDragDropTarget = [[void igEndDragDropTarget();]],
+		igGetDragDropPayload = [[const ImGuiPayload* igGetDragDropPayload();]],
+		igBeginDisabled = [[void igBeginDisabled(_Bool disabled);]],
+		igEndDisabled = [[void igEndDisabled();]],
+		igPushClipRect = [[void igPushClipRect(const ImVec2 clip_rect_min,const ImVec2 clip_rect_max,_Bool intersect_with_current_clip_rect);]],
+		igPopClipRect = [[void igPopClipRect();]],
+		igSetItemDefaultFocus = [[void igSetItemDefaultFocus();]],
+		igSetKeyboardFocusHere = [[void igSetKeyboardFocusHere(int offset);]],
+		igSetNextItemAllowOverlap = [[void igSetNextItemAllowOverlap();]],
+		igIsItemHovered = [[_Bool igIsItemHovered(ImGuiHoveredFlags flags);]],
+		igIsItemActive = [[_Bool igIsItemActive();]],
+		igIsItemFocused = [[_Bool igIsItemFocused();]],
+		igIsItemClicked = [[_Bool igIsItemClicked(ImGuiMouseButton mouse_button);]],
+		igIsItemVisible = [[_Bool igIsItemVisible();]],
+		igIsItemEdited = [[_Bool igIsItemEdited();]],
+		igIsItemActivated = [[_Bool igIsItemActivated();]],
+		igIsItemDeactivated = [[_Bool igIsItemDeactivated();]],
+		igIsItemDeactivatedAfterEdit = [[_Bool igIsItemDeactivatedAfterEdit();]],
+		igIsItemToggledOpen = [[_Bool igIsItemToggledOpen();]],
+		igIsAnyItemHovered = [[_Bool igIsAnyItemHovered();]],
+		igIsAnyItemActive = [[_Bool igIsAnyItemActive();]],
+		igIsAnyItemFocused = [[_Bool igIsAnyItemFocused();]],
+		igGetItemID = [[ImGuiID igGetItemID();]],
+		igGetItemRectMin = [[void igGetItemRectMin(ImVec2 *pOut);]],
+		igGetItemRectMax = [[void igGetItemRectMax(ImVec2 *pOut);]],
+		igGetItemRectSize = [[void igGetItemRectSize(ImVec2 *pOut);]],
+		igGetMainViewport = [[ImGuiViewport* igGetMainViewport();]],
+		igGetBackgroundDrawList_Nil = [[ImDrawList* igGetBackgroundDrawList_Nil();]],
+		igGetForegroundDrawList_Nil = [[ImDrawList* igGetForegroundDrawList_Nil();]],
+		igGetBackgroundDrawList_ViewportPtr = [[ImDrawList* igGetBackgroundDrawList_ViewportPtr(ImGuiViewport* viewport);]],
+		igGetForegroundDrawList_ViewportPtr = [[ImDrawList* igGetForegroundDrawList_ViewportPtr(ImGuiViewport* viewport);]],
+		igIsRectVisible_Nil = [[_Bool igIsRectVisible_Nil(const ImVec2 size);]],
+		igIsRectVisible_Vec2 = [[_Bool igIsRectVisible_Vec2(const ImVec2 rect_min,const ImVec2 rect_max);]],
+		igGetTime = [[double igGetTime();]],
+		igGetFrameCount = [[int igGetFrameCount();]],
+		igGetDrawListSharedData = [[ImDrawListSharedData* igGetDrawListSharedData();]],
+		igGetStyleColorName = [[const char* igGetStyleColorName(ImGuiCol idx);]],
+		igSetStateStorage = [[void igSetStateStorage(ImGuiStorage* storage);]],
+		igGetStateStorage = [[ImGuiStorage* igGetStateStorage();]],
+		igCalcTextSize = [[void igCalcTextSize(ImVec2 *pOut,const char* text,const char* text_end,_Bool hide_text_after_double_hash,float wrap_width);]],
+		igColorConvertU32ToFloat4 = [[void igColorConvertU32ToFloat4(ImVec4 *pOut,ImU32 in);]],
+		igColorConvertFloat4ToU32 = [[ImU32 igColorConvertFloat4ToU32(const ImVec4 in);]],
+		igColorConvertRGBtoHSV = [[void igColorConvertRGBtoHSV(float r,float g,float b,float* out_h,float* out_s,float* out_v);]],
+		igColorConvertHSVtoRGB = [[void igColorConvertHSVtoRGB(float h,float s,float v,float* out_r,float* out_g,float* out_b);]],
+		igIsKeyDown_Nil = [[_Bool igIsKeyDown_Nil(ImGuiKey key);]],
+		igIsKeyPressed_Bool = [[_Bool igIsKeyPressed_Bool(ImGuiKey key,_Bool repeat);]],
+		igIsKeyReleased_Nil = [[_Bool igIsKeyReleased_Nil(ImGuiKey key);]],
+		igIsKeyChordPressed_Nil = [[_Bool igIsKeyChordPressed_Nil(ImGuiKeyChord key_chord);]],
+		igGetKeyPressedAmount = [[int igGetKeyPressedAmount(ImGuiKey key,float repeat_delay,float rate);]],
+		igGetKeyName = [[const char* igGetKeyName(ImGuiKey key);]],
+		igSetNextFrameWantCaptureKeyboard = [[void igSetNextFrameWantCaptureKeyboard(_Bool want_capture_keyboard);]],
+		igIsMouseDown_Nil = [[_Bool igIsMouseDown_Nil(ImGuiMouseButton button);]],
+		igIsMouseClicked_Bool = [[_Bool igIsMouseClicked_Bool(ImGuiMouseButton button,_Bool repeat);]],
+		igIsMouseReleased_Nil = [[_Bool igIsMouseReleased_Nil(ImGuiMouseButton button);]],
+		igIsMouseDoubleClicked_Nil = [[_Bool igIsMouseDoubleClicked_Nil(ImGuiMouseButton button);]],
+		igGetMouseClickedCount = [[int igGetMouseClickedCount(ImGuiMouseButton button);]],
+		igIsMouseHoveringRect = [[_Bool igIsMouseHoveringRect(const ImVec2 r_min,const ImVec2 r_max,_Bool clip);]],
+		igIsMousePosValid = [[_Bool igIsMousePosValid(const ImVec2* mouse_pos);]],
+		igIsAnyMouseDown = [[_Bool igIsAnyMouseDown();]],
+		igGetMousePos = [[void igGetMousePos(ImVec2 *pOut);]],
+		igGetMousePosOnOpeningCurrentPopup = [[void igGetMousePosOnOpeningCurrentPopup(ImVec2 *pOut);]],
+		igIsMouseDragging = [[_Bool igIsMouseDragging(ImGuiMouseButton button,float lock_threshold);]],
+		igGetMouseDragDelta = [[void igGetMouseDragDelta(ImVec2 *pOut,ImGuiMouseButton button,float lock_threshold);]],
+		igResetMouseDragDelta = [[void igResetMouseDragDelta(ImGuiMouseButton button);]],
+		igGetMouseCursor = [[ImGuiMouseCursor igGetMouseCursor();]],
+		igSetMouseCursor = [[void igSetMouseCursor(ImGuiMouseCursor cursor_type);]],
+		igSetNextFrameWantCaptureMouse = [[void igSetNextFrameWantCaptureMouse(_Bool want_capture_mouse);]],
+		igGetClipboardText = [[const char* igGetClipboardText();]],
+		igSetClipboardText = [[void igSetClipboardText(const char* text);]],
+		igLoadIniSettingsFromDisk = [[void igLoadIniSettingsFromDisk(const char* ini_filename);]],
+		igLoadIniSettingsFromMemory = [[void igLoadIniSettingsFromMemory(const char* ini_data,size_t ini_size);]],
+		igSaveIniSettingsToDisk = [[void igSaveIniSettingsToDisk(const char* ini_filename);]],
+		igSaveIniSettingsToMemory = [[const char* igSaveIniSettingsToMemory(size_t* out_ini_size);]],
+		igDebugTextEncoding = [[void igDebugTextEncoding(const char* text);]],
+		igDebugFlashStyleColor = [[void igDebugFlashStyleColor(ImGuiCol idx);]],
+		igDebugStartItemPicker = [[void igDebugStartItemPicker();]],
+		igDebugCheckVersionAndDataLayout = [[_Bool igDebugCheckVersionAndDataLayout(const char* version_str,size_t sz_io,size_t sz_style,size_t sz_vec2,size_t sz_vec4,size_t sz_drawvert,size_t sz_drawidx);]],
+		igSetAllocatorFunctions = [[void igSetAllocatorFunctions(ImGuiMemAllocFunc alloc_func,ImGuiMemFreeFunc free_func,void* user_data);]],
+		igGetAllocatorFunctions = [[void igGetAllocatorFunctions(ImGuiMemAllocFunc* p_alloc_func,ImGuiMemFreeFunc* p_free_func,void** p_user_data);]],
+		igMemAlloc = [[void* igMemAlloc(size_t size);]],
+		igMemFree = [[void igMemFree(void* ptr);]],
+		igGetPlatformIO = [[ImGuiPlatformIO* igGetPlatformIO();]],
+		igUpdatePlatformWindows = [[void igUpdatePlatformWindows();]],
+		igRenderPlatformWindowsDefault = [[void igRenderPlatformWindowsDefault(void* platform_render_arg,void* renderer_render_arg);]],
+		igDestroyPlatformWindows = [[void igDestroyPlatformWindows();]],
+		igFindViewportByID = [[ImGuiViewport* igFindViewportByID(ImGuiID id);]],
+		igFindViewportByPlatformHandle = [[ImGuiViewport* igFindViewportByPlatformHandle(void* platform_handle);]],
+		ImGuiTableSortSpecs_ImGuiTableSortSpecs = [[ImGuiTableSortSpecs* ImGuiTableSortSpecs_ImGuiTableSortSpecs();]],
+		ImGuiTableSortSpecs_destroy = [[void ImGuiTableSortSpecs_destroy(ImGuiTableSortSpecs* self);]],
+		ImGuiTableColumnSortSpecs_ImGuiTableColumnSortSpecs = [[ImGuiTableColumnSortSpecs* ImGuiTableColumnSortSpecs_ImGuiTableColumnSortSpecs();]],
+		ImGuiTableColumnSortSpecs_destroy = [[void ImGuiTableColumnSortSpecs_destroy(ImGuiTableColumnSortSpecs* self);]],
+		ImGuiStyle_ImGuiStyle = [[ImGuiStyle* ImGuiStyle_ImGuiStyle();]],
+		ImGuiStyle_destroy = [[void ImGuiStyle_destroy(ImGuiStyle* self);]],
+		ImGuiStyle_ScaleAllSizes = [[void ImGuiStyle_ScaleAllSizes(ImGuiStyle* self,float scale_factor);]],
+		ImGuiIO_AddKeyEvent = [[void ImGuiIO_AddKeyEvent(ImGuiIO* self,ImGuiKey key,_Bool down);]],
+		ImGuiIO_AddKeyAnalogEvent = [[void ImGuiIO_AddKeyAnalogEvent(ImGuiIO* self,ImGuiKey key,_Bool down,float v);]],
+		ImGuiIO_AddMousePosEvent = [[void ImGuiIO_AddMousePosEvent(ImGuiIO* self,float x,float y);]],
+		ImGuiIO_AddMouseButtonEvent = [[void ImGuiIO_AddMouseButtonEvent(ImGuiIO* self,int button,_Bool down);]],
+		ImGuiIO_AddMouseWheelEvent = [[void ImGuiIO_AddMouseWheelEvent(ImGuiIO* self,float wheel_x,float wheel_y);]],
+		ImGuiIO_AddMouseSourceEvent = [[void ImGuiIO_AddMouseSourceEvent(ImGuiIO* self,ImGuiMouseSource source);]],
+		ImGuiIO_AddMouseViewportEvent = [[void ImGuiIO_AddMouseViewportEvent(ImGuiIO* self,ImGuiID id);]],
+		ImGuiIO_AddFocusEvent = [[void ImGuiIO_AddFocusEvent(ImGuiIO* self,_Bool focused);]],
+		ImGuiIO_AddInputCharacter = [[void ImGuiIO_AddInputCharacter(ImGuiIO* self,unsigned int c);]],
+		ImGuiIO_AddInputCharacterUTF16 = [[void ImGuiIO_AddInputCharacterUTF16(ImGuiIO* self,ImWchar16 c);]],
+		ImGuiIO_AddInputCharactersUTF8 = [[void ImGuiIO_AddInputCharactersUTF8(ImGuiIO* self,const char* str);]],
+		ImGuiIO_SetKeyEventNativeData = [[void ImGuiIO_SetKeyEventNativeData(ImGuiIO* self,ImGuiKey key,int native_keycode,int native_scancode,int native_legacy_index);]],
+		ImGuiIO_SetAppAcceptingEvents = [[void ImGuiIO_SetAppAcceptingEvents(ImGuiIO* self,_Bool accepting_events);]],
+		ImGuiIO_ClearEventsQueue = [[void ImGuiIO_ClearEventsQueue(ImGuiIO* self);]],
+		ImGuiIO_ClearInputKeys = [[void ImGuiIO_ClearInputKeys(ImGuiIO* self);]],
+		ImGuiIO_ImGuiIO = [[ImGuiIO* ImGuiIO_ImGuiIO();]],
+		ImGuiIO_destroy = [[void ImGuiIO_destroy(ImGuiIO* self);]],
+		ImGuiInputTextCallbackData_ImGuiInputTextCallbackData = [[ImGuiInputTextCallbackData* ImGuiInputTextCallbackData_ImGuiInputTextCallbackData();]],
+		ImGuiInputTextCallbackData_destroy = [[void ImGuiInputTextCallbackData_destroy(ImGuiInputTextCallbackData* self);]],
+		ImGuiInputTextCallbackData_DeleteChars = [[void ImGuiInputTextCallbackData_DeleteChars(ImGuiInputTextCallbackData* self,int pos,int bytes_count);]],
+		ImGuiInputTextCallbackData_InsertChars = [[void ImGuiInputTextCallbackData_InsertChars(ImGuiInputTextCallbackData* self,int pos,const char* text,const char* text_end);]],
+		ImGuiInputTextCallbackData_SelectAll = [[void ImGuiInputTextCallbackData_SelectAll(ImGuiInputTextCallbackData* self);]],
+		ImGuiInputTextCallbackData_ClearSelection = [[void ImGuiInputTextCallbackData_ClearSelection(ImGuiInputTextCallbackData* self);]],
+		ImGuiInputTextCallbackData_HasSelection = [[_Bool ImGuiInputTextCallbackData_HasSelection(ImGuiInputTextCallbackData* self);]],
+		ImGuiWindowClass_ImGuiWindowClass = [[ImGuiWindowClass* ImGuiWindowClass_ImGuiWindowClass();]],
+		ImGuiWindowClass_destroy = [[void ImGuiWindowClass_destroy(ImGuiWindowClass* self);]],
+		ImGuiPayload_ImGuiPayload = [[ImGuiPayload* ImGuiPayload_ImGuiPayload();]],
+		ImGuiPayload_destroy = [[void ImGuiPayload_destroy(ImGuiPayload* self);]],
+		ImGuiPayload_Clear = [[void ImGuiPayload_Clear(ImGuiPayload* self);]],
+		ImGuiPayload_IsDataType = [[_Bool ImGuiPayload_IsDataType(ImGuiPayload* self,const char* type);]],
+		ImGuiPayload_IsPreview = [[_Bool ImGuiPayload_IsPreview(ImGuiPayload* self);]],
+		ImGuiPayload_IsDelivery = [[_Bool ImGuiPayload_IsDelivery(ImGuiPayload* self);]],
+		ImGuiOnceUponAFrame_ImGuiOnceUponAFrame = [[ImGuiOnceUponAFrame* ImGuiOnceUponAFrame_ImGuiOnceUponAFrame();]],
+		ImGuiOnceUponAFrame_destroy = [[void ImGuiOnceUponAFrame_destroy(ImGuiOnceUponAFrame* self);]],
+		ImGuiTextFilter_ImGuiTextFilter = [[ImGuiTextFilter* ImGuiTextFilter_ImGuiTextFilter(const char* default_filter);]],
+		ImGuiTextFilter_destroy = [[void ImGuiTextFilter_destroy(ImGuiTextFilter* self);]],
+		ImGuiTextFilter_Draw = [[_Bool ImGuiTextFilter_Draw(ImGuiTextFilter* self,const char* label,float width);]],
+		ImGuiTextFilter_PassFilter = [[_Bool ImGuiTextFilter_PassFilter(ImGuiTextFilter* self,const char* text,const char* text_end);]],
+		ImGuiTextFilter_Build = [[void ImGuiTextFilter_Build(ImGuiTextFilter* self);]],
+		ImGuiTextFilter_Clear = [[void ImGuiTextFilter_Clear(ImGuiTextFilter* self);]],
+		ImGuiTextFilter_IsActive = [[_Bool ImGuiTextFilter_IsActive(ImGuiTextFilter* self);]],
+		ImGuiTextRange_ImGuiTextRange_Nil = [[ImGuiTextRange* ImGuiTextRange_ImGuiTextRange_Nil();]],
+		ImGuiTextRange_destroy = [[void ImGuiTextRange_destroy(ImGuiTextRange* self);]],
+		ImGuiTextRange_ImGuiTextRange_Str = [[ImGuiTextRange* ImGuiTextRange_ImGuiTextRange_Str(const char* _b,const char* _e);]],
+		ImGuiTextRange_empty = [[_Bool ImGuiTextRange_empty(ImGuiTextRange* self);]],
+		ImGuiTextRange_split = [[void ImGuiTextRange_split(ImGuiTextRange* self,char separator,ImVector/*<ImGuiTextRange>*/* out);]],
+		ImGuiTextBuffer_ImGuiTextBuffer = [[ImGuiTextBuffer* ImGuiTextBuffer_ImGuiTextBuffer();]],
+		ImGuiTextBuffer_destroy = [[void ImGuiTextBuffer_destroy(ImGuiTextBuffer* self);]],
+		ImGuiTextBuffer_begin = [[const char* ImGuiTextBuffer_begin(ImGuiTextBuffer* self);]],
+		ImGuiTextBuffer_end = [[const char* ImGuiTextBuffer_end(ImGuiTextBuffer* self);]],
+		ImGuiTextBuffer_size = [[int ImGuiTextBuffer_size(ImGuiTextBuffer* self);]],
+		ImGuiTextBuffer_empty = [[_Bool ImGuiTextBuffer_empty(ImGuiTextBuffer* self);]],
+		ImGuiTextBuffer_clear = [[void ImGuiTextBuffer_clear(ImGuiTextBuffer* self);]],
+		ImGuiTextBuffer_reserve = [[void ImGuiTextBuffer_reserve(ImGuiTextBuffer* self,int capacity);]],
+		ImGuiTextBuffer_c_str = [[const char* ImGuiTextBuffer_c_str(ImGuiTextBuffer* self);]],
+		ImGuiTextBuffer_append = [[void ImGuiTextBuffer_append(ImGuiTextBuffer* self,const char* str,const char* str_end);]],
+		ImGuiTextBuffer_appendfv = [[void ImGuiTextBuffer_appendfv(ImGuiTextBuffer* self,const char* fmt,va_list args);]],
+		ImGuiStoragePair_ImGuiStoragePair_Int = [[ImGuiStoragePair* ImGuiStoragePair_ImGuiStoragePair_Int(ImGuiID _key,int _val);]],
+		ImGuiStoragePair_destroy = [[void ImGuiStoragePair_destroy(ImGuiStoragePair* self);]],
+		ImGuiStoragePair_ImGuiStoragePair_Float = [[ImGuiStoragePair* ImGuiStoragePair_ImGuiStoragePair_Float(ImGuiID _key,float _val);]],
+		ImGuiStoragePair_ImGuiStoragePair_Ptr = [[ImGuiStoragePair* ImGuiStoragePair_ImGuiStoragePair_Ptr(ImGuiID _key,void* _val);]],
+		ImGuiStorage_Clear = [[void ImGuiStorage_Clear(ImGuiStorage* self);]],
+		ImGuiStorage_GetInt = [[int ImGuiStorage_GetInt(ImGuiStorage* self,ImGuiID key,int default_val);]],
+		ImGuiStorage_SetInt = [[void ImGuiStorage_SetInt(ImGuiStorage* self,ImGuiID key,int val);]],
+		ImGuiStorage_GetBool = [[_Bool ImGuiStorage_GetBool(ImGuiStorage* self,ImGuiID key,_Bool default_val);]],
+		ImGuiStorage_SetBool = [[void ImGuiStorage_SetBool(ImGuiStorage* self,ImGuiID key,_Bool val);]],
+		ImGuiStorage_GetFloat = [[float ImGuiStorage_GetFloat(ImGuiStorage* self,ImGuiID key,float default_val);]],
+		ImGuiStorage_SetFloat = [[void ImGuiStorage_SetFloat(ImGuiStorage* self,ImGuiID key,float val);]],
+		ImGuiStorage_GetVoidPtr = [[void* ImGuiStorage_GetVoidPtr(ImGuiStorage* self,ImGuiID key);]],
+		ImGuiStorage_SetVoidPtr = [[void ImGuiStorage_SetVoidPtr(ImGuiStorage* self,ImGuiID key,void* val);]],
+		ImGuiStorage_GetIntRef = [[int* ImGuiStorage_GetIntRef(ImGuiStorage* self,ImGuiID key,int default_val);]],
+		ImGuiStorage_GetBoolRef = [[_Bool* ImGuiStorage_GetBoolRef(ImGuiStorage* self,ImGuiID key,_Bool default_val);]],
+		ImGuiStorage_GetFloatRef = [[float* ImGuiStorage_GetFloatRef(ImGuiStorage* self,ImGuiID key,float default_val);]],
+		ImGuiStorage_GetVoidPtrRef = [[void** ImGuiStorage_GetVoidPtrRef(ImGuiStorage* self,ImGuiID key,void* default_val);]],
+		ImGuiStorage_BuildSortByKey = [[void ImGuiStorage_BuildSortByKey(ImGuiStorage* self);]],
+		ImGuiStorage_SetAllInt = [[void ImGuiStorage_SetAllInt(ImGuiStorage* self,int val);]],
+		ImGuiListClipper_ImGuiListClipper = [[ImGuiListClipper* ImGuiListClipper_ImGuiListClipper();]],
+		ImGuiListClipper_destroy = [[void ImGuiListClipper_destroy(ImGuiListClipper* self);]],
+		ImGuiListClipper_Begin = [[void ImGuiListClipper_Begin(ImGuiListClipper* self,int items_count,float items_height);]],
+		ImGuiListClipper_End = [[void ImGuiListClipper_End(ImGuiListClipper* self);]],
+		ImGuiListClipper_Step = [[_Bool ImGuiListClipper_Step(ImGuiListClipper* self);]],
+		ImGuiListClipper_IncludeItemByIndex = [[void ImGuiListClipper_IncludeItemByIndex(ImGuiListClipper* self,int item_index);]],
+		ImGuiListClipper_IncludeItemsByIndex = [[void ImGuiListClipper_IncludeItemsByIndex(ImGuiListClipper* self,int item_begin,int item_end);]],
+		ImColor_ImColor_Nil = [[ImColor* ImColor_ImColor_Nil();]],
+		ImColor_destroy = [[void ImColor_destroy(ImColor* self);]],
+		ImColor_ImColor_Float = [[ImColor* ImColor_ImColor_Float(float r,float g,float b,float a);]],
+		ImColor_ImColor_Vec4 = [[ImColor* ImColor_ImColor_Vec4(const ImVec4 col);]],
+		ImColor_ImColor_Int = [[ImColor* ImColor_ImColor_Int(int r,int g,int b,int a);]],
+		ImColor_ImColor_U32 = [[ImColor* ImColor_ImColor_U32(ImU32 rgba);]],
+		ImColor_SetHSV = [[void ImColor_SetHSV(ImColor* self,float h,float s,float v,float a);]],
+		ImColor_HSV = [[void ImColor_HSV(ImColor *pOut,float h,float s,float v,float a);]],
+		ImDrawCmd_ImDrawCmd = [[ImDrawCmd* ImDrawCmd_ImDrawCmd();]],
+		ImDrawCmd_destroy = [[void ImDrawCmd_destroy(ImDrawCmd* self);]],
+		ImDrawCmd_GetTexID = [[ImTextureID ImDrawCmd_GetTexID(ImDrawCmd* self);]],
+		ImDrawListSplitter_ImDrawListSplitter = [[ImDrawListSplitter* ImDrawListSplitter_ImDrawListSplitter();]],
+		ImDrawListSplitter_destroy = [[void ImDrawListSplitter_destroy(ImDrawListSplitter* self);]],
+		ImDrawListSplitter_Clear = [[void ImDrawListSplitter_Clear(ImDrawListSplitter* self);]],
+		ImDrawListSplitter_ClearFreeMemory = [[void ImDrawListSplitter_ClearFreeMemory(ImDrawListSplitter* self);]],
+		ImDrawListSplitter_Split = [[void ImDrawListSplitter_Split(ImDrawListSplitter* self,ImDrawList* draw_list,int count);]],
+		ImDrawListSplitter_Merge = [[void ImDrawListSplitter_Merge(ImDrawListSplitter* self,ImDrawList* draw_list);]],
+		ImDrawListSplitter_SetCurrentChannel = [[void ImDrawListSplitter_SetCurrentChannel(ImDrawListSplitter* self,ImDrawList* draw_list,int channel_idx);]],
+		ImDrawList_ImDrawList = [[ImDrawList* ImDrawList_ImDrawList(ImDrawListSharedData* shared_data);]],
+		ImDrawList_destroy = [[void ImDrawList_destroy(ImDrawList* self);]],
+		ImDrawList_PushClipRect = [[void ImDrawList_PushClipRect(ImDrawList* self,const ImVec2 clip_rect_min,const ImVec2 clip_rect_max,_Bool intersect_with_current_clip_rect);]],
+		ImDrawList_PushClipRectFullScreen = [[void ImDrawList_PushClipRectFullScreen(ImDrawList* self);]],
+		ImDrawList_PopClipRect = [[void ImDrawList_PopClipRect(ImDrawList* self);]],
+		ImDrawList_PushTextureID = [[void ImDrawList_PushTextureID(ImDrawList* self,ImTextureID texture_id);]],
+		ImDrawList_PopTextureID = [[void ImDrawList_PopTextureID(ImDrawList* self);]],
+		ImDrawList_GetClipRectMin = [[void ImDrawList_GetClipRectMin(ImVec2 *pOut,ImDrawList* self);]],
+		ImDrawList_GetClipRectMax = [[void ImDrawList_GetClipRectMax(ImVec2 *pOut,ImDrawList* self);]],
+		ImDrawList_AddLine = [[void ImDrawList_AddLine(ImDrawList* self,const ImVec2 p1,const ImVec2 p2,ImU32 col,float thickness);]],
+		ImDrawList_AddRect = [[void ImDrawList_AddRect(ImDrawList* self,const ImVec2 p_min,const ImVec2 p_max,ImU32 col,float rounding,ImDrawFlags flags,float thickness);]],
+		ImDrawList_AddRectFilled = [[void ImDrawList_AddRectFilled(ImDrawList* self,const ImVec2 p_min,const ImVec2 p_max,ImU32 col,float rounding,ImDrawFlags flags);]],
+		ImDrawList_AddRectFilledMultiColor = [[void ImDrawList_AddRectFilledMultiColor(ImDrawList* self,const ImVec2 p_min,const ImVec2 p_max,ImU32 col_upr_left,ImU32 col_upr_right,ImU32 col_bot_right,ImU32 col_bot_left);]],
+		ImDrawList_AddQuad = [[void ImDrawList_AddQuad(ImDrawList* self,const ImVec2 p1,const ImVec2 p2,const ImVec2 p3,const ImVec2 p4,ImU32 col,float thickness);]],
+		ImDrawList_AddQuadFilled = [[void ImDrawList_AddQuadFilled(ImDrawList* self,const ImVec2 p1,const ImVec2 p2,const ImVec2 p3,const ImVec2 p4,ImU32 col);]],
+		ImDrawList_AddTriangle = [[void ImDrawList_AddTriangle(ImDrawList* self,const ImVec2 p1,const ImVec2 p2,const ImVec2 p3,ImU32 col,float thickness);]],
+		ImDrawList_AddTriangleFilled = [[void ImDrawList_AddTriangleFilled(ImDrawList* self,const ImVec2 p1,const ImVec2 p2,const ImVec2 p3,ImU32 col);]],
+		ImDrawList_AddCircle = [[void ImDrawList_AddCircle(ImDrawList* self,const ImVec2 center,float radius,ImU32 col,int num_segments,float thickness);]],
+		ImDrawList_AddCircleFilled = [[void ImDrawList_AddCircleFilled(ImDrawList* self,const ImVec2 center,float radius,ImU32 col,int num_segments);]],
+		ImDrawList_AddNgon = [[void ImDrawList_AddNgon(ImDrawList* self,const ImVec2 center,float radius,ImU32 col,int num_segments,float thickness);]],
+		ImDrawList_AddNgonFilled = [[void ImDrawList_AddNgonFilled(ImDrawList* self,const ImVec2 center,float radius,ImU32 col,int num_segments);]],
+		ImDrawList_AddEllipse = [[void ImDrawList_AddEllipse(ImDrawList* self,const ImVec2 center,const ImVec2 radius,ImU32 col,float rot,int num_segments,float thickness);]],
+		ImDrawList_AddEllipseFilled = [[void ImDrawList_AddEllipseFilled(ImDrawList* self,const ImVec2 center,const ImVec2 radius,ImU32 col,float rot,int num_segments);]],
+		ImDrawList_AddText_Vec2 = [[void ImDrawList_AddText_Vec2(ImDrawList* self,const ImVec2 pos,ImU32 col,const char* text_begin,const char* text_end);]],
+		ImDrawList_AddText_FontPtr = [[void ImDrawList_AddText_FontPtr(ImDrawList* self,const ImFont* font,float font_size,const ImVec2 pos,ImU32 col,const char* text_begin,const char* text_end,float wrap_width,const ImVec4* cpu_fine_clip_rect);]],
+		ImDrawList_AddBezierCubic = [[void ImDrawList_AddBezierCubic(ImDrawList* self,const ImVec2 p1,const ImVec2 p2,const ImVec2 p3,const ImVec2 p4,ImU32 col,float thickness,int num_segments);]],
+		ImDrawList_AddBezierQuadratic = [[void ImDrawList_AddBezierQuadratic(ImDrawList* self,const ImVec2 p1,const ImVec2 p2,const ImVec2 p3,ImU32 col,float thickness,int num_segments);]],
+		ImDrawList_AddPolyline = [[void ImDrawList_AddPolyline(ImDrawList* self,const ImVec2* points,int num_points,ImU32 col,ImDrawFlags flags,float thickness);]],
+		ImDrawList_AddConvexPolyFilled = [[void ImDrawList_AddConvexPolyFilled(ImDrawList* self,const ImVec2* points,int num_points,ImU32 col);]],
+		ImDrawList_AddConcavePolyFilled = [[void ImDrawList_AddConcavePolyFilled(ImDrawList* self,const ImVec2* points,int num_points,ImU32 col);]],
+		ImDrawList_AddImage = [[void ImDrawList_AddImage(ImDrawList* self,ImTextureID user_texture_id,const ImVec2 p_min,const ImVec2 p_max,const ImVec2 uv_min,const ImVec2 uv_max,ImU32 col);]],
+		ImDrawList_AddImageQuad = [[void ImDrawList_AddImageQuad(ImDrawList* self,ImTextureID user_texture_id,const ImVec2 p1,const ImVec2 p2,const ImVec2 p3,const ImVec2 p4,const ImVec2 uv1,const ImVec2 uv2,const ImVec2 uv3,const ImVec2 uv4,ImU32 col);]],
+		ImDrawList_AddImageRounded = [[void ImDrawList_AddImageRounded(ImDrawList* self,ImTextureID user_texture_id,const ImVec2 p_min,const ImVec2 p_max,const ImVec2 uv_min,const ImVec2 uv_max,ImU32 col,float rounding,ImDrawFlags flags);]],
+		ImDrawList_PathClear = [[void ImDrawList_PathClear(ImDrawList* self);]],
+		ImDrawList_PathLineTo = [[void ImDrawList_PathLineTo(ImDrawList* self,const ImVec2 pos);]],
+		ImDrawList_PathLineToMergeDuplicate = [[void ImDrawList_PathLineToMergeDuplicate(ImDrawList* self,const ImVec2 pos);]],
+		ImDrawList_PathFillConvex = [[void ImDrawList_PathFillConvex(ImDrawList* self,ImU32 col);]],
+		ImDrawList_PathFillConcave = [[void ImDrawList_PathFillConcave(ImDrawList* self,ImU32 col);]],
+		ImDrawList_PathStroke = [[void ImDrawList_PathStroke(ImDrawList* self,ImU32 col,ImDrawFlags flags,float thickness);]],
+		ImDrawList_PathArcTo = [[void ImDrawList_PathArcTo(ImDrawList* self,const ImVec2 center,float radius,float a_min,float a_max,int num_segments);]],
+		ImDrawList_PathArcToFast = [[void ImDrawList_PathArcToFast(ImDrawList* self,const ImVec2 center,float radius,int a_min_of_12,int a_max_of_12);]],
+		ImDrawList_PathEllipticalArcTo = [[void ImDrawList_PathEllipticalArcTo(ImDrawList* self,const ImVec2 center,const ImVec2 radius,float rot,float a_min,float a_max,int num_segments);]],
+		ImDrawList_PathBezierCubicCurveTo = [[void ImDrawList_PathBezierCubicCurveTo(ImDrawList* self,const ImVec2 p2,const ImVec2 p3,const ImVec2 p4,int num_segments);]],
+		ImDrawList_PathBezierQuadraticCurveTo = [[void ImDrawList_PathBezierQuadraticCurveTo(ImDrawList* self,const ImVec2 p2,const ImVec2 p3,int num_segments);]],
+		ImDrawList_PathRect = [[void ImDrawList_PathRect(ImDrawList* self,const ImVec2 rect_min,const ImVec2 rect_max,float rounding,ImDrawFlags flags);]],
+		ImDrawList_AddCallback = [[void ImDrawList_AddCallback(ImDrawList* self,ImDrawCallback callback,void* callback_data);]],
+		ImDrawList_AddDrawCmd = [[void ImDrawList_AddDrawCmd(ImDrawList* self);]],
+		ImDrawList_CloneOutput = [[ImDrawList* ImDrawList_CloneOutput(ImDrawList* self);]],
+		ImDrawList_ChannelsSplit = [[void ImDrawList_ChannelsSplit(ImDrawList* self,int count);]],
+		ImDrawList_ChannelsMerge = [[void ImDrawList_ChannelsMerge(ImDrawList* self);]],
+		ImDrawList_ChannelsSetCurrent = [[void ImDrawList_ChannelsSetCurrent(ImDrawList* self,int n);]],
+		ImDrawList_PrimReserve = [[void ImDrawList_PrimReserve(ImDrawList* self,int idx_count,int vtx_count);]],
+		ImDrawList_PrimUnreserve = [[void ImDrawList_PrimUnreserve(ImDrawList* self,int idx_count,int vtx_count);]],
+		ImDrawList_PrimRect = [[void ImDrawList_PrimRect(ImDrawList* self,const ImVec2 a,const ImVec2 b,ImU32 col);]],
+		ImDrawList_PrimRectUV = [[void ImDrawList_PrimRectUV(ImDrawList* self,const ImVec2 a,const ImVec2 b,const ImVec2 uv_a,const ImVec2 uv_b,ImU32 col);]],
+		ImDrawList_PrimQuadUV = [[void ImDrawList_PrimQuadUV(ImDrawList* self,const ImVec2 a,const ImVec2 b,const ImVec2 c,const ImVec2 d,const ImVec2 uv_a,const ImVec2 uv_b,const ImVec2 uv_c,const ImVec2 uv_d,ImU32 col);]],
+		ImDrawList_PrimWriteVtx = [[void ImDrawList_PrimWriteVtx(ImDrawList* self,const ImVec2 pos,const ImVec2 uv,ImU32 col);]],
+		ImDrawList_PrimWriteIdx = [[void ImDrawList_PrimWriteIdx(ImDrawList* self,ImDrawIdx idx);]],
+		ImDrawList_PrimVtx = [[void ImDrawList_PrimVtx(ImDrawList* self,const ImVec2 pos,const ImVec2 uv,ImU32 col);]],
+		ImDrawList__ResetForNewFrame = [[void ImDrawList__ResetForNewFrame(ImDrawList* self);]],
+		ImDrawList__ClearFreeMemory = [[void ImDrawList__ClearFreeMemory(ImDrawList* self);]],
+		ImDrawList__PopUnusedDrawCmd = [[void ImDrawList__PopUnusedDrawCmd(ImDrawList* self);]],
+		ImDrawList__TryMergeDrawCmds = [[void ImDrawList__TryMergeDrawCmds(ImDrawList* self);]],
+		ImDrawList__OnChangedClipRect = [[void ImDrawList__OnChangedClipRect(ImDrawList* self);]],
+		ImDrawList__OnChangedTextureID = [[void ImDrawList__OnChangedTextureID(ImDrawList* self);]],
+		ImDrawList__OnChangedVtxOffset = [[void ImDrawList__OnChangedVtxOffset(ImDrawList* self);]],
+		ImDrawList__CalcCircleAutoSegmentCount = [[int ImDrawList__CalcCircleAutoSegmentCount(ImDrawList* self,float radius);]],
+		ImDrawList__PathArcToFastEx = [[void ImDrawList__PathArcToFastEx(ImDrawList* self,const ImVec2 center,float radius,int a_min_sample,int a_max_sample,int a_step);]],
+		ImDrawList__PathArcToN = [[void ImDrawList__PathArcToN(ImDrawList* self,const ImVec2 center,float radius,float a_min,float a_max,int num_segments);]],
+		ImDrawData_ImDrawData = [[ImDrawData* ImDrawData_ImDrawData();]],
+		ImDrawData_destroy = [[void ImDrawData_destroy(ImDrawData* self);]],
+		ImDrawData_Clear = [[void ImDrawData_Clear(ImDrawData* self);]],
+		ImDrawData_AddDrawList = [[void ImDrawData_AddDrawList(ImDrawData* self,ImDrawList* draw_list);]],
+		ImDrawData_DeIndexAllBuffers = [[void ImDrawData_DeIndexAllBuffers(ImDrawData* self);]],
+		ImDrawData_ScaleClipRects = [[void ImDrawData_ScaleClipRects(ImDrawData* self,const ImVec2 fb_scale);]],
+		ImFontConfig_ImFontConfig = [[ImFontConfig* ImFontConfig_ImFontConfig();]],
+		ImFontConfig_destroy = [[void ImFontConfig_destroy(ImFontConfig* self);]],
+		ImFontGlyphRangesBuilder_ImFontGlyphRangesBuilder = [[ImFontGlyphRangesBuilder* ImFontGlyphRangesBuilder_ImFontGlyphRangesBuilder();]],
+		ImFontGlyphRangesBuilder_destroy = [[void ImFontGlyphRangesBuilder_destroy(ImFontGlyphRangesBuilder* self);]],
+		ImFontGlyphRangesBuilder_Clear = [[void ImFontGlyphRangesBuilder_Clear(ImFontGlyphRangesBuilder* self);]],
+		ImFontGlyphRangesBuilder_GetBit = [[_Bool ImFontGlyphRangesBuilder_GetBit(ImFontGlyphRangesBuilder* self,size_t n);]],
+		ImFontGlyphRangesBuilder_SetBit = [[void ImFontGlyphRangesBuilder_SetBit(ImFontGlyphRangesBuilder* self,size_t n);]],
+		ImFontGlyphRangesBuilder_AddChar = [[void ImFontGlyphRangesBuilder_AddChar(ImFontGlyphRangesBuilder* self,ImWchar c);]],
+		ImFontGlyphRangesBuilder_AddText = [[void ImFontGlyphRangesBuilder_AddText(ImFontGlyphRangesBuilder* self,const char* text,const char* text_end);]],
+		ImFontGlyphRangesBuilder_AddRanges = [[void ImFontGlyphRangesBuilder_AddRanges(ImFontGlyphRangesBuilder* self,const ImWchar* ranges);]],
+		ImFontGlyphRangesBuilder_BuildRanges = [[void ImFontGlyphRangesBuilder_BuildRanges(ImFontGlyphRangesBuilder* self,ImVector/*<ImWchar>*/* out_ranges);]],
+		ImFontAtlasCustomRect_ImFontAtlasCustomRect = [[ImFontAtlasCustomRect* ImFontAtlasCustomRect_ImFontAtlasCustomRect();]],
+		ImFontAtlasCustomRect_destroy = [[void ImFontAtlasCustomRect_destroy(ImFontAtlasCustomRect* self);]],
+		ImFontAtlasCustomRect_IsPacked = [[_Bool ImFontAtlasCustomRect_IsPacked(ImFontAtlasCustomRect* self);]],
+		ImFontAtlas_ImFontAtlas = [[ImFontAtlas* ImFontAtlas_ImFontAtlas();]],
+		ImFontAtlas_destroy = [[void ImFontAtlas_destroy(ImFontAtlas* self);]],
+		ImFontAtlas_AddFont = [[ImFont* ImFontAtlas_AddFont(ImFontAtlas* self,const ImFontConfig* font_cfg);]],
+		ImFontAtlas_AddFontDefault = [[ImFont* ImFontAtlas_AddFontDefault(ImFontAtlas* self,const ImFontConfig* font_cfg);]],
+		ImFontAtlas_AddFontFromFileTTF = [[ImFont* ImFontAtlas_AddFontFromFileTTF(ImFontAtlas* self,const char* filename,float size_pixels,const ImFontConfig* font_cfg,const ImWchar* glyph_ranges);]],
+		ImFontAtlas_AddFontFromMemoryTTF = [[ImFont* ImFontAtlas_AddFontFromMemoryTTF(ImFontAtlas* self,void* font_data,int font_data_size,float size_pixels,const ImFontConfig* font_cfg,const ImWchar* glyph_ranges);]],
+		ImFontAtlas_AddFontFromMemoryCompressedTTF = [[ImFont* ImFontAtlas_AddFontFromMemoryCompressedTTF(ImFontAtlas* self,const void* compressed_font_data,int compressed_font_data_size,float size_pixels,const ImFontConfig* font_cfg,const ImWchar* glyph_ranges);]],
+		ImFontAtlas_AddFontFromMemoryCompressedBase85TTF = [[ImFont* ImFontAtlas_AddFontFromMemoryCompressedBase85TTF(ImFontAtlas* self,const char* compressed_font_data_base85,float size_pixels,const ImFontConfig* font_cfg,const ImWchar* glyph_ranges);]],
+		ImFontAtlas_ClearInputData = [[void ImFontAtlas_ClearInputData(ImFontAtlas* self);]],
+		ImFontAtlas_ClearTexData = [[void ImFontAtlas_ClearTexData(ImFontAtlas* self);]],
+		ImFontAtlas_ClearFonts = [[void ImFontAtlas_ClearFonts(ImFontAtlas* self);]],
+		ImFontAtlas_Clear = [[void ImFontAtlas_Clear(ImFontAtlas* self);]],
+		ImFontAtlas_Build = [[_Bool ImFontAtlas_Build(ImFontAtlas* self);]],
+		ImFontAtlas_GetTexDataAsAlpha8 = [[void ImFontAtlas_GetTexDataAsAlpha8(ImFontAtlas* self,unsigned char** out_pixels,int* out_width,int* out_height,int* out_bytes_per_pixel);]],
+		ImFontAtlas_GetTexDataAsRGBA32 = [[void ImFontAtlas_GetTexDataAsRGBA32(ImFontAtlas* self,unsigned char** out_pixels,int* out_width,int* out_height,int* out_bytes_per_pixel);]],
+		ImFontAtlas_IsBuilt = [[_Bool ImFontAtlas_IsBuilt(ImFontAtlas* self);]],
+		ImFontAtlas_SetTexID = [[void ImFontAtlas_SetTexID(ImFontAtlas* self,ImTextureID id);]],
+		ImFontAtlas_GetGlyphRangesDefault = [[const ImWchar* ImFontAtlas_GetGlyphRangesDefault(ImFontAtlas* self);]],
+		ImFontAtlas_GetGlyphRangesGreek = [[const ImWchar* ImFontAtlas_GetGlyphRangesGreek(ImFontAtlas* self);]],
+		ImFontAtlas_GetGlyphRangesKorean = [[const ImWchar* ImFontAtlas_GetGlyphRangesKorean(ImFontAtlas* self);]],
+		ImFontAtlas_GetGlyphRangesJapanese = [[const ImWchar* ImFontAtlas_GetGlyphRangesJapanese(ImFontAtlas* self);]],
+		ImFontAtlas_GetGlyphRangesChineseFull = [[const ImWchar* ImFontAtlas_GetGlyphRangesChineseFull(ImFontAtlas* self);]],
+		ImFontAtlas_GetGlyphRangesChineseSimplifiedCommon = [[const ImWchar* ImFontAtlas_GetGlyphRangesChineseSimplifiedCommon(ImFontAtlas* self);]],
+		ImFontAtlas_GetGlyphRangesCyrillic = [[const ImWchar* ImFontAtlas_GetGlyphRangesCyrillic(ImFontAtlas* self);]],
+		ImFontAtlas_GetGlyphRangesThai = [[const ImWchar* ImFontAtlas_GetGlyphRangesThai(ImFontAtlas* self);]],
+		ImFontAtlas_GetGlyphRangesVietnamese = [[const ImWchar* ImFontAtlas_GetGlyphRangesVietnamese(ImFontAtlas* self);]],
+		ImFontAtlas_AddCustomRectRegular = [[int ImFontAtlas_AddCustomRectRegular(ImFontAtlas* self,int width,int height);]],
+		ImFontAtlas_AddCustomRectFontGlyph = [[int ImFontAtlas_AddCustomRectFontGlyph(ImFontAtlas* self,ImFont* font,ImWchar id,int width,int height,float advance_x,const ImVec2 offset);]],
+		ImFontAtlas_GetCustomRectByIndex = [[ImFontAtlasCustomRect* ImFontAtlas_GetCustomRectByIndex(ImFontAtlas* self,int index);]],
+		ImFontAtlas_CalcCustomRectUV = [[void ImFontAtlas_CalcCustomRectUV(ImFontAtlas* self,const ImFontAtlasCustomRect* rect,ImVec2* out_uv_min,ImVec2* out_uv_max);]],
+		ImFontAtlas_GetMouseCursorTexData = [[_Bool ImFontAtlas_GetMouseCursorTexData(ImFontAtlas* self,ImGuiMouseCursor cursor,ImVec2* out_offset,ImVec2* out_size,ImVec2 out_uv_border[2],ImVec2 out_uv_fill[2]);]],
+		ImFont_ImFont = [[ImFont* ImFont_ImFont();]],
+		ImFont_destroy = [[void ImFont_destroy(ImFont* self);]],
+		ImFont_FindGlyph = [[const ImFontGlyph* ImFont_FindGlyph(ImFont* self,ImWchar c);]],
+		ImFont_FindGlyphNoFallback = [[const ImFontGlyph* ImFont_FindGlyphNoFallback(ImFont* self,ImWchar c);]],
+		ImFont_GetCharAdvance = [[float ImFont_GetCharAdvance(ImFont* self,ImWchar c);]],
+		ImFont_IsLoaded = [[_Bool ImFont_IsLoaded(ImFont* self);]],
+		ImFont_GetDebugName = [[const char* ImFont_GetDebugName(ImFont* self);]],
+		ImFont_CalcTextSizeA = [[void ImFont_CalcTextSizeA(ImVec2 *pOut,ImFont* self,float size,float max_width,float wrap_width,const char* text_begin,const char* text_end,const char** remaining);]],
+		ImFont_CalcWordWrapPositionA = [[const char* ImFont_CalcWordWrapPositionA(ImFont* self,float scale,const char* text,const char* text_end,float wrap_width);]],
+		ImFont_RenderChar = [[void ImFont_RenderChar(ImFont* self,ImDrawList* draw_list,float size,const ImVec2 pos,ImU32 col,ImWchar c);]],
+		ImFont_RenderText = [[void ImFont_RenderText(ImFont* self,ImDrawList* draw_list,float size,const ImVec2 pos,ImU32 col,const ImVec4 clip_rect,const char* text_begin,const char* text_end,float wrap_width,_Bool cpu_fine_clip);]],
+		ImFont_BuildLookupTable = [[void ImFont_BuildLookupTable(ImFont* self);]],
+		ImFont_ClearOutputData = [[void ImFont_ClearOutputData(ImFont* self);]],
+		ImFont_GrowIndex = [[void ImFont_GrowIndex(ImFont* self,int new_size);]],
+		ImFont_AddGlyph = [[void ImFont_AddGlyph(ImFont* self,const ImFontConfig* src_cfg,ImWchar c,float x0,float y0,float x1,float y1,float u0,float v0,float u1,float v1,float advance_x);]],
+		ImFont_AddRemapChar = [[void ImFont_AddRemapChar(ImFont* self,ImWchar dst,ImWchar src,_Bool overwrite_dst);]],
+		ImFont_SetGlyphVisible = [[void ImFont_SetGlyphVisible(ImFont* self,ImWchar c,_Bool visible);]],
+		ImFont_IsGlyphRangeUnused = [[_Bool ImFont_IsGlyphRangeUnused(ImFont* self,unsigned int c_begin,unsigned int c_last);]],
+		ImGuiViewport_ImGuiViewport = [[ImGuiViewport* ImGuiViewport_ImGuiViewport();]],
+		ImGuiViewport_destroy = [[void ImGuiViewport_destroy(ImGuiViewport* self);]],
+		ImGuiViewport_GetCenter = [[void ImGuiViewport_GetCenter(ImVec2 *pOut,ImGuiViewport* self);]],
+		ImGuiViewport_GetWorkCenter = [[void ImGuiViewport_GetWorkCenter(ImVec2 *pOut,ImGuiViewport* self);]],
+		ImGuiPlatformIO_ImGuiPlatformIO = [[ImGuiPlatformIO* ImGuiPlatformIO_ImGuiPlatformIO();]],
+		ImGuiPlatformIO_destroy = [[void ImGuiPlatformIO_destroy(ImGuiPlatformIO* self);]],
+		ImGuiPlatformMonitor_ImGuiPlatformMonitor = [[ImGuiPlatformMonitor* ImGuiPlatformMonitor_ImGuiPlatformMonitor();]],
+		ImGuiPlatformMonitor_destroy = [[void ImGuiPlatformMonitor_destroy(ImGuiPlatformMonitor* self);]],
+		ImGuiPlatformImeData_ImGuiPlatformImeData = [[ImGuiPlatformImeData* ImGuiPlatformImeData_ImGuiPlatformImeData();]],
+		ImGuiPlatformImeData_destroy = [[void ImGuiPlatformImeData_destroy(ImGuiPlatformImeData* self);]],
+		igImHashData = [[ImGuiID igImHashData(const void* data,size_t data_size,ImGuiID seed);]],
+		igImHashStr = [[ImGuiID igImHashStr(const char* data,size_t data_size,ImGuiID seed);]],
+		int = [[void igImQsort(void* base,size_t count,size_t size_of_element,int(*compare_func)(void const*,void const*));]],
+		igImAlphaBlendColors = [[ImU32 igImAlphaBlendColors(ImU32 col_a,ImU32 col_b);]],
+		igImIsPowerOfTwo_Int = [[_Bool igImIsPowerOfTwo_Int(int v);]],
+		igImIsPowerOfTwo_U64 = [[_Bool igImIsPowerOfTwo_U64(ImU64 v);]],
+		igImUpperPowerOfTwo = [[int igImUpperPowerOfTwo(int v);]],
+		igImStricmp = [[int igImStricmp(const char* str1,const char* str2);]],
+		igImStrnicmp = [[int igImStrnicmp(const char* str1,const char* str2,size_t count);]],
+		igImStrncpy = [[void igImStrncpy(char* dst,const char* src,size_t count);]],
+		igImStrdup = [[char* igImStrdup(const char* str);]],
+		igImStrdupcpy = [[char* igImStrdupcpy(char* dst,size_t* p_dst_size,const char* str);]],
+		igImStrchrRange = [[const char* igImStrchrRange(const char* str_begin,const char* str_end,char c);]],
+		igImStreolRange = [[const char* igImStreolRange(const char* str,const char* str_end);]],
+		igImStristr = [[const char* igImStristr(const char* haystack,const char* haystack_end,const char* needle,const char* needle_end);]],
+		igImStrTrimBlanks = [[void igImStrTrimBlanks(char* str);]],
+		igImStrSkipBlank = [[const char* igImStrSkipBlank(const char* str);]],
+		igImStrlenW = [[int igImStrlenW(const ImWchar* str);]],
+		igImStrbolW = [[const ImWchar* igImStrbolW(const ImWchar* buf_mid_line,const ImWchar* buf_begin);]],
+		igImToUpper = [[char igImToUpper(char c);]],
+		igImCharIsBlankA = [[_Bool igImCharIsBlankA(char c);]],
+		igImCharIsBlankW = [[_Bool igImCharIsBlankW(unsigned int c);]],
+		igImFormatString = [[int igImFormatString(char* buf,size_t buf_size,const char* fmt,...);]],
+		igImFormatStringV = [[int igImFormatStringV(char* buf,size_t buf_size,const char* fmt,va_list args);]],
+		igImFormatStringToTempBuffer = [[void igImFormatStringToTempBuffer(const char** out_buf,const char** out_buf_end,const char* fmt,...);]],
+		igImFormatStringToTempBufferV = [[void igImFormatStringToTempBufferV(const char** out_buf,const char** out_buf_end,const char* fmt,va_list args);]],
+		igImParseFormatFindStart = [[const char* igImParseFormatFindStart(const char* format);]],
+		igImParseFormatFindEnd = [[const char* igImParseFormatFindEnd(const char* format);]],
+		igImParseFormatTrimDecorations = [[const char* igImParseFormatTrimDecorations(const char* format,char* buf,size_t buf_size);]],
+		igImParseFormatSanitizeForPrinting = [[void igImParseFormatSanitizeForPrinting(const char* fmt_in,char* fmt_out,size_t fmt_out_size);]],
+		igImParseFormatSanitizeForScanning = [[const char* igImParseFormatSanitizeForScanning(const char* fmt_in,char* fmt_out,size_t fmt_out_size);]],
+		igImParseFormatPrecision = [[int igImParseFormatPrecision(const char* format,int default_value);]],
+		igImTextCharToUtf8 = [[const char* igImTextCharToUtf8(char out_buf[5],unsigned int c);]],
+		igImTextStrToUtf8 = [[int igImTextStrToUtf8(char* out_buf,int out_buf_size,const ImWchar* in_text,const ImWchar* in_text_end);]],
+		igImTextCharFromUtf8 = [[int igImTextCharFromUtf8(unsigned int* out_char,const char* in_text,const char* in_text_end);]],
+		igImTextStrFromUtf8 = [[int igImTextStrFromUtf8(ImWchar* out_buf,int out_buf_size,const char* in_text,const char* in_text_end,const char** in_remaining);]],
+		igImTextCountCharsFromUtf8 = [[int igImTextCountCharsFromUtf8(const char* in_text,const char* in_text_end);]],
+		igImTextCountUtf8BytesFromChar = [[int igImTextCountUtf8BytesFromChar(const char* in_text,const char* in_text_end);]],
+		igImTextCountUtf8BytesFromStr = [[int igImTextCountUtf8BytesFromStr(const ImWchar* in_text,const ImWchar* in_text_end);]],
+		igImTextFindPreviousUtf8Codepoint = [[const char* igImTextFindPreviousUtf8Codepoint(const char* in_text_start,const char* in_text_curr);]],
+		igImFileOpen = [[ImFileHandle igImFileOpen(const char* filename,const char* mode);]],
+		igImFileClose = [[_Bool igImFileClose(ImFileHandle file);]],
+		igImFileGetSize = [[ImU64 igImFileGetSize(ImFileHandle file);]],
+		igImFileRead = [[ImU64 igImFileRead(void* data,ImU64 size,ImU64 count,ImFileHandle file);]],
+		igImFileWrite = [[ImU64 igImFileWrite(const void* data,ImU64 size,ImU64 count,ImFileHandle file);]],
+		igImFileLoadToMemory = [[void* igImFileLoadToMemory(const char* filename,const char* mode,size_t* out_file_size,int padding_bytes);]],
+		igImPow_Float = [[float igImPow_Float(float x,float y);]],
+		igImPow_double = [[double igImPow_double(double x,double y);]],
+		igImLog_Float = [[float igImLog_Float(float x);]],
+		igImLog_double = [[double igImLog_double(double x);]],
+		igImAbs_Int = [[int igImAbs_Int(int x);]],
+		igImAbs_Float = [[float igImAbs_Float(float x);]],
+		igImAbs_double = [[double igImAbs_double(double x);]],
+		igImSign_Float = [[float igImSign_Float(float x);]],
+		igImSign_double = [[double igImSign_double(double x);]],
+		igImRsqrt_Float = [[float igImRsqrt_Float(float x);]],
+		igImRsqrt_double = [[double igImRsqrt_double(double x);]],
+		igImMin = [[void igImMin(ImVec2 *pOut,const ImVec2 lhs,const ImVec2 rhs);]],
+		igImMax = [[void igImMax(ImVec2 *pOut,const ImVec2 lhs,const ImVec2 rhs);]],
+		igImClamp = [[void igImClamp(ImVec2 *pOut,const ImVec2 v,const ImVec2 mn,ImVec2 mx);]],
+		igImLerp_Vec2Float = [[void igImLerp_Vec2Float(ImVec2 *pOut,const ImVec2 a,const ImVec2 b,float t);]],
+		igImLerp_Vec2Vec2 = [[void igImLerp_Vec2Vec2(ImVec2 *pOut,const ImVec2 a,const ImVec2 b,const ImVec2 t);]],
+		igImLerp_Vec4 = [[void igImLerp_Vec4(ImVec4 *pOut,const ImVec4 a,const ImVec4 b,float t);]],
+		igImSaturate = [[float igImSaturate(float f);]],
+		igImLengthSqr_Vec2 = [[float igImLengthSqr_Vec2(const ImVec2 lhs);]],
+		igImLengthSqr_Vec4 = [[float igImLengthSqr_Vec4(const ImVec4 lhs);]],
+		igImInvLength = [[float igImInvLength(const ImVec2 lhs,float fail_value);]],
+		igImTrunc_Float = [[float igImTrunc_Float(float f);]],
+		igImTrunc_Vec2 = [[void igImTrunc_Vec2(ImVec2 *pOut,const ImVec2 v);]],
+		igImFloor_Float = [[float igImFloor_Float(float f);]],
+		igImFloor_Vec2 = [[void igImFloor_Vec2(ImVec2 *pOut,const ImVec2 v);]],
+		igImModPositive = [[int igImModPositive(int a,int b);]],
+		igImDot = [[float igImDot(const ImVec2 a,const ImVec2 b);]],
+		igImRotate = [[void igImRotate(ImVec2 *pOut,const ImVec2 v,float cos_a,float sin_a);]],
+		igImLinearSweep = [[float igImLinearSweep(float current,float target,float speed);]],
+		igImMul = [[void igImMul(ImVec2 *pOut,const ImVec2 lhs,const ImVec2 rhs);]],
+		igImIsFloatAboveGuaranteedIntegerPrecision = [[_Bool igImIsFloatAboveGuaranteedIntegerPrecision(float f);]],
+		igImExponentialMovingAverage = [[float igImExponentialMovingAverage(float avg,float sample,int n);]],
+		igImBezierCubicCalc = [[void igImBezierCubicCalc(ImVec2 *pOut,const ImVec2 p1,const ImVec2 p2,const ImVec2 p3,const ImVec2 p4,float t);]],
+		igImBezierCubicClosestPoint = [[void igImBezierCubicClosestPoint(ImVec2 *pOut,const ImVec2 p1,const ImVec2 p2,const ImVec2 p3,const ImVec2 p4,const ImVec2 p,int num_segments);]],
+		igImBezierCubicClosestPointCasteljau = [[void igImBezierCubicClosestPointCasteljau(ImVec2 *pOut,const ImVec2 p1,const ImVec2 p2,const ImVec2 p3,const ImVec2 p4,const ImVec2 p,float tess_tol);]],
+		igImBezierQuadraticCalc = [[void igImBezierQuadraticCalc(ImVec2 *pOut,const ImVec2 p1,const ImVec2 p2,const ImVec2 p3,float t);]],
+		igImLineClosestPoint = [[void igImLineClosestPoint(ImVec2 *pOut,const ImVec2 a,const ImVec2 b,const ImVec2 p);]],
+		igImTriangleContainsPoint = [[_Bool igImTriangleContainsPoint(const ImVec2 a,const ImVec2 b,const ImVec2 c,const ImVec2 p);]],
+		igImTriangleClosestPoint = [[void igImTriangleClosestPoint(ImVec2 *pOut,const ImVec2 a,const ImVec2 b,const ImVec2 c,const ImVec2 p);]],
+		igImTriangleBarycentricCoords = [[void igImTriangleBarycentricCoords(const ImVec2 a,const ImVec2 b,const ImVec2 c,const ImVec2 p,float* out_u,float* out_v,float* out_w);]],
+		igImTriangleArea = [[float igImTriangleArea(const ImVec2 a,const ImVec2 b,const ImVec2 c);]],
+		igImTriangleIsClockwise = [[_Bool igImTriangleIsClockwise(const ImVec2 a,const ImVec2 b,const ImVec2 c);]],
+		ImVec1_ImVec1_Nil = [[ImVec1* ImVec1_ImVec1_Nil();]],
+		ImVec1_destroy = [[void ImVec1_destroy(ImVec1* self);]],
+		ImVec1_ImVec1_Float = [[ImVec1* ImVec1_ImVec1_Float(float _x);]],
+		ImVec2ih_ImVec2ih_Nil = [[ImVec2ih* ImVec2ih_ImVec2ih_Nil();]],
+		ImVec2ih_destroy = [[void ImVec2ih_destroy(ImVec2ih* self);]],
+		ImVec2ih_ImVec2ih_short = [[ImVec2ih* ImVec2ih_ImVec2ih_short(short _x,short _y);]],
+		ImVec2ih_ImVec2ih_Vec2 = [[ImVec2ih* ImVec2ih_ImVec2ih_Vec2(const ImVec2 rhs);]],
+		ImRect_ImRect_Nil = [[ImRect* ImRect_ImRect_Nil();]],
+		ImRect_destroy = [[void ImRect_destroy(ImRect* self);]],
+		ImRect_ImRect_Vec2 = [[ImRect* ImRect_ImRect_Vec2(const ImVec2 min,const ImVec2 max);]],
+		ImRect_ImRect_Vec4 = [[ImRect* ImRect_ImRect_Vec4(const ImVec4 v);]],
+		ImRect_ImRect_Float = [[ImRect* ImRect_ImRect_Float(float x1,float y1,float x2,float y2);]],
+		ImRect_GetCenter = [[void ImRect_GetCenter(ImVec2 *pOut,ImRect* self);]],
+		ImRect_GetSize = [[void ImRect_GetSize(ImVec2 *pOut,ImRect* self);]],
+		ImRect_GetWidth = [[float ImRect_GetWidth(ImRect* self);]],
+		ImRect_GetHeight = [[float ImRect_GetHeight(ImRect* self);]],
+		ImRect_GetArea = [[float ImRect_GetArea(ImRect* self);]],
+		ImRect_GetTL = [[void ImRect_GetTL(ImVec2 *pOut,ImRect* self);]],
+		ImRect_GetTR = [[void ImRect_GetTR(ImVec2 *pOut,ImRect* self);]],
+		ImRect_GetBL = [[void ImRect_GetBL(ImVec2 *pOut,ImRect* self);]],
+		ImRect_GetBR = [[void ImRect_GetBR(ImVec2 *pOut,ImRect* self);]],
+		ImRect_Contains_Vec2 = [[_Bool ImRect_Contains_Vec2(ImRect* self,const ImVec2 p);]],
+		ImRect_Contains_Rect = [[_Bool ImRect_Contains_Rect(ImRect* self,const ImRect r);]],
+		ImRect_ContainsWithPad = [[_Bool ImRect_ContainsWithPad(ImRect* self,const ImVec2 p,const ImVec2 pad);]],
+		ImRect_Overlaps = [[_Bool ImRect_Overlaps(ImRect* self,const ImRect r);]],
+		ImRect_Add_Vec2 = [[void ImRect_Add_Vec2(ImRect* self,const ImVec2 p);]],
+		ImRect_Add_Rect = [[void ImRect_Add_Rect(ImRect* self,const ImRect r);]],
+		ImRect_Expand_Float = [[void ImRect_Expand_Float(ImRect* self,const float amount);]],
+		ImRect_Expand_Vec2 = [[void ImRect_Expand_Vec2(ImRect* self,const ImVec2 amount);]],
+		ImRect_Translate = [[void ImRect_Translate(ImRect* self,const ImVec2 d);]],
+		ImRect_TranslateX = [[void ImRect_TranslateX(ImRect* self,float dx);]],
+		ImRect_TranslateY = [[void ImRect_TranslateY(ImRect* self,float dy);]],
+		ImRect_ClipWith = [[void ImRect_ClipWith(ImRect* self,const ImRect r);]],
+		ImRect_ClipWithFull = [[void ImRect_ClipWithFull(ImRect* self,const ImRect r);]],
+		ImRect_Floor = [[void ImRect_Floor(ImRect* self);]],
+		ImRect_IsInverted = [[_Bool ImRect_IsInverted(ImRect* self);]],
+		ImRect_ToVec4 = [[void ImRect_ToVec4(ImVec4 *pOut,ImRect* self);]],
+		igImBitArrayGetStorageSizeInBytes = [[size_t igImBitArrayGetStorageSizeInBytes(int bitcount);]],
+		igImBitArrayClearAllBits = [[void igImBitArrayClearAllBits(ImU32* arr,int bitcount);]],
+		igImBitArrayTestBit = [[_Bool igImBitArrayTestBit(const ImU32* arr,int n);]],
+		igImBitArrayClearBit = [[void igImBitArrayClearBit(ImU32* arr,int n);]],
+		igImBitArraySetBit = [[void igImBitArraySetBit(ImU32* arr,int n);]],
+		igImBitArraySetBitRange = [[void igImBitArraySetBitRange(ImU32* arr,int n,int n2);]],
+		ImBitVector_Create = [[void ImBitVector_Create(ImBitVector* self,int sz);]],
+		ImBitVector_Clear = [[void ImBitVector_Clear(ImBitVector* self);]],
+		ImBitVector_TestBit = [[_Bool ImBitVector_TestBit(ImBitVector* self,int n);]],
+		ImBitVector_SetBit = [[void ImBitVector_SetBit(ImBitVector* self,int n);]],
+		ImBitVector_ClearBit = [[void ImBitVector_ClearBit(ImBitVector* self,int n);]],
+		ImGuiTextIndex_clear = [[void ImGuiTextIndex_clear(ImGuiTextIndex* self);]],
+		ImGuiTextIndex_size = [[int ImGuiTextIndex_size(ImGuiTextIndex* self);]],
+		ImGuiTextIndex_get_line_begin = [[const char* ImGuiTextIndex_get_line_begin(ImGuiTextIndex* self,const char* base,int n);]],
+		ImGuiTextIndex_get_line_end = [[const char* ImGuiTextIndex_get_line_end(ImGuiTextIndex* self,const char* base,int n);]],
+		ImGuiTextIndex_append = [[void ImGuiTextIndex_append(ImGuiTextIndex* self,const char* base,int old_size,int new_size);]],
+		ImDrawListSharedData_ImDrawListSharedData = [[ImDrawListSharedData* ImDrawListSharedData_ImDrawListSharedData();]],
+		ImDrawListSharedData_destroy = [[void ImDrawListSharedData_destroy(ImDrawListSharedData* self);]],
+		ImDrawListSharedData_SetCircleTessellationMaxError = [[void ImDrawListSharedData_SetCircleTessellationMaxError(ImDrawListSharedData* self,float max_error);]],
+		ImDrawDataBuilder_ImDrawDataBuilder = [[ImDrawDataBuilder* ImDrawDataBuilder_ImDrawDataBuilder();]],
+		ImDrawDataBuilder_destroy = [[void ImDrawDataBuilder_destroy(ImDrawDataBuilder* self);]],
+		ImGuiStyleMod_ImGuiStyleMod_Int = [[ImGuiStyleMod* ImGuiStyleMod_ImGuiStyleMod_Int(ImGuiStyleVar idx,int v);]],
+		ImGuiStyleMod_destroy = [[void ImGuiStyleMod_destroy(ImGuiStyleMod* self);]],
+		ImGuiStyleMod_ImGuiStyleMod_Float = [[ImGuiStyleMod* ImGuiStyleMod_ImGuiStyleMod_Float(ImGuiStyleVar idx,float v);]],
+		ImGuiStyleMod_ImGuiStyleMod_Vec2 = [[ImGuiStyleMod* ImGuiStyleMod_ImGuiStyleMod_Vec2(ImGuiStyleVar idx,ImVec2 v);]],
+		ImGuiComboPreviewData_ImGuiComboPreviewData = [[ImGuiComboPreviewData* ImGuiComboPreviewData_ImGuiComboPreviewData();]],
+		ImGuiComboPreviewData_destroy = [[void ImGuiComboPreviewData_destroy(ImGuiComboPreviewData* self);]],
+		ImGuiMenuColumns_ImGuiMenuColumns = [[ImGuiMenuColumns* ImGuiMenuColumns_ImGuiMenuColumns();]],
+		ImGuiMenuColumns_destroy = [[void ImGuiMenuColumns_destroy(ImGuiMenuColumns* self);]],
+		ImGuiMenuColumns_Update = [[void ImGuiMenuColumns_Update(ImGuiMenuColumns* self,float spacing,_Bool window_reappearing);]],
+		ImGuiMenuColumns_DeclColumns = [[float ImGuiMenuColumns_DeclColumns(ImGuiMenuColumns* self,float w_icon,float w_label,float w_shortcut,float w_mark);]],
+		ImGuiMenuColumns_CalcNextTotalWidth = [[void ImGuiMenuColumns_CalcNextTotalWidth(ImGuiMenuColumns* self,_Bool update_offsets);]],
+		ImGuiInputTextDeactivatedState_ImGuiInputTextDeactivatedState = [[ImGuiInputTextDeactivatedState* ImGuiInputTextDeactivatedState_ImGuiInputTextDeactivatedState();]],
+		ImGuiInputTextDeactivatedState_destroy = [[void ImGuiInputTextDeactivatedState_destroy(ImGuiInputTextDeactivatedState* self);]],
+		ImGuiInputTextDeactivatedState_ClearFreeMemory = [[void ImGuiInputTextDeactivatedState_ClearFreeMemory(ImGuiInputTextDeactivatedState* self);]],
+		ImGuiInputTextState_ImGuiInputTextState = [[ImGuiInputTextState* ImGuiInputTextState_ImGuiInputTextState();]],
+		ImGuiInputTextState_destroy = [[void ImGuiInputTextState_destroy(ImGuiInputTextState* self);]],
+		ImGuiInputTextState_ClearText = [[void ImGuiInputTextState_ClearText(ImGuiInputTextState* self);]],
+		ImGuiInputTextState_ClearFreeMemory = [[void ImGuiInputTextState_ClearFreeMemory(ImGuiInputTextState* self);]],
+		ImGuiInputTextState_GetUndoAvailCount = [[int ImGuiInputTextState_GetUndoAvailCount(ImGuiInputTextState* self);]],
+		ImGuiInputTextState_GetRedoAvailCount = [[int ImGuiInputTextState_GetRedoAvailCount(ImGuiInputTextState* self);]],
+		ImGuiInputTextState_OnKeyPressed = [[void ImGuiInputTextState_OnKeyPressed(ImGuiInputTextState* self,int key);]],
+		ImGuiInputTextState_CursorAnimReset = [[void ImGuiInputTextState_CursorAnimReset(ImGuiInputTextState* self);]],
+		ImGuiInputTextState_CursorClamp = [[void ImGuiInputTextState_CursorClamp(ImGuiInputTextState* self);]],
+		ImGuiInputTextState_HasSelection = [[_Bool ImGuiInputTextState_HasSelection(ImGuiInputTextState* self);]],
+		ImGuiInputTextState_ClearSelection = [[void ImGuiInputTextState_ClearSelection(ImGuiInputTextState* self);]],
+		ImGuiInputTextState_GetCursorPos = [[int ImGuiInputTextState_GetCursorPos(ImGuiInputTextState* self);]],
+		ImGuiInputTextState_GetSelectionStart = [[int ImGuiInputTextState_GetSelectionStart(ImGuiInputTextState* self);]],
+		ImGuiInputTextState_GetSelectionEnd = [[int ImGuiInputTextState_GetSelectionEnd(ImGuiInputTextState* self);]],
+		ImGuiInputTextState_SelectAll = [[void ImGuiInputTextState_SelectAll(ImGuiInputTextState* self);]],
+		ImGuiInputTextState_ReloadUserBufAndSelectAll = [[void ImGuiInputTextState_ReloadUserBufAndSelectAll(ImGuiInputTextState* self);]],
+		ImGuiInputTextState_ReloadUserBufAndKeepSelection = [[void ImGuiInputTextState_ReloadUserBufAndKeepSelection(ImGuiInputTextState* self);]],
+		ImGuiInputTextState_ReloadUserBufAndMoveToEnd = [[void ImGuiInputTextState_ReloadUserBufAndMoveToEnd(ImGuiInputTextState* self);]],
+		ImGuiNextWindowData_ImGuiNextWindowData = [[ImGuiNextWindowData* ImGuiNextWindowData_ImGuiNextWindowData();]],
+		ImGuiNextWindowData_destroy = [[void ImGuiNextWindowData_destroy(ImGuiNextWindowData* self);]],
+		ImGuiNextWindowData_ClearFlags = [[void ImGuiNextWindowData_ClearFlags(ImGuiNextWindowData* self);]],
+		ImGuiNextItemData_ImGuiNextItemData = [[ImGuiNextItemData* ImGuiNextItemData_ImGuiNextItemData();]],
+		ImGuiNextItemData_destroy = [[void ImGuiNextItemData_destroy(ImGuiNextItemData* self);]],
+		ImGuiNextItemData_ClearFlags = [[void ImGuiNextItemData_ClearFlags(ImGuiNextItemData* self);]],
+		ImGuiLastItemData_ImGuiLastItemData = [[ImGuiLastItemData* ImGuiLastItemData_ImGuiLastItemData();]],
+		ImGuiLastItemData_destroy = [[void ImGuiLastItemData_destroy(ImGuiLastItemData* self);]],
+		ImGuiStackSizes_ImGuiStackSizes = [[ImGuiStackSizes* ImGuiStackSizes_ImGuiStackSizes();]],
+		ImGuiStackSizes_destroy = [[void ImGuiStackSizes_destroy(ImGuiStackSizes* self);]],
+		ImGuiStackSizes_SetToContextState = [[void ImGuiStackSizes_SetToContextState(ImGuiStackSizes* self,ImGuiContext* ctx);]],
+		ImGuiStackSizes_CompareWithContextState = [[void ImGuiStackSizes_CompareWithContextState(ImGuiStackSizes* self,ImGuiContext* ctx);]],
+		ImGuiPtrOrIndex_ImGuiPtrOrIndex_Ptr = [[ImGuiPtrOrIndex* ImGuiPtrOrIndex_ImGuiPtrOrIndex_Ptr(void* ptr);]],
+		ImGuiPtrOrIndex_destroy = [[void ImGuiPtrOrIndex_destroy(ImGuiPtrOrIndex* self);]],
+		ImGuiPtrOrIndex_ImGuiPtrOrIndex_Int = [[ImGuiPtrOrIndex* ImGuiPtrOrIndex_ImGuiPtrOrIndex_Int(int index);]],
+		ImGuiDataVarInfo_GetVarPtr = [[void* ImGuiDataVarInfo_GetVarPtr(ImGuiDataVarInfo* self,void* parent);]],
+		ImGuiPopupData_ImGuiPopupData = [[ImGuiPopupData* ImGuiPopupData_ImGuiPopupData();]],
+		ImGuiPopupData_destroy = [[void ImGuiPopupData_destroy(ImGuiPopupData* self);]],
+		ImGuiInputEvent_ImGuiInputEvent = [[ImGuiInputEvent* ImGuiInputEvent_ImGuiInputEvent();]],
+		ImGuiInputEvent_destroy = [[void ImGuiInputEvent_destroy(ImGuiInputEvent* self);]],
+		ImGuiKeyRoutingData_ImGuiKeyRoutingData = [[ImGuiKeyRoutingData* ImGuiKeyRoutingData_ImGuiKeyRoutingData();]],
+		ImGuiKeyRoutingData_destroy = [[void ImGuiKeyRoutingData_destroy(ImGuiKeyRoutingData* self);]],
+		ImGuiKeyRoutingTable_ImGuiKeyRoutingTable = [[ImGuiKeyRoutingTable* ImGuiKeyRoutingTable_ImGuiKeyRoutingTable();]],
+		ImGuiKeyRoutingTable_destroy = [[void ImGuiKeyRoutingTable_destroy(ImGuiKeyRoutingTable* self);]],
+		ImGuiKeyRoutingTable_Clear = [[void ImGuiKeyRoutingTable_Clear(ImGuiKeyRoutingTable* self);]],
+		ImGuiKeyOwnerData_ImGuiKeyOwnerData = [[ImGuiKeyOwnerData* ImGuiKeyOwnerData_ImGuiKeyOwnerData();]],
+		ImGuiKeyOwnerData_destroy = [[void ImGuiKeyOwnerData_destroy(ImGuiKeyOwnerData* self);]],
+		ImGuiListClipperRange_FromIndices = [[ImGuiListClipperRange ImGuiListClipperRange_FromIndices(int min,int max);]],
+		ImGuiListClipperRange_FromPositions = [[ImGuiListClipperRange ImGuiListClipperRange_FromPositions(float y1,float y2,int off_min,int off_max);]],
+		ImGuiListClipperData_ImGuiListClipperData = [[ImGuiListClipperData* ImGuiListClipperData_ImGuiListClipperData();]],
+		ImGuiListClipperData_destroy = [[void ImGuiListClipperData_destroy(ImGuiListClipperData* self);]],
+		ImGuiListClipperData_Reset = [[void ImGuiListClipperData_Reset(ImGuiListClipperData* self,ImGuiListClipper* clipper);]],
+		ImGuiNavItemData_ImGuiNavItemData = [[ImGuiNavItemData* ImGuiNavItemData_ImGuiNavItemData();]],
+		ImGuiNavItemData_destroy = [[void ImGuiNavItemData_destroy(ImGuiNavItemData* self);]],
+		ImGuiNavItemData_Clear = [[void ImGuiNavItemData_Clear(ImGuiNavItemData* self);]],
+		ImGuiTypingSelectState_ImGuiTypingSelectState = [[ImGuiTypingSelectState* ImGuiTypingSelectState_ImGuiTypingSelectState();]],
+		ImGuiTypingSelectState_destroy = [[void ImGuiTypingSelectState_destroy(ImGuiTypingSelectState* self);]],
+		ImGuiTypingSelectState_Clear = [[void ImGuiTypingSelectState_Clear(ImGuiTypingSelectState* self);]],
+		ImGuiOldColumnData_ImGuiOldColumnData = [[ImGuiOldColumnData* ImGuiOldColumnData_ImGuiOldColumnData();]],
+		ImGuiOldColumnData_destroy = [[void ImGuiOldColumnData_destroy(ImGuiOldColumnData* self);]],
+		ImGuiOldColumns_ImGuiOldColumns = [[ImGuiOldColumns* ImGuiOldColumns_ImGuiOldColumns();]],
+		ImGuiOldColumns_destroy = [[void ImGuiOldColumns_destroy(ImGuiOldColumns* self);]],
+		ImGuiDockNode_ImGuiDockNode = [[ImGuiDockNode* ImGuiDockNode_ImGuiDockNode(ImGuiID id);]],
+		ImGuiDockNode_destroy = [[void ImGuiDockNode_destroy(ImGuiDockNode* self);]],
+		ImGuiDockNode_IsRootNode = [[_Bool ImGuiDockNode_IsRootNode(ImGuiDockNode* self);]],
+		ImGuiDockNode_IsDockSpace = [[_Bool ImGuiDockNode_IsDockSpace(ImGuiDockNode* self);]],
+		ImGuiDockNode_IsFloatingNode = [[_Bool ImGuiDockNode_IsFloatingNode(ImGuiDockNode* self);]],
+		ImGuiDockNode_IsCentralNode = [[_Bool ImGuiDockNode_IsCentralNode(ImGuiDockNode* self);]],
+		ImGuiDockNode_IsHiddenTabBar = [[_Bool ImGuiDockNode_IsHiddenTabBar(ImGuiDockNode* self);]],
+		ImGuiDockNode_IsNoTabBar = [[_Bool ImGuiDockNode_IsNoTabBar(ImGuiDockNode* self);]],
+		ImGuiDockNode_IsSplitNode = [[_Bool ImGuiDockNode_IsSplitNode(ImGuiDockNode* self);]],
+		ImGuiDockNode_IsLeafNode = [[_Bool ImGuiDockNode_IsLeafNode(ImGuiDockNode* self);]],
+		ImGuiDockNode_IsEmpty = [[_Bool ImGuiDockNode_IsEmpty(ImGuiDockNode* self);]],
+		ImGuiDockNode_Rect = [[void ImGuiDockNode_Rect(ImRect *pOut,ImGuiDockNode* self);]],
+		ImGuiDockNode_SetLocalFlags = [[void ImGuiDockNode_SetLocalFlags(ImGuiDockNode* self,ImGuiDockNodeFlags flags);]],
+		ImGuiDockNode_UpdateMergedFlags = [[void ImGuiDockNode_UpdateMergedFlags(ImGuiDockNode* self);]],
+		ImGuiDockContext_ImGuiDockContext = [[ImGuiDockContext* ImGuiDockContext_ImGuiDockContext();]],
+		ImGuiDockContext_destroy = [[void ImGuiDockContext_destroy(ImGuiDockContext* self);]],
+		ImGuiViewportP_ImGuiViewportP = [[ImGuiViewportP* ImGuiViewportP_ImGuiViewportP();]],
+		ImGuiViewportP_destroy = [[void ImGuiViewportP_destroy(ImGuiViewportP* self);]],
+		ImGuiViewportP_ClearRequestFlags = [[void ImGuiViewportP_ClearRequestFlags(ImGuiViewportP* self);]],
+		ImGuiViewportP_CalcWorkRectPos = [[void ImGuiViewportP_CalcWorkRectPos(ImVec2 *pOut,ImGuiViewportP* self,const ImVec2 off_min);]],
+		ImGuiViewportP_CalcWorkRectSize = [[void ImGuiViewportP_CalcWorkRectSize(ImVec2 *pOut,ImGuiViewportP* self,const ImVec2 off_min,const ImVec2 off_max);]],
+		ImGuiViewportP_UpdateWorkRect = [[void ImGuiViewportP_UpdateWorkRect(ImGuiViewportP* self);]],
+		ImGuiViewportP_GetMainRect = [[void ImGuiViewportP_GetMainRect(ImRect *pOut,ImGuiViewportP* self);]],
+		ImGuiViewportP_GetWorkRect = [[void ImGuiViewportP_GetWorkRect(ImRect *pOut,ImGuiViewportP* self);]],
+		ImGuiViewportP_GetBuildWorkRect = [[void ImGuiViewportP_GetBuildWorkRect(ImRect *pOut,ImGuiViewportP* self);]],
+		ImGuiWindowSettings_ImGuiWindowSettings = [[ImGuiWindowSettings* ImGuiWindowSettings_ImGuiWindowSettings();]],
+		ImGuiWindowSettings_destroy = [[void ImGuiWindowSettings_destroy(ImGuiWindowSettings* self);]],
+		ImGuiWindowSettings_GetName = [[char* ImGuiWindowSettings_GetName(ImGuiWindowSettings* self);]],
+		ImGuiSettingsHandler_ImGuiSettingsHandler = [[ImGuiSettingsHandler* ImGuiSettingsHandler_ImGuiSettingsHandler();]],
+		ImGuiSettingsHandler_destroy = [[void ImGuiSettingsHandler_destroy(ImGuiSettingsHandler* self);]],
+		ImGuiDebugAllocInfo_ImGuiDebugAllocInfo = [[ImGuiDebugAllocInfo* ImGuiDebugAllocInfo_ImGuiDebugAllocInfo();]],
+		ImGuiDebugAllocInfo_destroy = [[void ImGuiDebugAllocInfo_destroy(ImGuiDebugAllocInfo* self);]],
+		ImGuiStackLevelInfo_ImGuiStackLevelInfo = [[ImGuiStackLevelInfo* ImGuiStackLevelInfo_ImGuiStackLevelInfo();]],
+		ImGuiStackLevelInfo_destroy = [[void ImGuiStackLevelInfo_destroy(ImGuiStackLevelInfo* self);]],
+		ImGuiIDStackTool_ImGuiIDStackTool = [[ImGuiIDStackTool* ImGuiIDStackTool_ImGuiIDStackTool();]],
+		ImGuiIDStackTool_destroy = [[void ImGuiIDStackTool_destroy(ImGuiIDStackTool* self);]],
+		ImGuiContextHook_ImGuiContextHook = [[ImGuiContextHook* ImGuiContextHook_ImGuiContextHook();]],
+		ImGuiContextHook_destroy = [[void ImGuiContextHook_destroy(ImGuiContextHook* self);]],
+		ImGuiContext_ImGuiContext = [[ImGuiContext* ImGuiContext_ImGuiContext(ImFontAtlas* shared_font_atlas);]],
+		ImGuiContext_destroy = [[void ImGuiContext_destroy(ImGuiContext* self);]],
+		ImGuiWindow_ImGuiWindow = [[ImGuiWindow* ImGuiWindow_ImGuiWindow(ImGuiContext* context,const char* name);]],
+		ImGuiWindow_destroy = [[void ImGuiWindow_destroy(ImGuiWindow* self);]],
+		ImGuiWindow_GetID_Str = [[ImGuiID ImGuiWindow_GetID_Str(ImGuiWindow* self,const char* str,const char* str_end);]],
+		ImGuiWindow_GetID_Ptr = [[ImGuiID ImGuiWindow_GetID_Ptr(ImGuiWindow* self,const void* ptr);]],
+		ImGuiWindow_GetID_Int = [[ImGuiID ImGuiWindow_GetID_Int(ImGuiWindow* self,int n);]],
+		ImGuiWindow_GetIDFromRectangle = [[ImGuiID ImGuiWindow_GetIDFromRectangle(ImGuiWindow* self,const ImRect r_abs);]],
+		ImGuiWindow_Rect = [[void ImGuiWindow_Rect(ImRect *pOut,ImGuiWindow* self);]],
+		ImGuiWindow_CalcFontSize = [[float ImGuiWindow_CalcFontSize(ImGuiWindow* self);]],
+		ImGuiWindow_TitleBarHeight = [[float ImGuiWindow_TitleBarHeight(ImGuiWindow* self);]],
+		ImGuiWindow_TitleBarRect = [[void ImGuiWindow_TitleBarRect(ImRect *pOut,ImGuiWindow* self);]],
+		ImGuiWindow_MenuBarHeight = [[float ImGuiWindow_MenuBarHeight(ImGuiWindow* self);]],
+		ImGuiWindow_MenuBarRect = [[void ImGuiWindow_MenuBarRect(ImRect *pOut,ImGuiWindow* self);]],
+		ImGuiTabItem_ImGuiTabItem = [[ImGuiTabItem* ImGuiTabItem_ImGuiTabItem();]],
+		ImGuiTabItem_destroy = [[void ImGuiTabItem_destroy(ImGuiTabItem* self);]],
+		ImGuiTabBar_ImGuiTabBar = [[ImGuiTabBar* ImGuiTabBar_ImGuiTabBar();]],
+		ImGuiTabBar_destroy = [[void ImGuiTabBar_destroy(ImGuiTabBar* self);]],
+		ImGuiTableColumn_ImGuiTableColumn = [[ImGuiTableColumn* ImGuiTableColumn_ImGuiTableColumn();]],
+		ImGuiTableColumn_destroy = [[void ImGuiTableColumn_destroy(ImGuiTableColumn* self);]],
+		ImGuiTableInstanceData_ImGuiTableInstanceData = [[ImGuiTableInstanceData* ImGuiTableInstanceData_ImGuiTableInstanceData();]],
+		ImGuiTableInstanceData_destroy = [[void ImGuiTableInstanceData_destroy(ImGuiTableInstanceData* self);]],
+		ImGuiTable_ImGuiTable = [[ImGuiTable* ImGuiTable_ImGuiTable();]],
+		ImGuiTable_destroy = [[void ImGuiTable_destroy(ImGuiTable* self);]],
+		ImGuiTableTempData_ImGuiTableTempData = [[ImGuiTableTempData* ImGuiTableTempData_ImGuiTableTempData();]],
+		ImGuiTableTempData_destroy = [[void ImGuiTableTempData_destroy(ImGuiTableTempData* self);]],
+		ImGuiTableColumnSettings_ImGuiTableColumnSettings = [[ImGuiTableColumnSettings* ImGuiTableColumnSettings_ImGuiTableColumnSettings();]],
+		ImGuiTableColumnSettings_destroy = [[void ImGuiTableColumnSettings_destroy(ImGuiTableColumnSettings* self);]],
+		ImGuiTableSettings_ImGuiTableSettings = [[ImGuiTableSettings* ImGuiTableSettings_ImGuiTableSettings();]],
+		ImGuiTableSettings_destroy = [[void ImGuiTableSettings_destroy(ImGuiTableSettings* self);]],
+		ImGuiTableSettings_GetColumnSettings = [[ImGuiTableColumnSettings* ImGuiTableSettings_GetColumnSettings(ImGuiTableSettings* self);]],
+		igGetCurrentWindowRead = [[ImGuiWindow* igGetCurrentWindowRead();]],
+		igGetCurrentWindow = [[ImGuiWindow* igGetCurrentWindow();]],
+		igFindWindowByID = [[ImGuiWindow* igFindWindowByID(ImGuiID id);]],
+		igFindWindowByName = [[ImGuiWindow* igFindWindowByName(const char* name);]],
+		igUpdateWindowParentAndRootLinks = [[void igUpdateWindowParentAndRootLinks(ImGuiWindow* window,ImGuiWindowFlags flags,ImGuiWindow* parent_window);]],
+		igCalcWindowNextAutoFitSize = [[void igCalcWindowNextAutoFitSize(ImVec2 *pOut,ImGuiWindow* window);]],
+		igIsWindowChildOf = [[_Bool igIsWindowChildOf(ImGuiWindow* window,ImGuiWindow* potential_parent,_Bool popup_hierarchy,_Bool dock_hierarchy);]],
+		igIsWindowWithinBeginStackOf = [[_Bool igIsWindowWithinBeginStackOf(ImGuiWindow* window,ImGuiWindow* potential_parent);]],
+		igIsWindowAbove = [[_Bool igIsWindowAbove(ImGuiWindow* potential_above,ImGuiWindow* potential_below);]],
+		igIsWindowNavFocusable = [[_Bool igIsWindowNavFocusable(ImGuiWindow* window);]],
+		igSetWindowPos_WindowPtr = [[void igSetWindowPos_WindowPtr(ImGuiWindow* window,const ImVec2 pos,ImGuiCond cond);]],
+		igSetWindowSize_WindowPtr = [[void igSetWindowSize_WindowPtr(ImGuiWindow* window,const ImVec2 size,ImGuiCond cond);]],
+		igSetWindowCollapsed_WindowPtr = [[void igSetWindowCollapsed_WindowPtr(ImGuiWindow* window,_Bool collapsed,ImGuiCond cond);]],
+		igSetWindowHitTestHole = [[void igSetWindowHitTestHole(ImGuiWindow* window,const ImVec2 pos,const ImVec2 size);]],
+		igSetWindowHiddenAndSkipItemsForCurrentFrame = [[void igSetWindowHiddenAndSkipItemsForCurrentFrame(ImGuiWindow* window);]],
+		igSetWindowParentWindowForFocusRoute = [[void igSetWindowParentWindowForFocusRoute(ImGuiWindow* window,ImGuiWindow* parent_window);]],
+		igWindowRectAbsToRel = [[void igWindowRectAbsToRel(ImRect *pOut,ImGuiWindow* window,const ImRect r);]],
+		igWindowRectRelToAbs = [[void igWindowRectRelToAbs(ImRect *pOut,ImGuiWindow* window,const ImRect r);]],
+		igWindowPosRelToAbs = [[void igWindowPosRelToAbs(ImVec2 *pOut,ImGuiWindow* window,const ImVec2 p);]],
+		igFocusWindow = [[void igFocusWindow(ImGuiWindow* window,ImGuiFocusRequestFlags flags);]],
+		igFocusTopMostWindowUnderOne = [[void igFocusTopMostWindowUnderOne(ImGuiWindow* under_this_window,ImGuiWindow* ignore_window,ImGuiViewport* filter_viewport,ImGuiFocusRequestFlags flags);]],
+		igBringWindowToFocusFront = [[void igBringWindowToFocusFront(ImGuiWindow* window);]],
+		igBringWindowToDisplayFront = [[void igBringWindowToDisplayFront(ImGuiWindow* window);]],
+		igBringWindowToDisplayBack = [[void igBringWindowToDisplayBack(ImGuiWindow* window);]],
+		igBringWindowToDisplayBehind = [[void igBringWindowToDisplayBehind(ImGuiWindow* window,ImGuiWindow* above_window);]],
+		igFindWindowDisplayIndex = [[int igFindWindowDisplayIndex(ImGuiWindow* window);]],
+		igFindBottomMostVisibleWindowWithinBeginStack = [[ImGuiWindow* igFindBottomMostVisibleWindowWithinBeginStack(ImGuiWindow* window);]],
+		igSetCurrentFont = [[void igSetCurrentFont(ImFont* font);]],
+		igGetDefaultFont = [[ImFont* igGetDefaultFont();]],
+		igGetForegroundDrawList_WindowPtr = [[ImDrawList* igGetForegroundDrawList_WindowPtr(ImGuiWindow* window);]],
+		igAddDrawListToDrawDataEx = [[void igAddDrawListToDrawDataEx(ImDrawData* draw_data,ImVector/*<ImDrawListPtr>*/* out_list,ImDrawList* draw_list);]],
+		igInitialize = [[void igInitialize();]],
+		igShutdown = [[void igShutdown();]],
+		igUpdateInputEvents = [[void igUpdateInputEvents(_Bool trickle_fast_inputs);]],
+		igUpdateHoveredWindowAndCaptureFlags = [[void igUpdateHoveredWindowAndCaptureFlags();]],
+		igStartMouseMovingWindow = [[void igStartMouseMovingWindow(ImGuiWindow* window);]],
+		igStartMouseMovingWindowOrNode = [[void igStartMouseMovingWindowOrNode(ImGuiWindow* window,ImGuiDockNode* node,_Bool undock);]],
+		igUpdateMouseMovingWindowNewFrame = [[void igUpdateMouseMovingWindowNewFrame();]],
+		igUpdateMouseMovingWindowEndFrame = [[void igUpdateMouseMovingWindowEndFrame();]],
+		igAddContextHook = [[ImGuiID igAddContextHook(ImGuiContext* context,const ImGuiContextHook* hook);]],
+		igRemoveContextHook = [[void igRemoveContextHook(ImGuiContext* context,ImGuiID hook_to_remove);]],
+		igCallContextHooks = [[void igCallContextHooks(ImGuiContext* context,ImGuiContextHookType type);]],
+		igTranslateWindowsInViewport = [[void igTranslateWindowsInViewport(ImGuiViewportP* viewport,const ImVec2 old_pos,const ImVec2 new_pos);]],
+		igScaleWindowsInViewport = [[void igScaleWindowsInViewport(ImGuiViewportP* viewport,float scale);]],
+		igDestroyPlatformWindow = [[void igDestroyPlatformWindow(ImGuiViewportP* viewport);]],
+		igSetWindowViewport = [[void igSetWindowViewport(ImGuiWindow* window,ImGuiViewportP* viewport);]],
+		igSetCurrentViewport = [[void igSetCurrentViewport(ImGuiWindow* window,ImGuiViewportP* viewport);]],
+		igGetViewportPlatformMonitor = [[const ImGuiPlatformMonitor* igGetViewportPlatformMonitor(ImGuiViewport* viewport);]],
+		igFindHoveredViewportFromPlatformWindowStack = [[ImGuiViewportP* igFindHoveredViewportFromPlatformWindowStack(const ImVec2 mouse_platform_pos);]],
+		igMarkIniSettingsDirty_Nil = [[void igMarkIniSettingsDirty_Nil();]],
+		igMarkIniSettingsDirty_WindowPtr = [[void igMarkIniSettingsDirty_WindowPtr(ImGuiWindow* window);]],
+		igClearIniSettings = [[void igClearIniSettings();]],
+		igAddSettingsHandler = [[void igAddSettingsHandler(const ImGuiSettingsHandler* handler);]],
+		igRemoveSettingsHandler = [[void igRemoveSettingsHandler(const char* type_name);]],
+		igFindSettingsHandler = [[ImGuiSettingsHandler* igFindSettingsHandler(const char* type_name);]],
+		igCreateNewWindowSettings = [[ImGuiWindowSettings* igCreateNewWindowSettings(const char* name);]],
+		igFindWindowSettingsByID = [[ImGuiWindowSettings* igFindWindowSettingsByID(ImGuiID id);]],
+		igFindWindowSettingsByWindow = [[ImGuiWindowSettings* igFindWindowSettingsByWindow(ImGuiWindow* window);]],
+		igClearWindowSettings = [[void igClearWindowSettings(const char* name);]],
+		igLocalizeRegisterEntries = [[void igLocalizeRegisterEntries(const ImGuiLocEntry* entries,int count);]],
+		igLocalizeGetMsg = [[const char* igLocalizeGetMsg(ImGuiLocKey key);]],
+		igSetScrollX_WindowPtr = [[void igSetScrollX_WindowPtr(ImGuiWindow* window,float scroll_x);]],
+		igSetScrollY_WindowPtr = [[void igSetScrollY_WindowPtr(ImGuiWindow* window,float scroll_y);]],
+		igSetScrollFromPosX_WindowPtr = [[void igSetScrollFromPosX_WindowPtr(ImGuiWindow* window,float local_x,float center_x_ratio);]],
+		igSetScrollFromPosY_WindowPtr = [[void igSetScrollFromPosY_WindowPtr(ImGuiWindow* window,float local_y,float center_y_ratio);]],
+		igScrollToItem = [[void igScrollToItem(ImGuiScrollFlags flags);]],
+		igScrollToRect = [[void igScrollToRect(ImGuiWindow* window,const ImRect rect,ImGuiScrollFlags flags);]],
+		igScrollToRectEx = [[void igScrollToRectEx(ImVec2 *pOut,ImGuiWindow* window,const ImRect rect,ImGuiScrollFlags flags);]],
+		igScrollToBringRectIntoView = [[void igScrollToBringRectIntoView(ImGuiWindow* window,const ImRect rect);]],
+		igGetItemStatusFlags = [[ImGuiItemStatusFlags igGetItemStatusFlags();]],
+		igGetItemFlags = [[ImGuiItemFlags igGetItemFlags();]],
+		igGetActiveID = [[ImGuiID igGetActiveID();]],
+		igGetFocusID = [[ImGuiID igGetFocusID();]],
+		igSetActiveID = [[void igSetActiveID(ImGuiID id,ImGuiWindow* window);]],
+		igSetFocusID = [[void igSetFocusID(ImGuiID id,ImGuiWindow* window);]],
+		igClearActiveID = [[void igClearActiveID();]],
+		igGetHoveredID = [[ImGuiID igGetHoveredID();]],
+		igSetHoveredID = [[void igSetHoveredID(ImGuiID id);]],
+		igKeepAliveID = [[void igKeepAliveID(ImGuiID id);]],
+		igMarkItemEdited = [[void igMarkItemEdited(ImGuiID id);]],
+		igPushOverrideID = [[void igPushOverrideID(ImGuiID id);]],
+		igGetIDWithSeed_Str = [[ImGuiID igGetIDWithSeed_Str(const char* str_id_begin,const char* str_id_end,ImGuiID seed);]],
+		igGetIDWithSeed_Int = [[ImGuiID igGetIDWithSeed_Int(int n,ImGuiID seed);]],
+		igItemSize_Vec2 = [[void igItemSize_Vec2(const ImVec2 size,float text_baseline_y);]],
+		igItemSize_Rect = [[void igItemSize_Rect(const ImRect bb,float text_baseline_y);]],
+		igItemAdd = [[_Bool igItemAdd(const ImRect bb,ImGuiID id,const ImRect* nav_bb,ImGuiItemFlags extra_flags);]],
+		igItemHoverable = [[_Bool igItemHoverable(const ImRect bb,ImGuiID id,ImGuiItemFlags item_flags);]],
+		igIsWindowContentHoverable = [[_Bool igIsWindowContentHoverable(ImGuiWindow* window,ImGuiHoveredFlags flags);]],
+		igIsClippedEx = [[_Bool igIsClippedEx(const ImRect bb,ImGuiID id);]],
+		igSetLastItemData = [[void igSetLastItemData(ImGuiID item_id,ImGuiItemFlags in_flags,ImGuiItemStatusFlags status_flags,const ImRect item_rect);]],
+		igCalcItemSize = [[void igCalcItemSize(ImVec2 *pOut,ImVec2 size,float default_w,float default_h);]],
+		igCalcWrapWidthForPos = [[float igCalcWrapWidthForPos(const ImVec2 pos,float wrap_pos_x);]],
+		igPushMultiItemsWidths = [[void igPushMultiItemsWidths(int components,float width_full);]],
+		igIsItemToggledSelection = [[_Bool igIsItemToggledSelection();]],
+		igGetContentRegionMaxAbs = [[void igGetContentRegionMaxAbs(ImVec2 *pOut);]],
+		igShrinkWidths = [[void igShrinkWidths(ImGuiShrinkWidthItem* items,int count,float width_excess);]],
+		igPushItemFlag = [[void igPushItemFlag(ImGuiItemFlags option,_Bool enabled);]],
+		igPopItemFlag = [[void igPopItemFlag();]],
+		igGetStyleVarInfo = [[const ImGuiDataVarInfo* igGetStyleVarInfo(ImGuiStyleVar idx);]],
+		igLogBegin = [[void igLogBegin(ImGuiLogType type,int auto_open_depth);]],
+		igLogToBuffer = [[void igLogToBuffer(int auto_open_depth);]],
+		igLogRenderedText = [[void igLogRenderedText(const ImVec2* ref_pos,const char* text,const char* text_end);]],
+		igLogSetNextTextDecoration = [[void igLogSetNextTextDecoration(const char* prefix,const char* suffix);]],
+		igBeginChildEx = [[_Bool igBeginChildEx(const char* name,ImGuiID id,const ImVec2 size_arg,ImGuiChildFlags child_flags,ImGuiWindowFlags window_flags);]],
+		igOpenPopupEx = [[void igOpenPopupEx(ImGuiID id,ImGuiPopupFlags popup_flags);]],
+		igClosePopupToLevel = [[void igClosePopupToLevel(int remaining,_Bool restore_focus_to_window_under_popup);]],
+		igClosePopupsOverWindow = [[void igClosePopupsOverWindow(ImGuiWindow* ref_window,_Bool restore_focus_to_window_under_popup);]],
+		igClosePopupsExceptModals = [[void igClosePopupsExceptModals();]],
+		igIsPopupOpen_ID = [[_Bool igIsPopupOpen_ID(ImGuiID id,ImGuiPopupFlags popup_flags);]],
+		igBeginPopupEx = [[_Bool igBeginPopupEx(ImGuiID id,ImGuiWindowFlags extra_flags);]],
+		igBeginTooltipEx = [[_Bool igBeginTooltipEx(ImGuiTooltipFlags tooltip_flags,ImGuiWindowFlags extra_window_flags);]],
+		igBeginTooltipHidden = [[_Bool igBeginTooltipHidden();]],
+		igGetPopupAllowedExtentRect = [[void igGetPopupAllowedExtentRect(ImRect *pOut,ImGuiWindow* window);]],
+		igGetTopMostPopupModal = [[ImGuiWindow* igGetTopMostPopupModal();]],
+		igGetTopMostAndVisiblePopupModal = [[ImGuiWindow* igGetTopMostAndVisiblePopupModal();]],
+		igFindBlockingModal = [[ImGuiWindow* igFindBlockingModal(ImGuiWindow* window);]],
+		igFindBestWindowPosForPopup = [[void igFindBestWindowPosForPopup(ImVec2 *pOut,ImGuiWindow* window);]],
+		igFindBestWindowPosForPopupEx = [[void igFindBestWindowPosForPopupEx(ImVec2 *pOut,const ImVec2 ref_pos,const ImVec2 size,ImGuiDir* last_dir,const ImRect r_outer,const ImRect r_avoid,ImGuiPopupPositionPolicy policy);]],
+		igBeginViewportSideBar = [[_Bool igBeginViewportSideBar(const char* name,ImGuiViewport* viewport,ImGuiDir dir,float size,ImGuiWindowFlags window_flags);]],
+		igBeginMenuEx = [[_Bool igBeginMenuEx(const char* label,const char* icon,_Bool enabled);]],
+		igMenuItemEx = [[_Bool igMenuItemEx(const char* label,const char* icon,const char* shortcut,_Bool selected,_Bool enabled);]],
+		igBeginComboPopup = [[_Bool igBeginComboPopup(ImGuiID popup_id,const ImRect bb,ImGuiComboFlags flags);]],
+		igBeginComboPreview = [[_Bool igBeginComboPreview();]],
+		igEndComboPreview = [[void igEndComboPreview();]],
+		igNavInitWindow = [[void igNavInitWindow(ImGuiWindow* window,_Bool force_reinit);]],
+		igNavInitRequestApplyResult = [[void igNavInitRequestApplyResult();]],
+		igNavMoveRequestButNoResultYet = [[_Bool igNavMoveRequestButNoResultYet();]],
+		igNavMoveRequestSubmit = [[void igNavMoveRequestSubmit(ImGuiDir move_dir,ImGuiDir clip_dir,ImGuiNavMoveFlags move_flags,ImGuiScrollFlags scroll_flags);]],
+		igNavMoveRequestForward = [[void igNavMoveRequestForward(ImGuiDir move_dir,ImGuiDir clip_dir,ImGuiNavMoveFlags move_flags,ImGuiScrollFlags scroll_flags);]],
+		igNavMoveRequestResolveWithLastItem = [[void igNavMoveRequestResolveWithLastItem(ImGuiNavItemData* result);]],
+		igNavMoveRequestResolveWithPastTreeNode = [[void igNavMoveRequestResolveWithPastTreeNode(ImGuiNavItemData* result,ImGuiNavTreeNodeData* tree_node_data);]],
+		igNavMoveRequestCancel = [[void igNavMoveRequestCancel();]],
+		igNavMoveRequestApplyResult = [[void igNavMoveRequestApplyResult();]],
+		igNavMoveRequestTryWrapping = [[void igNavMoveRequestTryWrapping(ImGuiWindow* window,ImGuiNavMoveFlags move_flags);]],
+		igNavHighlightActivated = [[void igNavHighlightActivated(ImGuiID id);]],
+		igNavClearPreferredPosForAxis = [[void igNavClearPreferredPosForAxis(ImGuiAxis axis);]],
+		igNavRestoreHighlightAfterMove = [[void igNavRestoreHighlightAfterMove();]],
+		igNavUpdateCurrentWindowIsScrollPushableX = [[void igNavUpdateCurrentWindowIsScrollPushableX();]],
+		igSetNavWindow = [[void igSetNavWindow(ImGuiWindow* window);]],
+		igSetNavID = [[void igSetNavID(ImGuiID id,ImGuiNavLayer nav_layer,ImGuiID focus_scope_id,const ImRect rect_rel);]],
+		igSetNavFocusScope = [[void igSetNavFocusScope(ImGuiID focus_scope_id);]],
+		igFocusItem = [[void igFocusItem();]],
+		igActivateItemByID = [[void igActivateItemByID(ImGuiID id);]],
+		igIsNamedKey = [[_Bool igIsNamedKey(ImGuiKey key);]],
+		igIsNamedKeyOrModKey = [[_Bool igIsNamedKeyOrModKey(ImGuiKey key);]],
+		igIsLegacyKey = [[_Bool igIsLegacyKey(ImGuiKey key);]],
+		igIsKeyboardKey = [[_Bool igIsKeyboardKey(ImGuiKey key);]],
+		igIsGamepadKey = [[_Bool igIsGamepadKey(ImGuiKey key);]],
+		igIsMouseKey = [[_Bool igIsMouseKey(ImGuiKey key);]],
+		igIsAliasKey = [[_Bool igIsAliasKey(ImGuiKey key);]],
+		igIsModKey = [[_Bool igIsModKey(ImGuiKey key);]],
+		igFixupKeyChord = [[ImGuiKeyChord igFixupKeyChord(ImGuiContext* ctx,ImGuiKeyChord key_chord);]],
+		igConvertSingleModFlagToKey = [[ImGuiKey igConvertSingleModFlagToKey(ImGuiContext* ctx,ImGuiKey key);]],
+		igGetKeyData_ContextPtr = [[ImGuiKeyData* igGetKeyData_ContextPtr(ImGuiContext* ctx,ImGuiKey key);]],
+		igGetKeyData_Key = [[ImGuiKeyData* igGetKeyData_Key(ImGuiKey key);]],
+		igGetKeyChordName = [[const char* igGetKeyChordName(ImGuiKeyChord key_chord);]],
+		igMouseButtonToKey = [[ImGuiKey igMouseButtonToKey(ImGuiMouseButton button);]],
+		igIsMouseDragPastThreshold = [[_Bool igIsMouseDragPastThreshold(ImGuiMouseButton button,float lock_threshold);]],
+		igGetKeyMagnitude2d = [[void igGetKeyMagnitude2d(ImVec2 *pOut,ImGuiKey key_left,ImGuiKey key_right,ImGuiKey key_up,ImGuiKey key_down);]],
+		igGetNavTweakPressedAmount = [[float igGetNavTweakPressedAmount(ImGuiAxis axis);]],
+		igCalcTypematicRepeatAmount = [[int igCalcTypematicRepeatAmount(float t0,float t1,float repeat_delay,float repeat_rate);]],
+		igGetTypematicRepeatRate = [[void igGetTypematicRepeatRate(ImGuiInputFlags flags,float* repeat_delay,float* repeat_rate);]],
+		igTeleportMousePos = [[void igTeleportMousePos(const ImVec2 pos);]],
+		igSetActiveIdUsingAllKeyboardKeys = [[void igSetActiveIdUsingAllKeyboardKeys();]],
+		igIsActiveIdUsingNavDir = [[_Bool igIsActiveIdUsingNavDir(ImGuiDir dir);]],
+		igGetKeyOwner = [[ImGuiID igGetKeyOwner(ImGuiKey key);]],
+		igSetKeyOwner = [[void igSetKeyOwner(ImGuiKey key,ImGuiID owner_id,ImGuiInputFlags flags);]],
+		igSetKeyOwnersForKeyChord = [[void igSetKeyOwnersForKeyChord(ImGuiKeyChord key,ImGuiID owner_id,ImGuiInputFlags flags);]],
+		igSetItemKeyOwner = [[void igSetItemKeyOwner(ImGuiKey key,ImGuiInputFlags flags);]],
+		igTestKeyOwner = [[_Bool igTestKeyOwner(ImGuiKey key,ImGuiID owner_id);]],
+		igGetKeyOwnerData = [[ImGuiKeyOwnerData* igGetKeyOwnerData(ImGuiContext* ctx,ImGuiKey key);]],
+		igIsKeyDown_ID = [[_Bool igIsKeyDown_ID(ImGuiKey key,ImGuiID owner_id);]],
+		igIsKeyPressed_ID = [[_Bool igIsKeyPressed_ID(ImGuiKey key,ImGuiID owner_id,ImGuiInputFlags flags);]],
+		igIsKeyReleased_ID = [[_Bool igIsKeyReleased_ID(ImGuiKey key,ImGuiID owner_id);]],
+		igIsMouseDown_ID = [[_Bool igIsMouseDown_ID(ImGuiMouseButton button,ImGuiID owner_id);]],
+		igIsMouseClicked_ID = [[_Bool igIsMouseClicked_ID(ImGuiMouseButton button,ImGuiID owner_id,ImGuiInputFlags flags);]],
+		igIsMouseReleased_ID = [[_Bool igIsMouseReleased_ID(ImGuiMouseButton button,ImGuiID owner_id);]],
+		igIsMouseDoubleClicked_ID = [[_Bool igIsMouseDoubleClicked_ID(ImGuiMouseButton button,ImGuiID owner_id);]],
+		igIsKeyChordPressed_ID = [[_Bool igIsKeyChordPressed_ID(ImGuiKeyChord key_chord,ImGuiID owner_id,ImGuiInputFlags flags);]],
+		igSetNextItemShortcut = [[void igSetNextItemShortcut(ImGuiKeyChord key_chord);]],
+		igShortcut = [[_Bool igShortcut(ImGuiKeyChord key_chord,ImGuiID owner_id,ImGuiInputFlags flags);]],
+		igSetShortcutRouting = [[_Bool igSetShortcutRouting(ImGuiKeyChord key_chord,ImGuiID owner_id,ImGuiInputFlags flags);]],
+		igTestShortcutRouting = [[_Bool igTestShortcutRouting(ImGuiKeyChord key_chord,ImGuiID owner_id);]],
+		igGetShortcutRoutingData = [[ImGuiKeyRoutingData* igGetShortcutRoutingData(ImGuiKeyChord key_chord);]],
+		igDockContextInitialize = [[void igDockContextInitialize(ImGuiContext* ctx);]],
+		igDockContextShutdown = [[void igDockContextShutdown(ImGuiContext* ctx);]],
+		igDockContextClearNodes = [[void igDockContextClearNodes(ImGuiContext* ctx,ImGuiID root_id,_Bool clear_settings_refs);]],
+		igDockContextRebuildNodes = [[void igDockContextRebuildNodes(ImGuiContext* ctx);]],
+		igDockContextNewFrameUpdateUndocking = [[void igDockContextNewFrameUpdateUndocking(ImGuiContext* ctx);]],
+		igDockContextNewFrameUpdateDocking = [[void igDockContextNewFrameUpdateDocking(ImGuiContext* ctx);]],
+		igDockContextEndFrame = [[void igDockContextEndFrame(ImGuiContext* ctx);]],
+		igDockContextGenNodeID = [[ImGuiID igDockContextGenNodeID(ImGuiContext* ctx);]],
+		igDockContextQueueDock = [[void igDockContextQueueDock(ImGuiContext* ctx,ImGuiWindow* target,ImGuiDockNode* target_node,ImGuiWindow* payload,ImGuiDir split_dir,float split_ratio,_Bool split_outer);]],
+		igDockContextQueueUndockWindow = [[void igDockContextQueueUndockWindow(ImGuiContext* ctx,ImGuiWindow* window);]],
+		igDockContextQueueUndockNode = [[void igDockContextQueueUndockNode(ImGuiContext* ctx,ImGuiDockNode* node);]],
+		igDockContextProcessUndockWindow = [[void igDockContextProcessUndockWindow(ImGuiContext* ctx,ImGuiWindow* window,_Bool clear_persistent_docking_ref);]],
+		igDockContextProcessUndockNode = [[void igDockContextProcessUndockNode(ImGuiContext* ctx,ImGuiDockNode* node);]],
+		igDockContextCalcDropPosForDocking = [[_Bool igDockContextCalcDropPosForDocking(ImGuiWindow* target,ImGuiDockNode* target_node,ImGuiWindow* payload_window,ImGuiDockNode* payload_node,ImGuiDir split_dir,_Bool split_outer,ImVec2* out_pos);]],
+		igDockContextFindNodeByID = [[ImGuiDockNode* igDockContextFindNodeByID(ImGuiContext* ctx,ImGuiID id);]],
+		igDockNodeWindowMenuHandler_Default = [[void igDockNodeWindowMenuHandler_Default(ImGuiContext* ctx,ImGuiDockNode* node,ImGuiTabBar* tab_bar);]],
+		igDockNodeBeginAmendTabBar = [[_Bool igDockNodeBeginAmendTabBar(ImGuiDockNode* node);]],
+		igDockNodeEndAmendTabBar = [[void igDockNodeEndAmendTabBar();]],
+		igDockNodeGetRootNode = [[ImGuiDockNode* igDockNodeGetRootNode(ImGuiDockNode* node);]],
+		igDockNodeIsInHierarchyOf = [[_Bool igDockNodeIsInHierarchyOf(ImGuiDockNode* node,ImGuiDockNode* parent);]],
+		igDockNodeGetDepth = [[int igDockNodeGetDepth(const ImGuiDockNode* node);]],
+		igDockNodeGetWindowMenuButtonId = [[ImGuiID igDockNodeGetWindowMenuButtonId(const ImGuiDockNode* node);]],
+		igGetWindowDockNode = [[ImGuiDockNode* igGetWindowDockNode();]],
+		igGetWindowAlwaysWantOwnTabBar = [[_Bool igGetWindowAlwaysWantOwnTabBar(ImGuiWindow* window);]],
+		igBeginDocked = [[void igBeginDocked(ImGuiWindow* window,_Bool* p_open);]],
+		igBeginDockableDragDropSource = [[void igBeginDockableDragDropSource(ImGuiWindow* window);]],
+		igBeginDockableDragDropTarget = [[void igBeginDockableDragDropTarget(ImGuiWindow* window);]],
+		igSetWindowDock = [[void igSetWindowDock(ImGuiWindow* window,ImGuiID dock_id,ImGuiCond cond);]],
+		igDockBuilderDockWindow = [[void igDockBuilderDockWindow(const char* window_name,ImGuiID node_id);]],
+		igDockBuilderGetNode = [[ImGuiDockNode* igDockBuilderGetNode(ImGuiID node_id);]],
+		igDockBuilderGetCentralNode = [[ImGuiDockNode* igDockBuilderGetCentralNode(ImGuiID node_id);]],
+		igDockBuilderAddNode = [[ImGuiID igDockBuilderAddNode(ImGuiID node_id,ImGuiDockNodeFlags flags);]],
+		igDockBuilderRemoveNode = [[void igDockBuilderRemoveNode(ImGuiID node_id);]],
+		igDockBuilderRemoveNodeDockedWindows = [[void igDockBuilderRemoveNodeDockedWindows(ImGuiID node_id,_Bool clear_settings_refs);]],
+		igDockBuilderRemoveNodeChildNodes = [[void igDockBuilderRemoveNodeChildNodes(ImGuiID node_id);]],
+		igDockBuilderSetNodePos = [[void igDockBuilderSetNodePos(ImGuiID node_id,ImVec2 pos);]],
+		igDockBuilderSetNodeSize = [[void igDockBuilderSetNodeSize(ImGuiID node_id,ImVec2 size);]],
+		igDockBuilderSplitNode = [[ImGuiID igDockBuilderSplitNode(ImGuiID node_id,ImGuiDir split_dir,float size_ratio_for_node_at_dir,ImGuiID* out_id_at_dir,ImGuiID* out_id_at_opposite_dir);]],
+		igDockBuilderCopyDockSpace = [[void igDockBuilderCopyDockSpace(ImGuiID src_dockspace_id,ImGuiID dst_dockspace_id,ImVector/*<const_charPtr>*/* in_window_remap_pairs);]],
+		igDockBuilderCopyNode = [[void igDockBuilderCopyNode(ImGuiID src_node_id,ImGuiID dst_node_id,ImVector/*<ImGuiID>*/* out_node_remap_pairs);]],
+		igDockBuilderCopyWindowSettings = [[void igDockBuilderCopyWindowSettings(const char* src_name,const char* dst_name);]],
+		igDockBuilderFinish = [[void igDockBuilderFinish(ImGuiID node_id);]],
+		igPushFocusScope = [[void igPushFocusScope(ImGuiID id);]],
+		igPopFocusScope = [[void igPopFocusScope();]],
+		igGetCurrentFocusScope = [[ImGuiID igGetCurrentFocusScope();]],
+		igIsDragDropActive = [[_Bool igIsDragDropActive();]],
+		igBeginDragDropTargetCustom = [[_Bool igBeginDragDropTargetCustom(const ImRect bb,ImGuiID id);]],
+		igClearDragDrop = [[void igClearDragDrop();]],
+		igIsDragDropPayloadBeingAccepted = [[_Bool igIsDragDropPayloadBeingAccepted();]],
+		igRenderDragDropTargetRect = [[void igRenderDragDropTargetRect(const ImRect bb,const ImRect item_clip_rect);]],
+		igGetTypingSelectRequest = [[ImGuiTypingSelectRequest* igGetTypingSelectRequest(ImGuiTypingSelectFlags flags);]],
+		igTypingSelectFindMatch = [[int igTypingSelectFindMatch(ImGuiTypingSelectRequest* req,int items_count,const char*(*get_item_name_func)(void*,int),void* user_data,int nav_item_idx);]],
+		igTypingSelectFindNextSingleCharMatch = [[int igTypingSelectFindNextSingleCharMatch(ImGuiTypingSelectRequest* req,int items_count,const char*(*get_item_name_func)(void*,int),void* user_data,int nav_item_idx);]],
+		igTypingSelectFindBestLeadingMatch = [[int igTypingSelectFindBestLeadingMatch(ImGuiTypingSelectRequest* req,int items_count,const char*(*get_item_name_func)(void*,int),void* user_data);]],
+		igSetWindowClipRectBeforeSetChannel = [[void igSetWindowClipRectBeforeSetChannel(ImGuiWindow* window,const ImRect clip_rect);]],
+		igBeginColumns = [[void igBeginColumns(const char* str_id,int count,ImGuiOldColumnFlags flags);]],
+		igEndColumns = [[void igEndColumns();]],
+		igPushColumnClipRect = [[void igPushColumnClipRect(int column_index);]],
+		igPushColumnsBackground = [[void igPushColumnsBackground();]],
+		igPopColumnsBackground = [[void igPopColumnsBackground();]],
+		igGetColumnsID = [[ImGuiID igGetColumnsID(const char* str_id,int count);]],
+		igFindOrCreateColumns = [[ImGuiOldColumns* igFindOrCreateColumns(ImGuiWindow* window,ImGuiID id);]],
+		igGetColumnOffsetFromNorm = [[float igGetColumnOffsetFromNorm(const ImGuiOldColumns* columns,float offset_norm);]],
+		igGetColumnNormFromOffset = [[float igGetColumnNormFromOffset(const ImGuiOldColumns* columns,float offset);]],
+		igTableOpenContextMenu = [[void igTableOpenContextMenu(int column_n);]],
+		igTableSetColumnWidth = [[void igTableSetColumnWidth(int column_n,float width);]],
+		igTableSetColumnSortDirection = [[void igTableSetColumnSortDirection(int column_n,ImGuiSortDirection sort_direction,_Bool append_to_sort_specs);]],
+		igTableGetHoveredColumn = [[int igTableGetHoveredColumn();]],
+		igTableGetHoveredRow = [[int igTableGetHoveredRow();]],
+		igTableGetHeaderRowHeight = [[float igTableGetHeaderRowHeight();]],
+		igTableGetHeaderAngledMaxLabelWidth = [[float igTableGetHeaderAngledMaxLabelWidth();]],
+		igTablePushBackgroundChannel = [[void igTablePushBackgroundChannel();]],
+		igTablePopBackgroundChannel = [[void igTablePopBackgroundChannel();]],
+		igTableAngledHeadersRowEx = [[void igTableAngledHeadersRowEx(float angle,float max_label_width);]],
+		igGetCurrentTable = [[ImGuiTable* igGetCurrentTable();]],
+		igTableFindByID = [[ImGuiTable* igTableFindByID(ImGuiID id);]],
+		igBeginTableEx = [[_Bool igBeginTableEx(const char* name,ImGuiID id,int columns_count,ImGuiTableFlags flags,const ImVec2 outer_size,float inner_width);]],
+		igTableBeginInitMemory = [[void igTableBeginInitMemory(ImGuiTable* table,int columns_count);]],
+		igTableBeginApplyRequests = [[void igTableBeginApplyRequests(ImGuiTable* table);]],
+		igTableSetupDrawChannels = [[void igTableSetupDrawChannels(ImGuiTable* table);]],
+		igTableUpdateLayout = [[void igTableUpdateLayout(ImGuiTable* table);]],
+		igTableUpdateBorders = [[void igTableUpdateBorders(ImGuiTable* table);]],
+		igTableUpdateColumnsWeightFromWidth = [[void igTableUpdateColumnsWeightFromWidth(ImGuiTable* table);]],
+		igTableDrawBorders = [[void igTableDrawBorders(ImGuiTable* table);]],
+		igTableDrawDefaultContextMenu = [[void igTableDrawDefaultContextMenu(ImGuiTable* table,ImGuiTableFlags flags_for_section_to_display);]],
+		igTableBeginContextMenuPopup = [[_Bool igTableBeginContextMenuPopup(ImGuiTable* table);]],
+		igTableMergeDrawChannels = [[void igTableMergeDrawChannels(ImGuiTable* table);]],
+		igTableGetInstanceData = [[ImGuiTableInstanceData* igTableGetInstanceData(ImGuiTable* table,int instance_no);]],
+		igTableGetInstanceID = [[ImGuiID igTableGetInstanceID(ImGuiTable* table,int instance_no);]],
+		igTableSortSpecsSanitize = [[void igTableSortSpecsSanitize(ImGuiTable* table);]],
+		igTableSortSpecsBuild = [[void igTableSortSpecsBuild(ImGuiTable* table);]],
+		igTableGetColumnNextSortDirection = [[ImGuiSortDirection igTableGetColumnNextSortDirection(ImGuiTableColumn* column);]],
+		igTableFixColumnSortDirection = [[void igTableFixColumnSortDirection(ImGuiTable* table,ImGuiTableColumn* column);]],
+		igTableGetColumnWidthAuto = [[float igTableGetColumnWidthAuto(ImGuiTable* table,ImGuiTableColumn* column);]],
+		igTableBeginRow = [[void igTableBeginRow(ImGuiTable* table);]],
+		igTableEndRow = [[void igTableEndRow(ImGuiTable* table);]],
+		igTableBeginCell = [[void igTableBeginCell(ImGuiTable* table,int column_n);]],
+		igTableEndCell = [[void igTableEndCell(ImGuiTable* table);]],
+		igTableGetCellBgRect = [[void igTableGetCellBgRect(ImRect *pOut,const ImGuiTable* table,int column_n);]],
+		igTableGetColumnName_TablePtr = [[const char* igTableGetColumnName_TablePtr(const ImGuiTable* table,int column_n);]],
+		igTableGetColumnResizeID = [[ImGuiID igTableGetColumnResizeID(ImGuiTable* table,int column_n,int instance_no);]],
+		igTableGetMaxColumnWidth = [[float igTableGetMaxColumnWidth(const ImGuiTable* table,int column_n);]],
+		igTableSetColumnWidthAutoSingle = [[void igTableSetColumnWidthAutoSingle(ImGuiTable* table,int column_n);]],
+		igTableSetColumnWidthAutoAll = [[void igTableSetColumnWidthAutoAll(ImGuiTable* table);]],
+		igTableRemove = [[void igTableRemove(ImGuiTable* table);]],
+		igTableGcCompactTransientBuffers_TablePtr = [[void igTableGcCompactTransientBuffers_TablePtr(ImGuiTable* table);]],
+		igTableGcCompactTransientBuffers_TableTempDataPtr = [[void igTableGcCompactTransientBuffers_TableTempDataPtr(ImGuiTableTempData* table);]],
+		igTableGcCompactSettings = [[void igTableGcCompactSettings();]],
+		igTableLoadSettings = [[void igTableLoadSettings(ImGuiTable* table);]],
+		igTableSaveSettings = [[void igTableSaveSettings(ImGuiTable* table);]],
+		igTableResetSettings = [[void igTableResetSettings(ImGuiTable* table);]],
+		igTableGetBoundSettings = [[ImGuiTableSettings* igTableGetBoundSettings(ImGuiTable* table);]],
+		igTableSettingsAddSettingsHandler = [[void igTableSettingsAddSettingsHandler();]],
+		igTableSettingsCreate = [[ImGuiTableSettings* igTableSettingsCreate(ImGuiID id,int columns_count);]],
+		igTableSettingsFindByID = [[ImGuiTableSettings* igTableSettingsFindByID(ImGuiID id);]],
+		igGetCurrentTabBar = [[ImGuiTabBar* igGetCurrentTabBar();]],
+		igBeginTabBarEx = [[_Bool igBeginTabBarEx(ImGuiTabBar* tab_bar,const ImRect bb,ImGuiTabBarFlags flags);]],
+		igTabBarFindTabByID = [[ImGuiTabItem* igTabBarFindTabByID(ImGuiTabBar* tab_bar,ImGuiID tab_id);]],
+		igTabBarFindTabByOrder = [[ImGuiTabItem* igTabBarFindTabByOrder(ImGuiTabBar* tab_bar,int order);]],
+		igTabBarFindMostRecentlySelectedTabForActiveWindow = [[ImGuiTabItem* igTabBarFindMostRecentlySelectedTabForActiveWindow(ImGuiTabBar* tab_bar);]],
+		igTabBarGetCurrentTab = [[ImGuiTabItem* igTabBarGetCurrentTab(ImGuiTabBar* tab_bar);]],
+		igTabBarGetTabOrder = [[int igTabBarGetTabOrder(ImGuiTabBar* tab_bar,ImGuiTabItem* tab);]],
+		igTabBarGetTabName = [[const char* igTabBarGetTabName(ImGuiTabBar* tab_bar,ImGuiTabItem* tab);]],
+		igTabBarAddTab = [[void igTabBarAddTab(ImGuiTabBar* tab_bar,ImGuiTabItemFlags tab_flags,ImGuiWindow* window);]],
+		igTabBarRemoveTab = [[void igTabBarRemoveTab(ImGuiTabBar* tab_bar,ImGuiID tab_id);]],
+		igTabBarCloseTab = [[void igTabBarCloseTab(ImGuiTabBar* tab_bar,ImGuiTabItem* tab);]],
+		igTabBarQueueFocus = [[void igTabBarQueueFocus(ImGuiTabBar* tab_bar,ImGuiTabItem* tab);]],
+		igTabBarQueueReorder = [[void igTabBarQueueReorder(ImGuiTabBar* tab_bar,ImGuiTabItem* tab,int offset);]],
+		igTabBarQueueReorderFromMousePos = [[void igTabBarQueueReorderFromMousePos(ImGuiTabBar* tab_bar,ImGuiTabItem* tab,ImVec2 mouse_pos);]],
+		igTabBarProcessReorder = [[_Bool igTabBarProcessReorder(ImGuiTabBar* tab_bar);]],
+		igTabItemEx = [[_Bool igTabItemEx(ImGuiTabBar* tab_bar,const char* label,_Bool* p_open,ImGuiTabItemFlags flags,ImGuiWindow* docked_window);]],
+		igTabItemCalcSize_Str = [[void igTabItemCalcSize_Str(ImVec2 *pOut,const char* label,_Bool has_close_button_or_unsaved_marker);]],
+		igTabItemCalcSize_WindowPtr = [[void igTabItemCalcSize_WindowPtr(ImVec2 *pOut,ImGuiWindow* window);]],
+		igTabItemBackground = [[void igTabItemBackground(ImDrawList* draw_list,const ImRect bb,ImGuiTabItemFlags flags,ImU32 col);]],
+		igTabItemLabelAndCloseButton = [[void igTabItemLabelAndCloseButton(ImDrawList* draw_list,const ImRect bb,ImGuiTabItemFlags flags,ImVec2 frame_padding,const char* label,ImGuiID tab_id,ImGuiID close_button_id,_Bool is_contents_visible,_Bool* out_just_closed,_Bool* out_text_clipped);]],
+		igRenderText = [[void igRenderText(ImVec2 pos,const char* text,const char* text_end,_Bool hide_text_after_hash);]],
+		igRenderTextWrapped = [[void igRenderTextWrapped(ImVec2 pos,const char* text,const char* text_end,float wrap_width);]],
+		igRenderTextClipped = [[void igRenderTextClipped(const ImVec2 pos_min,const ImVec2 pos_max,const char* text,const char* text_end,const ImVec2* text_size_if_known,const ImVec2 align,const ImRect* clip_rect);]],
+		igRenderTextClippedEx = [[void igRenderTextClippedEx(ImDrawList* draw_list,const ImVec2 pos_min,const ImVec2 pos_max,const char* text,const char* text_end,const ImVec2* text_size_if_known,const ImVec2 align,const ImRect* clip_rect);]],
+		igRenderTextEllipsis = [[void igRenderTextEllipsis(ImDrawList* draw_list,const ImVec2 pos_min,const ImVec2 pos_max,float clip_max_x,float ellipsis_max_x,const char* text,const char* text_end,const ImVec2* text_size_if_known);]],
+		igRenderFrame = [[void igRenderFrame(ImVec2 p_min,ImVec2 p_max,ImU32 fill_col,_Bool border,float rounding);]],
+		igRenderFrameBorder = [[void igRenderFrameBorder(ImVec2 p_min,ImVec2 p_max,float rounding);]],
+		igRenderColorRectWithAlphaCheckerboard = [[void igRenderColorRectWithAlphaCheckerboard(ImDrawList* draw_list,ImVec2 p_min,ImVec2 p_max,ImU32 fill_col,float grid_step,ImVec2 grid_off,float rounding,ImDrawFlags flags);]],
+		igRenderNavHighlight = [[void igRenderNavHighlight(const ImRect bb,ImGuiID id,ImGuiNavHighlightFlags flags);]],
+		igFindRenderedTextEnd = [[const char* igFindRenderedTextEnd(const char* text,const char* text_end);]],
+		igRenderMouseCursor = [[void igRenderMouseCursor(ImVec2 pos,float scale,ImGuiMouseCursor mouse_cursor,ImU32 col_fill,ImU32 col_border,ImU32 col_shadow);]],
+		igRenderArrow = [[void igRenderArrow(ImDrawList* draw_list,ImVec2 pos,ImU32 col,ImGuiDir dir,float scale);]],
+		igRenderBullet = [[void igRenderBullet(ImDrawList* draw_list,ImVec2 pos,ImU32 col);]],
+		igRenderCheckMark = [[void igRenderCheckMark(ImDrawList* draw_list,ImVec2 pos,ImU32 col,float sz);]],
+		igRenderArrowPointingAt = [[void igRenderArrowPointingAt(ImDrawList* draw_list,ImVec2 pos,ImVec2 half_sz,ImGuiDir direction,ImU32 col);]],
+		igRenderArrowDockMenu = [[void igRenderArrowDockMenu(ImDrawList* draw_list,ImVec2 p_min,float sz,ImU32 col);]],
+		igRenderRectFilledRangeH = [[void igRenderRectFilledRangeH(ImDrawList* draw_list,const ImRect rect,ImU32 col,float x_start_norm,float x_end_norm,float rounding);]],
+		igRenderRectFilledWithHole = [[void igRenderRectFilledWithHole(ImDrawList* draw_list,const ImRect outer,const ImRect inner,ImU32 col,float rounding);]],
+		igCalcRoundingFlagsForRectInRect = [[ImDrawFlags igCalcRoundingFlagsForRectInRect(const ImRect r_in,const ImRect r_outer,float threshold);]],
+		igTextEx = [[void igTextEx(const char* text,const char* text_end,ImGuiTextFlags flags);]],
+		igButtonEx = [[_Bool igButtonEx(const char* label,const ImVec2 size_arg,ImGuiButtonFlags flags);]],
+		igArrowButtonEx = [[_Bool igArrowButtonEx(const char* str_id,ImGuiDir dir,ImVec2 size_arg,ImGuiButtonFlags flags);]],
+		igImageButtonEx = [[_Bool igImageButtonEx(ImGuiID id,ImTextureID texture_id,const ImVec2 image_size,const ImVec2 uv0,const ImVec2 uv1,const ImVec4 bg_col,const ImVec4 tint_col,ImGuiButtonFlags flags);]],
+		igSeparatorEx = [[void igSeparatorEx(ImGuiSeparatorFlags flags,float thickness);]],
+		igSeparatorTextEx = [[void igSeparatorTextEx(ImGuiID id,const char* label,const char* label_end,float extra_width);]],
+		igCheckboxFlags_S64Ptr = [[_Bool igCheckboxFlags_S64Ptr(const char* label,ImS64* flags,ImS64 flags_value);]],
+		igCheckboxFlags_U64Ptr = [[_Bool igCheckboxFlags_U64Ptr(const char* label,ImU64* flags,ImU64 flags_value);]],
+		igCloseButton = [[_Bool igCloseButton(ImGuiID id,const ImVec2 pos);]],
+		igCollapseButton = [[_Bool igCollapseButton(ImGuiID id,const ImVec2 pos,ImGuiDockNode* dock_node);]],
+		igScrollbar = [[void igScrollbar(ImGuiAxis axis);]],
+		igScrollbarEx = [[_Bool igScrollbarEx(const ImRect bb,ImGuiID id,ImGuiAxis axis,ImS64* p_scroll_v,ImS64 avail_v,ImS64 contents_v,ImDrawFlags flags);]],
+		igGetWindowScrollbarRect = [[void igGetWindowScrollbarRect(ImRect *pOut,ImGuiWindow* window,ImGuiAxis axis);]],
+		igGetWindowScrollbarID = [[ImGuiID igGetWindowScrollbarID(ImGuiWindow* window,ImGuiAxis axis);]],
+		igGetWindowResizeCornerID = [[ImGuiID igGetWindowResizeCornerID(ImGuiWindow* window,int n);]],
+		igGetWindowResizeBorderID = [[ImGuiID igGetWindowResizeBorderID(ImGuiWindow* window,ImGuiDir dir);]],
+		igButtonBehavior = [[_Bool igButtonBehavior(const ImRect bb,ImGuiID id,_Bool* out_hovered,_Bool* out_held,ImGuiButtonFlags flags);]],
+		igDragBehavior = [[_Bool igDragBehavior(ImGuiID id,ImGuiDataType data_type,void* p_v,float v_speed,const void* p_min,const void* p_max,const char* format,ImGuiSliderFlags flags);]],
+		igSliderBehavior = [[_Bool igSliderBehavior(const ImRect bb,ImGuiID id,ImGuiDataType data_type,void* p_v,const void* p_min,const void* p_max,const char* format,ImGuiSliderFlags flags,ImRect* out_grab_bb);]],
+		igSplitterBehavior = [[_Bool igSplitterBehavior(const ImRect bb,ImGuiID id,ImGuiAxis axis,float* size1,float* size2,float min_size1,float min_size2,float hover_extend,float hover_visibility_delay,ImU32 bg_col);]],
+		igTreeNodeBehavior = [[_Bool igTreeNodeBehavior(ImGuiID id,ImGuiTreeNodeFlags flags,const char* label,const char* label_end);]],
+		igTreePushOverrideID = [[void igTreePushOverrideID(ImGuiID id);]],
+		igTreeNodeSetOpen = [[void igTreeNodeSetOpen(ImGuiID id,_Bool open);]],
+		igTreeNodeUpdateNextOpen = [[_Bool igTreeNodeUpdateNextOpen(ImGuiID id,ImGuiTreeNodeFlags flags);]],
+		igSetNextItemSelectionUserData = [[void igSetNextItemSelectionUserData(ImGuiSelectionUserData selection_user_data);]],
+		igDataTypeGetInfo = [[const ImGuiDataTypeInfo* igDataTypeGetInfo(ImGuiDataType data_type);]],
+		igDataTypeFormatString = [[int igDataTypeFormatString(char* buf,int buf_size,ImGuiDataType data_type,const void* p_data,const char* format);]],
+		igDataTypeApplyOp = [[void igDataTypeApplyOp(ImGuiDataType data_type,int op,void* output,const void* arg_1,const void* arg_2);]],
+		igDataTypeApplyFromText = [[_Bool igDataTypeApplyFromText(const char* buf,ImGuiDataType data_type,void* p_data,const char* format);]],
+		igDataTypeCompare = [[int igDataTypeCompare(ImGuiDataType data_type,const void* arg_1,const void* arg_2);]],
+		igDataTypeClamp = [[_Bool igDataTypeClamp(ImGuiDataType data_type,void* p_data,const void* p_min,const void* p_max);]],
+		igInputTextEx = [[_Bool igInputTextEx(const char* label,const char* hint,char* buf,int buf_size,const ImVec2 size_arg,ImGuiInputTextFlags flags,ImGuiInputTextCallback callback,void* user_data);]],
+		igInputTextDeactivateHook = [[void igInputTextDeactivateHook(ImGuiID id);]],
+		igTempInputText = [[_Bool igTempInputText(const ImRect bb,ImGuiID id,const char* label,char* buf,int buf_size,ImGuiInputTextFlags flags);]],
+		igTempInputScalar = [[_Bool igTempInputScalar(const ImRect bb,ImGuiID id,const char* label,ImGuiDataType data_type,void* p_data,const char* format,const void* p_clamp_min,const void* p_clamp_max);]],
+		igTempInputIsActive = [[_Bool igTempInputIsActive(ImGuiID id);]],
+		igGetInputTextState = [[ImGuiInputTextState* igGetInputTextState(ImGuiID id);]],
+		igColorTooltip = [[void igColorTooltip(const char* text,const float* col,ImGuiColorEditFlags flags);]],
+		igColorEditOptionsPopup = [[void igColorEditOptionsPopup(const float* col,ImGuiColorEditFlags flags);]],
+		igColorPickerOptionsPopup = [[void igColorPickerOptionsPopup(const float* ref_col,ImGuiColorEditFlags flags);]],
+		float = [[int igPlotEx(ImGuiPlotType plot_type,const char* label,float(*values_getter)(void* data,int idx),void* data,int values_count,int values_offset,const char* overlay_text,float scale_min,float scale_max,const ImVec2 size_arg);]],
+		igShadeVertsLinearColorGradientKeepAlpha = [[void igShadeVertsLinearColorGradientKeepAlpha(ImDrawList* draw_list,int vert_start_idx,int vert_end_idx,ImVec2 gradient_p0,ImVec2 gradient_p1,ImU32 col0,ImU32 col1);]],
+		igShadeVertsLinearUV = [[void igShadeVertsLinearUV(ImDrawList* draw_list,int vert_start_idx,int vert_end_idx,const ImVec2 a,const ImVec2 b,const ImVec2 uv_a,const ImVec2 uv_b,_Bool clamp);]],
+		igShadeVertsTransformPos = [[void igShadeVertsTransformPos(ImDrawList* draw_list,int vert_start_idx,int vert_end_idx,const ImVec2 pivot_in,float cos_a,float sin_a,const ImVec2 pivot_out);]],
+		igGcCompactTransientMiscBuffers = [[void igGcCompactTransientMiscBuffers();]],
+		igGcCompactTransientWindowBuffers = [[void igGcCompactTransientWindowBuffers(ImGuiWindow* window);]],
+		igGcAwakeTransientWindowBuffers = [[void igGcAwakeTransientWindowBuffers(ImGuiWindow* window);]],
+		igDebugLog = [[void igDebugLog(const char* fmt,...);]],
+		igDebugLogV = [[void igDebugLogV(const char* fmt,va_list args);]],
+		igDebugAllocHook = [[void igDebugAllocHook(ImGuiDebugAllocInfo* info,int frame_count,void* ptr,size_t size);]],
+		igErrorCheckEndFrameRecover = [[void igErrorCheckEndFrameRecover(ImGuiErrorLogCallback log_callback,void* user_data);]],
+		igErrorCheckEndWindowRecover = [[void igErrorCheckEndWindowRecover(ImGuiErrorLogCallback log_callback,void* user_data);]],
+		igErrorCheckUsingSetCursorPosToExtendParentBoundaries = [[void igErrorCheckUsingSetCursorPosToExtendParentBoundaries();]],
+		igDebugDrawCursorPos = [[void igDebugDrawCursorPos(ImU32 col);]],
+		igDebugDrawLineExtents = [[void igDebugDrawLineExtents(ImU32 col);]],
+		igDebugDrawItemRect = [[void igDebugDrawItemRect(ImU32 col);]],
+		igDebugLocateItem = [[void igDebugLocateItem(ImGuiID target_id);]],
+		igDebugLocateItemOnHover = [[void igDebugLocateItemOnHover(ImGuiID target_id);]],
+		igDebugLocateItemResolveWithLastItem = [[void igDebugLocateItemResolveWithLastItem();]],
+		igDebugBreakClearData = [[void igDebugBreakClearData();]],
+		igDebugBreakButton = [[_Bool igDebugBreakButton(const char* label,const char* description_of_location);]],
+		igDebugBreakButtonTooltip = [[void igDebugBreakButtonTooltip(_Bool keyboard_only,const char* description_of_location);]],
+		igShowFontAtlas = [[void igShowFontAtlas(ImFontAtlas* atlas);]],
+		igDebugHookIdInfo = [[void igDebugHookIdInfo(ImGuiID id,ImGuiDataType data_type,const void* data_id,const void* data_id_end);]],
+		igDebugNodeColumns = [[void igDebugNodeColumns(ImGuiOldColumns* columns);]],
+		igDebugNodeDockNode = [[void igDebugNodeDockNode(ImGuiDockNode* node,const char* label);]],
+		igDebugNodeDrawList = [[void igDebugNodeDrawList(ImGuiWindow* window,ImGuiViewportP* viewport,const ImDrawList* draw_list,const char* label);]],
+		igDebugNodeDrawCmdShowMeshAndBoundingBox = [[void igDebugNodeDrawCmdShowMeshAndBoundingBox(ImDrawList* out_draw_list,const ImDrawList* draw_list,const ImDrawCmd* draw_cmd,_Bool show_mesh,_Bool show_aabb);]],
+		igDebugNodeFont = [[void igDebugNodeFont(ImFont* font);]],
+		igDebugNodeFontGlyph = [[void igDebugNodeFontGlyph(ImFont* font,const ImFontGlyph* glyph);]],
+		igDebugNodeStorage = [[void igDebugNodeStorage(ImGuiStorage* storage,const char* label);]],
+		igDebugNodeTabBar = [[void igDebugNodeTabBar(ImGuiTabBar* tab_bar,const char* label);]],
+		igDebugNodeTable = [[void igDebugNodeTable(ImGuiTable* table);]],
+		igDebugNodeTableSettings = [[void igDebugNodeTableSettings(ImGuiTableSettings* settings);]],
+		igDebugNodeInputTextState = [[void igDebugNodeInputTextState(ImGuiInputTextState* state);]],
+		igDebugNodeTypingSelectState = [[void igDebugNodeTypingSelectState(ImGuiTypingSelectState* state);]],
+		igDebugNodeWindow = [[void igDebugNodeWindow(ImGuiWindow* window,const char* label);]],
+		igDebugNodeWindowSettings = [[void igDebugNodeWindowSettings(ImGuiWindowSettings* settings);]],
+		igDebugNodeWindowsList = [[void igDebugNodeWindowsList(ImVector/*<ImGuiWindowPtr>*/* windows,const char* label);]],
+		igDebugNodeWindowsListByBeginStackParent = [[void igDebugNodeWindowsListByBeginStackParent(ImGuiWindow** windows,int windows_size,ImGuiWindow* parent_in_begin_stack);]],
+		igDebugNodeViewport = [[void igDebugNodeViewport(ImGuiViewportP* viewport);]],
+		igDebugRenderKeyboardPreview = [[void igDebugRenderKeyboardPreview(ImDrawList* draw_list);]],
+		igDebugRenderViewportThumbnail = [[void igDebugRenderViewportThumbnail(ImDrawList* draw_list,ImGuiViewportP* viewport,const ImRect bb);]],
+		igImFontAtlasGetBuilderForStbTruetype = [[const ImFontBuilderIO* igImFontAtlasGetBuilderForStbTruetype();]],
+		igImFontAtlasUpdateConfigDataPointers = [[void igImFontAtlasUpdateConfigDataPointers(ImFontAtlas* atlas);]],
+		igImFontAtlasBuildInit = [[void igImFontAtlasBuildInit(ImFontAtlas* atlas);]],
+		igImFontAtlasBuildSetupFont = [[void igImFontAtlasBuildSetupFont(ImFontAtlas* atlas,ImFont* font,ImFontConfig* font_config,float ascent,float descent);]],
+		igImFontAtlasBuildPackCustomRects = [[void igImFontAtlasBuildPackCustomRects(ImFontAtlas* atlas,void* stbrp_context_opaque);]],
+		igImFontAtlasBuildFinish = [[void igImFontAtlasBuildFinish(ImFontAtlas* atlas);]],
+		igImFontAtlasBuildRender8bppRectFromString = [[void igImFontAtlasBuildRender8bppRectFromString(ImFontAtlas* atlas,int x,int y,int w,int h,const char* in_str,char in_marker_char,unsigned char in_marker_pixel_value);]],
+		igImFontAtlasBuildRender32bppRectFromString = [[void igImFontAtlasBuildRender32bppRectFromString(ImFontAtlas* atlas,int x,int y,int w,int h,const char* in_str,char in_marker_char,unsigned int in_marker_pixel_value);]],
+		igImFontAtlasBuildMultiplyCalcLookupTable = [[void igImFontAtlasBuildMultiplyCalcLookupTable(unsigned char out_table[256],float in_multiply_factor);]],
+		igImFontAtlasBuildMultiplyRectAlpha8 = [[void igImFontAtlasBuildMultiplyRectAlpha8(const unsigned char table[256],unsigned char* pixels,int x,int y,int w,int h,int stride);]],
+		igLogText = [[void igLogText(const char *fmt, ...);]],
+		ImGuiTextBuffer_appendf = [[void ImGuiTextBuffer_appendf(struct ImGuiTextBuffer *buffer, const char *fmt, ...);]],
+		igGET_FLT_MAX = [[float igGET_FLT_MAX();]],
+		igGET_FLT_MIN = [[float igGET_FLT_MIN();]],
+		ImVector_ImWchar_create = [[ImVector/*<ImWchar>*/* ImVector_ImWchar_create();]],
+		ImVector_ImWchar_destroy = [[void ImVector_ImWchar_destroy(ImVector/*<ImWchar>*/* self);]],
+		ImVector_ImWchar_Init = [[void ImVector_ImWchar_Init(ImVector/*<ImWchar>*/* p);]],
+		ImVector_ImWchar_UnInit = [[void ImVector_ImWchar_UnInit(ImVector/*<ImWchar>*/* p);]],
+		ImGui_ImplSDL2_InitForOpenGL = [[_Bool ImGui_ImplSDL2_InitForOpenGL(SDL_Window* window, void* sdl_gl_context);]],
+		ImGui_ImplSDL2_InitForVulkan = [[_Bool ImGui_ImplSDL2_InitForVulkan(SDL_Window* window);]],
+		ImGui_ImplSDL2_InitForD3D = [[_Bool ImGui_ImplSDL2_InitForD3D(SDL_Window* window);]],
+		ImGui_ImplSDL2_InitForMetal = [[_Bool ImGui_ImplSDL2_InitForMetal(SDL_Window* window);]],
+		ImGui_ImplSDL2_InitForSDLRenderer = [[_Bool ImGui_ImplSDL2_InitForSDLRenderer(SDL_Window* window, SDL_Renderer* renderer);]],
+		ImGui_ImplSDL2_InitForOther = [[_Bool ImGui_ImplSDL2_InitForOther(SDL_Window* window);]],
+		ImGui_ImplSDL2_Shutdown = [[void ImGui_ImplSDL2_Shutdown();]],
+		ImGui_ImplSDL2_NewFrame = [[void ImGui_ImplSDL2_NewFrame();]],
+		ImGui_ImplSDL2_ProcessEvent = [[_Bool ImGui_ImplSDL2_ProcessEvent(const SDL_Event* event);]],
+
+		ImGui_ImplSDL2_SetGamepadMode = [[void ImGui_ImplSDL2_SetGamepadMode(ImGui_ImplSDL2_GamepadMode mode, struct _SDL_GameController** manual_gamepads_array, int manual_gamepads_count);]],
+		ImGui_ImplOpenGL3_Init = [[_Bool ImGui_ImplOpenGL3_Init(const char* glsl_version);]],
+		ImGui_ImplOpenGL3_Shutdown = [[void ImGui_ImplOpenGL3_Shutdown();]],
+		ImGui_ImplOpenGL3_NewFrame = [[void ImGui_ImplOpenGL3_NewFrame();]],
+		ImGui_ImplOpenGL3_RenderDrawData = [[void ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data);]],
+		ImGui_ImplOpenGL3_CreateFontsTexture = [[_Bool ImGui_ImplOpenGL3_CreateFontsTexture();]],
+		ImGui_ImplOpenGL3_DestroyFontsTexture = [[void ImGui_ImplOpenGL3_DestroyFontsTexture();]],
+		ImGui_ImplOpenGL3_CreateDeviceObjects = [[_Bool ImGui_ImplOpenGL3_CreateDeviceObjects();]],
+		ImGui_ImplOpenGL3_DestroyDeviceObjects = [[void ImGui_ImplOpenGL3_DestroyDeviceObjects();]],
+	},
+}
+return wrapper

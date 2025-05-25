@@ -1,151 +1,138 @@
 local ffi = require 'ffi'
-
--- This causes a require loop ... TODO pick out the mutual components of the loop ...
--- Until then I'll just do the require in the function.
---require 'ffi.req' 'c.string'	-- strerror
-
--- comments
-
---[[
-/* #define errno (*__error()) ### string, not number "(*__error())" */
---]]
-
--- typedefs
-
-require 'ffi.req' 'c.sys._types._errno_t'
-
+ffi.cdef[[
+/* + BEGIN <errno.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/errno.h */
+/* ++ BEGIN <sys/errno.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/errno.h */
+/* +++ BEGIN <sys/cdefs.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h */
+]] require 'ffi.req' 'c.sys.cdefs' ffi.cdef[[
+/* +++ END <sys/cdefs.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h */
+/* +++ BEGIN <sys/_types/_errno_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_errno_t.h */
+]] require 'ffi.req' 'c.sys._types._errno_t' ffi.cdef[[
+/* +++ END <sys/_types/_errno_t.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_errno_t.h */
+extern int * __error(void);
+/* ++ END <sys/errno.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/errno.h */
+/* #define errno (*__error()) ### define is not number */
+enum { EPERM = 1 };
+enum { ENOENT = 2 };
+enum { ESRCH = 3 };
+enum { EINTR = 4 };
+enum { EIO = 5 };
+enum { ENXIO = 6 };
+enum { E2BIG = 7 };
+enum { ENOEXEC = 8 };
+enum { EBADF = 9 };
+enum { ECHILD = 10 };
+enum { EDEADLK = 11 };
+enum { ENOMEM = 12 };
+enum { EACCES = 13 };
+enum { EFAULT = 14 };
+enum { ENOTBLK = 15 };
+enum { EBUSY = 16 };
+enum { EEXIST = 17 };
+enum { EXDEV = 18 };
+enum { ENODEV = 19 };
+enum { ENOTDIR = 20 };
+enum { EISDIR = 21 };
+enum { EINVAL = 22 };
+enum { ENFILE = 23 };
+enum { EMFILE = 24 };
+enum { ENOTTY = 25 };
+enum { ETXTBSY = 26 };
+enum { EFBIG = 27 };
+enum { ENOSPC = 28 };
+enum { ESPIPE = 29 };
+enum { EROFS = 30 };
+enum { EMLINK = 31 };
+enum { EPIPE = 32 };
+enum { EDOM = 33 };
+enum { ERANGE = 34 };
+enum { EAGAIN = 35 };
+enum { EWOULDBLOCK = 35 };
+enum { EINPROGRESS = 36 };
+enum { EALREADY = 37 };
+enum { ENOTSOCK = 38 };
+enum { EDESTADDRREQ = 39 };
+enum { EMSGSIZE = 40 };
+enum { EPROTOTYPE = 41 };
+enum { ENOPROTOOPT = 42 };
+enum { EPROTONOSUPPORT = 43 };
+enum { ESOCKTNOSUPPORT = 44 };
+enum { ENOTSUP = 45 };
+enum { EPFNOSUPPORT = 46 };
+enum { EAFNOSUPPORT = 47 };
+enum { EADDRINUSE = 48 };
+enum { EADDRNOTAVAIL = 49 };
+enum { ENETDOWN = 50 };
+enum { ENETUNREACH = 51 };
+enum { ENETRESET = 52 };
+enum { ECONNABORTED = 53 };
+enum { ECONNRESET = 54 };
+enum { ENOBUFS = 55 };
+enum { EISCONN = 56 };
+enum { ENOTCONN = 57 };
+enum { ESHUTDOWN = 58 };
+enum { ETOOMANYREFS = 59 };
+enum { ETIMEDOUT = 60 };
+enum { ECONNREFUSED = 61 };
+enum { ELOOP = 62 };
+enum { ENAMETOOLONG = 63 };
+enum { EHOSTDOWN = 64 };
+enum { EHOSTUNREACH = 65 };
+enum { ENOTEMPTY = 66 };
+enum { EPROCLIM = 67 };
+enum { EUSERS = 68 };
+enum { EDQUOT = 69 };
+enum { ESTALE = 70 };
+enum { EREMOTE = 71 };
+enum { EBADRPC = 72 };
+enum { ERPCMISMATCH = 73 };
+enum { EPROGUNAVAIL = 74 };
+enum { EPROGMISMATCH = 75 };
+enum { EPROCUNAVAIL = 76 };
+enum { ENOLCK = 77 };
+enum { ENOSYS = 78 };
+enum { EFTYPE = 79 };
+enum { EAUTH = 80 };
+enum { ENEEDAUTH = 81 };
+enum { EPWROFF = 82 };
+enum { EDEVERR = 83 };
+enum { EOVERFLOW = 84 };
+enum { EBADEXEC = 85 };
+enum { EBADARCH = 86 };
+enum { ESHLIBVERS = 87 };
+enum { EBADMACHO = 88 };
+enum { ECANCELED = 89 };
+enum { EIDRM = 90 };
+enum { ENOMSG = 91 };
+enum { EILSEQ = 92 };
+enum { ENOATTR = 93 };
+enum { EBADMSG = 94 };
+enum { EMULTIHOP = 95 };
+enum { ENODATA = 96 };
+enum { ENOLINK = 97 };
+enum { ENOSR = 98 };
+enum { ENOSTR = 99 };
+enum { EPROTO = 100 };
+enum { ETIME = 101 };
+enum { EOPNOTSUPP = 102 };
+enum { ENOPOLICY = 103 };
+enum { ENOTRECOVERABLE = 104 };
+enum { EOWNERDEAD = 105 };
+enum { EQFULL = 106 };
+enum { ELAST = 106 };
+/* + END <errno.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/errno.h */
+]]
 local wrapper
-wrapper = require 'ffi.libwrapper'{
-	defs = {
-
-		-- enums
-
-		EPERM = 1,
-		ENOENT = 2,
-		ESRCH = 3,
-		EINTR = 4,
-		EIO = 5,
-		ENXIO = 6,
-		E2BIG = 7,
-		ENOEXEC = 8,
-		EBADF = 9,
-		ECHILD = 10,
-		EDEADLK = 11,
-		ENOMEM = 12,
-		EACCES = 13,
-		EFAULT = 14,
-		ENOTBLK = 15,
-		EBUSY = 16,
-		EEXIST = 17,
-		EXDEV = 18,
-		ENODEV = 19,
-		ENOTDIR = 20,
-		EISDIR = 21,
-		EINVAL = 22,
-		ENFILE = 23,
-		EMFILE = 24,
-		ENOTTY = 25,
-		ETXTBSY = 26,
-		EFBIG = 27,
-		ENOSPC = 28,
-		ESPIPE = 29,
-		EROFS = 30,
-		EMLINK = 31,
-		EPIPE = 32,
-		EDOM = 33,
-		ERANGE = 34,
-		EAGAIN = 35,
-		EWOULDBLOCK = 35,
-		EINPROGRESS = 36,
-		EALREADY = 37,
-		ENOTSOCK = 38,
-		EDESTADDRREQ = 39,
-		EMSGSIZE = 40,
-		EPROTOTYPE = 41,
-		ENOPROTOOPT = 42,
-		EPROTONOSUPPORT = 43,
-		ESOCKTNOSUPPORT = 44,
-		ENOTSUP = 45,
-		EPFNOSUPPORT = 46,
-		EAFNOSUPPORT = 47,
-		EADDRINUSE = 48,
-		EADDRNOTAVAIL = 49,
-		ENETDOWN = 50,
-		ENETUNREACH = 51,
-		ENETRESET = 52,
-		ECONNABORTED = 53,
-		ECONNRESET = 54,
-		ENOBUFS = 55,
-		EISCONN = 56,
-		ENOTCONN = 57,
-		ESHUTDOWN = 58,
-		ETOOMANYREFS = 59,
-		ETIMEDOUT = 60,
-		ECONNREFUSED = 61,
-		ELOOP = 62,
-		ENAMETOOLONG = 63,
-		EHOSTDOWN = 64,
-		EHOSTUNREACH = 65,
-		ENOTEMPTY = 66,
-		EPROCLIM = 67,
-		EUSERS = 68,
-		EDQUOT = 69,
-		ESTALE = 70,
-		EREMOTE = 71,
-		EBADRPC = 72,
-		ERPCMISMATCH = 73,
-		EPROGUNAVAIL = 74,
-		EPROGMISMATCH = 75,
-		EPROCUNAVAIL = 76,
-		ENOLCK = 77,
-		ENOSYS = 78,
-		EFTYPE = 79,
-		EAUTH = 80,
-		ENEEDAUTH = 81,
-		EPWROFF = 82,
-		EDEVERR = 83,
-		EOVERFLOW = 84,
-		EBADEXEC = 85,
-		EBADARCH = 86,
-		ESHLIBVERS = 87,
-		EBADMACHO = 88,
-		ECANCELED = 89,
-		EIDRM = 90,
-		ENOMSG = 91,
-		EILSEQ = 92,
-		ENOATTR = 93,
-		EBADMSG = 94,
-		EMULTIHOP = 95,
-		ENODATA = 96,
-		ENOLINK = 97,
-		ENOSR = 98,
-		ENOSTR = 99,
-		EPROTO = 100,
-		ETIME = 101,
-		EOPNOTSUPP = 102,
-		ENOPOLICY = 103,
-		ENOTRECOVERABLE = 104,
-		EOWNERDEAD = 105,
-		EQFULL = 106,
-		ELAST = 106,
-
-		-- functions
-
-		__error = [[int * __error();]],
-
-		errno = function()
-			return function()
-				return wrapper.__error()[0]
-			end
-		end,
-		str = function()
-			require 'ffi.req' 'c.string'	-- strerror
-			return function()
-				local sp = ffi.C.strerror(wrapper.errno())
-				if sp == nil then return '(null)' end
-				return ffi.string(sp)
-			end
-		end,
-	},
-}
+wrapper = setmetatable({
+	errno = function()
+		return ffi.C.__error()[0]
+	end,
+	str = function()
+		require 'ffi.req' 'c.string'	-- strerror
+		local sp = ffi.C.strerror(wrapper.errno())
+		if sp == nil then return '(null)' end
+		return ffi.string(sp)
+	end,
+}, {
+	__index = ffi.C,
+})
 return wrapper

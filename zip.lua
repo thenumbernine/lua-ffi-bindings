@@ -4,9 +4,6 @@ local ffi = require 'ffi'
 
 --[[
 /* #define LIBZIP_VERSION "1.7.3" ### string, not number "\"1.7.3\"" */
-/* #define ZIP_UINT32_MAX	 0xffffffffLU ### string, not number "0xffffffffLU" */
-/* #define ZIP_INT64_MAX	 0x7fffffffffffffffLL ### string, not number "9.2233720368548e+18" */
-/* #define ZIP_UINT64_MAX	 0xffffffffffffffffULL ### string, not number "0xffffffffffffffffULL" */
 /* #define ZIP_EXTERN __attribute__((visibility("default"))) ### string, not number "__attribute__((visibility(\"default\")))" */
 /* #define ZIP_OPSYS_DEFAULT ZIP_OPSYS_UNIX ### string, not number "ZIP_OPSYS_UNIX" */
 /* #define ZIP_SOURCE_SUPPORTS_READABLE	(ZIP_SOURCE_MAKE_COMMAND_BITMASK(ZIP_SOURCE_OPEN)                                           | ZIP_SOURCE_MAKE_COMMAND_BITMASK(ZIP_SOURCE_READ)                                           | ZIP_SOURCE_MAKE_COMMAND_BITMASK(ZIP_SOURCE_CLOSE)                                           | ZIP_SOURCE_MAKE_COMMAND_BITMASK(ZIP_SOURCE_STAT)                                           | ZIP_SOURCE_MAKE_COMMAND_BITMASK(ZIP_SOURCE_ERROR)                                           | ZIP_SOURCE_MAKE_COMMAND_BITMASK(ZIP_SOURCE_FREE)) ### string, not number "(ZIP_SOURCE_MAKE_COMMAND_BITMASK(ZIP_SOURCE_OPEN)                                           | ZIP_SOURCE_MAKE_COMMAND_BITMASK(ZIP_SOURCE_READ)                                           | ZIP_SOURCE_MAKE_COMMAND_BITMASK(ZIP_SOURCE_CLOSE)                                           | ZIP_SOURCE_MAKE_COMMAND_BITMASK(ZIP_SOURCE_STAT)                                           | ZIP_SOURCE_MAKE_COMMAND_BITMASK(ZIP_SOURCE_ERROR)                                           | ZIP_SOURCE_MAKE_COMMAND_BITMASK(ZIP_SOURCE_FREE))" */
@@ -30,6 +27,28 @@ typedef int32_t zip_int32_t;
 typedef uint32_t zip_uint32_t;
 typedef int64_t zip_int64_t;
 typedef uint64_t zip_uint64_t;
+enum zip_source_cmd {
+	ZIP_SOURCE_OPEN,
+	ZIP_SOURCE_READ,
+	ZIP_SOURCE_CLOSE,
+	ZIP_SOURCE_STAT,
+	ZIP_SOURCE_ERROR,
+	ZIP_SOURCE_FREE,
+	ZIP_SOURCE_SEEK,
+	ZIP_SOURCE_TELL,
+	ZIP_SOURCE_BEGIN_WRITE,
+	ZIP_SOURCE_COMMIT_WRITE,
+	ZIP_SOURCE_ROLLBACK_WRITE,
+	ZIP_SOURCE_WRITE,
+	ZIP_SOURCE_SEEK_WRITE,
+	ZIP_SOURCE_TELL_WRITE,
+	ZIP_SOURCE_SUPPORTS,
+	ZIP_SOURCE_REMOVE,
+	ZIP_SOURCE_RESERVED_1,
+	ZIP_SOURCE_BEGIN_WRITE_CLONING,
+	ZIP_SOURCE_ACCEPT_EMPTY,
+	ZIP_SOURCE_GET_FILE_ATTRIBUTES,
+};
 typedef enum zip_source_cmd zip_source_cmd_t;
 struct zip_source_args_seek {
 	zip_int64_t offset;
@@ -39,11 +58,11 @@ typedef struct zip_source_args_seek zip_source_args_seek_t;
 struct zip_error {
 	int zip_err;
 	int sys_err;
-	char * str;
+	char *str;
 };
 struct zip_stat {
 	zip_uint64_t valid;
-	const char * name;
+	char const *name;
 	zip_uint64_t index;
 	zip_uint64_t size;
 	zip_uint64_t comp_size;
@@ -54,7 +73,7 @@ struct zip_stat {
 	zip_uint32_t flags;
 };
 struct zip_buffer_fragment {
-	zip_uint8_t * data;
+	zip_uint8_t *data;
 	zip_uint64_t length;
 };
 struct zip_file_attributes {
@@ -82,13 +101,12 @@ typedef zip_int64_t (*zip_source_callback)(void *, void *, zip_uint64_t, zip_sou
 typedef void (*zip_progress_callback)(zip_t *, double, void *);
 typedef int (*zip_cancel_callback)(zip_t *, void *);
 typedef void (*zip_progress_callback_t)(double);
-enum zip_source_cmd { ZIP_SOURCE_OPEN, ZIP_SOURCE_READ, ZIP_SOURCE_CLOSE, ZIP_SOURCE_STAT, ZIP_SOURCE_ERROR, ZIP_SOURCE_FREE, ZIP_SOURCE_SEEK, ZIP_SOURCE_TELL, ZIP_SOURCE_BEGIN_WRITE, ZIP_SOURCE_COMMIT_WRITE, ZIP_SOURCE_ROLLBACK_WRITE, ZIP_SOURCE_WRITE, ZIP_SOURCE_SEEK_WRITE, ZIP_SOURCE_TELL_WRITE, ZIP_SOURCE_SUPPORTS, ZIP_SOURCE_REMOVE, ZIP_SOURCE_RESERVED_1, ZIP_SOURCE_BEGIN_WRITE_CLONING, ZIP_SOURCE_ACCEPT_EMPTY, ZIP_SOURCE_GET_FILE_ATTRIBUTES };
 ]]
 
-return require 'ffi.libwrapper'{
+local wrapper
+wrapper = require 'ffi.libwrapper'{
 	lib = require 'ffi.load' 'zip',
 	defs = {
-
 		-- enums
 
 		LIBZIP_VERSION_MAJOR = 1,
@@ -102,6 +120,7 @@ return require 'ffi.libwrapper'{
 		ZIP_UINT16_MAX = 65535,
 		ZIP_INT32_MIN = -1,
 		ZIP_INT32_MAX = 2147483647,
+		ZIP_UINT32_MAX = 0xffffffff,
 		ZIP_INT64_MIN = -1,
 		ZIP_CREATE = 1,
 		ZIP_EXCL = 2,
@@ -112,7 +131,6 @@ return require 'ffi.libwrapper'{
 		ZIP_FL_NODIR = 2,
 		ZIP_FL_COMPRESSED = 4,
 		ZIP_FL_UNCHANGED = 8,
-		ZIP_FL_RECOMPRESS = 16,
 		ZIP_FL_ENCRYPTED = 32,
 		ZIP_FL_ENC_GUESS = 0,
 		ZIP_FL_ENC_RAW = 64,
@@ -221,6 +239,7 @@ return require 'ffi.libwrapper'{
 		ZIP_FILE_ATTRIBUTES_VERSION_NEEDED = 0x0004,
 		ZIP_FILE_ATTRIBUTES_EXTERNAL_FILE_ATTRIBUTES = 0x0008,
 		ZIP_FILE_ATTRIBUTES_GENERAL_PURPOSE_BIT_FLAGS = 0x0010,
+		ZIP_FL_RECOMPRESS = 16,
 
 		-- functions
 
@@ -338,3 +357,11 @@ return require 'ffi.libwrapper'{
 		zip_encryption_method_supported = [[int zip_encryption_method_supported(zip_uint16_t method, int encode);]],
 	},
 }
+
+-- macros
+
+wrapper.LIBZIP_VERSION = "1.7.3"
+wrapper.ZIP_INT64_MAX = 0x7fffffffffffffffLL
+wrapper.ZIP_UINT64_MAX = 0xffffffffffffffffULL
+
+return wrapper

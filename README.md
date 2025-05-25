@@ -7,11 +7,11 @@ This repo contains luajit-C bindings for lots of common C files and some 3rd par
 
 # The Files:
 
-### ffi/req.lua
+### [`ffi/req.lua`](https://github.com/thenumbernine/lua-ffi-bindings/blob/master/req.lua)
 
-This is your `require` replacement.
+This is your `require` wrapper / replacement.
 
-It searches through require paths `ffi.$os.$arch.$req, ffi.$os.$req, ffi.$arch.$req, ffi.$req` in this order.
+It searches through require paths `ffi/$os/$arch/$req, ffi/$os/$req, ffi/$arch/$req, ffi/$req` in this order.
 
 This spares me from duplicating a lot of if-statements in tiny files in the base directory.
 
@@ -26,15 +26,21 @@ local OpenGL = require 'ffi.req' 'OpenGL'
 local OpenAL = require 'ffi.req' 'OpenAL'
 ```
 
-### ffi/load.lua
+Why did I do this instead of modifying `package.path` or `package.loaders`?
+Those would need a runtime-based configuration, based on your `ffi.os` and `ffi.arch`.
+Maybe I'll replace this system with a one-time initialization that does just that.  Hmm...
 
-This is your `ffi.load` replacement.
+TODO Also, legacy, I put all the binding code in `ffi/*`, but now that means `ffi/req.lua` etc is in the same place as `ffi/jpeg.lua` binding code, so maybe in the future I'll make the `ffi.req` root directory somewhere nested deeper, like `ffi/headers/` or something.
 
-This is used to retrieve .so/.dll/.dylib's, and used to resolve finding them.
+### [`ffi/load.lua`](https://github.com/thenumbernine/lua-ffi-bindings/blob/master/load.lua)
+
+This is your `ffi.load` wrapper / replacement.
+
+This is used to retrieve `.so`/`.dll`/`.dylib`'s, and used to resolve finding them.
 
 Just calling `require 'ffi.load' '$libname'` by default will return `ffi.load '$libname'`.
 
-From here LuaJIT has some builtin name resolutions (appending the correct .so/.dll/.dylib extension per-OS, prepending 'lib' for Linux, searching system library paths, searching `LD_LIBRARY_PATH`, etc...).
+From here LuaJIT has some builtin name resolutions (appending the correct `.so`/`.dll`/`.dylib` extension per-OS, prepending 'lib' for Linux, searching system library paths, searching `LD_LIBRARY_PATH`, etc...).
 
 However you can optionally use this table to override the search location for a specific OS or architecture:
 
@@ -43,7 +49,7 @@ If the value is a string then the name is directly replaced:
 require 'ffi.load' .openal = 'openal32'
 local lib = require 'ffi.load' 'openal'`
 ```
-... will assign lib to `ffi.load'openal32'` in all OS/arch cases.
+... will assign `lib` to `ffi.load'openal32'` in all OS/arch cases.
 
 If the value is a table then it is assumed to be key'd by OS, and optionally second key'd by arch (x86 vs x64).
 ``` Lua
@@ -58,31 +64,30 @@ local lib = require 'ffi.load' 'openal'`
 ```
 ... will assign lib to `ffi.load'C:\path\to\x86\openal32.dll'` on Windows x86, `ffi.load 'C:\path\to\x64\openal32.dll'` on Windows x64, and `ffi.load'openal'` on all other platforms.
 
+### [`ffi/libwrapper.lua`](https://github.com/thenumbernine/lua-ffi-bindings/blob/master/libwrapper.lua)
 
-### ffi/c/
+It's no secret that LuaJIT has a table limit to the number of definitions it can do.
+So to circumvent this I made `libwrapper`, for wrapping and storing enum and symbol prototypes in here, to be loaded only when the user requests them.
+
+### [`ffi/c/`](https://github.com/thenumbernine/lua-ffi-bindings/tree/master/c)
 
 I started porting C headers and putting them into the `c` folder, so that luajit code `require 'ffi.req' 'c.$header'` was equivalent to C code `#include <$header.h>`.
 (But, you ask, why only put the builtin C headers in the `c` folder when the other libraries' headers go in the root folder?  Good question.)
 
-### `ffi/$os/$arch/, ffi/$os/, ffi/$arch/`
-
-For multiple OS support (currently it is Linux from 64-bit Ubuntu, with a bit of 64-bit Windows 10) I am putting os-specific code in in `ffi.$os.$path`, and a file in `ffi.$path` to return the correct file based on your OS/etc.
-
-### ffi/cpp/
+### [`ffi/cpp/`](https://github.com/thenumbernine/lua-ffi-bindings/tree/master/cpp)
 
 I started adding my own attempt at STL classes ported to LuaJIT classes in "lua-ffi-bindings/cpp",
 so that luajit code `require 'ffi.cpp.$header'` was equivalent to C++ code `#include <$header>`.
 ... so far only "vector" exists but I might add more.
 
-### ffi/gcwrapper/gcwrapper.lua
+### [`ffi/gcwrapper/gcwrapper.lua`](https://github.com/thenumbernine/lua-ffi-bindings/tree/master/gcwrapper)
 
 A few of my Lua class wrappers all started to exhibit the same pattern for refcounting (lua-opencl) or automatically deleting resources (lua-gl) ...
 so I decided to put that behavior in one place, here.  Maybe I'll put that into its own unique repo soon.
 
 # Generation:
 
-Most of them are automatically created by my [C preprocessor in Lua](https://github.com/thenumbernine/preproc-lua) project, whose `generate.lua` file will automatically create the headers from the compiler's include files.
-This is still a manually run and hand-tweaked process, but will hopefully eventually be automated into my [#include-in-Lua](https://github.com/thenumbernine/include-lua) project.
+Most of them are automatically created by my [Lua include](https://github.com/thenumbernine/include-lua) project, whose `make.lua` file will automatically create the headers from the compiler's include files.
 
 The original versions of this started from https://github.com/malkia/ufo .  One or two headers are still from malkia.
 
@@ -91,3 +96,20 @@ The original versions of this started from https://github.com/malkia/ufo .  One 
 
 - LuaJIT
 - ffi.cpp and ffi.gcwrapper depend on my [lua-ext](https://github.com/thenumbernine/lua-ext) repo.
+
+# TODO
+
+- why do I have a separate `ffi.req`?  It's just a search path.
+Instead I should have a one-time check for inserting the `"ffi/$os/$arch/?.lua;ffi/$os/?.lua;ffi/$arch/?.lua;ffi/?.lua" into the package.path if it's not there.
+That means restructuring the directories from `ffi/`, `ffi/Windows`, `ffi/OSX/` etc to `ffi/`, `ffi/Windows/ffi`, `ffi/OSX/ffi` etc ... it just means wedging one extra `ffi/` folder into the `$os/$arch, $os/, $arch/` folders.
+And once I've done that, I can just do `require 'ffi.wherever'` ... but that still won't work unless I do a luarocks and do some initial setup somewhere `require = require 'ffi.require'` that auto-inserts the paths ... which honestly is just as tedious as what I'm doing right now ...
+Maybe I'll keep doing `require 'ffi.req' '...'`.
+
+...
+- how about splitting this up per 3rd party search?
+- then rename this package to 'c' or 'libc' or something,
+- and then make require 'c' the same as the old require 'ffi.req', so you'd jsut do `require 'c' 'stdio'` to do a search for Windows/x64/stdio.lua, Windows/stdio.lua, x64/stdio.lua, or stdio.lua.
+
+...
+- separately, as for the 3rd party ones, maybe move them out of root level and into their own subfolder
+- merge them with their `include/` information, make one unique file per-3rd-party-lib with its `include/` generatio info and with its `ffi/` generated binding info and with its `distinfo/` packaging information.

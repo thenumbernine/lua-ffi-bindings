@@ -46,7 +46,25 @@ typedef struct {
 	uint16_t tiff_unused;
 	uint64_t tiff_diroff;
 } TIFFHeaderBig;
-typedef enum { TIFF_NOTYPE = 0, TIFF_BYTE = 1, TIFF_ASCII = 2, TIFF_SHORT = 3, TIFF_LONG = 4, TIFF_RATIONAL = 5, TIFF_SBYTE = 6, TIFF_UNDEFINED = 7, TIFF_SSHORT = 8, TIFF_SLONG = 9, TIFF_SRATIONAL = 10, TIFF_FLOAT = 11, TIFF_DOUBLE = 12, TIFF_IFD = 13, TIFF_LONG8 = 16, TIFF_SLONG8 = 17, TIFF_IFD8 = 18 } TIFFDataType;
+typedef enum {
+	TIFF_NOTYPE = 0,
+	TIFF_BYTE = 1,
+	TIFF_ASCII = 2,
+	TIFF_SHORT = 3,
+	TIFF_LONG = 4,
+	TIFF_RATIONAL = 5,
+	TIFF_SBYTE = 6,
+	TIFF_UNDEFINED = 7,
+	TIFF_SSHORT = 8,
+	TIFF_SLONG = 9,
+	TIFF_SRATIONAL = 10,
+	TIFF_FLOAT = 11,
+	TIFF_DOUBLE = 12,
+	TIFF_IFD = 13,
+	TIFF_LONG8 = 16,
+	TIFF_SLONG8 = 17,
+	TIFF_IFD8 = 18,
+} TIFFDataType;
 typedef struct tiff TIFF;
 typedef int64_t tmsize_t;
 typedef uint64_t toff_t;
@@ -136,9 +154,9 @@ typedef struct {
 	uint32_t uNum;
 	uint32_t uDenom;
 } TIFFRational_t;
-typedef void (*TIFFErrorHandler)(const char *, const char *, va_list);
-typedef void (*TIFFErrorHandlerExt)(thandle_t, const char *, const char *, va_list);
-typedef int (*TIFFErrorHandlerExtR)(TIFF *, void *user_data, const char *, const char *, va_list);
+typedef void (*TIFFErrorHandler)(char const *, char const *, va_list);
+typedef void (*TIFFErrorHandlerExt)(thandle_t, char const *, char const *, va_list);
+typedef int (*TIFFErrorHandlerExtR)(TIFF *, void *user_data, char const *, char const *, va_list);
 typedef tmsize_t (*TIFFReadWriteProc)(thandle_t, void *, tmsize_t);
 typedef toff_t (*TIFFSeekProc)(thandle_t, toff_t, int);
 typedef int (*TIFFCloseProc)(thandle_t);
@@ -169,10 +187,10 @@ typedef struct {
 } TIFFFieldInfo;
 ]]
 
-return require 'ffi.libwrapper'{
+local wrapper
+wrapper = require 'ffi.libwrapper'{
 	lib = require 'ffi.load' 'tiff',
 	defs = {
-
 		-- enums
 
 		JPEG_SUPPORT = ffi.os ~= 'Windows' and 1 or nil,
@@ -854,9 +872,9 @@ return require 'ffi.libwrapper'{
 
 		-- functions
 
-		TIFFGetVersion = [[const char *TIFFGetVersion();]],
-		TIFFFindCODEC = [[const TIFFCodec *TIFFFindCODEC(uint16_t);]],
-		TIFFRegisterCODEC = [[TIFFCodec *TIFFRegisterCODEC(uint16_t, const char *, TIFFInitMethod);]],
+		TIFFGetVersion = [[char const *TIFFGetVersion();]],
+		TIFFFindCODEC = [[TIFFCodec const *TIFFFindCODEC(uint16_t);]],
+		TIFFRegisterCODEC = [[TIFFCodec *TIFFRegisterCODEC(uint16_t, char const *, TIFFInitMethod);]],
 		TIFFUnRegisterCODEC = [[void TIFFUnRegisterCODEC(TIFFCodec *);]],
 		TIFFIsCODECConfigured = [[int TIFFIsCODECConfigured(uint16_t);]],
 		TIFFGetConfiguredCODECs = [[TIFFCodec *TIFFGetConfiguredCODECs();]],
@@ -865,25 +883,25 @@ return require 'ffi.libwrapper'{
 		_TIFFrealloc = [[void *_TIFFrealloc(void *p, tmsize_t s);]],
 		_TIFFfree = [[void _TIFFfree(void *p);]],
 		_TIFFmemset = [[void _TIFFmemset(void *p, int v, tmsize_t c);]],
-		_TIFFmemcpy = [[void _TIFFmemcpy(void *d, const void *s, tmsize_t c);]],
-		_TIFFmemcmp = [[int _TIFFmemcmp(const void *p1, const void *p2, tmsize_t c);]],
+		_TIFFmemcpy = [[void _TIFFmemcpy(void *d, void const *s, tmsize_t c);]],
+		_TIFFmemcmp = [[int _TIFFmemcmp(void const *p1, void const *p2, tmsize_t c);]],
 		TIFFGetTagListCount = [[int TIFFGetTagListCount(TIFF *);]],
 		TIFFGetTagListEntry = [[uint32_t TIFFGetTagListEntry(TIFF *, int tag_index);]],
-		TIFFFindField = [[const TIFFField *TIFFFindField(TIFF *, uint32_t, TIFFDataType);]],
-		TIFFFieldWithTag = [[const TIFFField *TIFFFieldWithTag(TIFF *, uint32_t);]],
-		TIFFFieldWithName = [[const TIFFField *TIFFFieldWithName(TIFF *, const char *);]],
-		TIFFFieldTag = [[uint32_t TIFFFieldTag(const TIFFField *);]],
-		TIFFFieldName = [[const char *TIFFFieldName(const TIFFField *);]],
-		TIFFFieldDataType = [[TIFFDataType TIFFFieldDataType(const TIFFField *);]],
-		TIFFFieldPassCount = [[int TIFFFieldPassCount(const TIFFField *);]],
-		TIFFFieldReadCount = [[int TIFFFieldReadCount(const TIFFField *);]],
-		TIFFFieldWriteCount = [[int TIFFFieldWriteCount(const TIFFField *);]],
-		TIFFFieldSetGetSize = [[int TIFFFieldSetGetSize(const TIFFField *);]],
-		TIFFFieldSetGetCountSize = [[int TIFFFieldSetGetCountSize(const TIFFField *);]],
-		TIFFFieldIsAnonymous = [[int TIFFFieldIsAnonymous(const TIFFField *);]],
+		TIFFFindField = [[TIFFField const *TIFFFindField(TIFF *, uint32_t, TIFFDataType);]],
+		TIFFFieldWithTag = [[TIFFField const *TIFFFieldWithTag(TIFF *, uint32_t);]],
+		TIFFFieldWithName = [[TIFFField const *TIFFFieldWithName(TIFF *, char const *);]],
+		TIFFFieldTag = [[uint32_t TIFFFieldTag(TIFFField const *);]],
+		TIFFFieldName = [[char const *TIFFFieldName(TIFFField const *);]],
+		TIFFFieldDataType = [[TIFFDataType TIFFFieldDataType(TIFFField const *);]],
+		TIFFFieldPassCount = [[int TIFFFieldPassCount(TIFFField const *);]],
+		TIFFFieldReadCount = [[int TIFFFieldReadCount(TIFFField const *);]],
+		TIFFFieldWriteCount = [[int TIFFFieldWriteCount(TIFFField const *);]],
+		TIFFFieldSetGetSize = [[int TIFFFieldSetGetSize(TIFFField const *);]],
+		TIFFFieldSetGetCountSize = [[int TIFFFieldSetGetCountSize(TIFFField const *);]],
+		TIFFFieldIsAnonymous = [[int TIFFFieldIsAnonymous(TIFFField const *);]],
 		TIFFAccessTagMethods = [[TIFFTagMethods *TIFFAccessTagMethods(TIFF *);]],
-		TIFFGetClientInfo = [[void *TIFFGetClientInfo(TIFF *, const char *);]],
-		TIFFSetClientInfo = [[void TIFFSetClientInfo(TIFF *, void *, const char *);]],
+		TIFFGetClientInfo = [[void *TIFFGetClientInfo(TIFF *, char const *);]],
+		TIFFSetClientInfo = [[void TIFFSetClientInfo(TIFF *, void *, char const *);]],
 		TIFFCleanup = [[void TIFFCleanup(TIFF *tif);]],
 		TIFFClose = [[void TIFFClose(TIFF *tif);]],
 		TIFFFlush = [[int TIFFFlush(TIFF *tif);]],
@@ -893,7 +911,7 @@ return require 'ffi.libwrapper'{
 		TIFFGetFieldDefaulted = [[int TIFFGetFieldDefaulted(TIFF *tif, uint32_t tag, ...);]],
 		TIFFVGetFieldDefaulted = [[int TIFFVGetFieldDefaulted(TIFF *tif, uint32_t tag, va_list ap);]],
 		TIFFReadDirectory = [[int TIFFReadDirectory(TIFF *tif);]],
-		TIFFReadCustomDirectory = [[int TIFFReadCustomDirectory(TIFF *tif, toff_t diroff, const TIFFFieldArray *infoarray);]],
+		TIFFReadCustomDirectory = [[int TIFFReadCustomDirectory(TIFF *tif, toff_t diroff, TIFFFieldArray const *infoarray);]],
 		TIFFReadEXIFDirectory = [[int TIFFReadEXIFDirectory(TIFF *tif, toff_t diroff);]],
 		TIFFReadGPSDirectory = [[int TIFFReadGPSDirectory(TIFF *tif, toff_t diroff);]],
 		TIFFScanlineSize64 = [[uint64_t TIFFScanlineSize64(TIFF *tif);]],
@@ -942,10 +960,10 @@ return require 'ffi.libwrapper'{
 		TIFFReadBufferSetup = [[int TIFFReadBufferSetup(TIFF *tif, void *bp, tmsize_t size);]],
 		TIFFWriteBufferSetup = [[int TIFFWriteBufferSetup(TIFF *tif, void *bp, tmsize_t size);]],
 		TIFFSetupStrips = [[int TIFFSetupStrips(TIFF *);]],
-		TIFFWriteCheck = [[int TIFFWriteCheck(TIFF *, int, const char *);]],
+		TIFFWriteCheck = [[int TIFFWriteCheck(TIFF *, int, char const *);]],
 		TIFFFreeDirectory = [[void TIFFFreeDirectory(TIFF *);]],
 		TIFFCreateDirectory = [[int TIFFCreateDirectory(TIFF *);]],
-		TIFFCreateCustomDirectory = [[int TIFFCreateCustomDirectory(TIFF *, const TIFFFieldArray *);]],
+		TIFFCreateCustomDirectory = [[int TIFFCreateCustomDirectory(TIFF *, TIFFFieldArray const *);]],
 		TIFFCreateEXIFDirectory = [[int TIFFCreateEXIFDirectory(TIFF *);]],
 		TIFFCreateGPSDirectory = [[int TIFFCreateGPSDirectory(TIFF *);]],
 		TIFFLastDirectory = [[int TIFFLastDirectory(TIFF *);]],
@@ -974,30 +992,30 @@ return require 'ffi.libwrapper'{
 		TIFFRGBAImageBegin = [[int TIFFRGBAImageBegin(TIFFRGBAImage *, TIFF *, int, char[1024]);]],
 		TIFFRGBAImageGet = [[int TIFFRGBAImageGet(TIFFRGBAImage *, uint32_t *, uint32_t, uint32_t);]],
 		TIFFRGBAImageEnd = [[void TIFFRGBAImageEnd(TIFFRGBAImage *);]],
-		TIFFFileName = [[const char *TIFFFileName(TIFF *);]],
-		TIFFSetFileName = [[const char *TIFFSetFileName(TIFF *, const char *);]],
-		TIFFError = [[void TIFFError(const char *, const char *, ...);]],
-		TIFFErrorExt = [[void TIFFErrorExt(thandle_t, const char *, const char *, ...);]],
-		TIFFWarning = [[void TIFFWarning(const char *, const char *, ...);]],
-		TIFFWarningExt = [[void TIFFWarningExt(thandle_t, const char *, const char *, ...);]],
+		TIFFFileName = [[char const *TIFFFileName(TIFF *);]],
+		TIFFSetFileName = [[char const *TIFFSetFileName(TIFF *, char const *);]],
+		TIFFError = [[void TIFFError(char const *, char const *, ...);]],
+		TIFFErrorExt = [[void TIFFErrorExt(thandle_t, char const *, char const *, ...);]],
+		TIFFWarning = [[void TIFFWarning(char const *, char const *, ...);]],
+		TIFFWarningExt = [[void TIFFWarningExt(thandle_t, char const *, char const *, ...);]],
 		TIFFSetErrorHandler = [[TIFFErrorHandler TIFFSetErrorHandler(TIFFErrorHandler);]],
 		TIFFSetErrorHandlerExt = [[TIFFErrorHandlerExt TIFFSetErrorHandlerExt(TIFFErrorHandlerExt);]],
 		TIFFSetWarningHandler = [[TIFFErrorHandler TIFFSetWarningHandler(TIFFErrorHandler);]],
 		TIFFSetWarningHandlerExt = [[TIFFErrorHandlerExt TIFFSetWarningHandlerExt(TIFFErrorHandlerExt);]],
-		TIFFWarningExtR = [[void TIFFWarningExtR(TIFF *, const char *, const char *, ...);]],
-		TIFFErrorExtR = [[void TIFFErrorExtR(TIFF *, const char *, const char *, ...);]],
+		TIFFWarningExtR = [[void TIFFWarningExtR(TIFF *, char const *, char const *, ...);]],
+		TIFFErrorExtR = [[void TIFFErrorExtR(TIFF *, char const *, char const *, ...);]],
 		TIFFOpenOptionsAlloc = [[TIFFOpenOptions *TIFFOpenOptionsAlloc();]],
 		TIFFOpenOptionsFree = [[void TIFFOpenOptionsFree(TIFFOpenOptions *);]],
 		TIFFOpenOptionsSetMaxSingleMemAlloc = [[void TIFFOpenOptionsSetMaxSingleMemAlloc(TIFFOpenOptions *opts, tmsize_t max_single_mem_alloc);]],
 		TIFFOpenOptionsSetMaxCumulatedMemAlloc = [[void TIFFOpenOptionsSetMaxCumulatedMemAlloc(TIFFOpenOptions *opts, tmsize_t max_cumulated_mem_alloc);]],
 		TIFFOpenOptionsSetErrorHandlerExtR = [[void TIFFOpenOptionsSetErrorHandlerExtR(TIFFOpenOptions *opts, TIFFErrorHandlerExtR handler, void *errorhandler_user_data);]],
 		TIFFOpenOptionsSetWarningHandlerExtR = [[void TIFFOpenOptionsSetWarningHandlerExtR(TIFFOpenOptions *opts, TIFFErrorHandlerExtR handler, void *warnhandler_user_data);]],
-		TIFFOpen = [[TIFF *TIFFOpen(const char *, const char *);]],
-		TIFFOpenExt = [[TIFF *TIFFOpenExt(const char *, const char *, TIFFOpenOptions *opts);]],
-		TIFFFdOpen = [[TIFF *TIFFFdOpen(int, const char *, const char *);]],
-		TIFFFdOpenExt = [[TIFF *TIFFFdOpenExt(int, const char *, const char *, TIFFOpenOptions *opts);]],
-		TIFFClientOpen = [[TIFF *TIFFClientOpen(const char *, const char *, thandle_t, TIFFReadWriteProc, TIFFReadWriteProc, TIFFSeekProc, TIFFCloseProc, TIFFSizeProc, TIFFMapFileProc, TIFFUnmapFileProc);]],
-		TIFFClientOpenExt = [[TIFF *TIFFClientOpenExt(const char *, const char *, thandle_t, TIFFReadWriteProc, TIFFReadWriteProc, TIFFSeekProc, TIFFCloseProc, TIFFSizeProc, TIFFMapFileProc, TIFFUnmapFileProc, TIFFOpenOptions *opts);]],
+		TIFFOpen = [[TIFF *TIFFOpen(char const *, char const *);]],
+		TIFFOpenExt = [[TIFF *TIFFOpenExt(char const *, char const *, TIFFOpenOptions *opts);]],
+		TIFFFdOpen = [[TIFF *TIFFFdOpen(int, char const *, char const *);]],
+		TIFFFdOpenExt = [[TIFF *TIFFFdOpenExt(int, char const *, char const *, TIFFOpenOptions *opts);]],
+		TIFFClientOpen = [[TIFF *TIFFClientOpen(char const *, char const *, thandle_t, TIFFReadWriteProc, TIFFReadWriteProc, TIFFSeekProc, TIFFCloseProc, TIFFSizeProc, TIFFMapFileProc, TIFFUnmapFileProc);]],
+		TIFFClientOpenExt = [[TIFF *TIFFClientOpenExt(char const *, char const *, thandle_t, TIFFReadWriteProc, TIFFReadWriteProc, TIFFSeekProc, TIFFCloseProc, TIFFSizeProc, TIFFMapFileProc, TIFFUnmapFileProc, TIFFOpenOptions *opts);]],
 		TIFFSetTagExtender = [[TIFFExtendProc TIFFSetTagExtender(TIFFExtendProc);]],
 		TIFFComputeTile = [[uint32_t TIFFComputeTile(TIFF *tif, uint32_t x, uint32_t y, uint32_t z, uint16_t s);]],
 		TIFFCheckTile = [[int TIFFCheckTile(TIFF *tif, uint32_t x, uint32_t y, uint32_t z, uint16_t s);]],
@@ -1029,7 +1047,7 @@ return require 'ffi.libwrapper'{
 		TIFFSwabArrayOfFloat = [[void TIFFSwabArrayOfFloat(float *fp, tmsize_t n);]],
 		TIFFSwabArrayOfDouble = [[void TIFFSwabArrayOfDouble(double *dp, tmsize_t n);]],
 		TIFFReverseBits = [[void TIFFReverseBits(uint8_t *cp, tmsize_t n);]],
-		TIFFGetBitRevTable = [[const unsigned char *TIFFGetBitRevTable(int);]],
+		TIFFGetBitRevTable = [[unsigned char const *TIFFGetBitRevTable(int);]],
 		TIFFGetStrileOffset = [[uint64_t TIFFGetStrileOffset(TIFF *tif, uint32_t strile);]],
 		TIFFGetStrileByteCount = [[uint64_t TIFFGetStrileByteCount(TIFF *tif, uint32_t strile);]],
 		TIFFGetStrileOffsetWithErr = [[uint64_t TIFFGetStrileOffsetWithErr(TIFF *tif, uint32_t strile, int *pbErr);]],
@@ -1045,15 +1063,31 @@ return require 'ffi.libwrapper'{
 		uv_encode = [[int uv_encode(double, double, int);]],
 		LogLuv24fromXYZ = [[uint32_t LogLuv24fromXYZ(float *, int);]],
 		LogLuv32fromXYZ = [[uint32_t LogLuv32fromXYZ(float *, int);]],
-		TIFFCIELabToRGBInit = [[int TIFFCIELabToRGBInit(TIFFCIELabToRGB *, const TIFFDisplay *, float *);]],
+		TIFFCIELabToRGBInit = [[int TIFFCIELabToRGBInit(TIFFCIELabToRGB *, TIFFDisplay const *, float *);]],
 		TIFFCIELabToXYZ = [[void TIFFCIELabToXYZ(TIFFCIELabToRGB *, uint32_t, int32_t, int32_t, float *, float *, float *);]],
 		TIFFXYZToRGB = [[void TIFFXYZToRGB(TIFFCIELabToRGB *, float, float, float, uint32_t *, uint32_t *, uint32_t *);]],
 		TIFFYCbCrToRGBInit = [[int TIFFYCbCrToRGBInit(TIFFYCbCrToRGB *, float *, float *);]],
 		TIFFYCbCrtoRGB = [[void TIFFYCbCrtoRGB(TIFFYCbCrToRGB *, uint32_t, int32_t, int32_t, uint32_t *, uint32_t *, uint32_t *);]],
-		TIFFMergeFieldInfo = [[int TIFFMergeFieldInfo(TIFF *, const TIFFFieldInfo[], uint32_t);]],
+		TIFFMergeFieldInfo = [[int TIFFMergeFieldInfo(TIFF *, TIFFFieldInfo const[], uint32_t);]],
 
 		-- Windows-only ...
-		TIFFOpenW = [[TIFF *TIFFOpenW(const wchar_t *, const char *);]],
-		TIFFOpenWExt = [[TIFF *TIFFOpenWExt(const wchar_t *, const char *, TIFFOpenOptions *opts);]],
+		TIFFOpenW = [[TIFF *TIFFOpenW(wchar_t const *, char const *);]],
+		TIFFOpenWExt = [[TIFF *TIFFOpenWExt(wchar_t const *, char const *, TIFFOpenOptions *opts);]],
 	},
 }
+
+-- macros
+
+wrapper.TIFFLIB_VERSION_STR = "LIBTIFF, Version 4.7.0\nCopyright (c) 1988-1996 Sam Leffler\nCopyright (c) 1991-1996 Silicon Graphics, Inc."
+wrapper.TIFFLIB_VERSION_STR_MAJ_MIN_MIC = "4.7.0"
+wrapper.D65_X0 = 95.0470
+wrapper.D65_Y0 = 100.0
+wrapper.D65_Z0 = 108.8827
+wrapper.D50_X0 = 96.4250
+wrapper.D50_Y0 = 100.0
+wrapper.D50_Z0 = 82.4680
+wrapper.U_NEU = 0.210526316
+wrapper.V_NEU = 0.473684211
+wrapper.UVSCALE = 410.
+
+return wrapper

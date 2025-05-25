@@ -99,9 +99,7 @@ int pa_sample_format_is_be(pa_sample_format_t f) __attribute__ ((pure));
 /* ++++ BEGIN /usr/include/pulse/version.h */
 /* ++++ END   /usr/include/pulse/version.h */
 typedef enum pa_context_state { PA_CONTEXT_UNCONNECTED, PA_CONTEXT_CONNECTING, PA_CONTEXT_AUTHORIZING, PA_CONTEXT_SETTING_NAME, PA_CONTEXT_READY, PA_CONTEXT_FAILED, PA_CONTEXT_TERMINATED } pa_context_state_t;
- 
 typedef enum pa_stream_state { PA_STREAM_UNCONNECTED, PA_STREAM_CREATING, PA_STREAM_READY, PA_STREAM_FAILED, PA_STREAM_TERMINATED } pa_stream_state_t;
- 
 typedef enum pa_operation_state { PA_OPERATION_RUNNING, PA_OPERATION_DONE, PA_OPERATION_CANCELLED } pa_operation_state_t;
 enum { PA_OPERATION_CANCELED = 0 };
 enum { PA_INVALID_INDEX = -1 };
@@ -480,9 +478,9 @@ enum { foovolumehfoo = 1 };
 /* ++++ BEGIN /usr/include/inttypes.h */
 ]] require 'ffi.req' 'c.inttypes' ffi.cdef[[
 /* ++++ END   /usr/include/inttypes.h */
-/* ++++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h */
+/* ++++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/limits.h */
 ]] require 'ffi.req' 'c.limits' ffi.cdef[[
-/* ++++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h */
+/* ++++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/limits.h */
 /* ++++ BEGIN /usr/include/pulse/cdecl.h */
 /* ++++ END   /usr/include/pulse/cdecl.h */
 /* ++++ BEGIN /usr/include/pulse/gccmacro.h */
@@ -988,9 +986,9 @@ enum { foomemoryhfoo = 1 };
 /* +++ BEGIN /usr/include/stdlib.h */
 ]] require 'ffi.req' 'c.stdlib' ffi.cdef[[
 /* +++ END   /usr/include/stdlib.h */
-/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/limits.h */
 ]] require 'ffi.req' 'c.limits' ffi.cdef[[
-/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/limits.h */
 /* +++ BEGIN /usr/include/assert.h */
 /* ++++ BEGIN /usr/include/features.h */
 ]] require 'ffi.req' 'c.features' ffi.cdef[[
@@ -1092,9 +1090,9 @@ void pa_signal_set_destroy(pa_signal_event *e, pa_signal_destroy_cb_t callback);
 /* ++ END   /usr/include/pulse/mainloop-signal.h */
 /* ++ BEGIN /usr/include/pulse/util.h */
 enum { fooutilhfoo = 1 };
-/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* +++ BEGIN /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 ]] require 'ffi.req' 'c.stddef' ffi.cdef[[
-/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h */
+/* +++ END   /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h */
 /* +++ BEGIN /usr/include/pulse/cdecl.h */
 /* +++ END   /usr/include/pulse/cdecl.h */
 /* +++ BEGIN /usr/include/pulse/version.h */

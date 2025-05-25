@@ -21,52 +21,8 @@ If no value exists then the key will be used as the default name to search for t
 All $names will be resolved as environment variables.
 --]]
 local ffi = require 'ffi'
-return setmetatable({
-	cimgui_sdl = {
-		-- why doesn't this automatically search here?
-		Linux = '/usr/local/lib/libcimgui_sdl.so',
-	},
-	GL = {
-		Windows = 'OpenGL32',
-		OSX = '/System/Library/Frameworks/OpenGL.framework/OpenGL',
-	},
-	GLU = {
-		Windows = 'GLU32',
-		OSX = '/System/Library/Frameworks/OpenGL.framework/OpenGL',
-	},
-	
-	-- hmm, GLES library names are funny
-	-- GLES1, GLES/gl.h uses GLESv1_CM.so
-	-- GLES2, GLES2/gl2.h uses GLESv2.so
-	-- GLES3, GLES3/gl3.h uses ... GLESv2.so as well
-	GLESv2 = {
-		OSX = '/System/Library/Frameworks/OpenGL.framework/OpenGL',
-		--OSX = '/usr/local/lib/libGLESv2.dylib',	-- mesa
-		--OSX = '/System/Library/Frameworks/CoreImage.framework/Versions/A/Frameworks/libWrapGLES.dylib',	-- dlopen says incompatible platforms
-	},
 
-	OpenCL = {
-		OSX = '/System/Library/Frameworks/OpenCL.framework/OpenCL',
-	},
-
-	-- can ffi.load"serial/hdf5" work? hmm...
-	hdf5 = {Linux = '/usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5.so'},
-	jpeg = {
-		-- For Windows msvc turbojpeg 2.0.3 cmake wouldn't build, so i used 2.0.4 instead
-		-- I wonder if this is the reason for the few subtle differences
-		-- TODO rebuild linux with 2.0.4 and see if they go away?
-		Windows = 'jpeg8',
-		-- for Linux, libturbojpeg 2.1.2 (which is not libjpeg-turbo *smh* who named this)
-		-- the header generated matches libturbojpeg 2.0.3 for Ubuntu ... except the version macros
-	},
-	openal = {
-		Windows = 'OpenAL32',
-		OSX = '/System/Library/Frameworks/OpenAL.framework/OpenAL',
-	},
-	z = {
-		Windows = 'zlib1',
-	},
-}, {
+local ffi_load = setmetatable({}, {
 	__call = function(self, reqname)
 		assert(type(reqname) == 'string', "expected string")
 		local v = self[reqname]
@@ -76,7 +32,8 @@ return setmetatable({
 			if type(v) == 'table' then
 				v = v[ffi.arch]
 			end
-		elseif type(v) == 'function' then
+		end
+		if type(v) == 'function' then
 			-- if it's a function then call?
 			v = v(reqname)
 		end
@@ -91,3 +48,114 @@ return setmetatable({
 		return ffi.load(v)
 	end,
 })
+
+-- like op.safeindex but with default-assignments as you go
+local function lookup(...)
+	local t = ffi_load
+	for i=1,select('#', ...) do
+		local k = select(i, ...)
+		if t[k] == nil then t[k] = {} end
+		t = t[k]
+	end
+	return t
+end
+
+
+-- if ever ffi.load() searching for the name will fail, just specify its override location here:
+
+
+-- ================================ Linux ================================
+
+
+-- Why doesn't this automatically search here?  Maybe it does and I just forgot to run ldconfig?
+lookup'cimgui_sdl'.Linux = '/usr/local/lib/libcimgui_sdl.so'
+
+lookup'hdf5'.Linux = '/usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5.so'
+
+
+-- ================================ Windows ================================
+
+
+lookup'GL'.Windows = 'OpenGL32'				-- builtin
+lookup'GLU'.Windows = 'GLU32'
+
+-- TODO when building these on Windows, make sure their names don't have version crap on the end, so there's no need for this.
+-- can ffi.load"serial/hdf5" work? hmm...
+lookup'png'.Windows = 'libpng16'
+lookup'z'.Windows = 'zlib'
+
+-- For Windows msvc turbojpeg 2.0.3 cmake wouldn't build, so i used 2.0.4 instead
+-- I wonder if this is the reason for the few subtle differences
+-- TODO rebuild linux with 2.0.4 and see if they go away?
+lookup'jpeg'.Windows = 'jpeg8'
+-- for Linux, libturbojpeg 2.1.2 (which is not libjpeg-turbo *smh* who named this)
+-- the header generated matches libturbojpeg 2.0.3 for Ubuntu ... except the version macros
+
+lookup'openal'.Windows = 'OpenAL32'
+lookup'vorbis'.Windows = 'libvorbis-0'
+lookup'vorbisfile'.Windows = 'libvorbisfile-3'
+lookup'ogg'.Windows = 'libogg-0'
+
+
+-- ================================ OSX ================================
+
+
+--lookup'EGL'.OSX = '/usr/local/lib/libEGL.dylib'
+lookup'EGL'.OSX = '/usr/local/opt/mesa/lib/libEGL.dylib'
+
+lookup'GL'.OSX = '/System/Library/Frameworks/OpenGL.framework/OpenGL'	-- builtin crap
+--lookup'GL'.OSX = '/usr/local/lib/libGL.dylib'							-- osx brew mesa
+--lookup'GL'.OSX = '/usr/local/opt/mesa/lib/libGL.dylib'		-- osx brew mesa
+
+lookup'GLU'.OSX = '/System/Library/Frameworks/OpenGL.framework/OpenGL'	-- builtin crap
+--lookup'GLU'.OSX = '/usr/local/opt/mesa-glu/lib/libGLU.dylib'						-- osx brew mesa
+
+--lookup'GLESv1_CM'.OSX = '/usr/local/lib/libGLESv1_CM.dylib'				-- mesa
+lookup'GLESv1_CM'.OSX = '/usr/local/opt/mesa/lib/libGLESv1_CM.dylib'				-- mesa
+
+--lookup'GLESv2'.OSX = '/System/Library/Frameworks/OpenGL.framework/OpenGL'	-- builtin crap
+--lookup'GLESv2'.OSX = '/System/Library/Frameworks/CoreImage.framework/Versions/A/Frameworks/libWrapGLES.dylib'	-- dlopen says incompatible platforms
+--lookup'GLESv2'.OSX = '/usr/local/lib/libGLESv2.dylib'				-- osx brew mesa
+lookup'GLESv2'.OSX = '/usr/local/opt/mesa/lib/libGLESv2.dylib'	-- osx brew mesa
+
+lookup'OpenCL'.OSX = '/System/Library/Frameworks/OpenCL.framework/OpenCL'
+--lookup'OpenCL'.OSX = '/usr/local/opt/mesa/lib/libMesaOpenCL.dylib'	-- osx brew mesa ... but I don't see it now ...
+--lookup'OpenCL'.OSX = '/usr/local/opt/mesa/lib/libRusticlOpenCL.dylib'	-- osx brew mesa ... missing clGetMemObjectInfo ...
+
+lookup'vulkan'.OSX = '/usr/local/opt/molten-vk/lib/libMoltenVK.dylib'	-- molten-vk ... will this work so easily?
+--lookup'vulkan'.OSX = '/usr/local/opt/mesa/lib/libvulkan_lvp.dylib'	-- ... or this one? it's mesa ...
+--lookup'vulkan'.OSX = '/usr/local/opt/mesa/lib/libVkLayer_MESA_overlay.dylib'	-- ... or this one? it's mesa ...
+--lookup'vulkan'.OSX = '/usr/local/opt/vulkan-loader/lib/libvulkan.dylib'	-- this one is with homebrew `vulkan-loader`
+--lookup'vulkan'.OSX = function()
+-- ... I have an 'elseif' up there, but maybe I should separate it into an 'if' so I can specify a function at any nesting of $os/$arch/etc
+--ffi_load.vulkan = function()
+	-- "failed to load Vulkan Portability library ... is that a 2nd lib we gotta load?
+	--ffi.load'/usr/local/opt/vulkan-tools/lib/mock_icd/libVkICD_mock_icd.dylib'
+	--return '/usr/local/opt/vulkan-loader/lib/libvulkan.dylib'	-- this one is with homebrew `vulkan-loader`
+--end
+
+lookup'openal'.OSX = '/System/Library/Frameworks/OpenAL.framework/OpenAL'
+
+-- Welp, OSX luajit stopped linking against /usr/local/lib by default ...
+-- And setting DYLD_LIBRARY_PATH crashes library conflicts (which will probably start happening anyways as I change this more)
+-- But here I go trying to point to /usr/local/lib on OSX for all the libs I reference in here.
+-- Another reason to use malkia's model and just package all the binaries in the repo itself.
+lookup'cimgui_sdl'.OSX = '/usr/local/lib/libcimgui_sdl.dylib'
+lookup'SDL2'.OSX = '/usr/local/lib/libSDL2.dylib'
+lookup'SDL3'.OSX = '/usr/local/lib/libSDL3.dylib'
+lookup'png'.OSX = '/usr/local/lib/libpng.dylib'
+lookup'gif'.OSX = '/usr/local/lib/libgif.dylib'
+lookup'z'.OSX = '/usr/local/opt/zlib/lib/libz.dylib'	-- otherwise it uses zlib in system paths which for me is not the homebrew one but instead the 1.2.12 one ... what a mess ...
+lookup'zip'.OSX = '/usr/local/lib/libzip.dylib'
+lookup'jpeg'.OSX = '/usr/local/lib/libjpeg.dylib'
+lookup'tiff'.OSX = '/usr/local/lib/libtiff.dylib'
+lookup'clip'.OSX = '/usr/local/lib/libclip.dylib'
+lookup'cfitsio'.OSX = '/usr/local/lib/libcfitsio.dylib'
+lookup'netcdf'.OSX = '/usr/local/lib/libnetcdf.dylib'
+lookup'hdf5'.OSX = '/usr/local/lib/libhdf5.dylib'
+lookup'lapacke'.OSX = '/usr/local/lib/liblapacke.dylib'
+lookup'vorbisfile'.OSX = '/usr/local/lib/libvorbisfile.dylib'
+lookup'vorbis'.OSX = '/usr/local/lib/libvorbis.dylib'
+lookup'ogg'.OSX = '/usr/local/lib/libogg.dylib'
+
+return ffi_load

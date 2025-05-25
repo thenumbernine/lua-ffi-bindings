@@ -1,33 +1,14 @@
 local ffi = require 'ffi'
 ffi.cdef[[
-/* + BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/math.h */
-/* ++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h */
-/* +++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_symbol_aliasing.h */
-/* +++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_symbol_aliasing.h */
-/* +++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_posix_availability.h */
-/* +++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_posix_availability.h */
-/* ++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h */
-/* ++ BEGIN /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/Availability.h */
+/* + BEGIN <math.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/math.h */
+/* ++ BEGIN <sys/cdefs.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h */
+]] require 'ffi.req' 'c.sys.cdefs' ffi.cdef[[
+/* ++ END <sys/cdefs.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h */
+/* ++ BEGIN <Availability.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/Availability.h */
 ]] require 'ffi.req' 'c.Availability' ffi.cdef[[
-/* ++ END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/Availability.h */
-typedef float float_t;
-typedef double double_t;
-/* #   define    HUGE_VAL     __builtin_huge_val() ### string, not number "__builtin_huge_val()" */
-/* #   define    HUGE_VALF    __builtin_huge_valf() ### string, not number "__builtin_huge_valf()" */
-/* #   define    HUGE_VALL    __builtin_huge_vall() ### string, not number "__builtin_huge_vall()" */
-/* #   define    NAN          __builtin_nanf("0x7fc00000") ### string, not number "__builtin_nanf(\"0x7fc00000\")" */
-/* #define INFINITY    HUGE_VALF ### string, not number "HUGE_VALF" */
-enum { FP_NAN = 1 };
-enum { FP_INFINITE = 2 };
-enum { FP_ZERO = 3 };
-enum { FP_NORMAL = 4 };
-enum { FP_SUBNORMAL = 5 };
-enum { FP_SUPERNORMAL = 6 };
-enum { FP_ILOGB0 = -2147483648 };
-enum { FP_ILOGBNAN = -2147483648 };
-enum { MATH_ERRNO = 1 };
-enum { MATH_ERREXCEPT = 2 };
-/* #define math_errhandling (__math_errhandling()) ### string, not number "(__math_errhandling())" */
+/* ++ END <Availability.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/Availability.h */
+    typedef float float_t;
+    typedef double double_t;
 extern int __math_errhandling(void);
 extern int __fpclassifyf(float);
 extern int __fpclassifyd(double);
@@ -48,42 +29,60 @@ inline __attribute__ ((__always_inline__)) int __inline_signbitf(float);
 inline __attribute__ ((__always_inline__)) int __inline_signbitd(double);
 inline __attribute__ ((__always_inline__)) int __inline_signbitl(long double);
 inline __attribute__ ((__always_inline__)) int __inline_isfinitef(float __x) {
-	return __x == __x && __builtin_fabsf(__x) != __builtin_inff();
-} inline __attribute__ ((__always_inline__)) int __inline_isfinited(double __x) {
-	return __x == __x && __builtin_fabs(__x) != __builtin_inf();
-} inline __attribute__ ((__always_inline__)) int __inline_isfinitel(long double __x) {
-	return __x == __x && __builtin_fabsl(__x) != __builtin_infl();
-} inline __attribute__ ((__always_inline__)) int __inline_isinff(float __x) {
-	return __builtin_fabsf(__x) == __builtin_inff();
-} inline __attribute__ ((__always_inline__)) int __inline_isinfd(double __x) {
-	return __builtin_fabs(__x) == __builtin_inf();
-} inline __attribute__ ((__always_inline__)) int __inline_isinfl(long double __x) {
-	return __builtin_fabsl(__x) == __builtin_infl();
-} inline __attribute__ ((__always_inline__)) int __inline_isnanf(float __x) {
-	return __x != __x;
-} inline __attribute__ ((__always_inline__)) int __inline_isnand(double __x) {
-	return __x != __x;
-} inline __attribute__ ((__always_inline__)) int __inline_isnanl(long double __x) {
-	return __x != __x;
-} inline __attribute__ ((__always_inline__)) int __inline_signbitf(float __x) { union { float __f; unsigned int __u; } __u;
-__u.__f = __x;
-return (int)(__u.__u >> 31);
-} inline __attribute__ ((__always_inline__)) int __inline_signbitd(double __x) { union { double __f; unsigned long long __u; } __u;
-__u.__f = __x;
-return (int)(__u.__u >> 63);
-} inline __attribute__ ((__always_inline__)) int __inline_signbitl(long double __x) {
-	union { long double __ld;
-	struct{ unsigned long long __m; unsigned short __sexp; } __p;
-} __u;
-__u.__ld = __x;
-return (int)(__u.__p.__sexp >> 15);
-} inline __attribute__ ((__always_inline__)) int __inline_isnormalf(float __x) {
-	return __inline_isfinitef(__x) && __builtin_fabsf(__x) >= 1.17549435e-38F;
-} inline __attribute__ ((__always_inline__)) int __inline_isnormald(double __x) {
-	return __inline_isfinited(__x) && __builtin_fabs(__x) >= 2.2250738585072014e-308;
-} inline __attribute__ ((__always_inline__)) int __inline_isnormall(long double __x) {
-	return __inline_isfinitel(__x) && __builtin_fabsl(__x) >= 3.36210314311209350626e-4932L;
-} extern float acosf(float);
+    return __x == __x && __builtin_fabsf(__x) != __builtin_inff();
+}
+inline __attribute__ ((__always_inline__)) int __inline_isfinited(double __x) {
+    return __x == __x && __builtin_fabs(__x) != __builtin_inf();
+}
+inline __attribute__ ((__always_inline__)) int __inline_isfinitel(long double __x) {
+    return __x == __x && __builtin_fabsl(__x) != __builtin_infl();
+}
+inline __attribute__ ((__always_inline__)) int __inline_isinff(float __x) {
+    return __builtin_fabsf(__x) == __builtin_inff();
+}
+inline __attribute__ ((__always_inline__)) int __inline_isinfd(double __x) {
+    return __builtin_fabs(__x) == __builtin_inf();
+}
+inline __attribute__ ((__always_inline__)) int __inline_isinfl(long double __x) {
+    return __builtin_fabsl(__x) == __builtin_infl();
+}
+inline __attribute__ ((__always_inline__)) int __inline_isnanf(float __x) {
+    return __x != __x;
+}
+inline __attribute__ ((__always_inline__)) int __inline_isnand(double __x) {
+    return __x != __x;
+}
+inline __attribute__ ((__always_inline__)) int __inline_isnanl(long double __x) {
+    return __x != __x;
+}
+inline __attribute__ ((__always_inline__)) int __inline_signbitf(float __x) {
+    union { float __f; unsigned int __u; } __u;
+    __u.__f = __x;
+    return (int)(__u.__u >> 31);
+}
+inline __attribute__ ((__always_inline__)) int __inline_signbitd(double __x) {
+    union { double __f; unsigned long long __u; } __u;
+    __u.__f = __x;
+    return (int)(__u.__u >> 63);
+}
+inline __attribute__ ((__always_inline__)) int __inline_signbitl(long double __x) {
+    union {
+        long double __ld;
+        struct{ unsigned long long __m; unsigned short __sexp; } __p;
+    } __u;
+    __u.__ld = __x;
+    return (int)(__u.__p.__sexp >> 15);
+}
+inline __attribute__ ((__always_inline__)) int __inline_isnormalf(float __x) {
+    return __inline_isfinitef(__x) && __builtin_fabsf(__x) >= 1.17549435e-38F;
+}
+inline __attribute__ ((__always_inline__)) int __inline_isnormald(double __x) {
+    return __inline_isfinited(__x) && __builtin_fabs(__x) >= 2.2250738585072014e-308;
+}
+inline __attribute__ ((__always_inline__)) int __inline_isnormall(long double __x) {
+    return __inline_isfinitel(__x) && __builtin_fabsl(__x) >= 3.36210314311209350626e-4932L;
+}
+extern float acosf(float);
 extern double acos(double);
 extern long double acosl(long double);
 extern float asinf(float);
@@ -254,20 +253,24 @@ extern long double fminl(long double, long double);
 extern float fmaf(float, float, float);
 extern double fma(double, double, double);
 extern long double fmal(long double, long double, long double);
-extern float __inff(void);
-extern double __inf(void);
-extern long double __infl(void);
-extern float __nan(void);
-extern float __exp10f(float);
-extern double __exp10(double);
+extern float __inff(void)
+__attribute__((availability(macos,introduced=10.0,deprecated=10.9,message="use `(float)INFINITY` instead"))) __attribute__((availability(ios,unavailable))) __attribute__((availability(watchos,unavailable))) __attribute__((availability(tvos,unavailable)));
+extern double __inf(void)
+__attribute__((availability(macos,introduced=10.0,deprecated=10.9,message="use `INFINITY` instead"))) __attribute__((availability(ios,unavailable))) __attribute__((availability(watchos,unavailable))) __attribute__((availability(tvos,unavailable)));
+extern long double __infl(void)
+__attribute__((availability(macos,introduced=10.0,deprecated=10.9,message="use `(long double)INFINITY` instead"))) __attribute__((availability(ios,unavailable))) __attribute__((availability(watchos,unavailable))) __attribute__((availability(tvos,unavailable)));
+extern float __nan(void)
+__attribute__((availability(macos,introduced=10.0,deprecated=10.14,message="use `NAN` instead"))) __attribute__((availability(ios,unavailable))) __attribute__((availability(watchos,unavailable))) __attribute__((availability(tvos,unavailable)));
+extern float __exp10f(float) __attribute__((availability(macos,introduced=10.9))) __attribute__((availability(ios,introduced=7.0)));
+extern double __exp10(double) __attribute__((availability(macos,introduced=10.9))) __attribute__((availability(ios,introduced=7.0)));
 inline __attribute__ ((__always_inline__)) void __sincosf(float __x, float *__sinp, float *__cosp);
 inline __attribute__ ((__always_inline__)) void __sincos(double __x, double *__sinp, double *__cosp);
-extern float __cospif(float);
-extern double __cospi(double);
-extern float __sinpif(float);
-extern double __sinpi(double);
-extern float __tanpif(float);
-extern double __tanpi(double);
+extern float __cospif(float) __attribute__((availability(macos,introduced=10.9))) __attribute__((availability(ios,introduced=7.0)));
+extern double __cospi(double) __attribute__((availability(macos,introduced=10.9))) __attribute__((availability(ios,introduced=7.0)));
+extern float __sinpif(float) __attribute__((availability(macos,introduced=10.9))) __attribute__((availability(ios,introduced=7.0)));
+extern double __sinpi(double) __attribute__((availability(macos,introduced=10.9))) __attribute__((availability(ios,introduced=7.0)));
+extern float __tanpif(float) __attribute__((availability(macos,introduced=10.9))) __attribute__((availability(ios,introduced=7.0)));
+extern double __tanpi(double) __attribute__((availability(macos,introduced=10.9))) __attribute__((availability(ios,introduced=7.0)));
 inline __attribute__ ((__always_inline__)) void __sincospif(float __x, float *__sinp, float *__cosp);
 inline __attribute__ ((__always_inline__)) void __sincospi(double __x, double *__sinp, double *__cosp);
 struct __float2 { float __sinval; float __cosval; };
@@ -277,61 +280,104 @@ extern struct __double2 __sincos_stret(double);
 extern struct __float2 __sincospif_stret(float);
 extern struct __double2 __sincospi_stret(double);
 inline __attribute__ ((__always_inline__)) void __sincosf(float __x, float *__sinp, float *__cosp) {
-	const struct __float2 __stret = __sincosf_stret(__x);
-	*__sinp = __stret.__sinval; *__cosp = __stret.__cosval;
-} inline __attribute__ ((__always_inline__)) void __sincos(double __x, double *__sinp, double *__cosp) {
-	const struct __double2 __stret = __sincos_stret(__x);
-	*__sinp = __stret.__sinval; *__cosp = __stret.__cosval;
-} inline __attribute__ ((__always_inline__)) void __sincospif(float __x, float *__sinp, float *__cosp) {
-	const struct __float2 __stret = __sincospif_stret(__x);
-	*__sinp = __stret.__sinval; *__cosp = __stret.__cosval;
-} inline __attribute__ ((__always_inline__)) void __sincospi(double __x, double *__sinp, double *__cosp) {
-	const struct __double2 __stret = __sincospi_stret(__x);
-	*__sinp = __stret.__sinval; *__cosp = __stret.__cosval;
-} extern double j0(double);
-extern double j1(double);
-extern double jn(int, double);
-extern double y0(double);
-extern double y1(double);
-extern double yn(int, double);
+    const struct __float2 __stret = __sincosf_stret(__x);
+    *__sinp = __stret.__sinval; *__cosp = __stret.__cosval;
+}
+inline __attribute__ ((__always_inline__)) void __sincos(double __x, double *__sinp, double *__cosp) {
+    const struct __double2 __stret = __sincos_stret(__x);
+    *__sinp = __stret.__sinval; *__cosp = __stret.__cosval;
+}
+inline __attribute__ ((__always_inline__)) void __sincospif(float __x, float *__sinp, float *__cosp) {
+    const struct __float2 __stret = __sincospif_stret(__x);
+    *__sinp = __stret.__sinval; *__cosp = __stret.__cosval;
+}
+inline __attribute__ ((__always_inline__)) void __sincospi(double __x, double *__sinp, double *__cosp) {
+    const struct __double2 __stret = __sincospi_stret(__x);
+    *__sinp = __stret.__sinval; *__cosp = __stret.__cosval;
+}
+extern double j0(double) __attribute__((availability(macos,introduced=10.0))) __attribute__((availability(ios,introduced=3.2)));
+extern double j1(double) __attribute__((availability(macos,introduced=10.0))) __attribute__((availability(ios,introduced=3.2)));
+extern double jn(int, double) __attribute__((availability(macos,introduced=10.0))) __attribute__((availability(ios,introduced=3.2)));
+extern double y0(double) __attribute__((availability(macos,introduced=10.0))) __attribute__((availability(ios,introduced=3.2)));
+extern double y1(double) __attribute__((availability(macos,introduced=10.0))) __attribute__((availability(ios,introduced=3.2)));
+extern double yn(int, double) __attribute__((availability(macos,introduced=10.0))) __attribute__((availability(ios,introduced=3.2)));
 extern double scalb(double, double);
 extern int signgam;
-/* #define M_E         2.71828182845904523536028747135266250 ### string, not number "2.71828182845904523536028747135266250" */
-/* #define M_LOG2E     1.44269504088896340735992468100189214 ### string, not number "1.44269504088896340735992468100189214" */
-/* #define M_LOG10E    0.434294481903251827651128918916605082 ### string, not number "0.434294481903251827651128918916605082" */
-/* #define M_LN2       0.693147180559945309417232121458176568 ### string, not number "0.693147180559945309417232121458176568" */
-/* #define M_LN10      2.30258509299404568401799145468436421 ### string, not number "2.30258509299404568401799145468436421" */
-/* #define M_PI        3.14159265358979323846264338327950288 ### string, not number "3.14159265358979323846264338327950288" */
-/* #define M_PI_2      1.57079632679489661923132169163975144 ### string, not number "1.57079632679489661923132169163975144" */
-/* #define M_PI_4      0.785398163397448309615660845819875721 ### string, not number "0.785398163397448309615660845819875721" */
-/* #define M_1_PI      0.318309886183790671537767526745028724 ### string, not number "0.318309886183790671537767526745028724" */
-/* #define M_2_PI      0.636619772367581343075535053490057448 ### string, not number "0.636619772367581343075535053490057448" */
-/* #define M_2_SQRTPI  1.12837916709551257389615890312154517 ### string, not number "1.12837916709551257389615890312154517" */
-/* #define M_SQRT2     1.41421356237309504880168872420969808 ### string, not number "1.41421356237309504880168872420969808" */
-/* #define M_SQRT1_2   0.707106781186547524400844362104849039 ### string, not number "0.707106781186547524400844362104849039" */
-/* #define MAXFLOAT    0x1.fffffep+127f ### string, not number "0x1.fffffep+127f" */
+extern long int rinttol(double)
+__attribute__((availability(macos,introduced=10.0,deprecated=10.9,replacement="lrint"))) __attribute__((availability(ios,unavailable))) __attribute__((availability(watchos,unavailable))) __attribute__((availability(tvos,unavailable)));
+extern long int roundtol(double)
+__attribute__((availability(macos,introduced=10.0,deprecated=10.9,replacement="lround"))) __attribute__((availability(ios,unavailable))) __attribute__((availability(watchos,unavailable))) __attribute__((availability(tvos,unavailable)));
+extern double drem(double, double)
+__attribute__((availability(macos,introduced=10.0,deprecated=10.9,replacement="remainder"))) __attribute__((availability(ios,unavailable))) __attribute__((availability(watchos,unavailable))) __attribute__((availability(tvos,unavailable)));
+extern int finite(double)
+__attribute__((availability(macos,introduced=10.0,deprecated=10.9,message="Use `isfinite((double)x)` instead."))) __attribute__((availability(ios,unavailable))) __attribute__((availability(watchos,unavailable))) __attribute__((availability(tvos,unavailable)));
+extern double gamma(double)
+__attribute__((availability(macos,introduced=10.0,deprecated=10.9,replacement="tgamma"))) __attribute__((availability(ios,unavailable))) __attribute__((availability(watchos,unavailable))) __attribute__((availability(tvos,unavailable)));
+extern double significand(double)
+__attribute__((availability(macos,introduced=10.0,deprecated=10.9,message="Use `2*frexp( )` or `scalbn(x, -ilogb(x))` instead."))) __attribute__((availability(ios,unavailable))) __attribute__((availability(watchos,unavailable))) __attribute__((availability(tvos,unavailable)));
+struct exception {
+    int type;
+    char *name;
+    double arg1;
+    double arg2;
+    double retval;
+};
+enum { __MATH__ = 1 };
+/* #define HUGE_VAL __builtin_huge_val() ### define is not number */
+/* #define HUGE_VALF __builtin_huge_valf() ### define is not number */
+/* #define HUGE_VALL __builtin_huge_vall() ### define is not number */
+/* #define NAN __builtin_nanf("0x7fc00000") ### define is not number */
+/* #define INFINITY __builtin_huge_valf() ### define is not number */
+enum { FP_NAN = 1 };
+enum { FP_INFINITE = 2 };
+enum { FP_ZERO = 3 };
+enum { FP_NORMAL = 4 };
+enum { FP_SUBNORMAL = 5 };
+enum { FP_SUPERNORMAL = 6 };
+/* #define FP_ILOGB0 (-2147483647 - 1) ### define is not number */
+/* #define FP_ILOGBNAN (-2147483647 - 1) ### define is not number */
+enum { MATH_ERRNO = 1 };
+enum { MATH_ERREXCEPT = 2 };
+/* #define math_errhandling (__math_errhandling()) ### define is not number */
+/* #define fpclassify (x) ( sizeof(x) == sizeof(float) ? __fpclassifyf((float)(x)) : sizeof(x) == sizeof(double) ? __fpclassifyd((double)(x)) : __fpclassifyl((long double)(x))) ### define is not number */
+/* #define isnormal (x) ( sizeof(x) == sizeof(float) ? __inline_isnormalf((float)(x)) : sizeof(x) == sizeof(double) ? __inline_isnormald((double)(x)) : __inline_isnormall((long double)(x))) ### define is not number */
+/* #define isfinite (x) ( sizeof(x) == sizeof(float) ? __inline_isfinitef((float)(x)) : sizeof(x) == sizeof(double) ? __inline_isfinited((double)(x)) : __inline_isfinitel((long double)(x))) ### define is not number */
+/* #define isinf (x) ( sizeof(x) == sizeof(float) ? __inline_isinff((float)(x)) : sizeof(x) == sizeof(double) ? __inline_isinfd((double)(x)) : __inline_isinfl((long double)(x))) ### define is not number */
+/* #define isnan (x) ( sizeof(x) == sizeof(float) ? __inline_isnanf((float)(x)) : sizeof(x) == sizeof(double) ? __inline_isnand((double)(x)) : __inline_isnanl((long double)(x))) ### define is not number */
+/* #define signbit (x) ( sizeof(x) == sizeof(float) ? __inline_signbitf((float)(x)) : sizeof(x) == sizeof(double) ? __inline_signbitd((double)(x)) : __inline_signbitl((long double)(x))) ### define is not number */
+/* #define isgreater (x,y) __builtin_isgreater((x),(y)) ### define is not number */
+/* #define isgreaterequal (x,y) __builtin_isgreaterequal((x),(y)) ### define is not number */
+/* #define isless (x,y) __builtin_isless((x),(y)) ### define is not number */
+/* #define islessequal (x,y) __builtin_islessequal((x),(y)) ### define is not number */
+/* #define islessgreater (x,y) __builtin_islessgreater((x),(y)) ### define is not number */
+/* #define isunordered (x,y) __builtin_isunordered((x),(y)) ### define is not number */
+/* #define MAXFLOAT 0x1.fffffep+127f ### define is not number */
 enum { FP_SNAN = 1 };
 enum { FP_QNAN = 1 };
-/* #define	HUGE		MAXFLOAT ### string, not number "MAXFLOAT" */
-/* #define X_TLOSS		1.41484755040568800000e+16 ### string, not number "1.41484755040568800000e+16" */
+/* #define HUGE 0x1.fffffep+127f ### define is not number */
 enum { DOMAIN = 1 };
 enum { SING = 2 };
 enum { OVERFLOW = 3 };
 enum { UNDERFLOW = 4 };
 enum { TLOSS = 5 };
 enum { PLOSS = 6 };
-extern long int rinttol(double);
-extern long int roundtol(double);
-extern double drem(double, double);
-extern int finite(double);
-extern double gamma(double);
-extern double significand(double);
-struct exception {
-	int type;
-	char *name;
-	double arg1;
-	double arg2;
-	double retval;
-};
-/* + END   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/math.h */
+/* + END <math.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/math.h */
 ]]
+
+-- add in values that can't be ffi.cdef enum'd
+local wrapper = setmetatable({}, {__index=ffi.C})
+wrapper.M_E = 2.71828182845904523536028747135266250
+wrapper.M_LOG2E = 1.44269504088896340735992468100189214
+wrapper.M_LOG10E = 0.434294481903251827651128918916605082
+wrapper.M_LN2 = 0.693147180559945309417232121458176568
+wrapper.M_LN10 = 2.30258509299404568401799145468436421
+wrapper.M_PI = 3.14159265358979323846264338327950288
+wrapper.M_PI_2 = 1.57079632679489661923132169163975144
+wrapper.M_PI_4 = 0.785398163397448309615660845819875721
+wrapper.M_1_PI = 0.318309886183790671537767526745028724
+wrapper.M_2_PI = 0.636619772367581343075535053490057448
+wrapper.M_2_SQRTPI = 1.12837916709551257389615890312154517
+wrapper.M_SQRT2 = 1.41421356237309504880168872420969808
+wrapper.M_SQRT1_2 = 0.707106781186547524400844362104849039
+wrapper.X_TLOSS = 1.41484755040568800000e+16
+return wrapper
