@@ -84,9 +84,6 @@ lookup'GLU'.Windows = 'GLU32'
 lookup'z'.Windows = 'zlib'
 
 lookup'openal'.Windows = 'OpenAL32'
-lookup'vorbis'.Windows = 'libvorbis-0'
-lookup'vorbisfile'.Windows = 'libvorbisfile-3'
-lookup'ogg'.Windows = 'libogg-0'
 
 
 -- ================================ OSX ================================
