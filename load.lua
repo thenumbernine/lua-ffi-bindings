@@ -83,13 +83,6 @@ lookup'GLU'.Windows = 'GLU32'
 -- can ffi.load"serial/hdf5" work? hmm...
 lookup'z'.Windows = 'zlib'
 
--- For Windows msvc turbojpeg 2.0.3 cmake wouldn't build, so i used 2.0.4 instead
--- I wonder if this is the reason for the few subtle differences
--- TODO rebuild linux with 2.0.4 and see if they go away?
-lookup'jpeg'.Windows = 'jpeg8'
--- for Linux, libturbojpeg 2.1.2 (which is not libjpeg-turbo *smh* who named this)
--- the header generated matches libturbojpeg 2.0.3 for Ubuntu ... except the version macros
-
 lookup'openal'.Windows = 'OpenAL32'
 lookup'vorbis'.Windows = 'libvorbis-0'
 lookup'vorbisfile'.Windows = 'libvorbisfile-3'
