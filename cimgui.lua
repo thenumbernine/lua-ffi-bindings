@@ -12,7 +12,7 @@ require 'ffi.req' 'c.stdio'
 require 'ffi.req' 'c.stdint'
 require 'ffi.req' 'c.stdarg'
 require 'ffi.req' 'c.stdbool'
-require 'ffi.req' 'sdl2'
+require 'sdl'	-- usd the SDL repo so that it can determine (/ detect?) what SDL version to use
 
 ffi.cdef[[
 
