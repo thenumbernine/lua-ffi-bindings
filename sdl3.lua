@@ -1998,7 +1998,6 @@ enum { SDL_platform_defines_h_ = 1 };
 enum { SDL_PLATFORM_APPLE = 1 };
 enum { SDL_PLATFORM_MACOS = 1 };
 enum { SDL_INCLUDE_STDBOOL_H = 1 };
-enum { alloca = 0 };
 enum { SDL_MIN_SINT64 = -1 };
 enum { SDL_MIN_TIME = -1 };
 enum { SDL_PRINTF_FORMAT_STRING = 1 };
