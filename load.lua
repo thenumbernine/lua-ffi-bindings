@@ -66,12 +66,8 @@ end
 
 -- ================================ Linux ================================
 
-
--- Why doesn't this automatically search here?  Maybe it does and I just forgot to run ldconfig?
-lookup'cimgui_sdl'.Linux = '/usr/local/lib/libcimgui_sdl.so'
-
+lookup'cimgui_sdl'.Linux = '/usr/local/lib/libcimgui_sdl3.so'				-- I'll let you pick the specific sdl version here
 lookup'hdf5'.Linux = '/usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5.so'
-
 
 -- ================================ Windows ================================
 
@@ -85,6 +81,7 @@ lookup'z'.Windows = 'zlib'
 
 lookup'openal'.Windows = 'OpenAL32'
 
+lookup'cimgui_sdl'.OSX = '/usr/local/lib/libcimgui_sdl3.dylib'
 
 -- ================================ OSX ================================
 
@@ -129,7 +126,7 @@ lookup'openal'.OSX = '/System/Library/Frameworks/OpenAL.framework/OpenAL'
 -- And setting DYLD_LIBRARY_PATH crashes library conflicts (which will probably start happening anyways as I change this more)
 -- But here I go trying to point to /usr/local/lib on OSX for all the libs I reference in here.
 -- Another reason to use malkia's model and just package all the binaries in the repo itself.
-lookup'cimgui_sdl'.OSX = '/usr/local/lib/libcimgui_sdl.dylib'
+lookup'cimgui_sdl'.OSX = '/usr/local/lib/libcimgui_sdl3.dylib'
 lookup'SDL2'.OSX = '/usr/local/lib/libSDL2.dylib'
 lookup'SDL3'.OSX = '/usr/local/lib/libSDL3.dylib'
 lookup'png'.OSX = '/usr/local/lib/libpng.dylib'

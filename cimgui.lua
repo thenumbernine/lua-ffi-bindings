@@ -4485,6 +4485,7 @@ wrapper = require 'ffi.libwrapper'{
 		ImVector_ImWchar_destroy = [[void ImVector_ImWchar_destroy(ImVector/*<ImWchar>*/* self);]],
 		ImVector_ImWchar_Init = [[void ImVector_ImWchar_Init(ImVector/*<ImWchar>*/* p);]],
 		ImVector_ImWchar_UnInit = [[void ImVector_ImWchar_UnInit(ImVector/*<ImWchar>*/* p);]],
+		
 		ImGui_ImplSDL2_InitForOpenGL = [[_Bool ImGui_ImplSDL2_InitForOpenGL(SDL_Window* window, void* sdl_gl_context);]],
 		ImGui_ImplSDL2_InitForVulkan = [[_Bool ImGui_ImplSDL2_InitForVulkan(SDL_Window* window);]],
 		ImGui_ImplSDL2_InitForD3D = [[_Bool ImGui_ImplSDL2_InitForD3D(SDL_Window* window);]],
@@ -4494,8 +4495,19 @@ wrapper = require 'ffi.libwrapper'{
 		ImGui_ImplSDL2_Shutdown = [[void ImGui_ImplSDL2_Shutdown();]],
 		ImGui_ImplSDL2_NewFrame = [[void ImGui_ImplSDL2_NewFrame();]],
 		ImGui_ImplSDL2_ProcessEvent = [[_Bool ImGui_ImplSDL2_ProcessEvent(const SDL_Event* event);]],
-
 		ImGui_ImplSDL2_SetGamepadMode = [[void ImGui_ImplSDL2_SetGamepadMode(ImGui_ImplSDL2_GamepadMode mode, struct _SDL_GameController** manual_gamepads_array, int manual_gamepads_count);]],
+
+		ImGui_ImplSDL3_InitForOpenGL = [[_Bool ImGui_ImplSDL3_InitForOpenGL(SDL_Window* window, void* sdl_gl_context);]],
+		ImGui_ImplSDL3_InitForVulkan = [[_Bool ImGui_ImplSDL3_InitForVulkan(SDL_Window* window);]],
+		ImGui_ImplSDL3_InitForD3D = [[_Bool ImGui_ImplSDL3_InitForD3D(SDL_Window* window);]],
+		ImGui_ImplSDL3_InitForMetal = [[_Bool ImGui_ImplSDL3_InitForMetal(SDL_Window* window);]],
+		ImGui_ImplSDL3_InitForSDLRenderer = [[_Bool ImGui_ImplSDL3_InitForSDLRenderer(SDL_Window* window, SDL_Renderer* renderer);]],
+		ImGui_ImplSDL3_InitForOther = [[_Bool ImGui_ImplSDL3_InitForOther(SDL_Window* window);]],
+		ImGui_ImplSDL3_Shutdown = [[void ImGui_ImplSDL3_Shutdown();]],
+		ImGui_ImplSDL3_NewFrame = [[void ImGui_ImplSDL3_NewFrame();]],
+		ImGui_ImplSDL3_ProcessEvent = [[_Bool ImGui_ImplSDL3_ProcessEvent(const SDL_Event* event);]],
+		ImGui_ImplSDL3_SetGamepadMode = [[void ImGui_ImplSDL3_SetGamepadMode(ImGui_ImplSDL3_GamepadMode mode, struct _SDL_GameController** manual_gamepads_array, int manual_gamepads_count);]],
+
 		ImGui_ImplOpenGL3_Init = [[_Bool ImGui_ImplOpenGL3_Init(const char* glsl_version);]],
 		ImGui_ImplOpenGL3_Shutdown = [[void ImGui_ImplOpenGL3_Shutdown();]],
 		ImGui_ImplOpenGL3_NewFrame = [[void ImGui_ImplOpenGL3_NewFrame();]],
