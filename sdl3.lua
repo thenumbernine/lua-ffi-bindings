@@ -75,8 +75,6 @@ local ffi = require 'ffi'
 /* #define SDL_AUDIO_MASK_FLOAT         (1u<<8) ### string, not number "(1u<<8)" */
 /* #define SDL_AUDIO_MASK_BIG_ENDIAN    (1u<<12) ### string, not number "(1u<<12)" */
 /* #define SDL_AUDIO_MASK_SIGNED        (1u<<15) ### string, not number "(1u<<15)" */
-/* #define SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK ((SDL_AudioDeviceID) 0xFFFFFFFFu) ### string, not number "((SDL_AudioDeviceID) 0xFFFFFFFFu)" */
-/* #define SDL_AUDIO_DEVICE_DEFAULT_RECORDING ((SDL_AudioDeviceID) 0xFFFFFFFEu) ### string, not number "((SDL_AudioDeviceID) 0xFFFFFFFEu)" */
 /* manually commented out: enum { SDL_begin_code_h = 1 }; */
 /* manually commented out: enum { SDL_begin_code_h = 1 }; */
 /* manually commented out: enum { SDL_begin_code_h = 1 }; */
@@ -3672,6 +3670,9 @@ SDL_WINDOW_VULKAN                = 0x0000000010000000,
 SDL_WINDOW_METAL                 = 0x0000000020000000,
 SDL_WINDOW_TRANSPARENT           = 0x0000000040000000,
 SDL_WINDOW_NOT_FOCUSABLE         = 0x0000000080000000,
+
+SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK = 0xFFFFFFFFu,
+SDL_AUDIO_DEVICE_DEFAULT_RECORDING = 0xFFFFFFFEu,
 };
 ]]
 
