@@ -4934,4 +4934,7 @@ wrapper = require 'ffi.libwrapper'{
 		ImGui_ImplOpenGL3_DestroyDeviceObjects = [[void ImGui_ImplOpenGL3_DestroyDeviceObjects();]],
 	},
 }
+
+wrapper.version = '1.91.9dock'	-- my addition, not in the headers.  sad that it's not.
+
 return wrapper
