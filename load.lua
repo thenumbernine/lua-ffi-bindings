@@ -81,8 +81,6 @@ lookup'z'.Windows = 'zlib'
 
 lookup'openal'.Windows = 'OpenAL32'
 
-lookup'cimgui_sdl'.OSX = '/usr/local/lib/libcimgui_sdl3.dylib'
-
 -- ================================ OSX ================================
 
 
