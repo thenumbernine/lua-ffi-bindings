@@ -192,7 +192,6 @@ files = {
 	["android/EGL.lua"] = "ffi/android/EGL.lua",
 	["archive.lua"] = "ffi/archive.lua",
 	["cblas.lua"] = "ffi/cblas.lua",
-	["cimgui.lua"] = "ffi/cimgui.lua",
 	["cpp/vector-lua.lua"] = "ffi/cpp/vector-lua.lua",
 	["cpp/vector.lua"] = "ffi/cpp/vector.lua",
 	["elf.lua"] = "ffi/elf.lua",
