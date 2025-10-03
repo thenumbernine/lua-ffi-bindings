@@ -100,9 +100,20 @@ function vectorbase:reserve(newcap)
 --DEBUG(ffi.cpp.vector): print('new endOfStorage:', tostring(ffi.cast('void*', self.endOfStorage)))
 end
 
+local bitCanHandle64
+pcall(function()
+	bit.lshift(ffi.cast('int64_t', 1), 1)
+	bitCanHandle64 = true
+end)
+
 function vectorbase:resize(newsize)
 	-- TODO increase by %age?  like 20% or so? with a min threshold of 32 / increments of 32?
-	local newcap = bit.lshift(bit.rshift(ffi.cast('size_t', newsize), 5) + 1, 5)
+	local newcap
+	if bitCanHandle64 then
+		newcap = bit.lshift(bit.rshift(ffi.cast('size_t', newsize), 5) + 1, 5)
+	else
+		newcap = bit.lshift(bit.rshift(tonumber(newsize), 5) + 1, 5)
+	end
 --DEBUG(ffi.cpp.vector): print('vectorbase.resize', newsize)
 --DEBUG(ffi.cpp.vector): print('newcap', newcap)
 	self:reserve(newcap)
