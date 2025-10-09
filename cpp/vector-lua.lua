@@ -107,6 +107,17 @@ end
 
 function vector:reserve(newcap)
 	if newcap <= self.capacity then return end
+
+	-- add 25%, rounded up
+	newcap = newcap
+		+ bit.rshift(newcap, 2)
+		+ (bit.band(newcap, 3) ~= 0 and 1 or 0)
+	-- round up to 16
+	newcap = bit.lshift(
+		bit.rshift(newcap, 4)
+		+ (bit.band(newcap, 15) ~= 0 and 1 or 0)
+		, 4)
+
 	-- so self.capacity < newcap
 	local newv = self:alloc(self.type, newcap)
 	assert.le(self.size, self.capacity)
@@ -117,9 +128,7 @@ end
 
 function vector:resize(newsize)
 	newsize = assert(tonumber(newsize))
-	while newsize > self.capacity do
-		self:reserve(self.capacity * 2)
-	end
+	self:reserve(newsize)
 	self.size = newsize
 end
 

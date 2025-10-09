@@ -78,6 +78,17 @@ function vectorbase:reserve(newcap)
 --DEBUG(ffi.cpp.vector): print('newcap <= oldcap, returning')
 		return
 	end
+
+	-- add 25%, rounded up
+	newcap = newcap
+		+ bit.rshift(newcap, 2)
+		+ (bit.band(newcap, 3) ~= 0 and 1 or 0)
+	-- round up to 16
+	newcap = bit.lshift(
+		bit.rshift(newcap, 4)
+		+ (bit.band(newcap, 15) ~= 0 and 1 or 0)
+		, 4)
+
 	-- so self:capacity() < newcap
 	-- TODO realloc?
 	local bytes = ffi.sizeof(self.T) * newcap
@@ -100,24 +111,9 @@ function vectorbase:reserve(newcap)
 --DEBUG(ffi.cpp.vector): print('new endOfStorage:', tostring(ffi.cast('void*', self.endOfStorage)))
 end
 
-local bitCanHandle64
-pcall(function()
-	bit.lshift(ffi.cast('int64_t', 1), 1)
-	bitCanHandle64 = true
-end)
-
 function vectorbase:resize(newsize)
-	-- TODO increase by %age?  like 20% or so? with a min threshold of 32 / increments of 32?
-	local newcap
-	if bitCanHandle64 then
-		newcap = bit.lshift(bit.rshift(ffi.cast('size_t', newsize), 5) + 1, 5)
-	else
-		newcap = bit.lshift(bit.rshift(tonumber(newsize), 5) + 1, 5)
-	end
 --DEBUG(ffi.cpp.vector): print('vectorbase.resize', newsize)
---DEBUG(ffi.cpp.vector): print('newcap', newcap)
-	self:reserve(newcap)
---DEBUG(ffi.cpp.vector): assert.ge(self:capacity(), newcap)
+	self:reserve(newsize)
 	-- TODO ffi.fill with zero here?
 	self.finish = self.v + newsize
 --DEBUG(ffi.cpp.vector): assert.ge(self:size(), newsize)
