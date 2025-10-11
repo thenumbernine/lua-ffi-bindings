@@ -30,7 +30,9 @@ vector.useIndexOp = false
 
 -- TODO how about a ctor based on ptr and size?
 function vector:init(ctype, arg)
-	self.type = ctype
+	self.type = ffi.typeof(ctype)
+	self.typePtr = ffi.typeof('$*', self.type)
+	self.typeArr = ffi.typeof('$[?]', self.type)
 	self.size = 0
 	self.capacity = 0
 	self:reserve(32)
@@ -96,15 +98,6 @@ function vector:__ipairs()
 	end)
 end
 
--- [[ return the self.v object as a raw pointer / array
-function vector:alloc(ctype, capacity)
-	return ffi.new(ctype..'[?]', capacity)
-end
---]]
--- [[ return the self.v object with bounds-checking
-
---]]
-
 function vector:reserve(newcap)
 	if newcap <= self.capacity then return end
 
@@ -119,7 +112,7 @@ function vector:reserve(newcap)
 		, 4)
 
 	-- so self.capacity < newcap
-	local newv = self:alloc(self.type, newcap)
+	local newv = self.typeArr(newcap)
 	assert.le(self.size, self.capacity)
 	if self.v then ffi.copy(newv, self.v, self:getNumBytes()) end
 	self.v = newv
@@ -182,8 +175,8 @@ function vector:insert(...)
 	local n = select('#', ...)
 	if n == 3 then
 		local where, first, last = ...
-		first = ffi.cast(self.type..'*', first)
-		last = ffi.cast(self.type..'*', last)
+		first = ffi.cast(self.typePtr, first)
+		last = ffi.cast(self.typePtr, last)
 
 		local numToCopy = last - first
 		if numToCopy == 0 then return end

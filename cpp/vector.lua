@@ -8,6 +8,8 @@ local range = require 'ext.range'
 local struct = require 'struct'
 require 'ffi.req' 'c.stdlib'	-- malloc, free
 
+local voidp = ffi.typeof'void*'
+
 -- TODO I want to move functions into one place
 -- but as soon as I switch __index to read the .metatable, struct:isa() stops working ...
 local vectorbase = {}
@@ -249,14 +251,17 @@ end
 
 
 local function makeStdVector(T, name)
+	T = ffi.typeof(T)
+	local Tname = tostring(T):match'^ctype<(.*)>$'
+
 	-- TODO std_vector_*
-	name = name or 'vector_'..T:gsub('%*', '_ptr'):gsub('%s+', '')
+	name = name or 'vector_'..Tname:gsub('%*', '_ptr'):gsub('%s+', '')
 
 	-- check types so I don't declare one twice (and error luajit)
 	-- fun fact, if the type hasn't yet been defined, ffi will error instead of fail quietly (and quickly)
 	local ctype = require 'ext.op'.land(pcall(ffi.typeof, name))
 	if not ctype then
-		local Tptr = T..' *'
+		local Tptr = ffi.typeof('$*', T)
 
 		struct{
 			name = name,
@@ -334,8 +339,8 @@ local function makeStdVector(T, name)
 
 		-- stl vector in my gcc / linux is 24 bytes
 		-- template type of our vector ... 8 bytes mind you
-		assert.eq(ffi.sizeof(name), 3*ffi.sizeof'void*')	-- 24
-		assert.eq(ffi.sizeof(Tptr), ffi.sizeof'void*')		-- 8
+		assert.eq(ffi.sizeof(name), 3*ffi.sizeof(voidp))	-- 24
+		assert.eq(ffi.sizeof(Tptr), ffi.sizeof(voidp))		-- 8
 		ctype = assert(ffi.typeof(name))
 	end
 
