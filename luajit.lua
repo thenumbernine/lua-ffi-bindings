@@ -1,6 +1,7 @@
 local ffi = require 'ffi'
 
 ffi.cdef[[
+enum { LUA_GLOBALSINDEX = -10002 };
 enum { LUA_MULTRET = -1 };
 enum { LUA_TNONE = -1 };
 enum { LUA_TNIL = 0 };
