@@ -1,6 +1,20 @@
 local ffi = require 'ffi'
 
 ffi.cdef[[
+enum { LUA_MULTRET = -1 };
+enum { LUA_TNONE = -1 };
+enum { LUA_TNIL = 0 };
+enum { LUA_TBOOLEAN = 1 };
+enum { LUA_TLIGHTUSERDATA = 2 };
+enum { LUA_TNUMBER = 3 };
+enum { LUA_TSTRING = 4 };
+enum { LUA_TTABLE = 5 };
+enum { LUA_TFUNCTION = 6 };
+enum { LUA_TUSERDATA = 7 };
+enum { LUA_TTHREAD = 8 };
+enum { LUA_TPROTO = 9 };
+enum { LUA_TCDATA = 10 };
+
 typedef double lua_Number;
 typedef struct lua_State lua_State;
 typedef ptrdiff_t lua_Integer;
@@ -16,6 +30,9 @@ void lua_getfield(lua_State *L, int index, const char *k);
 void lua_settop(lua_State *L, int index);
 void lua_pop(lua_State *L, int n);
 int lua_gettop(lua_State *L);
+
+int lua_type(lua_State *L, int idx);
+const char *lua_typename(lua_State *L, int tp);
 
 const char *lua_tolstring(lua_State *L, int index, size_t *len);
 ptrdiff_t lua_tointeger(lua_State *L, int index);
