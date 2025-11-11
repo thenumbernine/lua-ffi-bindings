@@ -34,6 +34,7 @@ int lua_gettop(lua_State *L);
 int lua_type(lua_State *L, int idx);
 const char *lua_typename(lua_State *L, int tp);
 
+int lua_toboolean(lua_State *L, int idx);
 const char *lua_tolstring(lua_State *L, int index, size_t *len);
 ptrdiff_t lua_tointeger(lua_State *L, int index);
 const void *lua_topointer(lua_State *L, int index);
