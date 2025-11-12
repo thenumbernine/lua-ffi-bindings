@@ -401,3 +401,6 @@ enum { __cleanup_fct_attribute = 1 };
 /* #define pthread_cleanup_pop (execute) do { } while (0); } while (0); __pthread_unregister_cancel (&__cancel_buf); if (execute) __cancel_routine (__cancel_arg); } while (0) ### define is not number */
 /* + END <pthread.h> /usr/include/pthread.h */
 ]]
+
+-- other OS's (OSX?) require a ffi.load, so make this modular so Linux can just return ffi.C ?
+return ffi.C
