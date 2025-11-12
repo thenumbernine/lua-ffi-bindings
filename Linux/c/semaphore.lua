@@ -37,3 +37,5 @@ enum { __SIZEOF_SEM_T = 32 };
 /* #define SEM_FAILED ((sem_t *) 0) ### define is not number */
 /* + END <semaphore.h> /usr/include/semaphore.h */
 ]]
+
+return ffi.C
