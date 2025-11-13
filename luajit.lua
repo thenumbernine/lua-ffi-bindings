@@ -89,6 +89,9 @@ return setmetatable({
 	lua_upvalueindex = function(i)
 		return lib.LUA_GLOBALSINDEX - i
 	end,
+	lua_getglobal = function(L, s)
+		return lib.lua_getfield(L, lib.LUA_GLOBALSINDEX, s)
+	end,
 }, {
 	__index = lib,
 })
