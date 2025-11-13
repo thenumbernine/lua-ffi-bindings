@@ -31,11 +31,8 @@ typedef struct lua_State lua_State;
 typedef ptrdiff_t lua_Integer;
 typedef int (*lua_CFunction) (lua_State *L);
 
-lua_State* luaL_newstate();
-void luaL_openlibs(lua_State* L);
 void lua_close(lua_State* L);
 
-int luaL_loadstring(lua_State* L, const char* s);
 int lua_pcall(lua_State* L, int nargs, int nresults, int errfunc);
 
 void lua_getfield(lua_State* L, int index, const char* k);
@@ -71,9 +68,14 @@ void lua_pushboolean(lua_State* L, int b);
 void lua_pushlightuserdata(lua_State *L, void *p);
 int lua_pushthread(lua_State *L);
 
-
+lua_State* luaL_newstate();
+void luaL_openlibs(lua_State* L);
+int luaL_loadstring(lua_State* L, const char* s);
 int luaL_ref(lua_State* L, int i);
 void luaL_unref(lua_State *L, int t, int ref);
+int luaL_loadbuffer(lua_State *L, const char *buff, size_t sz, const char* name);
+int luaL_loadbufferx(lua_State *L, const char *buff, size_t sz, const char* name, const char* mode);
+
 ]]
 
 local lib = require 'ffi.load' 'luajit'
