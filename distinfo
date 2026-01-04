@@ -215,7 +215,6 @@ files = {
 	["tiff.lua"] = "ffi/tiff.lua",
 	["vorbis/codec.lua"] = "ffi/vorbis/codec.lua",
 	["vorbis/vorbisfile.lua"] = "ffi/vorbis/vorbisfile.lua",
-	["vulkan.lua"] = "ffi/vulkan.lua",
 	["zip.lua"] = "ffi/zip.lua",
 	["zlib.lua"] = "ffi/zlib.lua",
 }
