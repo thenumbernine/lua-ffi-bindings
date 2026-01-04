@@ -81,7 +81,6 @@ build = {
 		["ffi.cimgui"] = "cimgui.lua",
 		["ffi.cpp.vector"] = "cpp/vector.lua",
 		["ffi.fitsio"] = "fitsio.lua",
-		["ffi.gcwrapper.gcwrapper"] = "gcwrapper/gcwrapper.lua",
 		["ffi.gif"] = "gif.lua",
 		["ffi.glu"] = "glu.lua",
 		["ffi.hdf5"] = "hdf5.lua",

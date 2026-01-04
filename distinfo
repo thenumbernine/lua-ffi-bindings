@@ -195,7 +195,6 @@ files = {
 	["elf.lua"] = "ffi/elf.lua",
 	["ffi-dev-1.rockspec"] = "ffi/ffi-dev-1.rockspec",
 	["fitsio.lua"] = "ffi/fitsio.lua",
-	["gcwrapper/gcwrapper.lua"] = "ffi/gcwrapper/gcwrapper.lua",
 	["gif.lua"] = "ffi/gif.lua",
 	["glu.lua"] = "ffi/glu.lua",
 	["hdf5.lua"] = "ffi/hdf5.lua",
