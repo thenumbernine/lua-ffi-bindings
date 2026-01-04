@@ -20,7 +20,6 @@ build = {
 		["ffi.Linux.tiff"] = "Linux/tiff.lua",
 		["ffi.OpenAL"] = "OpenAL.lua",
 		["ffi.OpenALUT"] = "OpenALUT.lua",
-		["ffi.OpenCL"] = "OpenCL.lua",
 		["ffi.OpenGL"] = "OpenGL.lua",
 		["ffi.OpenGLES1"] = "OpenGLES1.lua",
 		["ffi.OpenGLES2"] = "OpenGLES2.lua",

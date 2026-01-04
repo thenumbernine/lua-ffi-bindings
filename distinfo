@@ -155,7 +155,6 @@ files = {
 	["OSX/c/wchar.lua"] = "ffi/OSX/c/wchar.lua",
 	["OpenAL.lua"] = "ffi/OpenAL.lua",
 	["OpenALUT.lua"] = "ffi/OpenALUT.lua",
-	["OpenCL.lua"] = "ffi/OpenCL.lua",
 	["README.md"] = "ffi/README.md",
 	["Windows/c/corecrt.lua"] = "ffi/Windows/c/corecrt.lua",
 	["Windows/c/corecrt_share.lua"] = "ffi/Windows/c/corecrt_share.lua",
