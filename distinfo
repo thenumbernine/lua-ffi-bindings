@@ -205,7 +205,6 @@ files = {
 	["libwrapper.lua"] = "ffi/libwrapper.lua",
 	["load.lua"] = "ffi/load.lua",
 	["mono.lua"] = "ffi/mono.lua",
-	["netcdf.lua"] = "ffi/netcdf.lua",
 	["ogg.lua"] = "ffi/ogg.lua",
 	["png.lua"] = "ffi/png.lua",
 	["pulse.lua"] = "ffi/pulse.lua",
