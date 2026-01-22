@@ -195,7 +195,8 @@ typedef struct {
 local wrapper
 wrapper = require 'ffi.libwrapper'{
 	lib = require 'ffi.load' 'png',
-	defs = {
+	init = {
+
 		-- enums
 
 		PNG_H = 1,
@@ -644,6 +645,9 @@ wrapper = require 'ffi.libwrapper'{
 		PNG_OPTION_INVALID = 1,
 		PNG_OPTION_OFF = 2,
 		PNG_OPTION_ON = 3,
+
+	},
+	defs = {
 
 		-- functions
 
