@@ -5,7 +5,6 @@ TODO maybe move that to its own repo, like std-ffi.vector ?
 local ffi = require 'ffi'
 local assert = require 'ext.assert'
 local range = require 'ext.range'
-local struct = require 'struct'
 require 'ffi.req' 'c.stdlib'	-- malloc, free
 
 local voidp = ffi.typeof'void*'
@@ -250,103 +249,76 @@ function vectorbase:__tostring()
 end
 
 
-local function makeStdVector(T, name)
+local function makeVectorType(T)
 	T = ffi.typeof(T)
-	local Tname = tostring(T):match'^ctype<(.*)>$'
+	local Tptr = ffi.typeof('$*', T)
+	local ctype = ffi.typeof([[
+struct {
+	union {
+		$ v;
+		$ start;
+	};
+	$ finish;
+	$ endOfStorage;
+}
+]], Tptr, Tptr, Tptr, Tptr)
 
-	-- TODO std_vector_*
-	name = name or 'vector_'..Tname:gsub('%*', '_ptr'):gsub('%s+', '')
+	local mt = {}
 
-	-- check types so I don't declare one twice (and error luajit)
-	-- fun fact, if the type hasn't yet been defined, ffi will error instead of fail quietly (and quickly)
-	local ctype = require 'ext.op'.land(pcall(ffi.typeof, name))
-	if not ctype then
-		local Tptr = ffi.typeof('$*', T)
+	mt.T = T
+	mt.Tptr = Tptr
 
-		struct{
-			name = name,
-			fields = {
-				{type = struct{
-					anonymous = true,
-					union = true,
-					fields = {
-						-- shorthand index access: .v[]
-						{name = 'v', type = Tptr},
-						{name = 'start', type = Tptr},
-					},
-				}},
-				{name = 'finish', type = Tptr},
-				{name = 'endOfStorage', type = Tptr},
-			},
-			metatable = function(mt)
-
-				mt.T = T
-				mt.Tptr = Tptr
-
-				-- __index for numbers to lookup in .v[]
-				function mt:__index(k)
-					-- NOTICE
-					-- getmetatable(any cdata) returns the string "ffi"
-					-- debug.getmetatable(any cdata) returns some other table internal to luajit
-					-- is there no possible way to get back the metatype table?
-					-- I guess I'll have to assign "metatable.metatable = metatable" in struct-lua ...
-					-- see if the metatype has anything
+	-- __index for numbers to lookup in .v[]
+	function mt:__index(k)
+		-- NOTICE
+		-- getmetatable(any cdata) returns the string "ffi"
+		-- debug.getmetatable(any cdata) returns some other table internal to luajit
+		-- is there no possible way to get back the metatype table?
+		-- I guess I'll have to assign "metatable.metatable = metatable" in struct-lua ...
+		-- see if the metatype has anything
 -- why does accessing self.metatable here make the function 'assert(struct:isa(metatype)) fail ...
 --print(self.metatable)
 --print('mt', mt, type(self), ffi.typeof(self))
-					--local mv = self.metatable[k]
-					local mv = mt[k]
-					if mv ~= nil then return mv end
-					-- then treat the index like vector access
-					if k < 0 or k >= self:size() then
-						error("got out of bounds index: "..tostring(k))
-					end
-					if self:size() > self:capacity() then
-						error("got a bad size "..self:size().." vs capacity "..self:capacity())
-					end
-					if self:capacity() * ffi.sizeof(self.type) ~= ffi.sizeof(self.v) then
-						-- TODO don't use capacity, just use ffi.sizeof ?
-						error("capacity is misaligned")
-					end
-					return self.v[k]
-				end
+		--local mv = self.metatable[k]
+		local mv = mt[k]
+		if mv ~= nil then return mv end
+		-- then treat the index like vector access
+		if k < 0 or k >= self:size() then
+			error("got out of bounds index: "..tostring(k))
+		end
+		if self:size() > self:capacity() then
+			error("got a bad size "..self:size().." vs capacity "..self:capacity())
+		end
+		if self:capacity() * ffi.sizeof(self.type) ~= ffi.sizeof(self.v) then
+			-- TODO don't use capacity, just use ffi.sizeof ?
+			error("capacity is misaligned")
+		end
+		return self.v[k]
+	end
 
-				function mt:__newindex(k, v)
-					-- see if we are writing a field
-					if type(k) ~= 'number' then
-						rawset(self, k, v)
-						return
-					end
-					-- otherwise treat number access as vector access
-					if k < 0 or k >= self:size() then
-						error("got out of bounds index: "..tostring(k))
-					end
-					if self:size() > self:capacity() then
-						error("got a bad size "..self:size().." vs capacity "..self:capacity())
-					end
-					if self:capacity() * ffi.sizeof(self.type) ~= ffi.sizeof(self.v) then
-						-- TODO don't use capacity, just use ffi.sizeof ?
-						error("capacity is misaligned")
-					end
-					rawget(self, 'v')[k] = v
-				end
-
-				for k,v in pairs(vectorbase) do
-					mt[k] = v
-				end
-			end,
-		}
-
-		-- stl vector in my gcc / linux is 24 bytes
-		-- template type of our vector ... 8 bytes mind you
-		assert.eq(ffi.sizeof(name), 3*ffi.sizeof(voidp))	-- 24
-		assert.eq(ffi.sizeof(Tptr), ffi.sizeof(voidp))		-- 8
-		ctype = assert(ffi.typeof(name))
+	function mt:__newindex(k, v)
+		-- see if we are writing a field
+		if type(k) ~= 'number' then
+			rawset(self, k, v)
+			return
+		end
+		-- otherwise treat number access as vector access
+		if k < 0 or k >= self:size() then
+			error("got out of bounds index: "..tostring(k))
+		end
+		if self:size() > self:capacity() then
+			error("got a bad size "..self:size().." vs capacity "..self:capacity())
+		end
+		if self:capacity() * ffi.sizeof(self.type) ~= ffi.sizeof(self.v) then
+			-- TODO don't use capacity, just use ffi.sizeof ?
+			error("capacity is misaligned")
+		end
+		rawget(self, 'v')[k] = v
 	end
 
 	-- return the vector constructor
-	return function(arg)
-		local o = ffi.new(ctype)
+	function mt:__new(arg)
+		local o = ffi.new(self)
 		o.start = nil
 		o.finish = nil
 		o.endOfStorage = nil
@@ -363,17 +335,28 @@ local function makeStdVector(T, name)
 		end
 		return o
 	end
+
+	for k,v in pairs(vectorbase) do
+		mt[k] = v
+	end
+
+	ffi.metatype(ctype, mt)
+
+	-- stl vector in my gcc / linux is 24 bytes
+	-- template type of our vector ... 8 bytes mind you
+	assert.eq(ffi.sizeof(ctype), 3*ffi.sizeof(voidp))	-- 24
+	assert.eq(ffi.sizeof(Tptr), ffi.sizeof(voidp))	-- 8
+
+	return ctype
 end
 
 return setmetatable({}, {
 	__index = {
-		makeStdVector = makeStdVector,
-
 		-- allow outside access to vectorbase
 		-- so anyone wanting to tweak the inherited class before creating a vector can do so
 		vectorbase = vectorbase,
 	},
 	__call = function(t, ...)
-		return makeStdVector(...)
+		return makeVectorType(...)
 	end,
 })

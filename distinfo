@@ -203,5 +203,4 @@ files = {
 }
 deps = {
 	"ext",
-	"struct",
 }
