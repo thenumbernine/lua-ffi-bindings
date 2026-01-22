@@ -27,8 +27,8 @@ local M = {}
 
 -- for now I'll defer-by-default, combined with only using ffi.libwrapper with slow/offline libs like libpng/cfitsio/libtiff that I don't call in tight loops
 --M.mode = 'immediate'	-- load immediately into ffi.C[k]
-M.mode = 'defer'		-- defer loading ffi.C[k] until requested
---M.mode = 'defer-lua'	-- defer loading wrapper[k] until requested
+--M.mode = 'defer'		-- defer loading ffi.C[k] until requested
+M.mode = 'defer-lua'	-- defer loading wrapper[k] until requested
 
 --[[
 args:
@@ -84,27 +84,29 @@ function M.libwrapper(args)
 		local wrapper
 		wrapper = setmetatable({}, {
 			__index = function(t,k)
-				-- ok this will guarantee to be slow.  thanks luajit for breaking the lua standard and throwing an error instead of returning nil.
 				local v = op.safeindex(lib, k)
-
-				if v ~= nil then return v end
+				if v ~= nil then
+					wrapper[k] = v
+					return v
+				end
 
 				local v = defs[k]
 				if v ~= nil then
 --DEBUG(ffi.libwrapper): print('libwrapper loading', k)
-					-- define in lib / ffi.C , which might be faster, but can also incur 'table overflow'
 					if type(v) == 'number' then
 						if M.mode == 'defer' then
 							ffi.cdef('enum { '..k..' = '..v..' };')
+							wrapper[k] = v
 						elseif M.mode == 'defer-lua' then
-							--  define in wrapper, which might be slower, but no 'table overflow'
 							wrapper[k] = v
 						end
 						return v
 					elseif type(v) == 'string' then
 						ffi.cdef(v)
 						-- it should be there by now ...
-						return op.safeindex(lib, k)
+						local result = op.safeindex(lib, k)
+						wrapper[k] = result
+						return result
 					elseif type(v) == 'function' then
 						local result = v()
 						wrapper[k] = result
