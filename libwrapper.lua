@@ -40,6 +40,11 @@ args:
 
 	lib = `require 'ffi.load' (libraryName)`  optional, if omitted this defaults to `ffi.C`.
 
+	wrapper = {[k] = v}, optional, default {}
+		... this is the wrapper itself.
+		... put any key/values you want to initialize the wrapper with in here.
+		... whereas defs holds generators to be called upon first __index, this holds values always initialized from the start
+
 creates a wrapper for the library based on `require 'ffi.libwrapper'.mode`
 - if it is 'immediate' then all enums are immediately loaded into the library (this can only be assigned / used if M.mode is set to 'immediate' before require'ing the ffi.req header name.
 - if it is 'defer' then enums are only assigned upon request, and assigned to ffi.C
@@ -71,6 +76,9 @@ function M.libwrapper(args)
 			elseif type(v) == 'string' then
 				ffi.cdef(v)
 			elseif type(v) == 'function' then
+				-- TODO ... this just won't work.
+				-- functions-as-generators can't write to lib
+				-- which means they won't work with mode == immediate
 				wrapper[k] = v()
 			else
 				error("expected defs type to be number or string")
@@ -81,12 +89,12 @@ function M.libwrapper(args)
 	or M.mode == 'defer-lua'
 	then
 		-- do wrap -- and incur slowdowns
-		local wrapper
-		wrapper = setmetatable({}, {
+		local wrapper = args.wrapper or {}
+		setmetatable(wrapper, {
 			__index = function(t,k)
 				local v = op.safeindex(lib, k)
 				if v ~= nil then
-					wrapper[k] = v
+					t[k] = v
 					return v
 				end
 
@@ -96,20 +104,20 @@ function M.libwrapper(args)
 					if type(v) == 'number' then
 						if M.mode == 'defer' then
 							ffi.cdef('enum { '..k..' = '..v..' };')
-							wrapper[k] = v
+							t[k] = v
 						elseif M.mode == 'defer-lua' then
-							wrapper[k] = v
+							t[k] = v
 						end
 						return v
 					elseif type(v) == 'string' then
 						ffi.cdef(v)
 						-- it should be there by now ...
 						local result = op.safeindex(lib, k)
-						wrapper[k] = result
+						t[k] = result
 						return result
 					elseif type(v) == 'function' then
 						local result = v()
-						wrapper[k] = result
+						t[k] = result
 						return result
 					else
 						error("expected defs type to be number or string")
