@@ -40,7 +40,7 @@ args:
 
 	lib = `require 'ffi.load' (libraryName)`  optional, if omitted this defaults to `ffi.C`.
 
-	wrapper = {[k] = v}, optional, default {}
+	init = {[k] = v}, optional, default {}
 		... this is the wrapper itself.
 		... put any key/values you want to initialize the wrapper with in here.
 		... whereas defs holds generators to be called upon first __index, this holds values always initialized from the start
@@ -89,7 +89,7 @@ function M.libwrapper(args)
 	or M.mode == 'defer-lua'
 	then
 		-- do wrap -- and incur slowdowns
-		local wrapper = args.wrapper or {}
+		local wrapper = args.init or {}
 		setmetatable(wrapper, {
 			__index = function(t,k)
 				local v = op.safeindex(lib, k)
