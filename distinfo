@@ -202,7 +202,6 @@ files = {
 	["pulse.lua"] = "ffi/pulse.lua",
 	["req.lua"] = "ffi/req.lua",
 	["tensorflow.lua"] = "ffi/tensorflow.lua",
-	["zip.lua"] = "ffi/zip.lua",
 	["zlib.lua"] = "ffi/zlib.lua",
 }
 deps = {
