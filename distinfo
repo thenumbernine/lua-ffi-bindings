@@ -197,7 +197,6 @@ files = {
 	["libffi.lua"] = "ffi/libffi.lua",
 	["libwrapper.lua"] = "ffi/libwrapper.lua",
 	["load.lua"] = "ffi/load.lua",
-	["mono.lua"] = "ffi/mono.lua",
 	["pulse.lua"] = "ffi/pulse.lua",
 	["req.lua"] = "ffi/req.lua",
 	["tensorflow.lua"] = "ffi/tensorflow.lua",
