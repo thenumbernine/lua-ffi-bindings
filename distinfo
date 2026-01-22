@@ -190,7 +190,6 @@ files = {
 	["cblas.lua"] = "ffi/cblas.lua",
 	["cpp/vector-lua.lua"] = "ffi/cpp/vector-lua.lua",
 	["cpp/vector.lua"] = "ffi/cpp/vector.lua",
-	["elf.lua"] = "ffi/elf.lua",
 	["ffi-dev-1.rockspec"] = "ffi/ffi-dev-1.rockspec",
 	["hdf5.lua"] = "ffi/hdf5.lua",
 	["lapack.lua"] = "ffi/lapack.lua",
