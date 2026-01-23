@@ -1,5 +1,10 @@
+--------------------------------------------
+-- generated with dist/build-distinfo.rua --
+--------------------------------------------
+
 name = "ffi"
 files = {
+	[".github/FUNDING.yml"] = "ffi/.github/FUNDING.yml",
 	["LICENSE"] = "ffi/LICENSE",
 	["Linux/c/bits/endian.lua"] = "ffi/Linux/c/bits/endian.lua",
 	["Linux/c/bits/floatn.lua"] = "ffi/Linux/c/bits/floatn.lua",
@@ -39,9 +44,11 @@ files = {
 	["Linux/c/features.lua"] = "ffi/Linux/c/features.lua",
 	["Linux/c/inttypes.lua"] = "ffi/Linux/c/inttypes.lua",
 	["Linux/c/limits.lua"] = "ffi/Linux/c/limits.lua",
+	["Linux/c/locale.lua"] = "ffi/Linux/c/locale.lua",
 	["Linux/c/math.lua"] = "ffi/Linux/c/math.lua",
 	["Linux/c/pthread.lua"] = "ffi/Linux/c/pthread.lua",
 	["Linux/c/sched.lua"] = "ffi/Linux/c/sched.lua",
+	["Linux/c/semaphore.lua"] = "ffi/Linux/c/semaphore.lua",
 	["Linux/c/setjmp.lua"] = "ffi/Linux/c/setjmp.lua",
 	["Linux/c/signal.lua"] = "ffi/Linux/c/signal.lua",
 	["Linux/c/stdarg.lua"] = "ffi/Linux/c/stdarg.lua",
@@ -190,6 +197,7 @@ files = {
 	["cblas.lua"] = "ffi/cblas.lua",
 	["cpp/vector-lua.lua"] = "ffi/cpp/vector-lua.lua",
 	["cpp/vector.lua"] = "ffi/cpp/vector.lua",
+	["distinfo"] = "ffi/distinfo",
 	["ffi-dev-1.rockspec"] = "ffi/ffi-dev-1.rockspec",
 	["hdf5.lua"] = "ffi/hdf5.lua",
 	["lapack.lua"] = "ffi/lapack.lua",
