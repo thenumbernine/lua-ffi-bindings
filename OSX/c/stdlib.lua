@@ -646,3 +646,4 @@ enum { RAND_MAX = 0x7fffffff };
 /* #define _MALLOC_TYPED (override,type_param_pos)  ### define is not number */
 /* + END <stdlib.h> /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/stdlib.h */
 ]]
+return ffi.C

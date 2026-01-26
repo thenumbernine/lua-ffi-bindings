@@ -304,3 +304,4 @@ enum { EXIT_SUCCESS = 0 };
 enum { __COMPAR_FN_T = 1 };
 /* + END <stdlib.h> /usr/include/stdlib.h */
 ]]
+return ffi.C

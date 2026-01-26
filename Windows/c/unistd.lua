@@ -1,5 +1,6 @@
 local ffi = require 'ffi'
-require 'ffi.Windows.c.direct'  -- get our windows defs
+require 'ffi.Windows.c.direct'  -- _chdir, _getcwd, _rmdir
+require 'ffi.Windows.c.stdlib'	-- _sleep
 local lib = ffi.C
 
 local M = {
@@ -8,6 +9,7 @@ local M = {
 	chdir = lib._chdir,
 	getcwd = lib._getcwd,
 	rmdir = lib._rmdir,
+	sleep = lib._sleep,
 }
 
 -- https://learn.microsoft.com/en-us/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsysteminfo 

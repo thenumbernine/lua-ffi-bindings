@@ -267,3 +267,4 @@ _onexit_t __cdecl onexit( _onexit_t _Func);
 /* #pragma warning(pop)  */
 /* + END   C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/ucrt/stdlib.h */
 ]]
+return ffi.C
