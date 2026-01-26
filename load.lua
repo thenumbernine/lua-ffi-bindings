@@ -72,16 +72,18 @@ lookup'luajit'.Linux = '/usr/local/lib/libluajit.so'	-- why isn't this finding b
 
 -- ================================ Windows ================================
 
+lookup'luajit'.Windows = 'luajit-2.1.dll'
 
 lookup'GL'.Windows = 'OpenGL32'				-- builtin
 lookup'GLU'.Windows = 'GLU32'
+
+lookup'vulkan'.Windows = 'vulkan-1.dll'
 
 -- TODO when building these on Windows, make sure their names don't have version crap on the end, so there's no need for this.
 -- can ffi.load"serial/hdf5" work? hmm...
 lookup'z'.Windows = 'zlib'
 
 lookup'openal'.Windows = 'OpenAL32'
-lookup'luajit'.Windows = 'luajit-2.1.dll'
 
 -- ================================ OSX ================================
 
