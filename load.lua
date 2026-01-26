@@ -81,6 +81,7 @@ lookup'GLU'.Windows = 'GLU32'
 lookup'z'.Windows = 'zlib'
 
 lookup'openal'.Windows = 'OpenAL32'
+lookup'luajit'.Windows = 'luajit-2.1.dll'
 
 -- ================================ OSX ================================
 
