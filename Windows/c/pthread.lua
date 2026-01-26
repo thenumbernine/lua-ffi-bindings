@@ -1,6 +1,6 @@
 --[[
 using pthread4w
-and choking on generating the header so I'm just going to use Linux's and hope it matches 
+and choking on generating the header so I'm just going to use Linux's and hope it matches
 --]]
 local ffi = require 'ffi'
 
@@ -353,5 +353,5 @@ extern int pthread_atfork (void (*__prepare) (void),
       void (*__child) (void)) __attribute__ ((__nothrow__ , __leaf__));
 ]]
 
--- other OS's (OSX?) require a ffi.load, so make this modular so Linux can just return ffi.C ?
-return ffi.C
+local lib = ffi.load'pthreadVC3'
+return lib --ffi.C

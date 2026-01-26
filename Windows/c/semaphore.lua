@@ -1,4 +1,7 @@
--- copied from Linux
+--[[
+using pthread4w
+and choking on generating the header so I'm just going to use Linux's and hope it matches
+--]]
 local ffi = require 'ffi'
 require 'ffi.req' 'c.sys.types'
 require 'ffi.req' 'c.pthread'
@@ -25,4 +28,5 @@ extern int sem_getvalue (sem_t *__restrict __sem, int *__restrict __sval)
   __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 ]]
 
-return ffi.C
+local lib = ffi.load'pthreadVC3'
+return lib --ffi.C
