@@ -1,5 +1,10 @@
+--------------------------------------------
+-- generated with dist/build-distinfo.rua --
+--------------------------------------------
+
 name = "ffi"
 files = {
+	[".github/FUNDING.yml"] = "ffi/.github/FUNDING.yml",
 	["LICENSE"] = "ffi/LICENSE",
 	["Linux/c/bits/endian.lua"] = "ffi/Linux/c/bits/endian.lua",
 	["Linux/c/bits/floatn.lua"] = "ffi/Linux/c/bits/floatn.lua",
@@ -39,9 +44,11 @@ files = {
 	["Linux/c/features.lua"] = "ffi/Linux/c/features.lua",
 	["Linux/c/inttypes.lua"] = "ffi/Linux/c/inttypes.lua",
 	["Linux/c/limits.lua"] = "ffi/Linux/c/limits.lua",
+	["Linux/c/locale.lua"] = "ffi/Linux/c/locale.lua",
 	["Linux/c/math.lua"] = "ffi/Linux/c/math.lua",
 	["Linux/c/pthread.lua"] = "ffi/Linux/c/pthread.lua",
 	["Linux/c/sched.lua"] = "ffi/Linux/c/sched.lua",
+	["Linux/c/semaphore.lua"] = "ffi/Linux/c/semaphore.lua",
 	["Linux/c/setjmp.lua"] = "ffi/Linux/c/setjmp.lua",
 	["Linux/c/signal.lua"] = "ffi/Linux/c/signal.lua",
 	["Linux/c/stdarg.lua"] = "ffi/Linux/c/stdarg.lua",
@@ -153,8 +160,6 @@ files = {
 	["OSX/c/unistd.lua"] = "ffi/OSX/c/unistd.lua",
 	["OSX/c/utime.lua"] = "ffi/OSX/c/utime.lua",
 	["OSX/c/wchar.lua"] = "ffi/OSX/c/wchar.lua",
-	["OpenAL.lua"] = "ffi/OpenAL.lua",
-	["OpenALUT.lua"] = "ffi/OpenALUT.lua",
 	["README.md"] = "ffi/README.md",
 	["Windows/c/corecrt.lua"] = "ffi/Windows/c/corecrt.lua",
 	["Windows/c/corecrt_share.lua"] = "ffi/Windows/c/corecrt_share.lua",
@@ -192,32 +197,18 @@ files = {
 	["cblas.lua"] = "ffi/cblas.lua",
 	["cpp/vector-lua.lua"] = "ffi/cpp/vector-lua.lua",
 	["cpp/vector.lua"] = "ffi/cpp/vector.lua",
-	["elf.lua"] = "ffi/elf.lua",
+	["distinfo"] = "ffi/distinfo",
 	["ffi-dev-1.rockspec"] = "ffi/ffi-dev-1.rockspec",
-	["fitsio.lua"] = "ffi/fitsio.lua",
-	["gif.lua"] = "ffi/gif.lua",
-	["glu.lua"] = "ffi/glu.lua",
 	["hdf5.lua"] = "ffi/hdf5.lua",
-	["jpeg.lua"] = "ffi/jpeg.lua",
 	["lapack.lua"] = "ffi/lapack.lua",
 	["lapacke.lua"] = "ffi/lapacke.lua",
 	["libffi.lua"] = "ffi/libffi.lua",
 	["libwrapper.lua"] = "ffi/libwrapper.lua",
 	["load.lua"] = "ffi/load.lua",
-	["mono.lua"] = "ffi/mono.lua",
-	["netcdf.lua"] = "ffi/netcdf.lua",
-	["ogg.lua"] = "ffi/ogg.lua",
-	["png.lua"] = "ffi/png.lua",
 	["pulse.lua"] = "ffi/pulse.lua",
 	["req.lua"] = "ffi/req.lua",
 	["tensorflow.lua"] = "ffi/tensorflow.lua",
-	["tiff.lua"] = "ffi/tiff.lua",
-	["vorbis/codec.lua"] = "ffi/vorbis/codec.lua",
-	["vorbis/vorbisfile.lua"] = "ffi/vorbis/vorbisfile.lua",
-	["zip.lua"] = "ffi/zip.lua",
-	["zlib.lua"] = "ffi/zlib.lua",
 }
 deps = {
 	"ext",
-	"struct",
 }
