@@ -7,6 +7,7 @@ local assert = require 'ext.assert'
 local range = require 'ext.range'
 require 'ffi.req' 'c.stdlib'	-- malloc, free
 
+local null = ffi.null	-- for luaffi
 local voidp = ffi.typeof'void*'
 
 -- TODO I want to move functions into one place
@@ -16,7 +17,7 @@ local vectorbase = {}
 function vectorbase:__gc()
 	-- I could use ffi.new and just trust luajit for the gc
 	-- but then this wouldn't be so compatible with casting std::vector<> memory blobs directly
-	if self.v ~= nil then
+	if self.v ~= null then
 		ffi.C.free(self.v)
 	end
 end
@@ -95,12 +96,12 @@ function vectorbase:reserve(newcap)
 	local bytes = ffi.sizeof(self.T) * newcap
 --DEBUG(ffi.cpp.vector): print('allocating '..tostring(bytes)..' bytes')
 	local newv = ffi.C.malloc(bytes)
-	if newv == nil then error("malloc failed to allocate "..bytes) end
+	if newv == null then error("malloc failed to allocate "..bytes) end
 	local size = self:size()
 	assert.le(size, oldcap)
 --DEBUG(ffi.cpp.vector): print('copying old', tostring(ffi.cast('void*', self.v)), 'to new', tostring(ffi.cast('void*', newv)), '#bytes', ffi.sizeof(self.T) * size)
 	ffi.copy(newv, self.v, ffi.sizeof(self.T) * size)
-	if self.v ~= nil then
+	if self.v ~= null then
 --DEBUG(ffi.cpp.vector): print('freeing', tostring(ffi.cast('void*', self.v)))
 		ffi.C.free(self.v)
 	end
