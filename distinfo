@@ -89,7 +89,6 @@ if ffi.os == "Linux" then
 		"Linux/c/unistd.lua",
 		"Linux/c/utime.lua",
 		"Linux/c/wchar.lua",
-
 	})
 end
 if ffi.os == "OSX" then
@@ -187,7 +186,6 @@ if ffi.os == "OSX" then
 		"OSX/c/unistd.lua",
 		"OSX/c/utime.lua",
 		"OSX/c/wchar.lua",
-
 	})
 end
 if ffi.os == "Windows" then
@@ -225,7 +223,6 @@ if ffi.os == "Windows" then
 		"Windows/c/utime.lua",
 		"Windows/c/vcruntime_string.lua",
 		"Windows/c/wchar.lua",
-
 	})
 end
 if ffi.os == "Aindows" then
