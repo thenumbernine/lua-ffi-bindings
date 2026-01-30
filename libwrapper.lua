@@ -55,7 +55,7 @@ function M.libwrapper(args)
 	-- Should I just be stderr'ing the errors?
 	-- Should I be fixing `require` to do that for all require'd files?
 
-	local defs = assert.type(assert.index(args, 'defs'), 'table')
+	local defs = assert.type(args.defs or {}, 'table')
 
 	local lib = ffi.C
 	if args.lib ~= nil then
