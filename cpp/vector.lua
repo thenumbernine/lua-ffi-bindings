@@ -94,14 +94,14 @@ function vectorbase:reserve(newcap)
 
 	-- so self:capacity() < newcap
 	-- TODO realloc?
-	local bytes = ffi.sizeof(self.T) * newcap
+	local bytes = ffi.sizeof(self.type) * newcap
 --DEBUG(ffi.cpp.vector): print('allocating '..tostring(bytes)..' bytes')
 	local newv = ffi.C.malloc(bytes)
 	if newv == null then error("malloc failed to allocate "..bytes) end
 	local size = self:size()
 	assert.le(size, oldcap)
---DEBUG(ffi.cpp.vector): print('copying old', tostring(ffi.cast('void*', self.v)), 'to new', tostring(ffi.cast('void*', newv)), '#bytes', ffi.sizeof(self.T) * size)
-	ffi.copy(newv, self.v, ffi.sizeof(self.T) * size)
+--DEBUG(ffi.cpp.vector): print('copying old', tostring(ffi.cast('void*', self.v)), 'to new', tostring(ffi.cast('void*', newv)), '#bytes', ffi.sizeof(self.type) * size)
+	ffi.copy(newv, self.v, ffi.sizeof(self.type) * size)
 	if self.v ~= null then
 --DEBUG(ffi.cpp.vector): print('freeing', tostring(ffi.cast('void*', self.v)))
 		ffi.C.free(self.v)
@@ -173,8 +173,8 @@ function vectorbase:insert(...)
 	local n = select('#', ...)
 	if n == 3 then
 		local where, first, last = ...
---DEBUG(ffi.cpp.vector): first = ffi.cast(self.Tptr, first)
---DEBUG(ffi.cpp.vector): last = ffi.cast(self.Tptr, last)
+--DEBUG(ffi.cpp.vector): first = ffi.cast(self.typePtr, first)
+--DEBUG(ffi.cpp.vector): last = ffi.cast(self.typePtr, last)
 
 		local numToCopy = last - first
 		if numToCopy == 0 then return end
@@ -187,9 +187,9 @@ function vectorbase:insert(...)
 		local origSize = self:size()
 		self:resize(self:size() + numToCopy)
 		if offset < origSize then
-			ffi.copy(self.v + offset + numToCopy, self.v + offset, ffi.sizeof(self.T) * (origSize - offset))
+			ffi.copy(self.v + offset + numToCopy, self.v + offset, ffi.sizeof(self.type) * (origSize - offset))
 		end
-		ffi.copy(self.v + offset, first, ffi.sizeof(self.T) * numToCopy)
+		ffi.copy(self.v + offset, first, ffi.sizeof(self.type) * numToCopy)
 	elseif n == 2 then
 		local where, value = ...
 		local offset = where - self.v
@@ -224,7 +224,7 @@ function vectorbase:erase(first, last)
 	--]]
 	--[[
 	local count = iend - last
-	ffi.copy(first, last, ffi.sizeof(self.T) * count)
+	ffi.copy(first, last, ffi.sizeof(self.type) * count)
 	--]]
 	self.finish = self.finish - change
 end
@@ -267,8 +267,10 @@ struct {
 
 	local mt = {}
 
-	mt.T = T
-	mt.Tptr = Tptr
+	-- I could use .T to be compat with stl
+	-- but instead I'll use .type to be compat with vector-lua and a bunch of my other stuff
+	mt.type = T
+	mt.typePtr = Tptr
 
 	-- __index for numbers to lookup in .v[]
 	function mt:__index(k)
