@@ -102,8 +102,8 @@ function vectorbase:reserve(newcap)
 	local size = self:size()
 	assert.le(size, oldcap)
 --DEBUG(ffi.cpp.vector): print('copying old', tostring(ffi.cast('void*', self.v)), 'to new', tostring(ffi.cast('void*', newv)), '#bytes', ffi.sizeof(self.type) * size)
-	ffi.copy(newv, self.v, ffi.sizeof(self.type) * size)
 	if self.v ~= null then
+		ffi.copy(newv, self.v, ffi.sizeof(self.type) * size)
 --DEBUG(ffi.cpp.vector): print('freeing', tostring(ffi.cast('void*', self.v)))
 		ffi.C.free(self.v)
 	end
