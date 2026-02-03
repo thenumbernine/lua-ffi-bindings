@@ -238,7 +238,7 @@ end
 
 function vectorbase:map(cb)
 	local n = #self
-	local dup = self.type(n)
+	local dup = ffi.typeof(self)(n)
 	for i=0,tonumber(n)-1 do
 		dup.v[i] = cb(self.v[i], i)
 	end
