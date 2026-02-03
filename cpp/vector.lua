@@ -8,7 +8,8 @@ local range = require 'ext.range'
 require 'ffi.req' 'c.stdlib'	-- malloc, free
 
 local null = ffi.null	-- for luaffi
-local voidp = ffi.typeof'void*'
+local void_ptr = ffi.typeof'void*'
+local uint8_t_ptr = ffi.typeof'uint8_t*'
 
 -- TODO I want to move functions into one place
 -- but as soon as I switch __index to read the .metatable, struct:isa() stops working ...
@@ -249,6 +250,14 @@ function vectorbase:__tostring()
 	return s .. ']'
 end
 
+function vectorbase:getNumBytes()
+	return ffi.cast(uint8_t_ptr, self.finish)
+		- ffi.cast(uint8_t_ptr, self.start)
+end
+
+function vectorbase:dataToStr()
+	return ffi.string(self.v, self:getNumBytes())
+end
 
 local function makeVectorType(T)
 	T = ffi.typeof(T)
@@ -303,8 +312,8 @@ struct {
 
 	-- stl vector in my gcc / linux is 24 bytes
 	-- template type of our vector ... 8 bytes mind you
-	assert.eq(ffi.sizeof(ctype), 3*ffi.sizeof(voidp))	-- 24
-	assert.eq(ffi.sizeof(Tptr), ffi.sizeof(voidp))	-- 8
+	assert.eq(ffi.sizeof(ctype), 3*ffi.sizeof(void_ptr))	-- 24
+	assert.eq(ffi.sizeof(Tptr), ffi.sizeof(void_ptr))	-- 8
 
 	return ctype
 end
