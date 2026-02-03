@@ -236,6 +236,15 @@ function vectorbase:totable()
 	end)
 end
 
+function vectorbase:map(cb)
+	local n = #self
+	local dup = self.type(n)
+	for i=0,tonumber(n)-1 do
+		dup.v[i] = cb(self.v[i], i)
+	end
+	return dup
+end
+
 function vectorbase:empty()
 	return self.start == self.finish
 end

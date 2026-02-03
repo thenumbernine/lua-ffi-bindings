@@ -237,6 +237,17 @@ function vector:totable()
 	end)
 end
 
+-- callback accepts (v[i], i)
+-- index is 0-based
+function vector:map(cb)
+	local n = self.size
+	local dup = vector(self.type, n)
+	for i=0,n-1 do
+		dup.v[i] = cb(self.v[i], i)
+	end
+	return dup
+end
+
 function vector:__len()
 	--return rawget(self, 'size')
 	return self.size
