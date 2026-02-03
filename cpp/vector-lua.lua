@@ -61,10 +61,8 @@ function vector:init(ctype, arg)
 			if self.size > self.capacity then
 				error("got a bad size "..self.size.." vs capacity "..self.capacity)
 			end
-			if self.capacity * ffi.sizeof(self.type) ~= ffi.sizeof(self.v) then
-				-- TODO don't use capacity, just use ffi.sizeof ?
-				error("capacity is misaligned")
-			end
+			-- TODO don't use capacity, just use ffi.sizeof ?
+			assert.eq(self:capacity() * ffi.sizeof(self.type), ffi.sizeof(self.v), "capacity is misaligned")
 			return rawget(self, 'v')[k]
 		end
 		function mt:__newindex(k, v)

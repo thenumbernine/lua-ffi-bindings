@@ -148,7 +148,6 @@ function vectorbase:back()
 	return self.finish - 1
 end
 
--- because the __index removes access from the object itself ...
 vectorbase.data = vectorbase.front
 
 -- TODO use iterators and coroutines?  even though they are horribly slow
@@ -267,60 +266,16 @@ struct {
 
 	local mt = {}
 
+	-- I can't decide whether __index should fall through as 0-based or 1-based so I'll just remove it altogether
+	mt.__index = mt
+
 	-- I could use .T to be compat with stl
 	-- but instead I'll use .type to be compat with vector-lua and a bunch of my other stuff
 	mt.type = T
 	mt.typePtr = Tptr
 
-	-- __index for numbers to lookup in .v[]
-	function mt:__index(k)
-		-- NOTICE
-		-- getmetatable(any cdata) returns the string "ffi"
-		-- debug.getmetatable(any cdata) returns some other table internal to luajit
-		-- is there no possible way to get back the metatype table?
-		-- I guess I'll have to assign "metatable.metatable = metatable" in struct-lua ...
-		-- see if the metatype has anything
--- why does accessing self.metatable here make the function 'assert(struct:isa(metatype)) fail ...
---print(self.metatable)
---print('mt', mt, type(self), ffi.typeof(self))
-		--local mv = self.metatable[k]
-		local mv = mt[k]
-		if mv ~= nil then return mv end
-		-- then treat the index like vector access
-		if k < 0 or k >= self:size() then
-			error("got out of bounds index: "..tostring(k))
-		end
-		if self:size() > self:capacity() then
-			error("got a bad size "..self:size().." vs capacity "..self:capacity())
-		end
-		if self:capacity() * ffi.sizeof(self.type) ~= ffi.sizeof(self.v) then
-			-- TODO don't use capacity, just use ffi.sizeof ?
-			error("capacity is misaligned")
-		end
-		return self.v[k]
-	end
 
-	function mt:__newindex(k, v)
-		-- see if we are writing a field
-		if type(k) ~= 'number' then
-			rawset(self, k, v)
-			return
-		end
-		-- otherwise treat number access as vector access
-		if k < 0 or k >= self:size() then
-			error("got out of bounds index: "..tostring(k))
-		end
-		if self:size() > self:capacity() then
-			error("got a bad size "..self:size().." vs capacity "..self:capacity())
-		end
-		if self:capacity() * ffi.sizeof(self.type) ~= ffi.sizeof(self.v) then
-			-- TODO don't use capacity, just use ffi.sizeof ?
-			error("capacity is misaligned")
-		end
-		rawget(self, 'v')[k] = v
-	end
-
-	-- return the vector constructor
+	-- vector constructor
 	function mt:__new(arg)
 		local o = ffi.new(self)
 		o.start = nil
