@@ -241,7 +241,7 @@ end
 -- index is 0-based
 function vector:map(cb)
 	local n = self.size
-	local dup = ffi.typeof(self)(self.type, n)
+	local dup = vector(self.type, n)
 	for i=0,n-1 do
 		dup.v[i] = cb(self.v[i], i)
 	end
