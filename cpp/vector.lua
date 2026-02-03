@@ -71,6 +71,7 @@ function vectorbase:__ipairs()
 		end
 	end)
 end
+vectorbase.__pairs = vectorbase.__ipairs
 
 function vectorbase:reserve(newcap)
 --DEBUG(ffi.cpp.vector): print('vectorbase.reserve', newcap)

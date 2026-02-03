@@ -97,6 +97,7 @@ function vector:__ipairs()
 		end
 	end)
 end
+vector.__pairs = vector.__ipairs
 
 function vector:reserve(newcap)
 	if newcap <= self.capacity then return end
