@@ -237,6 +237,13 @@ function vector:totable()
 	end)
 end
 
+function vector:clone()
+	local n = self.size
+	local dup = vector(self.type, n)
+	ffi.copy(dup.v, self.v, self:getNumBytes())
+	return dup
+end
+
 -- callback accepts (v[i], i)
 -- index is 0-based
 function vector:map(cb)

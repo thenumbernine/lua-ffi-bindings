@@ -1,6 +1,9 @@
 --[[
 std::vector class, written in LuaJIT, but written to be memory-compatible with c++ (at least gcc with glibc < 4.8 so far)
 TODO maybe move that to its own repo, like std-ffi.vector ?
+
+TODO unlike vector-lua.lua, this one gets segfaults pretty often.
+I have a suspicion that some memory is getting gc'd ,.... but that's why I use malloc here and not ffi.new ... so where is my segfault coming from?
 --]]
 local ffi = require 'ffi'
 local assert = require 'ext.assert'
@@ -236,8 +239,15 @@ function vectorbase:totable()
 	end)
 end
 
+function vectorbase:clone()
+	local n = self:size()
+	local dup = ffi.typeof(self)(n)
+	ffi.copy(dup.v, self.v, self:getNumBytes())
+	return dup
+end
+
 function vectorbase:map(cb)
-	local n = #self
+	local n = self:size()
 	local dup = ffi.typeof(self)(n)
 	for i=0,tonumber(n)-1 do
 		dup.v[i] = cb(self.v[i], i)
