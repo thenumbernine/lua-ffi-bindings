@@ -225,8 +225,3 @@ if ffi.os == "Windows" then
 		"Windows/c/wchar.lua",
 	})
 end
-if ffi.os == "Aindows" then
-	table.append(files, {
-		"Android/EGL.lua",
-	})
-end
