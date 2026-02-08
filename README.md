@@ -76,15 +76,6 @@ I started porting C headers and putting them into the `c` folder, so that luajit
 
 ### [`ffi/cpp/`](https://github.com/thenumbernine/lua-ffi-bindings/tree/master/cpp)
 
-I started adding my own attempt at STL classes ported to LuaJIT classes in "lua-ffi-bindings/cpp",
-so that luajit code `require 'ffi.cpp.$header'` was equivalent to C++ code `#include <$header>`.
-... so far only "vector" exists but I might add more.
-
-### [`ffi/gcwrapper/gcwrapper.lua`](https://github.com/thenumbernine/lua-ffi-bindings/tree/master/gcwrapper)
-
-A few of my Lua class wrappers all started to exhibit the same pattern for refcounting (lua-opencl) or automatically deleting resources (lua-gl) ...
-so I decided to put that behavior in one place, here.  Maybe I'll put that into its own unique repo soon.
-
 # Generation:
 
 Most of them are automatically created by my [Lua include](https://github.com/thenumbernine/include-lua) project, whose `make.lua` file will automatically create the headers from the compiler's include files.
@@ -95,7 +86,6 @@ The original versions of this started from https://github.com/malkia/ufo .  One 
 # Dependencies
 
 - LuaJIT
-- ffi.cpp and ffi.gcwrapper depend on my [lua-ext](https://github.com/thenumbernine/lua-ext) repo.
 
 # TODO
 
