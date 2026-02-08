@@ -131,7 +131,7 @@ enum { __INO_T_MATCHES_INO64_T = 1 };
 enum { __RLIM_T_MATCHES_RLIM64_T = 1 };
 enum { __STATFS_MATCHES_STATFS64 = 1 };
 enum { __KERNEL_OLD_TIMEVAL_MATCHES_TIMEVAL64 = 1 };
-enum { __FD_SETSIZE = 1024 };
+]] require 'ffi.req' 'c.bits.types.__FD_SETSIZE' ffi.cdef[[
 /* #define __TIME64_T_TYPE long int ### define is not number */
 /* + END <bits/types.h> /usr/include/x86_64-linux-gnu/bits/types.h */
 ]]
