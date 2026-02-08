@@ -67,6 +67,7 @@ if ffi.os == "Linux" then
 		"Linux/c/limits.lua",
 		"Linux/c/locale.lua",
 		"Linux/c/math.lua",
+		"Linux/c/netdb.lua",
 		"Linux/c/netinet/in.lua",
 		"Linux/c/pthread.lua",
 		"Linux/c/sched.lua",
