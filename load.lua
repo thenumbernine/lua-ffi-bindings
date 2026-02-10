@@ -69,6 +69,7 @@ end
 lookup'cimgui_sdl'.Linux = '/usr/local/lib/libcimgui_sdl3.so'				-- I'll let you pick the specific sdl version here
 lookup'hdf5'.Linux = '/usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5.so'
 lookup'luajit'.Linux = '/usr/local/lib/libluajit.so'	-- why isn't this finding by default?
+lookup'webgpu_dawn'.Linux = 'bin/Linux/x64/libwebgpu_dawn.so'
 
 -- ================================ Windows ================================
 
