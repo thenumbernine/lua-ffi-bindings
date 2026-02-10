@@ -24,6 +24,47 @@ files = {
 deps = {
 	"ext",
 }
+if ffi.os == "Android" then
+	table.append(files, {
+		"Android/c/PAGE_SIZE.lua",
+		"Android/c/complex.lua",
+		"Android/c/ctype.lua",
+		"Android/c/dirent.lua",
+		"Android/c/endian.lua",
+		"Android/c/errno.lua",
+		"Android/c/fcntl.lua",
+		"Android/c/inttypes.lua",
+		"Android/c/limits.lua",
+		"Android/c/linux/time.lua",
+		"Android/c/locale.lua",
+		"Android/c/math.lua",
+		"Android/c/netdb.lua",
+		"Android/c/netinet/in.lua",
+		"Android/c/pthread.lua",
+		"Android/c/sched.lua",
+		"Android/c/setjmp.lua",
+		"Android/c/signal.lua",
+		"Android/c/stdarg.lua",
+		"Android/c/stdbool.lua",
+		"Android/c/stddef.lua",
+		"Android/c/stdint.lua",
+		"Android/c/stdio.lua",
+		"Android/c/stdlib.lua",
+		"Android/c/string.lua",
+		"Android/c/sys/mman.lua",
+		"Android/c/sys/select.lua",
+		"Android/c/sys/socket.lua",
+		"Android/c/sys/stat.lua",
+		"Android/c/sys/time.lua",
+		"Android/c/sys/types.h",
+		"Android/c/sys/types.lua",
+		"Android/c/time.lua",
+		"Android/c/unistd.lua",
+		"Android/c/utime.lua",
+		"Android/c/wchar.lua",
+		"Android/c/xlocale.lua",
+	})
+end
 if ffi.os == "Linux" then
 	table.append(files, {
 		"Linux/c/bits/endian.lua",
