@@ -66,7 +66,7 @@ end
 
 -- ================================ Linux ================================
 
-lookup'cimgui_sdl'.Linux = '/usr/local/lib/libcimgui_sdl3.so'				-- I'll let you pick the specific sdl version here
+lookup'cimgui_sdl3'.Linux = '/usr/local/lib/libcimgui_sdl3.so'				-- I'll let you pick the specific sdl version here
 lookup'hdf5'.Linux = '/usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5.so'
 lookup'luajit'.Linux = '/usr/local/lib/libluajit.so'	-- why isn't this finding by default?
 lookup'webgpu_dawn'.Linux = 'bin/Linux/x64/libwebgpu_dawn.so'
@@ -129,7 +129,7 @@ lookup'openal'.OSX = '/System/Library/Frameworks/OpenAL.framework/OpenAL'
 -- And setting DYLD_LIBRARY_PATH crashes library conflicts (which will probably start happening anyways as I change this more)
 -- But here I go trying to point to /usr/local/lib on OSX for all the libs I reference in here.
 -- Another reason to use malkia's model and just package all the binaries in the repo itself.
-lookup'cimgui_sdl'.OSX = '/usr/local/lib/libcimgui_sdl3.dylib'
+lookup'cimgui_sdl3'.OSX = '/usr/local/lib/libcimgui_sdl3.dylib'
 lookup'SDL2'.OSX = '/usr/local/lib/libSDL2.dylib'
 lookup'SDL3'.OSX = '/usr/local/lib/libSDL3.dylib'
 lookup'png'.OSX = '/usr/local/lib/libpng.dylib'
