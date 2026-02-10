@@ -237,9 +237,7 @@ enum { STATX_ATTR_WRITE_ATOMIC = 0x00400000 };
 enum { _UAPI__LINUX_UIO_H = 1 };
 enum { UIO_FASTIOV = 8 };
 enum { UIO_MAXIOV = 1024 };
-enum { SEEK_SET = 0 };
-enum { SEEK_CUR = 1 };
-enum { SEEK_END = 2 };
+]] require 'ffi.req' 'c.SEEK' ffi.cdef[[
 enum { O_ASYNC = 00020000 };
 /* #define O_RSYNC (__O_SYNC | O_DSYNC) ### define is not number */
 enum { SPLICE_F_MOVE = 1 };

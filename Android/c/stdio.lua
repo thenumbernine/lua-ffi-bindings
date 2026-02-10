@@ -214,9 +214,7 @@ enum { LOCK_READ = 64 };
 enum { LOCK_WRITE = 128 };
 enum { LOCK_RW = 192 };
 enum { F_LINUX_SPECIFIC_BASE = 1024 };
-enum { SEEK_SET = 0 };
-enum { SEEK_CUR = 1 };
-enum { SEEK_END = 2 };
+]] require 'ffi.req' 'c.SEEK' ffi.cdef[[
 /* #define stdin stdin ### define is not number */
 /* #define stdout stdout ### define is not number */
 /* #define stderr stderr ### define is not number */

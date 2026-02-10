@@ -189,9 +189,7 @@ enum { F_ULOCK = 0 };
 enum { F_LOCK = 1 };
 enum { F_TLOCK = 2 };
 enum { F_TEST = 3 };
-enum { SEEK_SET = 0 };
-enum { SEEK_CUR = 1 };
-enum { SEEK_END = 2 };
+]] require 'ffi.req' 'c.SEEK' ffi.cdef[[
 enum { _SC_ARG_MAX = 0x0000 };
 enum { _SC_BC_BASE_MAX = 0x0001 };
 enum { _SC_BC_DIM_MAX = 0x0002 };

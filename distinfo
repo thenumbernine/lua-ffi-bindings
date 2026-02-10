@@ -27,6 +27,7 @@ deps = {
 if ffi.os == "Android" then
 	table.append(files, {
 		"Android/c/PAGE_SIZE.lua",
+		"Android/c/SEEK.lua",
 		"Android/c/complex.lua",
 		"Android/c/ctype.lua",
 		"Android/c/dirent.lua",
