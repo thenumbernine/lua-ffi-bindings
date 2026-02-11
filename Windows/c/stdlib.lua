@@ -266,5 +266,17 @@ int __cdecl putenv( char const* _EnvString );
 _onexit_t __cdecl onexit( _onexit_t _Func);
 /* #pragma warning(pop)  */
 /* + END   C:/Program Files (x86)/Windows Kits/10/include/10.0.22621.0/ucrt/stdlib.h */
+
+// where is this one?
+errno_t getenv_s(size_t *pReturnValue, char* buffer, size_t numberOfElements, const char *varname);
 ]]
-return ffi.C
+local wrapper = setmetatable({}, {__index=ffi.C})
+function wrapper.setenv(name, value, overwrite)
+	if not overwrite or overwrite == 0 then
+		local envsize = ffi.new'size_t[1]'
+		local errcode = ffi.C._getenv_s(envsize, nil, 0, name)
+		if errcode ~= 0 or envsize ~= 0 then return errcode end
+	end
+	return ffi.C._putenv_s(name, value)
+end
+return wrapper
