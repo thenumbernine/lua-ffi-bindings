@@ -168,3 +168,4 @@ enum { PTHREAD_SCOPE_PROCESS = 1 };
 /* #define pthread_cleanup_pop (execute) __pthread_cleanup_pop( &__cleanup, (execute)); } while (0); ### define is not number */
 /* + END <pthread.h> /data/data/com.termux/files/usr/bin/../../usr/include/pthread.h */
 ]]
+return ffi.C

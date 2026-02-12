@@ -43,6 +43,7 @@ if ffi.os == "Android" then
 		"Android/c/netinet/in.lua",
 		"Android/c/pthread.lua",
 		"Android/c/sched.lua",
+		"Android/c/semaphore.lua",
 		"Android/c/setjmp.lua",
 		"Android/c/signal.lua",
 		"Android/c/stdarg.lua",
