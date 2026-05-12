@@ -24,7 +24,7 @@ files = {
 deps = {
 	"ext",
 }
-if ffi.os == "Android" then
+if targetOS == "Android" then
 	table.append(files, {
 		"Android/c/PAGE_SIZE.lua",
 		"Android/c/SEEK.lua",
@@ -67,7 +67,7 @@ if ffi.os == "Android" then
 		"Android/c/xlocale.lua",
 	})
 end
-if ffi.os == "Haiku" then
+if targetOS == "Haiku" then
 	table.append(files, {
 		"Haiku/c/SEEK.lua",
 		"Haiku/c/complex.lua",
@@ -111,7 +111,7 @@ if ffi.os == "Haiku" then
 		"Haiku/c/wchar.lua",
 	})
 end
-if ffi.os == "Linux" then
+if targetOS == "Linux" then
 	table.append(files, {
 		"Linux/c/bits/endian.lua",
 		"Linux/c/bits/floatn.lua",
@@ -180,7 +180,7 @@ if ffi.os == "Linux" then
 		"Linux/c/wchar.lua",
 	})
 end
-if ffi.os == "OSX" then
+if targetOS == "OSX" then
 	table.append(files, {
 		"OSX/c/Availability.lua",
 		"OSX/c/_ctermid.lua",
@@ -277,7 +277,7 @@ if ffi.os == "OSX" then
 		"OSX/c/wchar.lua",
 	})
 end
-if ffi.os == "Windows" then
+if targetOS == "Windows" then
 	table.append(files, {
 		"Windows/c/corecrt.lua",
 		"Windows/c/corecrt_share.lua",
