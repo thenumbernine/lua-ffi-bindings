@@ -3,6 +3,7 @@
 --------------------------------------------
 
 name = "ffi"
+git = "https://github.com/thenumbernine/lua-ffi-bindings"
 files = {
 	"LICENSE",
 	"README.md",
@@ -64,6 +65,50 @@ if ffi.os == "Android" then
 		"Android/c/utime.lua",
 		"Android/c/wchar.lua",
 		"Android/c/xlocale.lua",
+	})
+end
+if ffi.os == "Haiku" then
+	table.append(files, {
+		"Haiku/c/SEEK.lua",
+		"Haiku/c/complex.lua",
+		"Haiku/c/config/HaikuConfig.lua",
+		"Haiku/c/config/types.lua",
+		"Haiku/c/ctype.lua",
+		"Haiku/c/dirent.lua",
+		"Haiku/c/errno.lua",
+		"Haiku/c/fcntl.lua",
+		"Haiku/c/features.lua",
+		"Haiku/c/inttypes.lua",
+		"Haiku/c/limits.lua",
+		"Haiku/c/locale.lua",
+		"Haiku/c/locale_t.lua",
+		"Haiku/c/math.lua",
+		"Haiku/c/netdb.lua",
+		"Haiku/c/netinet/in.lua",
+		"Haiku/c/null.lua",
+		"Haiku/c/pthread.lua",
+		"Haiku/c/sched.lua",
+		"Haiku/c/semaphore.lua",
+		"Haiku/c/setjmp.lua",
+		"Haiku/c/signal.lua",
+		"Haiku/c/stdarg.lua",
+		"Haiku/c/stdbool.lua",
+		"Haiku/c/stddef.lua",
+		"Haiku/c/stdint.lua",
+		"Haiku/c/stdio.lua",
+		"Haiku/c/stdlib.lua",
+		"Haiku/c/string.lua",
+		"Haiku/c/sys/mman.lua",
+		"Haiku/c/sys/select.lua",
+		"Haiku/c/sys/socket.lua",
+		"Haiku/c/sys/stat.lua",
+		"Haiku/c/sys/time.lua",
+		"Haiku/c/sys/types.lua",
+		"Haiku/c/sys/wait.lua",
+		"Haiku/c/time.lua",
+		"Haiku/c/unistd.lua",
+		"Haiku/c/utime.lua",
+		"Haiku/c/wchar.lua",
 	})
 end
 if ffi.os == "Linux" then
