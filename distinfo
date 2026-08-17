@@ -294,6 +294,7 @@ if targetOS == "Windows" then
 		"Windows/c/io.lua",
 		"Windows/c/limits.lua",
 		"Windows/c/process.lua",
+		"Windows/c/profileapi.lua",
 		"Windows/c/pthread.lua",
 		"Windows/c/semaphore.lua",
 		"Windows/c/setjmp.lua",
