@@ -76,14 +76,14 @@ if ffi.arch == 'x86' then
 	return setmetatable({
 		_wctime = lib._wctime32,		-- in corecrt_wtime.h
 		_wctime_s = lib._wctime32_s,		-- in corecrt_wtime.h
-		ctime = _ctime32,
-		difftime = _difftime32,
-		gmtime = _gmtime32,
-		localtime = _localtime32,
-		_mkgmtime = _mkgmtime32,
-		mktime = _mktime32,
-		time = _time32,
-		timespec_get = _timespec32_get,
+		ctime = lib._ctime32,
+		difftime = lib._difftime32,
+		gmtime = lib._gmtime32,
+		localtime = lib._localtime32,
+		_mkgmtime = lib._mkgmtime32,
+		mktime = lib._mktime32,
+		time = lib._time32,
+		timespec_get = lib._timespec32_get,
 	}, {
 		__index = lib,
 	})
@@ -91,14 +91,14 @@ elseif ffi.arch == 'x64' then
 	return setmetatable({
 		_wctime = lib._wctime64,		-- in corecrt_wtime.h
 		_wctime_s = lib._wctime64_s,		-- in corecrt_wtime.h
-		ctime = _ctime64,
-		difftime = _difftime64,
-		gmtime = _gmtime64,
-		localtime = _localtime64,
-		_mkgmtime = _mkgmtime64,
-		mktime = _mktime64,
-		time = _time64,
-		timespec_get = _timespec64_get,
+		ctime = lib._ctime64,
+		difftime = lib._difftime64,
+		gmtime = lib._gmtime64,
+		localtime = lib._localtime64,
+		_mkgmtime = lib._mkgmtime64,
+		mktime = lib._mktime64,
+		time = lib._time64,
+		timespec_get = lib._timespec64_get,
 	}, {
 		__index = lib,
 	})
